@@ -1,0 +1,5 @@
+<HardwareConfig>
+  <ComPort Name="COM1" />
+  <ReceiptPrinter Name="Zonerich AB-58MK USB" />
+  <DataSource IsServer="NO" DataDir="iF5Gv7apuvy1S7+2GcxPangTLBhtZs2nGFYk2VbuNLF9KTsviUvuonunWg+MTgThmnHiODehzwo=" UserName="+msv2SiT4cnOh0vu0ZSo2g==" Password="kwrFJBHWCb/vYrNF4d4o1Mkniu8Hevi5" BackupDir="Pkce2PnPHlY=" />
+</HardwareConfig>

@@ -431,17 +431,17 @@ namespace VoucherExpense
             int to = cbBoxTo.SelectedIndex + 1;
             if (month < 1 || month > 12)
             {
-                MessageBox.Show("所選月份<" + month.ToString() + "不對!");
+                MessageBox.Show("所選月份<" + month.ToString() + ">不對!");
                 return false;
             }
             if (from < 1 || from > 31)
             {
-                MessageBox.Show("所選啟始日期<" + from.ToString() + "不對!");
+                MessageBox.Show("所選啟始日期<" + from.ToString() + ">不對!");
                 return false;
             }
             if (to < 1 || to > 31)
             {
-                MessageBox.Show("所選結束日期<" + to.ToString() + "不對!");
+                MessageBox.Show("所選結束日期<" + to.ToString() + ">不對!");
                 return false;
             }
             if (CalcSaleList(month, from, to, ckBoxUse12.Checked) ==decimal.MinValue) return false;
@@ -493,20 +493,17 @@ namespace VoucherExpense
             Buf.Append("\r\n", GB2312);
         }
 
-        string PrinterName = "Zonerich AB-58MK USB";
-        void LoadConfigPrinterName()
+        string LoadConfigPrinterName()
         {
             HardwareConfig cfg = new HardwareConfig();
             cfg.Load();
-            if (cfg.PrinterName != null)
-                PrinterName = cfg.PrinterName;
+            return cfg.PrinterName ?? "Zonerich AB-58MK USB";
         }
 
         Encoding GB2312 = Encoding.GetEncoding("GB2312");
         private void btnPrintSmall_Click(object sender, EventArgs e)
         {
             if (!Print()) return;
-            LoadConfigPrinterName();
             if (MessageBox.Show("此功能將從熱敏印表機印出! 要繼續嗎?", "", MessageBoxButtons.OKCancel) !=
                 DialogResult.OK) return;
             byte[] BorderMode = new byte[] { 0x1c, 0x21, 0x28 };
@@ -545,7 +542,7 @@ namespace VoucherExpense
             Buf.Append("* * * * * * * * * * * * * * * *\r\n\r\n\r\n\r\n\r\n\r\n", GB2312);
             Buf.Append("\f", GB2312);
 //            File.WriteAllText("TestPrn.txt",GB2312.GetString(Buf.ToBytes()),Encoding.Unicode);
-            RawPrint.SendManagedBytes(PrinterName, Buf.ToBytes());
+            RawPrint.SendManagedBytes(LoadConfigPrinterName(), Buf.ToBytes());
         }
 
 

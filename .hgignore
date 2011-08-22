@@ -2,16 +2,10 @@ glob:ESC_POS.pdf
 glob:ESC_POS指令.xls
 glob:UpgradeLog.XML
 glob:UpgradeLog2.XML
-glob:VoucherExpense/bin/Release/VoucherExpense.pdb
-glob:VoucherExpense/bin/Debug/VoucherExpenseChange.mdb
-glob:VoucherExpense/bin/Debug/VoucherExpense.pdb
-glob:VoucherExpense/bin/Debug/11月出勤記錄.txt
 glob:會計科目中英對照.xls
 glob:會計科目.doc
 glob:新增Microsoft Word 文件.doc
+relre:VoucherExpense/bin/Release/*.*
+relre:VoucherExpense/bin/Debug/*.*
 relre:VoucherExpense/obj/*.*
-relre:VoucherExpense/bin/Debug/VoucherExpense.vshost.*
-relre:VoucherExpense/bin/Debug/VoucherExpense.exe*
-glob:VoucherExpense/bin/Release/VoucherExpense.exe*
-relre:VoucherExpense/bin/Release/VoucherExpense.vshost*
 glob:VoucherExpense.suo

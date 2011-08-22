@@ -226,7 +226,7 @@ namespace VoucherExpense
         private void ReportByVender_SizeChanged(object sender, EventArgs e)
         {
             voucherDGView.Height = dataGridView1.Height = 
-                    Height - comboBoxMonth.Bottom + Top - 30;
+                    ClientRectangle.Height - comboBoxMonth.Bottom  - 30;
         }
 
       

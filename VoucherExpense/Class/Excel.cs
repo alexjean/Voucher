@@ -4,7 +4,7 @@ using System.Text;
 using System.Data;
 using System.Data.OleDb;
 using System.Windows.Forms;
-using Microsoft.Office.Interop;
+using Microsoft.Office.Interop.Excel;
 
 namespace VoucherExpense
 {
@@ -14,7 +14,7 @@ namespace VoucherExpense
         object Val = Type.Missing;
         public ExcelLib()
         {
-            ExcelApp = new Microsoft.Office.Interop.Excel.ApplicationClass();
+            ExcelApp = new Microsoft.Office.Interop.Excel.Application();
         }
 
         public void QuitExcel()
@@ -34,7 +34,7 @@ namespace VoucherExpense
             string[] result=new string[count];
             for (int i = 0; i < count; i++)
             {
-                worksheet = (Microsoft.Office.Interop.Excel.Worksheet)workbook.Worksheets[i+1];
+                worksheet = (Microsoft.Office.Interop.Excel.Worksheet)workbook.Worksheets[i + 1];
                 result[i] = worksheet.Name;
             }
             return result;

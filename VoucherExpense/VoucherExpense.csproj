@@ -53,8 +53,33 @@
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Office.Interop.Excel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>Class\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -185,6 +210,12 @@
     <Compile Include="FormPrintSelect.Designer.cs">
       <DependentUpon>FormPrintSelect.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormShift.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormShift.Designer.cs">
+      <DependentUpon>FormShift.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormSoldIngredients.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -291,6 +322,9 @@
     <EmbeddedResource Include="FormPrintSelect.resx">
       <SubType>Designer</SubType>
       <DependentUpon>FormPrintSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormShift.resx">
+      <DependentUpon>FormShift.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormSoldIngredients.resx">
       <DependentUpon>FormSoldIngredients.cs</DependentUpon>
@@ -432,6 +466,7 @@
   <ItemGroup>
     <Content Include="BasicData.mdb">
     </Content>
+    <Content Include="Class\Microsoft.Office.Interop.Excel.dll" />
     <Content Include="iconHeart.ico" />
     <Content Include="VoucherExpense.mdb">
     </Content>
@@ -462,6 +497,17 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

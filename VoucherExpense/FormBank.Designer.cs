@@ -92,7 +92,7 @@
             this.bankAccountBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.bankAccountBindingNavigator.Name = "bankAccountBindingNavigator";
             this.bankAccountBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.bankAccountBindingNavigator.Size = new System.Drawing.Size(1012, 27);
+            this.bankAccountBindingNavigator.Size = new System.Drawing.Size(1012, 25);
             this.bankAccountBindingNavigator.TabIndex = 0;
             this.bankAccountBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -102,7 +102,7 @@
             this.bindingNavigatorAddNewItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem.Image")));
             this.bindingNavigatorAddNewItem.Name = "bindingNavigatorAddNewItem";
             this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 24);
+            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorAddNewItem.Text = "加入新的";
             this.bindingNavigatorAddNewItem.Click += new System.EventHandler(this.bindingNavigatorAddNewItem_Click);
             // 
@@ -119,7 +119,7 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(34, 22);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 22);
             this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
@@ -208,12 +208,12 @@
             this.dataGridViewTextBoxColumn4});
             this.bankAccountDataGridView.DataSource = this.bankAccountBindingSource;
             this.bankAccountDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.bankAccountDataGridView.Location = new System.Drawing.Point(0, 27);
+            this.bankAccountDataGridView.Location = new System.Drawing.Point(0, 25);
             this.bankAccountDataGridView.Name = "bankAccountDataGridView";
             this.bankAccountDataGridView.RowHeadersWidth = 25;
             this.bankAccountDataGridView.RowTemplate.Height = 23;
             this.bankAccountDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.bankAccountDataGridView.Size = new System.Drawing.Size(1012, 398);
+            this.bankAccountDataGridView.Size = new System.Drawing.Size(1012, 400);
             this.bankAccountDataGridView.TabIndex = 1;
             this.bankAccountDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.bankAccountDataGridView_DataError);
             // 

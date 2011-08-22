@@ -168,15 +168,15 @@ namespace VoucherExpense
 
         void ShowWarning(bool visable)
         {
-            labelWarning1.Visible = labelWarning2.Visible = visable;
+            labelWarning1.Visible = labelWarning2.Visible = labelWarning3.Visible= visable;
             btnConvert.Enabled = !visable;
         }
 
-        List<CBankDetail> m_ImportDataList=null;
+        BindingList<CBankDetail> m_ImportDataList=null;
 
         void ReadTable(DataTable table)
         {
-            List<CBankDetail> list = new List<CBankDetail>();
+            BindingList<CBankDetail> list = new BindingList<CBankDetail>();
             int correct = 0, error = 0;
             foreach (DataRow row in table.Rows)
             {
@@ -224,7 +224,7 @@ namespace VoucherExpense
 
         private void FormImportBankExcel_SizeChanged(object sender, EventArgs e)
         {
-            dgViewImport.Height = Height + Top- 100;
+            dgViewImport.Height = ClientRectangle.Height - 102;
         }
 
         private void cbNote_SelectedIndexChanged(object sender, EventArgs e)

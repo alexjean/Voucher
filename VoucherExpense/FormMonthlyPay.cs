@@ -206,7 +206,7 @@ namespace VoucherExpense
 
         private void FormMonthlyPay_SizeChanged(object sender, EventArgs e)
         {
-            dgViewMonthlyPay.Height = Height - comboBoxMonth.Bottom + Top - 30;
+            dgViewMonthlyPay.Height = ClientRectangle.Height - comboBoxMonth.Bottom  - 30;
         }
 
         private void btnIncludeTotal_Click(object sender, EventArgs e)

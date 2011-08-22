@@ -40,6 +40,15 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgViewMonthly = new System.Windows.Forms.DataGridView();
+            this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.revenueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.creditCardDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cashDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.orderCountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.avePerPersonDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreditNet = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreditFee = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.monthlyReportDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.basicDataSet1 = new VoucherExpense.BasicDataSet();
             this.checkBoxUse12 = new System.Windows.Forms.CheckBox();
@@ -53,15 +62,6 @@
             this.labelCreditNet = new System.Windows.Forms.Label();
             this.labelCreditFee = new System.Windows.Forms.Label();
             this.labelFeeRate = new System.Windows.Forms.Label();
-            this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.revenueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.creditCardDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cashDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.orderCountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.avePerPersonDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreditNet = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreditFee = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgViewMonthly)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.monthlyReportDataBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.basicDataSet1)).BeginInit();
@@ -92,13 +92,89 @@
             this.Column1});
             this.dgViewMonthly.DataSource = this.monthlyReportDataBindingSource;
             this.dgViewMonthly.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dgViewMonthly.Location = new System.Drawing.Point(0, 59);
+            this.dgViewMonthly.Location = new System.Drawing.Point(0, 77);
             this.dgViewMonthly.Margin = new System.Windows.Forms.Padding(4);
             this.dgViewMonthly.Name = "dgViewMonthly";
             this.dgViewMonthly.RowTemplate.Height = 24;
             this.dgViewMonthly.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgViewMonthly.Size = new System.Drawing.Size(890, 585);
             this.dgViewMonthly.TabIndex = 0;
+            // 
+            // dateDataGridViewTextBoxColumn
+            // 
+            this.dateDataGridViewTextBoxColumn.DataPropertyName = "Date";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dateDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dateDataGridViewTextBoxColumn.HeaderText = "日期";
+            this.dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
+            this.dateDataGridViewTextBoxColumn.ReadOnly = true;
+            this.dateDataGridViewTextBoxColumn.Width = 64;
+            // 
+            // revenueDataGridViewTextBoxColumn
+            // 
+            this.revenueDataGridViewTextBoxColumn.DataPropertyName = "Revenue";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.revenueDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            this.revenueDataGridViewTextBoxColumn.HeaderText = "營收";
+            this.revenueDataGridViewTextBoxColumn.Name = "revenueDataGridViewTextBoxColumn";
+            // 
+            // creditCardDataGridViewTextBoxColumn
+            // 
+            this.creditCardDataGridViewTextBoxColumn.DataPropertyName = "CreditCard";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.creditCardDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
+            this.creditCardDataGridViewTextBoxColumn.HeaderText = "刷卡";
+            this.creditCardDataGridViewTextBoxColumn.Name = "creditCardDataGridViewTextBoxColumn";
+            // 
+            // cashDataGridViewTextBoxColumn
+            // 
+            this.cashDataGridViewTextBoxColumn.DataPropertyName = "Cash";
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.cashDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle5;
+            this.cashDataGridViewTextBoxColumn.HeaderText = "現金";
+            this.cashDataGridViewTextBoxColumn.Name = "cashDataGridViewTextBoxColumn";
+            // 
+            // orderCountDataGridViewTextBoxColumn
+            // 
+            this.orderCountDataGridViewTextBoxColumn.DataPropertyName = "OrderCount";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.orderCountDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle6;
+            this.orderCountDataGridViewTextBoxColumn.HeaderText = "檔數";
+            this.orderCountDataGridViewTextBoxColumn.Name = "orderCountDataGridViewTextBoxColumn";
+            // 
+            // avePerPersonDataGridViewTextBoxColumn
+            // 
+            this.avePerPersonDataGridViewTextBoxColumn.DataPropertyName = "AvePerPerson";
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.avePerPersonDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle7;
+            this.avePerPersonDataGridViewTextBoxColumn.HeaderText = "人均";
+            this.avePerPersonDataGridViewTextBoxColumn.Name = "avePerPersonDataGridViewTextBoxColumn";
+            // 
+            // CreditNet
+            // 
+            this.CreditNet.DataPropertyName = "CreditNet";
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.CreditNet.DefaultCellStyle = dataGridViewCellStyle8;
+            this.CreditNet.HeaderText = "刷卡淨收";
+            this.CreditNet.Name = "CreditNet";
+            // 
+            // CreditFee
+            // 
+            this.CreditFee.DataPropertyName = "CreditFee";
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.CreditFee.DefaultCellStyle = dataGridViewCellStyle9;
+            this.CreditFee.HeaderText = "手續費";
+            this.CreditFee.Name = "CreditFee";
+            // 
+            // Column1
+            // 
+            this.Column1.DataPropertyName = "Date";
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column1.DefaultCellStyle = dataGridViewCellStyle10;
+            this.Column1.HeaderText = "日期";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 64;
             // 
             // monthlyReportDataBindingSource
             // 
@@ -220,88 +296,12 @@
             this.labelFeeRate.TabIndex = 10;
             this.labelFeeRate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // dateDataGridViewTextBoxColumn
-            // 
-            this.dateDataGridViewTextBoxColumn.DataPropertyName = "Date";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dateDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dateDataGridViewTextBoxColumn.HeaderText = "日期";
-            this.dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
-            this.dateDataGridViewTextBoxColumn.ReadOnly = true;
-            this.dateDataGridViewTextBoxColumn.Width = 64;
-            // 
-            // revenueDataGridViewTextBoxColumn
-            // 
-            this.revenueDataGridViewTextBoxColumn.DataPropertyName = "Revenue";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.revenueDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
-            this.revenueDataGridViewTextBoxColumn.HeaderText = "營收";
-            this.revenueDataGridViewTextBoxColumn.Name = "revenueDataGridViewTextBoxColumn";
-            // 
-            // creditCardDataGridViewTextBoxColumn
-            // 
-            this.creditCardDataGridViewTextBoxColumn.DataPropertyName = "CreditCard";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.creditCardDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
-            this.creditCardDataGridViewTextBoxColumn.HeaderText = "刷卡";
-            this.creditCardDataGridViewTextBoxColumn.Name = "creditCardDataGridViewTextBoxColumn";
-            // 
-            // cashDataGridViewTextBoxColumn
-            // 
-            this.cashDataGridViewTextBoxColumn.DataPropertyName = "Cash";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.cashDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle5;
-            this.cashDataGridViewTextBoxColumn.HeaderText = "現金";
-            this.cashDataGridViewTextBoxColumn.Name = "cashDataGridViewTextBoxColumn";
-            // 
-            // orderCountDataGridViewTextBoxColumn
-            // 
-            this.orderCountDataGridViewTextBoxColumn.DataPropertyName = "OrderCount";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.orderCountDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle6;
-            this.orderCountDataGridViewTextBoxColumn.HeaderText = "檔數";
-            this.orderCountDataGridViewTextBoxColumn.Name = "orderCountDataGridViewTextBoxColumn";
-            // 
-            // avePerPersonDataGridViewTextBoxColumn
-            // 
-            this.avePerPersonDataGridViewTextBoxColumn.DataPropertyName = "AvePerPerson";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.avePerPersonDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle7;
-            this.avePerPersonDataGridViewTextBoxColumn.HeaderText = "人均";
-            this.avePerPersonDataGridViewTextBoxColumn.Name = "avePerPersonDataGridViewTextBoxColumn";
-            // 
-            // CreditNet
-            // 
-            this.CreditNet.DataPropertyName = "CreditNet";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.CreditNet.DefaultCellStyle = dataGridViewCellStyle8;
-            this.CreditNet.HeaderText = "刷卡淨收";
-            this.CreditNet.Name = "CreditNet";
-            // 
-            // CreditFee
-            // 
-            this.CreditFee.DataPropertyName = "CreditFee";
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.CreditFee.DefaultCellStyle = dataGridViewCellStyle9;
-            this.CreditFee.HeaderText = "手續費";
-            this.CreditFee.Name = "CreditFee";
-            // 
-            // Column1
-            // 
-            this.Column1.DataPropertyName = "Date";
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column1.DefaultCellStyle = dataGridViewCellStyle10;
-            this.Column1.HeaderText = "日期";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Width = 64;
-            // 
             // MonthlyReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(226)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(890, 644);
+            this.ClientSize = new System.Drawing.Size(890, 662);
             this.Controls.Add(this.labelFeeRate);
             this.Controls.Add(this.labelCreditFee);
             this.Controls.Add(this.labelCreditNet);

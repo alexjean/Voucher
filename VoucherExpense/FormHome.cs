@@ -49,6 +49,7 @@ namespace VoucherExpense
             basic.DropDownItems["銀行帳號MenuItem"].Enabled = Op.EditBank ;
             basic.DropDownItems["銀行帳號MenuItem"].Visible = Op.EditBank ;
             basic.DropDownItems["傳票設定MenuItem"].Visible = manager && Op.EditAccountingTitle;  // 經理+編修科目
+            basic.DropDownItems["年初開帳MenuItem"].Visible = manager && Op.EditAccountingTitle;
             會計MenuItem.Enabled = manager || Op.EditAccountingTitle;
             轉帳傳票MenuItem.Enabled = Op.EditAccountingTitle;                                    // 傳票和會計科目
 
@@ -65,7 +66,7 @@ namespace VoucherExpense
             查核傳票MenuItem.Enabled = Op.LockAccVoucher;
             人事MenuItem.Enabled = Op.EditSalary || Op.EditOnDuty;
             考勤MenuItem.Enabled = Op.EditOnDuty;
-            薪資MenuItem.Enabled = Op.EditSalary;
+            薪資卡MenuItem.Enabled = Op.EditSalary;
             合併傳票MenuItem.Enabled = Op.LockAccVoucher;
 
             if (MyFunction.LockAll)
@@ -350,6 +351,22 @@ namespace VoucherExpense
         private void 合併傳票MdbMenuItem_Click(object sender, EventArgs e)
         {
             MergeMdb.合併傳票(vEDataSet.AccVoucher);
+        }
+
+        private void 年初開帳ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("功能建構中...");
+
+        }
+
+        private void 排班表MenuItem_Click(object sender, EventArgs e)
+        {
+            PopupOrRun("排班表", typeof(FormShift));
+        }
+
+        private void 編點菜單ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("編排點菜單和酒水單,功能建構中...");
         }
 
    

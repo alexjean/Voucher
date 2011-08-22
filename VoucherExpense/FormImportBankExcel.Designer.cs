@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cbSheetNames = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
@@ -52,6 +52,7 @@
             this.cbBankAccount = new System.Windows.Forms.ComboBox();
             this.cBankAccountForComboBoxBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bankAccountTableAdapter = new VoucherExpense.VEDataSetTableAdapters.BankAccountTableAdapter();
+            this.labelWarning3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgViewImport)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cBankDetailBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.veDataSet1)).BeginInit();
@@ -94,11 +95,11 @@
             this.noteDataGridViewTextBoxColumn});
             this.dgViewImport.DataSource = this.cBankDetailBindingSource;
             this.dgViewImport.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dgViewImport.Location = new System.Drawing.Point(0, 99);
+            this.dgViewImport.Location = new System.Drawing.Point(0, 101);
             this.dgViewImport.Name = "dgViewImport";
             this.dgViewImport.ReadOnly = true;
             this.dgViewImport.RowTemplate.Height = 24;
-            this.dgViewImport.Size = new System.Drawing.Size(739, 489);
+            this.dgViewImport.Size = new System.Drawing.Size(739, 435);
             this.dgViewImport.TabIndex = 2;
             // 
             // dateDataGridViewTextBoxColumn
@@ -111,8 +112,8 @@
             // debtDataGridViewTextBoxColumn
             // 
             this.debtDataGridViewTextBoxColumn.DataPropertyName = "Debt";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.debtDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.debtDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
             this.debtDataGridViewTextBoxColumn.HeaderText = "支出";
             this.debtDataGridViewTextBoxColumn.Name = "debtDataGridViewTextBoxColumn";
             this.debtDataGridViewTextBoxColumn.ReadOnly = true;
@@ -120,8 +121,8 @@
             // creditDataGridViewTextBoxColumn
             // 
             this.creditDataGridViewTextBoxColumn.DataPropertyName = "Credit";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.creditDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.creditDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
             this.creditDataGridViewTextBoxColumn.HeaderText = "存入";
             this.creditDataGridViewTextBoxColumn.Name = "creditDataGridViewTextBoxColumn";
             this.creditDataGridViewTextBoxColumn.ReadOnly = true;
@@ -233,12 +234,23 @@
             // 
             this.bankAccountTableAdapter.ClearBeforeFill = true;
             // 
+            // labelWarning3
+            // 
+            this.labelWarning3.AutoSize = true;
+            this.labelWarning3.BackColor = System.Drawing.Color.Azure;
+            this.labelWarning3.Location = new System.Drawing.Point(246, 352);
+            this.labelWarning3.Name = "labelWarning3";
+            this.labelWarning3.Size = new System.Drawing.Size(144, 16);
+            this.labelWarning3.TabIndex = 11;
+            this.labelWarning3.Text = "按Delete可以刪除行";
+            // 
             // FormImportBankExcel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SeaShell;
-            this.ClientSize = new System.Drawing.Size(739, 588);
+            this.ClientSize = new System.Drawing.Size(739, 536);
+            this.Controls.Add(this.labelWarning3);
             this.Controls.Add(this.cbBankAccount);
             this.Controls.Add(this.btnConvert);
             this.Controls.Add(this.cbNote);
@@ -254,10 +266,10 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormImportBankExcel";
             this.Text = "匯入銀行Excel工作表";
-            this.Load += new System.EventHandler(this.FormImportBankExcel_Load);
-            this.SizeChanged += new System.EventHandler(this.FormImportBankExcel_SizeChanged);
-            this.Shown += new System.EventHandler(this.FormImportBankExcel_Shown);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormImportBankExcel_FormClosed);
+            this.Load += new System.EventHandler(this.FormImportBankExcel_Load);
+            this.Shown += new System.EventHandler(this.FormImportBankExcel_Shown);
+            this.SizeChanged += new System.EventHandler(this.FormImportBankExcel_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dgViewImport)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cBankDetailBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.veDataSet1)).EndInit();
@@ -290,5 +302,6 @@
         private System.Windows.Forms.ComboBox cbBankAccount;
         private VoucherExpense.VEDataSetTableAdapters.BankAccountTableAdapter bankAccountTableAdapter;
         private System.Windows.Forms.BindingSource cBankAccountForComboBoxBindingSource;
+        private System.Windows.Forms.Label labelWarning3;
     }
 }

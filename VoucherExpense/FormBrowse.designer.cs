@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             this.listViewBrowse = new System.Windows.Forms.ListView();
-            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader7 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader8 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -86,13 +86,13 @@
             this.listViewBrowse.Location = new System.Drawing.Point(12, 13);
             this.listViewBrowse.MultiSelect = false;
             this.listViewBrowse.Name = "listViewBrowse";
-            this.listViewBrowse.Size = new System.Drawing.Size(553, 580);
+            this.listViewBrowse.Size = new System.Drawing.Size(553, 629);
             this.listViewBrowse.TabIndex = 0;
             this.listViewBrowse.UseCompatibleStateImageBehavior = false;
             this.listViewBrowse.View = System.Windows.Forms.View.Details;
+            this.listViewBrowse.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewBrowse_ColumnClick);
             this.listViewBrowse.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listViewBrowse_ItemChecked);
             this.listViewBrowse.DoubleClick += new System.EventHandler(this.listViewBrowse_DoubleClick);
-            this.listViewBrowse.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewBrowse_ColumnClick);
             // 
             // columnHeader1
             // 
@@ -270,9 +270,9 @@
             // 
             // printDocument
             // 
-            this.printDocument.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument_PrintPage);
-            this.printDocument.EndPrint += new System.Drawing.Printing.PrintEventHandler(this.printDocument_EndPrint);
             this.printDocument.BeginPrint += new System.Drawing.Printing.PrintEventHandler(this.printDocument_BeginPrint);
+            this.printDocument.EndPrint += new System.Drawing.Printing.PrintEventHandler(this.printDocument_EndPrint);
+            this.printDocument.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument_PrintPage);
             // 
             // labelPayed
             // 
@@ -385,7 +385,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(859, 613);
+            this.ClientSize = new System.Drawing.Size(859, 654);
             this.Controls.Add(this.checkBoxUse12);
             this.Controls.Add(this.comboBoxMonth);
             this.Controls.Add(this.comboBoxDay);

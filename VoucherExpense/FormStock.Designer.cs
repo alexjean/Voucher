@@ -46,6 +46,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.stockTableAdapter = new VoucherExpense.VEDataSetTableAdapters.StockTableAdapter();
             this.ingredientTableAdapter = new VoucherExpense.VEDataSetTableAdapters.IngredientTableAdapter();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ingredientBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
@@ -192,12 +193,22 @@
             // 
             this.ingredientTableAdapter.ClearBeforeFill = true;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(163, 350);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(100, 16);
+            this.label3.TabIndex = 39;
+            this.label3.Text = "功能建購中...";
+            // 
             // FormStock
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(894, 623);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.label1);
@@ -239,5 +250,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn checkDayDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn columnIngredientCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn volumeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Label label3;
     }
 }

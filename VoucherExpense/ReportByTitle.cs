@@ -410,6 +410,7 @@ namespace VoucherExpense
                 }
             }
 
+            shouldPayTotal = System.Math.Round(shouldPayTotal, 1);    // 應付貨款只精確到小數第一位
             AccTitle shouldPay = Find(Setup.VoucherShouldPay , NewLiabilityList, defaultLiability);
             if (shouldPay != null)
                 shouldPay.Add(shouldPayTotal);
@@ -625,8 +626,8 @@ namespace VoucherExpense
 
                 foreach (VEDataSet.BankAccountRow r in veDataSet1.BankAccount.Rows)
                     BankDictionary.Add(r.ID,new BankDefault(r.AccountTitleCode,r.DefaultTitleCode));
-                comboBox1.SelectedIndex = 4;
-                comboBox2.SelectedIndex = 3;
+                comboBox1.SelectedIndex = 0;
+                comboBox2.SelectedIndex = 1;
                 comboBoxStart.SelectedIndex = MyFunction.IntHeaderMonth;
                 Setup.Load();
                 dataGridView1.Focus();
@@ -911,6 +912,12 @@ namespace VoucherExpense
                 column.DefaultCellStyle.Format = str;
             }
 
+        }
+
+        private void ReportByTitle_SizeChanged(object sender, EventArgs e)
+        {
+            int h = panel1.Top-dataGridView1.Top;
+            dataGridView1.Height = dataGridView2.Height = h;
         }
     }
 }

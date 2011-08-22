@@ -354,7 +354,9 @@ namespace VoucherExpense
 
         private void FormBankDetail_SizeChanged(object sender, EventArgs e)
         {
-            bankDetailDataGridView.Height = Height - bankDetailBindingNavigator.Height + this.Top-10;
+            int top;
+            top= bankDetailBindingNavigator.Bottom +7;
+            bankDetailDataGridView.Height = ClientRectangle.Height - top ;
         }
     }
 }

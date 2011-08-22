@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
+using System.ComponentModel;
 
 namespace VoucherExpense
 {
@@ -171,12 +172,73 @@ namespace VoucherExpense
 
     }
 
-    public class CBankDetail
+    //使用於FormImportBankExcel.cs
+    public class CBankDetail:INotifyPropertyChanged
     {
-        public DateTime Date    { set; get; }
-        public decimal Credit   { set; get; }
-        public decimal Debt     { set; get; }
-        public string Note      { set; get; }
+        private DateTime dat;
+        private decimal cre;
+        private decimal deb;
+        private string  not;
+        public DateTime Date 
+        {
+            get { return dat; }
+            set
+            {
+                if (dat != value)
+                {
+                    dat = value;
+                    if (PropertyChanged != null)
+                        PropertyChanged(this, new PropertyChangedEventArgs("Date"));
+                }
+            }
+        }
+        public decimal Credit
+        {
+            get { return cre; }
+            set
+            {
+                if (cre != value)
+                {
+                    cre = value;
+                    if (PropertyChanged != null)
+                        PropertyChanged(this, new PropertyChangedEventArgs("Credit"));
+                }
+            }
+        }
+        public decimal Debt
+        {
+            get { return deb; }
+            set
+            {
+                if (deb != value)
+                {
+                    deb = value;
+                    if (PropertyChanged != null)
+                        PropertyChanged(this, new PropertyChangedEventArgs("Debt"));
+                }
+            }
+        }
+        public string Note
+        {
+            get { return not; }
+            set
+            {
+                if (not != value)
+                {
+                    not = value;
+                    if (PropertyChanged != null)
+                        PropertyChanged(this, new PropertyChangedEventArgs("Note"));
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+        }
+ 
     }
 
     public class CBankAccountForComboBox

@@ -90,7 +90,7 @@
             this.onDutyEmployeeBindingNavigator.MovePreviousItem = null;
             this.onDutyEmployeeBindingNavigator.Name = "onDutyEmployeeBindingNavigator";
             this.onDutyEmployeeBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.onDutyEmployeeBindingNavigator.Size = new System.Drawing.Size(217, 25);
+            this.onDutyEmployeeBindingNavigator.Size = new System.Drawing.Size(214, 25);
             this.onDutyEmployeeBindingNavigator.TabIndex = 0;
             this.onDutyEmployeeBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -117,7 +117,7 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(32, 22);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 22);
             this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
@@ -278,7 +278,7 @@
             this.dgvOnDutyEmployee.RowHeadersVisible = false;
             this.dgvOnDutyEmployee.RowTemplate.Height = 24;
             this.dgvOnDutyEmployee.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgvOnDutyEmployee.Size = new System.Drawing.Size(444, 576);
+            this.dgvOnDutyEmployee.Size = new System.Drawing.Size(444, 620);
             this.dgvOnDutyEmployee.TabIndex = 1;
             this.dgvOnDutyEmployee.SelectionChanged += new System.EventHandler(this.dgvOnDutyEmployee_SelectionChanged);
             // 
@@ -336,14 +336,14 @@
             this.checkedListBox1.FormattingEnabled = true;
             this.checkedListBox1.Location = new System.Drawing.Point(457, 30);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(445, 576);
+            this.checkedListBox1.Size = new System.Drawing.Size(445, 620);
             this.checkedListBox1.TabIndex = 55;
             // 
             // panel1
             // 
             this.panel1.AutoSize = true;
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 607);
+            this.panel1.Location = new System.Drawing.Point(0, 652);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(904, 0);
             this.panel1.TabIndex = 61;
@@ -352,7 +352,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(904, 607);
+            this.ClientSize = new System.Drawing.Size(904, 652);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.dgvOnDutyEmployee);
             this.Controls.Add(this.checkedListBox1);
@@ -366,7 +366,7 @@
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormOnDutyEmployee";
-            this.Text = "人事資料";
+            this.Text = "上傳考勤至電腦";
             this.Load += new System.EventHandler(this.FormOnDutyEmployee_Load);
             ((System.ComponentModel.ISupportInitialize)(this.onDutyEmployeeBindingNavigator)).EndInit();
             this.onDutyEmployeeBindingNavigator.ResumeLayout(false);

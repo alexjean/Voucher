@@ -382,8 +382,9 @@ namespace VoucherExpense
 
 
             #region ======= 計算成本 =======
+            // 在付款總表裏是每個月都被4捨5入至小數第一位,所以要分12個月,進位後再加
             Message("計算成本");
-            decimal shouldPayTotal = 0;
+            decimal[] shouldPayMonth = new decimal[13];    // index0不用,以加快運算速度
             foreach (VEDataSet.VoucherRow ro in veDataSet1.Voucher)
             {
                 if (ro.IsStockTimeNull()) continue;
@@ -395,8 +396,8 @@ namespace VoucherExpense
                 int m1 = ro.StockTime.Month;
 //                if (m1 < MyFunction.IntHeaderMonth || m1 > mon) continue;
                 if (ro.IsCostNull()) continue;
-                if (InDuration(m1,mon)) shouldPayTotal += ro.Cost;
-                if (IsCurrent(m1,mon))
+                if (InDuration(m1,mon)) shouldPayMonth[m1] += ro.Cost;
+                if (IsCurrent(m1,mon))  // 加總到每個成本科目去 
                 {
                     foreach (VEDataSet.VoucherDetailRow r1 in ro.GetVoucherDetailRows())
                     {
@@ -410,7 +411,9 @@ namespace VoucherExpense
                 }
             }
 
-            shouldPayTotal = System.Math.Round(shouldPayTotal, 1);    // 應付貨款只精確到小數第一位
+            decimal shouldPayTotal = 0;
+            for (int i = 1; i <= 12; i++)
+                shouldPayTotal += System.Math.Round(shouldPayMonth[i], 1);  // 應付貨款只精確到小數第一位,每個月進位
             AccTitle shouldPay = Find(Setup.VoucherShouldPay , NewLiabilityList, defaultLiability);
             if (shouldPay != null)
                 shouldPay.Add(shouldPayTotal);

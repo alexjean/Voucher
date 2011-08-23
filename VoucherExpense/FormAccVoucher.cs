@@ -324,11 +324,7 @@ namespace VoucherExpense
             }
         }
 
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
-        {
-            DateTimePicker picker = sender as DateTimePicker;
-            this.accVoucherTimeTextBox.Text = picker.Text;
-        }
+ 
 
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
@@ -465,6 +461,14 @@ namespace VoucherExpense
             if (CheckMode)
                 ckBoxAllowEdit.Checked = false;
         }
+
+        private void dateTimePicker1_CloseUp(object sender, EventArgs e)
+        {
+            DateTimePicker picker = sender as DateTimePicker;
+            this.accVoucherTimeTextBox.Text = picker.Text;
+        }
+
+     
 
 
 

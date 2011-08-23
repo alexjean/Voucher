@@ -41,9 +41,9 @@
             System.Windows.Forms.Label label1;
             System.Windows.Forms.TextBox accVoucherIDTextBox;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAccVoucher));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.accVoucherBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.vEDataSet = new VoucherExpense.VEDataSet();
             this.accVoucherIDLabel = new System.Windows.Forms.Label();
@@ -59,7 +59,16 @@
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.accVoucherBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.accVoucherDataGridView = new System.Windows.Forms.DataGridView();
+            this.columnRemoved = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.columnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnAccVoucherTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TitleCode = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.accTitleDGVBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.columnTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnCheck = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.accVoucherTableAdapter = new VoucherExpense.VEDataSetTableAdapters.AccVoucherTableAdapter();
             this.accountingTitleTableAdapter = new VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter();
             this.iDTextBox = new System.Windows.Forms.TextBox();
@@ -102,15 +111,6 @@
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.comboBoxMonth = new System.Windows.Forms.ComboBox();
             this.ckBoxAllowEdit = new System.Windows.Forms.CheckBox();
-            this.columnRemoved = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.columnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnAccVoucherTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TitleCode = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.columnTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnCheck = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             accVoucherTimeLabel = new System.Windows.Forms.Label();
             indentureIDLabel = new System.Windows.Forms.Label();
             keyinIDLabel = new System.Windows.Forms.Label();
@@ -282,7 +282,7 @@
             this.accVoucherBindingNavigator.MovePreviousItem = null;
             this.accVoucherBindingNavigator.Name = "accVoucherBindingNavigator";
             this.accVoucherBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.accVoucherBindingNavigator.Size = new System.Drawing.Size(229, 25);
+            this.accVoucherBindingNavigator.Size = new System.Drawing.Size(226, 25);
             this.accVoucherBindingNavigator.TabIndex = 0;
             this.accVoucherBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -299,7 +299,7 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(32, 22);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 22);
             this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
@@ -369,8 +369,8 @@
             // 
             this.accVoucherDataGridView.AllowUserToAddRows = false;
             this.accVoucherDataGridView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
-            this.accVoucherDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Azure;
+            this.accVoucherDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.accVoucherDataGridView.AutoGenerateColumns = false;
             this.accVoucherDataGridView.BackgroundColor = System.Drawing.Color.Azure;
             this.accVoucherDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -399,10 +399,90 @@
             this.accVoucherDataGridView.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.accVoucherDataGridView_RowValidating);
             this.accVoucherDataGridView.SelectionChanged += new System.EventHandler(this.accVoucherDataGridView_SelectionChanged);
             // 
+            // columnRemoved
+            // 
+            this.columnRemoved.DataPropertyName = "Removed";
+            this.columnRemoved.HeaderText = "";
+            this.columnRemoved.MinimumWidth = 2;
+            this.columnRemoved.Name = "columnRemoved";
+            this.columnRemoved.Width = 2;
+            // 
+            // columnID
+            // 
+            this.columnID.DataPropertyName = "ID";
+            this.columnID.HeaderText = "ID";
+            this.columnID.MinimumWidth = 2;
+            this.columnID.Name = "columnID";
+            this.columnID.Width = 2;
+            // 
+            // dataGridViewTextBoxColumn19
+            // 
+            this.dataGridViewTextBoxColumn19.DataPropertyName = "IndentureID";
+            this.dataGridViewTextBoxColumn19.HeaderText = "憑証";
+            this.dataGridViewTextBoxColumn19.MinimumWidth = 2;
+            this.dataGridViewTextBoxColumn19.Name = "dataGridViewTextBoxColumn19";
+            this.dataGridViewTextBoxColumn19.Width = 2;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "AccVoucherID";
+            this.dataGridViewTextBoxColumn2.HeaderText = "傳票";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.Width = 64;
+            // 
+            // columnAccVoucherTime
+            // 
+            this.columnAccVoucherTime.DataPropertyName = "AccVoucherTime";
+            dataGridViewCellStyle5.Format = "MM/dd";
+            dataGridViewCellStyle5.NullValue = null;
+            this.columnAccVoucherTime.DefaultCellStyle = dataGridViewCellStyle5;
+            this.columnAccVoucherTime.HeaderText = "日期";
+            this.columnAccVoucherTime.Name = "columnAccVoucherTime";
+            this.columnAccVoucherTime.Width = 64;
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.DataPropertyName = "Note";
+            this.dataGridViewTextBoxColumn9.HeaderText = "Note";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.Width = 184;
+            // 
+            // TitleCode
+            // 
+            this.TitleCode.DataPropertyName = "TitleCode0";
+            this.TitleCode.DataSource = this.accTitleDGVBindingSource;
+            this.TitleCode.DisplayMember = "Name";
+            this.TitleCode.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.TitleCode.HeaderText = "科目";
+            this.TitleCode.Name = "TitleCode";
+            this.TitleCode.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.TitleCode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.TitleCode.ValueMember = "TitleCode";
+            this.TitleCode.Width = 88;
+            // 
             // accTitleDGVBindingSource
             // 
             this.accTitleDGVBindingSource.DataMember = "AccountingTitle";
             this.accTitleDGVBindingSource.DataSource = this.vEDataSet;
+            // 
+            // columnTotal
+            // 
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle6.Format = "N2";
+            dataGridViewCellStyle6.NullValue = "??????";
+            this.columnTotal.DefaultCellStyle = dataGridViewCellStyle6;
+            this.columnTotal.HeaderText = "金額";
+            this.columnTotal.Name = "columnTotal";
+            this.columnTotal.ReadOnly = true;
+            this.columnTotal.Width = 88;
+            // 
+            // columnCheck
+            // 
+            this.columnCheck.DataPropertyName = "Locked";
+            this.columnCheck.HeaderText = "核";
+            this.columnCheck.Name = "columnCheck";
+            this.columnCheck.ReadOnly = true;
+            this.columnCheck.Width = 32;
             // 
             // accVoucherTableAdapter
             // 
@@ -761,7 +841,7 @@
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(18, 27);
             this.dateTimePicker1.TabIndex = 45;
-            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
+            this.dateTimePicker1.CloseUp += new System.EventHandler(this.dateTimePicker1_CloseUp);
             // 
             // comboBoxMonth
             // 
@@ -800,86 +880,6 @@
             this.ckBoxAllowEdit.UseVisualStyleBackColor = true;
             this.ckBoxAllowEdit.Visible = false;
             this.ckBoxAllowEdit.CheckedChanged += new System.EventHandler(this.ckBoxAllowEdit_CheckedChanged);
-            // 
-            // columnRemoved
-            // 
-            this.columnRemoved.DataPropertyName = "Removed";
-            this.columnRemoved.HeaderText = "";
-            this.columnRemoved.MinimumWidth = 2;
-            this.columnRemoved.Name = "columnRemoved";
-            this.columnRemoved.Width = 2;
-            // 
-            // columnID
-            // 
-            this.columnID.DataPropertyName = "ID";
-            this.columnID.HeaderText = "ID";
-            this.columnID.MinimumWidth = 2;
-            this.columnID.Name = "columnID";
-            this.columnID.Width = 2;
-            // 
-            // dataGridViewTextBoxColumn19
-            // 
-            this.dataGridViewTextBoxColumn19.DataPropertyName = "IndentureID";
-            this.dataGridViewTextBoxColumn19.HeaderText = "憑証";
-            this.dataGridViewTextBoxColumn19.MinimumWidth = 2;
-            this.dataGridViewTextBoxColumn19.Name = "dataGridViewTextBoxColumn19";
-            this.dataGridViewTextBoxColumn19.Width = 2;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "AccVoucherID";
-            this.dataGridViewTextBoxColumn2.HeaderText = "傳票";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.Width = 64;
-            // 
-            // columnAccVoucherTime
-            // 
-            this.columnAccVoucherTime.DataPropertyName = "AccVoucherTime";
-            dataGridViewCellStyle2.Format = "MM/dd";
-            dataGridViewCellStyle2.NullValue = null;
-            this.columnAccVoucherTime.DefaultCellStyle = dataGridViewCellStyle2;
-            this.columnAccVoucherTime.HeaderText = "日期";
-            this.columnAccVoucherTime.Name = "columnAccVoucherTime";
-            this.columnAccVoucherTime.Width = 64;
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.DataPropertyName = "Note";
-            this.dataGridViewTextBoxColumn9.HeaderText = "Note";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            this.dataGridViewTextBoxColumn9.Width = 184;
-            // 
-            // TitleCode
-            // 
-            this.TitleCode.DataPropertyName = "TitleCode0";
-            this.TitleCode.DataSource = this.accTitleDGVBindingSource;
-            this.TitleCode.DisplayMember = "Name";
-            this.TitleCode.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.TitleCode.HeaderText = "科目";
-            this.TitleCode.Name = "TitleCode";
-            this.TitleCode.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.TitleCode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.TitleCode.ValueMember = "TitleCode";
-            this.TitleCode.Width = 88;
-            // 
-            // columnTotal
-            // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "N2";
-            dataGridViewCellStyle3.NullValue = "??????";
-            this.columnTotal.DefaultCellStyle = dataGridViewCellStyle3;
-            this.columnTotal.HeaderText = "金額";
-            this.columnTotal.Name = "columnTotal";
-            this.columnTotal.ReadOnly = true;
-            this.columnTotal.Width = 88;
-            // 
-            // columnCheck
-            // 
-            this.columnCheck.DataPropertyName = "Locked";
-            this.columnCheck.HeaderText = "核";
-            this.columnCheck.Name = "columnCheck";
-            this.columnCheck.ReadOnly = true;
-            this.columnCheck.Width = 32;
             // 
             // FormAccVoucher
             // 

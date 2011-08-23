@@ -30,24 +30,22 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
             this.comboBoxMonth = new System.Windows.Forms.ComboBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.codeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnMoney1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.percentageDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.accountingTableBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.codeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnMoney2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.percentageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.accountingTableBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.labelExpenseSum = new System.Windows.Forms.Label();
             this.labelCostSum = new System.Windows.Forms.Label();
             this.btnPrintCost = new System.Windows.Forms.Button();
@@ -85,13 +83,35 @@
             this.label6 = new System.Windows.Forms.Label();
             this.accVoucherTableAdapter1 = new VoucherExpense.VEDataSetTableAdapters.AccVoucherTableAdapter();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.cMonthBalanceBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.codeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnMoney2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.percentageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.accountingTableBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
+            this.codeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnMoney1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.percentageDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.accountingTableBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.count = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Balance = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.revenueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.costDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.expenseDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.assestDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.liabilityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.accountingTableBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.accountingTableBindingSource2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.veDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.basicDataSet1)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cMonthBalanceBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.accountingTableBindingSource2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.accountingTableBindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // comboBoxMonth
@@ -147,49 +167,6 @@
             this.dataGridView1.TabIndex = 55;
             this.dataGridView1.ColumnHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_ColumnHeaderMouseDoubleClick);
             // 
-            // codeDataGridViewTextBoxColumn1
-            // 
-            this.codeDataGridViewTextBoxColumn1.DataPropertyName = "Code";
-            this.codeDataGridViewTextBoxColumn1.HeaderText = "Code";
-            this.codeDataGridViewTextBoxColumn1.Name = "codeDataGridViewTextBoxColumn1";
-            this.codeDataGridViewTextBoxColumn1.ReadOnly = true;
-            this.codeDataGridViewTextBoxColumn1.Width = 60;
-            // 
-            // nameDataGridViewTextBoxColumn1
-            // 
-            this.nameDataGridViewTextBoxColumn1.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn1.HeaderText = "科目";
-            this.nameDataGridViewTextBoxColumn1.Name = "nameDataGridViewTextBoxColumn1";
-            this.nameDataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // columnMoney1
-            // 
-            this.columnMoney1.DataPropertyName = "Money";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "N1";
-            dataGridViewCellStyle2.NullValue = null;
-            this.columnMoney1.DefaultCellStyle = dataGridViewCellStyle2;
-            this.columnMoney1.HeaderText = "金額";
-            this.columnMoney1.Name = "columnMoney1";
-            this.columnMoney1.ReadOnly = true;
-            // 
-            // percentageDataGridViewTextBoxColumn1
-            // 
-            this.percentageDataGridViewTextBoxColumn1.DataPropertyName = "Percentage";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "N1";
-            dataGridViewCellStyle3.NullValue = null;
-            this.percentageDataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle3;
-            this.percentageDataGridViewTextBoxColumn1.HeaderText = "%";
-            this.percentageDataGridViewTextBoxColumn1.Name = "percentageDataGridViewTextBoxColumn1";
-            this.percentageDataGridViewTextBoxColumn1.ReadOnly = true;
-            this.percentageDataGridViewTextBoxColumn1.Width = 60;
-            // 
-            // accountingTableBindingSource1
-            // 
-            this.accountingTableBindingSource1.DataSource = typeof(VoucherExpense.AccTitle);
-            this.accountingTableBindingSource1.Sort = "";
-            // 
             // dataGridView2
             // 
             this.dataGridView2.AllowUserToAddRows = false;
@@ -216,49 +193,6 @@
             this.dataGridView2.TabIndex = 59;
             this.dataGridView2.ColumnHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView2_ColumnHeaderMouseDoubleClick);
             // 
-            // codeDataGridViewTextBoxColumn
-            // 
-            this.codeDataGridViewTextBoxColumn.DataPropertyName = "Code";
-            this.codeDataGridViewTextBoxColumn.HeaderText = "Code";
-            this.codeDataGridViewTextBoxColumn.Name = "codeDataGridViewTextBoxColumn";
-            this.codeDataGridViewTextBoxColumn.ReadOnly = true;
-            this.codeDataGridViewTextBoxColumn.Width = 60;
-            // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "科目";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // columnMoney2
-            // 
-            this.columnMoney2.DataPropertyName = "Money";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle5.Format = "N1";
-            dataGridViewCellStyle5.NullValue = null;
-            this.columnMoney2.DefaultCellStyle = dataGridViewCellStyle5;
-            this.columnMoney2.HeaderText = "金額";
-            this.columnMoney2.Name = "columnMoney2";
-            this.columnMoney2.ReadOnly = true;
-            // 
-            // percentageDataGridViewTextBoxColumn
-            // 
-            this.percentageDataGridViewTextBoxColumn.DataPropertyName = "Percentage";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle6.Format = "N1";
-            dataGridViewCellStyle6.NullValue = null;
-            this.percentageDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle6;
-            this.percentageDataGridViewTextBoxColumn.HeaderText = "%";
-            this.percentageDataGridViewTextBoxColumn.Name = "percentageDataGridViewTextBoxColumn";
-            this.percentageDataGridViewTextBoxColumn.ReadOnly = true;
-            this.percentageDataGridViewTextBoxColumn.Width = 60;
-            // 
-            // accountingTableBindingSource2
-            // 
-            this.accountingTableBindingSource2.DataSource = typeof(VoucherExpense.AccTitle);
-            this.accountingTableBindingSource2.Sort = "";
-            // 
             // labelExpenseSum
             // 
             this.labelExpenseSum.Location = new System.Drawing.Point(144, 53);
@@ -277,7 +211,7 @@
             // 
             // btnPrintCost
             // 
-            this.btnPrintCost.Location = new System.Drawing.Point(745, 16);
+            this.btnPrintCost.Location = new System.Drawing.Point(717, 15);
             this.btnPrintCost.Name = "btnPrintCost";
             this.btnPrintCost.Size = new System.Drawing.Size(75, 23);
             this.btnPrintCost.TabIndex = 62;
@@ -568,12 +502,207 @@
             this.panel1.Size = new System.Drawing.Size(920, 123);
             this.panel1.TabIndex = 85;
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(810, 18);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(91, 20);
+            this.checkBox1.TabIndex = 86;
+            this.checkBox1.Text = "月對照表";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // dataGridView3
+            // 
+            this.dataGridView3.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.Azure;
+            this.dataGridView3.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
+            this.dataGridView3.AutoGenerateColumns = false;
+            this.dataGridView3.BackgroundColor = System.Drawing.Color.SeaShell;
+            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView3.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.count,
+            this.Balance,
+            this.revenueDataGridViewTextBoxColumn,
+            this.costDataGridViewTextBoxColumn,
+            this.expenseDataGridViewTextBoxColumn,
+            this.assestDataGridViewTextBoxColumn,
+            this.liabilityDataGridViewTextBoxColumn});
+            this.dataGridView3.DataSource = this.cMonthBalanceBindingSource;
+            this.dataGridView3.Location = new System.Drawing.Point(409, 56);
+            this.dataGridView3.Name = "dataGridView3";
+            this.dataGridView3.RowHeadersVisible = false;
+            this.dataGridView3.RowTemplate.Height = 24;
+            this.dataGridView3.Size = new System.Drawing.Size(499, 468);
+            this.dataGridView3.TabIndex = 87;
+            this.dataGridView3.Visible = false;
+            // 
+            // cMonthBalanceBindingSource
+            // 
+            this.cMonthBalanceBindingSource.DataSource = typeof(VoucherExpense.CMonthBalance);
+            // 
+            // codeDataGridViewTextBoxColumn
+            // 
+            this.codeDataGridViewTextBoxColumn.DataPropertyName = "Code";
+            this.codeDataGridViewTextBoxColumn.HeaderText = "Code";
+            this.codeDataGridViewTextBoxColumn.Name = "codeDataGridViewTextBoxColumn";
+            this.codeDataGridViewTextBoxColumn.ReadOnly = true;
+            this.codeDataGridViewTextBoxColumn.Width = 60;
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "科目";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // columnMoney2
+            // 
+            this.columnMoney2.DataPropertyName = "Money";
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle5.Format = "N1";
+            dataGridViewCellStyle5.NullValue = null;
+            this.columnMoney2.DefaultCellStyle = dataGridViewCellStyle5;
+            this.columnMoney2.HeaderText = "金額";
+            this.columnMoney2.Name = "columnMoney2";
+            this.columnMoney2.ReadOnly = true;
+            // 
+            // percentageDataGridViewTextBoxColumn
+            // 
+            this.percentageDataGridViewTextBoxColumn.DataPropertyName = "Percentage";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle6.Format = "N1";
+            dataGridViewCellStyle6.NullValue = null;
+            this.percentageDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle6;
+            this.percentageDataGridViewTextBoxColumn.HeaderText = "%";
+            this.percentageDataGridViewTextBoxColumn.Name = "percentageDataGridViewTextBoxColumn";
+            this.percentageDataGridViewTextBoxColumn.ReadOnly = true;
+            this.percentageDataGridViewTextBoxColumn.Width = 60;
+            // 
+            // accountingTableBindingSource2
+            // 
+            this.accountingTableBindingSource2.DataSource = typeof(VoucherExpense.AccTitle);
+            this.accountingTableBindingSource2.Sort = "";
+            // 
+            // codeDataGridViewTextBoxColumn1
+            // 
+            this.codeDataGridViewTextBoxColumn1.DataPropertyName = "Code";
+            this.codeDataGridViewTextBoxColumn1.HeaderText = "Code";
+            this.codeDataGridViewTextBoxColumn1.Name = "codeDataGridViewTextBoxColumn1";
+            this.codeDataGridViewTextBoxColumn1.ReadOnly = true;
+            this.codeDataGridViewTextBoxColumn1.Width = 60;
+            // 
+            // nameDataGridViewTextBoxColumn1
+            // 
+            this.nameDataGridViewTextBoxColumn1.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn1.HeaderText = "科目";
+            this.nameDataGridViewTextBoxColumn1.Name = "nameDataGridViewTextBoxColumn1";
+            this.nameDataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // columnMoney1
+            // 
+            this.columnMoney1.DataPropertyName = "Money";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Format = "N1";
+            dataGridViewCellStyle2.NullValue = null;
+            this.columnMoney1.DefaultCellStyle = dataGridViewCellStyle2;
+            this.columnMoney1.HeaderText = "金額";
+            this.columnMoney1.Name = "columnMoney1";
+            this.columnMoney1.ReadOnly = true;
+            // 
+            // percentageDataGridViewTextBoxColumn1
+            // 
+            this.percentageDataGridViewTextBoxColumn1.DataPropertyName = "Percentage";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.Format = "N1";
+            dataGridViewCellStyle3.NullValue = null;
+            this.percentageDataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle3;
+            this.percentageDataGridViewTextBoxColumn1.HeaderText = "%";
+            this.percentageDataGridViewTextBoxColumn1.Name = "percentageDataGridViewTextBoxColumn1";
+            this.percentageDataGridViewTextBoxColumn1.ReadOnly = true;
+            this.percentageDataGridViewTextBoxColumn1.Width = 60;
+            // 
+            // accountingTableBindingSource1
+            // 
+            this.accountingTableBindingSource1.DataSource = typeof(VoucherExpense.AccTitle);
+            this.accountingTableBindingSource1.Sort = "";
+            // 
+            // count
+            // 
+            this.count.DataPropertyName = "Month";
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.Format = "N0";
+            dataGridViewCellStyle8.NullValue = "計";
+            this.count.DefaultCellStyle = dataGridViewCellStyle8;
+            this.count.HeaderText = "月";
+            this.count.Name = "count";
+            this.count.ReadOnly = true;
+            this.count.Width = 32;
+            // 
+            // Balance
+            // 
+            this.Balance.DataPropertyName = "Balance";
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle9.Format = "N1";
+            this.Balance.DefaultCellStyle = dataGridViewCellStyle9;
+            this.Balance.HeaderText = "損益";
+            this.Balance.Name = "Balance";
+            // 
+            // revenueDataGridViewTextBoxColumn
+            // 
+            this.revenueDataGridViewTextBoxColumn.DataPropertyName = "Revenue";
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle10.Format = "N1";
+            this.revenueDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle10;
+            this.revenueDataGridViewTextBoxColumn.HeaderText = "營收";
+            this.revenueDataGridViewTextBoxColumn.Name = "revenueDataGridViewTextBoxColumn";
+            // 
+            // costDataGridViewTextBoxColumn
+            // 
+            this.costDataGridViewTextBoxColumn.DataPropertyName = "Cost";
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle11.Format = "N1";
+            dataGridViewCellStyle11.NullValue = null;
+            this.costDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle11;
+            this.costDataGridViewTextBoxColumn.HeaderText = "成本";
+            this.costDataGridViewTextBoxColumn.Name = "costDataGridViewTextBoxColumn";
+            // 
+            // expenseDataGridViewTextBoxColumn
+            // 
+            this.expenseDataGridViewTextBoxColumn.DataPropertyName = "Expense";
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle12.Format = "N1";
+            this.expenseDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle12;
+            this.expenseDataGridViewTextBoxColumn.HeaderText = "費用";
+            this.expenseDataGridViewTextBoxColumn.Name = "expenseDataGridViewTextBoxColumn";
+            // 
+            // assestDataGridViewTextBoxColumn
+            // 
+            this.assestDataGridViewTextBoxColumn.DataPropertyName = "Assest";
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle13.Format = "N1";
+            this.assestDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle13;
+            this.assestDataGridViewTextBoxColumn.HeaderText = "資產";
+            this.assestDataGridViewTextBoxColumn.Name = "assestDataGridViewTextBoxColumn";
+            // 
+            // liabilityDataGridViewTextBoxColumn
+            // 
+            this.liabilityDataGridViewTextBoxColumn.DataPropertyName = "Liability";
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle14.Format = "N1";
+            this.liabilityDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle14;
+            this.liabilityDataGridViewTextBoxColumn.HeaderText = "負債";
+            this.liabilityDataGridViewTextBoxColumn.Name = "liabilityDataGridViewTextBoxColumn";
+            // 
             // ReportByTitle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(920, 642);
+            this.Controls.Add(this.dataGridView3);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.panel1);
@@ -590,13 +719,15 @@
             this.Load += new System.EventHandler(this.ReportByTitle_Load);
             this.SizeChanged += new System.EventHandler(this.ReportByTitle_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.accountingTableBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.accountingTableBindingSource2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.veDataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.basicDataSet1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cMonthBalanceBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.accountingTableBindingSource2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.accountingTableBindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -654,5 +785,15 @@
         private System.Windows.Forms.Label label6;
         private VoucherExpense.VEDataSetTableAdapters.AccVoucherTableAdapter accVoucherTableAdapter1;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.DataGridView dataGridView3;
+        private System.Windows.Forms.BindingSource cMonthBalanceBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn count;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Balance;
+        private System.Windows.Forms.DataGridViewTextBoxColumn revenueDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn costDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn expenseDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn assestDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn liabilityDataGridViewTextBoxColumn;
     }
 }

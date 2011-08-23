@@ -264,6 +264,34 @@ namespace VoucherExpense
         public string Unit { get; set; }
     }
 
+    // ReportByTitle.cs用
+    public class CMonthBalance
+    {
+        public int Month { get; set; }
+        public decimal Assest   { get; set; }
+        public decimal Liability{ get; set; }
+        public decimal Revenue  { get; set; }
+        public decimal Cost     { get; set; }
+        public decimal Expense  { get; set; }
+        public decimal Balance  { get; set; }
+        public void CalcBalance()
+        {
+            Balance=Revenue-Cost-Expense;
+        }
+        public void ClearData()
+        {
+            Assest = Liability = Revenue = Cost = Expense = Balance= 0m;
+        }
+        public void Add(CMonthBalance b)
+        {
+//            Assest += b.Assest;
+//            Liability += b.Liability;
+            Revenue += b.Revenue;
+            Cost += b.Cost;
+            Expense += b.Expense;
+            Balance += b.Balance;
+        }
+    }
 
 
 }

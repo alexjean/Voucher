@@ -19,6 +19,9 @@ namespace VoucherExpense
             public AccTitle DefaultTitle;
             public BankDefault(string bankCode, string defaultCode) { BankCode = bankCode; DefaultCode = defaultCode; }
         }
+
+
+
         List<AccTitle> AssetList;     // 會計科目1字頭 資產
         List<AccTitle> LiabilityList;  // 會計科目2字頭 負債
         List<AccTitle> RevenueList; // 會計科目4字頭 營收
@@ -32,6 +35,7 @@ namespace VoucherExpense
         List<AccTitle> ExpenseList1;  
         Dictionary<int, BankDefault> BankDictionary; // < BankAccountID, TitleCode>
         MonthlyReportData[] RevenueCache; // 計算加速用
+        CMonthBalance[] MonthBalances;    // 存月比較表用 
         TitleSetup Setup = new TitleSetup();
 
         public ReportByTitle()
@@ -501,6 +505,7 @@ namespace VoucherExpense
             }
             #endregion
 
+            // 設定顯示Label
             decimal sumExpense  = SumMarkPercentAndSort(NewExpenseList);
             decimal sumCost     = SumMarkPercentAndSort(NewCostList);
             decimal sumRevenue  = SumMarkPercentAndSort(NewRevenueList);
@@ -522,6 +527,23 @@ namespace VoucherExpense
                 labelEquity1.Text = (sumAsset - sumLiability + ownersEquity.Money).ToString("N1");
             }
 
+            // 設定月對照表
+            if (mon!=0)
+            {
+                CMonthBalance b = MonthBalances[mon - 1];
+                b.Assest    = sumAsset;
+                b.Liability = sumLiability;
+                b.Cost      = sumCost;
+                b.Revenue   = sumRevenue;
+                b.Expense   = sumExpense;
+                b.CalcBalance();
+                CMonthBalance sum=MonthBalances[12];
+                sum.ClearData();
+                for (int i = 0; i < 12; i++)
+                    sum.Add(MonthBalances[i]);
+
+                cMonthBalanceBindingSource.ResetBindings(false);
+            }
             // ====== 設定DataGridView ======
             AssetList       = CleanList(NewAssetList);
             LiabilityList   = CleanList(NewLiabilityList);
@@ -577,6 +599,14 @@ namespace VoucherExpense
             CostList      = new List<AccTitle>();
             BankDictionary = new Dictionary<int, BankDefault>();
             RevenueCache = new MonthlyReportData[12];
+            MonthBalances = new CMonthBalance[13];
+            for (int i = 0; i < 13; i++)
+            {
+                MonthBalances[i] = new CMonthBalance();
+                MonthBalances[i].Month = i + 1;
+            }
+            MonthBalances[12].Month = 0;   // 第13月統計用
+            cMonthBalanceBindingSource.DataSource = MonthBalances;
             string[] Name = new string[5] { "資產", "負債", "收入", "成本", "費用" };
             comboBox1.Items.Clear();
             comboBox2.Items.Clear();
@@ -920,7 +950,22 @@ namespace VoucherExpense
         private void ReportByTitle_SizeChanged(object sender, EventArgs e)
         {
             int h = panel1.Top-dataGridView1.Top;
-            dataGridView1.Height = dataGridView2.Height = h;
+            dataGridView1.Height = dataGridView2.Height = dataGridView3.Height = h;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox box = sender as CheckBox;
+            if (box.Checked)
+            {
+                comboBox2.Visible= dataGridView2.Visible = false;
+                dataGridView3.Visible = true;
+            }
+            else
+            {
+                comboBox2.Visible = dataGridView2.Visible = true;
+                dataGridView3.Visible = false;
+            }
         }
     }
 }

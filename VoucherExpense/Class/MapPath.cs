@@ -101,7 +101,7 @@ namespace VoucherExpense
             {
                 timer1.Stop();
                 progressBar1.Visible = false;
-                if (MessageBox.Show("無法連線資料庫,無視錯誤<" + result.ToString() + ">,使用本地資料繼續執行, 按Yes!", "", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                if (MessageBox.Show("無法連線資料庫<" + SystemErrorMessage.Get((uint)result) + "> 無視錯誤使用本地資料繼續執行, 按Yes!", "", MessageBoxButtons.YesNo) != DialogResult.Yes)
                     Application.Exit();
                 m_Cfg.IsServer = true;
             }

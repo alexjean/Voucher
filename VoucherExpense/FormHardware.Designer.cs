@@ -79,10 +79,13 @@
             "    新增 => remote 權限為完全控制",
             "",
             " 7 共用=>共用此資料夾   <名稱> 尾巴加$以便隱形 (例  Voucher1$)",
-            "    =>使用權限 移除everyone ,加入 remote 打開所有權限"});
+            "    =>使用權限 移除everyone ,加入 remote 打開所有權限",
+            "",
+            "8 資料主機的 ShareDocs=>使用權限 移除everyone ,加入 remote 打開所有權限",
+            "   請勿分享其他文件夾, 以避免其他機器以 anonymous 登入.  "});
             this.listBox1.Location = new System.Drawing.Point(344, 12);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(536, 404);
+            this.listBox1.Size = new System.Drawing.Size(536, 436);
             this.listBox1.TabIndex = 0;
             this.listBox1.TabStop = false;
             // 
@@ -221,7 +224,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(147, 439);
+            this.btnSave.Location = new System.Drawing.Point(147, 459);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 5;
@@ -231,7 +234,7 @@
             // 
             // textBoxBackupDir
             // 
-            this.textBoxBackupDir.Location = new System.Drawing.Point(446, 439);
+            this.textBoxBackupDir.Location = new System.Drawing.Point(446, 459);
             this.textBoxBackupDir.Name = "textBoxBackupDir";
             this.textBoxBackupDir.Size = new System.Drawing.Size(425, 27);
             this.textBoxBackupDir.TabIndex = 14;
@@ -239,7 +242,7 @@
             // btnBackup
             // 
             this.btnBackup.AutoSize = true;
-            this.btnBackup.Location = new System.Drawing.Point(566, 481);
+            this.btnBackup.Location = new System.Drawing.Point(566, 501);
             this.btnBackup.Name = "btnBackup";
             this.btnBackup.Size = new System.Drawing.Size(98, 26);
             this.btnBackup.TabIndex = 16;
@@ -249,7 +252,7 @@
             // 
             // btnFolerBrowse
             // 
-            this.btnFolerBrowse.Location = new System.Drawing.Point(344, 439);
+            this.btnFolerBrowse.Location = new System.Drawing.Point(344, 459);
             this.btnFolerBrowse.Name = "btnFolerBrowse";
             this.btnFolerBrowse.Size = new System.Drawing.Size(93, 23);
             this.btnFolerBrowse.TabIndex = 17;
@@ -262,7 +265,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(892, 552);
+            this.ClientSize = new System.Drawing.Size(892, 565);
             this.Controls.Add(this.btnFolerBrowse);
             this.Controls.Add(this.btnBackup);
             this.Controls.Add(this.textBoxBackupDir);

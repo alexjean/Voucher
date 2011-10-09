@@ -36,7 +36,7 @@ namespace VoucherExpense
             public decimal Money  { get; set; }
         }
 
-        CMonthlyPay FindOrAdd(int id, List<CMonthlyPay> list)
+        CMonthlyPay FindOrAdd(int id, SortableBindingList<CMonthlyPay> list)
         {
             foreach (CMonthlyPay p in list)
             {
@@ -51,7 +51,7 @@ namespace VoucherExpense
 
         private void Calculate(int month)
         {
-            List<CMonthlyPay> list = new List<CMonthlyPay>();
+            SortableBindingList<CMonthlyPay> list = new SortableBindingList<CMonthlyPay>();
             foreach (VEDataSet.VoucherRow vr in this.vEDataSet.Voucher)
             {
                 if (vr.IsStockTimeNull()) continue;
@@ -120,7 +120,7 @@ namespace VoucherExpense
             PageSettings settings = e.PageSettings;
             Rectangle inner = e.MarginBounds;
             Rectangle outter = e.PageBounds;
-            List<CMonthlyPay> list = this.dgViewMonthlyPay.DataSource as List<CMonthlyPay>;
+            SortableBindingList<CMonthlyPay> list = this.dgViewMonthlyPay.DataSource as SortableBindingList<CMonthlyPay>;
             if (list == null || PageIndex <= 0)
             {
                 e.HasMorePages = false;

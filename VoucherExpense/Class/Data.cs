@@ -34,19 +34,92 @@ namespace VoucherExpense
         public int ID { get; set; }
     }
 
-    public class CIngredient
+
+    // ReportByVender.cs使用來顯示, 其實沒有編修沒必要加 INotifyPropertyChanged
+    public class CIngredient : INotifyPropertyChanged
     {
         int id;
         decimal vol;
         int orc;
         decimal toc;
         decimal unc;
-        public int ID       { get { return id;  } set { id = value;  } }
-        public decimal Volume   { get { return vol; } set { vol = value; } }
-        public decimal TotalCost { get { return toc; } set { toc = value; } }
-        public decimal UnitCost  { get { return unc; } set { unc = value; } }
-        public int OrderCount    { get { return orc; } set { orc = value; } }
+        public int ID
+        {
+            get { return id; }
+            set
+            {
+                if (id != value)
+                {
+                    id = value;
+                    if (PropertyChanged != null)
+                        PropertyChanged(this, new PropertyChangedEventArgs("ID"));
+                }
+            }
+        }
+        public decimal Volume   
+        {
+            get { return vol; }
+            set 
+            {
+                if (vol != value)
+                {
+                    vol = value;
+                    if (PropertyChanged != null)
+                        PropertyChanged(this, new PropertyChangedEventArgs("Volume"));
+                }
+            } 
+        }
+        public decimal TotalCost 
+        {
+            get { return toc; }
+            set
+            {
+                if (toc != value)
+                {
+                    toc = value;
+                    if (PropertyChanged != null)
+                        PropertyChanged(this, new PropertyChangedEventArgs("TotalCost"));
+                }
+            } 
+
+        }
+        public decimal UnitCost  
+        {
+            get { return unc; }
+            set
+            {
+                if (unc != value)
+                {
+                    unc = value;
+                    if (PropertyChanged != null)
+                        PropertyChanged(this, new PropertyChangedEventArgs("UnitCost"));
+                }
+            } 
+
+        }
+        public int OrderCount    
+        {
+            get { return orc; }
+            set
+            {
+                if (orc != value)
+                {
+                    orc = value;
+                    if (PropertyChanged != null)
+                        PropertyChanged(this, new PropertyChangedEventArgs("OrderCount"));
+                }
+            } 
+
+        }
         public CIngredient(int ID) { id = ID; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+        }
+ 
     }
 
     public class CSelectedVoucher

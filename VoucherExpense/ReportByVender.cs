@@ -33,7 +33,7 @@ namespace VoucherExpense
             this.voucherDGView.DataSource = null;  // 原本先用了 vEDataSet.Voucher做格式
         }
 
-        private void Add2List(List<CIngredient> list,int id, decimal cost, decimal volume)
+        private void Add2List(SortableBindingList<CIngredient> list,int id, decimal cost, decimal volume)
         {
             foreach (CIngredient p in list)
             {
@@ -58,7 +58,7 @@ namespace VoucherExpense
 
         void Calculate(int month,int id)
         {
-            List<CIngredient> list = new List<CIngredient>();
+            SortableBindingList<CIngredient> list = new SortableBindingList<CIngredient>();
             VEDataSet.VoucherDataTable voucher = new VEDataSet.VoucherDataTable();
             int count = 0,checkedCount=0;
             foreach (VEDataSet.VoucherRow vr in vEDataSet.Voucher)
@@ -159,7 +159,7 @@ namespace VoucherExpense
             PageSettings settings   = e.PageSettings;
             Rectangle    inner      = e.MarginBounds;
             Rectangle    outter     = e.PageBounds;
-            List<CIngredient> list = dataGridView1.DataSource as List<CIngredient>;
+            BindingList<CIngredient> list = dataGridView1.DataSource as BindingList<CIngredient>;
             if (list == null || PageIndex<=0)
             {
                 e.HasMorePages = false;

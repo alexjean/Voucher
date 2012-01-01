@@ -7,6 +7,7 @@ namespace VoucherExpense
 {
     public class HardwareConfig
     {
+        public static string CfgFileName = "HardwareCfg.xml";
         public string PrinterName;
         public string ComPortName;
         public string DataDir;
@@ -65,7 +66,7 @@ namespace VoucherExpense
             try
             {
                 XmlDocument doc = new XmlDocument();
-                doc.Load("HardwareCfg.xml");
+                doc.Load(CfgFileName);
                 XmlNode root = doc.DocumentElement;
                 GetAttrib(root.SelectSingleNode("ComPort")       ,"Name", ref ComPortName);
                 GetAttrib(root.SelectSingleNode("ReceiptPrinter"),"Name", ref PrinterName);
@@ -98,7 +99,7 @@ namespace VoucherExpense
             UpdateXmlAttribEncrypted(doc, root, "DataSource", "UserName", UserName);
             UpdateXmlAttribEncrypted(doc, root, "DataSource", "Password", Password);
             UpdateXmlAttribEncrypted(doc, root, "DataSource", "BackupDir", BackupDir);
-            doc.Save("HardwareCfg.xml");
+            doc.Save(CfgFileName);
         }
 
         protected void UpdateXmlText(XmlDocument xml, XmlNode root, string Name, string Text)

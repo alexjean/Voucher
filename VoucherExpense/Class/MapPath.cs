@@ -15,7 +15,8 @@ namespace VoucherExpense
         static public OleDbConnection BasicConnection = new OleDbConnection(global::VoucherExpense.Properties.Settings.Default.BasicDataConnectionString);
         const string HeadStr = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=";
         const string TailStr = ";Persist Security Info=True;Jet OLEDB:Database Password=";
-
+        static public string VoucherPass = "CalcVoucher";
+        static public string BasicPass = "love";
         static public string ConnectString(string path, string password)
         {
             return HeadStr + path + TailStr + password; 
@@ -109,8 +110,7 @@ namespace VoucherExpense
             {
                 timer1.Stop();
                 progressBar1.Visible = false;
-                string VoucherPass = "CalcVoucher";
-                string BasicPass = "love";
+                
                 MapPath.SetVEConnectionString(m_Cfg.DataDir + "\\" + "VoucherExpense.mdb", VoucherPass + "888");
                 MapPath.SetBasicConnectionString(m_Cfg.DataDir + "\\" + "BasicData.mdb", BasicPass + "you");
             }

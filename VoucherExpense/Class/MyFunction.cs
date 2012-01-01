@@ -407,7 +407,7 @@ namespace VoucherExpense
         static public int IntHeaderMonth = 1;
         static public bool LockAll = true;
 
-        static private bool Decompress(byte[] source, string destination)
+        static public bool Decompress(byte[] source, string destination)
         {
             if ((source == null) || source.Length < 6) return false;
             MemoryStream sourceStream = null;

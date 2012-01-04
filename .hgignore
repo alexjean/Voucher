@@ -9,3 +9,6 @@ relre:VoucherExpense/bin/Release/*.*
 relre:VoucherExpense/bin/Debug/*.*
 relre:VoucherExpense/obj/*.*
 glob:VoucherExpense.suo
+syntax: glob
+VoucherExpense/Properties/AssemblyInfo.cs.orig
+VoucherExpense/ReportByTitle.cs.orig

@@ -168,15 +168,6 @@ namespace VoucherExpense
             OleDbDataAdapter sourceAdapter  = new OleDbDataAdapter(SelectStr,sourceConn);
             int sourceNo = sourceAdapter.Fill(table);
             foreach (DataRow row in table.Rows) row.SetAdded();
-
-/*
-            string quotedStr = "Select ";
-            foreach (DataColumn col in table.Columns)
-            {
-                quotedStr += ("'" + col.ColumnName + "',");
-            }
-            quotedStr = quotedStr.Substring(0, quotedStr.Length - 1) + " From '" + name + "' Where";
-*/
             OleDbDataAdapter destAdapter = new OleDbDataAdapter(SelectStr,destConn);
             OleDbCommandBuilder builder = new OleDbCommandBuilder(destAdapter);
             builder.QuotePrefix = "[";    // 因為有些ColumnName是保留字,如Password

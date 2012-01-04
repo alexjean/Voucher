@@ -158,6 +158,12 @@
     <Compile Include="FormDateRange.Designer.cs">
       <DependentUpon>FormDateRange.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormEditMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormEditMenu.Designer.cs">
+      <DependentUpon>FormEditMenu.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormHardware.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -299,6 +305,9 @@
     <EmbeddedResource Include="FormDateRange.resx">
       <SubType>Designer</SubType>
       <DependentUpon>FormDateRange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormEditMenu.resx">
+      <DependentUpon>FormEditMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormHardware.resx">
       <DependentUpon>FormHardware.cs</DependentUpon>

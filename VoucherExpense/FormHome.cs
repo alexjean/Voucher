@@ -365,7 +365,7 @@ namespace VoucherExpense
 
         private void 編點菜單ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("編排點菜單和酒水單,功能建構中...");
+            PopupOrRun("點菜單", typeof(FormEditMenu));
         }
 
    

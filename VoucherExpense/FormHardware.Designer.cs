@@ -49,6 +49,7 @@
             this.btnBackup = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.btnFolerBrowse = new System.Windows.Forms.Button();
+            this.labelProgramVersion = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // listBox1
@@ -82,10 +83,12 @@
             "    =>使用權限 移除everyone ,加入 remote 打開所有權限",
             "",
             "8 資料主機的 ShareDocs=>使用權限 移除everyone ,加入 remote 打開所有權限",
-            "   請勿分享其他文件夾, 以避免其他機器以 anonymous 登入.  "});
+            "   請勿分享其他文件夾, 以避免其他機器以 anonymous 登入.  ",
+            "",
+            "9 Win7 遠端因為要Map Network Driver, 必需以系統管理員執行."});
             this.listBox1.Location = new System.Drawing.Point(344, 12);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(536, 436);
+            this.listBox1.Size = new System.Drawing.Size(536, 468);
             this.listBox1.TabIndex = 0;
             this.listBox1.TabStop = false;
             // 
@@ -224,7 +227,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(147, 459);
+            this.btnSave.Location = new System.Drawing.Point(147, 441);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 5;
@@ -234,7 +237,7 @@
             // 
             // textBoxBackupDir
             // 
-            this.textBoxBackupDir.Location = new System.Drawing.Point(446, 459);
+            this.textBoxBackupDir.Location = new System.Drawing.Point(445, 490);
             this.textBoxBackupDir.Name = "textBoxBackupDir";
             this.textBoxBackupDir.Size = new System.Drawing.Size(425, 27);
             this.textBoxBackupDir.TabIndex = 14;
@@ -242,7 +245,7 @@
             // btnBackup
             // 
             this.btnBackup.AutoSize = true;
-            this.btnBackup.Location = new System.Drawing.Point(566, 501);
+            this.btnBackup.Location = new System.Drawing.Point(566, 523);
             this.btnBackup.Name = "btnBackup";
             this.btnBackup.Size = new System.Drawing.Size(98, 26);
             this.btnBackup.TabIndex = 16;
@@ -252,7 +255,7 @@
             // 
             // btnFolerBrowse
             // 
-            this.btnFolerBrowse.Location = new System.Drawing.Point(344, 459);
+            this.btnFolerBrowse.Location = new System.Drawing.Point(343, 490);
             this.btnFolerBrowse.Name = "btnFolerBrowse";
             this.btnFolerBrowse.Size = new System.Drawing.Size(93, 23);
             this.btnFolerBrowse.TabIndex = 17;
@@ -260,12 +263,22 @@
             this.btnFolerBrowse.UseVisualStyleBackColor = true;
             this.btnFolerBrowse.Click += new System.EventHandler(this.btnFolerBrowse_Click);
             // 
+            // labelProgramVersion
+            // 
+            this.labelProgramVersion.AutoSize = true;
+            this.labelProgramVersion.Location = new System.Drawing.Point(79, 497);
+            this.labelProgramVersion.Name = "labelProgramVersion";
+            this.labelProgramVersion.Size = new System.Drawing.Size(114, 16);
+            this.labelProgramVersion.TabIndex = 18;
+            this.labelProgramVersion.Text = "Program Version";
+            // 
             // FormHardware
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(892, 565);
+            this.Controls.Add(this.labelProgramVersion);
             this.Controls.Add(this.btnFolerBrowse);
             this.Controls.Add(this.btnBackup);
             this.Controls.Add(this.textBoxBackupDir);
@@ -318,5 +331,6 @@
         private System.Windows.Forms.Button btnBackup;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.Button btnFolerBrowse;
+        private System.Windows.Forms.Label labelProgramVersion;
     }
 }

@@ -48,6 +48,8 @@ namespace VoucherExpense
             textBoxUserName.Text  = Config.UserName;
             textBoxPassword.Text  = Config.Password;
             textBoxBackupDir.Text = Config.BackupDir;
+
+            labelProgramVersion.Text = "程式版本 "+Application.ProductVersion.ToString();
         }
 
         private void btnSave_Click(object sender, EventArgs e)

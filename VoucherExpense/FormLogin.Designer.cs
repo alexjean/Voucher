@@ -145,6 +145,9 @@
             // 
             this.headerTableAdapter1.ClearBeforeFill = true;
             // 
+            // timer1
+            // 
+            // 
             // FormLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);

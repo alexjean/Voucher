@@ -66,7 +66,7 @@ namespace VoucherExpense
             }
             catch(Exception ex)
             {
-                MessageBox.Show("操作員資料庫讀取錯誤<"+ex.Message+">!無法登入");
+                MessageBox.Show("操作員資料庫讀取錯誤<"+ex.Message+">!  無法登入");
                 Close();
             }
             if (veDataSet1.Operator.Rows.Count == 0)
@@ -173,5 +173,7 @@ namespace VoucherExpense
             }
 #endif
         }
+
+ 
     }
 }

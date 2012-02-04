@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
+using System.IO;
 
 namespace VoucherExpense
 {
@@ -15,6 +16,21 @@ namespace VoucherExpense
         public string Password;
         public bool   IsServer;
         public string BackupDir;
+
+        public string MaskDataDir()
+        {
+            if (DataDir == null) return "";
+            int len=DataDir.Length;
+            if (len==0) return "";
+            string str ;
+            if (DataDir[len - 1] == '\\') len--;
+            str = DataDir.Substring(0, len);
+            int i=str.LastIndexOf('\\')+2;
+            if   (i >= len) i = len - 1;
+            StringBuilder sb= new StringBuilder(str.Substring(0, i));
+            for (; i < len; i++) sb.Append('*');
+            return sb.ToString();
+        }
 
         public HardwareConfig()
         {

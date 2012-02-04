@@ -19,7 +19,10 @@ namespace VoucherExpense
             uint dwFlags = FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS;
             StringBuilder lpBuffer = new StringBuilder(260);
             int count = FormatMessage(dwFlags, IntPtr.Zero, MessageID, 0, lpBuffer, 260, IntPtr.Zero);
-            if (count>  0) return lpBuffer.ToString();
+            if (count > 0)
+            {
+                return lpBuffer.ToString().Trim();
+            }
             return "找不到系統錯誤信息<" + MessageID.ToString() + ">";
         }
 

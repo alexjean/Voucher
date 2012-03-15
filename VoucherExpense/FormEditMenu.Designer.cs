@@ -34,6 +34,7 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.basicDataSet1 = new VoucherExpense.BasicDataSet();
             this.productTableAdapter1 = new VoucherExpense.BasicDataSetTableAdapters.ProductTableAdapter();
+            this.btnEditProduct = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.basicDataSet1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -65,7 +66,7 @@
             // 
             this.listBoxProduct.FormattingEnabled = true;
             this.listBoxProduct.ItemHeight = 16;
-            this.listBoxProduct.Location = new System.Drawing.Point(4, 60);
+            this.listBoxProduct.Location = new System.Drawing.Point(4, 44);
             this.listBoxProduct.Name = "listBoxProduct";
             this.listBoxProduct.Size = new System.Drawing.Size(150, 532);
             this.listBoxProduct.TabIndex = 2;
@@ -73,11 +74,11 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(39, 610);
+            this.btnSave.Location = new System.Drawing.Point(23, 620);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.Size = new System.Drawing.Size(113, 23);
             this.btnSave.TabIndex = 3;
-            this.btnSave.Text = "存檔";
+            this.btnSave.Text = "右方菜單存檔";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
@@ -90,12 +91,23 @@
             // 
             this.productTableAdapter1.ClearBeforeFill = true;
             // 
+            // btnEditProduct
+            // 
+            this.btnEditProduct.Location = new System.Drawing.Point(23, 582);
+            this.btnEditProduct.Name = "btnEditProduct";
+            this.btnEditProduct.Size = new System.Drawing.Size(113, 23);
+            this.btnEditProduct.TabIndex = 4;
+            this.btnEditProduct.Text = "編修菜品";
+            this.btnEditProduct.UseVisualStyleBackColor = true;
+            this.btnEditProduct.Click += new System.EventHandler(this.btnEditProduct_Click);
+            // 
             // FormEditMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SeaShell;
             this.ClientSize = new System.Drawing.Size(910, 673);
+            this.Controls.Add(this.btnEditProduct);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.listBoxProduct);
             this.Controls.Add(this.groupBox1);
@@ -119,5 +131,6 @@
         private System.Windows.Forms.Button btnSave;
         private BasicDataSet basicDataSet1;
         private BasicDataSetTableAdapters.ProductTableAdapter productTableAdapter1;
+        private System.Windows.Forms.Button btnEditProduct;
     }
 }

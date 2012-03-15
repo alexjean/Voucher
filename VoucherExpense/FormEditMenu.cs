@@ -271,5 +271,11 @@ namespace VoucherExpense
             listBoxProduct.Focus();
         }
 
+        private void btnEditProduct_Click(object sender, EventArgs e)
+        {
+            Form form = new EditProduct();
+            form.Show();
+        }
+
     }
 }

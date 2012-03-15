@@ -96,6 +96,12 @@
     <Compile Include="AccountingTitle.Designer.cs">
       <DependentUpon>AccountingTitle.cs</DependentUpon>
     </Compile>
+    <Compile Include="EditProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditProduct.designer.cs">
+      <DependentUpon>EditProduct.cs</DependentUpon>
+    </Compile>
     <Compile Include="BackupData.cs" />
     <Compile Include="BasicDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -281,6 +287,9 @@
     <EmbeddedResource Include="AccountingTitle.resx">
       <SubType>Designer</SubType>
       <DependentUpon>AccountingTitle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditProduct.resx">
+      <DependentUpon>EditProduct.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Employee.resx">
       <SubType>Designer</SubType>

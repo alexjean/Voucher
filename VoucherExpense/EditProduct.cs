@@ -18,7 +18,9 @@ namespace VoucherExpense
 
         private void AddProduct_Load(object sender, EventArgs e)
         {
-            productTableAdapter.Connection = MapPath.BasicConnection;
+            productTableAdapter.Connection  = MapPath.BasicConnection;
+            orderItemTableAdapter.Connection= MapPath.BasicConnection;
+            orderTableAdapter.Connection    = MapPath.BasicConnection;
             this.productTableAdapter.Fill(this.basicDataSet.Product);
             SetControlLengthFromDB(this, basicDataSet.Product);
         }

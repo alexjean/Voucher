@@ -21,7 +21,11 @@ namespace VoucherExpense
             string str;
             if (m_Config.IsServer)  str = "本地";
             else                    str = "遠端";
-            this.Text = str + MyFunction.HeaderYear + "      " + Operator.Name;
+            string name;
+            if (Operator.IsNameNull()) 
+                 name = "操作員" + Operator.OperatorID.ToString();   
+            else name = Operator.Name;
+            this.Text = str + MyFunction.HeaderYear + "      " + name;
             if (MyFunction.LockAll) this.Text += " 鎖定中";
         }
 

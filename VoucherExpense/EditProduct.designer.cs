@@ -72,11 +72,11 @@
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.儲存SToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.DeletetoolStripButton = new System.Windows.Forms.ToolStripButton();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.productTableAdapter = new VoucherExpense.BasicDataSetTableAdapters.ProductTableAdapter();
             this.unitVolumeTextBox = new System.Windows.Forms.TextBox();
             this.unitTextBox = new System.Windows.Forms.TextBox();
-            this.DeletetoolStripButton = new System.Windows.Forms.ToolStripButton();
             this.orderItemTableAdapter = new VoucherExpense.BasicDataSetTableAdapters.OrderItemTableAdapter();
             this.orderTableAdapter = new VoucherExpense.BasicDataSetTableAdapters.OrderTableAdapter();
             codeLabel = new System.Windows.Forms.Label();
@@ -474,6 +474,17 @@
             this.儲存SToolStripButton.Text = "儲存(&S)";
             this.儲存SToolStripButton.Click += new System.EventHandler(this.儲存SToolStripButton_Click);
             // 
+            // DeletetoolStripButton
+            // 
+            this.DeletetoolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.DeletetoolStripButton.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.DeletetoolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("DeletetoolStripButton.Image")));
+            this.DeletetoolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.DeletetoolStripButton.Name = "DeletetoolStripButton";
+            this.DeletetoolStripButton.Size = new System.Drawing.Size(23, 24);
+            this.DeletetoolStripButton.Text = "刪除";
+            this.DeletetoolStripButton.Click += new System.EventHandler(this.DeletetoolStripButton_Click);
+            // 
             // listBox1
             // 
             this.listBox1.BackColor = System.Drawing.SystemColors.Control;
@@ -511,17 +522,6 @@
             this.unitTextBox.Name = "unitTextBox";
             this.unitTextBox.Size = new System.Drawing.Size(148, 27);
             this.unitTextBox.TabIndex = 20;
-            // 
-            // DeletetoolStripButton
-            // 
-            this.DeletetoolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.DeletetoolStripButton.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.DeletetoolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("DeletetoolStripButton.Image")));
-            this.DeletetoolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.DeletetoolStripButton.Name = "DeletetoolStripButton";
-            this.DeletetoolStripButton.Size = new System.Drawing.Size(23, 24);
-            this.DeletetoolStripButton.Text = "toolStripButton1";
-            this.DeletetoolStripButton.Click += new System.EventHandler(this.DeletetoolStripButton_Click);
             // 
             // orderItemTableAdapter
             // 

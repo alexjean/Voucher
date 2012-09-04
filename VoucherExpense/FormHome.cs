@@ -70,7 +70,7 @@ namespace VoucherExpense
             查核傳票MenuItem.Enabled = Op.LockAccVoucher;
             人事MenuItem.Enabled = Op.EditSalary || Op.EditOnDuty;
             考勤MenuItem.Enabled = Op.EditOnDuty;
-            薪資卡MenuItem.Enabled = Op.EditSalary;
+            資料卡MenuItem.Enabled = Op.EditSalary;
             合併傳票MenuItem.Enabled = Op.LockAccVoucher;
 
             if (MyFunction.LockAll)
@@ -372,7 +372,12 @@ namespace VoucherExpense
             PopupOrRun("點菜單", typeof(FormEditMenu));
         }
 
-   
+        private void 資料卡MenuItem_Click(object sender, EventArgs e)
+        {
+            PopupOrRun("人事資料卡", typeof(FormHR));
+        }
+
+    
 
 
 

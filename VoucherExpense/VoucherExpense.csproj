@@ -182,6 +182,12 @@
     <Compile Include="FormHome.Designer.cs">
       <DependentUpon>FormHome.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormHR.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormHR.Designer.cs">
+      <DependentUpon>FormHR.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormImportBankExcel.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -324,6 +330,9 @@
     <EmbeddedResource Include="FormHome.resx">
       <SubType>Designer</SubType>
       <DependentUpon>FormHome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormHR.resx">
+      <DependentUpon>FormHR.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormImportBankExcel.resx">
       <DependentUpon>FormImportBankExcel.cs</DependentUpon>

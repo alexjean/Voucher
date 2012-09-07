@@ -54,6 +54,7 @@ namespace VoucherExpense
             basic.DropDownItems["銀行帳號MenuItem"].Visible = Op.EditBank ;
             basic.DropDownItems["傳票設定MenuItem"].Visible = manager && Op.EditAccountingTitle;  // 經理+編修科目
             basic.DropDownItems["年初開帳MenuItem"].Visible = Op.IsSuper;
+            basic.DropDownItems["編修部門MenuItem"].Visible = Op.IsSuper;
             會計MenuItem.Enabled = manager || Op.EditAccountingTitle;
             轉帳傳票MenuItem.Enabled = Op.EditAccountingTitle;                                    // 傳票和會計科目
 
@@ -375,6 +376,11 @@ namespace VoucherExpense
         private void 資料卡MenuItem_Click(object sender, EventArgs e)
         {
             PopupOrRun("人事資料卡", typeof(FormHR));
+        }
+
+        private void 編修部門ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PopupOrRun("編修部門", typeof(FormApartment));
         }
 
     

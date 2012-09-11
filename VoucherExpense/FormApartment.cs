@@ -21,7 +21,6 @@ namespace VoucherExpense
             this.Validate();
             this.apartmentBindingSource.EndEdit();
             this.apartmentTableAdapter.Update(this.vEDataSet.Apartment);
-
         }
 
         private void FormApartment_Load(object sender, EventArgs e)

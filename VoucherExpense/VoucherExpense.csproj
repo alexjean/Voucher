@@ -441,6 +441,7 @@
     <None Include="Class\EmptyBasic.gz" />
     <None Include="Properties\DataSources\CBankAccountForComboBox.datasource" />
     <None Include="Properties\DataSources\CBankDetail.datasource" />
+    <None Include="Properties\DataSources\CHRType.datasource" />
     <None Include="Properties\DataSources\CMonthBalance.datasource" />
     <None Include="Properties\DataSources\CProduct.datasource" />
     <None Include="Properties\DataSources\CSaleItem.datasource" />
@@ -519,6 +520,7 @@
     <Content Include="Class\Microsoft.Office.Interop.Excel.dll" />
     <Content Include="iconHeart.ico" />
     <Content Include="VoucherExpense.mdb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>

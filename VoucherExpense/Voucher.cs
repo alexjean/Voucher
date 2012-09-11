@@ -58,9 +58,16 @@ namespace VoucherExpense
                         r.LastUpdated = DateTime.Now;
                         r.EndEdit();
                     }
-                vEDataSet.Voucher.Merge(table);
-                voucherTableAdapter.Update(this.vEDataSet.Voucher);
-                vEDataSet.Voucher.AcceptChanges();
+                try
+                {
+                    vEDataSet.Voucher.Merge(table);
+                    voucherTableAdapter.Update(this.vEDataSet.Voucher);
+                    vEDataSet.Voucher.AcceptChanges();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("存Voucher時,ex:" + ex.Message);
+                }
             }
             if (checkMode)  // 查核模式會更新會計科目
             {
@@ -69,9 +76,16 @@ namespace VoucherExpense
             }
             if (detail != null)
             {
-                vEDataSet.VoucherDetail.Merge(detail);
-                voucherDetailTableAdapter.Update(vEDataSet.VoucherDetail);
-                vEDataSet.VoucherDetail.AcceptChanges();
+                try
+                {
+                    vEDataSet.VoucherDetail.Merge(detail);
+                    voucherDetailTableAdapter.Update(vEDataSet.VoucherDetail);
+                    vEDataSet.VoucherDetail.AcceptChanges();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("存VoucherDetail時,ex:" + ex.Message);
+                }
             }
         }
 
@@ -183,31 +197,33 @@ namespace VoucherExpense
             {
                 MessageBox.Show("鎖定中,新增無用");
             }
+            int month = comboBoxMonth.SelectedIndex;
+            if (month < 1 || month > 12)
+            {
+                MessageBox.Show("月份<"+month.ToString()+">有問題, 無法設定內碼!");
+                return;
+            }
+
+            
 //            int count=this.voucherBindingNavigator.PositionItem.
             int ma = MyFunction.MaxNoInDB("ID", vEDataSet.Voucher);
             int i=MyFunction.SetCellMaxNo("columnID", voucherDataGridView,ma);
             if (i > 0)
             {
+                int year = MyFunction.IntHeaderYear;
                 DateTime t=DateTime.Now;
                 this.iDTextBox.Text = i.ToString();
                 entryTimeTextBox.Text = t.ToString();
                 disableDateTimePicker = true;
-                this.dateTimePicker1.Value = new DateTime(t.Year, t.Month, 1);
+                this.dateTimePicker1.Value = new DateTime(year, month, 1);     // 代入的是資料庫的年份,選的月份
                 disableDateTimePicker = false;
                 // 有選月份時,先強設日期,否則在當月看不到
-                int month = comboBoxMonth.SelectedIndex;
-                if (month >= 1 && month <= 12)
-                {
-                    DateTime stockTime = new DateTime(t.Year,month,MyFunction.DayCountOfMonth(month));   // 設成該月最後一天
-                    stockTimeTextBox.Text = stockTime.ToShortDateString();
-                    MessageBox.Show("進貨日期己暫時設定, 請設成正確日期!");
-                }
+                DateTime stockTime = new DateTime(year,month,MyFunction.DayCountOfMonth(month));   // 資料月份,設成該月最後一天
+                stockTimeTextBox.Text = stockTime.ToShortDateString();
                 lockedCheckBox.Checked = false;
-
-            }
-            else
-            {
-                MessageBox.Show("新增有問題, 無法設定內碼!");
+                this.voucherBindingSource.ResetBindings(false);
+                voucherVoucherDetailBindingSource.ResetBindings(false);   // 刷下面的detail表
+                MessageBox.Show("進貨日期己暫時設定, 請設成正確日期!");
             }
         }
 
@@ -655,7 +671,7 @@ namespace VoucherExpense
         {
             DataGridView view = (DataGridView)sender;
             DataGridViewCell cell=view.Rows[e.RowIndex].Cells[e.ColumnIndex];
-//          MessageBox.Show(string.Format("Data Error on Row{0} Col{1}:{2}", e.RowIndex, e.ColumnIndex,e.Context));
+            MessageBox.Show(string.Format("Detail on Row{0} Col[{1}]:{2}", e.RowIndex, view.Columns[e.ColumnIndex].Name,e.Exception.Message));
         }
 
         private void voucherDetailDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
@@ -757,5 +773,15 @@ namespace VoucherExpense
             row.Selected = true;
           
         }
+
+        private void voucherDetailDataGridView_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+            DataGridViewRow row = e.Row;
+            DataGridViewCell cellID = row.Cells["detailColumnID"];
+            cellID.Value = Guid.NewGuid();
+        }
+
+
+
     }
 }

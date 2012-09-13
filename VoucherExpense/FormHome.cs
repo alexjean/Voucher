@@ -44,6 +44,7 @@ namespace VoucherExpense
                              Op.EditIngredient  | Op.EditVendor | Op.EditBank);
             bool manager = Op.IsManager;
             MyFunction.IsManager = manager;
+            MyFunction.LockHR = Op.LockHR;
             basic.DropDownItems["員工MenuItem"].Enabled     = Op.EditEmployee;
             basic.DropDownItems["操作員MenuItem"].Enabled   = Op.EditOperator;
             basic.DropDownItems["環境設定MenuItem"].Enabled = Op.IsManager;

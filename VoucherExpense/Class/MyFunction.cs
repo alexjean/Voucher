@@ -401,6 +401,7 @@ namespace VoucherExpense
 
         static public int OperatorID { get; set; }
         static public bool IsManager { get; set; }
+        static public bool LockHR    { get; set; }
 
         static public string HeaderYear="2008";
         static public int IntHeaderYear = 2008;

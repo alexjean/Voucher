@@ -50,7 +50,7 @@
             System.Windows.Forms.Label fingerPintNoLabel;
             System.Windows.Forms.Label bankAccoutLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormHR));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.vEDataSet = new VoucherExpense.VEDataSet();
             this.hRBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.hRTableAdapter = new VoucherExpense.VEDataSetTableAdapters.HRTableAdapter();
@@ -94,6 +94,14 @@
             this.lastUpdatedTextBox = new System.Windows.Forms.TextBox();
             this.hRDetailTableAdapter = new VoucherExpense.VEDataSetTableAdapters.HRDetailTableAdapter();
             this.hRDetailDataGridView = new System.Windows.Forms.DataGridView();
+            this.columnDetailID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnApproved = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.hRHRDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.apartmentTableAdapter = new VoucherExpense.VEDataSetTableAdapters.ApartmentTableAdapter();
             this.photoPictureBox = new System.Windows.Forms.PictureBox();
@@ -104,14 +112,6 @@
             this.operatorBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.vEDataSet1 = new VoucherExpense.VEDataSet();
             this.operatorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
-            this.columnDetailID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnApproved = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             employeeIDLabel = new System.Windows.Forms.Label();
             employeeCodeLabel = new System.Windows.Forms.Label();
             employeeNameLabel = new System.Windows.Forms.Label();
@@ -359,14 +359,14 @@
             this.bindingNavigatorSeparator2,
             this.bindingNavigatorAddNewItem,
             this.hRBindingNavigatorSaveItem});
-            this.hRBindingNavigator.Location = new System.Drawing.Point(703, 9);
+            this.hRBindingNavigator.Location = new System.Drawing.Point(704, 9);
             this.hRBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.hRBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
             this.hRBindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
             this.hRBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.hRBindingNavigator.Name = "hRBindingNavigator";
             this.hRBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.hRBindingNavigator.Size = new System.Drawing.Size(249, 25);
+            this.hRBindingNavigator.Size = new System.Drawing.Size(248, 25);
             this.hRBindingNavigator.TabIndex = 0;
             this.hRBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -383,7 +383,7 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 22);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(28, 22);
             this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
@@ -414,7 +414,6 @@
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "位置";
             this.bindingNavigatorPositionItem.AutoSize = false;
-            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("微軟正黑體", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -460,6 +459,7 @@
             // hRDataGridView
             // 
             this.hRDataGridView.AllowUserToAddRows = false;
+            this.hRDataGridView.AllowUserToDeleteRows = false;
             this.hRDataGridView.AllowUserToResizeRows = false;
             this.hRDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
@@ -719,6 +719,62 @@
             this.hRDetailDataGridView.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.hRDetailDataGridView_DefaultValuesNeeded);
             this.hRDetailDataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.hRDetailDataGridView_UserDeletingRow);
             // 
+            // columnDetailID
+            // 
+            this.columnDetailID.DataPropertyName = "ID";
+            this.columnDetailID.HeaderText = "ID";
+            this.columnDetailID.Name = "columnDetailID";
+            this.columnDetailID.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "EmployeeID";
+            this.dataGridViewTextBoxColumn4.HeaderText = "員工內碼";
+            this.dataGridViewTextBoxColumn4.MinimumWidth = 2;
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.Width = 2;
+            // 
+            // columnApproved
+            // 
+            this.columnApproved.DataPropertyName = "Approved";
+            this.columnApproved.HeaderText = "核";
+            this.columnApproved.Name = "columnApproved";
+            this.columnApproved.Width = 48;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "Data";
+            this.dataGridViewTextBoxColumn5.HeaderText = "內容";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.Width = 400;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "EffectiveDate";
+            dataGridViewCellStyle1.Format = "d";
+            dataGridViewCellStyle1.NullValue = null;
+            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridViewTextBoxColumn6.HeaderText = "生效日";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.DataPropertyName = "AppliedID";
+            this.dataGridViewTextBoxColumn7.HeaderText = "申請者";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.DataPropertyName = "ApprovedID";
+            this.dataGridViewTextBoxColumn8.HeaderText = "核可";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.DataPropertyName = "LastUpdated";
+            this.dataGridViewTextBoxColumn9.HeaderText = "更新";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            // 
             // hRHRDetailBindingSource
             // 
             this.hRHRDetailBindingSource.DataMember = "HR_HRDetail";
@@ -798,68 +854,12 @@
             // 
             this.operatorTableAdapter.ClearBeforeFill = true;
             // 
-            // columnDetailID
-            // 
-            this.columnDetailID.DataPropertyName = "ID";
-            this.columnDetailID.HeaderText = "ID";
-            this.columnDetailID.Name = "columnDetailID";
-            this.columnDetailID.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "EmployeeID";
-            this.dataGridViewTextBoxColumn4.HeaderText = "員工內碼";
-            this.dataGridViewTextBoxColumn4.MinimumWidth = 2;
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.Width = 2;
-            // 
-            // columnApproved
-            // 
-            this.columnApproved.DataPropertyName = "Approved";
-            this.columnApproved.HeaderText = "核";
-            this.columnApproved.Name = "columnApproved";
-            this.columnApproved.Width = 48;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "Data";
-            this.dataGridViewTextBoxColumn5.HeaderText = "內容";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.Width = 400;
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "EffectiveDate";
-            dataGridViewCellStyle4.Format = "d";
-            dataGridViewCellStyle4.NullValue = null;
-            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridViewTextBoxColumn6.HeaderText = "生效日";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.DataPropertyName = "AppliedID";
-            this.dataGridViewTextBoxColumn7.HeaderText = "申請者";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.DataPropertyName = "ApprovedID";
-            this.dataGridViewTextBoxColumn8.HeaderText = "核可";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.DataPropertyName = "LastUpdated";
-            this.dataGridViewTextBoxColumn9.HeaderText = "更新";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            // 
             // FormHR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(226)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(961, 794);
+            this.ClientSize = new System.Drawing.Size(961, 750);
             this.Controls.Add(this.keyinIDComboBox);
             this.Controls.Add(bankAccoutLabel);
             this.Controls.Add(this.bankAccoutTextBox);

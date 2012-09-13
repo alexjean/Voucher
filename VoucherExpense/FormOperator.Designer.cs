@@ -34,6 +34,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.operatorBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
+            this.operatorBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.vEDataSet = new VoucherExpense.VEDataSet();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
@@ -45,8 +47,6 @@
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.operatorBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.operatorDataGridView = new System.Windows.Forms.DataGridView();
-            this.operatorBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.vEDataSet = new VoucherExpense.VEDataSet();
             this.operatorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
             this.OperatorID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StopAccount = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -64,15 +64,16 @@
             this.LockAccVoucher = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.EditOnDuty = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.EditSalary = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.LockHR = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.EditBank = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewCheckBoxColumn9 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.IsSuper = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingNavigator)).BeginInit();
             this.operatorBindingNavigator.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.operatorDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.operatorDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // operatorBindingNavigator
@@ -113,6 +114,16 @@
             this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 24);
             this.bindingNavigatorAddNewItem.Text = "加入新的";
             this.bindingNavigatorAddNewItem.Click += new System.EventHandler(this.bindingNavigatorAddNewItem_Click);
+            // 
+            // operatorBindingSource
+            // 
+            this.operatorBindingSource.DataMember = "Operator";
+            this.operatorBindingSource.DataSource = this.vEDataSet;
+            // 
+            // vEDataSet
+            // 
+            this.vEDataSet.DataSetName = "VEDataSet";
+            this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // bindingNavigatorCountItem
             // 
@@ -216,6 +227,7 @@
             this.LockAccVoucher,
             this.EditOnDuty,
             this.EditSalary,
+            this.LockHR,
             this.EditBank,
             this.dataGridViewCheckBoxColumn9,
             this.IsSuper,
@@ -228,18 +240,8 @@
             this.operatorDataGridView.RowTemplate.Height = 24;
             this.operatorDataGridView.Size = new System.Drawing.Size(904, 483);
             this.operatorDataGridView.TabIndex = 1;
-            this.operatorDataGridView.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.operatorDataGridView_RowValidating);
             this.operatorDataGridView.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.operatorDataGridView_CellValidating);
-            // 
-            // operatorBindingSource
-            // 
-            this.operatorBindingSource.DataMember = "Operator";
-            this.operatorBindingSource.DataSource = this.vEDataSet;
-            // 
-            // vEDataSet
-            // 
-            this.vEDataSet.DataSetName = "VEDataSet";
-            this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.operatorDataGridView.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.operatorDataGridView_RowValidating);
             // 
             // operatorTableAdapter
             // 
@@ -359,6 +361,13 @@
             this.EditSalary.Name = "EditSalary";
             this.EditSalary.Width = 32;
             // 
+            // LockHR
+            // 
+            this.LockHR.DataPropertyName = "LockHR";
+            this.LockHR.HeaderText = "核人事";
+            this.LockHR.Name = "LockHR";
+            this.LockHR.Width = 32;
+            // 
             // EditBank
             // 
             this.EditBank.DataPropertyName = "EditBank";
@@ -406,9 +415,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingNavigator)).EndInit();
             this.operatorBindingNavigator.ResumeLayout(false);
             this.operatorBindingNavigator.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.operatorDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.operatorDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -448,6 +457,7 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn LockAccVoucher;
         private System.Windows.Forms.DataGridViewCheckBoxColumn EditOnDuty;
         private System.Windows.Forms.DataGridViewCheckBoxColumn EditSalary;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn LockHR;
         private System.Windows.Forms.DataGridViewCheckBoxColumn EditBank;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn9;
         private System.Windows.Forms.DataGridViewCheckBoxColumn IsSuper;

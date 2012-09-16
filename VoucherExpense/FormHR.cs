@@ -191,9 +191,16 @@ namespace VoucherExpense
             BindingSource source = sender as BindingSource;
             DataRowView rowView = source.Current as DataRowView;
             VEDataSet.HRRow row = rowView.Row as VEDataSet.HRRow;
-            MemoryStream stream = new MemoryStream(row.Photo);
-            Image bmp = Image.FromStream(stream);
-            photoPictureBox.Image = bmp;
+            if (row == null || row.IsPhotoNull())
+            {
+                photoPictureBox.Image = null;
+            }
+            else
+            {
+                MemoryStream stream = new MemoryStream(row.Photo);
+                Image bmp = Image.FromStream(stream);
+                photoPictureBox.Image = bmp;
+            }
         }
 
         string colEffectiveDate = "columnEffectiveDate";

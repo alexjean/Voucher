@@ -16,66 +16,46 @@ namespace VoucherExpense
             InitializeComponent();
         }
 
-        private void onDutyEmployeeBindingNavigatorSaveItem_Click(object sender, EventArgs e)
-        {
-            VEDataSet.OnDutyEmployeeDataTable table = MyFunction.SaveCheck<VEDataSet.OnDutyEmployeeDataTable>(
-                                                        this, this.onDutyEmployeeBindingSource, vEDataSet.OnDutyEmployee);
-            if (table == null) return;
-            foreach (VEDataSet.OnDutyEmployeeRow r in table.Rows)
-            {
-                if (r.RowState == DataRowState.Deleted) continue;
-                r.BeginEdit();
-                r.LastUpdated = DateTime.Now;
-                r.EndEdit();
-            }
-            vEDataSet.OnDutyEmployee.Merge(table);
-            this.onDutyEmployeeTableAdapter.Update(this.vEDataSet.OnDutyEmployee);
-            this.vEDataSet.OnDutyEmployee.AcceptChanges();
-        }
-
         private void FormOnDutyEmployee_Load(object sender, EventArgs e)
         {
-            onDutyDataTableAdapter.Connection       = MapPath.VEConnection;
-            onDutyEmployeeTableAdapter.Connection   = MapPath.VEConnection;
+            this.apartmentTableAdapter.Connection   = MapPath.VEConnection;
+            this.hRTableAdapter.Connection          = MapPath.VEConnection;
+            this.onDutyDataTableAdapter.Connection  = MapPath.VEConnection;
+
+            this.apartmentTableAdapter.Fill(this.vEDataSet.Apartment);
+            this.hRTableAdapter.Fill(this.vEDataSet.HR);
             this.onDutyDataTableAdapter.Fill(this.vEDataSet.OnDutyData);
-            this.onDutyEmployeeTableAdapter.Fill(this.vEDataSet.OnDutyEmployee);
             int index=DateTime.Now.Month - 2;
             if (index<0) index=0;
             this.comboBoxMonth.SelectedIndex = index;
             ckBoxShowAll_CheckedChanged(null,null);
         }
 
-        private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
-        {
-            MyFunction.AddNewItem(dgvOnDutyEmployee, "columnID", "ID", vEDataSet.OnDutyEmployee);
-            DataGridViewRow row = this.dgvOnDutyEmployee.CurrentRow;
-        }
-
         private void dgvOnDutyEmployee_SelectionChanged(object sender, EventArgs e)
         {
             DataGridView view=sender as DataGridView;
-            VEDataSet.OnDutyEmployeeRow er;
+            VEDataSet.HRRow hRRow;
             try
             {
                 DataRowView rv=view.CurrentRow.DataBoundItem as DataRowView;
-                er = rv.Row as VEDataSet.OnDutyEmployeeRow;
+                hRRow = rv.Row as VEDataSet.HRRow;
             }
             catch
             {
                 return;
             }
-            if (er == null) return;
-            if (er.IsOnDutyCodeNull()) return;
-            if (er.IsNameNull()) return;
-            labelName.Text = er.Name;
-            int dutyCode = er.OnDutyCode;
+            if (hRRow == null) return;
+            if (hRRow.IsFingerPintNoNull()) return;
+            if (hRRow.IsEmployeeNameNull()) return;
+            labelName.Text = hRRow.EmployeeName;
+            int dutyCode = hRRow.FingerPintNo;
             int month = comboBoxMonth.SelectedIndex + 1;
             int count = MyFunction.DayCountOfMonth(month);
             string[] str = new string[count];
             for (int i = 0; i < count; i++) str[i] = (i+1).ToString("d2")+"日";
 
             int d, h;
-            VEDataSet.OnDutyDataRow[] rows=er.GetOnDutyDataRows();
+            VEDataSet.OnDutyDataRow[] rows=hRRow.GetOnDutyDataRows();
             foreach (VEDataSet.OnDutyDataRow row in rows)
             {
                 try
@@ -114,9 +94,9 @@ namespace VoucherExpense
         private void ckBoxShowAll_CheckedChanged(object sender, EventArgs e)
         {
             if (ckBoxShowAll.Checked)
-                onDutyEmployeeBindingSource.Filter = "";
+                hRBindingSource.Filter = "";
             else
-                onDutyEmployeeBindingSource.Filter = "IsOnTheJob=true";
+                hRBindingSource.Filter = "InPosition=true";
 //            onDutyEmployeeBindingSource.ResetBindings(false);
         }
 

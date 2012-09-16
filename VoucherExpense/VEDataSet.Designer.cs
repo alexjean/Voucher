@@ -52,8 +52,6 @@ namespace VoucherExpense {
         
         private AccVoucherDataTable tableAccVoucher;
         
-        private OnDutyEmployeeDataTable tableOnDutyEmployee;
-        
         private OnDutyDataDataTable tableOnDutyData;
         
         private ApartmentDataTable tableApartment;
@@ -90,11 +88,11 @@ namespace VoucherExpense {
         
         private global::System.Data.DataRelation relationBankAccountBankDetail;
         
-        private global::System.Data.DataRelation relationOnDutyEmployeeOnDutyData;
-        
         private global::System.Data.DataRelation relationHR_HRDetail;
         
         private global::System.Data.DataRelation relationVoucherVoucherDetail;
+        
+        private global::System.Data.DataRelation relationHR_OnDutyData;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -165,9 +163,6 @@ namespace VoucherExpense {
                 }
                 if ((ds.Tables["AccVoucher"] != null)) {
                     base.Tables.Add(new AccVoucherDataTable(ds.Tables["AccVoucher"]));
-                }
-                if ((ds.Tables["OnDutyEmployee"] != null)) {
-                    base.Tables.Add(new OnDutyEmployeeDataTable(ds.Tables["OnDutyEmployee"]));
                 }
                 if ((ds.Tables["OnDutyData"] != null)) {
                     base.Tables.Add(new OnDutyDataDataTable(ds.Tables["OnDutyData"]));
@@ -343,16 +338,6 @@ namespace VoucherExpense {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public OnDutyEmployeeDataTable OnDutyEmployee {
-            get {
-                return this.tableOnDutyEmployee;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Browsable(false)]
-        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
         public OnDutyDataDataTable OnDutyData {
             get {
                 return this.tableOnDutyData;
@@ -498,9 +483,6 @@ namespace VoucherExpense {
                 if ((ds.Tables["AccVoucher"] != null)) {
                     base.Tables.Add(new AccVoucherDataTable(ds.Tables["AccVoucher"]));
                 }
-                if ((ds.Tables["OnDutyEmployee"] != null)) {
-                    base.Tables.Add(new OnDutyEmployeeDataTable(ds.Tables["OnDutyEmployee"]));
-                }
                 if ((ds.Tables["OnDutyData"] != null)) {
                     base.Tables.Add(new OnDutyDataDataTable(ds.Tables["OnDutyData"]));
                 }
@@ -630,12 +612,6 @@ namespace VoucherExpense {
                     this.tableAccVoucher.InitVars();
                 }
             }
-            this.tableOnDutyEmployee = ((OnDutyEmployeeDataTable)(base.Tables["OnDutyEmployee"]));
-            if ((initTable == true)) {
-                if ((this.tableOnDutyEmployee != null)) {
-                    this.tableOnDutyEmployee.InitVars();
-                }
-            }
             this.tableOnDutyData = ((OnDutyDataDataTable)(base.Tables["OnDutyData"]));
             if ((initTable == true)) {
                 if ((this.tableOnDutyData != null)) {
@@ -674,9 +650,9 @@ namespace VoucherExpense {
             this.relationProductVoucherDetail = this.Relations["ProductVoucherDetail"];
             this.relationIngredientStock1 = this.Relations["IngredientStock1"];
             this.relationBankAccountBankDetail = this.Relations["BankAccountBankDetail"];
-            this.relationOnDutyEmployeeOnDutyData = this.Relations["OnDutyEmployeeOnDutyData"];
             this.relationHR_HRDetail = this.Relations["HR_HRDetail"];
             this.relationVoucherVoucherDetail = this.Relations["VoucherVoucherDetail"];
+            this.relationHR_OnDutyData = this.Relations["HR_OnDutyData"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -715,8 +691,6 @@ namespace VoucherExpense {
             base.Tables.Add(this.tableConfig);
             this.tableAccVoucher = new AccVoucherDataTable();
             base.Tables.Add(this.tableAccVoucher);
-            this.tableOnDutyEmployee = new OnDutyEmployeeDataTable();
-            base.Tables.Add(this.tableOnDutyEmployee);
             this.tableOnDutyData = new OnDutyDataDataTable();
             base.Tables.Add(this.tableOnDutyData);
             this.tableApartment = new ApartmentDataTable();
@@ -781,10 +755,6 @@ namespace VoucherExpense {
                         this.tableBankAccount.IDColumn}, new global::System.Data.DataColumn[] {
                         this.tableBankDetail.BankIDColumn}, false);
             this.Relations.Add(this.relationBankAccountBankDetail);
-            this.relationOnDutyEmployeeOnDutyData = new global::System.Data.DataRelation("OnDutyEmployeeOnDutyData", new global::System.Data.DataColumn[] {
-                        this.tableOnDutyEmployee.OnDutyCodeColumn}, new global::System.Data.DataColumn[] {
-                        this.tableOnDutyData.OnDutyCodeColumn}, false);
-            this.Relations.Add(this.relationOnDutyEmployeeOnDutyData);
             this.relationHR_HRDetail = new global::System.Data.DataRelation("HR_HRDetail", new global::System.Data.DataColumn[] {
                         this.tableHR.EmployeeIDColumn}, new global::System.Data.DataColumn[] {
                         this.tableHRDetail.EmployeeIDColumn}, false);
@@ -793,6 +763,10 @@ namespace VoucherExpense {
                         this.tableVoucher.IDColumn}, new global::System.Data.DataColumn[] {
                         this.tableVoucherDetail.VoIDColumn}, false);
             this.Relations.Add(this.relationVoucherVoucherDetail);
+            this.relationHR_OnDutyData = new global::System.Data.DataRelation("HR_OnDutyData", new global::System.Data.DataColumn[] {
+                        this.tableHR.FingerPintNoColumn}, new global::System.Data.DataColumn[] {
+                        this.tableOnDutyData.OnDutyCodeColumn}, false);
+            this.Relations.Add(this.relationHR_OnDutyData);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -876,12 +850,6 @@ namespace VoucherExpense {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private bool ShouldSerializeAccVoucher() {
-            return false;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private bool ShouldSerializeOnDutyEmployee() {
             return false;
         }
         
@@ -1005,9 +973,6 @@ namespace VoucherExpense {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public delegate void AccVoucherRowChangeEventHandler(object sender, AccVoucherRowChangeEvent e);
-        
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public delegate void OnDutyEmployeeRowChangeEventHandler(object sender, OnDutyEmployeeRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public delegate void OnDutyDataRowChangeEventHandler(object sender, OnDutyDataRowChangeEvent e);
@@ -6502,336 +6467,6 @@ namespace VoucherExpense {
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class OnDutyEmployeeDataTable : global::System.Data.TypedTableBase<OnDutyEmployeeRow> {
-            
-            private global::System.Data.DataColumn columnID;
-            
-            private global::System.Data.DataColumn columnOnDutyCode;
-            
-            private global::System.Data.DataColumn columnTitle;
-            
-            private global::System.Data.DataColumn columnName;
-            
-            private global::System.Data.DataColumn columnIsOnTheJob;
-            
-            private global::System.Data.DataColumn columnLastUpdated;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public OnDutyEmployeeDataTable() {
-                this.TableName = "OnDutyEmployee";
-                this.BeginInit();
-                this.InitClass();
-                this.EndInit();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal OnDutyEmployeeDataTable(global::System.Data.DataTable table) {
-                this.TableName = table.TableName;
-                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
-                    this.CaseSensitive = table.CaseSensitive;
-                }
-                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
-                    this.Locale = table.Locale;
-                }
-                if ((table.Namespace != table.DataSet.Namespace)) {
-                    this.Namespace = table.Namespace;
-                }
-                this.Prefix = table.Prefix;
-                this.MinimumCapacity = table.MinimumCapacity;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected OnDutyEmployeeDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
-                    base(info, context) {
-                this.InitVars();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn IDColumn {
-                get {
-                    return this.columnID;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn OnDutyCodeColumn {
-                get {
-                    return this.columnOnDutyCode;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn TitleColumn {
-                get {
-                    return this.columnTitle;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn NameColumn {
-                get {
-                    return this.columnName;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn IsOnTheJobColumn {
-                get {
-                    return this.columnIsOnTheJob;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn LastUpdatedColumn {
-                get {
-                    return this.columnLastUpdated;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            [global::System.ComponentModel.Browsable(false)]
-            public int Count {
-                get {
-                    return this.Rows.Count;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public OnDutyEmployeeRow this[int index] {
-                get {
-                    return ((OnDutyEmployeeRow)(this.Rows[index]));
-                }
-            }
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event OnDutyEmployeeRowChangeEventHandler OnDutyEmployeeRowChanging;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event OnDutyEmployeeRowChangeEventHandler OnDutyEmployeeRowChanged;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event OnDutyEmployeeRowChangeEventHandler OnDutyEmployeeRowDeleting;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event OnDutyEmployeeRowChangeEventHandler OnDutyEmployeeRowDeleted;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void AddOnDutyEmployeeRow(OnDutyEmployeeRow row) {
-                this.Rows.Add(row);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public OnDutyEmployeeRow AddOnDutyEmployeeRow(int ID, int OnDutyCode, string Title, string Name, bool IsOnTheJob, System.DateTime LastUpdated) {
-                OnDutyEmployeeRow rowOnDutyEmployeeRow = ((OnDutyEmployeeRow)(this.NewRow()));
-                object[] columnValuesArray = new object[] {
-                        ID,
-                        OnDutyCode,
-                        Title,
-                        Name,
-                        IsOnTheJob,
-                        LastUpdated};
-                rowOnDutyEmployeeRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowOnDutyEmployeeRow);
-                return rowOnDutyEmployeeRow;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public OnDutyEmployeeRow FindByID(int ID) {
-                return ((OnDutyEmployeeRow)(this.Rows.Find(new object[] {
-                            ID})));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public override global::System.Data.DataTable Clone() {
-                OnDutyEmployeeDataTable cln = ((OnDutyEmployeeDataTable)(base.Clone()));
-                cln.InitVars();
-                return cln;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override global::System.Data.DataTable CreateInstance() {
-                return new OnDutyEmployeeDataTable();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal void InitVars() {
-                this.columnID = base.Columns["ID"];
-                this.columnOnDutyCode = base.Columns["OnDutyCode"];
-                this.columnTitle = base.Columns["Title"];
-                this.columnName = base.Columns["Name"];
-                this.columnIsOnTheJob = base.Columns["IsOnTheJob"];
-                this.columnLastUpdated = base.Columns["LastUpdated"];
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            private void InitClass() {
-                this.columnID = new global::System.Data.DataColumn("ID", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnID);
-                this.columnOnDutyCode = new global::System.Data.DataColumn("OnDutyCode", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnOnDutyCode);
-                this.columnTitle = new global::System.Data.DataColumn("Title", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTitle);
-                this.columnName = new global::System.Data.DataColumn("Name", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnName);
-                this.columnIsOnTheJob = new global::System.Data.DataColumn("IsOnTheJob", typeof(bool), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnIsOnTheJob);
-                this.columnLastUpdated = new global::System.Data.DataColumn("LastUpdated", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnLastUpdated);
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnID}, true));
-                this.columnID.AllowDBNull = false;
-                this.columnID.Unique = true;
-                this.columnTitle.MaxLength = 10;
-                this.columnName.MaxLength = 10;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public OnDutyEmployeeRow NewOnDutyEmployeeRow() {
-                return ((OnDutyEmployeeRow)(this.NewRow()));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new OnDutyEmployeeRow(builder);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override global::System.Type GetRowType() {
-                return typeof(OnDutyEmployeeRow);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanged(e);
-                if ((this.OnDutyEmployeeRowChanged != null)) {
-                    this.OnDutyEmployeeRowChanged(this, new OnDutyEmployeeRowChangeEvent(((OnDutyEmployeeRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanging(e);
-                if ((this.OnDutyEmployeeRowChanging != null)) {
-                    this.OnDutyEmployeeRowChanging(this, new OnDutyEmployeeRowChangeEvent(((OnDutyEmployeeRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleted(e);
-                if ((this.OnDutyEmployeeRowDeleted != null)) {
-                    this.OnDutyEmployeeRowDeleted(this, new OnDutyEmployeeRowChangeEvent(((OnDutyEmployeeRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleting(e);
-                if ((this.OnDutyEmployeeRowDeleting != null)) {
-                    this.OnDutyEmployeeRowDeleting(this, new OnDutyEmployeeRowChangeEvent(((OnDutyEmployeeRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void RemoveOnDutyEmployeeRow(OnDutyEmployeeRow row) {
-                this.Rows.Remove(row);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
-                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                VEDataSet ds = new VEDataSet();
-                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
-                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
-                any1.MinOccurs = new decimal(0);
-                any1.MaxOccurs = decimal.MaxValue;
-                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any1);
-                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
-                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
-                any2.MinOccurs = new decimal(1);
-                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any2);
-                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
-                attribute1.Name = "namespace";
-                attribute1.FixedValue = ds.Namespace;
-                type.Attributes.Add(attribute1);
-                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
-                attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "OnDutyEmployeeDataTable";
-                type.Attributes.Add(attribute2);
-                type.Particle = sequence;
-                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
-                if (xs.Contains(dsSchema.TargetNamespace)) {
-                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
-                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
-                    try {
-                        global::System.Xml.Schema.XmlSchema schema = null;
-                        dsSchema.Write(s1);
-                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
-                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
-                            s2.SetLength(0);
-                            schema.Write(s2);
-                            if ((s1.Length == s2.Length)) {
-                                s1.Position = 0;
-                                s2.Position = 0;
-                                for (; ((s1.Position != s1.Length) 
-                                            && (s1.ReadByte() == s2.ReadByte())); ) {
-                                    ;
-                                }
-                                if ((s1.Position == s1.Length)) {
-                                    return type;
-                                }
-                            }
-                        }
-                    }
-                    finally {
-                        if ((s1 != null)) {
-                            s1.Close();
-                        }
-                        if ((s2 != null)) {
-                            s2.Close();
-                        }
-                    }
-                }
-                xs.Add(dsSchema);
-                return type;
-            }
-        }
-        
-        /// <summary>
-        ///Represents the strongly named DataTable class.
-        ///</summary>
-        [global::System.Serializable()]
-        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class OnDutyDataDataTable : global::System.Data.TypedTableBase<OnDutyDataRow> {
             
             private global::System.Data.DataColumn columnID;
@@ -6944,15 +6579,15 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public OnDutyDataRow AddOnDutyDataRow(OnDutyEmployeeRow parentOnDutyEmployeeRowByOnDutyEmployeeOnDutyData, System.DateTime TimeMark, string IO2) {
+            public OnDutyDataRow AddOnDutyDataRow(HRRow parentHRRowByHR_OnDutyData, System.DateTime TimeMark, string IO2) {
                 OnDutyDataRow rowOnDutyDataRow = ((OnDutyDataRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         null,
                         TimeMark,
                         IO2};
-                if ((parentOnDutyEmployeeRowByOnDutyEmployeeOnDutyData != null)) {
-                    columnValuesArray[1] = parentOnDutyEmployeeRowByOnDutyEmployeeOnDutyData[1];
+                if ((parentHRRowByHR_OnDutyData != null)) {
+                    columnValuesArray[1] = parentHRRowByHR_OnDutyData[18];
                 }
                 rowOnDutyDataRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowOnDutyDataRow);
@@ -12511,183 +12146,6 @@ namespace VoucherExpense {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class OnDutyEmployeeRow : global::System.Data.DataRow {
-            
-            private OnDutyEmployeeDataTable tableOnDutyEmployee;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal OnDutyEmployeeRow(global::System.Data.DataRowBuilder rb) : 
-                    base(rb) {
-                this.tableOnDutyEmployee = ((OnDutyEmployeeDataTable)(this.Table));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int ID {
-                get {
-                    return ((int)(this[this.tableOnDutyEmployee.IDColumn]));
-                }
-                set {
-                    this[this.tableOnDutyEmployee.IDColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int OnDutyCode {
-                get {
-                    try {
-                        return ((int)(this[this.tableOnDutyEmployee.OnDutyCodeColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("資料表 \'OnDutyEmployee\' 中資料行 \'OnDutyCode\' 的值是 DBNull。", e);
-                    }
-                }
-                set {
-                    this[this.tableOnDutyEmployee.OnDutyCodeColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string Title {
-                get {
-                    try {
-                        return ((string)(this[this.tableOnDutyEmployee.TitleColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("資料表 \'OnDutyEmployee\' 中資料行 \'Title\' 的值是 DBNull。", e);
-                    }
-                }
-                set {
-                    this[this.tableOnDutyEmployee.TitleColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string Name {
-                get {
-                    try {
-                        return ((string)(this[this.tableOnDutyEmployee.NameColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("資料表 \'OnDutyEmployee\' 中資料行 \'Name\' 的值是 DBNull。", e);
-                    }
-                }
-                set {
-                    this[this.tableOnDutyEmployee.NameColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsOnTheJob {
-                get {
-                    try {
-                        return ((bool)(this[this.tableOnDutyEmployee.IsOnTheJobColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("資料表 \'OnDutyEmployee\' 中資料行 \'IsOnTheJob\' 的值是 DBNull。", e);
-                    }
-                }
-                set {
-                    this[this.tableOnDutyEmployee.IsOnTheJobColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public System.DateTime LastUpdated {
-                get {
-                    try {
-                        return ((global::System.DateTime)(this[this.tableOnDutyEmployee.LastUpdatedColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("資料表 \'OnDutyEmployee\' 中資料行 \'LastUpdated\' 的值是 DBNull。", e);
-                    }
-                }
-                set {
-                    this[this.tableOnDutyEmployee.LastUpdatedColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsOnDutyCodeNull() {
-                return this.IsNull(this.tableOnDutyEmployee.OnDutyCodeColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetOnDutyCodeNull() {
-                this[this.tableOnDutyEmployee.OnDutyCodeColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsTitleNull() {
-                return this.IsNull(this.tableOnDutyEmployee.TitleColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetTitleNull() {
-                this[this.tableOnDutyEmployee.TitleColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsNameNull() {
-                return this.IsNull(this.tableOnDutyEmployee.NameColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetNameNull() {
-                this[this.tableOnDutyEmployee.NameColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsIsOnTheJobNull() {
-                return this.IsNull(this.tableOnDutyEmployee.IsOnTheJobColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetIsOnTheJobNull() {
-                this[this.tableOnDutyEmployee.IsOnTheJobColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsLastUpdatedNull() {
-                return this.IsNull(this.tableOnDutyEmployee.LastUpdatedColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetLastUpdatedNull() {
-                this[this.tableOnDutyEmployee.LastUpdatedColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public OnDutyDataRow[] GetOnDutyDataRows() {
-                if ((this.Table.ChildRelations["OnDutyEmployeeOnDutyData"] == null)) {
-                    return new OnDutyDataRow[0];
-                }
-                else {
-                    return ((OnDutyDataRow[])(base.GetChildRows(this.Table.ChildRelations["OnDutyEmployeeOnDutyData"])));
-                }
-            }
-        }
-        
-        /// <summary>
-        ///Represents strongly named DataRow class.
-        ///</summary>
         public partial class OnDutyDataRow : global::System.Data.DataRow {
             
             private OnDutyDataDataTable tableOnDutyData;
@@ -12760,12 +12218,12 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public OnDutyEmployeeRow OnDutyEmployeeRow {
+            public HRRow HRRow {
                 get {
-                    return ((OnDutyEmployeeRow)(this.GetParentRow(this.Table.ParentRelations["OnDutyEmployeeOnDutyData"])));
+                    return ((HRRow)(this.GetParentRow(this.Table.ParentRelations["HR_OnDutyData"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["OnDutyEmployeeOnDutyData"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["HR_OnDutyData"]);
                 }
             }
             
@@ -13511,6 +12969,17 @@ namespace VoucherExpense {
                     return ((HRDetailRow[])(base.GetChildRows(this.Table.ChildRelations["HR_HRDetail"])));
                 }
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public OnDutyDataRow[] GetOnDutyDataRows() {
+                if ((this.Table.ChildRelations["HR_OnDutyData"] == null)) {
+                    return new OnDutyDataRow[0];
+                }
+                else {
+                    return ((OnDutyDataRow[])(base.GetChildRows(this.Table.ChildRelations["HR_OnDutyData"])));
+                }
+            }
         }
         
         /// <summary>
@@ -14208,40 +13677,6 @@ namespace VoucherExpense {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public AccVoucherRow Row {
-                get {
-                    return this.eventRow;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataRowAction Action {
-                get {
-                    return this.eventAction;
-                }
-            }
-        }
-        
-        /// <summary>
-        ///Row event argument class
-        ///</summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public class OnDutyEmployeeRowChangeEvent : global::System.EventArgs {
-            
-            private OnDutyEmployeeRow eventRow;
-            
-            private global::System.Data.DataRowAction eventAction;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public OnDutyEmployeeRowChangeEvent(OnDutyEmployeeRow row, global::System.Data.DataRowAction action) {
-                this.eventRow = row;
-                this.eventAction = action;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public OnDutyEmployeeRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -20807,439 +20242,6 @@ namespace VoucherExpense.VEDataSetTableAdapters {
                     global::System.Nullable<int> IndentureID, 
                     global::System.Nullable<int> Original_ID) {
             return this.Update(Original_ID, AccVoucherID, ApplierID, AccVoucherTime, IsDebt0, IsDebt1, IsDebt2, IsDebt3, Money0, Money1, Money2, Money3, Note, AuthorizeID, KeyinID, Removed, Locked, LastUpdated, TitleCode0, TitleCode1, TitleCode2, TitleCode3, IndentureID, Original_ID);
-        }
-    }
-    
-    /// <summary>
-    ///Represents the connection and commands used to retrieve and save data.
-    ///</summary>
-    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
-    [global::System.ComponentModel.ToolboxItem(true)]
-    [global::System.ComponentModel.DataObjectAttribute(true)]
-    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
-        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
-    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class OnDutyEmployeeTableAdapter : global::System.ComponentModel.Component {
-        
-        private global::System.Data.OleDb.OleDbDataAdapter _adapter;
-        
-        private global::System.Data.OleDb.OleDbConnection _connection;
-        
-        private global::System.Data.OleDb.OleDbCommand[] _commandCollection;
-        
-        private bool _clearBeforeFill;
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public OnDutyEmployeeTableAdapter() {
-            this.ClearBeforeFill = true;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private global::System.Data.OleDb.OleDbDataAdapter Adapter {
-            get {
-                if ((this._adapter == null)) {
-                    this.InitAdapter();
-                }
-                return this._adapter;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        internal global::System.Data.OleDb.OleDbConnection Connection {
-            get {
-                if ((this._connection == null)) {
-                    this.InitConnection();
-                }
-                return this._connection;
-            }
-            set {
-                this._connection = value;
-                if ((this.Adapter.InsertCommand != null)) {
-                    this.Adapter.InsertCommand.Connection = value;
-                }
-                if ((this.Adapter.DeleteCommand != null)) {
-                    this.Adapter.DeleteCommand.Connection = value;
-                }
-                if ((this.Adapter.UpdateCommand != null)) {
-                    this.Adapter.UpdateCommand.Connection = value;
-                }
-                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
-                    if ((this.CommandCollection[i] != null)) {
-                        ((global::System.Data.OleDb.OleDbCommand)(this.CommandCollection[i])).Connection = value;
-                    }
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        protected global::System.Data.OleDb.OleDbCommand[] CommandCollection {
-            get {
-                if ((this._commandCollection == null)) {
-                    this.InitCommandCollection();
-                }
-                return this._commandCollection;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public bool ClearBeforeFill {
-            get {
-                return this._clearBeforeFill;
-            }
-            set {
-                this._clearBeforeFill = value;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private void InitAdapter() {
-            this._adapter = new global::System.Data.OleDb.OleDbDataAdapter();
-            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
-            tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "OnDutyEmployee";
-            tableMapping.ColumnMappings.Add("ID", "ID");
-            tableMapping.ColumnMappings.Add("OnDutyCode", "OnDutyCode");
-            tableMapping.ColumnMappings.Add("Title", "Title");
-            tableMapping.ColumnMappings.Add("Name", "Name");
-            tableMapping.ColumnMappings.Add("IsOnTheJob", "IsOnTheJob");
-            tableMapping.ColumnMappings.Add("LastUpdated", "LastUpdated");
-            this._adapter.TableMappings.Add(tableMapping);
-            this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
-            this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `OnDutyEmployee` WHERE ((`ID` = ?) AND ((? = 1 AND `OnDutyCode` IS NULL) OR (`OnDutyCode` = ?)) AND ((? = 1 AND `Title` IS NULL) OR (`Title` = ?)) AND ((? = 1 AND `Name` IS NULL) OR (`Name` = ?)) AND ((? = 1 AND `IsOnTheJob` IS NULL) OR (`IsOnTheJob` = ?)) AND ((? = 1 AND `LastUpdated` IS NULL) OR (`LastUpdated` = ?)))";
-            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_OnDutyCode", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OnDutyCode", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_OnDutyCode", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OnDutyCode", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Title", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Title", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Title", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Title", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Name", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Name", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Name", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Name", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_IsOnTheJob", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IsOnTheJob", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_IsOnTheJob", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IsOnTheJob", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_LastUpdated", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LastUpdated", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_LastUpdated", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LastUpdated", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
-            this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO `OnDutyEmployee` (`ID`, `OnDutyCode`, `Title`, `Name`, `IsOnTheJob`, " +
-                "`LastUpdated`) VALUES (?, ?, ?, ?, ?, ?)";
-            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("OnDutyCode", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OnDutyCode", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Title", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Title", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Name", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Name", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsOnTheJob", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IsOnTheJob", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("LastUpdated", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LastUpdated", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
-            this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE `OnDutyEmployee` SET `ID` = ?, `OnDutyCode` = ?, `Title` = ?, `Name` = ?, `IsOnTheJob` = ?, `LastUpdated` = ? WHERE ((`ID` = ?) AND ((? = 1 AND `OnDutyCode` IS NULL) OR (`OnDutyCode` = ?)) AND ((? = 1 AND `Title` IS NULL) OR (`Title` = ?)) AND ((? = 1 AND `Name` IS NULL) OR (`Name` = ?)) AND ((? = 1 AND `IsOnTheJob` IS NULL) OR (`IsOnTheJob` = ?)) AND ((? = 1 AND `LastUpdated` IS NULL) OR (`LastUpdated` = ?)))";
-            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("OnDutyCode", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OnDutyCode", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Title", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Title", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Name", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Name", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsOnTheJob", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IsOnTheJob", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("LastUpdated", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LastUpdated", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_OnDutyCode", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OnDutyCode", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_OnDutyCode", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OnDutyCode", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Title", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Title", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Title", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Title", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Name", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Name", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Name", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Name", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_IsOnTheJob", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IsOnTheJob", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_IsOnTheJob", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IsOnTheJob", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_LastUpdated", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LastUpdated", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_LastUpdated", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LastUpdated", global::System.Data.DataRowVersion.Original, false, null));
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private void InitConnection() {
-            this._connection = new global::System.Data.OleDb.OleDbConnection();
-            this._connection.ConnectionString = global::VoucherExpense.Properties.Settings.Default.VoucherExpenseConnectionString;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
-            this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
-            this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, OnDutyCode, Title, Name, IsOnTheJob, LastUpdated FROM OnDutyEmployee";
-            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(VEDataSet.OnDutyEmployeeDataTable dataTable) {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual VEDataSet.OnDutyEmployeeDataTable GetData() {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            VEDataSet.OnDutyEmployeeDataTable dataTable = new VEDataSet.OnDutyEmployeeDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(VEDataSet.OnDutyEmployeeDataTable dataTable) {
-            return this.Adapter.Update(dataTable);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(VEDataSet dataSet) {
-            return this.Adapter.Update(dataSet, "OnDutyEmployee");
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(global::System.Data.DataRow dataRow) {
-            return this.Adapter.Update(new global::System.Data.DataRow[] {
-                        dataRow});
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(global::System.Data.DataRow[] dataRows) {
-            return this.Adapter.Update(dataRows);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(global::System.Nullable<int> Original_ID, global::System.Nullable<int> Original_OnDutyCode, string Original_Title, string Original_Name, bool Original_IsOnTheJob, global::System.Nullable<global::System.DateTime> Original_LastUpdated) {
-            if ((Original_ID.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[0].Value = global::System.DBNull.Value;
-            }
-            if ((Original_OnDutyCode.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((int)(Original_OnDutyCode.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            if ((Original_Title == null)) {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((string)(Original_Title));
-            }
-            if ((Original_Name == null)) {
-                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[6].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[6].Value = ((string)(Original_Name));
-            }
-            this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(0));
-            this.Adapter.DeleteCommand.Parameters[8].Value = ((bool)(Original_IsOnTheJob));
-            if ((Original_LastUpdated.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[10].Value = ((System.DateTime)(Original_LastUpdated.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[10].Value = global::System.DBNull.Value;
-            }
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
-            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.DeleteCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.DeleteCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(global::System.Nullable<int> ID, global::System.Nullable<int> OnDutyCode, string Title, string Name, bool IsOnTheJob, global::System.Nullable<global::System.DateTime> LastUpdated) {
-            if ((ID.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[0].Value = ((int)(ID.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
-            }
-            if ((OnDutyCode.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((int)(OnDutyCode.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            if ((Title == null)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(Title));
-            }
-            if ((Name == null)) {
-                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(Name));
-            }
-            this.Adapter.InsertCommand.Parameters[4].Value = ((bool)(IsOnTheJob));
-            if ((LastUpdated.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[5].Value = ((System.DateTime)(LastUpdated.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
-            }
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
-            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.InsertCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.InsertCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(global::System.Nullable<int> ID, global::System.Nullable<int> OnDutyCode, string Title, string Name, bool IsOnTheJob, global::System.Nullable<global::System.DateTime> LastUpdated, global::System.Nullable<int> Original_ID, global::System.Nullable<int> Original_OnDutyCode, string Original_Title, string Original_Name, bool Original_IsOnTheJob, global::System.Nullable<global::System.DateTime> Original_LastUpdated) {
-            if ((ID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(ID.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
-            }
-            if ((OnDutyCode.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(OnDutyCode.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            if ((Title == null)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(Title));
-            }
-            if ((Name == null)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(Name));
-            }
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((bool)(IsOnTheJob));
-            if ((LastUpdated.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((System.DateTime)(LastUpdated.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
-            }
-            if ((Original_ID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_ID.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
-            }
-            if ((Original_OnDutyCode.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Original_OnDutyCode.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
-            }
-            if ((Original_Title == null)) {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((string)(Original_Title));
-            }
-            if ((Original_Name == null)) {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((string)(Original_Name));
-            }
-            this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[14].Value = ((bool)(Original_IsOnTheJob));
-            if ((Original_LastUpdated.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[16].Value = ((System.DateTime)(Original_LastUpdated.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[16].Value = global::System.DBNull.Value;
-            }
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
-            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.UpdateCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.UpdateCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(global::System.Nullable<int> OnDutyCode, string Title, string Name, bool IsOnTheJob, global::System.Nullable<global::System.DateTime> LastUpdated, global::System.Nullable<int> Original_ID, global::System.Nullable<int> Original_OnDutyCode, string Original_Title, string Original_Name, bool Original_IsOnTheJob, global::System.Nullable<global::System.DateTime> Original_LastUpdated) {
-            return this.Update(Original_ID, OnDutyCode, Title, Name, IsOnTheJob, LastUpdated, Original_ID, Original_OnDutyCode, Original_Title, Original_Name, Original_IsOnTheJob, Original_LastUpdated);
         }
     }
     

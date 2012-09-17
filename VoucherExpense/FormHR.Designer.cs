@@ -50,7 +50,8 @@
             System.Windows.Forms.Label fingerPintNoLabel;
             System.Windows.Forms.Label bankAccoutLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormHR));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.Label salaryLabel;
             this.vEDataSet = new VoucherExpense.VEDataSet();
             this.hRBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.hRTableAdapter = new VoucherExpense.VEDataSetTableAdapters.HRTableAdapter();
@@ -94,7 +95,16 @@
             this.lastUpdatedTextBox = new System.Windows.Forms.TextBox();
             this.hRDetailTableAdapter = new VoucherExpense.VEDataSetTableAdapters.HRDetailTableAdapter();
             this.hRDetailDataGridView = new System.Windows.Forms.DataGridView();
+            this.columnDetailID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnApproved = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.columnContent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnEffectiveDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnApplier = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.operatorBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.columnApprover = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.operatorBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
+            this.columnLastUpdated = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.hRHRDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.apartmentTableAdapter = new VoucherExpense.VEDataSetTableAdapters.ApartmentTableAdapter();
             this.photoPictureBox = new System.Windows.Forms.PictureBox();
@@ -104,15 +114,7 @@
             this.keyinIDComboBox = new System.Windows.Forms.ComboBox();
             this.operatorBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.operatorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
-            this.operatorBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
-            this.columnDetailID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnApproved = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.columnContent = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnEffectiveDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnApplier = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.columnApprover = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.columnLastUpdated = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.salaryTextBox = new System.Windows.Forms.TextBox();
             employeeIDLabel = new System.Windows.Forms.Label();
             employeeCodeLabel = new System.Windows.Forms.Label();
             employeeNameLabel = new System.Windows.Forms.Label();
@@ -133,6 +135,7 @@
             keyinIDLabel = new System.Windows.Forms.Label();
             fingerPintNoLabel = new System.Windows.Forms.Label();
             bankAccoutLabel = new System.Windows.Forms.Label();
+            salaryLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hRBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hRBindingNavigator)).BeginInit();
@@ -141,10 +144,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.apartmentBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hRDetailDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hRHRDetailBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.photoPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource2)).BeginInit();
             this.SuspendLayout();
             // 
             // employeeIDLabel
@@ -204,7 +207,7 @@
             // marriageLabel
             // 
             marriageLabel.AutoSize = true;
-            marriageLabel.Location = new System.Drawing.Point(611, 164);
+            marriageLabel.Location = new System.Drawing.Point(793, 301);
             marriageLabel.Name = "marriageLabel";
             marriageLabel.Size = new System.Drawing.Size(40, 16);
             marriageLabel.TabIndex = 20;
@@ -213,7 +216,7 @@
             // bloodTypeLabel
             // 
             bloodTypeLabel.AutoSize = true;
-            bloodTypeLabel.Location = new System.Drawing.Point(611, 232);
+            bloodTypeLabel.Location = new System.Drawing.Point(793, 364);
             bloodTypeLabel.Name = "bloodTypeLabel";
             bloodTypeLabel.Size = new System.Drawing.Size(40, 16);
             bloodTypeLabel.TabIndex = 22;
@@ -222,7 +225,7 @@
             // telphoneLabel
             // 
             telphoneLabel.AutoSize = true;
-            telphoneLabel.Location = new System.Drawing.Point(387, 232);
+            telphoneLabel.Location = new System.Drawing.Point(387, 231);
             telphoneLabel.Name = "telphoneLabel";
             telphoneLabel.Size = new System.Drawing.Size(40, 16);
             telphoneLabel.TabIndex = 24;
@@ -240,7 +243,7 @@
             // genderLabel
             // 
             genderLabel.AutoSize = true;
-            genderLabel.Location = new System.Drawing.Point(701, 235);
+            genderLabel.Location = new System.Drawing.Point(793, 396);
             genderLabel.Name = "genderLabel";
             genderLabel.Size = new System.Drawing.Size(40, 16);
             genderLabel.TabIndex = 28;
@@ -258,7 +261,7 @@
             // educationLabel
             // 
             educationLabel.AutoSize = true;
-            educationLabel.Location = new System.Drawing.Point(611, 199);
+            educationLabel.Location = new System.Drawing.Point(793, 331);
             educationLabel.Name = "educationLabel";
             educationLabel.Size = new System.Drawing.Size(40, 16);
             educationLabel.TabIndex = 32;
@@ -362,7 +365,7 @@
             this.bindingNavigatorSeparator2,
             this.bindingNavigatorAddNewItem,
             this.hRBindingNavigatorSaveItem});
-            this.hRBindingNavigator.Location = new System.Drawing.Point(703, 9);
+            this.hRBindingNavigator.Location = new System.Drawing.Point(714, 9);
             this.hRBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.hRBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
             this.hRBindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
@@ -480,7 +483,7 @@
             this.hRDataGridView.Name = "hRDataGridView";
             this.hRDataGridView.RowHeadersVisible = false;
             this.hRDataGridView.RowTemplate.Height = 24;
-            this.hRDataGridView.Size = new System.Drawing.Size(354, 794);
+            this.hRDataGridView.Size = new System.Drawing.Size(354, 860);
             this.hRDataGridView.TabIndex = 1;
             // 
             // columnEmployeeID
@@ -552,12 +555,12 @@
             this.employeeNameTextBox.Location = new System.Drawing.Point(449, 87);
             this.employeeNameTextBox.Name = "employeeNameTextBox";
             this.employeeNameTextBox.Size = new System.Drawing.Size(100, 27);
-            this.employeeNameTextBox.TabIndex = 7;
+            this.employeeNameTextBox.TabIndex = 0;
             // 
             // isManagerCheckBox
             // 
             this.isManagerCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.hRBindingSource, "IsManager", true));
-            this.isManagerCheckBox.Location = new System.Drawing.Point(617, 260);
+            this.isManagerCheckBox.Location = new System.Drawing.Point(616, 160);
             this.isManagerCheckBox.Name = "isManagerCheckBox";
             this.isManagerCheckBox.Size = new System.Drawing.Size(78, 24);
             this.isManagerCheckBox.TabIndex = 11;
@@ -567,10 +570,10 @@
             // inPositionCheckBox
             // 
             this.inPositionCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.hRBindingSource, "InPosition", true));
-            this.inPositionCheckBox.Location = new System.Drawing.Point(704, 262);
+            this.inPositionCheckBox.Location = new System.Drawing.Point(614, 196);
             this.inPositionCheckBox.Name = "inPositionCheckBox";
             this.inPositionCheckBox.Size = new System.Drawing.Size(62, 24);
-            this.inPositionCheckBox.TabIndex = 13;
+            this.inPositionCheckBox.TabIndex = 12;
             this.inPositionCheckBox.Text = "在職";
             this.inPositionCheckBox.UseVisualStyleBackColor = true;
             // 
@@ -580,7 +583,7 @@
             this.idNoTextBox.Location = new System.Drawing.Point(449, 120);
             this.idNoTextBox.Name = "idNoTextBox";
             this.idNoTextBox.Size = new System.Drawing.Size(147, 27);
-            this.idNoTextBox.TabIndex = 15;
+            this.idNoTextBox.TabIndex = 1;
             // 
             // birthdayDateTimePicker
             // 
@@ -590,31 +593,31 @@
             this.birthdayDateTimePicker.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
             this.birthdayDateTimePicker.Name = "birthdayDateTimePicker";
             this.birthdayDateTimePicker.Size = new System.Drawing.Size(147, 27);
-            this.birthdayDateTimePicker.TabIndex = 17;
+            this.birthdayDateTimePicker.TabIndex = 2;
             // 
             // marriageTextBox
             // 
             this.marriageTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.hRBindingSource, "Marriage", true));
-            this.marriageTextBox.Location = new System.Drawing.Point(670, 159);
+            this.marriageTextBox.Location = new System.Drawing.Point(846, 293);
             this.marriageTextBox.Name = "marriageTextBox";
-            this.marriageTextBox.Size = new System.Drawing.Size(116, 27);
-            this.marriageTextBox.TabIndex = 21;
+            this.marriageTextBox.Size = new System.Drawing.Size(103, 27);
+            this.marriageTextBox.TabIndex = 14;
             // 
             // bloodTypeTextBox
             // 
             this.bloodTypeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.hRBindingSource, "BloodType", true));
-            this.bloodTypeTextBox.Location = new System.Drawing.Point(648, 229);
+            this.bloodTypeTextBox.Location = new System.Drawing.Point(846, 361);
             this.bloodTypeTextBox.Name = "bloodTypeTextBox";
-            this.bloodTypeTextBox.Size = new System.Drawing.Size(47, 27);
-            this.bloodTypeTextBox.TabIndex = 23;
+            this.bloodTypeTextBox.Size = new System.Drawing.Size(103, 27);
+            this.bloodTypeTextBox.TabIndex = 16;
             // 
             // telphoneTextBox
             // 
             this.telphoneTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.hRBindingSource, "Telphone", true));
-            this.telphoneTextBox.Location = new System.Drawing.Point(449, 227);
+            this.telphoneTextBox.Location = new System.Drawing.Point(449, 226);
             this.telphoneTextBox.Name = "telphoneTextBox";
             this.telphoneTextBox.Size = new System.Drawing.Size(147, 27);
-            this.telphoneTextBox.TabIndex = 25;
+            this.telphoneTextBox.TabIndex = 4;
             // 
             // mobileTextBox
             // 
@@ -622,15 +625,15 @@
             this.mobileTextBox.Location = new System.Drawing.Point(449, 260);
             this.mobileTextBox.Name = "mobileTextBox";
             this.mobileTextBox.Size = new System.Drawing.Size(147, 27);
-            this.mobileTextBox.TabIndex = 27;
+            this.mobileTextBox.TabIndex = 5;
             // 
             // genderTextBox
             // 
             this.genderTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.hRBindingSource, "Gender", true));
-            this.genderTextBox.Location = new System.Drawing.Point(739, 229);
+            this.genderTextBox.Location = new System.Drawing.Point(846, 392);
             this.genderTextBox.Name = "genderTextBox";
-            this.genderTextBox.Size = new System.Drawing.Size(47, 27);
-            this.genderTextBox.TabIndex = 29;
+            this.genderTextBox.Size = new System.Drawing.Size(103, 27);
+            this.genderTextBox.TabIndex = 17;
             // 
             // addressTextBox
             // 
@@ -638,15 +641,15 @@
             this.addressTextBox.Location = new System.Drawing.Point(449, 326);
             this.addressTextBox.Name = "addressTextBox";
             this.addressTextBox.Size = new System.Drawing.Size(337, 27);
-            this.addressTextBox.TabIndex = 31;
+            this.addressTextBox.TabIndex = 7;
             // 
             // educationTextBox
             // 
             this.educationTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.hRBindingSource, "Education", true));
-            this.educationTextBox.Location = new System.Drawing.Point(670, 194);
+            this.educationTextBox.Location = new System.Drawing.Point(846, 328);
             this.educationTextBox.Name = "educationTextBox";
-            this.educationTextBox.Size = new System.Drawing.Size(116, 27);
-            this.educationTextBox.TabIndex = 33;
+            this.educationTextBox.Size = new System.Drawing.Size(103, 27);
+            this.educationTextBox.TabIndex = 15;
             // 
             // titleTextBox
             // 
@@ -654,7 +657,7 @@
             this.titleTextBox.Location = new System.Drawing.Point(670, 120);
             this.titleTextBox.Name = "titleTextBox";
             this.titleTextBox.Size = new System.Drawing.Size(116, 27);
-            this.titleTextBox.TabIndex = 35;
+            this.titleTextBox.TabIndex = 10;
             // 
             // contactTextBox
             // 
@@ -670,7 +673,7 @@
             this.emergencyTelTextBox.Location = new System.Drawing.Point(449, 359);
             this.emergencyTelTextBox.Name = "emergencyTelTextBox";
             this.emergencyTelTextBox.Size = new System.Drawing.Size(147, 27);
-            this.emergencyTelTextBox.TabIndex = 39;
+            this.emergencyTelTextBox.TabIndex = 8;
             // 
             // fingerPintNoTextBox
             // 
@@ -678,7 +681,7 @@
             this.fingerPintNoTextBox.Location = new System.Drawing.Point(449, 194);
             this.fingerPintNoTextBox.Name = "fingerPintNoTextBox";
             this.fingerPintNoTextBox.Size = new System.Drawing.Size(147, 27);
-            this.fingerPintNoTextBox.TabIndex = 44;
+            this.fingerPintNoTextBox.TabIndex = 3;
             // 
             // lastUpdatedTextBox
             // 
@@ -717,7 +720,7 @@
             this.hRDetailDataGridView.Name = "hRDetailDataGridView";
             this.hRDetailDataGridView.RowHeadersWidth = 25;
             this.hRDetailDataGridView.RowTemplate.Height = 24;
-            this.hRDetailDataGridView.Size = new System.Drawing.Size(591, 324);
+            this.hRDetailDataGridView.Size = new System.Drawing.Size(602, 390);
             this.hRDetailDataGridView.TabIndex = 45;
             this.hRDetailDataGridView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.hRDetailDataGridView_CellBeginEdit);
             this.hRDetailDataGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.hRDetailDataGridView_CellValueChanged);
@@ -725,11 +728,91 @@
             this.hRDetailDataGridView.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.hRDetailDataGridView_DefaultValuesNeeded);
             this.hRDetailDataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.hRDetailDataGridView_UserDeletingRow);
             // 
+            // columnDetailID
+            // 
+            this.columnDetailID.DataPropertyName = "ID";
+            this.columnDetailID.HeaderText = "ID";
+            this.columnDetailID.Name = "columnDetailID";
+            this.columnDetailID.ReadOnly = true;
+            this.columnDetailID.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "EmployeeID";
+            this.dataGridViewTextBoxColumn4.HeaderText = "員工內碼";
+            this.dataGridViewTextBoxColumn4.MinimumWidth = 2;
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.Width = 2;
+            // 
+            // columnApproved
+            // 
+            this.columnApproved.DataPropertyName = "Approved";
+            this.columnApproved.HeaderText = "核";
+            this.columnApproved.Name = "columnApproved";
+            this.columnApproved.Width = 48;
+            // 
+            // columnContent
+            // 
+            this.columnContent.DataPropertyName = "Data";
+            this.columnContent.HeaderText = "內容";
+            this.columnContent.Name = "columnContent";
+            this.columnContent.Width = 400;
+            // 
+            // columnEffectiveDate
+            // 
+            this.columnEffectiveDate.DataPropertyName = "EffectiveDate";
+            dataGridViewCellStyle3.Format = "d";
+            dataGridViewCellStyle3.NullValue = null;
+            this.columnEffectiveDate.DefaultCellStyle = dataGridViewCellStyle3;
+            this.columnEffectiveDate.HeaderText = "生效日";
+            this.columnEffectiveDate.Name = "columnEffectiveDate";
+            // 
+            // columnApplier
+            // 
+            this.columnApplier.DataPropertyName = "AppliedID";
+            this.columnApplier.DataSource = this.operatorBindingSource1;
+            this.columnApplier.DisplayMember = "Name";
+            this.columnApplier.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.columnApplier.HeaderText = "申請";
+            this.columnApplier.Name = "columnApplier";
+            this.columnApplier.ReadOnly = true;
+            this.columnApplier.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.columnApplier.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.columnApplier.ValueMember = "OperatorID";
+            this.columnApplier.Width = 72;
+            // 
             // operatorBindingSource1
             // 
             this.operatorBindingSource1.DataMember = "Operator";
             this.operatorBindingSource1.DataSource = this.vEDataSet;
             this.operatorBindingSource1.Filter = "IsManager";
+            // 
+            // columnApprover
+            // 
+            this.columnApprover.DataPropertyName = "ApprovedID";
+            this.columnApprover.DataSource = this.operatorBindingSource2;
+            this.columnApprover.DisplayMember = "Name";
+            this.columnApprover.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.columnApprover.HeaderText = "核可";
+            this.columnApprover.Name = "columnApprover";
+            this.columnApprover.ReadOnly = true;
+            this.columnApprover.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.columnApprover.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.columnApprover.ValueMember = "OperatorID";
+            this.columnApprover.Width = 72;
+            // 
+            // operatorBindingSource2
+            // 
+            this.operatorBindingSource2.DataMember = "Operator";
+            this.operatorBindingSource2.DataSource = this.vEDataSet;
+            // 
+            // columnLastUpdated
+            // 
+            this.columnLastUpdated.DataPropertyName = "LastUpdated";
+            this.columnLastUpdated.HeaderText = "更新";
+            this.columnLastUpdated.Name = "columnLastUpdated";
+            this.columnLastUpdated.ReadOnly = true;
             // 
             // hRHRDetailBindingSource
             // 
@@ -766,11 +849,12 @@
             this.apartmentIDComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.hRBindingSource, "ApartmentID", true));
             this.apartmentIDComboBox.DataSource = this.apartmentBindingSource;
             this.apartmentIDComboBox.DisplayMember = "ApartmentName";
+            this.apartmentIDComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.apartmentIDComboBox.FormattingEnabled = true;
             this.apartmentIDComboBox.Location = new System.Drawing.Point(670, 90);
             this.apartmentIDComboBox.Name = "apartmentIDComboBox";
             this.apartmentIDComboBox.Size = new System.Drawing.Size(116, 24);
-            this.apartmentIDComboBox.TabIndex = 48;
+            this.apartmentIDComboBox.TabIndex = 9;
             this.apartmentIDComboBox.ValueMember = "ApartmentID";
             // 
             // bankAccoutTextBox
@@ -779,7 +863,7 @@
             this.bankAccoutTextBox.Location = new System.Drawing.Point(449, 293);
             this.bankAccoutTextBox.Name = "bankAccoutTextBox";
             this.bankAccoutTextBox.Size = new System.Drawing.Size(337, 27);
-            this.bankAccoutTextBox.TabIndex = 49;
+            this.bankAccoutTextBox.TabIndex = 6;
             // 
             // keyinIDComboBox
             // 
@@ -804,92 +888,33 @@
             // 
             this.operatorTableAdapter.ClearBeforeFill = true;
             // 
-            // operatorBindingSource2
+            // salaryLabel
             // 
-            this.operatorBindingSource2.DataMember = "Operator";
-            this.operatorBindingSource2.DataSource = this.vEDataSet;
+            salaryLabel.AutoSize = true;
+            salaryLabel.Location = new System.Drawing.Point(613, 231);
+            salaryLabel.Name = "salaryLabel";
+            salaryLabel.Size = new System.Drawing.Size(40, 16);
+            salaryLabel.TabIndex = 50;
+            salaryLabel.Text = "薪資";
             // 
-            // columnDetailID
+            // salaryTextBox
             // 
-            this.columnDetailID.DataPropertyName = "ID";
-            this.columnDetailID.HeaderText = "ID";
-            this.columnDetailID.Name = "columnDetailID";
-            this.columnDetailID.ReadOnly = true;
-            this.columnDetailID.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "EmployeeID";
-            this.dataGridViewTextBoxColumn4.HeaderText = "員工內碼";
-            this.dataGridViewTextBoxColumn4.MinimumWidth = 2;
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.Width = 2;
-            // 
-            // columnApproved
-            // 
-            this.columnApproved.DataPropertyName = "Approved";
-            this.columnApproved.HeaderText = "核";
-            this.columnApproved.Name = "columnApproved";
-            this.columnApproved.Width = 48;
-            // 
-            // columnContent
-            // 
-            this.columnContent.DataPropertyName = "Data";
-            this.columnContent.HeaderText = "內容";
-            this.columnContent.Name = "columnContent";
-            this.columnContent.Width = 400;
-            // 
-            // columnEffectiveDate
-            // 
-            this.columnEffectiveDate.DataPropertyName = "EffectiveDate";
-            dataGridViewCellStyle1.Format = "d";
-            dataGridViewCellStyle1.NullValue = null;
-            this.columnEffectiveDate.DefaultCellStyle = dataGridViewCellStyle1;
-            this.columnEffectiveDate.HeaderText = "生效日";
-            this.columnEffectiveDate.Name = "columnEffectiveDate";
-            // 
-            // columnApplier
-            // 
-            this.columnApplier.DataPropertyName = "AppliedID";
-            this.columnApplier.DataSource = this.operatorBindingSource1;
-            this.columnApplier.DisplayMember = "Name";
-            this.columnApplier.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.columnApplier.HeaderText = "申請";
-            this.columnApplier.Name = "columnApplier";
-            this.columnApplier.ReadOnly = true;
-            this.columnApplier.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.columnApplier.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.columnApplier.ValueMember = "OperatorID";
-            this.columnApplier.Width = 72;
-            // 
-            // columnApprover
-            // 
-            this.columnApprover.DataPropertyName = "ApprovedID";
-            this.columnApprover.DataSource = this.operatorBindingSource2;
-            this.columnApprover.DisplayMember = "Name";
-            this.columnApprover.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.columnApprover.HeaderText = "核可";
-            this.columnApprover.Name = "columnApprover";
-            this.columnApprover.ReadOnly = true;
-            this.columnApprover.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.columnApprover.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.columnApprover.ValueMember = "OperatorID";
-            this.columnApprover.Width = 72;
-            // 
-            // columnLastUpdated
-            // 
-            this.columnLastUpdated.DataPropertyName = "LastUpdated";
-            this.columnLastUpdated.HeaderText = "更新";
-            this.columnLastUpdated.Name = "columnLastUpdated";
-            this.columnLastUpdated.ReadOnly = true;
+            this.salaryTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.hRBindingSource, "Salary", true));
+            this.salaryTextBox.Location = new System.Drawing.Point(670, 226);
+            this.salaryTextBox.Name = "salaryTextBox";
+            this.salaryTextBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.salaryTextBox.Size = new System.Drawing.Size(116, 27);
+            this.salaryTextBox.TabIndex = 13;
+            this.salaryTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // FormHR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(226)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(961, 750);
+            this.ClientSize = new System.Drawing.Size(972, 816);
+            this.Controls.Add(salaryLabel);
+            this.Controls.Add(this.salaryTextBox);
             this.Controls.Add(this.keyinIDComboBox);
             this.Controls.Add(bankAccoutLabel);
             this.Controls.Add(this.bankAccoutTextBox);
@@ -951,10 +976,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.apartmentBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.hRDetailDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.hRHRDetailBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.photoPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1024,5 +1049,6 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn columnApplier;
         private System.Windows.Forms.DataGridViewComboBoxColumn columnApprover;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnLastUpdated;
+        private System.Windows.Forms.TextBox salaryTextBox;
     }
 }

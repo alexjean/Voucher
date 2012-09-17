@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.vEDataSet = new VoucherExpense.VEDataSet();
             this.comboBoxMonth = new System.Windows.Forms.ComboBox();
             this.onDutyDataTableAdapter = new VoucherExpense.VEDataSetTableAdapters.OnDutyDataTableAdapter();
@@ -45,16 +46,19 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.hRTableAdapter = new VoucherExpense.VEDataSetTableAdapters.HRTableAdapter();
             this.apartmentTableAdapter = new VoucherExpense.VEDataSetTableAdapters.ApartmentTableAdapter();
-            this.colunmEmployeeID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.comboBoxApartment = new System.Windows.Forms.ComboBox();
+            this.cNameIDForComboBoxBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.employeeIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EmployeeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FingerPintNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.InPosition = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.ApartmentID = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.ColumnApartmentID = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOnDutyEmployee)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.apartmentBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hRBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cNameIDForComboBoxBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // vEDataSet
@@ -102,7 +106,7 @@
             // ckBoxShowAll
             // 
             this.ckBoxShowAll.AutoSize = true;
-            this.ckBoxShowAll.Location = new System.Drawing.Point(146, 5);
+            this.ckBoxShowAll.Location = new System.Drawing.Point(152, 5);
             this.ckBoxShowAll.Name = "ckBoxShowAll";
             this.ckBoxShowAll.Size = new System.Drawing.Size(91, 20);
             this.ckBoxShowAll.TabIndex = 57;
@@ -147,18 +151,22 @@
             // dgvOnDutyEmployee
             // 
             this.dgvOnDutyEmployee.AllowUserToAddRows = false;
+            this.dgvOnDutyEmployee.AllowUserToDeleteRows = false;
+            this.dgvOnDutyEmployee.AllowUserToOrderColumns = true;
             this.dgvOnDutyEmployee.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
+            this.dgvOnDutyEmployee.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvOnDutyEmployee.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvOnDutyEmployee.AutoGenerateColumns = false;
             this.dgvOnDutyEmployee.BackgroundColor = System.Drawing.Color.SeaShell;
             this.dgvOnDutyEmployee.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvOnDutyEmployee.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colunmEmployeeID,
+            this.employeeIDDataGridViewTextBoxColumn,
             this.EmployeeName,
             this.FingerPintNo,
             this.InPosition,
-            this.ApartmentID,
+            this.ColumnApartmentID,
             this.Title});
             this.dgvOnDutyEmployee.DataSource = this.hRBindingSource;
             this.dgvOnDutyEmployee.Location = new System.Drawing.Point(0, 30);
@@ -168,6 +176,7 @@
             this.dgvOnDutyEmployee.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgvOnDutyEmployee.Size = new System.Drawing.Size(444, 620);
             this.dgvOnDutyEmployee.TabIndex = 1;
+            this.dgvOnDutyEmployee.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvOnDutyEmployee_DataError);
             this.dgvOnDutyEmployee.SelectionChanged += new System.EventHandler(this.dgvOnDutyEmployee_SelectionChanged);
             // 
             // apartmentBindingSource
@@ -209,13 +218,32 @@
             // 
             this.apartmentTableAdapter.ClearBeforeFill = true;
             // 
-            // colunmEmployeeID
+            // comboBoxApartment
             // 
-            this.colunmEmployeeID.DataPropertyName = "EmployeeID";
-            this.colunmEmployeeID.HeaderText = "EmployeeID";
-            this.colunmEmployeeID.Name = "colunmEmployeeID";
-            this.colunmEmployeeID.ReadOnly = true;
-            this.colunmEmployeeID.Visible = false;
+            this.comboBoxApartment.DataSource = this.cNameIDForComboBoxBindingSource;
+            this.comboBoxApartment.DisplayMember = "Name";
+            this.comboBoxApartment.DropDownHeight = 216;
+            this.comboBoxApartment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxApartment.FormattingEnabled = true;
+            this.comboBoxApartment.IntegralHeight = false;
+            this.comboBoxApartment.Location = new System.Drawing.Point(0, 3);
+            this.comboBoxApartment.Name = "comboBoxApartment";
+            this.comboBoxApartment.Size = new System.Drawing.Size(108, 24);
+            this.comboBoxApartment.TabIndex = 62;
+            this.comboBoxApartment.ValueMember = "ID";
+            // 
+            // cNameIDForComboBoxBindingSource
+            // 
+            this.cNameIDForComboBoxBindingSource.DataSource = typeof(VoucherExpense.CNameIDForComboBox);
+            // 
+            // employeeIDDataGridViewTextBoxColumn
+            // 
+            this.employeeIDDataGridViewTextBoxColumn.DataPropertyName = "EmployeeID";
+            this.employeeIDDataGridViewTextBoxColumn.HeaderText = "EmployeeID";
+            this.employeeIDDataGridViewTextBoxColumn.MinimumWidth = 2;
+            this.employeeIDDataGridViewTextBoxColumn.Name = "employeeIDDataGridViewTextBoxColumn";
+            this.employeeIDDataGridViewTextBoxColumn.ReadOnly = true;
+            this.employeeIDDataGridViewTextBoxColumn.Width = 2;
             // 
             // EmployeeName
             // 
@@ -236,21 +264,20 @@
             // InPosition
             // 
             this.InPosition.DataPropertyName = "InPosition";
-            this.InPosition.HeaderText = "在職";
+            this.InPosition.HeaderText = "顯示";
             this.InPosition.Name = "InPosition";
-            this.InPosition.ReadOnly = true;
             this.InPosition.Width = 48;
             // 
-            // ApartmentID
+            // ColumnApartmentID
             // 
-            this.ApartmentID.DataPropertyName = "ApartmentID";
-            this.ApartmentID.DataSource = this.apartmentBindingSource;
-            this.ApartmentID.DisplayMember = "ApartmentName";
-            this.ApartmentID.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.ApartmentID.HeaderText = "部門";
-            this.ApartmentID.Name = "ApartmentID";
-            this.ApartmentID.ReadOnly = true;
-            this.ApartmentID.ValueMember = "ApartmentID";
+            this.ColumnApartmentID.DataPropertyName = "ApartmentID";
+            this.ColumnApartmentID.DataSource = this.apartmentBindingSource;
+            this.ColumnApartmentID.DisplayMember = "ApartmentName";
+            this.ColumnApartmentID.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.ColumnApartmentID.HeaderText = "部門";
+            this.ColumnApartmentID.Name = "ColumnApartmentID";
+            this.ColumnApartmentID.ReadOnly = true;
+            this.ColumnApartmentID.ValueMember = "ApartmentID";
             // 
             // Title
             // 
@@ -264,6 +291,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(904, 652);
+            this.Controls.Add(this.comboBoxApartment);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.dgvOnDutyEmployee);
             this.Controls.Add(this.checkedListBox1);
@@ -282,6 +310,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvOnDutyEmployee)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.apartmentBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.hRBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cNameIDForComboBoxBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -305,11 +334,13 @@
         private VEDataSetTableAdapters.HRTableAdapter hRTableAdapter;
         private System.Windows.Forms.BindingSource apartmentBindingSource;
         private VEDataSetTableAdapters.ApartmentTableAdapter apartmentTableAdapter;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colunmEmployeeID;
+        private System.Windows.Forms.ComboBox comboBoxApartment;
+        private System.Windows.Forms.BindingSource cNameIDForComboBoxBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn employeeIDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn EmployeeName;
         private System.Windows.Forms.DataGridViewTextBoxColumn FingerPintNo;
         private System.Windows.Forms.DataGridViewCheckBoxColumn InPosition;
-        private System.Windows.Forms.DataGridViewComboBoxColumn ApartmentID;
+        private System.Windows.Forms.DataGridViewComboBoxColumn ColumnApartmentID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Title;
     }
 }

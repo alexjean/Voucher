@@ -82,7 +82,6 @@
             this.lastUpdatedLabel = new System.Windows.Forms.Label();
             this.authorizeIDComboBox = new System.Windows.Forms.ComboBox();
             this.authorizeBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.employeeTableAdapter = new VoucherExpense.VEDataSetTableAdapters.EmployeeTableAdapter();
             this.noteTextBox = new System.Windows.Forms.TextBox();
             this.applierIDComboBox = new System.Windows.Forms.ComboBox();
             this.employeeBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -111,6 +110,7 @@
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.comboBoxMonth = new System.Windows.Forms.ComboBox();
             this.ckBoxAllowEdit = new System.Windows.Forms.CheckBox();
+            this.hRTableAdapter = new VoucherExpense.VEDataSetTableAdapters.HRTableAdapter();
             accVoucherTimeLabel = new System.Windows.Forms.Label();
             indentureIDLabel = new System.Windows.Forms.Label();
             keyinIDLabel = new System.Windows.Forms.Label();
@@ -573,7 +573,7 @@
             // 
             this.authorizeIDComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.accVoucherBindingSource, "AuthorizeID", true));
             this.authorizeIDComboBox.DataSource = this.authorizeBindingSource;
-            this.authorizeIDComboBox.DisplayMember = "Name";
+            this.authorizeIDComboBox.DisplayMember = "EmployeeName";
             this.authorizeIDComboBox.FormattingEnabled = true;
             this.authorizeIDComboBox.Location = new System.Drawing.Point(791, 445);
             this.authorizeIDComboBox.Name = "authorizeIDComboBox";
@@ -583,13 +583,9 @@
             // 
             // authorizeBindingSource
             // 
-            this.authorizeBindingSource.DataMember = "Employee";
+            this.authorizeBindingSource.DataMember = "HR";
             this.authorizeBindingSource.DataSource = this.vEDataSet;
             this.authorizeBindingSource.Filter = "IsManager=true";
-            // 
-            // employeeTableAdapter
-            // 
-            this.employeeTableAdapter.ClearBeforeFill = true;
             // 
             // noteTextBox
             // 
@@ -604,7 +600,7 @@
             // 
             this.applierIDComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.accVoucherBindingSource, "ApplierID", true));
             this.applierIDComboBox.DataSource = this.employeeBindingSource;
-            this.applierIDComboBox.DisplayMember = "Name";
+            this.applierIDComboBox.DisplayMember = "EmployeeName";
             this.applierIDComboBox.FormattingEnabled = true;
             this.applierIDComboBox.Location = new System.Drawing.Point(621, 445);
             this.applierIDComboBox.Name = "applierIDComboBox";
@@ -614,9 +610,9 @@
             // 
             // employeeBindingSource
             // 
-            this.employeeBindingSource.DataMember = "Employee";
+            this.employeeBindingSource.DataMember = "HR";
             this.employeeBindingSource.DataSource = this.vEDataSet;
-            this.employeeBindingSource.Filter = "IsOnTheJob";
+            this.employeeBindingSource.Filter = "InPosition";
             // 
             // money0TextBox
             // 
@@ -881,6 +877,10 @@
             this.ckBoxAllowEdit.Visible = false;
             this.ckBoxAllowEdit.CheckedChanged += new System.EventHandler(this.ckBoxAllowEdit_CheckedChanged);
             // 
+            // hRTableAdapter
+            // 
+            this.hRTableAdapter.ClearBeforeFill = true;
+            // 
             // FormAccVoucher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -972,7 +972,6 @@
         private System.Windows.Forms.Label lastUpdatedLabel;
         private System.Windows.Forms.ComboBox authorizeIDComboBox;
         private System.Windows.Forms.BindingSource authorizeBindingSource;
-        private VoucherExpense.VEDataSetTableAdapters.EmployeeTableAdapter employeeTableAdapter;
         private System.Windows.Forms.TextBox noteTextBox;
         private System.Windows.Forms.ComboBox applierIDComboBox;
         private System.Windows.Forms.BindingSource employeeBindingSource;
@@ -1011,6 +1010,7 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn TitleCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnTotal;
         private System.Windows.Forms.DataGridViewCheckBoxColumn columnCheck;
+        private VEDataSetTableAdapters.HRTableAdapter hRTableAdapter;
 
     }
 }

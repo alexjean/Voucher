@@ -443,6 +443,7 @@
     <None Include="Properties\DataSources\CBankDetail.datasource" />
     <None Include="Properties\DataSources\CHRType.datasource" />
     <None Include="Properties\DataSources\CMonthBalance.datasource" />
+    <None Include="Properties\DataSources\CNameIDForComboBox.datasource" />
     <None Include="Properties\DataSources\CProduct.datasource" />
     <None Include="Properties\DataSources\CSaleItem.datasource" />
     <None Include="Properties\DataSources\CSelectedVoucher.datasource" />

@@ -42,10 +42,10 @@
             System.Windows.Forms.Label label1;
             System.Windows.Forms.Label label2;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Expense));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.idLabel = new System.Windows.Forms.Label();
             this.labelCredit = new System.Windows.Forms.Label();
             this.expenseBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
@@ -58,18 +58,8 @@
             this.expenseBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.列印PToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.expenseDataGridView = new System.Windows.Forms.DataGridView();
-            this.columnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnRemoved = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.ApplyTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnApplier = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.employeeBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.InnerID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Note = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnMoney = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TitleCode = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.titleBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
-            this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.columnCheck = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.applierBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.authorizeBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.expenseIDTextBox = new System.Windows.Forms.TextBox();
@@ -85,7 +75,6 @@
             this.iDTextBox = new System.Windows.Forms.TextBox();
             this.moneyTextBox = new System.Windows.Forms.TextBox();
             this.noteTextBox = new System.Windows.Forms.TextBox();
-            this.employeeTableAdapter = new VoucherExpense.VEDataSetTableAdapters.EmployeeTableAdapter();
             this.titleTableAdapter = new VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter();
             this.keyinIDComboBox = new System.Windows.Forms.ComboBox();
             this.operatorBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -106,6 +95,17 @@
             this.titleBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.checkBoxAllAccTitle = new System.Windows.Forms.CheckBox();
             this.ckBoxAllowEdit = new System.Windows.Forms.CheckBox();
+            this.hRTableAdapter = new VoucherExpense.VEDataSetTableAdapters.HRTableAdapter();
+            this.columnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnRemoved = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.ApplyTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnApplier = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.InnerID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Note = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnMoney = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TitleCode = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.columnCheck = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             expenseIDLabel = new System.Windows.Forms.Label();
             applierIDLabel = new System.Windows.Forms.Label();
             applyTimeLabel = new System.Windows.Forms.Label();
@@ -296,7 +296,7 @@
             this.expenseBindingNavigator.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.expenseBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
             this.expenseBindingNavigator.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.expenseBindingNavigator.Size = new System.Drawing.Size(166, 27);
+            this.expenseBindingNavigator.Size = new System.Drawing.Size(167, 27);
             this.expenseBindingNavigator.TabIndex = 0;
             this.expenseBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -323,7 +323,7 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(28, 24);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 24);
             this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
@@ -365,18 +365,18 @@
             this.expenseDataGridView.AllowUserToAddRows = false;
             this.expenseDataGridView.AllowUserToDeleteRows = false;
             this.expenseDataGridView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle13.BackColor = System.Drawing.Color.Azure;
-            this.expenseDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Azure;
+            this.expenseDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             this.expenseDataGridView.AutoGenerateColumns = false;
             this.expenseDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.expenseDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.expenseDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.expenseDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.expenseDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.columnID,
@@ -405,92 +405,11 @@
             this.expenseDataGridView.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.expenseDataGridView_RowPrePaint);
             this.expenseDataGridView.SelectionChanged += new System.EventHandler(this.expenseDataGridView_SelectionChanged);
             // 
-            // columnID
-            // 
-            this.columnID.DataPropertyName = "ID";
-            this.columnID.HeaderText = "順序";
-            this.columnID.MinimumWidth = 2;
-            this.columnID.Name = "columnID";
-            this.columnID.ReadOnly = true;
-            this.columnID.Width = 2;
-            // 
-            // columnRemoved
-            // 
-            this.columnRemoved.DataPropertyName = "Removed";
-            this.columnRemoved.HeaderText = "";
-            this.columnRemoved.MinimumWidth = 2;
-            this.columnRemoved.Name = "columnRemoved";
-            this.columnRemoved.ReadOnly = true;
-            this.columnRemoved.Width = 2;
-            // 
-            // ApplyTime
-            // 
-            this.ApplyTime.DataPropertyName = "ApplyTime";
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle15.Format = "M/dd";
-            dataGridViewCellStyle15.NullValue = null;
-            this.ApplyTime.DefaultCellStyle = dataGridViewCellStyle15;
-            this.ApplyTime.HeaderText = "日期";
-            this.ApplyTime.Name = "ApplyTime";
-            this.ApplyTime.Width = 48;
-            // 
-            // columnApplier
-            // 
-            this.columnApplier.DataPropertyName = "ApplierID";
-            this.columnApplier.DataSource = this.employeeBindingSource;
-            this.columnApplier.DisplayMember = "Name";
-            this.columnApplier.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.columnApplier.HeaderText = "申請者";
-            this.columnApplier.Name = "columnApplier";
-            this.columnApplier.ReadOnly = true;
-            this.columnApplier.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.columnApplier.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.columnApplier.ValueMember = "EmployeeID";
-            this.columnApplier.Width = 66;
-            // 
             // employeeBindingSource
             // 
-            this.employeeBindingSource.DataMember = "Employee";
+            this.employeeBindingSource.DataMember = "HR";
             this.employeeBindingSource.DataSource = this.vEDataSet;
-            // 
-            // InnerID
-            // 
-            this.InnerID.DataPropertyName = "InnerID";
-            this.InnerID.HeaderText = "編號";
-            this.InnerID.Name = "InnerID";
-            this.InnerID.Width = 60;
-            // 
-            // Note
-            // 
-            this.Note.DataPropertyName = "Note";
-            this.Note.HeaderText = "摘要";
-            this.Note.Name = "Note";
-            this.Note.Width = 204;
-            // 
-            // columnMoney
-            // 
-            this.columnMoney.DataPropertyName = "Money";
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle16.Format = "N1";
-            dataGridViewCellStyle16.NullValue = null;
-            this.columnMoney.DefaultCellStyle = dataGridViewCellStyle16;
-            this.columnMoney.HeaderText = "金額";
-            this.columnMoney.Name = "columnMoney";
-            this.columnMoney.ReadOnly = true;
-            this.columnMoney.Width = 68;
-            // 
-            // TitleCode
-            // 
-            this.TitleCode.DataPropertyName = "TitleCode";
-            this.TitleCode.DataSource = this.titleBindingSource2;
-            this.TitleCode.DisplayMember = "Name";
-            this.TitleCode.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.TitleCode.HeaderText = "科目";
-            this.TitleCode.Name = "TitleCode";
-            this.TitleCode.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.TitleCode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.TitleCode.ValueMember = "TitleCode";
-            this.TitleCode.Width = 96;
+            this.employeeBindingSource.Filter = "";
             // 
             // titleBindingSource2
             // 
@@ -498,31 +417,15 @@
             this.titleBindingSource2.DataSource = this.vEDataSet;
             this.titleBindingSource2.Filter = "";
             // 
-            // dataGridViewCheckBoxColumn1
-            // 
-            this.dataGridViewCheckBoxColumn1.DataPropertyName = "Paid";
-            this.dataGridViewCheckBoxColumn1.HeaderText = "ok";
-            this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
-            this.dataGridViewCheckBoxColumn1.ReadOnly = true;
-            this.dataGridViewCheckBoxColumn1.Width = 25;
-            // 
-            // columnCheck
-            // 
-            this.columnCheck.DataPropertyName = "Locked";
-            this.columnCheck.HeaderText = "核";
-            this.columnCheck.Name = "columnCheck";
-            this.columnCheck.ReadOnly = true;
-            this.columnCheck.Width = 25;
-            // 
             // applierBindingSource
             // 
-            this.applierBindingSource.DataMember = "Employee";
+            this.applierBindingSource.DataMember = "HR";
             this.applierBindingSource.DataSource = this.vEDataSet;
-            this.applierBindingSource.Filter = "IsOnTheJob";
+            this.applierBindingSource.Filter = "InPosition";
             // 
             // authorizeBindingSource
             // 
-            this.authorizeBindingSource.DataMember = "Employee";
+            this.authorizeBindingSource.DataMember = "HR";
             this.authorizeBindingSource.DataSource = this.vEDataSet;
             this.authorizeBindingSource.Filter = "IsManager=true";
             // 
@@ -587,7 +490,7 @@
             // 
             this.applierIDComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.expenseBindingSource, "ApplierID", true));
             this.applierIDComboBox.DataSource = this.applierBindingSource;
-            this.applierIDComboBox.DisplayMember = "Name";
+            this.applierIDComboBox.DisplayMember = "EmployeeName";
             this.applierIDComboBox.DropDownHeight = 212;
             this.applierIDComboBox.FormattingEnabled = true;
             this.applierIDComboBox.IntegralHeight = false;
@@ -601,7 +504,7 @@
             // 
             this.authorizeIDComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.expenseBindingSource, "AuthorizeID", true));
             this.authorizeIDComboBox.DataSource = this.authorizeBindingSource;
-            this.authorizeIDComboBox.DisplayMember = "Name";
+            this.authorizeIDComboBox.DisplayMember = "EmployeeName";
             this.authorizeIDComboBox.FormattingEnabled = true;
             this.authorizeIDComboBox.Location = new System.Drawing.Point(727, 412);
             this.authorizeIDComboBox.Name = "authorizeIDComboBox";
@@ -662,10 +565,6 @@
             this.noteTextBox.Name = "noteTextBox";
             this.noteTextBox.Size = new System.Drawing.Size(220, 57);
             this.noteTextBox.TabIndex = 5;
-            // 
-            // employeeTableAdapter
-            // 
-            this.employeeTableAdapter.ClearBeforeFill = true;
             // 
             // titleTableAdapter
             // 
@@ -865,6 +764,108 @@
             this.ckBoxAllowEdit.UseVisualStyleBackColor = true;
             this.ckBoxAllowEdit.CheckedChanged += new System.EventHandler(this.ckBoxAllowEdit_CheckedChanged);
             // 
+            // hRTableAdapter
+            // 
+            this.hRTableAdapter.ClearBeforeFill = true;
+            // 
+            // columnID
+            // 
+            this.columnID.DataPropertyName = "ID";
+            this.columnID.HeaderText = "順序";
+            this.columnID.MinimumWidth = 2;
+            this.columnID.Name = "columnID";
+            this.columnID.ReadOnly = true;
+            this.columnID.Width = 2;
+            // 
+            // columnRemoved
+            // 
+            this.columnRemoved.DataPropertyName = "Removed";
+            this.columnRemoved.HeaderText = "";
+            this.columnRemoved.MinimumWidth = 2;
+            this.columnRemoved.Name = "columnRemoved";
+            this.columnRemoved.ReadOnly = true;
+            this.columnRemoved.Width = 2;
+            // 
+            // ApplyTime
+            // 
+            this.ApplyTime.DataPropertyName = "ApplyTime";
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle7.Format = "M/dd";
+            dataGridViewCellStyle7.NullValue = null;
+            this.ApplyTime.DefaultCellStyle = dataGridViewCellStyle7;
+            this.ApplyTime.HeaderText = "日期";
+            this.ApplyTime.Name = "ApplyTime";
+            this.ApplyTime.Width = 48;
+            // 
+            // columnApplier
+            // 
+            this.columnApplier.DataPropertyName = "ApplierID";
+            this.columnApplier.DataSource = this.employeeBindingSource;
+            this.columnApplier.DisplayMember = "EmployeeName";
+            this.columnApplier.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.columnApplier.HeaderText = "申請者";
+            this.columnApplier.Name = "columnApplier";
+            this.columnApplier.ReadOnly = true;
+            this.columnApplier.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.columnApplier.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.columnApplier.ValueMember = "EmployeeID";
+            this.columnApplier.Width = 66;
+            // 
+            // InnerID
+            // 
+            this.InnerID.DataPropertyName = "InnerID";
+            this.InnerID.HeaderText = "編號";
+            this.InnerID.Name = "InnerID";
+            this.InnerID.Width = 60;
+            // 
+            // Note
+            // 
+            this.Note.DataPropertyName = "Note";
+            this.Note.HeaderText = "摘要";
+            this.Note.Name = "Note";
+            this.Note.Width = 204;
+            // 
+            // columnMoney
+            // 
+            this.columnMoney.DataPropertyName = "Money";
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle8.Format = "N1";
+            dataGridViewCellStyle8.NullValue = null;
+            this.columnMoney.DefaultCellStyle = dataGridViewCellStyle8;
+            this.columnMoney.HeaderText = "金額";
+            this.columnMoney.Name = "columnMoney";
+            this.columnMoney.ReadOnly = true;
+            this.columnMoney.Width = 68;
+            // 
+            // TitleCode
+            // 
+            this.TitleCode.DataPropertyName = "TitleCode";
+            this.TitleCode.DataSource = this.titleBindingSource2;
+            this.TitleCode.DisplayMember = "Name";
+            this.TitleCode.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.TitleCode.HeaderText = "科目";
+            this.TitleCode.Name = "TitleCode";
+            this.TitleCode.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.TitleCode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.TitleCode.ValueMember = "TitleCode";
+            this.TitleCode.Width = 96;
+            // 
+            // dataGridViewCheckBoxColumn1
+            // 
+            this.dataGridViewCheckBoxColumn1.DataPropertyName = "Paid";
+            this.dataGridViewCheckBoxColumn1.HeaderText = "ok";
+            this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
+            this.dataGridViewCheckBoxColumn1.ReadOnly = true;
+            this.dataGridViewCheckBoxColumn1.Width = 25;
+            // 
+            // columnCheck
+            // 
+            this.columnCheck.DataPropertyName = "Locked";
+            this.columnCheck.HeaderText = "核";
+            this.columnCheck.Name = "columnCheck";
+            this.columnCheck.ReadOnly = true;
+            this.columnCheck.Width = 25;
+            // 
             // Expense
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -959,7 +960,6 @@
         private System.Windows.Forms.TextBox moneyTextBox;
         private System.Windows.Forms.TextBox noteTextBox;
         private System.Windows.Forms.BindingSource applierBindingSource;
-        private VoucherExpense.VEDataSetTableAdapters.EmployeeTableAdapter employeeTableAdapter;
         private VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter titleTableAdapter;
         private System.Windows.Forms.ComboBox keyinIDComboBox;
         private System.Windows.Forms.BindingSource operatorBindingSource;
@@ -984,6 +984,10 @@
         private System.Windows.Forms.Label labelCredit;
         private System.Windows.Forms.CheckBox checkBoxAllAccTitle;
         private System.Windows.Forms.BindingSource titleBindingSource2;
+        private System.Windows.Forms.BindingSource titleBindingSource;
+        private System.Windows.Forms.CheckBox ckBoxAllowEdit;
+        private System.Windows.Forms.Label idLabel;
+        private VEDataSetTableAdapters.HRTableAdapter hRTableAdapter;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnID;
         private System.Windows.Forms.DataGridViewCheckBoxColumn columnRemoved;
         private System.Windows.Forms.DataGridViewTextBoxColumn ApplyTime;
@@ -994,8 +998,5 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn TitleCode;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
         private System.Windows.Forms.DataGridViewCheckBoxColumn columnCheck;
-        private System.Windows.Forms.BindingSource titleBindingSource;
-        private System.Windows.Forms.CheckBox ckBoxAllowEdit;
-        private System.Windows.Forms.Label idLabel;
     }
 }

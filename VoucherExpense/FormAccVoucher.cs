@@ -58,14 +58,15 @@ namespace VoucherExpense
 
         private void FormAccVoucher_Load(object sender, EventArgs e)
         {
+            // TODO: 這行程式碼會將資料載入 'vEDataSet.HR' 資料表。您可以視需要進行移動或移除。
             // 將預設的Connection指到我要重定的位置
-            employeeTableAdapter.Connection        = MapPath.VEConnection;
+            hRTableAdapter.Connection              = MapPath.VEConnection;
             operatorTableAdapter.Connection        = MapPath.VEConnection;
             accountingTitleTableAdapter.Connection = MapPath.VEConnection;
             accVoucherTableAdapter.Connection      = MapPath.VEConnection;
 
 
-            this.employeeTableAdapter.Fill(this.vEDataSet.Employee);
+            this.hRTableAdapter.Fill(this.vEDataSet.HR);
             this.operatorTableAdapter.Fill(this.vEDataSet.Operator);
             this.accountingTitleTableAdapter.Fill(this.vEDataSet.AccountingTitle);
             this.accVoucherTableAdapter.Fill(this.vEDataSet.AccVoucher);

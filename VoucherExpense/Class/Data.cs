@@ -324,6 +324,22 @@ namespace VoucherExpense
         }
     }
 
+    // FormOnDutyEmployee有用到
+    public class CNameIDForComboBox
+    {
+        public string Name { set; get; }
+        public int ID { set; get; }
+        public CNameIDForComboBox()
+        {
+            Name = ""; ID = 0;
+        }
+        public CNameIDForComboBox(int id, string name)
+        {
+            ID = id; Name = name;
+        }
+    }
+
+
     // 在 SaleSpendRatio.cs和FormSoldIngredients.cs中使用
     public class CSaleItem  
     {

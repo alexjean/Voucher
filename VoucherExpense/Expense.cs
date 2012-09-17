@@ -95,13 +95,13 @@ namespace VoucherExpense
             bankAccountTableAdapter.Connection  = MapPath.VEConnection;
             operatorTableAdapter.Connection     = MapPath.VEConnection;
             titleTableAdapter.Connection        = MapPath.VEConnection;
-            employeeTableAdapter.Connection     = MapPath.VEConnection;
+            hRTableAdapter.Connection     = MapPath.VEConnection;
             expenseTableAdapter.Connection      = MapPath.VEConnection;
             
             this.bankAccountTableAdapter.Fill(this.vEDataSet.BankAccount);
             this.operatorTableAdapter.Fill(this.vEDataSet.Operator);
             this.titleTableAdapter.Fill(this.vEDataSet.AccountingTitle);
-            this.employeeTableAdapter.Fill(this.vEDataSet.Employee);
+            this.hRTableAdapter.Fill(this.vEDataSet.HR);
             this.expenseTableAdapter.Fill(this.vEDataSet.Expense);
             MyFunction.SetControlLengthFromDB(this, vEDataSet.Expense);
             if (checkMode)

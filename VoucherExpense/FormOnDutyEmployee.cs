@@ -16,19 +16,42 @@ namespace VoucherExpense
             InitializeComponent();
         }
 
+
         private void FormOnDutyEmployee_Load(object sender, EventArgs e)
         {
             this.apartmentTableAdapter.Connection   = MapPath.VEConnection;
             this.hRTableAdapter.Connection          = MapPath.VEConnection;
             this.onDutyDataTableAdapter.Connection  = MapPath.VEConnection;
 
-            this.apartmentTableAdapter.Fill(this.vEDataSet.Apartment);
-            this.hRTableAdapter.Fill(this.vEDataSet.HR);
-            this.onDutyDataTableAdapter.Fill(this.vEDataSet.OnDutyData);
+            try
+            {
+                this.apartmentTableAdapter.Fill(this.vEDataSet.Apartment);
+                this.hRTableAdapter.Fill(this.vEDataSet.HR);
+                this.onDutyDataTableAdapter.Fill(this.vEDataSet.OnDutyData);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ex:" + ex.Message);
+            }
             int index=DateTime.Now.Month - 2;
             if (index<0) index=0;
             this.comboBoxMonth.SelectedIndex = index;
             ckBoxShowAll_CheckedChanged(null,null);
+            // 設Apartment
+            List<CNameIDForComboBox> list = new List<CNameIDForComboBox>();
+            if (vEDataSet.Apartment.Rows.Count > 1)               // 多於一個才有全部這個選項
+            {
+                list.Add(new CNameIDForComboBox(0, " "));
+                comboBoxApartment.Enabled = true;
+            }
+            else
+                comboBoxApartment.Enabled = false;
+            foreach (VEDataSet.ApartmentRow row in vEDataSet.Apartment)
+            {
+                if (row.IsApartmentNameNull()) continue;
+                list.Add(new CNameIDForComboBox(row.ApartmentID, row.ApartmentName));
+            }
+            comboBoxApartment.DataSource = list;
         }
 
         private void dgvOnDutyEmployee_SelectionChanged(object sender, EventArgs e)
@@ -186,6 +209,20 @@ namespace VoucherExpense
             labelName.Text="轉檔完成" ;
             MessageBox.Show("轉檔完成! 共成功轉入" + success.ToString() + "筆! 失敗" + error.ToString() + "筆! 重複"+repeat.ToString()+"筆!");
             checkedListBox1.Items.Clear();
+        }
+
+//        string ColApartment = "ColumnApartmentID";
+//        int iColApartment = -1;
+        private void dgvOnDutyEmployee_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            //if (iColApartment < 0)
+            //{
+            //    try { iColApartment = dgvOnDutyEmployee.Columns[ColApartment].Index; }
+            //    catch { }
+            //}
+            //if (iColApartment != e.ColumnIndex) return;
+            //DataGridViewRow row = dgvOnDutyEmployee.Rows[e.RowIndex];
+            //row.Cells[iColApartment].FormattedValue = "******";
         }
     }
 }

@@ -43,7 +43,6 @@ namespace VoucherExpense
         private void FormOperator_Load(object sender, EventArgs e)
         {
             operatorTableAdapter.Connection = MapPath.VEConnection;
-            // TODO: 這行程式碼會將資料載入 'vEDataSet.Operator' 資料表。您可以視需要進行移動或移除。
             this.operatorTableAdapter.Fill(this.vEDataSet.Operator);
             MyFunction.SetFieldLength(operatorDataGridView, vEDataSet.Operator);
         }

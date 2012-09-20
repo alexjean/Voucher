@@ -38,7 +38,6 @@ namespace VoucherExpense
 
         private void Vendor_Load(object sender, EventArgs e)
         {
-            // TODO: 這行程式碼會將資料載入 'vEDataSet.Vendor' 資料表。您可以視需要進行移動或移除。
             vendorTableAdapter.Connection = MapPath.VEConnection;
             this.vendorTableAdapter.Fill(this.vEDataSet.Vendor);
             MyFunction.SetFieldLength(vendorDataGridView, vEDataSet.Vendor);

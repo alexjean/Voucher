@@ -38,7 +38,6 @@ namespace VoucherExpense
 
         private void FormEmployee_Load(object sender, EventArgs e)
         {
-            // TODO: 這行程式碼會將資料載入 'vEDataSet.Employee' 資料表。您可以視需要進行移動或移除。
             employeeTableAdapter.Connection = MapPath.VEConnection;
             this.employeeTableAdapter.Fill(this.vEDataSet.Employee);
             MyFunction.SetFieldLength(employeeDataGridView, vEDataSet.Employee);

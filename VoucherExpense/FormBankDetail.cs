@@ -80,7 +80,6 @@ namespace VoucherExpense
             accountingTitleTableAdapter.Connection  = MapPath.VEConnection;
             bankDetailTableAdapter.Connection       = MapPath.VEConnection;
 
-            // TODO: 這行程式碼會將資料載入 'vEDataSet.BankAccount' 資料表。您可以視需要進行移動或移除。
             this.bankAccountTableAdapter.Fill(this.vEDataSet.BankAccount);
             this.accountingTitleTableAdapter.Fill(this.vEDataSet.AccountingTitle);
             this.bankDetailTableAdapter.Fill(this.vEDataSet.BankDetail);

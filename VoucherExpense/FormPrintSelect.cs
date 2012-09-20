@@ -27,7 +27,6 @@ namespace VoucherExpense
 
         private void FormPrintSelect_Load(object sender, EventArgs e)
         {
-            // TODO: 這行程式碼會將資料載入 'veDataSet1.Vendor' 資料表。您可以視需要進行移動或移除。
             this.vendorTableAdapter.Fill(this.veDataSet1.Vendor);
             dgViewUserSelected.DataSource = m_FormVoucher.m_SelectedVoucher;
             decimal sum = 0;

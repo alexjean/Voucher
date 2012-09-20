@@ -89,7 +89,7 @@ namespace VoucherExpense
             m_OrderAdapter.Connection       = MapPath.BasicConnection;
             m_OrderItemAdapter.Connection   = MapPath.BasicConnection;
             productTableAdapter.Connection  = MapPath.BasicConnection;
-            // TODO: 這行程式碼會將資料載入 'basicDataSet.Product' 資料表。您可以視需要進行移動或移除。
+
             this.productTableAdapter.Fill(this.basicDataSet.Product);
 
             cbBoxMonth.Items.Clear();

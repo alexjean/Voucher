@@ -37,7 +37,11 @@ namespace VoucherExpense
             if (index<0) index=0;
             this.comboBoxMonth.SelectedIndex = index;
             ckBoxShowAll_CheckedChanged(null,null);
-            // 設Apartment
+            comboBoxApartment.DataSource = GetApartmentList();
+        }
+
+        List<CNameIDForComboBox> GetApartmentList()
+        {
             List<CNameIDForComboBox> list = new List<CNameIDForComboBox>();
             if (vEDataSet.Apartment.Rows.Count > 1)               // 多於一個才有全部這個選項
             {
@@ -51,7 +55,7 @@ namespace VoucherExpense
                 if (row.IsApartmentNameNull()) continue;
                 list.Add(new CNameIDForComboBox(row.ApartmentID, row.ApartmentName));
             }
-            comboBoxApartment.DataSource = list;
+            return list;
         }
 
         private void dgvOnDutyEmployee_SelectionChanged(object sender, EventArgs e)

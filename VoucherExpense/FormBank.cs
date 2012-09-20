@@ -25,7 +25,6 @@ namespace VoucherExpense
         {
             accountingTitleTableAdapter.Connection  = MapPath.VEConnection;
             bankAccountTableAdapter.Connection      = MapPath.VEConnection; 
-            // TODO: 這行程式碼會將資料載入 'vEDataSet.AccountingTitle' 資料表。您可以視需要進行移動或移除。
             this.accountingTitleTableAdapter.Fill(this.vEDataSet.AccountingTitle);
             this.bankAccountTableAdapter.Fill(this.vEDataSet.BankAccount);
             MyFunction.SetFieldLength(bankAccountDataGridView, vEDataSet.BankAccount);

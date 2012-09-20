@@ -19,6 +19,18 @@ namespace VoucherExpense
         const string strDay = "Day";
         private void FormShift_Load(object sender, EventArgs e)
         {
+            this.apartmentTableAdapter.Connection = MapPath.VEConnection;
+            this.shiftTableTableAdapter.Connection = MapPath.VEConnection;
+
+            try
+            {
+                this.apartmentTableAdapter.Fill(this.vEDataSet.Apartment);
+                this.shiftTableTableAdapter.Fill(this.vEDataSet.ShiftTable);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ex:" + ex.Message);
+            }
             for (int i = 1; i <= 31; i++)
             {
                 string str = i.ToString("d02");
@@ -40,7 +52,27 @@ namespace VoucherExpense
                     break;
                 }
             }
+            comboBoxApartment.DataSource = GetApartmentList();
         }
+
+        List<CNameIDForComboBox> GetApartmentList()
+        {
+            List<CNameIDForComboBox> list = new List<CNameIDForComboBox>();
+            if (vEDataSet.Apartment.Rows.Count > 1)               // 多於一個才有全部這個選項
+            {
+                list.Add(new CNameIDForComboBox(0, " "));
+                comboBoxApartment.Enabled = true;
+            }
+            else
+                comboBoxApartment.Enabled = false;
+            foreach (VEDataSet.ApartmentRow row in vEDataSet.Apartment)
+            {
+                if (row.IsApartmentNameNull()) continue;
+                list.Add(new CNameIDForComboBox(row.ApartmentID, row.ApartmentName));
+            }
+            return list;
+        }
+
 
         private void comboBoxMonth_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -75,9 +107,62 @@ namespace VoucherExpense
             MessageBox.Show(e.Exception.Message,"DataError!");
         }
 
-        private void FormShift_SizeChanged(object sender, EventArgs e)
+        private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
-            dgvShift.Height = Height - this.comboBoxMonth.Height + this.Top -40;
+            DataGridViewRow row = dgvShift.CurrentRow;
+            DataGridViewCell cell=row.Cells["columnShiftID"];
+            if (cell==null)
+            {
+                MessageBox.Show("程式或資料庫版本錯誤, <dgvShift>沒有<columnShiftID>!");
+                return;
+            }
+            if (Convert.IsDBNull(cell.Value))
+            {
+                cell.Value = Guid.NewGuid();
+            }
         }
+
+        private void 儲存SToolStripButton_Click(object sender, EventArgs e)
+        {
+            if (!this.Validate())
+            {
+                MessageBox.Show("有資料錯誤, 請改好再存!");
+                return;
+            }
+            this.dgvShift.EndEdit();    // 這行一加,現有RowState一定變成Modified (經查是photo惹的禍)
+            VEDataSet.ShiftTableDataTable table = (VEDataSet.ShiftTableDataTable)vEDataSet.ShiftTable.GetChanges();
+//            VEDataSet.HRDetailDataTable detail = (VEDataSet.HRDetailDataTable)vEDataSet.HRDetail.GetChanges();
+            if (table == null )
+//                && detail == null)
+            {
+                MessageBox.Show("沒有改動任何資料! 不用存");
+                return;
+            }
+            // 設定修改人及修改日期
+            if (table != null)
+            {
+                //foreach (VEDataSet.HRRow r in table)
+                //    if (r.RowState != DataRowState.Deleted)
+                //    {
+                //        r.BeginEdit();
+                //        r.KeyinID = MyFunction.OperatorID;
+                //        r.LastUpdated = DateTime.Now;
+                //        r.EndEdit();
+                //    }
+                vEDataSet.ShiftTable.Merge(table);
+                try
+                {
+                    this.shiftTableTableAdapter.Update(this.vEDataSet.ShiftTable);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ex:" + ex.Message);
+                }
+                vEDataSet.ShiftTable.AcceptChanges();
+            }
+
+        }
+
+      
     }
 }

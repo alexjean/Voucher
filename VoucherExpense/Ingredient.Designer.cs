@@ -39,8 +39,8 @@
             System.Windows.Forms.Label canPurchaseLabel;
             System.Windows.Forms.Label titleCodeLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ingredient));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.IngredientBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.IngredientBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -76,6 +76,8 @@
             this.IngredientTableAdapter = new VoucherExpense.VEDataSetTableAdapters.IngredientTableAdapter();
             this.accountingTitleTableAdapter = new VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter();
             this.titleCodeComboBox = new System.Windows.Forms.ComboBox();
+            this.photoPictureBox = new System.Windows.Forms.PictureBox();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             IngredientIDLabel = new System.Windows.Forms.Label();
             codeLabel = new System.Windows.Forms.Label();
             classLabel = new System.Windows.Forms.Label();
@@ -91,6 +93,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.IngredientDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.photoPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // IngredientIDLabel
@@ -208,7 +211,7 @@
             this.IngredientBindingNavigator.Name = "IngredientBindingNavigator";
             this.IngredientBindingNavigator.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.IngredientBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.IngredientBindingNavigator.Size = new System.Drawing.Size(278, 27);
+            this.IngredientBindingNavigator.Size = new System.Drawing.Size(273, 27);
             this.IngredientBindingNavigator.TabIndex = 0;
             this.IngredientBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -226,6 +229,7 @@
             // 
             this.IngredientBindingSource.DataMember = "Ingredient";
             this.IngredientBindingSource.DataSource = this.vEDataSet;
+            this.IngredientBindingSource.CurrentChanged += new System.EventHandler(this.IngredientBindingSource_CurrentChanged);
             // 
             // vEDataSet
             // 
@@ -235,7 +239,7 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(34, 24);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 24);
             this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
@@ -314,8 +318,8 @@
             this.IngredientDataGridView.AllowUserToDeleteRows = false;
             this.IngredientDataGridView.AllowUserToOrderColumns = true;
             this.IngredientDataGridView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
-            this.IngredientDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Azure;
+            this.IngredientDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             this.IngredientDataGridView.AutoGenerateColumns = false;
             this.IngredientDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
             this.IngredientDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -334,7 +338,7 @@
             this.IngredientDataGridView.Name = "IngredientDataGridView";
             this.IngredientDataGridView.RowHeadersWidth = 25;
             this.IngredientDataGridView.RowTemplate.Height = 24;
-            this.IngredientDataGridView.Size = new System.Drawing.Size(617, 641);
+            this.IngredientDataGridView.Size = new System.Drawing.Size(617, 657);
             this.IngredientDataGridView.TabIndex = 1;
             this.IngredientDataGridView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.IngredientDataGridView_CellBeginEdit);
             // 
@@ -401,8 +405,8 @@
             // columnPrice
             // 
             this.columnPrice.DataPropertyName = "Price";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.columnPrice.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.columnPrice.DefaultCellStyle = dataGridViewCellStyle4;
             this.columnPrice.HeaderText = "參考價";
             this.columnPrice.Name = "columnPrice";
             this.columnPrice.Width = 55;
@@ -512,12 +516,33 @@
             this.titleCodeComboBox.TabIndex = 28;
             this.titleCodeComboBox.ValueMember = "TitleCode";
             // 
+            // photoPictureBox
+            // 
+            this.photoPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.photoPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.photoPictureBox.Location = new System.Drawing.Point(659, 421);
+            this.photoPictureBox.Name = "photoPictureBox";
+            this.photoPictureBox.Size = new System.Drawing.Size(223, 215);
+            this.photoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.photoPictureBox.TabIndex = 47;
+            this.photoPictureBox.TabStop = false;
+            this.photoPictureBox.Click += new System.EventHandler(this.photoPictureBox_Click);
+            this.photoPictureBox.DoubleClick += new System.EventHandler(this.photoPictureBox_DoubleClick);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.DefaultExt = "jpg";
+            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.RestoreDirectory = true;
+            this.openFileDialog1.Title = "請選擇本食材的圖片";
+            // 
             // Ingredient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(908, 641);
+            this.ClientSize = new System.Drawing.Size(924, 657);
+            this.Controls.Add(this.photoPictureBox);
             this.Controls.Add(this.titleCodeComboBox);
             this.Controls.Add(titleCodeLabel);
             this.Controls.Add(canPurchaseLabel);
@@ -550,6 +575,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.IngredientDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.photoPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -592,6 +618,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Unit;
         private System.Windows.Forms.DataGridViewComboBoxColumn columnTitleCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnPrice;
+        private System.Windows.Forms.PictureBox photoPictureBox;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
 
     }
 }

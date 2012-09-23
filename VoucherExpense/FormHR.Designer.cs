@@ -49,9 +49,9 @@
             System.Windows.Forms.Label keyinIDLabel;
             System.Windows.Forms.Label fingerPintNoLabel;
             System.Windows.Forms.Label bankAccoutLabel;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormHR));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.Label salaryLabel;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormHR));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.vEDataSet = new VoucherExpense.VEDataSet();
             this.hRBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.hRTableAdapter = new VoucherExpense.VEDataSetTableAdapters.HRTableAdapter();
@@ -329,6 +329,15 @@
             bankAccoutLabel.Size = new System.Drawing.Size(56, 16);
             bankAccoutLabel.TabIndex = 48;
             bankAccoutLabel.Text = "銀行号";
+            // 
+            // salaryLabel
+            // 
+            salaryLabel.AutoSize = true;
+            salaryLabel.Location = new System.Drawing.Point(613, 231);
+            salaryLabel.Name = "salaryLabel";
+            salaryLabel.Size = new System.Drawing.Size(40, 16);
+            salaryLabel.TabIndex = 50;
+            salaryLabel.Text = "薪資";
             // 
             // vEDataSet
             // 
@@ -762,9 +771,9 @@
             // columnEffectiveDate
             // 
             this.columnEffectiveDate.DataPropertyName = "EffectiveDate";
-            dataGridViewCellStyle3.Format = "d";
-            dataGridViewCellStyle3.NullValue = null;
-            this.columnEffectiveDate.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Format = "d";
+            dataGridViewCellStyle1.NullValue = null;
+            this.columnEffectiveDate.DefaultCellStyle = dataGridViewCellStyle1;
             this.columnEffectiveDate.HeaderText = "生效日";
             this.columnEffectiveDate.Name = "columnEffectiveDate";
             // 
@@ -887,15 +896,6 @@
             // operatorTableAdapter
             // 
             this.operatorTableAdapter.ClearBeforeFill = true;
-            // 
-            // salaryLabel
-            // 
-            salaryLabel.AutoSize = true;
-            salaryLabel.Location = new System.Drawing.Point(613, 231);
-            salaryLabel.Name = "salaryLabel";
-            salaryLabel.Size = new System.Drawing.Size(40, 16);
-            salaryLabel.TabIndex = 50;
-            salaryLabel.Text = "薪資";
             // 
             // salaryTextBox
             // 

@@ -40,7 +40,7 @@
             this.操作員MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.環境設定MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.年初開帳MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.編修菜單ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.產品菜單ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.編修部門MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.費用MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.進貨MenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -113,7 +113,7 @@
             this.操作員MenuItem,
             this.環境設定MenuItem,
             this.年初開帳MenuItem,
-            this.編修菜單ToolStripMenuItem,
+            this.產品菜單ToolStripMenuItem,
             this.編修部門MenuItem});
             this.基本資料MenuItem.Name = "基本資料MenuItem";
             this.基本資料MenuItem.Size = new System.Drawing.Size(84, 20);
@@ -185,12 +185,12 @@
             this.年初開帳MenuItem.Text = "年初開帳";
             this.年初開帳MenuItem.Click += new System.EventHandler(this.年初開帳ToolStripMenuItem_Click);
             // 
-            // 編修菜單ToolStripMenuItem
+            // 產品菜單ToolStripMenuItem
             // 
-            this.編修菜單ToolStripMenuItem.Name = "編修菜單ToolStripMenuItem";
-            this.編修菜單ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.編修菜單ToolStripMenuItem.Text = "編修菜單";
-            this.編修菜單ToolStripMenuItem.Click += new System.EventHandler(this.編點菜單ToolStripMenuItem_Click);
+            this.產品菜單ToolStripMenuItem.Name = "產品菜單ToolStripMenuItem";
+            this.產品菜單ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.產品菜單ToolStripMenuItem.Text = "產品菜單";
+            this.產品菜單ToolStripMenuItem.Click += new System.EventHandler(this.編點菜單ToolStripMenuItem_Click);
             // 
             // 編修部門MenuItem
             // 
@@ -518,7 +518,7 @@
         private System.Windows.Forms.ToolStripMenuItem 合併傳票MenuItem;
         private System.Windows.Forms.ToolStripMenuItem 年初開帳MenuItem;
         private System.Windows.Forms.ToolStripMenuItem 排班表MenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 編修菜單ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 產品菜單ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 編修部門MenuItem;
 
     }

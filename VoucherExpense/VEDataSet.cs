@@ -3,9 +3,6 @@
 
     partial class VEDataSet
     {
-
-        partial class OnDutyDataDataTable
-        {
-        }
+ 
     }
 }

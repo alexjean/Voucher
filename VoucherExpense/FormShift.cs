@@ -19,13 +19,19 @@ namespace VoucherExpense
         const string strDay = "Day";
         private void FormShift_Load(object sender, EventArgs e)
         {
-            this.apartmentTableAdapter.Connection = MapPath.VEConnection;
-            this.shiftTableTableAdapter.Connection = MapPath.VEConnection;
+            this.apartmentTableAdapter.Connection   = MapPath.VEConnection;
+            this.shiftTableTableAdapter.Connection  = MapPath.VEConnection;
+            this.shiftDetailTableAdapter.Connection = MapPath.VEConnection;
+            this.hRTableAdapter.Connection          = MapPath.VEConnection;
+            this.operatorTableAdapter.Connection    = MapPath.VEConnection;
 
             try
             {
-                this.apartmentTableAdapter.Fill(this.vEDataSet.Apartment);
+                this.apartmentTableAdapter.Fill (this.vEDataSet.Apartment);
                 this.shiftTableTableAdapter.Fill(this.vEDataSet.ShiftTable);
+                this.shiftDetailTableAdapter.Fill(    vEDataSet.ShiftDetail);
+                this.hRTableAdapter.Fill        (this.vEDataSet.HR);
+                this.operatorTableAdapter.Fill  (this.vEDataSet.Operator);
             }
             catch (Exception ex)
             {
@@ -130,10 +136,10 @@ namespace VoucherExpense
                 return;
             }
             this.dgvShift.EndEdit();    // 這行一加,現有RowState一定變成Modified (經查是photo惹的禍)
-            VEDataSet.ShiftTableDataTable table = (VEDataSet.ShiftTableDataTable)vEDataSet.ShiftTable.GetChanges();
-//            VEDataSet.HRDetailDataTable detail = (VEDataSet.HRDetailDataTable)vEDataSet.HRDetail.GetChanges();
-            if (table == null )
-//                && detail == null)
+            this.dgvShiftDetail.EndEdit();
+            VEDataSet.ShiftTableDataTable  table  = (VEDataSet.ShiftTableDataTable )vEDataSet.ShiftTable.GetChanges();
+            VEDataSet.ShiftDetailDataTable detail = (VEDataSet.ShiftDetailDataTable)vEDataSet.ShiftDetail.GetChanges();
+            if (table == null && detail == null)
             {
                 MessageBox.Show("沒有改動任何資料! 不用存");
                 return;
@@ -141,14 +147,14 @@ namespace VoucherExpense
             // 設定修改人及修改日期
             if (table != null)
             {
-                //foreach (VEDataSet.HRRow r in table)
-                //    if (r.RowState != DataRowState.Deleted)
-                //    {
-                //        r.BeginEdit();
-                //        r.KeyinID = MyFunction.OperatorID;
-                //        r.LastUpdated = DateTime.Now;
-                //        r.EndEdit();
-                //    }
+                foreach (VEDataSet.ShiftTableRow r in table)
+                    if (r.RowState != DataRowState.Deleted)
+                    {
+                        r.BeginEdit();
+                        r.KeyID = MyFunction.OperatorID;
+                        r.LastUpdated = DateTime.Now;
+                        r.EndEdit();
+                    }
                 vEDataSet.ShiftTable.Merge(table);
                 try
                 {
@@ -160,7 +166,18 @@ namespace VoucherExpense
                 }
                 vEDataSet.ShiftTable.AcceptChanges();
             }
+            if (detail != null)
+            {
+                vEDataSet.ShiftDetail.Merge(detail);
+                this.shiftDetailTableAdapter.Update(vEDataSet.ShiftDetail);
+                vEDataSet.ShiftDetail.AcceptChanges();
+            }
+        }
 
+        private void dgvShiftDetail_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+            DataGridViewRow row = e.Row;
+            row.Cells["columnID"].Value = Guid.NewGuid();
         }
 
       

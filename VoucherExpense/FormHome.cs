@@ -63,7 +63,7 @@ namespace VoucherExpense
             menu1.Items["進貨MenuItem"].Enabled = Op.EditVoucher;
             menu1.Items["收入MenuItem"].Enabled = manager;
             menu1.Items["銀行MenuItem"].Enabled = Op.EditBank;
-            menu1.Items["庫存MenuItem"].Enabled = manager || Op.EditVoucher;
+            menu1.Items["倉管MenuItem"].Enabled = manager;
             menu1.Items["月報表MenuItem"].Enabled = manager;
             ToolStripMenuItem i = (ToolStripMenuItem)menu1.Items["查核MenuItem"];
             i.Enabled = Op.LockExpense || Op.LockVoucher || Op.LockAccVoucher;

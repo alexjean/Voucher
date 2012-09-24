@@ -558,7 +558,7 @@
             this.voucherDetailDataGridView.Name = "voucherDetailDataGridView";
             this.voucherDetailDataGridView.RowHeadersWidth = 25;
             this.voucherDetailDataGridView.RowTemplate.Height = 24;
-            this.voucherDetailDataGridView.Size = new System.Drawing.Size(467, 399);
+            this.voucherDetailDataGridView.Size = new System.Drawing.Size(504, 399);
             this.voucherDetailDataGridView.TabIndex = 50;
             this.voucherDetailDataGridView.CellValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.voucherDetailDataGridView_CellValidated);
             this.voucherDetailDataGridView.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.voucherDetailDataGridView_CellValidating);
@@ -782,7 +782,7 @@
             this.dgIngredientCodeColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dgIngredientCodeColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.dgIngredientCodeColumn.ValueMember = "Code";
-            this.dgIngredientCodeColumn.Width = 168;
+            this.dgIngredientCodeColumn.Width = 208;
             // 
             // dgVolumeColumn
             // 
@@ -833,7 +833,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(913, 670);
+            this.ClientSize = new System.Drawing.Size(943, 670);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.cbBoxIngredientSelector);
             this.Controls.Add(label1);

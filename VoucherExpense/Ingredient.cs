@@ -31,9 +31,16 @@ namespace VoucherExpense
                 }
             }
 
-            vEDataSet.Ingredient.Merge(table);
-            this.IngredientTableAdapter.Update(this.vEDataSet.Ingredient);
-            vEDataSet.Ingredient.AcceptChanges();
+            try
+            {
+                vEDataSet.Ingredient.Merge(table);
+                this.IngredientTableAdapter.Update(this.vEDataSet.Ingredient);
+                vEDataSet.Ingredient.AcceptChanges();
+            }
+            catch
+            {
+                MessageBox.Show("存檔發生錯誤,請關閉程式,重新登入！");
+            }
 
         }
 

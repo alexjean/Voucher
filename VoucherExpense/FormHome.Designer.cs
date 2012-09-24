@@ -55,7 +55,7 @@
             this.損益報表ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.轉帳傳票MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.合併傳票MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.庫存MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.倉管MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.耗料ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.盤點ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.人事MenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,7 +90,7 @@
             this.收入MenuItem,
             this.銀行MenuItem,
             this.會計MenuItem,
-            this.庫存MenuItem,
+            this.倉管MenuItem,
             this.人事MenuItem,
             this.月報表MenuItem,
             this.查核MenuItem,
@@ -123,7 +123,7 @@
             // 
             this.員工MenuItem.Enabled = false;
             this.員工MenuItem.Name = "員工MenuItem";
-            this.員工MenuItem.Size = new System.Drawing.Size(152, 22);
+            this.員工MenuItem.Size = new System.Drawing.Size(148, 22);
             this.員工MenuItem.Text = "員工";
             this.員工MenuItem.Visible = false;
             this.員工MenuItem.Click += new System.EventHandler(this.員工MenuItem_Click);
@@ -131,28 +131,28 @@
             // 供應商MenuItem
             // 
             this.供應商MenuItem.Name = "供應商MenuItem";
-            this.供應商MenuItem.Size = new System.Drawing.Size(152, 22);
+            this.供應商MenuItem.Size = new System.Drawing.Size(148, 22);
             this.供應商MenuItem.Text = "供應商";
             this.供應商MenuItem.Click += new System.EventHandler(this.供應商MenuItem_Click);
             // 
             // 食材表MenuItem
             // 
             this.食材表MenuItem.Name = "食材表MenuItem";
-            this.食材表MenuItem.Size = new System.Drawing.Size(152, 22);
+            this.食材表MenuItem.Size = new System.Drawing.Size(148, 22);
             this.食材表MenuItem.Text = "食材表";
             this.食材表MenuItem.Click += new System.EventHandler(this.食材表MenuItem_Click);
             // 
             // 會計科目MenuItem
             // 
             this.會計科目MenuItem.Name = "會計科目MenuItem";
-            this.會計科目MenuItem.Size = new System.Drawing.Size(152, 22);
+            this.會計科目MenuItem.Size = new System.Drawing.Size(148, 22);
             this.會計科目MenuItem.Text = "會計科目";
             this.會計科目MenuItem.Click += new System.EventHandler(this.會計科目MenuItem_Click);
             // 
             // 銀行帳號MenuItem
             // 
             this.銀行帳號MenuItem.Name = "銀行帳號MenuItem";
-            this.銀行帳號MenuItem.Size = new System.Drawing.Size(152, 22);
+            this.銀行帳號MenuItem.Size = new System.Drawing.Size(148, 22);
             this.銀行帳號MenuItem.Text = "銀行帳號";
             this.銀行帳號MenuItem.Visible = false;
             this.銀行帳號MenuItem.Click += new System.EventHandler(this.銀行帳號ToolStripMenuItem_Click);
@@ -160,42 +160,42 @@
             // 傳票設定MenuItem
             // 
             this.傳票設定MenuItem.Name = "傳票設定MenuItem";
-            this.傳票設定MenuItem.Size = new System.Drawing.Size(152, 22);
+            this.傳票設定MenuItem.Size = new System.Drawing.Size(148, 22);
             this.傳票設定MenuItem.Text = "傳票設定";
             this.傳票設定MenuItem.Click += new System.EventHandler(this.傳票設定MenuItem_Click);
             // 
             // 操作員MenuItem
             // 
             this.操作員MenuItem.Name = "操作員MenuItem";
-            this.操作員MenuItem.Size = new System.Drawing.Size(152, 22);
+            this.操作員MenuItem.Size = new System.Drawing.Size(148, 22);
             this.操作員MenuItem.Text = "帳號權限";
             this.操作員MenuItem.Click += new System.EventHandler(this.操作員MenuItem_Click);
             // 
             // 環境設定MenuItem
             // 
             this.環境設定MenuItem.Name = "環境設定MenuItem";
-            this.環境設定MenuItem.Size = new System.Drawing.Size(152, 22);
+            this.環境設定MenuItem.Size = new System.Drawing.Size(148, 22);
             this.環境設定MenuItem.Text = "硬體環境";
             this.環境設定MenuItem.Click += new System.EventHandler(this.環境設定MenuItem_Click);
             // 
             // 年初開帳MenuItem
             // 
             this.年初開帳MenuItem.Name = "年初開帳MenuItem";
-            this.年初開帳MenuItem.Size = new System.Drawing.Size(152, 22);
+            this.年初開帳MenuItem.Size = new System.Drawing.Size(148, 22);
             this.年初開帳MenuItem.Text = "年初開帳";
             this.年初開帳MenuItem.Click += new System.EventHandler(this.年初開帳ToolStripMenuItem_Click);
             // 
             // 產品菜單ToolStripMenuItem
             // 
             this.產品菜單ToolStripMenuItem.Name = "產品菜單ToolStripMenuItem";
-            this.產品菜單ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.產品菜單ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.產品菜單ToolStripMenuItem.Text = "產品菜單";
             this.產品菜單ToolStripMenuItem.Click += new System.EventHandler(this.編點菜單ToolStripMenuItem_Click);
             // 
             // 編修部門MenuItem
             // 
             this.編修部門MenuItem.Name = "編修部門MenuItem";
-            this.編修部門MenuItem.Size = new System.Drawing.Size(152, 22);
+            this.編修部門MenuItem.Size = new System.Drawing.Size(148, 22);
             this.編修部門MenuItem.Text = "編修部門";
             this.編修部門MenuItem.Click += new System.EventHandler(this.編修部門ToolStripMenuItem_Click);
             // 
@@ -300,26 +300,23 @@
             this.合併傳票MenuItem.Text = "合併 mdb";
             this.合併傳票MenuItem.Click += new System.EventHandler(this.合併傳票MdbMenuItem_Click);
             // 
-            // 庫存MenuItem
+            // 倉管MenuItem
             // 
-            this.庫存MenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.耗料ToolStripMenuItem,
-            this.盤點ToolStripMenuItem});
-            this.庫存MenuItem.Name = "庫存MenuItem";
-            this.庫存MenuItem.Size = new System.Drawing.Size(52, 20);
-            this.庫存MenuItem.Text = "倉管";
+            this.倉管MenuItem.Name = "倉管MenuItem";
+            this.倉管MenuItem.Size = new System.Drawing.Size(52, 20);
+            this.倉管MenuItem.Text = "倉管";
             // 
             // 耗料ToolStripMenuItem
             // 
             this.耗料ToolStripMenuItem.Name = "耗料ToolStripMenuItem";
-            this.耗料ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.耗料ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.耗料ToolStripMenuItem.Text = "售出統計";
             this.耗料ToolStripMenuItem.Click += new System.EventHandler(this.耗料ToolStripMenuItem_Click);
             // 
             // 盤點ToolStripMenuItem
             // 
             this.盤點ToolStripMenuItem.Name = "盤點ToolStripMenuItem";
-            this.盤點ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.盤點ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.盤點ToolStripMenuItem.Text = "盤點";
             this.盤點ToolStripMenuItem.Click += new System.EventHandler(this.盤點ToolStripMenuItem_Click);
             // 
@@ -493,7 +490,7 @@
         private VEDataSet vEDataSet;
         private VoucherExpense.VEDataSetTableAdapters.HeaderTableAdapter headerTableAdapter;
         private System.Windows.Forms.ToolStripMenuItem 收入MenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 庫存MenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 倉管MenuItem;
         private System.Windows.Forms.ToolStripMenuItem 銀行帳號MenuItem;
         private System.Windows.Forms.ToolStripMenuItem 銀行MenuItem;
         private System.Windows.Forms.ToolStripMenuItem 會計MenuItem;

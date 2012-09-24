@@ -438,6 +438,8 @@
     <None Include="BasicDataSet.xss">
       <DependentUpon>BasicDataSet.xsd</DependentUpon>
     </None>
+    <None Include="EmptyBasic.gz" />
+    <None Include="VoucherExpense.gz" />
     <None Include="Class\EmptyBasic.gz" />
     <None Include="Properties\DataSources\CBankAccountForComboBox.datasource" />
     <None Include="Properties\DataSources\CBankDetail.datasource" />

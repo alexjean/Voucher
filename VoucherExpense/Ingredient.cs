@@ -88,7 +88,11 @@ namespace VoucherExpense
         private void photoPictureBox_Click(object sender, EventArgs e)
         {
             if (!photoPictureBox.Visible) return;
-            if (photoPictureBox.ImageLocation == null) return;
+            if (photoPictureBox.ImageLocation == null)
+            {
+                photoPictureBox_DoubleClick(null,null);
+                return;
+            }
             if (LocationSave.X == 0)
             {
                 SizeSave = photoPictureBox.Size;

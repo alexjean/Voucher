@@ -39,8 +39,8 @@
             System.Windows.Forms.Label canPurchaseLabel;
             System.Windows.Forms.Label titleCodeLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ingredient));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.IngredientBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.IngredientBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -318,8 +318,8 @@
             this.IngredientDataGridView.AllowUserToDeleteRows = false;
             this.IngredientDataGridView.AllowUserToOrderColumns = true;
             this.IngredientDataGridView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Azure;
-            this.IngredientDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
+            this.IngredientDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.IngredientDataGridView.AutoGenerateColumns = false;
             this.IngredientDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
             this.IngredientDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -400,13 +400,13 @@
             // 
             this.accountingTitleBindingSource.DataMember = "AccountingTitle";
             this.accountingTitleBindingSource.DataSource = this.vEDataSet;
-            this.accountingTitleBindingSource.Filter = "TitleCode like \'5*\'";
+            this.accountingTitleBindingSource.Filter = "TitleCode like \'5*\' ";
             // 
             // columnPrice
             // 
             this.columnPrice.DataPropertyName = "Price";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.columnPrice.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.columnPrice.DefaultCellStyle = dataGridViewCellStyle2;
             this.columnPrice.HeaderText = "參考價";
             this.columnPrice.Name = "columnPrice";
             this.columnPrice.Width = 55;

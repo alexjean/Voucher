@@ -130,6 +130,19 @@ namespace VoucherExpense
                 MessageBox.Show(error);
                 return;
             }
+            string titleCode = cell.FormattedValue.ToString();
+            cell = row.Cells["columnTitleName"];
+            if (cell==null)
+            {
+                MessageBox.Show("程式錯誤,AccountingTitleDataGridView沒有columnTitleName!");
+                return;
+            }
+            if (Convert.IsDBNull(cell.Value))
+            {
+                e.Cancel = true;
+                MessageBox.Show("科目<"+titleCode+">必需有科目名稱!");
+                return;
+            }
         }
 
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)

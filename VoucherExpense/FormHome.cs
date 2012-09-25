@@ -68,8 +68,9 @@ namespace VoucherExpense
             查核費用MenuItem.Enabled = Op.LockExpense;
             查核進貨MenuItem.Enabled = Op.LockVoucher;
             查核傳票MenuItem.Enabled = Op.LockAccVoucher;
-            人事MenuItem.Enabled = Op.EditSalary || Op.EditOnDuty;
+            人事MenuItem.Enabled = Op.EditSalary || Op.EditOnDuty || Op.LockHR;
             考勤MenuItem.Enabled = Op.EditOnDuty;
+            排班表MenuItem.Enabled = Op.EditOnDuty;
             資料卡MenuItem.Enabled = Op.EditSalary;
             合併傳票MenuItem.Enabled = Op.LockAccVoucher;
 

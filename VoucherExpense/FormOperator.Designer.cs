@@ -128,7 +128,7 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(28, 24);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 24);
             this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
@@ -357,7 +357,7 @@
             // EditSalary
             // 
             this.EditSalary.DataPropertyName = "EditSalary";
-            this.EditSalary.HeaderText = "薪資";
+            this.EditSalary.HeaderText = "人事";
             this.EditSalary.Name = "EditSalary";
             this.EditSalary.Width = 32;
             // 

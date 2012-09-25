@@ -33,21 +33,21 @@
             System.Windows.Forms.Label voucherIDLabel;
             System.Windows.Forms.Label vendorIDLabel;
             System.Windows.Forms.Label stockTimeLabel;
+            System.Windows.Forms.Label costLabel;
+            System.Windows.Forms.Label label1;
             System.Windows.Forms.Label entryTimeLabel;
             System.Windows.Forms.Label keyinIDLabel;
             System.Windows.Forms.Label removedLabel;
-            System.Windows.Forms.Label lockedLabel;
             System.Windows.Forms.Label lastUpdatedLabel;
-            System.Windows.Forms.Label costLabel;
-            System.Windows.Forms.Label label1;
+            System.Windows.Forms.Label lockedLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Voucher));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.vEDataSet = new VoucherExpense.VEDataSet();
             this.voucherBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.voucherTableAdapter = new VoucherExpense.VEDataSetTableAdapters.VoucherTableAdapter();
@@ -67,10 +67,6 @@
             this.venderBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.IngredientBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.iDTextBox = new System.Windows.Forms.TextBox();
-            this.removedCheckBox = new System.Windows.Forms.CheckBox();
-            this.lockedCheckBox = new System.Windows.Forms.CheckBox();
-            this.lastUpdatedTextBox = new System.Windows.Forms.TextBox();
-            this.entryTimeTextBox = new System.Windows.Forms.TextBox();
             this.voucherIDTextBox = new System.Windows.Forms.TextBox();
             this.vendorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.VendorTableAdapter();
             this.accountingTitleBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -78,7 +74,6 @@
             this.IngredientTableAdapter = new VoucherExpense.VEDataSetTableAdapters.IngredientTableAdapter();
             this.vendorIDComboBox = new System.Windows.Forms.ComboBox();
             this.venderFilterSource = new System.Windows.Forms.BindingSource(this.components);
-            this.keyinIDComboBox = new System.Windows.Forms.ComboBox();
             this.operatorBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.operatorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
             this.stockTimeTextBox = new System.Windows.Forms.TextBox();
@@ -100,6 +95,11 @@
             this.ckBoxAllowEdit = new System.Windows.Forms.CheckBox();
             this.cbBoxIngredientSelector = new System.Windows.Forms.ComboBox();
             this.titleCodeBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.keyinIDComboBox = new System.Windows.Forms.ComboBox();
+            this.entryTimeTextBox = new System.Windows.Forms.TextBox();
+            this.lastUpdatedTextBox = new System.Windows.Forms.TextBox();
+            this.removedCheckBox = new System.Windows.Forms.CheckBox();
+            this.lockedCheckBox = new System.Windows.Forms.CheckBox();
             this.detailColumnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnVoID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgIngredientCodeColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
@@ -107,18 +107,17 @@
             this.IngredientCode = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.dgCostColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnTitleCode = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.panel1 = new System.Windows.Forms.Panel();
             iDLabel = new System.Windows.Forms.Label();
             voucherIDLabel = new System.Windows.Forms.Label();
             vendorIDLabel = new System.Windows.Forms.Label();
             stockTimeLabel = new System.Windows.Forms.Label();
+            costLabel = new System.Windows.Forms.Label();
+            label1 = new System.Windows.Forms.Label();
             entryTimeLabel = new System.Windows.Forms.Label();
             keyinIDLabel = new System.Windows.Forms.Label();
             removedLabel = new System.Windows.Forms.Label();
-            lockedLabel = new System.Windows.Forms.Label();
             lastUpdatedLabel = new System.Windows.Forms.Label();
-            costLabel = new System.Windows.Forms.Label();
-            label1 = new System.Windows.Forms.Label();
+            lockedLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.voucherBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.voucherBindingNavigator)).BeginInit();
@@ -132,7 +131,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.voucherDetailDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.voucherDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.titleCodeBindingSource)).BeginInit();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // iDLabel
@@ -172,52 +170,6 @@
             stockTimeLabel.TabIndex = 14;
             stockTimeLabel.Text = "進貨時間:";
             // 
-            // entryTimeLabel
-            // 
-            entryTimeLabel.AutoSize = true;
-            entryTimeLabel.Location = new System.Drawing.Point(36, 52);
-            entryTimeLabel.Name = "entryTimeLabel";
-            entryTimeLabel.Size = new System.Drawing.Size(44, 16);
-            entryTimeLabel.TabIndex = 16;
-            entryTimeLabel.Text = "建單:";
-            // 
-            // keyinIDLabel
-            // 
-            keyinIDLabel.AutoSize = true;
-            keyinIDLabel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            keyinIDLabel.Location = new System.Drawing.Point(37, 82);
-            keyinIDLabel.Name = "keyinIDLabel";
-            keyinIDLabel.Size = new System.Drawing.Size(44, 16);
-            keyinIDLabel.TabIndex = 22;
-            keyinIDLabel.Text = "輸入:";
-            // 
-            // removedLabel
-            // 
-            removedLabel.AutoSize = true;
-            removedLabel.Location = new System.Drawing.Point(37, 23);
-            removedLabel.Name = "removedLabel";
-            removedLabel.Size = new System.Drawing.Size(44, 16);
-            removedLabel.TabIndex = 24;
-            removedLabel.Text = "作癈:";
-            // 
-            // lockedLabel
-            // 
-            lockedLabel.AutoSize = true;
-            lockedLabel.Location = new System.Drawing.Point(272, 23);
-            lockedLabel.Name = "lockedLabel";
-            lockedLabel.Size = new System.Drawing.Size(44, 16);
-            lockedLabel.TabIndex = 26;
-            lockedLabel.Text = "複核:";
-            // 
-            // lastUpdatedLabel
-            // 
-            lastUpdatedLabel.AutoSize = true;
-            lastUpdatedLabel.Location = new System.Drawing.Point(272, 82);
-            lastUpdatedLabel.Name = "lastUpdatedLabel";
-            lastUpdatedLabel.Size = new System.Drawing.Size(60, 16);
-            lastUpdatedLabel.TabIndex = 28;
-            lastUpdatedLabel.Text = "更新日:";
-            // 
             // costLabel
             // 
             costLabel.AutoSize = true;
@@ -235,6 +187,57 @@
             label1.Size = new System.Drawing.Size(56, 16);
             label1.TabIndex = 54;
             label1.Text = "食材類";
+            // 
+            // entryTimeLabel
+            // 
+            entryTimeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            entryTimeLabel.AutoSize = true;
+            entryTimeLabel.Location = new System.Drawing.Point(449, 594);
+            entryTimeLabel.Name = "entryTimeLabel";
+            entryTimeLabel.Size = new System.Drawing.Size(44, 16);
+            entryTimeLabel.TabIndex = 16;
+            entryTimeLabel.Text = "建單:";
+            // 
+            // keyinIDLabel
+            // 
+            keyinIDLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            keyinIDLabel.AutoSize = true;
+            keyinIDLabel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            keyinIDLabel.Location = new System.Drawing.Point(450, 624);
+            keyinIDLabel.Name = "keyinIDLabel";
+            keyinIDLabel.Size = new System.Drawing.Size(44, 16);
+            keyinIDLabel.TabIndex = 22;
+            keyinIDLabel.Text = "輸入:";
+            // 
+            // removedLabel
+            // 
+            removedLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            removedLabel.AutoSize = true;
+            removedLabel.Location = new System.Drawing.Point(450, 565);
+            removedLabel.Name = "removedLabel";
+            removedLabel.Size = new System.Drawing.Size(44, 16);
+            removedLabel.TabIndex = 24;
+            removedLabel.Text = "作癈:";
+            // 
+            // lastUpdatedLabel
+            // 
+            lastUpdatedLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            lastUpdatedLabel.AutoSize = true;
+            lastUpdatedLabel.Location = new System.Drawing.Point(685, 624);
+            lastUpdatedLabel.Name = "lastUpdatedLabel";
+            lastUpdatedLabel.Size = new System.Drawing.Size(60, 16);
+            lastUpdatedLabel.TabIndex = 28;
+            lastUpdatedLabel.Text = "更新日:";
+            // 
+            // lockedLabel
+            // 
+            lockedLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            lockedLabel.AutoSize = true;
+            lockedLabel.Location = new System.Drawing.Point(685, 565);
+            lockedLabel.Name = "lockedLabel";
+            lockedLabel.Size = new System.Drawing.Size(44, 16);
+            lockedLabel.TabIndex = 26;
+            lockedLabel.Text = "複核:";
             // 
             // vEDataSet
             // 
@@ -400,46 +403,6 @@
             this.iDTextBox.Size = new System.Drawing.Size(69, 20);
             this.iDTextBox.TabIndex = 3;
             // 
-            // removedCheckBox
-            // 
-            this.removedCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.voucherBindingSource, "Removed", true));
-            this.removedCheckBox.Location = new System.Drawing.Point(99, 18);
-            this.removedCheckBox.Name = "removedCheckBox";
-            this.removedCheckBox.Size = new System.Drawing.Size(27, 27);
-            this.removedCheckBox.TabIndex = 25;
-            // 
-            // lockedCheckBox
-            // 
-            this.lockedCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.voucherBindingSource, "Locked", true));
-            this.lockedCheckBox.Enabled = false;
-            this.lockedCheckBox.Location = new System.Drawing.Point(335, 18);
-            this.lockedCheckBox.Name = "lockedCheckBox";
-            this.lockedCheckBox.Size = new System.Drawing.Size(27, 27);
-            this.lockedCheckBox.TabIndex = 27;
-            this.lockedCheckBox.CheckedChanged += new System.EventHandler(this.lockedCheckBox_CheckedChanged);
-            // 
-            // lastUpdatedTextBox
-            // 
-            this.lastUpdatedTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.lastUpdatedTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lastUpdatedTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.voucherBindingSource, "LastUpdated", true));
-            this.lastUpdatedTextBox.Location = new System.Drawing.Point(335, 82);
-            this.lastUpdatedTextBox.Name = "lastUpdatedTextBox";
-            this.lastUpdatedTextBox.ReadOnly = true;
-            this.lastUpdatedTextBox.Size = new System.Drawing.Size(152, 20);
-            this.lastUpdatedTextBox.TabIndex = 30;
-            // 
-            // entryTimeTextBox
-            // 
-            this.entryTimeTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.entryTimeTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.entryTimeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.voucherBindingSource, "EntryTime", true));
-            this.entryTimeTextBox.Location = new System.Drawing.Point(98, 52);
-            this.entryTimeTextBox.Name = "entryTimeTextBox";
-            this.entryTimeTextBox.ReadOnly = true;
-            this.entryTimeTextBox.Size = new System.Drawing.Size(151, 20);
-            this.entryTimeTextBox.TabIndex = 32;
-            // 
             // voucherIDTextBox
             // 
             this.voucherIDTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.voucherBindingSource, "VoucherID", true));
@@ -487,22 +450,6 @@
             this.venderFilterSource.DataSource = this.vEDataSet;
             this.venderFilterSource.Filter = "Hide = false";
             // 
-            // keyinIDComboBox
-            // 
-            this.keyinIDComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.voucherBindingSource, "KeyinID", true));
-            this.keyinIDComboBox.DataSource = this.operatorBindingSource;
-            this.keyinIDComboBox.DisplayMember = "Name";
-            this.keyinIDComboBox.DropDownHeight = 1;
-            this.keyinIDComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
-            this.keyinIDComboBox.Enabled = false;
-            this.keyinIDComboBox.FormattingEnabled = true;
-            this.keyinIDComboBox.IntegralHeight = false;
-            this.keyinIDComboBox.Location = new System.Drawing.Point(99, 78);
-            this.keyinIDComboBox.Name = "keyinIDComboBox";
-            this.keyinIDComboBox.Size = new System.Drawing.Size(145, 24);
-            this.keyinIDComboBox.TabIndex = 47;
-            this.keyinIDComboBox.ValueMember = "OperatorID";
-            // 
             // operatorBindingSource
             // 
             this.operatorBindingSource.DataMember = "Operator";
@@ -543,8 +490,8 @@
             // voucherDetailDataGridView
             // 
             this.voucherDetailDataGridView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle15.BackColor = System.Drawing.Color.Azure;
-            this.voucherDetailDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.Azure;
+            this.voucherDetailDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle8;
             this.voucherDetailDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -624,18 +571,18 @@
             this.voucherDataGridView.AllowUserToDeleteRows = false;
             this.voucherDataGridView.AllowUserToOrderColumns = true;
             this.voucherDataGridView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle18.BackColor = System.Drawing.Color.Azure;
-            this.voucherDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.Azure;
+            this.voucherDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle11;
             this.voucherDataGridView.AutoGenerateColumns = false;
             this.voucherDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle19.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.voucherDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.voucherDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
             this.voucherDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.voucherDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.columnRemoved,
@@ -689,9 +636,9 @@
             // StockTime
             // 
             this.StockTime.DataPropertyName = "StockTime";
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle20.Format = "M/dd";
-            this.StockTime.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle13.Format = "M/dd";
+            this.StockTime.DefaultCellStyle = dataGridViewCellStyle13;
             this.StockTime.HeaderText = "時間";
             this.StockTime.Name = "StockTime";
             this.StockTime.ReadOnly = true;
@@ -714,10 +661,10 @@
             // columnCost
             // 
             this.columnCost.DataPropertyName = "Cost";
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle21.Format = "N1";
-            dataGridViewCellStyle21.NullValue = null;
-            this.columnCost.DefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle14.Format = "N1";
+            dataGridViewCellStyle14.NullValue = null;
+            this.columnCost.DefaultCellStyle = dataGridViewCellStyle14;
             this.columnCost.HeaderText = "總計";
             this.columnCost.Name = "columnCost";
             this.columnCost.ReadOnly = true;
@@ -762,6 +709,67 @@
             // 
             this.titleCodeBindingSource.DataSource = typeof(VoucherExpense.Voucher.TitleCode);
             // 
+            // keyinIDComboBox
+            // 
+            this.keyinIDComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.keyinIDComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.voucherBindingSource, "KeyinID", true));
+            this.keyinIDComboBox.DataSource = this.operatorBindingSource;
+            this.keyinIDComboBox.DisplayMember = "Name";
+            this.keyinIDComboBox.DropDownHeight = 1;
+            this.keyinIDComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
+            this.keyinIDComboBox.Enabled = false;
+            this.keyinIDComboBox.FormattingEnabled = true;
+            this.keyinIDComboBox.IntegralHeight = false;
+            this.keyinIDComboBox.Location = new System.Drawing.Point(512, 620);
+            this.keyinIDComboBox.Name = "keyinIDComboBox";
+            this.keyinIDComboBox.Size = new System.Drawing.Size(145, 24);
+            this.keyinIDComboBox.TabIndex = 47;
+            this.keyinIDComboBox.ValueMember = "OperatorID";
+            // 
+            // entryTimeTextBox
+            // 
+            this.entryTimeTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.entryTimeTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.entryTimeTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.entryTimeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.voucherBindingSource, "EntryTime", true));
+            this.entryTimeTextBox.Location = new System.Drawing.Point(511, 594);
+            this.entryTimeTextBox.Name = "entryTimeTextBox";
+            this.entryTimeTextBox.ReadOnly = true;
+            this.entryTimeTextBox.Size = new System.Drawing.Size(151, 20);
+            this.entryTimeTextBox.TabIndex = 32;
+            // 
+            // lastUpdatedTextBox
+            // 
+            this.lastUpdatedTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lastUpdatedTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.lastUpdatedTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lastUpdatedTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.voucherBindingSource, "LastUpdated", true));
+            this.lastUpdatedTextBox.Location = new System.Drawing.Point(751, 622);
+            this.lastUpdatedTextBox.Name = "lastUpdatedTextBox";
+            this.lastUpdatedTextBox.ReadOnly = true;
+            this.lastUpdatedTextBox.Size = new System.Drawing.Size(152, 20);
+            this.lastUpdatedTextBox.TabIndex = 30;
+            // 
+            // removedCheckBox
+            // 
+            this.removedCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.removedCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.voucherBindingSource, "Removed", true));
+            this.removedCheckBox.Location = new System.Drawing.Point(512, 560);
+            this.removedCheckBox.Name = "removedCheckBox";
+            this.removedCheckBox.Size = new System.Drawing.Size(27, 27);
+            this.removedCheckBox.TabIndex = 25;
+            // 
+            // lockedCheckBox
+            // 
+            this.lockedCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lockedCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.voucherBindingSource, "Locked", true));
+            this.lockedCheckBox.Enabled = false;
+            this.lockedCheckBox.Location = new System.Drawing.Point(747, 560);
+            this.lockedCheckBox.Name = "lockedCheckBox";
+            this.lockedCheckBox.Size = new System.Drawing.Size(27, 27);
+            this.lockedCheckBox.TabIndex = 27;
+            this.lockedCheckBox.CheckedChanged += new System.EventHandler(this.lockedCheckBox_CheckedChanged);
+            // 
             // detailColumnID
             // 
             this.detailColumnID.DataPropertyName = "ID";
@@ -783,6 +791,7 @@
             this.dgIngredientCodeColumn.DataPropertyName = "IngredientCode";
             this.dgIngredientCodeColumn.DataSource = this.IngredientBindingSource;
             this.dgIngredientCodeColumn.DisplayMember = "Name";
+            this.dgIngredientCodeColumn.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
             this.dgIngredientCodeColumn.HeaderText = "食材";
             this.dgIngredientCodeColumn.MaxDropDownItems = 22;
             this.dgIngredientCodeColumn.Name = "dgIngredientCodeColumn";
@@ -794,8 +803,8 @@
             // dgVolumeColumn
             // 
             this.dgVolumeColumn.DataPropertyName = "Volume";
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dgVolumeColumn.DefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dgVolumeColumn.DefaultCellStyle = dataGridViewCellStyle9;
             this.dgVolumeColumn.HeaderText = "量";
             this.dgVolumeColumn.Name = "dgVolumeColumn";
             this.dgVolumeColumn.Width = 48;
@@ -817,8 +826,8 @@
             // dgCostColumn
             // 
             this.dgCostColumn.DataPropertyName = "Cost";
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dgCostColumn.DefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dgCostColumn.DefaultCellStyle = dataGridViewCellStyle10;
             this.dgCostColumn.HeaderText = "小計";
             this.dgCostColumn.Name = "dgCostColumn";
             this.dgCostColumn.Width = 60;
@@ -835,39 +844,29 @@
             this.columnTitleCode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.columnTitleCode.ValueMember = "TitleCode";
             // 
-            // panel1
-            // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.panel1.Controls.Add(lockedLabel);
-            this.panel1.Controls.Add(lastUpdatedLabel);
-            this.panel1.Controls.Add(this.lockedCheckBox);
-            this.panel1.Controls.Add(this.removedCheckBox);
-            this.panel1.Controls.Add(removedLabel);
-            this.panel1.Controls.Add(keyinIDLabel);
-            this.panel1.Controls.Add(entryTimeLabel);
-            this.panel1.Controls.Add(this.lastUpdatedTextBox);
-            this.panel1.Controls.Add(this.entryTimeTextBox);
-            this.panel1.Controls.Add(this.keyinIDComboBox);
-            this.panel1.Location = new System.Drawing.Point(409, 549);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(522, 121);
-            this.panel1.TabIndex = 56;
-            // 
             // Voucher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(943, 670);
-            this.Controls.Add(this.voucherDetailDataGridView);
+            this.Controls.Add(lockedLabel);
+            this.Controls.Add(lastUpdatedLabel);
             this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.lockedCheckBox);
+            this.Controls.Add(this.removedCheckBox);
             this.Controls.Add(this.cbBoxIngredientSelector);
+            this.Controls.Add(removedLabel);
             this.Controls.Add(label1);
+            this.Controls.Add(keyinIDLabel);
             this.Controls.Add(this.ckBoxAllowEdit);
+            this.Controls.Add(entryTimeLabel);
             this.Controls.Add(this.comboBoxMonth);
+            this.Controls.Add(this.lastUpdatedTextBox);
             this.Controls.Add(costLabel);
+            this.Controls.Add(this.entryTimeTextBox);
             this.Controls.Add(this.costTextBox);
+            this.Controls.Add(this.keyinIDComboBox);
             this.Controls.Add(this.stockTimeTextBox);
             this.Controls.Add(this.vendorIDComboBox);
             this.Controls.Add(this.voucherIDTextBox);
@@ -878,7 +877,7 @@
             this.Controls.Add(stockTimeLabel);
             this.Controls.Add(this.voucherDataGridView);
             this.Controls.Add(this.voucherBindingNavigator);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.voucherDetailDataGridView);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Voucher";
@@ -898,8 +897,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.voucherDetailDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.voucherDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.titleCodeBindingSource)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -923,10 +920,6 @@
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.ToolStripButton voucherBindingNavigatorSaveItem;
         private System.Windows.Forms.TextBox iDTextBox;
-        private System.Windows.Forms.CheckBox removedCheckBox;
-        private System.Windows.Forms.CheckBox lockedCheckBox;
-        private System.Windows.Forms.TextBox lastUpdatedTextBox;
-        private System.Windows.Forms.TextBox entryTimeTextBox;
         private System.Windows.Forms.TextBox voucherIDTextBox;
         private System.Windows.Forms.BindingSource venderBindingSource;
         private VoucherExpense.VEDataSetTableAdapters.VendorTableAdapter vendorTableAdapter;
@@ -935,7 +928,6 @@
         private System.Windows.Forms.BindingSource IngredientBindingSource;
         private VoucherExpense.VEDataSetTableAdapters.IngredientTableAdapter IngredientTableAdapter;
         private System.Windows.Forms.ComboBox vendorIDComboBox;
-        private System.Windows.Forms.ComboBox keyinIDComboBox;
         private System.Windows.Forms.BindingSource operatorBindingSource;
         private VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter operatorTableAdapter;
         private System.Windows.Forms.TextBox stockTimeTextBox;
@@ -959,6 +951,11 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnCost;
         private System.Windows.Forms.DataGridViewCheckBoxColumn columnCheck;
+        private System.Windows.Forms.ComboBox keyinIDComboBox;
+        private System.Windows.Forms.TextBox entryTimeTextBox;
+        private System.Windows.Forms.TextBox lastUpdatedTextBox;
+        private System.Windows.Forms.CheckBox removedCheckBox;
+        private System.Windows.Forms.CheckBox lockedCheckBox;
         private System.Windows.Forms.DataGridViewTextBoxColumn detailColumnID;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnVoID;
         private System.Windows.Forms.DataGridViewComboBoxColumn dgIngredientCodeColumn;
@@ -966,6 +963,5 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn IngredientCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgCostColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn columnTitleCode;
-        private System.Windows.Forms.Panel panel1;
     }
 }

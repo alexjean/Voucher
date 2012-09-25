@@ -52,6 +52,10 @@ namespace VoucherExpense
                 foreach (VEDataSet.VoucherRow r in table)
                     if (r.RowState != DataRowState.Deleted)
                     {
+                        if (r.IsStockTimeNull())
+                        {
+                            MessageBox.Show("進貨單<" + r.ID.ToString() + ">沒有日期,無法顯示在當月,只顯示在全年度!");
+                        }
                         r.BeginEdit();
                         if (!checkMode)   // checkMode不更新 輸入者
                             r.KeyinID = MyFunction.OperatorID;
@@ -221,7 +225,7 @@ namespace VoucherExpense
                 DateTime stockTime = new DateTime(year,month,MyFunction.DayCountOfMonth(month));   // 資料月份,設成該月最後一天
                 stockTimeTextBox.Text = stockTime.ToShortDateString();
                 lockedCheckBox.Checked = false;
-                this.voucherBindingSource.ResetBindings(false);
+//                this.voucherBindingSource.ResetBindings(false);         // 這行加了會把stockTimeTextBox.Text給清成空白
                 voucherVoucherDetailBindingSource.ResetBindings(false);   // 刷下面的detail表
                 MessageBox.Show("進貨日期己暫時設定, 請設成正確日期!");
             }
@@ -780,8 +784,6 @@ namespace VoucherExpense
             DataGridViewCell cellID = row.Cells["detailColumnID"];
             cellID.Value = Guid.NewGuid();
         }
-
-
 
     }
 }

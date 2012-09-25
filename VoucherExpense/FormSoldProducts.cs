@@ -10,14 +10,14 @@ using System.IO;
 
 namespace VoucherExpense
 {
-    public partial class FormSoldIngredients : Form
+    public partial class FormSoldProducts : Form
     {
         List<CSaleItem> m_SaleList = new List<CSaleItem>();
         
         private Config Cfg = new Config();
         private string ConfigName = "SoldIngredients";
 
-        public FormSoldIngredients()
+        public FormSoldProducts()
         {
             InitializeComponent();
         }

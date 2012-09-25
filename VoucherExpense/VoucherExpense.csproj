@@ -121,12 +121,6 @@
     <Compile Include="Class\MapPath.cs" />
     <Compile Include="Class\MergeMdb.cs" />
     <Compile Include="Class\SortableBindingList.cs" />
-    <Compile Include="Employee.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Employee.Designer.cs">
-      <DependentUpon>Employee.cs</DependentUpon>
-    </Compile>
     <Compile Include="Class\Excel.cs" />
     <Compile Include="Expense.cs">
       <SubType>Form</SubType>
@@ -248,11 +242,11 @@
     <Compile Include="FormShift.Designer.cs">
       <DependentUpon>FormShift.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormSoldIngredients.cs">
+    <Compile Include="FormSoldProducts.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormSoldIngredients.Designer.cs">
-      <DependentUpon>FormSoldIngredients.cs</DependentUpon>
+    <Compile Include="FormSoldProducts.Designer.cs">
+      <DependentUpon>FormSoldProducts.cs</DependentUpon>
     </Compile>
     <Compile Include="FormStock.cs">
       <SubType>Form</SubType>
@@ -302,10 +296,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EditProduct.resx">
       <DependentUpon>EditProduct.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Employee.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>Employee.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Expense.resx">
       <SubType>Designer</SubType>
@@ -373,8 +363,8 @@
     <EmbeddedResource Include="FormShift.resx">
       <DependentUpon>FormShift.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormSoldIngredients.resx">
-      <DependentUpon>FormSoldIngredients.cs</DependentUpon>
+    <EmbeddedResource Include="FormSoldProducts.resx">
+      <DependentUpon>FormSoldProducts.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormStock.resx">
       <DependentUpon>FormStock.cs</DependentUpon>

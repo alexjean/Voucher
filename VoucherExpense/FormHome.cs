@@ -45,7 +45,6 @@ namespace VoucherExpense
             bool manager = Op.IsManager;
             MyFunction.IsManager = manager;
             MyFunction.LockHR = Op.LockHR;
-            basic.DropDownItems["員工MenuItem"].Enabled     = Op.EditEmployee;
             basic.DropDownItems["操作員MenuItem"].Enabled   = Op.EditOperator;
             basic.DropDownItems["環境設定MenuItem"].Enabled = Op.IsManager;
             basic.DropDownItems["食材表MenuItem"].Enabled   = Op.EditIngredient;
@@ -63,8 +62,7 @@ namespace VoucherExpense
             menu1.Items["進貨MenuItem"].Enabled = Op.EditVoucher;
             menu1.Items["收入MenuItem"].Enabled = manager;
             menu1.Items["銀行MenuItem"].Enabled = Op.EditBank;
-            menu1.Items["倉管MenuItem"].Enabled = manager;
-            menu1.Items["月報表MenuItem"].Enabled = manager;
+            menu1.Items["報表MenuItem"].Enabled = manager;
             ToolStripMenuItem i = (ToolStripMenuItem)menu1.Items["查核MenuItem"];
             i.Enabled = Op.LockExpense || Op.LockVoucher || Op.LockAccVoucher;
             查核費用MenuItem.Enabled = Op.LockExpense;
@@ -118,11 +116,6 @@ namespace VoucherExpense
             PopupOrRun("ModifyPassword",typeof(ModifyPassword));
         }
  
-        private void 員工MenuItem_Click(object sender, EventArgs e)
-        {
-            PopupOrRun("Employee",typeof(Employee));
-        }
-
         private void 會計科目MenuItem_Click(object sender, EventArgs e)
         {
             PopupOrRun("AccountingTitle",typeof(AccountingTitle));
@@ -327,11 +320,6 @@ namespace VoucherExpense
             PopupOrRun("Stock", typeof(FormStock));
         }
 
-        private void 耗料ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            PopupOrRun("SoldIngredients", typeof(FormSoldIngredients));
-        }
-
         private void 環境設定MenuItem_Click(object sender, EventArgs e)
         {
             PopupOrRun("Hardware", typeof(FormHardware));
@@ -384,7 +372,16 @@ namespace VoucherExpense
             PopupOrRun("編修部門", typeof(FormApartment));
         }
 
-    
+        private void 銷售統計ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PopupOrRun("SoldProducts", typeof(FormSoldProducts));
+        }
+
+        //private void 盤點ToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    PopupOrRun("Stock", typeof(FormStock));
+        //}
+   
 
 
 

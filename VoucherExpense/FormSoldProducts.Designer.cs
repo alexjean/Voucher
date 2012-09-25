@@ -1,6 +1,6 @@
 ﻿namespace VoucherExpense
 {
-    partial class FormSoldIngredients
+    partial class FormSoldProducts
     {
         /// <summary>
         /// Required designer variable.
@@ -157,6 +157,8 @@
             // dgViewSale
             // 
             this.dgViewSale.AllowUserToResizeRows = false;
+            this.dgViewSale.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.dgViewSale.AutoGenerateColumns = false;
             this.dgViewSale.BackgroundColor = System.Drawing.Color.SeaShell;
             this.dgViewSale.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -367,7 +369,7 @@
             // 
             this.productTableAdapter.ClearBeforeFill = true;
             // 
-            // FormSoldIngredients
+            // FormSoldProducts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -396,8 +398,8 @@
             this.Controls.Add(this.cbBoxMonth);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "FormSoldIngredients";
-            this.Text = "銷售物料統計";
+            this.Name = "FormSoldProducts";
+            this.Text = "銷售統計";
             this.Load += new System.EventHandler(this.FormSoldIngredients_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgViewSale)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();

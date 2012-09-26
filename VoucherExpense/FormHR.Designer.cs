@@ -52,6 +52,7 @@
             System.Windows.Forms.Label salaryLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormHR));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.vEDataSet = new VoucherExpense.VEDataSet();
             this.hRBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.hRTableAdapter = new VoucherExpense.VEDataSetTableAdapters.HRTableAdapter();
@@ -358,6 +359,7 @@
             // 
             this.hRBindingNavigator.AddNewItem = this.bindingNavigatorAddNewItem;
             this.hRBindingNavigator.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.hRBindingNavigator.BackgroundImage = global::VoucherExpense.Properties.Resources.NavBar_Back;
             this.hRBindingNavigator.BindingSource = this.hRBindingSource;
             this.hRBindingNavigator.CountItem = this.bindingNavigatorCountItem;
             this.hRBindingNavigator.DeleteItem = null;
@@ -374,7 +376,7 @@
             this.bindingNavigatorSeparator2,
             this.bindingNavigatorAddNewItem,
             this.hRBindingNavigatorSaveItem});
-            this.hRBindingNavigator.Location = new System.Drawing.Point(714, 9);
+            this.hRBindingNavigator.Location = new System.Drawing.Point(714, 2);
             this.hRBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.hRBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
             this.hRBindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
@@ -480,6 +482,14 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.hRDataGridView.AutoGenerateColumns = false;
             this.hRDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.hRDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.hRDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.hRDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.columnEmployeeID,
@@ -488,6 +498,7 @@
             this.dataGridViewTextBoxColumn11,
             this.ApartmentID});
             this.hRDataGridView.DataSource = this.hRBindingSource;
+            this.hRDataGridView.EnableHeadersVisualStyles = false;
             this.hRDataGridView.Location = new System.Drawing.Point(0, 2);
             this.hRDataGridView.Name = "hRDataGridView";
             this.hRDataGridView.RowHeadersVisible = false;
@@ -771,9 +782,9 @@
             // columnEffectiveDate
             // 
             this.columnEffectiveDate.DataPropertyName = "EffectiveDate";
-            dataGridViewCellStyle1.Format = "d";
-            dataGridViewCellStyle1.NullValue = null;
-            this.columnEffectiveDate.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Format = "d";
+            dataGridViewCellStyle2.NullValue = null;
+            this.columnEffectiveDate.DefaultCellStyle = dataGridViewCellStyle2;
             this.columnEffectiveDate.HeaderText = "生效日";
             this.columnEffectiveDate.Name = "columnEffectiveDate";
             // 

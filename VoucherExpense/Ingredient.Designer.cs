@@ -41,6 +41,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ingredient));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.IngredientBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.IngredientBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -56,15 +57,7 @@
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.IngredientBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.IngredientDataGridView = new System.Windows.Forms.DataGridView();
-            this.columnIngredientID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CanPurchase = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.columnCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnClass = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Unit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnTitleCode = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.accountingTitleBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.columnPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IngredientIDTextBox = new System.Windows.Forms.TextBox();
             this.codeTextBox = new System.Windows.Forms.TextBox();
             this.classTextBox = new System.Windows.Forms.TextBox();
@@ -78,6 +71,14 @@
             this.titleCodeComboBox = new System.Windows.Forms.ComboBox();
             this.photoPictureBox = new System.Windows.Forms.PictureBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.columnIngredientID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CanPurchase = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.columnCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnClass = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Unit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnTitleCode = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.columnPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             IngredientIDLabel = new System.Windows.Forms.Label();
             codeLabel = new System.Windows.Forms.Label();
             classLabel = new System.Windows.Forms.Label();
@@ -187,6 +188,7 @@
             // IngredientBindingNavigator
             // 
             this.IngredientBindingNavigator.AddNewItem = this.bindingNavigatorAddNewItem;
+            this.IngredientBindingNavigator.BackgroundImage = global::VoucherExpense.Properties.Resources.NavBar_Back;
             this.IngredientBindingNavigator.BindingSource = this.IngredientBindingSource;
             this.IngredientBindingNavigator.CountItem = this.bindingNavigatorCountItem;
             this.IngredientBindingNavigator.DeleteItem = null;
@@ -212,7 +214,7 @@
             this.IngredientBindingNavigator.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.IngredientBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
             this.IngredientBindingNavigator.Size = new System.Drawing.Size(273, 27);
-            this.IngredientBindingNavigator.TabIndex = 0;
+            this.IngredientBindingNavigator.TabIndex = 3;
             this.IngredientBindingNavigator.Text = "bindingNavigator1";
             // 
             // bindingNavigatorAddNewItem
@@ -322,6 +324,14 @@
             this.IngredientDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.IngredientDataGridView.AutoGenerateColumns = false;
             this.IngredientDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.IngredientDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.IngredientDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.columnIngredientID,
             this.CanPurchase,
@@ -333,83 +343,21 @@
             this.columnPrice});
             this.IngredientDataGridView.DataSource = this.IngredientBindingSource;
             this.IngredientDataGridView.Dock = System.Windows.Forms.DockStyle.Left;
+            this.IngredientDataGridView.EnableHeadersVisualStyles = false;
             this.IngredientDataGridView.Location = new System.Drawing.Point(0, 0);
             this.IngredientDataGridView.Margin = new System.Windows.Forms.Padding(4);
             this.IngredientDataGridView.Name = "IngredientDataGridView";
             this.IngredientDataGridView.RowHeadersWidth = 25;
             this.IngredientDataGridView.RowTemplate.Height = 24;
             this.IngredientDataGridView.Size = new System.Drawing.Size(617, 657);
-            this.IngredientDataGridView.TabIndex = 1;
+            this.IngredientDataGridView.TabIndex = 2;
             this.IngredientDataGridView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.IngredientDataGridView_CellBeginEdit);
-            // 
-            // columnIngredientID
-            // 
-            this.columnIngredientID.DataPropertyName = "IngredientID";
-            this.columnIngredientID.HeaderText = "內碼";
-            this.columnIngredientID.Name = "columnIngredientID";
-            this.columnIngredientID.ReadOnly = true;
-            this.columnIngredientID.Width = 50;
-            // 
-            // CanPurchase
-            // 
-            this.CanPurchase.DataPropertyName = "CanPurchase";
-            this.CanPurchase.HeaderText = "可進";
-            this.CanPurchase.Name = "CanPurchase";
-            this.CanPurchase.Width = 50;
-            // 
-            // columnCode
-            // 
-            this.columnCode.DataPropertyName = "Code";
-            this.columnCode.HeaderText = "代号";
-            this.columnCode.Name = "columnCode";
-            this.columnCode.Width = 50;
-            // 
-            // columnClass
-            // 
-            this.columnClass.DataPropertyName = "Class";
-            this.columnClass.HeaderText = "類";
-            this.columnClass.Name = "columnClass";
-            this.columnClass.Width = 25;
-            // 
-            // columnName
-            // 
-            this.columnName.DataPropertyName = "Name";
-            this.columnName.HeaderText = "品名";
-            this.columnName.Name = "columnName";
-            this.columnName.Width = 180;
-            // 
-            // Unit
-            // 
-            this.Unit.DataPropertyName = "Unit";
-            this.Unit.HeaderText = "單位";
-            this.Unit.Name = "Unit";
-            this.Unit.Width = 55;
-            // 
-            // columnTitleCode
-            // 
-            this.columnTitleCode.DataPropertyName = "TitleCode";
-            this.columnTitleCode.DataSource = this.accountingTitleBindingSource;
-            this.columnTitleCode.DisplayMember = "Name";
-            this.columnTitleCode.HeaderText = "科目";
-            this.columnTitleCode.MaxDropDownItems = 16;
-            this.columnTitleCode.Name = "columnTitleCode";
-            this.columnTitleCode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.columnTitleCode.ValueMember = "TitleCode";
             // 
             // accountingTitleBindingSource
             // 
             this.accountingTitleBindingSource.DataMember = "AccountingTitle";
             this.accountingTitleBindingSource.DataSource = this.vEDataSet;
             this.accountingTitleBindingSource.Filter = "TitleCode like \'5*\' ";
-            // 
-            // columnPrice
-            // 
-            this.columnPrice.DataPropertyName = "Price";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.columnPrice.DefaultCellStyle = dataGridViewCellStyle2;
-            this.columnPrice.HeaderText = "參考價";
-            this.columnPrice.Name = "columnPrice";
-            this.columnPrice.Width = 55;
             // 
             // IngredientIDTextBox
             // 
@@ -536,6 +484,70 @@
             this.openFileDialog1.RestoreDirectory = true;
             this.openFileDialog1.Title = "請選擇本食材的圖片";
             // 
+            // columnIngredientID
+            // 
+            this.columnIngredientID.DataPropertyName = "IngredientID";
+            this.columnIngredientID.HeaderText = "內碼";
+            this.columnIngredientID.Name = "columnIngredientID";
+            this.columnIngredientID.ReadOnly = true;
+            this.columnIngredientID.Width = 50;
+            // 
+            // CanPurchase
+            // 
+            this.CanPurchase.DataPropertyName = "CanPurchase";
+            this.CanPurchase.HeaderText = "可進";
+            this.CanPurchase.Name = "CanPurchase";
+            this.CanPurchase.Width = 50;
+            // 
+            // columnCode
+            // 
+            this.columnCode.DataPropertyName = "Code";
+            this.columnCode.HeaderText = "代号";
+            this.columnCode.Name = "columnCode";
+            this.columnCode.Width = 50;
+            // 
+            // columnClass
+            // 
+            this.columnClass.DataPropertyName = "Class";
+            this.columnClass.HeaderText = "類";
+            this.columnClass.Name = "columnClass";
+            this.columnClass.Width = 25;
+            // 
+            // columnName
+            // 
+            this.columnName.DataPropertyName = "Name";
+            this.columnName.HeaderText = "品名";
+            this.columnName.Name = "columnName";
+            this.columnName.Width = 180;
+            // 
+            // Unit
+            // 
+            this.Unit.DataPropertyName = "Unit";
+            this.Unit.HeaderText = "單位";
+            this.Unit.Name = "Unit";
+            this.Unit.Width = 55;
+            // 
+            // columnTitleCode
+            // 
+            this.columnTitleCode.DataPropertyName = "TitleCode";
+            this.columnTitleCode.DataSource = this.accountingTitleBindingSource;
+            this.columnTitleCode.DisplayMember = "Name";
+            this.columnTitleCode.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.columnTitleCode.HeaderText = "科目";
+            this.columnTitleCode.MaxDropDownItems = 16;
+            this.columnTitleCode.Name = "columnTitleCode";
+            this.columnTitleCode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.columnTitleCode.ValueMember = "TitleCode";
+            // 
+            // columnPrice
+            // 
+            this.columnPrice.DataPropertyName = "Price";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.columnPrice.DefaultCellStyle = dataGridViewCellStyle3;
+            this.columnPrice.HeaderText = "參考";
+            this.columnPrice.Name = "columnPrice";
+            this.columnPrice.Width = 55;
+            // 
             // Ingredient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -610,6 +622,8 @@
         private System.Windows.Forms.BindingSource accountingTitleBindingSource;
         private VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter accountingTitleTableAdapter;
         private System.Windows.Forms.ComboBox titleCodeComboBox;
+        private System.Windows.Forms.PictureBox photoPictureBox;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnIngredientID;
         private System.Windows.Forms.DataGridViewCheckBoxColumn CanPurchase;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnCode;
@@ -618,8 +632,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Unit;
         private System.Windows.Forms.DataGridViewComboBoxColumn columnTitleCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnPrice;
-        private System.Windows.Forms.PictureBox photoPictureBox;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
 
     }
 }

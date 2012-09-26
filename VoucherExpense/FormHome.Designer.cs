@@ -74,6 +74,7 @@
             this.盤點ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vEDataSet = new VoucherExpense.VEDataSet();
             this.headerTableAdapter = new VoucherExpense.VEDataSetTableAdapters.HeaderTableAdapter();
+            this.產品表MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menu1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             this.SuspendLayout();
@@ -104,6 +105,7 @@
             this.基本資料MenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.供應商MenuItem,
             this.食材表MenuItem,
+            this.產品表MenuItem,
             this.產品菜單ToolStripMenuItem,
             this.會計科目MenuItem,
             this.傳票設定MenuItem,
@@ -134,7 +136,7 @@
             // 
             this.產品菜單ToolStripMenuItem.Name = "產品菜單ToolStripMenuItem";
             this.產品菜單ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.產品菜單ToolStripMenuItem.Text = "產品菜單";
+            this.產品菜單ToolStripMenuItem.Text = "點菜單";
             this.產品菜單ToolStripMenuItem.Click += new System.EventHandler(this.編點菜單ToolStripMenuItem_Click);
             // 
             // 會計科目MenuItem
@@ -431,6 +433,13 @@
             // 
             this.headerTableAdapter.ClearBeforeFill = true;
             // 
+            // 產品表MenuItem
+            // 
+            this.產品表MenuItem.Name = "產品表MenuItem";
+            this.產品表MenuItem.Size = new System.Drawing.Size(152, 22);
+            this.產品表MenuItem.Text = "產品表";
+            this.產品表MenuItem.Click += new System.EventHandler(this.產品表MenuItem_Click);
+            // 
             // FormHome
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -502,6 +511,7 @@
         private System.Windows.Forms.ToolStripMenuItem 產品菜單ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 編修部門MenuItem;
         private System.Windows.Forms.ToolStripMenuItem 銷售統計ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 產品表MenuItem;
 
     }
 }

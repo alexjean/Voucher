@@ -41,6 +41,7 @@
             System.Windows.Forms.Label hideLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Vendor));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.vendorBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.vendorBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -191,9 +192,11 @@
             // vendorBindingNavigator
             // 
             this.vendorBindingNavigator.AddNewItem = this.bindingNavigatorAddNewItem;
+            this.vendorBindingNavigator.BackgroundImage = global::VoucherExpense.Properties.Resources.NavBar_Back;
             this.vendorBindingNavigator.BindingSource = this.vendorBindingSource;
             this.vendorBindingNavigator.CountItem = this.bindingNavigatorCountItem;
             this.vendorBindingNavigator.DeleteItem = null;
+            this.vendorBindingNavigator.Dock = System.Windows.Forms.DockStyle.None;
             this.vendorBindingNavigator.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bindingNavigatorMoveFirstItem,
             this.bindingNavigatorMovePreviousItem,
@@ -206,7 +209,7 @@
             this.bindingNavigatorSeparator2,
             this.bindingNavigatorAddNewItem,
             this.vendorBindingNavigatorSaveItem});
-            this.vendorBindingNavigator.Location = new System.Drawing.Point(0, 0);
+            this.vendorBindingNavigator.Location = new System.Drawing.Point(607, 1);
             this.vendorBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.vendorBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
             this.vendorBindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
@@ -214,7 +217,7 @@
             this.vendorBindingNavigator.Name = "vendorBindingNavigator";
             this.vendorBindingNavigator.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.vendorBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.vendorBindingNavigator.Size = new System.Drawing.Size(920, 27);
+            this.vendorBindingNavigator.Size = new System.Drawing.Size(273, 27);
             this.vendorBindingNavigator.TabIndex = 0;
             this.vendorBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -321,8 +324,18 @@
             this.vendorDataGridView.AllowUserToOrderColumns = true;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
             this.vendorDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.vendorDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.vendorDataGridView.AutoGenerateColumns = false;
             this.vendorDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.vendorDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.vendorDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.columnVendorID,
             this.dataGridViewTextBoxColumn2,
@@ -331,13 +344,13 @@
             this.dataGridViewTextBoxColumn5,
             this.HideBox});
             this.vendorDataGridView.DataSource = this.vendorBindingSource;
-            this.vendorDataGridView.Dock = System.Windows.Forms.DockStyle.Left;
-            this.vendorDataGridView.Location = new System.Drawing.Point(0, 27);
+            this.vendorDataGridView.EnableHeadersVisualStyles = false;
+            this.vendorDataGridView.Location = new System.Drawing.Point(0, 1);
             this.vendorDataGridView.Margin = new System.Windows.Forms.Padding(4);
             this.vendorDataGridView.Name = "vendorDataGridView";
             this.vendorDataGridView.ReadOnly = true;
             this.vendorDataGridView.RowTemplate.Height = 24;
-            this.vendorDataGridView.Size = new System.Drawing.Size(572, 496);
+            this.vendorDataGridView.Size = new System.Drawing.Size(572, 522);
             this.vendorDataGridView.TabIndex = 1;
             this.vendorDataGridView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.vendorDataGridView_CellBeginEdit);
             // 

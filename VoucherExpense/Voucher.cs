@@ -54,7 +54,7 @@ namespace VoucherExpense
                     {
                         if (r.IsStockTimeNull())
                         {
-                            MessageBox.Show("進貨單<" + r.ID.ToString() + ">沒有日期,無法顯示在當月,只顯示在全年度!");
+                            MessageBox.Show("進貨單<" + r.ID.ToString() + ">沒有日期,不顯示在某單月,只顯示在全年度!");
                         }
                         r.BeginEdit();
                         if (!checkMode)   // checkMode不更新 輸入者
@@ -783,6 +783,11 @@ namespace VoucherExpense
             DataGridViewRow row = e.Row;
             DataGridViewCell cellID = row.Cells["detailColumnID"];
             cellID.Value = Guid.NewGuid();
+        }
+
+        private void voucherDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
 
     }

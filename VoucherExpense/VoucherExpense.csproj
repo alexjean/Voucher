@@ -512,6 +512,7 @@
     </Content>
     <Content Include="Class\Microsoft.Office.Interop.Excel.dll" />
     <Content Include="iconHeart.ico" />
+    <None Include="NavBar_Back.png" />
     <Content Include="VoucherExpense.mdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

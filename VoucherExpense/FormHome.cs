@@ -378,6 +378,11 @@ namespace VoucherExpense
             PopupOrRun("SoldProducts", typeof(FormSoldProducts));
         }
 
+        private void 產品表MenuItem_Click(object sender, EventArgs e)
+        {
+            PopupOrRun("EditProducts", typeof(EditProduct));
+        }
+
         //private void 盤點ToolStripMenuItem_Click(object sender, EventArgs e)
         //{
         //    PopupOrRun("Stock", typeof(FormStock));

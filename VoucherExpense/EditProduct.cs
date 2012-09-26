@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
 
 namespace VoucherExpense
 
@@ -16,6 +17,7 @@ namespace VoucherExpense
             InitializeComponent();
         }
 
+        private string m_PhotoPath = "Photos\\Products\\";
         private void AddProduct_Load(object sender, EventArgs e)
         {
             productTableAdapter.Connection  = MapPath.BasicConnection;
@@ -23,6 +25,7 @@ namespace VoucherExpense
             orderTableAdapter.Connection    = MapPath.BasicConnection;
             this.productTableAdapter.Fill(this.basicDataSet.Product);
             SetControlLengthFromDB(this, basicDataSet.Product);
+            photoPictureBox.Visible = Directory.Exists(m_PhotoPath);
         }
 
         static public void SetControlLengthFromDB(Form form, DataTable table)
@@ -228,5 +231,73 @@ namespace VoucherExpense
             }
             MessageBox.Show("沒有刪除 " + strCode + name);
         }
+
+
+        string CurrentPhotoPath()
+        {
+            DataRowView rowView = productBindingSource.Current as DataRowView;
+            BasicDataSet.ProductRow row = rowView.Row as BasicDataSet.ProductRow;
+            return m_PhotoPath + row.ProductID.ToString() + ".jpg";
+        }
+
+        Size SizeSave = new Size(0, 0);
+        Point LocationSave = new Point(0, 0);
+        private void photoPictureBox_Click(object sender, EventArgs e)
+        {
+            if (!photoPictureBox.Visible) return;
+            if (photoPictureBox.ImageLocation == null)
+            {
+                photoPictureBox_DoubleClick(null, null);
+                return;
+            }
+            if (LocationSave.X == 0)
+            {
+                SizeSave = photoPictureBox.Size;
+                LocationSave = photoPictureBox.Location;
+            }
+            if (photoPictureBox.Location.X == 0)
+            {
+                photoPictureBox.Location = LocationSave;
+                photoPictureBox.Size = SizeSave;
+            }
+            else
+            {
+                photoPictureBox.Location = new Point(0, 0);
+                photoPictureBox.Size = this.Size;
+                photoPictureBox.BringToFront();
+            }
+        }
+
+        private void productBindingSource_CurrentChanged(object sender, EventArgs e)
+        {
+            if (!photoPictureBox.Visible) return;
+            if (photoPictureBox.Location.X == 0)
+            {
+                photoPictureBox.Location = LocationSave;
+                photoPictureBox.Size = SizeSave;
+            }
+            string path = CurrentPhotoPath();
+            if (File.Exists(path))
+                photoPictureBox.ImageLocation = path;
+            else
+                photoPictureBox.ImageLocation = null;
+
+        }
+
+        private void photoPictureBox_DoubleClick(object sender, EventArgs e)
+        {
+            DialogResult result = openFileDialog1.ShowDialog();
+            if (result != DialogResult.OK) return;
+            string ext = Path.GetExtension(openFileDialog1.FileName).ToLower();
+            if (ext != ".jpg")
+            {
+                MessageBox.Show("對不起!只接受jpg檔");
+                return;
+            }
+            string path = CurrentPhotoPath();
+            File.Copy(openFileDialog1.FileName, path, true);
+            photoPictureBox.ImageLocation = path;
+        }
+
     }
 }

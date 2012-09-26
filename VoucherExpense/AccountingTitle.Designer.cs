@@ -30,10 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AccountingTitle));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
             this.accountingTitleBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.accountingTitleBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -49,14 +50,14 @@
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.accountingTitleBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.accountingTitleDataGridView = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.accountingTitleTableAdapter = new VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter();
             this.TitleCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnTitleName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.InitialValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.accountingTitleTableAdapter = new VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingNavigator)).BeginInit();
             this.accountingTitleBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).BeginInit();
@@ -68,6 +69,7 @@
             // accountingTitleBindingNavigator
             // 
             this.accountingTitleBindingNavigator.AddNewItem = this.bindingNavigatorAddNewItem;
+            this.accountingTitleBindingNavigator.BackgroundImage = global::VoucherExpense.Properties.Resources.NavBar_Back;
             this.accountingTitleBindingNavigator.BindingSource = this.accountingTitleBindingSource;
             this.accountingTitleBindingNavigator.CountItem = this.bindingNavigatorCountItem;
             this.accountingTitleBindingNavigator.DeleteItem = null;
@@ -91,7 +93,7 @@
             this.accountingTitleBindingNavigator.Name = "accountingTitleBindingNavigator";
             this.accountingTitleBindingNavigator.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.accountingTitleBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.accountingTitleBindingNavigator.Size = new System.Drawing.Size(885, 27);
+            this.accountingTitleBindingNavigator.Size = new System.Drawing.Size(437, 27);
             this.accountingTitleBindingNavigator.TabIndex = 0;
             this.accountingTitleBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -197,10 +199,18 @@
             this.accountingTitleDataGridView.AllowUserToAddRows = false;
             this.accountingTitleDataGridView.AllowUserToDeleteRows = false;
             this.accountingTitleDataGridView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
-            this.accountingTitleDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle26.BackColor = System.Drawing.Color.Azure;
+            this.accountingTitleDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle26;
             this.accountingTitleDataGridView.AutoGenerateColumns = false;
             this.accountingTitleDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
+            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle27.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            dataGridViewCellStyle27.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle27.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle27.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle27.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.accountingTitleDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle27;
             this.accountingTitleDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.TitleCode,
             this.columnTitleName,
@@ -208,21 +218,58 @@
             this.dataGridViewTextBoxColumn4});
             this.accountingTitleDataGridView.DataSource = this.accountingTitleBindingSource;
             this.accountingTitleDataGridView.Dock = System.Windows.Forms.DockStyle.Left;
-            this.accountingTitleDataGridView.Location = new System.Drawing.Point(0, 27);
+            this.accountingTitleDataGridView.EnableHeadersVisualStyles = false;
+            this.accountingTitleDataGridView.Location = new System.Drawing.Point(0, 0);
             this.accountingTitleDataGridView.Margin = new System.Windows.Forms.Padding(4);
             this.accountingTitleDataGridView.Name = "accountingTitleDataGridView";
             this.accountingTitleDataGridView.RowHeadersWidth = 25;
             this.accountingTitleDataGridView.RowTemplate.Height = 24;
             this.accountingTitleDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.accountingTitleDataGridView.Size = new System.Drawing.Size(448, 487);
+            this.accountingTitleDataGridView.Size = new System.Drawing.Size(448, 514);
             this.accountingTitleDataGridView.TabIndex = 1;
             this.accountingTitleDataGridView.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.accountingTitleDataGridView_CellValidating);
             this.accountingTitleDataGridView.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.accountingTitleDataGridView_RowValidating);
             // 
+            // TitleCode
+            // 
+            this.TitleCode.DataPropertyName = "TitleCode";
+            dataGridViewCellStyle28.NullValue = null;
+            this.TitleCode.DefaultCellStyle = dataGridViewCellStyle28;
+            this.TitleCode.HeaderText = "科目編號";
+            this.TitleCode.Name = "TitleCode";
+            this.TitleCode.Width = 80;
+            // 
+            // columnTitleName
+            // 
+            this.columnTitleName.DataPropertyName = "Name";
+            this.columnTitleName.HeaderText = "科目名稱";
+            this.columnTitleName.Name = "columnTitleName";
+            this.columnTitleName.Width = 120;
+            // 
+            // InitialValue
+            // 
+            this.InitialValue.DataPropertyName = "InitialValue";
+            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle29.Format = "N2";
+            dataGridViewCellStyle29.NullValue = null;
+            this.InitialValue.DefaultCellStyle = dataGridViewCellStyle29;
+            this.InitialValue.HeaderText = "期初值";
+            this.InitialValue.Name = "InitialValue";
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "LastUpdated";
+            dataGridViewCellStyle30.Format = "d";
+            dataGridViewCellStyle30.NullValue = null;
+            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle30;
+            this.dataGridViewTextBoxColumn4.HeaderText = "更新日";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(144, 29);
+            this.label1.Location = new System.Drawing.Point(141, 95);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(136, 16);
             this.label1.TabIndex = 1;
@@ -232,11 +279,12 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.panel1.Controls.Add(this.listBox1);
+            this.panel1.Controls.Add(this.accountingTitleBindingNavigator);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(448, 27);
+            this.panel1.Location = new System.Drawing.Point(448, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(437, 487);
+            this.panel1.Size = new System.Drawing.Size(437, 514);
             this.panel1.TabIndex = 2;
             // 
             // listBox1
@@ -263,7 +311,7 @@
             "所有進貨的貸方  ",
             "現金收入 刷卡收入",
             "---------------------------------"});
-            this.listBox1.Location = new System.Drawing.Point(37, 76);
+            this.listBox1.Location = new System.Drawing.Point(34, 142);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(379, 324);
             this.listBox1.TabIndex = 3;
@@ -272,42 +320,6 @@
             // 
             this.accountingTitleTableAdapter.ClearBeforeFill = true;
             // 
-            // TitleCode
-            // 
-            this.TitleCode.DataPropertyName = "TitleCode";
-            dataGridViewCellStyle2.NullValue = null;
-            this.TitleCode.DefaultCellStyle = dataGridViewCellStyle2;
-            this.TitleCode.HeaderText = "科目編號";
-            this.TitleCode.Name = "TitleCode";
-            this.TitleCode.Width = 80;
-            // 
-            // columnTitleName
-            // 
-            this.columnTitleName.DataPropertyName = "Name";
-            this.columnTitleName.HeaderText = "科目名稱";
-            this.columnTitleName.Name = "columnTitleName";
-            this.columnTitleName.Width = 120;
-            // 
-            // InitialValue
-            // 
-            this.InitialValue.DataPropertyName = "InitialValue";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "N2";
-            dataGridViewCellStyle3.NullValue = null;
-            this.InitialValue.DefaultCellStyle = dataGridViewCellStyle3;
-            this.InitialValue.HeaderText = "期初值";
-            this.InitialValue.Name = "InitialValue";
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "LastUpdated";
-            dataGridViewCellStyle4.Format = "d";
-            dataGridViewCellStyle4.NullValue = null;
-            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridViewTextBoxColumn4.HeaderText = "更新日";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            // 
             // AccountingTitle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -315,7 +327,6 @@
             this.ClientSize = new System.Drawing.Size(885, 514);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.accountingTitleDataGridView);
-            this.Controls.Add(this.accountingTitleBindingNavigator);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AccountingTitle";
@@ -330,7 +341,6 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 

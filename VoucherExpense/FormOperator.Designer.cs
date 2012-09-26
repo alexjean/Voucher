@@ -268,7 +268,7 @@
             this.LoginName.DataPropertyName = "LoginName";
             this.LoginName.HeaderText = "登入名";
             this.LoginName.Name = "LoginName";
-            this.LoginName.Width = 80;
+            this.LoginName.Width = 84;
             // 
             // dataGridViewTextBoxColumn5
             // 

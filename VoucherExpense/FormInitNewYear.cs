@@ -85,13 +85,13 @@ namespace VoucherExpense
         List<string> ReservedTable = new List<string>()
                     {   "Product"       ,
                         "AccountingTitle",
-                        "Employee"      ,
                         "Operator"      ,
                         "Vendor"        ,
                         "Ingredient"    ,
                         "BankAccount"   ,
                         "Config"        ,
-                        "OnDutyEmployee"
+                        "HR"            ,
+                        "HRDetail"
                     };
 
         private void Message(string s) 

@@ -13,3 +13,4 @@ syntax: glob
 VoucherExpense/Properties/AssemblyInfo.cs.orig
 VoucherExpense/ReportByTitle.cs.orig
 VoucherExpense/VoucherExpense.ldb
+VoucherExpense/BasicData.ldb

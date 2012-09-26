@@ -67,6 +67,13 @@ namespace VoucherExpense.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap NavBar_Back {
+            get {
+                object obj = ResourceManager.GetObject("NavBar_Back", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static byte[] VoucherExpense {
             get {
                 object obj = ResourceManager.GetObject("VoucherExpense", resourceCulture);

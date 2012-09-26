@@ -44,6 +44,8 @@ namespace VoucherExpense
 
         }
 
+
+        private string m_PhotoPath = "Photos\\Ingredients\\";
         private void Ingredient_Load(object sender, EventArgs e)
         {
             accountingTitleTableAdapter.Connection  = MapPath.VEConnection;
@@ -52,7 +54,7 @@ namespace VoucherExpense
             IngredientTableAdapter.Fill(this.vEDataSet.Ingredient);
             MyFunction.SetFieldLength(IngredientDataGridView, vEDataSet.Ingredient);
             MyFunction.SetControlLengthFromDB(this, vEDataSet.Ingredient);
-            photoPictureBox.Visible = Directory.Exists("Photos");
+            photoPictureBox.Visible = Directory.Exists(m_PhotoPath);
 
         }
 
@@ -87,7 +89,7 @@ namespace VoucherExpense
         {
             DataRowView rowView = IngredientBindingSource.Current as DataRowView;
             VEDataSet.IngredientRow row = rowView.Row as VEDataSet.IngredientRow;
-            return "Photos\\" + row.IngredientID.ToString() + ".jpg";
+            return m_PhotoPath + row.IngredientID.ToString() + ".jpg";
         }
 
         Size SizeSave = new Size(0, 0);

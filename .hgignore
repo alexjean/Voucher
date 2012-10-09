@@ -14,3 +14,6 @@ VoucherExpense/Properties/AssemblyInfo.cs.orig
 VoucherExpense/ReportByTitle.cs.orig
 VoucherExpense/VoucherExpense.ldb
 VoucherExpense/BasicData.ldb
+BakeryOrder/bin/*
+BakeryOrder/obj/*
+VoucherExpense/bin/*

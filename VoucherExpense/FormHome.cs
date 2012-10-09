@@ -383,6 +383,11 @@ namespace VoucherExpense
             PopupOrRun("EditProducts", typeof(EditProduct));
         }
 
+        private void 烘培菜單MenuItem_Click(object sender, EventArgs e)
+        {
+            PopupOrRun("EditBakeryMenu", typeof(EditBakeryMenu));
+        }
+
         //private void 盤點ToolStripMenuItem_Click(object sender, EventArgs e)
         //{
         //    PopupOrRun("Stock", typeof(FormStock));

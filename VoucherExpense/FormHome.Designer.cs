@@ -33,7 +33,9 @@
             this.基本資料MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.供應商MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.食材表MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.產品表MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.產品菜單ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.烘培菜單MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.會計科目MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.傳票設定MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.銀行帳號MenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,7 +76,6 @@
             this.盤點ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vEDataSet = new VoucherExpense.VEDataSet();
             this.headerTableAdapter = new VoucherExpense.VEDataSetTableAdapters.HeaderTableAdapter();
-            this.產品表MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menu1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             this.SuspendLayout();
@@ -107,6 +108,7 @@
             this.食材表MenuItem,
             this.產品表MenuItem,
             this.產品菜單ToolStripMenuItem,
+            this.烘培菜單MenuItem,
             this.會計科目MenuItem,
             this.傳票設定MenuItem,
             this.銀行帳號MenuItem,
@@ -132,12 +134,28 @@
             this.食材表MenuItem.Text = "食材表";
             this.食材表MenuItem.Click += new System.EventHandler(this.食材表MenuItem_Click);
             // 
+            // 產品表MenuItem
+            // 
+            this.產品表MenuItem.Name = "產品表MenuItem";
+            this.產品表MenuItem.Size = new System.Drawing.Size(152, 22);
+            this.產品表MenuItem.Text = "產品表";
+            this.產品表MenuItem.Click += new System.EventHandler(this.產品表MenuItem_Click);
+            // 
             // 產品菜單ToolStripMenuItem
             // 
+            this.產品菜單ToolStripMenuItem.Enabled = false;
             this.產品菜單ToolStripMenuItem.Name = "產品菜單ToolStripMenuItem";
             this.產品菜單ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.產品菜單ToolStripMenuItem.Text = "點菜單";
+            this.產品菜單ToolStripMenuItem.Text = "餐飲菜單";
+            this.產品菜單ToolStripMenuItem.Visible = false;
             this.產品菜單ToolStripMenuItem.Click += new System.EventHandler(this.編點菜單ToolStripMenuItem_Click);
+            // 
+            // 烘培菜單MenuItem
+            // 
+            this.烘培菜單MenuItem.Name = "烘培菜單MenuItem";
+            this.烘培菜單MenuItem.Size = new System.Drawing.Size(152, 22);
+            this.烘培菜單MenuItem.Text = "烘焙菜單";
+            this.烘培菜單MenuItem.Click += new System.EventHandler(this.烘培菜單MenuItem_Click);
             // 
             // 會計科目MenuItem
             // 
@@ -433,13 +451,6 @@
             // 
             this.headerTableAdapter.ClearBeforeFill = true;
             // 
-            // 產品表MenuItem
-            // 
-            this.產品表MenuItem.Name = "產品表MenuItem";
-            this.產品表MenuItem.Size = new System.Drawing.Size(152, 22);
-            this.產品表MenuItem.Text = "產品表";
-            this.產品表MenuItem.Click += new System.EventHandler(this.產品表MenuItem_Click);
-            // 
             // FormHome
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -512,6 +523,7 @@
         private System.Windows.Forms.ToolStripMenuItem 編修部門MenuItem;
         private System.Windows.Forms.ToolStripMenuItem 銷售統計ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 產品表MenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 烘培菜單MenuItem;
 
     }
 }

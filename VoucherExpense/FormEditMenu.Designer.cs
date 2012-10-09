@@ -63,22 +63,24 @@
             // 
             // listBoxProduct
             // 
+            this.listBoxProduct.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxProduct.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.listBoxProduct.FormattingEnabled = true;
             this.listBoxProduct.ItemHeight = 16;
-            this.listBoxProduct.Location = new System.Drawing.Point(4, 44);
+            this.listBoxProduct.Location = new System.Drawing.Point(4, 52);
             this.listBoxProduct.Name = "listBoxProduct";
-            this.listBoxProduct.Size = new System.Drawing.Size(150, 532);
+            this.listBoxProduct.Size = new System.Drawing.Size(150, 580);
             this.listBoxProduct.TabIndex = 2;
             this.listBoxProduct.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listBoxProduct_MouseDown);
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(20, 611);
+            this.btnSave.Location = new System.Drawing.Point(20, 638);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(113, 23);
             this.btnSave.TabIndex = 3;
-            this.btnSave.Text = "右方菜單存檔";
+            this.btnSave.Text = "菜單存檔";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 

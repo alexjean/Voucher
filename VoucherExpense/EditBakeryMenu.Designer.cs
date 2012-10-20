@@ -30,8 +30,8 @@
         {
             this.listBoxProduct = new System.Windows.Forms.ListBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.basicDataSet1 = new VoucherExpense.BasicDataSet();
             this.productTableAdapter1 = new VoucherExpense.BasicDataSetTableAdapters.ProductTableAdapter();
             this.comboBoxWidth = new System.Windows.Forms.ComboBox();
@@ -39,6 +39,9 @@
             this.comboBoxHeight = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
+            this.labelHelp = new System.Windows.Forms.Label();
+            this.textBoxRename = new System.Windows.Forms.TextBox();
+            this.btnRename = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.basicDataSet1)).BeginInit();
             this.SuspendLayout();
@@ -59,10 +62,11 @@
             // tabControl1
             // 
             this.tabControl1.Alignment = System.Windows.Forms.TabAlignment.Bottom;
-            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Right;
             this.tabControl1.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.tabControl1.ItemSize = new System.Drawing.Size(92, 32);
             this.tabControl1.Location = new System.Drawing.Point(167, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -70,16 +74,7 @@
             this.tabControl1.Size = new System.Drawing.Size(748, 671);
             this.tabControl1.TabIndex = 4;
             this.tabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.BackColor = System.Drawing.Color.Azure;
-            this.tabPage1.Location = new System.Drawing.Point(4, 4);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(740, 638);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "面包";
+            this.tabControl1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tabControl1_KeyPress);
             // 
             // tabPage2
             // 
@@ -90,6 +85,17 @@
             this.tabPage2.Size = new System.Drawing.Size(740, 638);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "饮料西点";
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.Color.Azure;
+            this.tabPage1.Location = new System.Drawing.Point(4, 4);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(740, 631);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "面包";
+            this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
             // 
             // basicDataSet1
             // 
@@ -159,13 +165,45 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(19, 583);
+            this.btnSave.Location = new System.Drawing.Point(19, 566);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(136, 37);
             this.btnSave.TabIndex = 9;
             this.btnSave.Text = "本頁菜單存檔";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // labelHelp
+            // 
+            this.labelHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelHelp.AutoSize = true;
+            this.labelHelp.Location = new System.Drawing.Point(11, 646);
+            this.labelHelp.Name = "labelHelp";
+            this.labelHelp.Size = new System.Drawing.Size(154, 16);
+            this.labelHelp.TabIndex = 10;
+            this.labelHelp.Text = "I插入 D刪除 R改名=>";
+            // 
+            // textBoxRename
+            // 
+            this.textBoxRename.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxRename.Location = new System.Drawing.Point(12, 635);
+            this.textBoxRename.MaxLength = 6;
+            this.textBoxRename.Name = "textBoxRename";
+            this.textBoxRename.Size = new System.Drawing.Size(86, 27);
+            this.textBoxRename.TabIndex = 11;
+            this.textBoxRename.Visible = false;
+            // 
+            // btnRename
+            // 
+            this.btnRename.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRename.Location = new System.Drawing.Point(100, 633);
+            this.btnRename.Name = "btnRename";
+            this.btnRename.Size = new System.Drawing.Size(61, 31);
+            this.btnRename.TabIndex = 12;
+            this.btnRename.Text = "改名";
+            this.btnRename.UseVisualStyleBackColor = true;
+            this.btnRename.Visible = false;
+            this.btnRename.Click += new System.EventHandler(this.btnRename_Click);
             // 
             // EditBakeryMenu
             // 
@@ -178,8 +216,11 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.comboBoxWidth);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.listBoxProduct);
+            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.labelHelp);
+            this.Controls.Add(this.textBoxRename);
+            this.Controls.Add(this.btnRename);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "EditBakeryMenu";
@@ -205,5 +246,8 @@
         private System.Windows.Forms.ComboBox comboBoxHeight;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Label labelHelp;
+        private System.Windows.Forms.TextBox textBoxRename;
+        private System.Windows.Forms.Button btnRename;
     }
 }

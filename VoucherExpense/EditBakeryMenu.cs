@@ -76,6 +76,49 @@ namespace VoucherExpense
             }
         }
 
+        private void LoadTabControlItem()
+        {
+
+            // 小於0的是菜單名負一排最前面
+            var rows = from row in basicDataSet1.Product
+                   where row.Code < SpeicalRowCodeForMenu
+                   orderby row.Code descending
+                   select row;
+            tabControl1.TabPages.Clear();
+            if (rows.Count() == 0)   // 都沒有的話留下預設的
+            {
+                tabControl1.TabPages.Add("面包");
+
+                int maxID = (from ro in basicDataSet1.Product
+                             select ro.ProductID).Max();
+                BasicDataSet.ProductRow row = basicDataSet1.Product.NewProductRow();
+                row.ProductID = ++maxID;
+                row.Name = SystemMenuName("面包", 1);
+                row.Code = -1;
+                row.MenuX = -1;
+                row.MenuY = -1;
+                basicDataSet1.Product.AddProductRow(row);
+                SaveProduct();
+            }
+            else
+            {
+                String str;
+                int i;
+                foreach (BasicDataSet.ProductRow row in rows)
+                {
+                    str = row.Name;
+                    i = str.IndexOf('_');    // 以底線做分割, 前面是菜單名
+                    if (i > 1) str = str.Substring(0, i);
+                    tabControl1.TabPages.Add(str);
+                }
+            }
+            foreach (TabPage page in tabControl1.TabPages)
+            {
+                page.BackColor = Color.Azure;
+                page.Font = new Font("標楷體", 14.25f);
+            }
+        }
+
         private void EditBakeryMenu_Load(object sender, EventArgs e)
         {
             try
@@ -93,14 +136,17 @@ namespace VoucherExpense
                 listBoxProduct.Items.Add(new DragItem(null, row));
             }
 
-            // 程式保留row.Code 99999做為菜單的寬高,這行不是產品
+            // 程式保留row.Code 0做為菜單的寬高,這行不是產品
             var rows = from row in basicDataSet1.Product
-                       where row.Code == SpeicalRowCodeForMenu select row;
+                       where row.Code == SpeicalRowCodeForMenu
+                       select row;
             foreach (BasicDataSet.ProductRow row in rows)
             {
                 MyLayout.NoX = -row.MenuX;
                 MyLayout.NoY = -row.MenuY;
             }
+
+            LoadTabControlItem();
             tabControl1.DrawMode = TabDrawMode.OwnerDrawFixed;
             UpdateAllFoodMenu();
 
@@ -146,6 +192,7 @@ namespace VoucherExpense
         private void listBoxProduct_MouseDown(object sender, MouseEventArgs e)
         {
             ListBox box = sender as ListBox;
+            if (box.SelectedItem == null) return;
             DoDragDrop(box.SelectedItem, DragDropEffects.Copy);
         }
 
@@ -343,6 +390,129 @@ namespace VoucherExpense
             catch (Exception ex)
             {
                 MessageBox.Show("Error:" + ex.Message);
+            }
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+        
+        }
+
+        void SaveProduct()
+        {
+            try
+            {
+                productTableAdapter1.Update(basicDataSet1.Product);
+                LoadTabControlItem();
+                UpdateAllFoodMenu();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error:" + ex.Message);
+            }
+        }
+
+        string SystemMenuName(string name, int index)
+        {
+            return name + "_菜單名" + index.ToString() + "_勿動";
+        }
+
+        private void tabControl1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char c = char.ToUpper(e.KeyChar);
+            int i = tabControl1.SelectedIndex;
+            if (i < 0 || i >= tabControl1.TabCount) return;
+            if (c == 'I')
+            {
+                tabControl1.TabPages.Insert(i,"菜單" + i.ToString());
+                var rows = from row in basicDataSet1.Product
+                           where row.Code < SpeicalRowCodeForMenu
+                           select row;
+                i = 0;
+                foreach (BasicDataSet.ProductRow row in rows)
+                {
+                    if (i >= tabControl1.TabCount) break; // 不應該發生
+                    TabPage page = tabControl1.TabPages[i];
+                    i++;
+                    row.Name = SystemMenuName(page.Text,i);
+                    row.Code = -i;
+                    row.MenuX = -1;
+                    row.MenuY = -1;
+                }
+                int maxID = (from row in basicDataSet1.Product
+                             select row.ProductID).Max();
+                for (; i < tabControl1.TabCount;)
+                {
+                    BasicDataSet.ProductRow row = basicDataSet1.Product.NewProductRow();
+                    TabPage page = tabControl1.TabPages[i];
+                    row.ProductID = ++maxID;
+                    i++;
+                    row.Name = SystemMenuName(page.Text, i);
+                    row.Code = -i;
+                    row.MenuX = -1;
+                    row.MenuY = -1;
+                    basicDataSet1.Product.AddProductRow(row);
+                }
+                SaveProduct();
+            }
+            else if (c == 'R')
+            {
+                textBoxRename.Text = tabControl1.TabPages[i].Text;
+                textBoxRename.Visible = true;
+                btnRename.Visible = true;
+                labelHelp.Visible = false;
+                textBoxRename.BringToFront();
+                btnRename.BringToFront();
+                textBoxRename.Focus();
+            }
+            else if (c == 'D')
+            {
+                if (tabControl1.TabCount == 1)
+                {
+                    MessageBox.Show("不能再刪了!");
+                    return;
+                }
+                string name = tabControl1.TabPages[i].Text;
+                if (MessageBox.Show("刪除標簽頁<" + name + ">?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+  //                  tabControl1.TabPages.RemoveAt(i);    // 後面會重Load
+                    var rows = from row in basicDataSet1.Product
+                               where (row.Code < SpeicalRowCodeForMenu) && (row.Name.Substring(0, name.Length).CompareTo(name) == 0)
+                               select row;
+                    foreach (BasicDataSet.ProductRow row in rows)
+                    {
+                        row.Delete();
+                        break;
+                    }
+                }
+                SaveProduct();
+            }
+
+        }
+
+        private void btnRename_Click(object sender, EventArgs e)
+        {
+            labelHelp.Visible = true;
+            labelHelp.BringToFront();
+            string str = textBoxRename.Text.Trim();
+            if (str.Length > 0)
+            {
+                int i = tabControl1.SelectedIndex;
+                if (i < 0 || i >= tabControl1.TabCount) return;
+                string name = tabControl1.TabPages[i].Text;
+//                tabControl1.TabPages[i].Text = str;    // 在SaveProduct會重Load
+                textBoxRename.Visible = false;
+                btnRename.Visible = false;
+                var rows = from row in basicDataSet1.Product
+                           where (row.Code < SpeicalRowCodeForMenu) && (row.Name.Length>=name.Length) &&
+                                 (row.Name.Substring(0, name.Length).CompareTo(name) == 0)
+                           select row;
+                foreach (BasicDataSet.ProductRow row in rows)
+                {
+                    row.Name = SystemMenuName(str,i+1);
+                    break;
+                }
+                SaveProduct();
             }
         }
     }

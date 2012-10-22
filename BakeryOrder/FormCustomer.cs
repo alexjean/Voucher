@@ -48,5 +48,49 @@ namespace BakeryOrder
             if (m_Count >= m_Files.Count()) m_Count = 0;
             pictureBoxPhoto.ImageLocation = m_Files[m_Count];
         }
+
+        public void SetTimer(int tick)
+        {
+            timer1.Interval = 30000;
+        }
+
+        public void ShowTotal(double total)
+        {
+            labelTotal.Text = total.ToString();
+        }
+
+        private ListViewItem FindByCodeFromList(int code)
+        {
+            foreach (ListViewItem lvItem in lvCustomer.Items)
+            {
+                if (code == (int)lvItem.Tag) return lvItem;
+            }
+            return null;
+        }
+
+        public void Item2List(int code,string name, double No, double money)
+        {
+            ListViewItem lvItem=FindByCodeFromList(code);
+            if (lvItem==null)
+            {
+                if (No==0) return;
+                lvItem = lvCustomer.Items.Add(name);
+                lvItem.SubItems.Add(No.ToString());
+                lvItem.SubItems.Add(money.ToString());
+                lvItem.Tag = code;
+            }
+            else
+            {
+                if (No==0)
+                    lvCustomer.Items.Remove(lvItem);
+                else
+                {                
+                    lvItem.SubItems[1].Text = No.ToString();
+                    lvItem.SubItems[2].Text = money.ToString(); ;
+                }
+            }
+        }
+
+
     }
 }

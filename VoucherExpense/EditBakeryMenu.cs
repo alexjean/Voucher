@@ -12,6 +12,7 @@ namespace VoucherExpense
     public partial class EditBakeryMenu : Form
     {
 
+        #region ======== Shared function with FormCashier.cs ======
         private static class MyLayout
         {
             public static int NoX = 4;
@@ -22,11 +23,6 @@ namespace VoucherExpense
         }
 
         const int SpeicalRowCodeForMenu = 0;
-
-        public EditBakeryMenu()
-        {
-            InitializeComponent();
-        }
 
         private void tabControl1_DrawItem(object sender, DrawItemEventArgs e)
         {
@@ -63,7 +59,6 @@ namespace VoucherExpense
             e.Graphics.DrawString(tabName, fntTab, bshFore, recTab, sftTab);
         }
 
-
         void UpdateAllFoodMenu()
         {
             int i = 0;
@@ -74,6 +69,67 @@ namespace VoucherExpense
                 InitFoodMenu(tp, i++,out l);
                 tp.Tag = l;
             }
+        }
+
+        private BasicDataSet.ProductRow GetFoodMenuItem(int id, int x, int y)
+        {
+            int x1 = x + id * 10;  // x最多不到10行,所以用x編碼菜單id
+            foreach (BasicDataSet.ProductRow Row in basicDataSet1.Product.Rows)
+            {
+                if (Row.MenuX == x1 && Row.MenuY == y) return Row;
+            }
+            return null;
+        }
+
+
+        // 輸出的Label[,] 放到tabPage.Tag去
+        private void InitFoodMenu(TabPage tabPage, int menuId, out Label[,] FoodName)
+        {
+            SuspendLayout();
+            string mark = "F" + menuId.ToString() + DateTime.Now.Ticks.ToString();  //避免多次進入,label重名了
+            int WidthX = (tabPage.Width - MyLayout.OffsetX) / MyLayout.NoX;
+            int HeightY = (tabPage.Height - MyLayout.OffsetY) / MyLayout.NoY;
+            FoodName = new Label[MyLayout.NoX, MyLayout.NoY];
+            int x, y;
+            for (x = 0; x < MyLayout.NoX; x++)
+                for (y = 0; y < MyLayout.NoY; y++)
+                {
+                    int xx, yy;
+                    xx = MyLayout.OffsetX + x * WidthX;
+                    yy = MyLayout.OffsetY + y * HeightY;
+                    Label l = new Label();
+                    // Create Name Label
+                    l = new Label();
+                    FoodName[x, y] = l;
+                    l.AutoSize = false;
+                    l.Location = new System.Drawing.Point(xx, yy);
+                    l.Name = mark + "X" + x.ToString() + "Y" + y.ToString();
+                    l.Size = new System.Drawing.Size(WidthX - MyLayout.NoWidth - 2, HeightY - 2);
+                    l.TabIndex = 0;
+                    BasicDataSet.ProductRow Row = GetFoodMenuItem(menuId, x, y);
+                    if (Row != null)
+                    {
+                        l.Tag = Row;
+                        if (Row.IsNameNull()) l.Text = "";
+                        else l.Text = Row.Name.ToString();
+                    }
+                    else
+                    {
+                        l.Tag = null;
+                        l.Text = "";
+                    }
+                    l.DragEnter += new DragEventHandler(this.LabelDragEnter);
+                    l.DragLeave += new EventHandler(this.LabelDragLeave);
+                    l.DragDrop += new DragEventHandler(LabelDragDrop);
+                    l.MouseDown += new MouseEventHandler(LabelMouseDown);
+                    l.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+                    l.BorderStyle = BorderStyle.Fixed3D;
+                    l.AllowDrop = true;
+                    tabPage.Controls.Add(l);
+                }
+
+            ResumeLayout();
+            PerformLayout();
         }
 
         private void LoadTabControlItem()
@@ -118,6 +174,12 @@ namespace VoucherExpense
                 page.Font = new Font("標楷體", 14.25f);
             }
         }
+        #endregion
+
+        public EditBakeryMenu()
+        {
+            InitializeComponent();
+        }
 
         private void EditBakeryMenu_Load(object sender, EventArgs e)
         {
@@ -157,17 +219,6 @@ namespace VoucherExpense
         }
 
         bool m_Modified = false;
-        private BasicDataSet.ProductRow GetFoodMenuItem(int id, int x, int y)
-        {
-            int x1 = x + id * 10;  // x最多不到10行,所以用x編碼菜單id
-            foreach (BasicDataSet.ProductRow Row in basicDataSet1.Product.Rows)
-            {
-                if (Row.MenuX == x1 && Row.MenuY == y) return Row;
-            }
-            return null;
-        }
-
-
         #region ====== DragDrop Function ======
         class DragItem
         {
@@ -251,57 +302,6 @@ namespace VoucherExpense
         }
         #endregion
 
-
-        // 輸出的Label[,] 放到tabPage.Tag去
-        private void InitFoodMenu(TabPage tabPage, int menuId, out Label[,] FoodName)
-        {
-            SuspendLayout();
-            string mark = "F" + menuId.ToString() + DateTime.Now.Ticks.ToString();  //避免多次進入,label重名了
-            int WidthX = (tabPage.Width - MyLayout.OffsetX) / MyLayout.NoX;
-            int HeightY = (tabPage.Height - MyLayout.OffsetY) / MyLayout.NoY;
-            FoodName = new Label[MyLayout.NoX, MyLayout.NoY];
-            int x, y;
-            for (x = 0; x < MyLayout.NoX; x++)
-                for (y = 0; y < MyLayout.NoY; y++)
-                {
-                    int xx, yy;
-                    xx = MyLayout.OffsetX + x * WidthX;
-                    yy = MyLayout.OffsetY + y * HeightY;
-                    Label l = new Label();
-                    // Create Name Label
-                    l = new Label();
-                    FoodName[x, y] = l;
-                    l.AutoSize = false;
-                    l.Location = new System.Drawing.Point(xx, yy);
-                    l.Name = mark + "X" + x.ToString() + "Y" + y.ToString();
-                    l.Size = new System.Drawing.Size(WidthX - MyLayout.NoWidth - 2, HeightY - 2);
-                    l.TabIndex = 0;
-                    BasicDataSet.ProductRow Row = GetFoodMenuItem(menuId, x, y);
-                    if (Row != null)
-                    {
-                        l.Tag = Row;
-                        if (Row.IsNameNull()) l.Text = "";
-                        else l.Text = Row.Name.ToString();
-                    }
-                    else
-                    {
-                        l.Tag = null;
-                        l.Text = "";
-                    }
-                    l.DragEnter += new DragEventHandler(this.LabelDragEnter);
-                    l.DragLeave += new EventHandler(this.LabelDragLeave);
-                    l.DragDrop += new DragEventHandler(LabelDragDrop);
-                    l.MouseDown += new MouseEventHandler(LabelMouseDown);
-                    l.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-                    l.BorderStyle = BorderStyle.Fixed3D;
-                    l.AllowDrop = true;
-                    tabPage.Controls.Add(l);
-                }
-
-            ResumeLayout();
-            PerformLayout();
-        }
-
         private void comboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -316,7 +316,6 @@ namespace VoucherExpense
             }
             catch { }
         }
-
 
         private void UpdateDataSet(int menuId,Label [,] FoodName)
         {
@@ -391,11 +390,6 @@ namespace VoucherExpense
             {
                 MessageBox.Show("Error:" + ex.Message);
             }
-        }
-
-        private void tabPage1_Click(object sender, EventArgs e)
-        {
-        
         }
 
         void SaveProduct()

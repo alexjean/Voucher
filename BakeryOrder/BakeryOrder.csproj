@@ -70,6 +70,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BasicDataSet.cs">
+      <DependentUpon>BasicDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="BasicDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BasicDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="FormCashier.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,6 +108,18 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="app.config" />
+    <None Include="BasicDataSet.xsc">
+      <DependentUpon>BasicDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="BasicDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>BasicDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="BasicDataSet.xss">
+      <DependentUpon>BasicDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

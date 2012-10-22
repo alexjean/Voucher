@@ -47,11 +47,12 @@
             this.columnHeader品名,
             this.columnHeader量,
             this.columnHeader金額});
+            this.lvCustomer.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.lvCustomer.FullRowSelect = true;
             this.lvCustomer.HideSelection = false;
             this.lvCustomer.Location = new System.Drawing.Point(3, 3);
             this.lvCustomer.Name = "lvCustomer";
-            this.lvCustomer.Size = new System.Drawing.Size(236, 625);
+            this.lvCustomer.Size = new System.Drawing.Size(266, 625);
             this.lvCustomer.TabIndex = 1;
             this.lvCustomer.UseCompatibleStateImageBehavior = false;
             this.lvCustomer.View = System.Windows.Forms.View.Details;
@@ -59,25 +60,27 @@
             // columnHeader品名
             // 
             this.columnHeader品名.Text = "品名";
-            this.columnHeader品名.Width = 124;
+            this.columnHeader品名.Width = 152;
             // 
             // columnHeader量
             // 
             this.columnHeader量.Text = "量";
-            this.columnHeader量.Width = 30;
+            this.columnHeader量.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeader量.Width = 36;
             // 
             // columnHeader金額
             // 
             this.columnHeader金額.Text = "金额";
+            this.columnHeader金額.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // pictureBoxPhoto
             // 
             this.pictureBoxPhoto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.pictureBoxPhoto.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pictureBoxPhoto.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pictureBoxPhoto.Location = new System.Drawing.Point(243, 0);
+            this.pictureBoxPhoto.Location = new System.Drawing.Point(275, 0);
             this.pictureBoxPhoto.Name = "pictureBoxPhoto";
-            this.pictureBoxPhoto.Size = new System.Drawing.Size(781, 768);
+            this.pictureBoxPhoto.Size = new System.Drawing.Size(749, 768);
             this.pictureBoxPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxPhoto.TabIndex = 2;
             this.pictureBoxPhoto.TabStop = false;
@@ -90,7 +93,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("標楷體", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label1.Location = new System.Drawing.Point(91, 654);
+            this.label1.Location = new System.Drawing.Point(109, 650);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(106, 24);
             this.label1.TabIndex = 3;
@@ -98,14 +101,14 @@
             // 
             // labelTotal
             // 
-            this.labelTotal.AutoSize = true;
             this.labelTotal.Font = new System.Drawing.Font("標楷體", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.labelTotal.ForeColor = System.Drawing.Color.Red;
-            this.labelTotal.Location = new System.Drawing.Point(87, 696);
+            this.labelTotal.Location = new System.Drawing.Point(105, 695);
             this.labelTotal.Name = "labelTotal";
             this.labelTotal.Size = new System.Drawing.Size(119, 48);
             this.labelTotal.TabIndex = 4;
-            this.labelTotal.Text = "88元";
+            this.labelTotal.Text = "0";
+            this.labelTotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // FormCustomer
             // 

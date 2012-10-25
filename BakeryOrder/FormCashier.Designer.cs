@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.lvItems = new System.Windows.Forms.ListView();
             this.columnHeader代碼 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader品名 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -39,16 +38,18 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.basicDataSet1 = new BakeryOrder.BasicDataSet();
-            this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.productTableAdapter = new BakeryOrder.BasicDataSetTableAdapters.ProductTableAdapter();
-            this.tableAdapterManager = new BakeryOrder.BasicDataSetTableAdapters.TableAdapterManager();
             this.labelTotal = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.checkBoxDiscount = new System.Windows.Forms.CheckBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.basicDataSet1 = new BakeryOrder.BasicDataSet();
+            this.productTableAdapter = new BakeryOrder.BasicDataSetTableAdapters.ProductTableAdapter();
+            this.orderTableAdapter1 = new BakeryOrder.BasicDataSetTableAdapters.OrderTableAdapter();
+            this.orderItemTableAdapter1 = new BakeryOrder.BasicDataSetTableAdapters.OrderItemTableAdapter();
+            this.btnCashDrawer = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.basicDataSet1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // lvItems
@@ -75,7 +76,7 @@
             // columnHeader品名
             // 
             this.columnHeader品名.Text = "品名";
-            this.columnHeader品名.Width = 112;
+            this.columnHeader品名.Width = 124;
             // 
             // columnHeader量
             // 
@@ -87,15 +88,17 @@
             // 
             this.columnHeader金額.Text = "金額";
             this.columnHeader金額.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeader金額.Width = 52;
             // 
             // btnPrint
             // 
-            this.btnPrint.Location = new System.Drawing.Point(1, 658);
+            this.btnPrint.Location = new System.Drawing.Point(119, 733);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(75, 35);
             this.btnPrint.TabIndex = 1;
             this.btnPrint.Text = "打單";
             this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
             // btnExit
             // 
@@ -143,29 +146,6 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "饮料西点";
             // 
-            // basicDataSet1
-            // 
-            this.basicDataSet1.DataSetName = "BasicDataSet";
-            this.basicDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // productBindingSource
-            // 
-            this.productBindingSource.DataMember = "Product";
-            this.productBindingSource.DataSource = this.basicDataSet1;
-            // 
-            // productTableAdapter
-            // 
-            this.productTableAdapter.ClearBeforeFill = true;
-            // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.HeaderTableAdapter = null;
-            this.tableAdapterManager.OrderItemTableAdapter = null;
-            this.tableAdapterManager.OrderTableAdapter = null;
-            this.tableAdapterManager.ProductTableAdapter = this.productTableAdapter;
-            this.tableAdapterManager.UpdateOrder = BakeryOrder.BasicDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
-            // 
             // labelTotal
             // 
             this.labelTotal.Location = new System.Drawing.Point(152, 474);
@@ -196,12 +176,50 @@
             this.checkBoxDiscount.UseVisualStyleBackColor = true;
             this.checkBoxDiscount.CheckedChanged += new System.EventHandler(this.checkBoxDiscount_CheckedChanged);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(1, 505);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(226, 169);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox1.TabIndex = 7;
+            this.pictureBox1.TabStop = false;
+            // 
+            // basicDataSet1
+            // 
+            this.basicDataSet1.DataSetName = "BasicDataSet";
+            this.basicDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // productTableAdapter
+            // 
+            this.productTableAdapter.ClearBeforeFill = true;
+            // 
+            // orderTableAdapter1
+            // 
+            this.orderTableAdapter1.ClearBeforeFill = true;
+            // 
+            // orderItemTableAdapter1
+            // 
+            this.orderItemTableAdapter1.ClearBeforeFill = true;
+            // 
+            // btnCashDrawer
+            // 
+            this.btnCashDrawer.Location = new System.Drawing.Point(119, 680);
+            this.btnCashDrawer.Name = "btnCashDrawer";
+            this.btnCashDrawer.Size = new System.Drawing.Size(75, 35);
+            this.btnCashDrawer.TabIndex = 8;
+            this.btnCashDrawer.Text = "錢箱";
+            this.btnCashDrawer.UseVisualStyleBackColor = true;
+            this.btnCashDrawer.Click += new System.EventHandler(this.btnCashDrawer_Click);
+            // 
             // FormCashier
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(1024, 768);
+            this.Controls.Add(this.btnCashDrawer);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.checkBoxDiscount);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.labelTotal);
@@ -217,8 +235,8 @@
             this.TopMost = true;
             this.Load += new System.EventHandler(this.FormCashier_Load);
             this.tabControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.basicDataSet1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -236,13 +254,15 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private BasicDataSet basicDataSet1;
-        private System.Windows.Forms.BindingSource productBindingSource;
         private BasicDataSetTableAdapters.ProductTableAdapter productTableAdapter;
-        private BasicDataSetTableAdapters.TableAdapterManager tableAdapterManager;
         private System.Windows.Forms.ColumnHeader columnHeader代碼;
         private System.Windows.Forms.Label labelTotal;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox checkBoxDiscount;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private BasicDataSetTableAdapters.OrderTableAdapter orderTableAdapter1;
+        private BasicDataSetTableAdapters.OrderItemTableAdapter orderItemTableAdapter1;
+        private System.Windows.Forms.Button btnCashDrawer;
     }
 }
 

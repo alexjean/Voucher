@@ -37,7 +37,9 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.labelTotal = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPhoto)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // lvCustomer
@@ -52,7 +54,7 @@
             this.lvCustomer.HideSelection = false;
             this.lvCustomer.Location = new System.Drawing.Point(3, 3);
             this.lvCustomer.Name = "lvCustomer";
-            this.lvCustomer.Size = new System.Drawing.Size(266, 625);
+            this.lvCustomer.Size = new System.Drawing.Size(266, 469);
             this.lvCustomer.TabIndex = 1;
             this.lvCustomer.UseCompatibleStateImageBehavior = false;
             this.lvCustomer.View = System.Windows.Forms.View.Details;
@@ -60,7 +62,7 @@
             // columnHeader品名
             // 
             this.columnHeader品名.Text = "品名";
-            this.columnHeader品名.Width = 152;
+            this.columnHeader品名.Width = 164;
             // 
             // columnHeader量
             // 
@@ -93,7 +95,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("標楷體", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label1.Location = new System.Drawing.Point(109, 650);
+            this.label1.Location = new System.Drawing.Point(118, 659);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(106, 24);
             this.label1.TabIndex = 3;
@@ -103,12 +105,21 @@
             // 
             this.labelTotal.Font = new System.Drawing.Font("標楷體", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.labelTotal.ForeColor = System.Drawing.Color.Red;
-            this.labelTotal.Location = new System.Drawing.Point(105, 695);
+            this.labelTotal.Location = new System.Drawing.Point(69, 695);
             this.labelTotal.Name = "labelTotal";
-            this.labelTotal.Size = new System.Drawing.Size(119, 48);
+            this.labelTotal.Size = new System.Drawing.Size(155, 48);
             this.labelTotal.TabIndex = 4;
             this.labelTotal.Text = "0";
             this.labelTotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(23, 478);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(226, 169);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox1.TabIndex = 8;
+            this.pictureBox1.TabStop = false;
             // 
             // FormCustomer
             // 
@@ -116,6 +127,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Azure;
             this.ClientSize = new System.Drawing.Size(1024, 768);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.labelTotal);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBoxPhoto);
@@ -127,6 +139,7 @@
             this.Text = "客顯";
             this.Load += new System.EventHandler(this.FormCustomer_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPhoto)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -142,5 +155,6 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelTotal;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

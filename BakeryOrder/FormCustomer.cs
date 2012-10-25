@@ -18,8 +18,9 @@ namespace BakeryOrder
         }
 
         string[] m_Files = null;
-        string m_Path = "Products";
+        string m_Path = "SlideShow";
         int m_Count = 0;
+        const int m_DefaultInterval = 3000;
         private void FormCustomer_Load(object sender, EventArgs e)
         {
             Screen[] scr = Screen.AllScreens;
@@ -37,7 +38,7 @@ namespace BakeryOrder
             m_Files=Directory.GetFiles(m_Path);
             if (m_Files.Count()==0) return;
             pictureBoxPhoto.ImageLocation =  m_Files[m_Count];
-            timer1.Interval = 3000;
+            timer1.Interval = m_DefaultInterval;
             timer1.Start();
 
         }
@@ -47,11 +48,12 @@ namespace BakeryOrder
             m_Count++;
             if (m_Count >= m_Files.Count()) m_Count = 0;
             pictureBoxPhoto.ImageLocation = m_Files[m_Count];
+            timer1.Interval = m_DefaultInterval;
         }
 
         public void SetTimer(int tick)
         {
-            timer1.Interval = 30000;
+            timer1.Interval = tick;
         }
 
         public void ShowTotal(double total)
@@ -89,6 +91,11 @@ namespace BakeryOrder
                     lvItem.SubItems[2].Text = money.ToString(); ;
                 }
             }
+        }
+
+        public void SetPicture(Image img)
+        {
+            pictureBox1.Image = img;
         }
 
 

@@ -799,7 +799,7 @@
             this.dgIngredientCodeColumn.Name = "dgIngredientCodeColumn";
             this.dgIngredientCodeColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dgIngredientCodeColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dgIngredientCodeColumn.ValueMember = "Code";
+            this.dgIngredientCodeColumn.ValueMember = "IngredientID";
             this.dgIngredientCodeColumn.Width = 232;
             // 
             // dgVolumeColumn

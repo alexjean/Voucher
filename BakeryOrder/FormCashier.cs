@@ -221,10 +221,10 @@ namespace BakeryOrder
                 if (!File.Exists(small))
                 {
                     string big = m_ProductDir + "\\" + idStr + ".jpg";
-                    CreateSmallImage(big, pictureBox1.Width, pictureBox1.Height, small);
+                    CreateSmallImage(big, pictureBoxOrdered.Width, pictureBoxOrdered.Height, small);
                 }
                 Image img = Bitmap.FromFile(small);
-                pictureBox1.Image = img;
+                pictureBoxOrdered.Image = img;
                 m_FormCustomer.SetPicture(img);
             }
         }
@@ -268,7 +268,7 @@ namespace BakeryOrder
             MenuItemForTag item = (MenuItemForTag)l.Tag;
             Item2List(item, e.Button);
             if (item.No > 0)
-                l.BorderStyle = BorderStyle.FixedSingle;
+                 l.BorderStyle = BorderStyle.FixedSingle;
             else l.BorderStyle = BorderStyle.Fixed3D;
             if (item.No == 1 || item.No == 0)
                 item.LabelNo.Text = item.name;
@@ -279,10 +279,10 @@ namespace BakeryOrder
             if (!File.Exists(small))
             {
                 string big = m_ProductDir + "\\" + idStr + ".jpg";
-                CreateSmallImage(big, pictureBox1.Width, pictureBox1.Height, small);
+                CreateSmallImage(big, pictureBoxOrdered.Width, pictureBoxOrdered.Height, small);
             }
             Image img=Bitmap.FromFile(small);
-            pictureBox1.Image = img;
+            pictureBoxOrdered.Image = img;
             m_FormCustomer.SetPicture(img);
         }
         // 輸出的Label[,] 放到tabPage.Tag去
@@ -400,14 +400,19 @@ namespace BakeryOrder
         }
 
         FormCustomer m_FormCustomer=null;
+        FormStatics m_FormStatics = null;
         const string m_ProductDir = "Products";
         const string m_SmallDir = m_ProductDir + "\\Small";
+        string m_PrinterName = "BTP-R580(U)";
+        HardwareConfig m_Cfg = new HardwareConfig();
         private void FormCashier_Load(object sender, EventArgs e)
         {
+            m_Cfg.Load();
+            if (m_Cfg.PrinterName != null) m_PrinterName = m_Cfg.PrinterName;
 //            productTableAdapter1.Connection = MapPath.BasicConnection;
             this.productTableAdapter.Fill(this.basicDataSet1.Product);
             this.orderTableAdapter1.Fill(this.basicDataSet1.Order);
-            this.orderItemTableAdapter1.Fill(this.basicDataSet1.OrderItem);
+//            this.orderItemTableAdapter1.Fill(this.basicDataSet1.OrderItem);
 
             // 程式保留row.Code 0做為菜單的寬高,這行不是產品
             var rows = from row in basicDataSet1.Product
@@ -459,80 +464,77 @@ namespace BakeryOrder
             int m;
             do
             {
-                m = GB2312.GetByteCount(s);
+                m = Buf.DefaultEncoding.GetByteCount(s);
                 if (m <= 16) break;
                 s = s.Substring(0, s.Length - 1);
             } while (true);
             int n = 16 - m + s.Length;
-            Buf.AppendPadRight(s, n, GB2312);
-            Buf.Append(d2str(mItem.No, 4), GB2312);
-            Buf.Append(d2str(mItem.Price, 5), GB2312);
-            Buf.Append(d2str(mItem.Money(), 7), GB2312);
-            Buf.Append("\r\n", GB2312);
+            Buf.AppendPadRight(s, n);
+            Buf.Append(d2str(mItem.No, 4));
+            Buf.Append(d2str(mItem.Price, 5));
+            Buf.Append(d2str(mItem.Money(), 7));
+            Buf.Append("\r\n");
         }
 
-        BasicDataSet.OrderRow CreateCurrentOrder()
+        int CreateOrder(out BasicDataSet.OrderRow order)
         {
-            BasicDataSet.OrderRow CurrentOrder = basicDataSet1.Order.NewOrderRow();
-            CurrentOrder.PrintTime = DateTime.Now;
+            order = basicDataSet1.Order.NewOrderRow();
+            order.PrintTime = DateTime.Now;
             int maxID = 0;
             foreach (BasicDataSet.OrderRow row in basicDataSet1.Order)
             {
                 if (row.ID > maxID) maxID = row.ID;
             }
-            CurrentOrder.ID = maxID + 1;
-            CurrentOrder.DiscountRate = 0.9m;
-            CurrentOrder.Income = (decimal)CalcTotal();
-            return CurrentOrder;
+            order.ID = maxID + 1;
+            order.DiscountRate = 0.9m;
+            order.Income = (decimal)CalcTotal();
+            return order.ID;
         }
 
-        Encoding GB2312     = Encoding.GetEncoding("GB2312");
         string PrintTitle   = "     原麦山丘华宇店";
         string PrintAddress = "地址:中关村南大街2号";
         string PrintTel     = "电话:60956577";
-        string PrinterName = "BTP-R580(U)";
+        BasicDataSet.OrderRow m_CurrentOrder = null;
 
-        void Print()      
+        void Print(BasicDataSet.OrderRow CurrentOrder)      
         {
             //byte[] PrintChinese = new byte[] { };
             byte[] BorderMode = new byte[] { 0x1c, 0x21, 0x28 };
-            byte[] NormalMode = new byte[] { 0x1c, 0x21, 0 };
-            byte[] CutPaper = new byte[] { 0x1B, (byte)'i' };
+            byte[] NormalMode = new byte[] { 0x1c, 0x21, 0    };
+            byte[] CutPaper   = new byte[] { 0x1B, (byte)'i'  };
             int n;
 
-            BasicDataSet.OrderRow CurrentOrder = null;
-            CurrentOrder=CreateCurrentOrder();
 
             ByteBuilder Buf = new ByteBuilder(2048);
-            Buf.SetEncoding(GB2312);
+            Buf.DefaultEncoding=Encoding.GetEncoding("GB2312");
 
 //            ShowTime();
 //            if (!SaveOrder()) return;
 
             Buf.Append(BorderMode);                                      // 設定列印模式28
-            Buf.Append(PrintTitle+"\r\n", GB2312);
+            Buf.Append(PrintTitle+"\r\n");
             Buf.Append(NormalMode);                                      // 設定列印模式正常 
 
             Buf.Append("\r\n");
-            Buf.Append(PrintAddress+"\r\n", GB2312);
-            Buf.AppendPadRight(PrintTel, 19, GB2312);
+            Buf.Append(PrintAddress+"\r\n");
+            Buf.AppendPadRight(PrintTel, 19);
             n = (CurrentOrder.ID % 1000);
-            Buf.Append("序号:" + n.ToString("d4") + "\r\n", GB2312);
-            Buf.AppendPadRight("时间:" + CurrentOrder.PrintTime.ToString("yy/MM/dd hh:mm"), 19, GB2312);
-            Buf.Append("工号: 001" +  "\r\n\r\n", GB2312);
+            Buf.Append("序号:" + n.ToString("d4") + "\r\n");
+            Buf.AppendPadRight("时间:" + CurrentOrder.PrintTime.ToString("yy/MM/dd hh:mm"), 19);
+            Buf.Append("工号: 001" +  "\r\n\r\n");
 /*
             try
             {
                 n = Int32.Parse(textBoxTable.Text);
                 if (n > 0)
-                    Buf.Append("桌号:" + n.ToString("d2") + "              服务:" + mtbServant.Text + "\r\n", GB2312);
+                    Buf.Append("桌号:" + n.ToString("d2") + "              服务:" + mtbServant.Text + "\r\n");
             }
             catch { }
 */
             Buf.Append(BorderMode);                                      // 設定列印模式28
 
-            Buf.Append("  品名        数量 单价   金额\r\n", GB2312);
-            Buf.Append("- - - - - - - - - - - - - - - -\r\n", GB2312);
+            Buf.Append("  品名        数量 单价   金额\r\n");
+            Buf.Append("- - - - - - - - - - - - - - - -\r\n");
             MenuItemForTag mItem;
             double no = 0;
             double discount = 0;
@@ -546,43 +548,71 @@ namespace BakeryOrder
             }
             if (checkBoxDiscount.Checked)
             {
-                Buf.Append("    以上小计             ", GB2312); Buf.Append(d2str(discount, 7) + "\r\n", GB2312);
-                Buf.Append("- - - - - - - - - - - - - - - -\r\n", GB2312);
+                Buf.Append("    以上小计             "); Buf.Append(d2str(discount, 7) + "\r\n");
+                Buf.Append("- - - - - - - - - - - - - - - -\r\n");
                 discount *= (double)CurrentOrder.DiscountRate;
-                Buf.Append("    折扣后      ========>", GB2312); Buf.Append(d2str(discount, 7) + "\r\n", GB2312);
+                Buf.Append("    折扣后      ========>"); Buf.Append(d2str(discount, 7) + "\r\n");
             }
             else
             {
-                Buf.Append("- - - - - - - - - - - - - - - -\r\n", GB2312);
-                Buf.Append("合计:        " + d2str(no, 7) + d2str(discount , 12) + "\r\n", GB2312);
+                Buf.Append("- - - - - - - - - - - - - - - -\r\n");
+                Buf.Append("合计:        " + d2str(no, 7) + d2str(discount , 12) + "\r\n");
             }
 /*
             if (CurrentOrder.Deduct != 0)
             {
-                Buf.Append("优惠:              ", GB2312);
-                Buf.Append(d2str((double)-CurrentOrder.Deduct, 13) + "\r\n", GB2312);
+                Buf.Append("优惠:              ");
+                Buf.Append(d2str((double)-CurrentOrder.Deduct, 13) + "\r\n");
             }
 */
-            Buf.Append("现金:              " + d2str((double)CurrentOrder.Income, 13) + "\r\n", GB2312);
+            Buf.Append("现金:              " + d2str((double)CurrentOrder.Income, 13) + "\r\n");
             Buf.Append(NormalMode);
-            Buf.Append("* * * * * * * * * * * * * * * *\r\n\r\n\r\n\r\n\r\n\r\n", GB2312);
-            Buf.Append("\f", GB2312);
+            Buf.Append("* * * * * * * * * * * * * * * *\r\n\r\n\r\n\r\n\r\n\r\n");
+            Buf.Append("\f");
 //            string str = Buf.ToString();
 //            File.WriteAllBytes("Test.txt",Encoding.UTF8.GetBytes(str));
-            RawPrint.SendManagedBytes(PrinterName, Buf.ToBytes());
-            RawPrint.SendManagedBytes(PrinterName, CutPaper);
+            RawPrint.SendManagedBytes(m_PrinterName, Buf.ToBytes());
+            RawPrint.SendManagedBytes(m_PrinterName, CutPaper);
        }
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
             if (lvItems.Items.Count == 0) return;
-            Print();
+            if (m_CurrentOrder == null)
+                CreateOrder(out m_CurrentOrder);
+            Print(m_CurrentOrder);
         }
 
         private void btnCashDrawer_Click(object sender, EventArgs e)
         {
-            byte[] CashDrawer = new byte[] { 0x1B, (byte)'p',0,100,200 };
-            RawPrint.SendManagedBytes(PrinterName,CashDrawer);
+            byte[] CashDrawer = new byte[] { 0x1B, (byte)'p',0,150,100 };
+            RawPrint.SendManagedBytes(m_PrinterName,CashDrawer);
+        }
+
+        private void btnStatics_Click(object sender, EventArgs e)
+        {
+            if (m_FormStatics == null)
+                m_FormStatics = new FormStatics();
+            if (m_FormStatics.ShowDialog() == DialogResult.Abort)
+                Close();
+            else 
+                Show();
+        }
+
+        private void btnNewOrder_Click(object sender, EventArgs e)
+        {
+            int no=CreateOrder(out m_CurrentOrder);
+            foreach (ListViewItem lv in lvItems.Items)
+            {
+                MenuItemForTag item=lv.Tag as MenuItemForTag;
+                Item2List(item, MouseButtons.Right);
+                Label l = item.LabelNo;
+                l.BorderStyle = BorderStyle.Fixed3D;
+                l.Text = item.name;
+            }
+            lvItems.Columns[1].Text = "序号 " + no.ToString();
+            lvItems.Columns[2].Text = "量";
+            lvItems.Columns[3].Text = "金额";
         }
     }
 }

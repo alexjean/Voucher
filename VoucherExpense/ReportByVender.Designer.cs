@@ -32,14 +32,14 @@
             System.Windows.Forms.Label vendorIDLabel;
             System.Windows.Forms.Label label1;
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.comboBoxMonth = new System.Windows.Forms.ComboBox();
             this.vEDataSet = new VoucherExpense.VEDataSet();
             this.vendorBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -47,13 +47,7 @@
             this.vendorIDComboBox = new System.Windows.Forms.ComboBox();
             this.cVendorBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.ID = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.IngredientBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.volumeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IDUint = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.totalCostDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.unitCostDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.OrderCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cIngredientBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.voucherBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.voucherDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -71,6 +65,12 @@
             this.costDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lockedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.labelCount = new System.Windows.Forms.Label();
+            this.ID = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.volumeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IDUint = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.totalCostDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.unitCostDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.OrderCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             vendorIDLabel = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
@@ -194,87 +194,10 @@
             this.dataGridView1.TabIndex = 59;
             this.dataGridView1.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView1_DataError);
             // 
-            // ID
-            // 
-            this.ID.DataPropertyName = "ID";
-            this.ID.DataSource = this.IngredientBindingSource;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.NullValue = null;
-            this.ID.DefaultCellStyle = dataGridViewCellStyle2;
-            this.ID.DisplayMember = "Name";
-            this.ID.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.ID.HeaderText = "品名";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.ID.ValueMember = "Code";
-            this.ID.Width = 180;
-            // 
             // IngredientBindingSource
             // 
             this.IngredientBindingSource.DataMember = "Ingredient";
             this.IngredientBindingSource.DataSource = this.vEDataSet;
-            // 
-            // volumeDataGridViewTextBoxColumn
-            // 
-            this.volumeDataGridViewTextBoxColumn.DataPropertyName = "Volume";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "N1";
-            dataGridViewCellStyle3.NullValue = null;
-            this.volumeDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
-            this.volumeDataGridViewTextBoxColumn.HeaderText = "數量";
-            this.volumeDataGridViewTextBoxColumn.Name = "volumeDataGridViewTextBoxColumn";
-            this.volumeDataGridViewTextBoxColumn.ReadOnly = true;
-            this.volumeDataGridViewTextBoxColumn.Width = 80;
-            // 
-            // IDUint
-            // 
-            this.IDUint.DataPropertyName = "ID";
-            this.IDUint.DataSource = this.IngredientBindingSource;
-            this.IDUint.DisplayMember = "Unit";
-            this.IDUint.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.IDUint.HeaderText = "";
-            this.IDUint.Name = "IDUint";
-            this.IDUint.ReadOnly = true;
-            this.IDUint.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.IDUint.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.IDUint.ValueMember = "Code";
-            this.IDUint.Width = 50;
-            // 
-            // totalCostDataGridViewTextBoxColumn
-            // 
-            this.totalCostDataGridViewTextBoxColumn.DataPropertyName = "TotalCost";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.Format = "N1";
-            dataGridViewCellStyle4.NullValue = null;
-            this.totalCostDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
-            this.totalCostDataGridViewTextBoxColumn.HeaderText = "總價";
-            this.totalCostDataGridViewTextBoxColumn.Name = "totalCostDataGridViewTextBoxColumn";
-            this.totalCostDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // unitCostDataGridViewTextBoxColumn
-            // 
-            this.unitCostDataGridViewTextBoxColumn.DataPropertyName = "UnitCost";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle5.Format = "N1";
-            this.unitCostDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle5;
-            this.unitCostDataGridViewTextBoxColumn.HeaderText = "單價";
-            this.unitCostDataGridViewTextBoxColumn.Name = "unitCostDataGridViewTextBoxColumn";
-            this.unitCostDataGridViewTextBoxColumn.ReadOnly = true;
-            this.unitCostDataGridViewTextBoxColumn.Width = 80;
-            // 
-            // OrderCount
-            // 
-            this.OrderCount.DataPropertyName = "OrderCount";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle6.Format = "N0";
-            dataGridViewCellStyle6.NullValue = null;
-            this.OrderCount.DefaultCellStyle = dataGridViewCellStyle6;
-            this.OrderCount.HeaderText = "次數";
-            this.OrderCount.Name = "OrderCount";
-            this.OrderCount.ReadOnly = true;
-            this.OrderCount.Width = 65;
             // 
             // cIngredientBindingSource
             // 
@@ -323,9 +246,9 @@
             // 
             // printDocument
             // 
-            this.printDocument.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument_PrintPage);
-            this.printDocument.EndPrint += new System.Drawing.Printing.PrintEventHandler(this.printDocument_EndPrint);
             this.printDocument.BeginPrint += new System.Drawing.Printing.PrintEventHandler(this.printDocument_BeginPrint);
+            this.printDocument.EndPrint += new System.Drawing.Printing.PrintEventHandler(this.printDocument_EndPrint);
+            this.printDocument.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument_PrintPage);
             // 
             // btnPrint
             // 
@@ -420,6 +343,83 @@
             this.labelCount.TabIndex = 64;
             this.labelCount.Text = "共XX張";
             // 
+            // ID
+            // 
+            this.ID.DataPropertyName = "ID";
+            this.ID.DataSource = this.IngredientBindingSource;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.NullValue = null;
+            this.ID.DefaultCellStyle = dataGridViewCellStyle2;
+            this.ID.DisplayMember = "Name";
+            this.ID.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.ID.HeaderText = "品名";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.ID.ValueMember = "IngredientID";
+            this.ID.Width = 180;
+            // 
+            // volumeDataGridViewTextBoxColumn
+            // 
+            this.volumeDataGridViewTextBoxColumn.DataPropertyName = "Volume";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.Format = "N1";
+            dataGridViewCellStyle3.NullValue = null;
+            this.volumeDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            this.volumeDataGridViewTextBoxColumn.HeaderText = "數量";
+            this.volumeDataGridViewTextBoxColumn.Name = "volumeDataGridViewTextBoxColumn";
+            this.volumeDataGridViewTextBoxColumn.ReadOnly = true;
+            this.volumeDataGridViewTextBoxColumn.Width = 80;
+            // 
+            // IDUint
+            // 
+            this.IDUint.DataPropertyName = "ID";
+            this.IDUint.DataSource = this.IngredientBindingSource;
+            this.IDUint.DisplayMember = "Unit";
+            this.IDUint.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.IDUint.HeaderText = "";
+            this.IDUint.Name = "IDUint";
+            this.IDUint.ReadOnly = true;
+            this.IDUint.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.IDUint.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.IDUint.ValueMember = "Code";
+            this.IDUint.Width = 50;
+            // 
+            // totalCostDataGridViewTextBoxColumn
+            // 
+            this.totalCostDataGridViewTextBoxColumn.DataPropertyName = "TotalCost";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle4.Format = "N1";
+            dataGridViewCellStyle4.NullValue = null;
+            this.totalCostDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
+            this.totalCostDataGridViewTextBoxColumn.HeaderText = "總價";
+            this.totalCostDataGridViewTextBoxColumn.Name = "totalCostDataGridViewTextBoxColumn";
+            this.totalCostDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // unitCostDataGridViewTextBoxColumn
+            // 
+            this.unitCostDataGridViewTextBoxColumn.DataPropertyName = "UnitCost";
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle5.Format = "N1";
+            this.unitCostDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle5;
+            this.unitCostDataGridViewTextBoxColumn.HeaderText = "單價";
+            this.unitCostDataGridViewTextBoxColumn.Name = "unitCostDataGridViewTextBoxColumn";
+            this.unitCostDataGridViewTextBoxColumn.ReadOnly = true;
+            this.unitCostDataGridViewTextBoxColumn.Width = 80;
+            // 
+            // OrderCount
+            // 
+            this.OrderCount.DataPropertyName = "OrderCount";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle6.Format = "N0";
+            dataGridViewCellStyle6.NullValue = null;
+            this.OrderCount.DefaultCellStyle = dataGridViewCellStyle6;
+            this.OrderCount.HeaderText = "次數";
+            this.OrderCount.Name = "OrderCount";
+            this.OrderCount.ReadOnly = true;
+            this.OrderCount.Width = 65;
+            // 
             // ReportByVender
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -440,9 +440,9 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ReportByVender";
             this.Text = "月報表 廠商別";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ReportByVender_FormClosed);
             this.Load += new System.EventHandler(this.ReportByVender_Load);
             this.SizeChanged += new System.EventHandler(this.ReportByVender_SizeChanged);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ReportByVender_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vendorBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cVendorBindingSource)).EndInit();

@@ -34,21 +34,22 @@
             this.columnHeader量 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader金額 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnPrint = new System.Windows.Forms.Button();
-            this.btnExit = new System.Windows.Forms.Button();
+            this.btnStatics = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.labelTotal = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.checkBoxDiscount = new System.Windows.Forms.CheckBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBoxOrdered = new System.Windows.Forms.PictureBox();
             this.basicDataSet1 = new BakeryOrder.BasicDataSet();
             this.productTableAdapter = new BakeryOrder.BasicDataSetTableAdapters.ProductTableAdapter();
             this.orderTableAdapter1 = new BakeryOrder.BasicDataSetTableAdapters.OrderTableAdapter();
             this.orderItemTableAdapter1 = new BakeryOrder.BasicDataSetTableAdapters.OrderItemTableAdapter();
             this.btnCashDrawer = new System.Windows.Forms.Button();
+            this.btnNewOrder = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrdered)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.basicDataSet1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -96,19 +97,19 @@
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(75, 35);
             this.btnPrint.TabIndex = 1;
-            this.btnPrint.Text = "打單";
+            this.btnPrint.Text = "打单";
             this.btnPrint.UseVisualStyleBackColor = true;
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
-            // btnExit
+            // btnStatics
             // 
-            this.btnExit.Location = new System.Drawing.Point(1, 733);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(75, 35);
-            this.btnExit.TabIndex = 2;
-            this.btnExit.Text = "離開";
-            this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            this.btnStatics.Location = new System.Drawing.Point(1, 733);
+            this.btnStatics.Name = "btnStatics";
+            this.btnStatics.Size = new System.Drawing.Size(75, 35);
+            this.btnStatics.TabIndex = 2;
+            this.btnStatics.Text = "统计";
+            this.btnStatics.UseVisualStyleBackColor = true;
+            this.btnStatics.Click += new System.EventHandler(this.btnStatics_Click);
             // 
             // tabControl1
             // 
@@ -176,14 +177,14 @@
             this.checkBoxDiscount.UseVisualStyleBackColor = true;
             this.checkBoxDiscount.CheckedChanged += new System.EventHandler(this.checkBoxDiscount_CheckedChanged);
             // 
-            // pictureBox1
+            // pictureBoxOrdered
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(1, 505);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(226, 169);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox1.TabIndex = 7;
-            this.pictureBox1.TabStop = false;
+            this.pictureBoxOrdered.Location = new System.Drawing.Point(1, 505);
+            this.pictureBoxOrdered.Name = "pictureBoxOrdered";
+            this.pictureBoxOrdered.Size = new System.Drawing.Size(226, 169);
+            this.pictureBoxOrdered.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBoxOrdered.TabIndex = 7;
+            this.pictureBoxOrdered.TabStop = false;
             // 
             // basicDataSet1
             // 
@@ -208,9 +209,19 @@
             this.btnCashDrawer.Name = "btnCashDrawer";
             this.btnCashDrawer.Size = new System.Drawing.Size(75, 35);
             this.btnCashDrawer.TabIndex = 8;
-            this.btnCashDrawer.Text = "錢箱";
+            this.btnCashDrawer.Text = "钱箱";
             this.btnCashDrawer.UseVisualStyleBackColor = true;
             this.btnCashDrawer.Click += new System.EventHandler(this.btnCashDrawer_Click);
+            // 
+            // btnNewOrder
+            // 
+            this.btnNewOrder.Location = new System.Drawing.Point(1, 680);
+            this.btnNewOrder.Name = "btnNewOrder";
+            this.btnNewOrder.Size = new System.Drawing.Size(75, 35);
+            this.btnNewOrder.TabIndex = 9;
+            this.btnNewOrder.Text = "新單";
+            this.btnNewOrder.UseVisualStyleBackColor = true;
+            this.btnNewOrder.Click += new System.EventHandler(this.btnNewOrder_Click);
             // 
             // FormCashier
             // 
@@ -218,13 +229,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(1024, 768);
+            this.Controls.Add(this.btnNewOrder);
             this.Controls.Add(this.btnCashDrawer);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pictureBoxOrdered);
             this.Controls.Add(this.checkBoxDiscount);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.labelTotal);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.btnExit);
+            this.Controls.Add(this.btnStatics);
             this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.lvItems);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
@@ -235,7 +247,7 @@
             this.TopMost = true;
             this.Load += new System.EventHandler(this.FormCashier_Load);
             this.tabControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrdered)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.basicDataSet1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -249,7 +261,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader量;
         private System.Windows.Forms.ColumnHeader columnHeader金額;
         private System.Windows.Forms.Button btnPrint;
-        private System.Windows.Forms.Button btnExit;
+        private System.Windows.Forms.Button btnStatics;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
@@ -259,10 +271,11 @@
         private System.Windows.Forms.Label labelTotal;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox checkBoxDiscount;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBoxOrdered;
         private BasicDataSetTableAdapters.OrderTableAdapter orderTableAdapter1;
         private BasicDataSetTableAdapters.OrderItemTableAdapter orderItemTableAdapter1;
         private System.Windows.Forms.Button btnCashDrawer;
+        private System.Windows.Forms.Button btnNewOrder;
     }
 }
 

@@ -47,13 +47,18 @@ namespace BakeryOrder
         {
             m_Count++;
             if (m_Count >= m_Files.Count()) m_Count = 0;
-            pictureBoxPhoto.ImageLocation = m_Files[m_Count];
             timer1.Interval = m_DefaultInterval;
+            pictureBoxPhoto.BringToFront();
+            pictureBoxPhoto.ImageLocation = m_Files[m_Count];
+            if (pictureBoxPhoto.Dock!=DockStyle.Fill)
+                pictureBoxPhoto.Dock = DockStyle.Fill;
         }
 
         public void SetTimer(int tick)
         {
             timer1.Interval = tick;
+            if (pictureBoxPhoto.Dock != DockStyle.Right) 
+                pictureBoxPhoto.Dock = DockStyle.Right;
         }
 
         public void ShowTotal(double total)
@@ -95,7 +100,7 @@ namespace BakeryOrder
 
         public void SetPicture(Image img)
         {
-            pictureBox1.Image = img;
+            pictureBoxOrdered.Image = img;
         }
 
 

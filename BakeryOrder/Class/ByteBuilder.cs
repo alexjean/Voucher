@@ -11,7 +11,7 @@ namespace BakeryOrder
         int count;
         public int Count { get { return count; } }
         public byte[] Data { get { return data; } }
-        Encoding DefaultEncoding = Encoding.UTF8;
+        public Encoding DefaultEncoding = Encoding.UTF8;
         public ByteBuilder(int Capacity)
         {
             data = new byte[Capacity];
@@ -22,20 +22,18 @@ namespace BakeryOrder
             data = new byte[256];
             count = 0;
         }
-        public void SetEncoding(Encoding encoding)
-        {
-            DefaultEncoding = encoding;
-        }
 
         public byte[] ToBytes() { byte[] buf = new byte[count]; Array.Copy(data, buf, count); return buf; }
         public override string ToString()
         {
             return DefaultEncoding.GetString(data, 0, count);
         }
+
         public string ToString(Encoding encoding)
         {
             return encoding.GetString(data, 0, count);
         }
+
         public void Append(byte b)
         {
             if (count >= data.Length)
@@ -63,16 +61,27 @@ namespace BakeryOrder
             if (s != null)
                 Append(encoding.GetBytes(s));
         }
+
         public void AppendPadRight(String s, int len, Encoding encoding)
         {
             if (s.Length > len) s = s.Substring(0, len);
             Append(s.PadRight(len), encoding);
+        }
+        public void AppendPadRight(String s, int len)
+        {
+            if (s.Length > len) s = s.Substring(0, len);
+            Append(s.PadRight(len));
         }
 
         public void AppendPadLeft(String s, int len, Encoding encoding)
         {
             if (s.Length > len) s = s.Substring(0, len);
             Append(s.PadLeft(len), encoding);
+        }
+        public void AppendPadLeft(String s, int len)
+        {
+            if (s.Length > len) s = s.Substring(0, len);
+            Append(s.PadLeft(len));
         }
 
         public void Append(byte[] buf)

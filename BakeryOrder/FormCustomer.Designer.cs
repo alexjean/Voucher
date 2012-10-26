@@ -37,9 +37,9 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.labelTotal = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBoxOrdered = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPhoto)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrdered)).BeginInit();
             this.SuspendLayout();
             // 
             // lvCustomer
@@ -112,14 +112,14 @@
             this.labelTotal.Text = "0";
             this.labelTotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // pictureBox1
+            // pictureBoxOrdered
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(23, 478);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(226, 169);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox1.TabIndex = 8;
-            this.pictureBox1.TabStop = false;
+            this.pictureBoxOrdered.Location = new System.Drawing.Point(23, 478);
+            this.pictureBoxOrdered.Name = "pictureBoxOrdered";
+            this.pictureBoxOrdered.Size = new System.Drawing.Size(226, 169);
+            this.pictureBoxOrdered.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBoxOrdered.TabIndex = 8;
+            this.pictureBoxOrdered.TabStop = false;
             // 
             // FormCustomer
             // 
@@ -127,11 +127,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Azure;
             this.ClientSize = new System.Drawing.Size(1024, 768);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.labelTotal);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.pictureBoxPhoto);
             this.Controls.Add(this.lvCustomer);
+            this.Controls.Add(this.pictureBoxOrdered);
+            this.Controls.Add(this.pictureBoxPhoto);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -139,7 +139,7 @@
             this.Text = "客顯";
             this.Load += new System.EventHandler(this.FormCustomer_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPhoto)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrdered)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -155,6 +155,6 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelTotal;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBoxOrdered;
     }
 }

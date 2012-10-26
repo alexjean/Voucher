@@ -675,7 +675,7 @@ namespace VoucherExpense
         {
             DataGridView view = (DataGridView)sender;
             DataGridViewCell cell=view.Rows[e.RowIndex].Cells[e.ColumnIndex];
-            MessageBox.Show(string.Format("Detail on Row{0} Col[{1}]:{2}", e.RowIndex, view.Columns[e.ColumnIndex].Name,e.Exception.Message));
+//           MessageBox.Show(string.Format("Detail on Row{0} Col[{1}]:{2}", e.RowIndex, view.Columns[e.ColumnIndex].Name,e.Exception.Message));
         }
 
         private void voucherDetailDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)

@@ -13,8 +13,7 @@ namespace BakeryOrder
 {
     public partial class FormCashier : Form
     {
-        // FormCashe的BasicDataSet.xsd是以 VoucherExpense內的BasicData.mdb建成的,沒有Copy到BakeryOrder目錄
-
+        
         class MenuItemForTag
         {
             public int id;
@@ -27,6 +26,31 @@ namespace BakeryOrder
             public double Money() { return Price * No; }
             public void SetZero() { No = 0; }
             public string NoToString() { return No.ToString(); }
+        }
+
+        class OrderAdapter : BakeryOrderSetTableAdapters.OrderTableAdapter
+        {
+            string SaveStr;
+            public int FillBySelectStr(BakeryOrderSet.OrderDataTable dataTable, string SelectStr)
+            {
+                SaveStr = base.CommandCollection[0].CommandText;
+                base.CommandCollection[0].CommandText = SelectStr;
+                int result = Fill(dataTable);
+                base.CommandCollection[0].CommandText = SaveStr;
+                return result;
+            }
+        }
+        class OrderItemAdapter : BakeryOrderSetTableAdapters.OrderItemTableAdapter
+        {
+            string SaveStr;
+            public int FillBySelectStr(BakeryOrderSet.OrderItemDataTable dataTable, string SelectStr)
+            {
+                SaveStr = base.CommandCollection[0].CommandText;
+                base.CommandCollection[0].CommandText = SelectStr;
+                int result = Fill(dataTable);
+                base.CommandCollection[0].CommandText = SaveStr;
+                return result;
+            }
         }
 
         #region ======== Shared function with EditBakeryMenu.cs ======
@@ -88,10 +112,10 @@ namespace BakeryOrder
             }
         }
 
-        private BasicDataSet.ProductRow GetFoodMenuItem(int id, int x, int y)
+        private BakeryOrderSet.ProductRow GetFoodMenuItem(int id, int x, int y)
         {
             int x1 = x + id * 10;  // x最多不到10行,所以用x編碼菜單id
-            foreach (BasicDataSet.ProductRow Row in basicDataSet1.Product.Rows)
+            foreach (BakeryOrderSet.ProductRow Row in bakeryOrderSet.Product.Rows)
             {
                 if (Row.MenuX == x1 && Row.MenuY == y) return Row;
             }
@@ -309,7 +333,7 @@ namespace BakeryOrder
                     l.Name = mark + "X" + x.ToString() + "Y" + y.ToString();
                     l.Size = new System.Drawing.Size(WidthX - MyLayout.NoWidth - 2, HeightY - 2);
                     l.TabIndex = 0;
-                    BasicDataSet.ProductRow Row = GetFoodMenuItem(menuId, x, y);
+                    BakeryOrderSet.ProductRow Row = GetFoodMenuItem(menuId, x, y);
                     if (Row != null)
                     {
                         l.Tag = Row;
@@ -353,7 +377,7 @@ namespace BakeryOrder
         private void LoadTabControlItem()
         {
             // 小於0的是菜單名負一排最前面
-            var rows = from row in basicDataSet1.Product
+            var rows = from row in bakeryOrderSet.Product
                        where row.Code < SpeicalRowCodeForMenu
                        orderby row.Code descending
                        select row;
@@ -362,15 +386,15 @@ namespace BakeryOrder
             {
                 tabControl1.TabPages.Add("面包");
 /*              FormCasiher不需要
-                int maxID = (from ro in basicDataSet1.Product
+                int maxID = (from ro in bakeryOrderSet.Product
                              select ro.ProductID).Max();
-                BasicDataSet.ProductRow row = basicDataSet1.Product.NewProductRow();
+                BasicDataSet.ProductRow row = bakeryOrderSet.Product.NewProductRow();
                 row.ProductID = ++maxID;
                 row.Name = SystemMenuName("面包", 1);
                 row.Code = -1;
                 row.MenuX = -1;
                 row.MenuY = -1;
-                basicDataSet1.Product.AddProductRow(row);
+                bakeryOrderSet.Product.AddProductRow(row);
                 SaveProduct();
 */
             }
@@ -378,7 +402,7 @@ namespace BakeryOrder
             {
                 String str;
                 int i;
-                foreach (BasicDataSet.ProductRow row in rows)
+                foreach (BakeryOrderSet.ProductRow row in rows)
                 {
                     str = row.Name;
                     i = str.IndexOf('_');    // 以底線做分割, 前面是菜單名
@@ -399,26 +423,41 @@ namespace BakeryOrder
             InitializeComponent();
         }
 
-        FormCustomer m_FormCustomer=null;
-        FormStatics m_FormStatics = null;
-        const string m_ProductDir = "Products";
-        const string m_SmallDir = m_ProductDir + "\\Small";
-        string m_PrinterName = "BTP-R580(U)";
-        HardwareConfig m_Cfg = new HardwareConfig();
+        FormCustomer m_FormCustomer =null;
+        FormStatics  m_FormStatics  = null;
+        const string m_ProductDir   = "Products";
+        const string m_SmallDir     = m_ProductDir + "\\Small";
+        string       m_PrinterName  = "BTP-R580(U)";
+        int          m_CashierID    = 1;
+        int          m_PosID        = 0;
+        HardwareConfig m_Cfg        = new HardwareConfig();
+        OrderAdapter     m_OrderTableAdapter     = new OrderAdapter();
+        OrderItemAdapter m_OrderItemTableAdapter = new OrderItemAdapter();
+
         private void FormCashier_Load(object sender, EventArgs e)
         {
             m_Cfg.Load();
             if (m_Cfg.PrinterName != null) m_PrinterName = m_Cfg.PrinterName;
 //            productTableAdapter1.Connection = MapPath.BasicConnection;
-            this.productTableAdapter.Fill(this.basicDataSet1.Product);
-            this.orderTableAdapter1.Fill(this.basicDataSet1.Order);
-//            this.orderItemTableAdapter1.Fill(this.basicDataSet1.OrderItem);
+            try
+            {
+
+                this.productTableAdapter.Fill(this.bakeryOrderSet.Product);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("讀取BakeryOrder.Product時出錯! 原因:"+ex.Message);
+                Close();
+                return;
+            }
+            DateTime now=DateTime.Now;
+            LoadData(now.Month, now.Day);
 
             // 程式保留row.Code 0做為菜單的寬高,這行不是產品
-            var rows = from row in basicDataSet1.Product
+            var rows = from row in bakeryOrderSet.Product
                        where row.Code == SpeicalRowCodeForMenu
                        select row;
-            foreach (BasicDataSet.ProductRow row in rows)
+            foreach (BakeryOrderSet.ProductRow row in rows)
             {
                 MyLayout.NoX = -row.MenuX;
                 MyLayout.NoY = -row.MenuY;
@@ -439,6 +478,28 @@ namespace BakeryOrder
                 Directory.CreateDirectory(m_SmallDir);
 
         }
+
+        void LoadData(int m, int d)
+        {
+            string sql = "Where INT(ID/1000000)=" + m.ToString("d2") + d.ToString("d2");
+            int MaxID = 0;
+            try
+            {
+                m_OrderTableAdapter.FillBySelectStr    (bakeryOrderSet.Order    , "Select * From [Order] "     + sql + " Order by ID");
+                m_OrderItemTableAdapter.FillBySelectStr(bakeryOrderSet.OrderItem, "Select * From [OrderItem] " + sql);
+                foreach (BakeryOrderSet.OrderRow R in bakeryOrderSet.Order.Rows)
+                {
+                    int id = R.ID % 10000;       // 資料定義為 MMDDNN9999  N POS机号,此處店號放0不管,店長收資料時,再自動填上
+                    if (id > MaxID) MaxID = id;
+                }
+            }
+            catch (Exception ex)
+            {
+                string str = ex.Message;
+                MessageBox.Show("BakeryOrder.Header讀取錯誤!" + str);
+            }
+        }
+
 
         private void btnExit_Click(object sender, EventArgs e)
         {
@@ -476,27 +537,31 @@ namespace BakeryOrder
             Buf.Append("\r\n");
         }
 
-        int CreateOrder(out BasicDataSet.OrderRow order)
+        int CreateOrder(out BakeryOrderSet.OrderRow order)
         {
-            order = basicDataSet1.Order.NewOrderRow();
-            order.PrintTime = DateTime.Now;
+            order = bakeryOrderSet.Order.NewOrderRow();
+            DateTime now = DateTime.Now;
             int maxID = 0;
-            foreach (BasicDataSet.OrderRow row in basicDataSet1.Order)
+            int id;
+            foreach (BakeryOrderSet.OrderRow row in bakeryOrderSet.Order)    // 編號 MMDDNN9999 , MM月 DD日 NN台號 9999單號
             {
-                if (row.ID > maxID) maxID = row.ID;
+                id = row.ID % 10000;
+                if (id > maxID) maxID = id;
             }
-            order.ID = maxID + 1;
+            id = (m_PosID % 100) + now.Month * 10000 + now.Day * 100;
+            order.ID = id*10000+maxID + 1;
             order.DiscountRate = 0.9m;
             order.Income = (decimal)CalcTotal();
+            order.CashierID = m_CashierID;
             return order.ID;
         }
 
         string PrintTitle   = "     原麦山丘华宇店";
         string PrintAddress = "地址:中关村南大街2号";
         string PrintTel     = "电话:60956577";
-        BasicDataSet.OrderRow m_CurrentOrder = null;
+        BakeryOrderSet.OrderRow m_CurrentOrder = null;
 
-        void Print(BasicDataSet.OrderRow CurrentOrder)      
+        void Print(BakeryOrderSet.OrderRow CurrentOrder)      
         {
             //byte[] PrintChinese = new byte[] { };
             byte[] BorderMode = new byte[] { 0x1c, 0x21, 0x28 };
@@ -508,8 +573,8 @@ namespace BakeryOrder
             ByteBuilder Buf = new ByteBuilder(2048);
             Buf.DefaultEncoding=Encoding.GetEncoding("GB2312");
 
-//            ShowTime();
-//            if (!SaveOrder()) return;
+            CurrentOrder.PrintTime = DateTime.Now;
+            if (!SaveOrder(CurrentOrder)) return;
 
             Buf.Append(BorderMode);                                      // 設定列印模式28
             Buf.Append(PrintTitle+"\r\n");
@@ -571,8 +636,8 @@ namespace BakeryOrder
             Buf.Append("\f");
 //            string str = Buf.ToString();
 //            File.WriteAllBytes("Test.txt",Encoding.UTF8.GetBytes(str));
-            RawPrint.SendManagedBytes(m_PrinterName, Buf.ToBytes());
-            RawPrint.SendManagedBytes(m_PrinterName, CutPaper);
+//            RawPrint.SendManagedBytes(m_PrinterName, Buf.ToBytes());
+//            RawPrint.SendManagedBytes(m_PrinterName, CutPaper);
        }
 
         private void btnPrint_Click(object sender, EventArgs e)
@@ -581,6 +646,7 @@ namespace BakeryOrder
             if (m_CurrentOrder == null)
                 CreateOrder(out m_CurrentOrder);
             Print(m_CurrentOrder);
+            btnCashDrawer_Click(null, null);
         }
 
         private void btnCashDrawer_Click(object sender, EventArgs e)
@@ -601,7 +667,7 @@ namespace BakeryOrder
 
         private void btnNewOrder_Click(object sender, EventArgs e)
         {
-            int no=CreateOrder(out m_CurrentOrder);
+            int no=CreateOrder(out m_CurrentOrder)%10000;
             foreach (ListViewItem lv in lvItems.Items)
             {
                 MenuItemForTag item=lv.Tag as MenuItemForTag;
@@ -614,5 +680,118 @@ namespace BakeryOrder
             lvItems.Columns[2].Text = "量";
             lvItems.Columns[3].Text = "金额";
         }
+
+        void SetOrderItemFromListViewItem(BakeryOrderSet.OrderItemRow Row, ListViewItem lvItem, int i)
+        {   // Row.ID由ParentRow決定不用填
+            MenuItemForTag item = (MenuItemForTag)lvItem.Tag;
+            Row.Index = (short)i;
+            Row.Code  = item.code;
+            Row.No    = (decimal)item.No;
+            Row.Price = (decimal)item.Price;
+            Row.Discount = false;    // 目前不使用打折
+        }
+        void Update_OrderItemRows(BakeryOrderSet.OrderRow CurrentOrder,BakeryOrderSet.OrderItemRow[] ItemRows, int i, ListViewItem lvItem)
+        {
+            if (ItemRows[i] == null)
+            {
+                BakeryOrderSet.OrderItemRow Row = bakeryOrderSet.OrderItem.NewOrderItemRow();
+                SetOrderItemFromListViewItem(Row, lvItem, i);
+                Row.SetParentRow(CurrentOrder);
+                bakeryOrderSet.OrderItem.AddOrderItemRow(Row);
+                ItemRows[i] = Row;
+            }
+            else
+            {
+                ItemRows[i].BeginEdit();
+                SetOrderItemFromListViewItem(ItemRows[i], lvItem, i);  // 原始的資料應該己經設了ParentRow
+                ItemRows[i].EndEdit();
+            }
+        }
+
+
+        private bool SaveOrder(BakeryOrderSet.OrderRow CurrentOrder)
+        {
+            bool IsNewRecord = (CurrentOrder.RowState == DataRowState.Detached);
+            if (IsNewRecord)
+            {
+                CurrentOrder.SaveTime = DateTime.Now;
+                if (CurrentOrder.IsPrintTimeNull())
+                    CurrentOrder.PrintTime = DateTime.Now;
+                bakeryOrderSet.Order.AddOrderRow(CurrentOrder);
+            }
+            try
+            {
+                if (CurrentOrder.RowState != DataRowState.Unchanged)   // 不用管Deleted,Detached不會發生
+                {
+                    m_OrderTableAdapter.Update(CurrentOrder);
+                    CurrentOrder.AcceptChanges();
+                }
+            }
+            catch (Exception E)
+            {
+                if (E.GetType() != typeof(System.Data.DBConcurrencyException))
+                    MessageBox.Show(E.Message + "Update(CurrentOrder) 出錯");
+                else
+                    MessageBox.Show("發生並行違例,可能是別台己經改過這張單子,請重啟程式,你必需重新修改!");
+                return false;
+            }
+
+            List<BakeryOrderSet.OrderItemRow> ItemDeleted = new List<BakeryOrderSet.OrderItemRow>();
+            BakeryOrderSet.OrderItemRow[]     OrderDetail = CurrentOrder.GetOrderItemRows();
+            try
+            {
+                int count = lvItems.Items.Count;
+                BakeryOrderSet.OrderItemRow[] ItemRows = new BakeryOrderSet.OrderItemRow[count];
+                if (OrderDetail != null)
+                {
+                    foreach (BakeryOrderSet.OrderItemRow Row in OrderDetail)
+                    {
+                        if (Row.Index < count && (ItemRows[Row.Index] == null))   // 有重複的,以第一個為準
+                            ItemRows[Row.Index] = Row;
+                        else
+                            ItemDeleted.Add(Row);
+                    }
+                }
+                int i = 0;
+                foreach (ListViewItem lvItem in lvItems.Items)
+                {
+                    if (i >= count) break;  // 不應發生,以防萬一
+                    Update_OrderItemRows(CurrentOrder,ItemRows, i, lvItem);
+                    i++;
+                }
+                OrderDetail = ItemRows;
+            }
+            catch (Exception E)
+            {
+                MessageBox.Show(E.Message + "<OrderItem更新出錯,是否二台在改同一單?>");
+                return false;
+            }
+
+            try
+            {
+                if (ItemDeleted.Count != 0) // 處理要刪掉的
+                {
+                    BakeryOrderSet.OrderItemRow[] RowDeleted = new BakeryOrderSet.OrderItemRow[ItemDeleted.Count];
+                    for (int i = 0; i < ItemDeleted.Count; i++)
+                    {
+                        BakeryOrderSet.OrderItemRow row = ItemDeleted[i];
+                        row.Delete();
+                        RowDeleted[i] = row;
+                    }
+                    m_OrderItemTableAdapter.Update(RowDeleted);
+                }
+                m_OrderItemTableAdapter.Update(OrderDetail);
+                this.bakeryOrderSet.OrderItem.AcceptChanges();
+            }
+            catch (Exception E)
+            {
+                if (E.GetType() != typeof(System.Data.DBConcurrencyException))
+                     MessageBox.Show(E.Message + "Update(OrderItem)出錯");
+                else MessageBox.Show("發生並行違例,可能是別台己經改過這張單子,你必需重啟程式,重新修改!");
+                return false;
+            }
+            return true;
+        }
+
     }
 }

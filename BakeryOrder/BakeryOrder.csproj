@@ -73,14 +73,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BasicDataSet.cs">
-      <DependentUpon>BasicDataSet.xsd</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="BasicDataSet.Designer.cs">
+    <Compile Include="BakeryOrderSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BasicDataSet.xsd</DependentUpon>
+      <DependentUpon>BakeryOrderSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Class\ByteBuilder.cs" />
     <Compile Include="Class\Encrypt.cs" />
@@ -126,16 +122,16 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
-    <None Include="BasicDataSet.xsc">
-      <DependentUpon>BasicDataSet.xsd</DependentUpon>
+    <None Include="BakeryOrderSet.xsc">
+      <DependentUpon>BakeryOrderSet.xsd</DependentUpon>
     </None>
-    <None Include="BasicDataSet.xsd">
+    <None Include="BakeryOrderSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>BasicDataSet.Designer.cs</LastGenOutput>
+      <LastGenOutput>BakeryOrderSet.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="BasicDataSet.xss">
-      <DependentUpon>BasicDataSet.xsd</DependentUpon>
+    <None Include="BakeryOrderSet.xss">
+      <DependentUpon>BakeryOrderSet.xsd</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -149,6 +145,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Chair.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BakeryOrder.mdb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

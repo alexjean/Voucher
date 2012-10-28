@@ -15,6 +15,10 @@ namespace BakeryOrder
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            string EncryptedPasword = "mpwfCblfsz";   // loveBakery
+            string password = "";
+            foreach (char c in EncryptedPasword) password += (char)(c - 1);
+            global::BakeryOrder.Properties.Settings.Default.BakeryOrderConnectionString += password;
             Application.Run(new FormCashier());
         }
     }

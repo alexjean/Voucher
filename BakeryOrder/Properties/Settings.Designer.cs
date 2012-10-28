@@ -26,11 +26,15 @@ namespace BakeryOrder.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=BasicData.mdb;Persist Security Info=" +
-            "True;Jet OLEDB:Database Password=loveyou")]
-        public string BasicDataConnectionString {
+        [global::System.Configuration.DefaultSettingValueAttribute("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=|DataDirectory|\\BakeryOrder.mdb;Pers" +
+            "ist Security Info=True;Jet OLEDB:Database Password=")]
+        public string BakeryOrderConnectionString {
             get {
-                return ((string)(this["BasicDataConnectionString"]));
+                return ((string)(this["BakeryOrderConnectionString"]));
+            }
+            set
+            {
+                this["BakeryOrderConnectionString"] = value;
             }
         }
     }

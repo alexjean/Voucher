@@ -439,7 +439,6 @@
     </None>
     <None Include="EmptyBasic.gz" />
     <None Include="VoucherExpense.gz" />
-    <None Include="Class\EmptyBasic.gz" />
     <None Include="Properties\DataSources\CBankAccountForComboBox.datasource" />
     <None Include="Properties\DataSources\CBankDetail.datasource" />
     <None Include="Properties\DataSources\CHRType.datasource" />
@@ -514,7 +513,6 @@
     <Compile Include="Voucher.Designer.cs">
       <DependentUpon>Voucher.cs</DependentUpon>
     </Compile>
-    <None Include="Class\VoucherExpense.gz" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="BasicData.mdb">

@@ -42,15 +42,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.checkBoxDiscount = new System.Windows.Forms.CheckBox();
             this.pictureBoxOrdered = new System.Windows.Forms.PictureBox();
-            this.basicDataSet1 = new BakeryOrder.BasicDataSet();
-            this.productTableAdapter = new BakeryOrder.BasicDataSetTableAdapters.ProductTableAdapter();
-            this.orderTableAdapter1 = new BakeryOrder.BasicDataSetTableAdapters.OrderTableAdapter();
-            this.orderItemTableAdapter1 = new BakeryOrder.BasicDataSetTableAdapters.OrderItemTableAdapter();
             this.btnCashDrawer = new System.Windows.Forms.Button();
             this.btnNewOrder = new System.Windows.Forms.Button();
+            this.productTableAdapter = new BakeryOrder.BakeryOrderSetTableAdapters.ProductTableAdapter();
+            this.bakeryOrderSet = new BakeryOrder.BakeryOrderSet();
             this.tabControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrdered)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.basicDataSet1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).BeginInit();
             this.SuspendLayout();
             // 
             // lvItems
@@ -186,23 +184,6 @@
             this.pictureBoxOrdered.TabIndex = 7;
             this.pictureBoxOrdered.TabStop = false;
             // 
-            // basicDataSet1
-            // 
-            this.basicDataSet1.DataSetName = "BasicDataSet";
-            this.basicDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // productTableAdapter
-            // 
-            this.productTableAdapter.ClearBeforeFill = true;
-            // 
-            // orderTableAdapter1
-            // 
-            this.orderTableAdapter1.ClearBeforeFill = true;
-            // 
-            // orderItemTableAdapter1
-            // 
-            this.orderItemTableAdapter1.ClearBeforeFill = true;
-            // 
             // btnCashDrawer
             // 
             this.btnCashDrawer.Location = new System.Drawing.Point(119, 680);
@@ -222,6 +203,15 @@
             this.btnNewOrder.Text = "新單";
             this.btnNewOrder.UseVisualStyleBackColor = true;
             this.btnNewOrder.Click += new System.EventHandler(this.btnNewOrder_Click);
+            // 
+            // productTableAdapter
+            // 
+            this.productTableAdapter.ClearBeforeFill = true;
+            // 
+            // bakeryOrderSet
+            // 
+            this.bakeryOrderSet.DataSetName = "BakeryOrderSet";
+            this.bakeryOrderSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // FormCashier
             // 
@@ -248,7 +238,7 @@
             this.Load += new System.EventHandler(this.FormCashier_Load);
             this.tabControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrdered)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.basicDataSet1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -265,17 +255,15 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private BasicDataSet basicDataSet1;
-        private BasicDataSetTableAdapters.ProductTableAdapter productTableAdapter;
         private System.Windows.Forms.ColumnHeader columnHeader代碼;
         private System.Windows.Forms.Label labelTotal;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox checkBoxDiscount;
         private System.Windows.Forms.PictureBox pictureBoxOrdered;
-        private BasicDataSetTableAdapters.OrderTableAdapter orderTableAdapter1;
-        private BasicDataSetTableAdapters.OrderItemTableAdapter orderItemTableAdapter1;
         private System.Windows.Forms.Button btnCashDrawer;
         private System.Windows.Forms.Button btnNewOrder;
+        private BakeryOrderSetTableAdapters.ProductTableAdapter productTableAdapter;
+        private BakeryOrderSet bakeryOrderSet;
     }
 }
 

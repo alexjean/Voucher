@@ -223,8 +223,11 @@ namespace BakeryOrder
                     foreach (var order in gr)
                     {
                         CreateLabel(page, x, y, order);
-                        total += order.Income;
-                        if (!order.Deleted) count++;
+                        if (!order.Deleted)
+                        {
+                            count++;
+                            total += order.Income;
+                        }
                         if (++x >= MyLayout.NoX)
                         {
                             x = 0;
@@ -252,8 +255,11 @@ namespace BakeryOrder
                 foreach (var order in listXX)
                 {
                     CreateLabel(page, x, y, order);
-                    total += order.Income;
-                    if (!order.Deleted) count++;
+                    if (!order.Deleted)
+                    {
+                        count++;
+                        total += order.Income;
+                    }
                     if (++x >= MyLayout.NoX)
                     {
                         x = 0;

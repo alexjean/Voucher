@@ -50,6 +50,9 @@
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.btnFolerBrowse = new System.Windows.Forms.Button();
             this.labelProgramVersion = new System.Windows.Forms.Label();
+            this.comboBoxPosID = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // listBox1
@@ -95,7 +98,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(36, 108);
+            this.label1.Location = new System.Drawing.Point(36, 114);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(88, 16);
             this.label1.TabIndex = 4;
@@ -113,7 +116,7 @@
             "COM6",
             "COM7",
             "COM8"});
-            this.cbBoxRS232.Location = new System.Drawing.Point(147, 105);
+            this.cbBoxRS232.Location = new System.Drawing.Point(147, 111);
             this.cbBoxRS232.Name = "cbBoxRS232";
             this.cbBoxRS232.Size = new System.Drawing.Size(111, 24);
             this.cbBoxRS232.TabIndex = 5;
@@ -121,7 +124,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(36, 149);
+            this.label2.Location = new System.Drawing.Point(36, 155);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(88, 16);
             this.label2.TabIndex = 3;
@@ -129,14 +132,14 @@
             // 
             // textBoxPrinter
             // 
-            this.textBoxPrinter.Location = new System.Drawing.Point(36, 171);
+            this.textBoxPrinter.Location = new System.Drawing.Point(36, 177);
             this.textBoxPrinter.Name = "textBoxPrinter";
             this.textBoxPrinter.Size = new System.Drawing.Size(277, 27);
             this.textBoxPrinter.TabIndex = 6;
             // 
             // btnFindPrinter
             // 
-            this.btnFindPrinter.Location = new System.Drawing.Point(147, 144);
+            this.btnFindPrinter.Location = new System.Drawing.Point(147, 150);
             this.btnFindPrinter.Name = "btnFindPrinter";
             this.btnFindPrinter.Size = new System.Drawing.Size(111, 26);
             this.btnFindPrinter.TabIndex = 5;
@@ -169,7 +172,7 @@
             // ckBoxIsServer
             // 
             this.ckBoxIsServer.AutoSize = true;
-            this.ckBoxIsServer.Location = new System.Drawing.Point(36, 252);
+            this.ckBoxIsServer.Location = new System.Drawing.Point(36, 273);
             this.ckBoxIsServer.Name = "ckBoxIsServer";
             this.ckBoxIsServer.Size = new System.Drawing.Size(221, 20);
             this.ckBoxIsServer.TabIndex = 0;
@@ -179,7 +182,7 @@
             // 
             // textBoxDataDir
             // 
-            this.textBoxDataDir.Location = new System.Drawing.Point(36, 308);
+            this.textBoxDataDir.Location = new System.Drawing.Point(36, 329);
             this.textBoxDataDir.Name = "textBoxDataDir";
             this.textBoxDataDir.Size = new System.Drawing.Size(277, 27);
             this.textBoxDataDir.TabIndex = 1;
@@ -187,7 +190,7 @@
             // labelShareName
             // 
             this.labelShareName.AutoSize = true;
-            this.labelShareName.Location = new System.Drawing.Point(36, 289);
+            this.labelShareName.Location = new System.Drawing.Point(36, 310);
             this.labelShareName.Name = "labelShareName";
             this.labelShareName.Size = new System.Drawing.Size(216, 16);
             this.labelShareName.TabIndex = 7;
@@ -196,7 +199,7 @@
             // labelUser
             // 
             this.labelUser.AutoSize = true;
-            this.labelUser.Location = new System.Drawing.Point(36, 359);
+            this.labelUser.Location = new System.Drawing.Point(36, 380);
             this.labelUser.Name = "labelUser";
             this.labelUser.Size = new System.Drawing.Size(40, 16);
             this.labelUser.TabIndex = 12;
@@ -205,7 +208,7 @@
             // labelPass
             // 
             this.labelPass.AutoSize = true;
-            this.labelPass.Location = new System.Drawing.Point(36, 392);
+            this.labelPass.Location = new System.Drawing.Point(36, 413);
             this.labelPass.Name = "labelPass";
             this.labelPass.Size = new System.Drawing.Size(40, 16);
             this.labelPass.TabIndex = 13;
@@ -213,21 +216,21 @@
             // 
             // textBoxUserName
             // 
-            this.textBoxUserName.Location = new System.Drawing.Point(82, 354);
+            this.textBoxUserName.Location = new System.Drawing.Point(82, 375);
             this.textBoxUserName.Name = "textBoxUserName";
             this.textBoxUserName.Size = new System.Drawing.Size(231, 27);
             this.textBoxUserName.TabIndex = 2;
             // 
             // textBoxPassword
             // 
-            this.textBoxPassword.Location = new System.Drawing.Point(82, 387);
+            this.textBoxPassword.Location = new System.Drawing.Point(82, 408);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.Size = new System.Drawing.Size(231, 27);
             this.textBoxPassword.TabIndex = 3;
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(147, 441);
+            this.btnSave.Location = new System.Drawing.Point(147, 462);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 5;
@@ -266,11 +269,48 @@
             // labelProgramVersion
             // 
             this.labelProgramVersion.AutoSize = true;
-            this.labelProgramVersion.Location = new System.Drawing.Point(79, 497);
+            this.labelProgramVersion.Location = new System.Drawing.Point(79, 518);
             this.labelProgramVersion.Name = "labelProgramVersion";
             this.labelProgramVersion.Size = new System.Drawing.Size(114, 16);
             this.labelProgramVersion.TabIndex = 18;
             this.labelProgramVersion.Text = "Program Version";
+            // 
+            // comboBoxPosID
+            // 
+            this.comboBoxPosID.FormattingEnabled = true;
+            this.comboBoxPosID.Items.AddRange(new object[] {
+            "",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"});
+            this.comboBoxPosID.Location = new System.Drawing.Point(147, 224);
+            this.comboBoxPosID.Name = "comboBoxPosID";
+            this.comboBoxPosID.Size = new System.Drawing.Size(46, 24);
+            this.comboBoxPosID.TabIndex = 19;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(36, 227);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(83, 16);
+            this.label5.TabIndex = 20;
+            this.label5.Text = "POS机編号";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(36, 81);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(211, 16);
+            this.label6.TabIndex = 21;
+            this.label6.Text = "同一店內POS机編号不可相同";
             // 
             // FormHardware
             // 
@@ -278,6 +318,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(892, 565);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.comboBoxPosID);
             this.Controls.Add(this.labelProgramVersion);
             this.Controls.Add(this.btnFolerBrowse);
             this.Controls.Add(this.btnBackup);
@@ -332,5 +375,8 @@
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.Button btnFolerBrowse;
         private System.Windows.Forms.Label labelProgramVersion;
+        private System.Windows.Forms.ComboBox comboBoxPosID;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
     }
 }

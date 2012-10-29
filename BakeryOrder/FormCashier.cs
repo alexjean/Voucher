@@ -396,6 +396,8 @@ namespace BakeryOrder
         {
             m_Cfg.Load();
             if (m_Cfg.PrinterName != null) m_PrinterName = m_Cfg.PrinterName;
+            m_PosID = m_Cfg.iPosID;
+            
 //            productTableAdapter1.Connection = MapPath.BasicConnection;
             try
             {

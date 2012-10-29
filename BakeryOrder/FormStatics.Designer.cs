@@ -35,9 +35,12 @@
             this.columnHeader品名 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader量 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader金額 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.btnOrderList = new System.Windows.Forms.Button();
+            this.btnDrawerOpenedList = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.label1 = new System.Windows.Forms.Label();
+            this.labelTotal = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -99,20 +102,24 @@
             this.columnHeader金額.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeader金額.Width = 52;
             // 
-            // tabControl1
+            // btnOrderList
             // 
-            this.tabControl1.Alignment = System.Windows.Forms.TabAlignment.Bottom;
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.tabControl1.ItemSize = new System.Drawing.Size(60, 32);
-            this.tabControl1.Location = new System.Drawing.Point(234, 0);
-            this.tabControl1.Multiline = true;
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(790, 768);
-            this.tabControl1.TabIndex = 3;
-            this.tabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
+            this.btnOrderList.Location = new System.Drawing.Point(2, 670);
+            this.btnOrderList.Name = "btnOrderList";
+            this.btnOrderList.Size = new System.Drawing.Size(88, 35);
+            this.btnOrderList.TabIndex = 4;
+            this.btnOrderList.Text = "收入明細";
+            this.btnOrderList.UseVisualStyleBackColor = true;
+            this.btnOrderList.Click += new System.EventHandler(this.btnOrderList_Click);
+            // 
+            // btnDrawerOpenedList
+            // 
+            this.btnDrawerOpenedList.Location = new System.Drawing.Point(108, 670);
+            this.btnDrawerOpenedList.Name = "btnDrawerOpenedList";
+            this.btnDrawerOpenedList.Size = new System.Drawing.Size(88, 35);
+            this.btnDrawerOpenedList.TabIndex = 5;
+            this.btnDrawerOpenedList.Text = "錢箱記錄";
+            this.btnDrawerOpenedList.UseVisualStyleBackColor = true;
             // 
             // tabPage1
             // 
@@ -122,17 +129,37 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(782, 728);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "<01>頁";
             // 
-            // tabPage2
+            // tabControl1
             // 
-            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.tabPage2.Location = new System.Drawing.Point(4, 4);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(782, 728);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "<02>頁";
+            this.tabControl1.Alignment = System.Windows.Forms.TabAlignment.Bottom;
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.tabControl1.ItemSize = new System.Drawing.Size(48, 32);
+            this.tabControl1.Location = new System.Drawing.Point(234, 0);
+            this.tabControl1.Multiline = true;
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(790, 768);
+            this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.tabControl1.TabIndex = 3;
+            this.tabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 485);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(40, 16);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "總計";
+            // 
+            // labelTotal
+            // 
+            this.labelTotal.Location = new System.Drawing.Point(58, 485);
+            this.labelTotal.Name = "labelTotal";
+            this.labelTotal.Size = new System.Drawing.Size(147, 16);
+            this.labelTotal.TabIndex = 7;
             // 
             // FormStatics
             // 
@@ -140,6 +167,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Azure;
             this.ClientSize = new System.Drawing.Size(1024, 768);
+            this.Controls.Add(this.labelTotal);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.btnDrawerOpenedList);
+            this.Controls.Add(this.btnOrderList);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.lvItems);
             this.Controls.Add(this.btnExitProgram);
@@ -152,6 +183,7 @@
             this.Load += new System.EventHandler(this.FormStatics_Load);
             this.tabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -164,8 +196,11 @@
         private System.Windows.Forms.ColumnHeader columnHeader品名;
         private System.Windows.Forms.ColumnHeader columnHeader量;
         private System.Windows.Forms.ColumnHeader columnHeader金額;
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.Button btnOrderList;
+        private System.Windows.Forms.Button btnDrawerOpenedList;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelTotal;
     }
 }

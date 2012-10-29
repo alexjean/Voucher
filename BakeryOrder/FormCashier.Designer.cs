@@ -46,6 +46,7 @@
             this.btnNewOrder = new System.Windows.Forms.Button();
             this.productTableAdapter = new BakeryOrder.BakeryOrderSetTableAdapters.ProductTableAdapter();
             this.bakeryOrderSet = new BakeryOrder.BakeryOrderSet();
+            this.checkBoxTest = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrdered)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).BeginInit();
@@ -167,12 +168,13 @@
             // 
             this.checkBoxDiscount.AutoSize = true;
             this.checkBoxDiscount.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.checkBoxDiscount.Location = new System.Drawing.Point(17, 474);
+            this.checkBoxDiscount.Location = new System.Drawing.Point(22, 526);
             this.checkBoxDiscount.Name = "checkBoxDiscount";
             this.checkBoxDiscount.Size = new System.Drawing.Size(71, 25);
             this.checkBoxDiscount.TabIndex = 6;
             this.checkBoxDiscount.Text = "九折";
             this.checkBoxDiscount.UseVisualStyleBackColor = true;
+            this.checkBoxDiscount.Visible = false;
             this.checkBoxDiscount.CheckedChanged += new System.EventHandler(this.checkBoxDiscount_CheckedChanged);
             // 
             // pictureBoxOrdered
@@ -213,15 +215,27 @@
             this.bakeryOrderSet.DataSetName = "BakeryOrderSet";
             this.bakeryOrderSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
+            // checkBoxTest
+            // 
+            this.checkBoxTest.AutoSize = true;
+            this.checkBoxTest.Checked = true;
+            this.checkBoxTest.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxTest.Location = new System.Drawing.Point(17, 474);
+            this.checkBoxTest.Name = "checkBoxTest";
+            this.checkBoxTest.Size = new System.Drawing.Size(59, 20);
+            this.checkBoxTest.TabIndex = 10;
+            this.checkBoxTest.Text = "不印";
+            this.checkBoxTest.UseVisualStyleBackColor = true;
+            // 
             // FormCashier
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(1024, 768);
+            this.Controls.Add(this.checkBoxTest);
             this.Controls.Add(this.btnNewOrder);
             this.Controls.Add(this.btnCashDrawer);
-            this.Controls.Add(this.pictureBoxOrdered);
             this.Controls.Add(this.checkBoxDiscount);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.labelTotal);
@@ -229,6 +243,7 @@
             this.Controls.Add(this.btnStatics);
             this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.lvItems);
+            this.Controls.Add(this.pictureBoxOrdered);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -264,6 +279,7 @@
         private System.Windows.Forms.Button btnNewOrder;
         private BakeryOrderSetTableAdapters.ProductTableAdapter productTableAdapter;
         private BakeryOrderSet bakeryOrderSet;
+        private System.Windows.Forms.CheckBox checkBoxTest;
     }
 }
 

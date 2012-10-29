@@ -14,45 +14,6 @@ namespace BakeryOrder
     public partial class FormCashier : Form
     {
         
-        class MenuItemForTag
-        {
-            public int id;
-            public int code;
-            public string name;
-            public double No;
-            public double Price;
-            public short classcode;
-            public Label LabelNo;
-            public double Money() { return Price * No; }
-            public void SetZero() { No = 0; }
-            public string NoToString() { return No.ToString(); }
-        }
-
-        class OrderAdapter : BakeryOrderSetTableAdapters.OrderTableAdapter
-        {
-            string SaveStr;
-            public int FillBySelectStr(BakeryOrderSet.OrderDataTable dataTable, string SelectStr)
-            {
-                SaveStr = base.CommandCollection[0].CommandText;
-                base.CommandCollection[0].CommandText = SelectStr;
-                int result = Fill(dataTable);
-                base.CommandCollection[0].CommandText = SaveStr;
-                return result;
-            }
-        }
-        class OrderItemAdapter : BakeryOrderSetTableAdapters.OrderItemTableAdapter
-        {
-            string SaveStr;
-            public int FillBySelectStr(BakeryOrderSet.OrderItemDataTable dataTable, string SelectStr)
-            {
-                SaveStr = base.CommandCollection[0].CommandText;
-                base.CommandCollection[0].CommandText = SelectStr;
-                int result = Fill(dataTable);
-                base.CommandCollection[0].CommandText = SaveStr;
-                return result;
-            }
-        }
-
         #region ======== Shared function with EditBakeryMenu.cs ======
         private static class MyLayout
         {
@@ -155,7 +116,6 @@ namespace BakeryOrder
                 lvItem.SubItems.Add(money.ToString());
             }
             lvItem.Tag = item;
-            CalcTotal();
         }
 
         // ListView的tag 指向MenuItem
@@ -172,8 +132,6 @@ namespace BakeryOrder
             {
                 lvItem.Remove();
             }
-            m_FormCustomer.Item2List(item.code, item.name, item.No, item.Money());
-            CalcTotal();
             return true;            // 刪除成功
         }
 
@@ -191,6 +149,7 @@ namespace BakeryOrder
                 item.No += 1;
                 Add2List(item, false);
             }
+            CalcTotal();
             m_FormCustomer.Item2List(item.code, item.name, item.No, item.Money());
             return;
         }
@@ -336,7 +295,6 @@ namespace BakeryOrder
                     BakeryOrderSet.ProductRow Row = GetFoodMenuItem(menuId, x, y);
                     if (Row != null)
                     {
-                        l.Tag = Row;
                         if (Row.IsNameNull()) l.Text = "";
                         else l.Text = Row.Name.ToString();
 
@@ -553,6 +511,7 @@ namespace BakeryOrder
             order.DiscountRate = 0.9m;
             order.Income = (decimal)CalcTotal();
             order.CashierID = m_CashierID;
+            order.Deleted = false;
             return order.ID;
         }
 
@@ -568,7 +527,6 @@ namespace BakeryOrder
             byte[] NormalMode = new byte[] { 0x1c, 0x21, 0    };
             byte[] CutPaper   = new byte[] { 0x1B, (byte)'i'  };
             int n;
-
 
             ByteBuilder Buf = new ByteBuilder(2048);
             Buf.DefaultEncoding=Encoding.GetEncoding("GB2312");
@@ -587,17 +545,8 @@ namespace BakeryOrder
             Buf.Append("序号:" + n.ToString("d4") + "\r\n");
             Buf.AppendPadRight("时间:" + CurrentOrder.PrintTime.ToString("yy/MM/dd hh:mm"), 19);
             Buf.Append("工号: 001" +  "\r\n\r\n");
-/*
-            try
-            {
-                n = Int32.Parse(textBoxTable.Text);
-                if (n > 0)
-                    Buf.Append("桌号:" + n.ToString("d2") + "              服务:" + mtbServant.Text + "\r\n");
-            }
-            catch { }
-*/
-            Buf.Append(BorderMode);                                      // 設定列印模式28
 
+            Buf.Append(BorderMode);                                      // 設定列印模式28
             Buf.Append("  品名        数量 单价   金额\r\n");
             Buf.Append("- - - - - - - - - - - - - - - -\r\n");
             MenuItemForTag mItem;
@@ -636,8 +585,11 @@ namespace BakeryOrder
             Buf.Append("\f");
 //            string str = Buf.ToString();
 //            File.WriteAllBytes("Test.txt",Encoding.UTF8.GetBytes(str));
-//            RawPrint.SendManagedBytes(m_PrinterName, Buf.ToBytes());
-//            RawPrint.SendManagedBytes(m_PrinterName, CutPaper);
+            if (!checkBoxTest.Checked)
+            {
+                RawPrint.SendManagedBytes(m_PrinterName, Buf.ToBytes());
+                RawPrint.SendManagedBytes(m_PrinterName, CutPaper);
+            }
        }
 
         private void btnPrint_Click(object sender, EventArgs e)
@@ -645,6 +597,12 @@ namespace BakeryOrder
             if (lvItems.Items.Count == 0) return;
             if (m_CurrentOrder == null)
                 CreateOrder(out m_CurrentOrder);
+            if (m_CurrentOrder.RowState != DataRowState.Detached)
+            {
+                MessageBox.Show("己經打印過的單子,無法再印! 請按<新單>");
+                return;
+            }
+            m_CurrentOrder.Income = (decimal)CalcTotal();
             Print(m_CurrentOrder);
             btnCashDrawer_Click(null, null);
         }
@@ -658,7 +616,7 @@ namespace BakeryOrder
         private void btnStatics_Click(object sender, EventArgs e)
         {
             if (m_FormStatics == null)
-                m_FormStatics = new FormStatics();
+                m_FormStatics = new FormStatics(bakeryOrderSet,m_OrderTableAdapter);
             if (m_FormStatics.ShowDialog() == DialogResult.Abort)
                 Close();
             else 
@@ -732,7 +690,10 @@ namespace BakeryOrder
                 if (E.GetType() != typeof(System.Data.DBConcurrencyException))
                     MessageBox.Show(E.Message + "Update(CurrentOrder) 出錯");
                 else
+                {
                     MessageBox.Show("發生並行違例,可能是別台己經改過這張單子,請重啟程式,你必需重新修改!");
+                    Close();
+                }
                 return false;
             }
 
@@ -786,8 +747,12 @@ namespace BakeryOrder
             catch (Exception E)
             {
                 if (E.GetType() != typeof(System.Data.DBConcurrencyException))
-                     MessageBox.Show(E.Message + "Update(OrderItem)出錯");
-                else MessageBox.Show("發生並行違例,可能是別台己經改過這張單子,你必需重啟程式,重新修改!");
+                    MessageBox.Show(E.Message + "Update(OrderItem)出錯");
+                else
+                {
+                    MessageBox.Show("發生並行違例,可能是別台己經改過這張單子,你必需重啟程式,重新修改!");
+                    Close();
+                }
                 return false;
             }
             return true;

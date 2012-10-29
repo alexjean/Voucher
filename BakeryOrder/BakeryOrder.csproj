@@ -79,6 +79,9 @@
       <DependentUpon>BakeryOrderSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Class\ByteBuilder.cs" />
+    <Compile Include="Class\DataDefine.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Class\Encrypt.cs" />
     <Compile Include="Class\HardwareConfig.cs" />
     <Compile Include="Class\RawPrint.cs" />

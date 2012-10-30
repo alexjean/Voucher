@@ -10,9 +10,9 @@ using System.IO;
 namespace VoucherExpense
 
 {
-    public partial class EditProduct : Form
+    public partial class EditBakeryProduct : Form
     {
-        public EditProduct()
+        public EditBakeryProduct()
         {
             InitializeComponent();
         }
@@ -20,11 +20,11 @@ namespace VoucherExpense
         private string m_PhotoPath = "Photos\\Products\\";
         private void AddProduct_Load(object sender, EventArgs e)
         {
-            productTableAdapter.Connection  = MapPath.BasicConnection;
-            orderItemTableAdapter.Connection= MapPath.BasicConnection;
-            orderTableAdapter.Connection    = MapPath.BasicConnection;
-            this.productTableAdapter.Fill(this.basicDataSet.Product);
-            SetControlLengthFromDB(this, basicDataSet.Product);
+            productTableAdapter.Connection  = MapPath.BakeryConnection;
+            orderItemTableAdapter.Connection= MapPath.BakeryConnection;
+            orderTableAdapter.Connection    = MapPath.BakeryConnection;
+            this.productTableAdapter.Fill(this.bakeryOrderSet.Product);
+            SetControlLengthFromDB(this, bakeryOrderSet.Product);
             photoPictureBox.Visible = Directory.Exists(m_PhotoPath);
         }
 
@@ -118,8 +118,8 @@ namespace VoucherExpense
                 e.Cancel = true;
                 return;
             }
-            BasicDataSet.ProductDataTable table = basicDataSet.Product;
-            foreach (BasicDataSet.ProductRow row in table.Rows)
+            BakeryOrderSet.ProductDataTable table = bakeryOrderSet.Product;
+            foreach (BakeryOrderSet.ProductRow row in table.Rows)
             {
                 if (row.Code == code)
                 {
@@ -153,13 +153,13 @@ namespace VoucherExpense
                 return;
             }
             productBindingSource.EndEdit();
-            BasicDataSet.ProductDataTable table = (BasicDataSet.ProductDataTable)basicDataSet.Product.GetChanges();
+            BakeryOrderSet.ProductDataTable table = (BakeryOrderSet.ProductDataTable)bakeryOrderSet.Product.GetChanges();
             if (table == null)
             {
                 MessageBox.Show("沒有改動任何資料! 不用存");
                 return;
             }
-            productTableAdapter.Update(basicDataSet.Product);
+            productTableAdapter.Update(bakeryOrderSet.Product);
             MessageBox.Show(table.Rows.Count.ToString()+"筆有改動,己存檔!");
         }
 
@@ -193,8 +193,8 @@ namespace VoucherExpense
             {
                 try
                 {
-                    orderTableAdapter.Fill(basicDataSet.Order);
-                    orderItemTableAdapter.Fill(basicDataSet.OrderItem);
+                    orderTableAdapter.Fill(bakeryOrderSet.Order);
+                    orderItemTableAdapter.Fill(bakeryOrderSet.OrderItem);
                 }
                 catch(Exception ex)
                 {
@@ -203,11 +203,11 @@ namespace VoucherExpense
                 }
                 m_OrderItemLoaded = true;
             }
-            foreach (BasicDataSet.OrderItemRow row in basicDataSet.OrderItem)
+            foreach (BakeryOrderSet.OrderItemRow row in bakeryOrderSet.OrderItem)
             {
                 if (row.Code == code)
                 {
-                    BasicDataSet.OrderRow order=row.OrderRow;
+                    BakeryOrderSet.OrderRow order=row.OrderRow;
                     MessageBox.Show("點菜單"+order.ID.ToString()+"  己經點了"+strCode+" 無法刪除");
                     return;
                 }
@@ -219,7 +219,7 @@ namespace VoucherExpense
                 try
                 {
                     productBindingSource.RemoveCurrent();
-                    productTableAdapter.Update(basicDataSet.Product);
+                    productTableAdapter.Update(bakeryOrderSet.Product);
                 }
                 catch (Exception ex)
                 {
@@ -236,7 +236,7 @@ namespace VoucherExpense
         string CurrentPhotoPath()
         {
             DataRowView rowView = productBindingSource.Current as DataRowView;
-            BasicDataSet.ProductRow row = rowView.Row as BasicDataSet.ProductRow;
+            BakeryOrderSet.ProductRow row = rowView.Row as BakeryOrderSet.ProductRow;
             return m_PhotoPath + row.ProductID.ToString() + ".jpg";
         }
 

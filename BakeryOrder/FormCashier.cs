@@ -386,8 +386,8 @@ namespace BakeryOrder
         const string m_ProductDir   = "Products";
         const string m_SmallDir     = m_ProductDir + "\\Small";
         string       m_PrinterName  = "BTP-R580(U)";
-        int          m_CashierID    = 1;
         int          m_PosID        = 0;
+        int          m_CashierID    = 1;
         HardwareConfig m_Cfg        = new HardwareConfig();
         OrderAdapter     m_OrderTableAdapter     = new OrderAdapter();
         OrderItemAdapter m_OrderItemTableAdapter = new OrderItemAdapter();

@@ -35,6 +35,7 @@
             this.食材表MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.產品表MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.產品菜單ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.烘培產品MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.烘培菜單MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.會計科目MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.傳票設定MenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -108,6 +109,7 @@
             this.食材表MenuItem,
             this.產品表MenuItem,
             this.產品菜單ToolStripMenuItem,
+            this.烘培產品MenuItem,
             this.烘培菜單MenuItem,
             this.會計科目MenuItem,
             this.傳票設定MenuItem,
@@ -136,9 +138,10 @@
             // 
             // 產品表MenuItem
             // 
+            this.產品表MenuItem.Enabled = false;
             this.產品表MenuItem.Name = "產品表MenuItem";
             this.產品表MenuItem.Size = new System.Drawing.Size(152, 22);
-            this.產品表MenuItem.Text = "產品表";
+            this.產品表MenuItem.Text = "餐飲產品";
             this.產品表MenuItem.Click += new System.EventHandler(this.產品表MenuItem_Click);
             // 
             // 產品菜單ToolStripMenuItem
@@ -149,6 +152,13 @@
             this.產品菜單ToolStripMenuItem.Text = "餐飲菜單";
             this.產品菜單ToolStripMenuItem.Visible = false;
             this.產品菜單ToolStripMenuItem.Click += new System.EventHandler(this.編點菜單ToolStripMenuItem_Click);
+            // 
+            // 烘培產品MenuItem
+            // 
+            this.烘培產品MenuItem.Name = "烘培產品MenuItem";
+            this.烘培產品MenuItem.Size = new System.Drawing.Size(152, 22);
+            this.烘培產品MenuItem.Text = "烘培產品";
+            this.烘培產品MenuItem.Click += new System.EventHandler(this.烘培產品MenuItem_Click);
             // 
             // 烘培菜單MenuItem
             // 
@@ -524,6 +534,7 @@
         private System.Windows.Forms.ToolStripMenuItem 銷售統計ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 產品表MenuItem;
         private System.Windows.Forms.ToolStripMenuItem 烘培菜單MenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 烘培產品MenuItem;
 
     }
 }

@@ -32,8 +32,8 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.basicDataSet1 = new VoucherExpense.BasicDataSet();
-            this.productTableAdapter1 = new VoucherExpense.BasicDataSetTableAdapters.ProductTableAdapter();
+            this.bakeryOrderSet = new VoucherExpense.BakeryOrderSet();
+            this.productTableAdapter1 = new VoucherExpense.BakeryOrderSetTableAdapters.ProductTableAdapter();
             this.comboBoxWidth = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxHeight = new System.Windows.Forms.ComboBox();
@@ -43,7 +43,7 @@
             this.textBoxRename = new System.Windows.Forms.TextBox();
             this.btnRename = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.basicDataSet1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).BeginInit();
             this.SuspendLayout();
             // 
             // listBoxProduct
@@ -96,10 +96,10 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "面包";
             // 
-            // basicDataSet1
+            // bakeryOrderSet
             // 
-            this.basicDataSet1.DataSetName = "BasicDataSet";
-            this.basicDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.bakeryOrderSet.DataSetName = "BakeryOrderSet";
+            this.bakeryOrderSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // productTableAdapter1
             // 
@@ -226,7 +226,7 @@
             this.Text = "烘焙菜單";
             this.Load += new System.EventHandler(this.EditBakeryMenu_Load);
             this.tabControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.basicDataSet1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -238,8 +238,8 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private BasicDataSet basicDataSet1;
-        private BasicDataSetTableAdapters.ProductTableAdapter productTableAdapter1;
+        private BakeryOrderSet bakeryOrderSet;
+        private BakeryOrderSetTableAdapters.ProductTableAdapter productTableAdapter1;
         private System.Windows.Forms.ComboBox comboBoxWidth;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBoxHeight;

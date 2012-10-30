@@ -1,6 +1,6 @@
 ﻿namespace VoucherExpense
 {
-    partial class EditProduct
+    partial class EditBakeryProduct
     {
         /// <summary>
         /// 設計工具所需的變數。
@@ -37,7 +37,7 @@
             System.Windows.Forms.Label menuYLabel;
             System.Windows.Forms.Label unitLabel;
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditProduct));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditBasicProduct));
             System.Windows.Forms.Label evaluatedCostLabel;
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -45,7 +45,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.productIDTextBox = new System.Windows.Forms.TextBox();
             this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.basicDataSet = new VoucherExpense.BasicDataSet();
+            this.bakeryOrderSet = new VoucherExpense.BakeryOrderSet();
             this.codeTextBox = new System.Windows.Forms.TextBox();
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.priceTextBox = new System.Windows.Forms.TextBox();
@@ -67,11 +67,11 @@
             this.儲存SToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.DeletetoolStripButton = new System.Windows.Forms.ToolStripButton();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.productTableAdapter = new VoucherExpense.BasicDataSetTableAdapters.ProductTableAdapter();
+            this.productTableAdapter = new VoucherExpense.BakeryOrderSetTableAdapters.ProductTableAdapter();
             this.unitTextBox = new System.Windows.Forms.TextBox();
-            this.orderItemTableAdapter = new VoucherExpense.BasicDataSetTableAdapters.OrderItemTableAdapter();
-            this.orderTableAdapter = new VoucherExpense.BasicDataSetTableAdapters.OrderTableAdapter();
-            this.tableAdapterManager = new VoucherExpense.BasicDataSetTableAdapters.TableAdapterManager();
+            this.orderItemTableAdapter = new VoucherExpense.BakeryOrderSetTableAdapters.OrderItemTableAdapter();
+            this.orderTableAdapter = new VoucherExpense.BakeryOrderSetTableAdapters.OrderTableAdapter();
+            this.tableAdapterManager = new VoucherExpense.BakeryOrderSetTableAdapters.TableAdapterManager();
             this.evaluatedCostTextBox = new System.Windows.Forms.TextBox();
             this.productIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.codeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -93,7 +93,7 @@
             unitLabel = new System.Windows.Forms.Label();
             evaluatedCostLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.basicDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator)).BeginInit();
             this.bindingNavigator.SuspendLayout();
@@ -183,13 +183,13 @@
             // productBindingSource
             // 
             this.productBindingSource.DataMember = "Product";
-            this.productBindingSource.DataSource = this.basicDataSet;
+            this.productBindingSource.DataSource = this.bakeryOrderSet;
             this.productBindingSource.CurrentChanged += new System.EventHandler(this.productBindingSource_CurrentChanged);
             // 
-            // basicDataSet
+            // bakeryOrderSet
             // 
-            this.basicDataSet.DataSetName = "BasicDataSet";
-            this.basicDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.bakeryOrderSet.DataSetName = "BakeryOrderSet";
+            this.bakeryOrderSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // codeTextBox
             // 
@@ -450,7 +450,7 @@
             this.tableAdapterManager.OrderItemTableAdapter = this.orderItemTableAdapter;
             this.tableAdapterManager.OrderTableAdapter = this.orderTableAdapter;
             this.tableAdapterManager.ProductTableAdapter = this.productTableAdapter;
-            this.tableAdapterManager.UpdateOrder = VoucherExpense.BasicDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.tableAdapterManager.UpdateOrder = VoucherExpense.BakeryOrderSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // evaluatedCostLabel
             // 
@@ -602,7 +602,7 @@
             this.Text = "產品表";
             this.Load += new System.EventHandler(this.AddProduct_Load);
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.basicDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator)).EndInit();
             this.bindingNavigator.ResumeLayout(false);
@@ -615,9 +615,9 @@
 
         #endregion
 
-        private BasicDataSet basicDataSet;
+        private BakeryOrderSet bakeryOrderSet;
         private System.Windows.Forms.BindingSource productBindingSource;
-        private BasicDataSetTableAdapters.ProductTableAdapter productTableAdapter;
+        private BakeryOrderSetTableAdapters.ProductTableAdapter productTableAdapter;
         private System.Windows.Forms.TextBox productIDTextBox;
         private System.Windows.Forms.TextBox codeTextBox;
         private System.Windows.Forms.TextBox nameTextBox;
@@ -641,8 +641,8 @@
         private System.Windows.Forms.ToolStripButton 儲存SToolStripButton;
         private System.Windows.Forms.TextBox unitTextBox;
         private System.Windows.Forms.ToolStripButton DeletetoolStripButton;
-        private BasicDataSetTableAdapters.OrderItemTableAdapter orderItemTableAdapter;
-        private BasicDataSetTableAdapters.OrderTableAdapter orderTableAdapter;
+        private BakeryOrderSetTableAdapters.OrderItemTableAdapter orderItemTableAdapter;
+        private BakeryOrderSetTableAdapters.OrderTableAdapter orderTableAdapter;
         private System.Windows.Forms.DataGridViewTextBoxColumn productIDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn codeColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn classDataGridViewTextBoxColumn;
@@ -652,7 +652,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn EvaluatedCost;
         private System.Windows.Forms.DataGridViewTextBoxColumn menuXDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn menuYDataGridViewTextBoxColumn;
-        private BasicDataSetTableAdapters.TableAdapterManager tableAdapterManager;
+        private BakeryOrderSetTableAdapters.TableAdapterManager tableAdapterManager;
         private System.Windows.Forms.TextBox evaluatedCostTextBox;
         private System.Windows.Forms.PictureBox photoPictureBox;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;

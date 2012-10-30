@@ -71,10 +71,10 @@ namespace VoucherExpense
             }
         }
 
-        private BasicDataSet.ProductRow GetFoodMenuItem(int id, int x, int y)
+        private BakeryOrderSet.ProductRow GetFoodMenuItem(int id, int x, int y)
         {
             int x1 = x + id * 10;  // x最多不到10行,所以用x編碼菜單id
-            foreach (BasicDataSet.ProductRow Row in basicDataSet1.Product.Rows)
+            foreach (BakeryOrderSet.ProductRow Row in bakeryOrderSet.Product.Rows)
             {
                 if (Row.MenuX == x1 && Row.MenuY == y) return Row;
             }
@@ -106,7 +106,7 @@ namespace VoucherExpense
                     l.Name = mark + "X" + x.ToString() + "Y" + y.ToString();
                     l.Size = new System.Drawing.Size(WidthX - MyLayout.NoWidth - 2, HeightY - 2);
                     l.TabIndex = 0;
-                    BasicDataSet.ProductRow Row = GetFoodMenuItem(menuId, x, y);
+                    BakeryOrderSet.ProductRow Row = GetFoodMenuItem(menuId, x, y);
                     if (Row != null)
                     {
                         l.Tag = Row;
@@ -136,7 +136,7 @@ namespace VoucherExpense
         {
 
             // 小於0的是菜單名負一排最前面
-            var rows = from row in basicDataSet1.Product
+            var rows = from row in bakeryOrderSet.Product
                    where row.Code < SpeicalRowCodeForMenu
                    orderby row.Code descending
                    select row;
@@ -145,22 +145,22 @@ namespace VoucherExpense
             {
                 tabControl1.TabPages.Add("面包");
 
-                int maxID = (from ro in basicDataSet1.Product
+                int maxID = (from ro in bakeryOrderSet.Product
                              select ro.ProductID).Max();
-                BasicDataSet.ProductRow row = basicDataSet1.Product.NewProductRow();
+                BakeryOrderSet.ProductRow row = bakeryOrderSet.Product.NewProductRow();
                 row.ProductID = ++maxID;
                 row.Name = SystemMenuName("面包", 1);
                 row.Code = -1;
                 row.MenuX = -1;
                 row.MenuY = -1;
-                basicDataSet1.Product.AddProductRow(row);
+                bakeryOrderSet.Product.AddProductRow(row);
                 SaveProduct();
             }
             else
             {
                 String str;
                 int i;
-                foreach (BasicDataSet.ProductRow row in rows)
+                foreach (BakeryOrderSet.ProductRow row in rows)
                 {
                     str = row.Name;
                     i = str.IndexOf('_');    // 以底線做分割, 前面是菜單名
@@ -185,24 +185,24 @@ namespace VoucherExpense
         {
             try
             {
-                productTableAdapter1.Connection = MapPath.BasicConnection;
-                productTableAdapter1.Fill(basicDataSet1.Product);
+                productTableAdapter1.Connection = MapPath.BakeryConnection;
+                productTableAdapter1.Fill(bakeryOrderSet.Product);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("產品表載入失敗:" + ex.Message);
             }
-            foreach (BasicDataSet.ProductRow row in basicDataSet1.Product)
+            foreach (BakeryOrderSet.ProductRow row in bakeryOrderSet.Product)
             {
                 if (row.Code <= SpeicalRowCodeForMenu) continue;   // 系統保留用
                 listBoxProduct.Items.Add(new DragItem(null, row));
             }
 
             // 程式保留row.Code 0做為菜單的寬高,這行不是產品
-            var rows = from row in basicDataSet1.Product
+            var rows = from row in bakeryOrderSet.Product
                        where row.Code == SpeicalRowCodeForMenu
                        select row;
-            foreach (BasicDataSet.ProductRow row in rows)
+            foreach (BakeryOrderSet.ProductRow row in rows)
             {
                 MyLayout.NoX = -row.MenuX;
                 MyLayout.NoY = -row.MenuY;
@@ -223,10 +223,10 @@ namespace VoucherExpense
         class DragItem
         {
             public Label label;                
-            public BasicDataSet.ProductRow row;
+            public BakeryOrderSet.ProductRow row;
             public int X;
             public int Y;
-            public DragItem(Label l, BasicDataSet.ProductRow r)
+            public DragItem(Label l, BakeryOrderSet.ProductRow r)
             {
                 label = l;
                 row = r;
@@ -250,7 +250,7 @@ namespace VoucherExpense
         private void LabelMouseDown(object sender, MouseEventArgs e)
         {
             Label label = sender as Label;
-            DoDragDrop(new DragItem(label, label.Tag as BasicDataSet.ProductRow), DragDropEffects.Move);
+            DoDragDrop(new DragItem(label, label.Tag as BakeryOrderSet.ProductRow), DragDropEffects.Move);
         }
 
         private void LabelDragEnter(object sender, DragEventArgs e)
@@ -271,7 +271,7 @@ namespace VoucherExpense
             Label label = sender as Label;
             label.BorderStyle = BorderStyle.None;
             DragItem item = e.Data.GetData(typeof(DragItem)) as DragItem;
-            BasicDataSet.ProductRow row = item.row;
+            BakeryOrderSet.ProductRow row = item.row;
             if (label.Tag == row) return;
             label.Text = item.ToString();
             label.BackColor = Color.SeaShell;
@@ -289,7 +289,7 @@ namespace VoucherExpense
             Label[,] currentFoodTable = tabControl1.SelectedTab.Tag as Label[,];    // FoodTable放到TabPage.Tag去
             foreach (Label l in currentFoodTable)
             {
-                BasicDataSet.ProductRow ro = l.Tag as BasicDataSet.ProductRow;      // Label[,]內的label.Tag放著ProductRow
+                BakeryOrderSet.ProductRow ro = l.Tag as BakeryOrderSet.ProductRow;      // Label[,]內的label.Tag放著ProductRow
                 if (ro == null) continue;
                 if (l == label) continue;
                 if (ro.Code == code)
@@ -331,16 +331,16 @@ namespace VoucherExpense
                     if (l.BackColor != Color.SeaShell) continue;  // nochange
                     if (l.Tag == null)
                     {
-                        var rows = from row in basicDataSet1.Product
+                        var rows = from row in bakeryOrderSet.Product
                                    where row.MenuX == x1 && row.MenuY == y
                                    select row;
                         foreach (var row in rows) row.MenuX = -1;
                     }
                     else
                     {
-                        var ro = l.Tag as BasicDataSet.ProductRow;
+                        var ro = l.Tag as BakeryOrderSet.ProductRow;
                         if (ro.IsCodeNull()) continue;
-                        var rows = from row in basicDataSet1.Product
+                        var rows = from row in bakeryOrderSet.Product
                                    where row.Code == ro.Code
                                    select row;
                         foreach (var row in rows)
@@ -358,22 +358,22 @@ namespace VoucherExpense
         {
             if (m_Modified)
                 UpdateDataSet(tabControl1.SelectedIndex,tabControl1.SelectedTab.Tag as Label[,]);
-            var rows = from row in basicDataSet1.Product
+            var rows = from row in bakeryOrderSet.Product
                        where row.Code == SpeicalRowCodeForMenu
                        select row;
             string reserved = "菜單寬高_勿動_程式用";
             if (rows.Count() == 0)
             {
-                BasicDataSet.ProductRow row=basicDataSet1.Product.NewProductRow();
+                BakeryOrderSet.ProductRow row=bakeryOrderSet.Product.NewProductRow();
                 row.MenuX = (short)-MyLayout.NoX;
                 row.MenuY = (short)-MyLayout.NoY;
                 row.Code = SpeicalRowCodeForMenu;
                 row.Name = reserved;
-                basicDataSet1.Product.AddProductRow(row);
+                bakeryOrderSet.Product.AddProductRow(row);
             }
             else
             {
-                foreach (BasicDataSet.ProductRow row in rows)
+                foreach (BakeryOrderSet.ProductRow row in rows)
                 {
                     row.Name = reserved;
                     row.MenuX = (short)-MyLayout.NoX;
@@ -382,7 +382,7 @@ namespace VoucherExpense
             }
             try
             {
-                productTableAdapter1.Update(basicDataSet1.Product);
+                productTableAdapter1.Update(bakeryOrderSet.Product);
                 MessageBox.Show("存檔成功!");
                 UpdateAllFoodMenu();
             }
@@ -396,7 +396,7 @@ namespace VoucherExpense
         {
             try
             {
-                productTableAdapter1.Update(basicDataSet1.Product);
+                productTableAdapter1.Update(bakeryOrderSet.Product);
                 LoadTabControlItem();
                 UpdateAllFoodMenu();
             }
@@ -419,11 +419,11 @@ namespace VoucherExpense
             if (c == 'I')
             {
                 tabControl1.TabPages.Insert(i,"菜單" + i.ToString());
-                var rows = from row in basicDataSet1.Product
+                var rows = from row in bakeryOrderSet.Product
                            where row.Code < SpeicalRowCodeForMenu
                            select row;
                 i = 0;
-                foreach (BasicDataSet.ProductRow row in rows)
+                foreach (BakeryOrderSet.ProductRow row in rows)
                 {
                     if (i >= tabControl1.TabCount) break; // 不應該發生
                     TabPage page = tabControl1.TabPages[i];
@@ -433,11 +433,11 @@ namespace VoucherExpense
                     row.MenuX = -1;
                     row.MenuY = -1;
                 }
-                int maxID = (from row in basicDataSet1.Product
+                int maxID = (from row in bakeryOrderSet.Product
                              select row.ProductID).Max();
                 for (; i < tabControl1.TabCount;)
                 {
-                    BasicDataSet.ProductRow row = basicDataSet1.Product.NewProductRow();
+                    BakeryOrderSet.ProductRow row = bakeryOrderSet.Product.NewProductRow();
                     TabPage page = tabControl1.TabPages[i];
                     row.ProductID = ++maxID;
                     i++;
@@ -445,7 +445,7 @@ namespace VoucherExpense
                     row.Code = -i;
                     row.MenuX = -1;
                     row.MenuY = -1;
-                    basicDataSet1.Product.AddProductRow(row);
+                    bakeryOrderSet.Product.AddProductRow(row);
                 }
                 SaveProduct();
             }
@@ -470,10 +470,10 @@ namespace VoucherExpense
                 if (MessageBox.Show("刪除標簽頁<" + name + ">?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
   //                  tabControl1.TabPages.RemoveAt(i);    // 後面會重Load
-                    var rows = from row in basicDataSet1.Product
+                    var rows = from row in bakeryOrderSet.Product
                                where (row.Code < SpeicalRowCodeForMenu) && (row.Name.Substring(0, name.Length).CompareTo(name) == 0)
                                select row;
-                    foreach (BasicDataSet.ProductRow row in rows)
+                    foreach (BakeryOrderSet.ProductRow row in rows)
                     {
                         row.Delete();
                         break;
@@ -497,11 +497,11 @@ namespace VoucherExpense
 //                tabControl1.TabPages[i].Text = str;    // 在SaveProduct會重Load
                 textBoxRename.Visible = false;
                 btnRename.Visible = false;
-                var rows = from row in basicDataSet1.Product
+                var rows = from row in bakeryOrderSet.Product
                            where (row.Code < SpeicalRowCodeForMenu) && (row.Name.Length>=name.Length) &&
                                  (row.Name.Substring(0, name.Length).CompareTo(name) == 0)
                            select row;
-                foreach (BasicDataSet.ProductRow row in rows)
+                foreach (BakeryOrderSet.ProductRow row in rows)
                 {
                     row.Name = SystemMenuName(str,i+1);
                     break;

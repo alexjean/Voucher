@@ -17,7 +17,7 @@ namespace BakeryOrder
             public static int NoY = 12;
             public static int OffsetX = 10;
             public static int OffsetY = 10;
-            public static int NoWidth = 10;
+            public static int NoWidth = 8;
         }
 
         BakeryOrderSet m_BakeryOrderSet;
@@ -275,6 +275,7 @@ namespace BakeryOrder
             }
             if (page != null) tc.SelectTab(page);
             lvItems.Items.Clear();
+            lvItems.Focus();
             labelTotal.Text = count.ToString()+"單　共 "+total.ToString() + "元";
         }
     }

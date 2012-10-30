@@ -358,10 +358,6 @@ namespace VoucherExpense
             PopupOrRun("排班表", typeof(FormShift));
         }
 
-        private void 編點菜單ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            PopupOrRun("點菜單", typeof(FormEditMenu));
-        }
 
         private void 資料卡MenuItem_Click(object sender, EventArgs e)
         {
@@ -378,16 +374,31 @@ namespace VoucherExpense
             PopupOrRun("SoldProducts", typeof(FormSoldProducts));
         }
 
+        // BasicData目前被冰凍
         private void 產品表MenuItem_Click(object sender, EventArgs e)
         {
-            PopupOrRun("EditProducts", typeof(EditProduct));
+            PopupOrRun("EditProducts", typeof(EditBasicProduct));
         }
 
+        private void 烘培產品MenuItem_Click(object sender, EventArgs e)
+        {
+            PopupOrRun("烘培產品",typeof(EditBakeryProduct));
+        }
+
+        // BasicData目前被冰凍
+        private void 編點菜單ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PopupOrRun("點菜單", typeof(EditBasicMenu));
+        }
+
+        
         private void 烘培菜單MenuItem_Click(object sender, EventArgs e)
         {
             PopupOrRun("EditBakeryMenu", typeof(EditBakeryMenu));
         }
 
+
+      
         //private void 盤點ToolStripMenuItem_Click(object sender, EventArgs e)
         //{
         //    PopupOrRun("Stock", typeof(FormStock));

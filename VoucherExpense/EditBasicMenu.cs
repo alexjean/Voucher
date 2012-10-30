@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace VoucherExpense
 {
-    public partial class FormEditMenu : Form
+    public partial class EditBasicMenu : Form
     {
         private static class MyLayout
         {
@@ -35,7 +35,7 @@ namespace VoucherExpense
         }
 */
 
-        public FormEditMenu()
+        public EditBasicMenu()
         {
             InitializeComponent();
         }

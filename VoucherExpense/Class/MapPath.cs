@@ -13,6 +13,7 @@ namespace VoucherExpense
         #region OleDB Connection
         static public OleDbConnection VEConnection = new OleDbConnection(global::VoucherExpense.Properties.Settings.Default.VoucherExpenseConnectionString);
         static public OleDbConnection BasicConnection = new OleDbConnection(global::VoucherExpense.Properties.Settings.Default.BasicDataConnectionString);
+        static public OleDbConnection BakeryConnection = new OleDbConnection(global::VoucherExpense.Properties.Settings.Default.BakeryOrderConnectionString);    // 己在Program.cs設定
         const string HeadStr = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=";
         const string TailStr = ";Persist Security Info=True;Jet OLEDB:Database Password=";
         static public string VoucherPass = "CalcVoucher";
@@ -29,6 +30,11 @@ namespace VoucherExpense
         static public void SetBasicConnectionString(string path, string password)
         {
             BasicConnection.ConnectionString = HeadStr + path + TailStr + password;
+        }
+
+        static public void SetBakeryConnectionString(string path, string password)
+        {
+            BakeryConnection.ConnectionString = HeadStr + path + TailStr + password;
         }
         #endregion
 
@@ -111,8 +117,9 @@ namespace VoucherExpense
                 timer1.Stop();
                 progressBar1.Visible = false;
                 
-                MapPath.SetVEConnectionString(m_Cfg.DataDir + "\\" + "VoucherExpense.mdb", VoucherPass + "888");
-                MapPath.SetBasicConnectionString(m_Cfg.DataDir + "\\" + "BasicData.mdb", BasicPass + "you");
+                MapPath.SetVEConnectionString    (m_Cfg.DataDir + "\\" + "VoucherExpense.mdb", VoucherPass + "888");
+                MapPath.SetBasicConnectionString (m_Cfg.DataDir + "\\" + "BasicData.mdb"     , BasicPass   + "you");
+                MapPath.SetBakeryConnectionString(m_Cfg.DataDir + "\\" + "BakeryOrder.mdb"   , BasicPass   + "Bakery");
             }
             Completed = true;
         }

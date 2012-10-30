@@ -1,6 +1,6 @@
 ﻿namespace VoucherExpense
 {
-    partial class FormEditMenu
+    partial class EditBasicMenu
     {
         /// <summary>
         /// Required designer variable.

@@ -96,17 +96,22 @@
     <Compile Include="AccountingTitle.Designer.cs">
       <DependentUpon>AccountingTitle.cs</DependentUpon>
     </Compile>
+    <Compile Include="BakeryOrderSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BakeryOrderSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="EditBakeryMenu.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="EditBakeryMenu.Designer.cs">
       <DependentUpon>EditBakeryMenu.cs</DependentUpon>
     </Compile>
-    <Compile Include="EditProduct.cs">
+    <Compile Include="EditBasicProduct.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EditProduct.designer.cs">
-      <DependentUpon>EditProduct.cs</DependentUpon>
+    <Compile Include="EditBasicProduct.designer.cs">
+      <DependentUpon>EditBasicProduct.cs</DependentUpon>
     </Compile>
     <Compile Include="BackupData.cs" />
     <Compile Include="BasicDataSet.Designer.cs">
@@ -170,11 +175,11 @@
     <Compile Include="FormDateRange.Designer.cs">
       <DependentUpon>FormDateRange.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormEditMenu.cs">
+    <Compile Include="EditBasicMenu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormEditMenu.Designer.cs">
-      <DependentUpon>FormEditMenu.cs</DependentUpon>
+    <Compile Include="EditBasicMenu.Designer.cs">
+      <DependentUpon>EditBasicMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="FormHardware.cs">
       <SubType>Form</SubType>
@@ -296,6 +301,12 @@
     <Compile Include="Class\NetworkDrive.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="EditBakeryProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditBakeryProduct.designer.cs">
+      <DependentUpon>EditBakeryProduct.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AccountingTitle.resx">
       <SubType>Designer</SubType>
       <DependentUpon>AccountingTitle.cs</DependentUpon>
@@ -303,8 +314,8 @@
     <EmbeddedResource Include="EditBakeryMenu.resx">
       <DependentUpon>EditBakeryMenu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EditProduct.resx">
-      <DependentUpon>EditProduct.cs</DependentUpon>
+    <EmbeddedResource Include="EditBasicProduct.resx">
+      <DependentUpon>EditBasicProduct.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Expense.resx">
       <SubType>Designer</SubType>
@@ -329,8 +340,8 @@
       <SubType>Designer</SubType>
       <DependentUpon>FormDateRange.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormEditMenu.resx">
-      <DependentUpon>FormEditMenu.cs</DependentUpon>
+    <EmbeddedResource Include="EditBasicMenu.resx">
+      <DependentUpon>EditBasicMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormHardware.resx">
       <DependentUpon>FormHardware.cs</DependentUpon>
@@ -425,7 +436,21 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="EditBakeryProduct.resx">
+      <DependentUpon>EditBakeryProduct.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="BakeryOrderSet.xsc">
+      <DependentUpon>BakeryOrderSet.xsd</DependentUpon>
+    </None>
+    <None Include="BakeryOrderSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>BakeryOrderSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="BakeryOrderSet.xss">
+      <DependentUpon>BakeryOrderSet.xsd</DependentUpon>
+    </None>
     <None Include="BasicDataSet.xsc">
       <DependentUpon>BasicDataSet.xsd</DependentUpon>
     </None>
@@ -515,6 +540,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BakeryOrder.mdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="BasicData.mdb">
     </Content>
     <Content Include="Class\Microsoft.Office.Interop.Excel.dll" />

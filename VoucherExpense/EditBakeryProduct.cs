@@ -298,6 +298,5 @@ namespace VoucherExpense
             File.Copy(openFileDialog1.FileName, path, true);
             photoPictureBox.ImageLocation = path;
         }
-
     }
 }

@@ -33,8 +33,8 @@
             this.基本資料MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.供應商MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.食材表MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.產品表MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.產品菜單ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.餐飲產品MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.餐飲菜單MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.烘培產品MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.烘培菜單MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.會計科目MenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -107,8 +107,8 @@
             this.基本資料MenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.供應商MenuItem,
             this.食材表MenuItem,
-            this.產品表MenuItem,
-            this.產品菜單ToolStripMenuItem,
+            this.餐飲產品MenuItem,
+            this.餐飲菜單MenuItem,
             this.烘培產品MenuItem,
             this.烘培菜單MenuItem,
             this.會計科目MenuItem,
@@ -136,22 +136,19 @@
             this.食材表MenuItem.Text = "食材表";
             this.食材表MenuItem.Click += new System.EventHandler(this.食材表MenuItem_Click);
             // 
-            // 產品表MenuItem
+            // 餐飲產品MenuItem
             // 
-            this.產品表MenuItem.Enabled = false;
-            this.產品表MenuItem.Name = "產品表MenuItem";
-            this.產品表MenuItem.Size = new System.Drawing.Size(152, 22);
-            this.產品表MenuItem.Text = "餐飲產品";
-            this.產品表MenuItem.Click += new System.EventHandler(this.產品表MenuItem_Click);
+            this.餐飲產品MenuItem.Name = "餐飲產品MenuItem";
+            this.餐飲產品MenuItem.Size = new System.Drawing.Size(152, 22);
+            this.餐飲產品MenuItem.Text = "餐飲產品";
+            this.餐飲產品MenuItem.Click += new System.EventHandler(this.餐飲產品MenuItem_Click);
             // 
-            // 產品菜單ToolStripMenuItem
+            // 餐飲菜單MenuItem
             // 
-            this.產品菜單ToolStripMenuItem.Enabled = false;
-            this.產品菜單ToolStripMenuItem.Name = "產品菜單ToolStripMenuItem";
-            this.產品菜單ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.產品菜單ToolStripMenuItem.Text = "餐飲菜單";
-            this.產品菜單ToolStripMenuItem.Visible = false;
-            this.產品菜單ToolStripMenuItem.Click += new System.EventHandler(this.編點菜單ToolStripMenuItem_Click);
+            this.餐飲菜單MenuItem.Name = "餐飲菜單MenuItem";
+            this.餐飲菜單MenuItem.Size = new System.Drawing.Size(152, 22);
+            this.餐飲菜單MenuItem.Text = "餐飲菜單";
+            this.餐飲菜單MenuItem.Click += new System.EventHandler(this.餐飲菜單MenuItem_Click);
             // 
             // 烘培產品MenuItem
             // 
@@ -529,10 +526,10 @@
         private System.Windows.Forms.ToolStripMenuItem 合併傳票MenuItem;
         private System.Windows.Forms.ToolStripMenuItem 年初開帳MenuItem;
         private System.Windows.Forms.ToolStripMenuItem 排班表MenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 產品菜單ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 餐飲菜單MenuItem;
         private System.Windows.Forms.ToolStripMenuItem 編修部門MenuItem;
         private System.Windows.Forms.ToolStripMenuItem 銷售統計ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 產品表MenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 餐飲產品MenuItem;
         private System.Windows.Forms.ToolStripMenuItem 烘培菜單MenuItem;
         private System.Windows.Forms.ToolStripMenuItem 烘培產品MenuItem;
 

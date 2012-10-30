@@ -18,12 +18,20 @@ namespace VoucherExpense
         }
 
         private string m_PhotoPath = "Photos\\Products\\";
-        private void AddProduct_Load(object sender, EventArgs e)
+        private void EditBasicProduct_Load(object sender, EventArgs e)
         {
             productTableAdapter.Connection  = MapPath.BasicConnection;
             orderItemTableAdapter.Connection= MapPath.BasicConnection;
             orderTableAdapter.Connection    = MapPath.BasicConnection;
-            this.productTableAdapter.Fill(this.basicDataSet.Product);
+            try
+            {
+                this.productTableAdapter.Fill(this.basicDataSet.Product);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("載入餐飲產品表時出錯:" + ex.Message);
+                return;
+            }
             SetControlLengthFromDB(this, basicDataSet.Product);
             photoPictureBox.Visible = Directory.Exists(m_PhotoPath);
         }
@@ -298,6 +306,8 @@ namespace VoucherExpense
             File.Copy(openFileDialog1.FileName, path, true);
             photoPictureBox.ImageLocation = path;
         }
+
+   
 
     }
 }

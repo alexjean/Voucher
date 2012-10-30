@@ -20,7 +20,7 @@ namespace BakeryOrder
         string[] m_Files = null;
         string m_Path = "SlideShow";
         int m_Count = 0;
-        const int m_DefaultInterval = 3000;
+        const int m_DefaultInterval = 4000;
         private void FormCustomer_Load(object sender, EventArgs e)
         {
             Screen[] scr = Screen.AllScreens;

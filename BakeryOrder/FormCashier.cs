@@ -383,7 +383,7 @@ namespace BakeryOrder
 
         FormCustomer m_FormCustomer =null;
         FormStatics  m_FormStatics  = null;
-        const string m_ProductDir   = "Products";
+        const string m_ProductDir   = "Photos\\Products";
         const string m_SmallDir     = m_ProductDir + "\\Small";
         string       m_PrinterName  = "BTP-R580(U)";
         int          m_PosID        = 0;
@@ -431,7 +431,6 @@ namespace BakeryOrder
             Location = new Point(scr.Bounds.X, scr.Bounds.Y);
             m_FormCustomer.Show();
             tabControl1.DrawMode = TabDrawMode.OwnerDrawFixed;
-
             if (!Directory.Exists(m_ProductDir))
                 Directory.CreateDirectory(m_ProductDir);
             if (!Directory.Exists(m_SmallDir))
@@ -611,8 +610,10 @@ namespace BakeryOrder
 
         private void btnCashDrawer_Click(object sender, EventArgs e)
         {
+            
             byte[] CashDrawer = new byte[] { 0x1B, (byte)'p',0,150,100 };
-            RawPrint.SendManagedBytes(m_PrinterName,CashDrawer);
+            if (!this.checkBoxTest.Checked)
+                RawPrint.SendManagedBytes(m_PrinterName,CashDrawer);
         }
 
         private void btnStatics_Click(object sender, EventArgs e)

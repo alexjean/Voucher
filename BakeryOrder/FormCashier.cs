@@ -636,19 +636,20 @@ namespace BakeryOrder
             if (m_FormStatics == null)
                 m_FormStatics = new FormStatics(bakeryOrderSet,m_OrderTableAdapter);
             DialogResult result=m_FormStatics.ShowDialog();
-            if ( result== DialogResult.Abort)
+            if (result == DialogResult.Abort)
             {
                 Close();
-                return;
             }
-            if (result == DialogResult.Cancel)
+            else if (result == DialogResult.Cancel)
             {
                 SetLoginStatus(false);
                 textBoxCashierID.Text = "";
                 textBoxPassword.Text = "";
                 textBoxCashierID.Focus();
+                Show();
             }
-            Show();
+            else if (result == DialogResult.OK)
+                Show();
         }
 
         private void btnNewOrder_Click(object sender, EventArgs e)

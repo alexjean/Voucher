@@ -31,7 +31,7 @@ namespace BakeryOrder
 
         private void btnReturn_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.None;
+            this.DialogResult = DialogResult.OK;
             Close();
         }
 

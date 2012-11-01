@@ -138,6 +138,7 @@
             // 
             // 餐飲產品MenuItem
             // 
+            this.餐飲產品MenuItem.Enabled = false;
             this.餐飲產品MenuItem.Name = "餐飲產品MenuItem";
             this.餐飲產品MenuItem.Size = new System.Drawing.Size(152, 22);
             this.餐飲產品MenuItem.Text = "餐飲產品";
@@ -145,6 +146,7 @@
             // 
             // 餐飲菜單MenuItem
             // 
+            this.餐飲菜單MenuItem.Enabled = false;
             this.餐飲菜單MenuItem.Name = "餐飲菜單MenuItem";
             this.餐飲菜單MenuItem.Size = new System.Drawing.Size(152, 22);
             this.餐飲菜單MenuItem.Text = "餐飲菜單";

@@ -41,6 +41,13 @@ namespace BakeryOrder
             Close();
         }
 
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            Close();
+        }
+
+
         private void FormStatics_Load(object sender, EventArgs e)
         {
             Screen scr = Screen.PrimaryScreen;
@@ -205,14 +212,16 @@ namespace BakeryOrder
         private void btnOrderList_Click(object sender, EventArgs e)
         {
             TabControl tc = tabControl1;
-            tc.TabPages.Clear();
             // worry about IsPrintTimeNull()
             var groups = from row in m_BakeryOrderSet.Order
                          group row by row.PrintTime.Hour;
+            if (groups.Count() == 0) return;
+            tc.TabPages.Clear();
             List<BakeryOrderSet.OrderRow> listXX = new List<BakeryOrderSet.OrderRow>();
             TabPage page=null;
             decimal total = 0;
             int count = 0;
+
             foreach (var gr in groups)
             {
                 SuspendLayout();
@@ -278,5 +287,6 @@ namespace BakeryOrder
             lvItems.Focus();
             labelTotal.Text = count.ToString()+"單　共 "+total.ToString() + "元";
         }
+
     }
 }

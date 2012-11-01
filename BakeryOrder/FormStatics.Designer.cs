@@ -170,6 +170,7 @@
             this.btnLogout.TabIndex = 8;
             this.btnLogout.Text = "登出";
             this.btnLogout.UseVisualStyleBackColor = true;
+            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
             // 
             // FormStatics
             // 

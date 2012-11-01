@@ -387,7 +387,7 @@ namespace BakeryOrder
         const string m_SmallDir     = m_ProductDir + "\\Small";
         string       m_PrinterName  = "BTP-R580(U)";
         int          m_PosID        = 0;
-        int          m_CashierID    = 1;
+        int          m_CashierID    = -1;
         HardwareConfig m_Cfg        = new HardwareConfig();
         OrderAdapter     m_OrderTableAdapter     = new OrderAdapter();
         OrderItemAdapter m_OrderItemTableAdapter = new OrderItemAdapter();
@@ -435,7 +435,22 @@ namespace BakeryOrder
                 Directory.CreateDirectory(m_ProductDir);
             if (!Directory.Exists(m_SmallDir))
                 Directory.CreateDirectory(m_SmallDir);
-
+            if (m_CashierID < 0)
+            {
+                SetLoginStatus(false);
+            }
+            else
+                SetLoginStatus(true);
+            for (int i = 0; i <= 9; i++)
+            {
+                string name="btnNumber" + i.ToString();
+                foreach(Control ctl in panelLogin.Controls)
+                    if (ctl.Name == name)
+                    {
+                        ctl.Click += this.btnNumberX_Click;
+                        break;
+                    }
+            }
         }
 
         void LoadData(int m, int d)
@@ -620,10 +635,20 @@ namespace BakeryOrder
         {
             if (m_FormStatics == null)
                 m_FormStatics = new FormStatics(bakeryOrderSet,m_OrderTableAdapter);
-            if (m_FormStatics.ShowDialog() == DialogResult.Abort)
+            DialogResult result=m_FormStatics.ShowDialog();
+            if ( result== DialogResult.Abort)
+            {
                 Close();
-            else 
-                Show();
+                return;
+            }
+            if (result == DialogResult.Cancel)
+            {
+                SetLoginStatus(false);
+                textBoxCashierID.Text = "";
+                textBoxPassword.Text = "";
+                textBoxCashierID.Focus();
+            }
+            Show();
         }
 
         private void btnNewOrder_Click(object sender, EventArgs e)
@@ -760,6 +785,67 @@ namespace BakeryOrder
             }
             return true;
         }
+
+        void SetLoginStatus(bool isLogin)
+        {
+            panelLogin.Visible = !isLogin;
+            tabControl1.Visible = isLogin;
+            btnCashDrawer.Enabled   = isLogin;
+            btnStatics.Enabled      = isLogin;
+            btnPrint.Enabled        = isLogin;
+            btnNewOrder.Enabled     = isLogin;
+        }
+
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            SetLoginStatus(true);
+        }
+
+        bool m_FocusID = true;
+        private void textBoxCashierID_Enter(object sender, EventArgs e)
+        {
+            m_FocusID = true;
+        }
+        private void textBoxPassword_Enter(object sender, EventArgs e)
+        {
+            m_FocusID = false;
+        }
+
+        private void btnNumberX_Click(object sender, EventArgs e)
+        {
+            TextBox current;
+            if (m_FocusID)
+                current = textBoxCashierID;
+            else
+                current = textBoxPassword;
+            Button btn = sender as Button;
+            string str = btn.Text;
+            if (current.Text.Length<6)
+                current.Text = current.Text+str;
+            current.Focus();
+            current.SelectionStart = current.Text.Length;
+            current.SelectionLength=0;
+            
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            TextBox current;
+            if (m_FocusID)
+                current = textBoxCashierID;
+            else
+                current = textBoxPassword;
+            int len=current.Text.Length;
+            if (len > 0)
+            {
+                current.Text = current.Text.Substring(0, len - 1);
+                current.SelectionStart = len - 1;
+                current.SelectionLength = 0;
+            }
+            current.Focus();
+        }
+
+
 
     }
 }

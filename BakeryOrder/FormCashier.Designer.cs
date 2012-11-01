@@ -47,9 +47,27 @@
             this.productTableAdapter = new BakeryOrder.BakeryOrderSetTableAdapters.ProductTableAdapter();
             this.bakeryOrderSet = new BakeryOrder.BakeryOrderSet();
             this.checkBoxTest = new System.Windows.Forms.CheckBox();
+            this.panelLogin = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBoxPassword = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBoxCashierID = new System.Windows.Forms.TextBox();
+            this.btnLogin = new System.Windows.Forms.Button();
+            this.btnClear = new System.Windows.Forms.Button();
+            this.btnNumber9 = new System.Windows.Forms.Button();
+            this.btnNumber8 = new System.Windows.Forms.Button();
+            this.btnNumber7 = new System.Windows.Forms.Button();
+            this.btnNumber6 = new System.Windows.Forms.Button();
+            this.btnNumber5 = new System.Windows.Forms.Button();
+            this.btnNumber4 = new System.Windows.Forms.Button();
+            this.btnNumber3 = new System.Windows.Forms.Button();
+            this.btnNumber2 = new System.Windows.Forms.Button();
+            this.btnNumber1 = new System.Windows.Forms.Button();
+            this.btnNumber0 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrdered)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).BeginInit();
+            this.panelLogin.SuspendLayout();
             this.SuspendLayout();
             // 
             // lvItems
@@ -64,7 +82,7 @@
             this.lvItems.HideSelection = false;
             this.lvItems.Location = new System.Drawing.Point(1, 0);
             this.lvItems.Name = "lvItems";
-            this.lvItems.Size = new System.Drawing.Size(226, 458);
+            this.lvItems.Size = new System.Drawing.Size(226, 426);
             this.lvItems.TabIndex = 0;
             this.lvItems.UseCompatibleStateImageBehavior = false;
             this.lvItems.View = System.Windows.Forms.View.Details;
@@ -92,9 +110,9 @@
             // 
             // btnPrint
             // 
-            this.btnPrint.Location = new System.Drawing.Point(119, 733);
+            this.btnPrint.Location = new System.Drawing.Point(132, 717);
             this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(75, 35);
+            this.btnPrint.Size = new System.Drawing.Size(75, 51);
             this.btnPrint.TabIndex = 1;
             this.btnPrint.Text = "打单";
             this.btnPrint.UseVisualStyleBackColor = true;
@@ -102,9 +120,9 @@
             // 
             // btnStatics
             // 
-            this.btnStatics.Location = new System.Drawing.Point(1, 733);
+            this.btnStatics.Location = new System.Drawing.Point(1, 717);
             this.btnStatics.Name = "btnStatics";
-            this.btnStatics.Size = new System.Drawing.Size(75, 35);
+            this.btnStatics.Size = new System.Drawing.Size(75, 51);
             this.btnStatics.TabIndex = 2;
             this.btnStatics.Text = "统计";
             this.btnStatics.UseVisualStyleBackColor = true;
@@ -148,7 +166,7 @@
             // 
             // labelTotal
             // 
-            this.labelTotal.Location = new System.Drawing.Point(152, 474);
+            this.labelTotal.Location = new System.Drawing.Point(152, 434);
             this.labelTotal.Name = "labelTotal";
             this.labelTotal.Size = new System.Drawing.Size(55, 20);
             this.labelTotal.TabIndex = 4;
@@ -158,7 +176,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(106, 476);
+            this.label1.Location = new System.Drawing.Point(106, 436);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 16);
             this.label1.TabIndex = 5;
@@ -168,7 +186,7 @@
             // 
             this.checkBoxDiscount.AutoSize = true;
             this.checkBoxDiscount.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.checkBoxDiscount.Location = new System.Drawing.Point(22, 526);
+            this.checkBoxDiscount.Location = new System.Drawing.Point(22, 486);
             this.checkBoxDiscount.Name = "checkBoxDiscount";
             this.checkBoxDiscount.Size = new System.Drawing.Size(71, 25);
             this.checkBoxDiscount.TabIndex = 6;
@@ -179,7 +197,7 @@
             // 
             // pictureBoxOrdered
             // 
-            this.pictureBoxOrdered.Location = new System.Drawing.Point(1, 505);
+            this.pictureBoxOrdered.Location = new System.Drawing.Point(1, 465);
             this.pictureBoxOrdered.Name = "pictureBoxOrdered";
             this.pictureBoxOrdered.Size = new System.Drawing.Size(226, 169);
             this.pictureBoxOrdered.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -188,9 +206,9 @@
             // 
             // btnCashDrawer
             // 
-            this.btnCashDrawer.Location = new System.Drawing.Point(119, 680);
+            this.btnCashDrawer.Location = new System.Drawing.Point(132, 649);
             this.btnCashDrawer.Name = "btnCashDrawer";
-            this.btnCashDrawer.Size = new System.Drawing.Size(75, 35);
+            this.btnCashDrawer.Size = new System.Drawing.Size(75, 51);
             this.btnCashDrawer.TabIndex = 8;
             this.btnCashDrawer.Text = "钱箱";
             this.btnCashDrawer.UseVisualStyleBackColor = true;
@@ -198,9 +216,9 @@
             // 
             // btnNewOrder
             // 
-            this.btnNewOrder.Location = new System.Drawing.Point(1, 680);
+            this.btnNewOrder.Location = new System.Drawing.Point(1, 649);
             this.btnNewOrder.Name = "btnNewOrder";
-            this.btnNewOrder.Size = new System.Drawing.Size(75, 35);
+            this.btnNewOrder.Size = new System.Drawing.Size(75, 51);
             this.btnNewOrder.TabIndex = 9;
             this.btnNewOrder.Text = "新單";
             this.btnNewOrder.UseVisualStyleBackColor = true;
@@ -220,12 +238,200 @@
             this.checkBoxTest.AutoSize = true;
             this.checkBoxTest.Checked = true;
             this.checkBoxTest.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxTest.Location = new System.Drawing.Point(17, 474);
+            this.checkBoxTest.Location = new System.Drawing.Point(17, 434);
             this.checkBoxTest.Name = "checkBoxTest";
             this.checkBoxTest.Size = new System.Drawing.Size(59, 20);
             this.checkBoxTest.TabIndex = 10;
             this.checkBoxTest.Text = "不印";
             this.checkBoxTest.UseVisualStyleBackColor = true;
+            // 
+            // panelLogin
+            // 
+            this.panelLogin.BackColor = System.Drawing.Color.SeaShell;
+            this.panelLogin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelLogin.Controls.Add(this.label3);
+            this.panelLogin.Controls.Add(this.textBoxPassword);
+            this.panelLogin.Controls.Add(this.label2);
+            this.panelLogin.Controls.Add(this.textBoxCashierID);
+            this.panelLogin.Controls.Add(this.btnLogin);
+            this.panelLogin.Controls.Add(this.btnClear);
+            this.panelLogin.Controls.Add(this.btnNumber9);
+            this.panelLogin.Controls.Add(this.btnNumber8);
+            this.panelLogin.Controls.Add(this.btnNumber7);
+            this.panelLogin.Controls.Add(this.btnNumber6);
+            this.panelLogin.Controls.Add(this.btnNumber5);
+            this.panelLogin.Controls.Add(this.btnNumber4);
+            this.panelLogin.Controls.Add(this.btnNumber3);
+            this.panelLogin.Controls.Add(this.btnNumber2);
+            this.panelLogin.Controls.Add(this.btnNumber1);
+            this.panelLogin.Controls.Add(this.btnNumber0);
+            this.panelLogin.Location = new System.Drawing.Point(432, 22);
+            this.panelLogin.Name = "panelLogin";
+            this.panelLogin.Size = new System.Drawing.Size(327, 529);
+            this.panelLogin.TabIndex = 0;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label3.Location = new System.Drawing.Point(32, 98);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(54, 21);
+            this.label3.TabIndex = 15;
+            this.label3.Text = "密碼";
+            // 
+            // textBoxPassword
+            // 
+            this.textBoxPassword.Font = new System.Drawing.Font("微軟正黑體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBoxPassword.Location = new System.Drawing.Point(117, 90);
+            this.textBoxPassword.MaxLength = 6;
+            this.textBoxPassword.Name = "textBoxPassword";
+            this.textBoxPassword.Size = new System.Drawing.Size(135, 35);
+            this.textBoxPassword.TabIndex = 1;
+            this.textBoxPassword.UseSystemPasswordChar = true;
+            this.textBoxPassword.Enter += new System.EventHandler(this.textBoxPassword_Enter);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label2.Location = new System.Drawing.Point(32, 33);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(76, 21);
+            this.label2.TabIndex = 13;
+            this.label2.Text = "收銀員";
+            // 
+            // textBoxCashierID
+            // 
+            this.textBoxCashierID.Font = new System.Drawing.Font("微軟正黑體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxCashierID.Location = new System.Drawing.Point(117, 25);
+            this.textBoxCashierID.MaxLength = 6;
+            this.textBoxCashierID.Name = "textBoxCashierID";
+            this.textBoxCashierID.Size = new System.Drawing.Size(135, 35);
+            this.textBoxCashierID.TabIndex = 0;
+            this.textBoxCashierID.Enter += new System.EventHandler(this.textBoxCashierID_Enter);
+            // 
+            // btnLogin
+            // 
+            this.btnLogin.Font = new System.Drawing.Font("標楷體", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnLogin.Location = new System.Drawing.Point(223, 442);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(90, 74);
+            this.btnLogin.TabIndex = 13;
+            this.btnLogin.Text = "登入";
+            this.btnLogin.UseVisualStyleBackColor = true;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            // 
+            // btnClear
+            // 
+            this.btnClear.Font = new System.Drawing.Font("標楷體", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnClear.Location = new System.Drawing.Point(117, 442);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(90, 74);
+            this.btnClear.TabIndex = 12;
+            this.btnClear.Text = "清除";
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
+            // btnNumber9
+            // 
+            this.btnNumber9.Font = new System.Drawing.Font("標楷體", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnNumber9.Location = new System.Drawing.Point(223, 352);
+            this.btnNumber9.Name = "btnNumber9";
+            this.btnNumber9.Size = new System.Drawing.Size(90, 74);
+            this.btnNumber9.TabIndex = 10;
+            this.btnNumber9.Text = "9";
+            this.btnNumber9.UseVisualStyleBackColor = true;
+            // 
+            // btnNumber8
+            // 
+            this.btnNumber8.Font = new System.Drawing.Font("標楷體", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnNumber8.Location = new System.Drawing.Point(117, 352);
+            this.btnNumber8.Name = "btnNumber8";
+            this.btnNumber8.Size = new System.Drawing.Size(90, 74);
+            this.btnNumber8.TabIndex = 9;
+            this.btnNumber8.Text = "8";
+            this.btnNumber8.UseVisualStyleBackColor = true;
+            // 
+            // btnNumber7
+            // 
+            this.btnNumber7.Font = new System.Drawing.Font("標楷體", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnNumber7.Location = new System.Drawing.Point(11, 352);
+            this.btnNumber7.Name = "btnNumber7";
+            this.btnNumber7.Size = new System.Drawing.Size(90, 74);
+            this.btnNumber7.TabIndex = 8;
+            this.btnNumber7.Text = "7";
+            this.btnNumber7.UseVisualStyleBackColor = true;
+            // 
+            // btnNumber6
+            // 
+            this.btnNumber6.Font = new System.Drawing.Font("標楷體", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnNumber6.Location = new System.Drawing.Point(223, 262);
+            this.btnNumber6.Name = "btnNumber6";
+            this.btnNumber6.Size = new System.Drawing.Size(90, 74);
+            this.btnNumber6.TabIndex = 7;
+            this.btnNumber6.Text = "6";
+            this.btnNumber6.UseVisualStyleBackColor = true;
+            // 
+            // btnNumber5
+            // 
+            this.btnNumber5.Font = new System.Drawing.Font("標楷體", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnNumber5.Location = new System.Drawing.Point(117, 262);
+            this.btnNumber5.Name = "btnNumber5";
+            this.btnNumber5.Size = new System.Drawing.Size(90, 74);
+            this.btnNumber5.TabIndex = 6;
+            this.btnNumber5.Text = "5";
+            this.btnNumber5.UseVisualStyleBackColor = true;
+            // 
+            // btnNumber4
+            // 
+            this.btnNumber4.Font = new System.Drawing.Font("標楷體", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnNumber4.Location = new System.Drawing.Point(11, 262);
+            this.btnNumber4.Name = "btnNumber4";
+            this.btnNumber4.Size = new System.Drawing.Size(90, 74);
+            this.btnNumber4.TabIndex = 5;
+            this.btnNumber4.Text = "4";
+            this.btnNumber4.UseVisualStyleBackColor = true;
+            // 
+            // btnNumber3
+            // 
+            this.btnNumber3.Font = new System.Drawing.Font("標楷體", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnNumber3.Location = new System.Drawing.Point(223, 172);
+            this.btnNumber3.Name = "btnNumber3";
+            this.btnNumber3.Size = new System.Drawing.Size(90, 74);
+            this.btnNumber3.TabIndex = 4;
+            this.btnNumber3.Text = "3";
+            this.btnNumber3.UseVisualStyleBackColor = true;
+            // 
+            // btnNumber2
+            // 
+            this.btnNumber2.Font = new System.Drawing.Font("標楷體", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnNumber2.Location = new System.Drawing.Point(117, 172);
+            this.btnNumber2.Name = "btnNumber2";
+            this.btnNumber2.Size = new System.Drawing.Size(90, 74);
+            this.btnNumber2.TabIndex = 3;
+            this.btnNumber2.Text = "2";
+            this.btnNumber2.UseVisualStyleBackColor = true;
+            // 
+            // btnNumber1
+            // 
+            this.btnNumber1.Font = new System.Drawing.Font("標楷體", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnNumber1.Location = new System.Drawing.Point(11, 172);
+            this.btnNumber1.Name = "btnNumber1";
+            this.btnNumber1.Size = new System.Drawing.Size(90, 74);
+            this.btnNumber1.TabIndex = 2;
+            this.btnNumber1.Text = "1";
+            this.btnNumber1.UseVisualStyleBackColor = true;
+            // 
+            // btnNumber0
+            // 
+            this.btnNumber0.Font = new System.Drawing.Font("標楷體", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnNumber0.Location = new System.Drawing.Point(11, 442);
+            this.btnNumber0.Name = "btnNumber0";
+            this.btnNumber0.Size = new System.Drawing.Size(90, 74);
+            this.btnNumber0.TabIndex = 11;
+            this.btnNumber0.Text = "0";
+            this.btnNumber0.UseVisualStyleBackColor = true;
             // 
             // FormCashier
             // 
@@ -239,11 +445,12 @@
             this.Controls.Add(this.checkBoxDiscount);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.labelTotal);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.panelLogin);
             this.Controls.Add(this.btnStatics);
             this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.lvItems);
             this.Controls.Add(this.pictureBoxOrdered);
+            this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -254,6 +461,8 @@
             this.tabControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrdered)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).EndInit();
+            this.panelLogin.ResumeLayout(false);
+            this.panelLogin.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -280,6 +489,23 @@
         private BakeryOrderSetTableAdapters.ProductTableAdapter productTableAdapter;
         private BakeryOrderSet bakeryOrderSet;
         private System.Windows.Forms.CheckBox checkBoxTest;
+        private System.Windows.Forms.Panel panelLogin;
+        private System.Windows.Forms.Button btnLogin;
+        private System.Windows.Forms.Button btnClear;
+        private System.Windows.Forms.Button btnNumber9;
+        private System.Windows.Forms.Button btnNumber8;
+        private System.Windows.Forms.Button btnNumber7;
+        private System.Windows.Forms.Button btnNumber6;
+        private System.Windows.Forms.Button btnNumber5;
+        private System.Windows.Forms.Button btnNumber4;
+        private System.Windows.Forms.Button btnNumber3;
+        private System.Windows.Forms.Button btnNumber2;
+        private System.Windows.Forms.Button btnNumber1;
+        private System.Windows.Forms.Button btnNumber0;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBoxPassword;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox textBoxCashierID;
     }
 }
 

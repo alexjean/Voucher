@@ -47,7 +47,6 @@
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.operatorBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.operatorDataGridView = new System.Windows.Forms.DataGridView();
-            this.operatorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
             this.OperatorID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StopAccount = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.LoginName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -69,6 +68,7 @@
             this.dataGridViewCheckBoxColumn9 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.IsSuper = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.operatorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingNavigator)).BeginInit();
             this.operatorBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).BeginInit();
@@ -79,6 +79,7 @@
             // operatorBindingNavigator
             // 
             this.operatorBindingNavigator.AddNewItem = this.bindingNavigatorAddNewItem;
+            this.operatorBindingNavigator.BackgroundImage = global::VoucherExpense.Properties.Resources.NavBar_Back;
             this.operatorBindingNavigator.BindingSource = this.operatorBindingSource;
             this.operatorBindingNavigator.CountItem = this.bindingNavigatorCountItem;
             this.operatorBindingNavigator.DeleteItem = null;
@@ -243,10 +244,6 @@
             this.operatorDataGridView.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.operatorDataGridView_CellValidating);
             this.operatorDataGridView.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.operatorDataGridView_RowValidating);
             // 
-            // operatorTableAdapter
-            // 
-            this.operatorTableAdapter.ClearBeforeFill = true;
-            // 
             // OperatorID
             // 
             this.OperatorID.DataPropertyName = "OperatorID";
@@ -399,6 +396,10 @@
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             this.dataGridViewTextBoxColumn6.ReadOnly = true;
             this.dataGridViewTextBoxColumn6.Width = 88;
+            // 
+            // operatorTableAdapter
+            // 
+            this.operatorTableAdapter.ClearBeforeFill = true;
             // 
             // FormOperator
             // 

@@ -96,6 +96,10 @@
     <Compile Include="AccountingTitle.Designer.cs">
       <DependentUpon>AccountingTitle.cs</DependentUpon>
     </Compile>
+    <Compile Include="BakeryOrderSet.cs">
+      <DependentUpon>BakeryOrderSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="BakeryOrderSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -168,6 +172,12 @@
     </Compile>
     <Compile Include="FormBrowse.designer.cs">
       <DependentUpon>FormBrowse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormCashierAuthen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCashierAuthen.Designer.cs">
+      <DependentUpon>FormCashierAuthen.cs</DependentUpon>
     </Compile>
     <Compile Include="FormDateRange.cs">
       <SubType>Form</SubType>
@@ -335,6 +345,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormBrowse.resx">
       <DependentUpon>FormBrowse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormCashierAuthen.resx">
+      <DependentUpon>FormCashierAuthen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormDateRange.resx">
       <SubType>Designer</SubType>
@@ -541,7 +554,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BakeryOrder.mdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="BasicData.mdb">
     </Content>

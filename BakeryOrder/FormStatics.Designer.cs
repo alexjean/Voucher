@@ -42,14 +42,15 @@
             this.label1 = new System.Windows.Forms.Label();
             this.labelTotal = new System.Windows.Forms.Label();
             this.btnLogout = new System.Windows.Forms.Button();
+            this.btnChangePassword = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnReturn
             // 
-            this.btnReturn.Location = new System.Drawing.Point(2, 730);
+            this.btnReturn.Location = new System.Drawing.Point(2, 712);
             this.btnReturn.Name = "btnReturn";
-            this.btnReturn.Size = new System.Drawing.Size(88, 35);
+            this.btnReturn.Size = new System.Drawing.Size(88, 56);
             this.btnReturn.TabIndex = 0;
             this.btnReturn.Text = "结帐画面";
             this.btnReturn.UseVisualStyleBackColor = true;
@@ -57,9 +58,9 @@
             // 
             // btnExitProgram
             // 
-            this.btnExitProgram.Location = new System.Drawing.Point(108, 730);
+            this.btnExitProgram.Location = new System.Drawing.Point(108, 712);
             this.btnExitProgram.Name = "btnExitProgram";
-            this.btnExitProgram.Size = new System.Drawing.Size(88, 35);
+            this.btnExitProgram.Size = new System.Drawing.Size(88, 56);
             this.btnExitProgram.TabIndex = 1;
             this.btnExitProgram.Text = "离开程式";
             this.btnExitProgram.UseVisualStyleBackColor = true;
@@ -105,9 +106,9 @@
             // 
             // btnOrderList
             // 
-            this.btnOrderList.Location = new System.Drawing.Point(2, 670);
+            this.btnOrderList.Location = new System.Drawing.Point(2, 643);
             this.btnOrderList.Name = "btnOrderList";
-            this.btnOrderList.Size = new System.Drawing.Size(88, 35);
+            this.btnOrderList.Size = new System.Drawing.Size(88, 56);
             this.btnOrderList.TabIndex = 4;
             this.btnOrderList.Text = "收入明細";
             this.btnOrderList.UseVisualStyleBackColor = true;
@@ -115,9 +116,9 @@
             // 
             // btnDrawerOpenedList
             // 
-            this.btnDrawerOpenedList.Location = new System.Drawing.Point(108, 670);
+            this.btnDrawerOpenedList.Location = new System.Drawing.Point(108, 643);
             this.btnDrawerOpenedList.Name = "btnDrawerOpenedList";
-            this.btnDrawerOpenedList.Size = new System.Drawing.Size(88, 35);
+            this.btnDrawerOpenedList.Size = new System.Drawing.Size(88, 56);
             this.btnDrawerOpenedList.TabIndex = 5;
             this.btnDrawerOpenedList.Text = "錢箱記錄";
             this.btnDrawerOpenedList.UseVisualStyleBackColor = true;
@@ -164,13 +165,22 @@
             // 
             // btnLogout
             // 
-            this.btnLogout.Location = new System.Drawing.Point(108, 611);
+            this.btnLogout.Location = new System.Drawing.Point(108, 574);
             this.btnLogout.Name = "btnLogout";
-            this.btnLogout.Size = new System.Drawing.Size(88, 35);
+            this.btnLogout.Size = new System.Drawing.Size(88, 56);
             this.btnLogout.TabIndex = 8;
             this.btnLogout.Text = "登出";
             this.btnLogout.UseVisualStyleBackColor = true;
             this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
+            // 
+            // btnChangePassword
+            // 
+            this.btnChangePassword.Location = new System.Drawing.Point(2, 574);
+            this.btnChangePassword.Name = "btnChangePassword";
+            this.btnChangePassword.Size = new System.Drawing.Size(88, 56);
+            this.btnChangePassword.TabIndex = 9;
+            this.btnChangePassword.Text = "修改密碼";
+            this.btnChangePassword.UseVisualStyleBackColor = true;
             // 
             // FormStatics
             // 
@@ -178,6 +188,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Azure;
             this.ClientSize = new System.Drawing.Size(1024, 768);
+            this.Controls.Add(this.btnChangePassword);
             this.Controls.Add(this.btnLogout);
             this.Controls.Add(this.labelTotal);
             this.Controls.Add(this.label1);
@@ -215,5 +226,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelTotal;
         private System.Windows.Forms.Button btnLogout;
+        private System.Windows.Forms.Button btnChangePassword;
     }
 }

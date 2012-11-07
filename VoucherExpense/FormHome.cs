@@ -395,6 +395,11 @@ namespace VoucherExpense
         {
             PopupOrRun("餐飲菜單", typeof(EditBasicMenu));
         }
+
+        private void 收銀授權ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PopupOrRun("收銀授權", typeof(FormCashierAuthen));
+        }
       
         //private void 盤點ToolStripMenuItem_Click(object sender, EventArgs e)
         //{

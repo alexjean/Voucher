@@ -42,24 +42,31 @@
             System.Windows.Forms.Label label1;
             System.Windows.Forms.Label label2;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Expense));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
             this.idLabel = new System.Windows.Forms.Label();
             this.labelCredit = new System.Windows.Forms.Label();
             this.expenseBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.expenseBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.vEDataSet = new VoucherExpense.VEDataSet();
-            this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
-            this.bindingNavigatorPositionItem = new System.Windows.Forms.ToolStripTextBox();
-            this.bindingNavigatorSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.expenseBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.列印PToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.expenseDataGridView = new System.Windows.Forms.DataGridView();
+            this.columnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnRemoved = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.ApplyTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnApplier = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.employeeBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.InnerID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Note = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnMoney = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TitleCode = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.titleBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
+            this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.columnCheck = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.applierBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.authorizeBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.expenseIDTextBox = new System.Windows.Forms.TextBox();
@@ -96,16 +103,8 @@
             this.checkBoxAllAccTitle = new System.Windows.Forms.CheckBox();
             this.ckBoxAllowEdit = new System.Windows.Forms.CheckBox();
             this.hRTableAdapter = new VoucherExpense.VEDataSetTableAdapters.HRTableAdapter();
-            this.columnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnRemoved = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.ApplyTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnApplier = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.InnerID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Note = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnMoney = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TitleCode = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.columnCheck = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.btnExportExcel = new System.Windows.Forms.Button();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             expenseIDLabel = new System.Windows.Forms.Label();
             applierIDLabel = new System.Windows.Forms.Label();
             applyTimeLabel = new System.Windows.Forms.Label();
@@ -166,7 +165,7 @@
             // paidLabel
             // 
             paidLabel.AutoSize = true;
-            paidLabel.Location = new System.Drawing.Point(644, 446);
+            paidLabel.Location = new System.Drawing.Point(644, 445);
             paidLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             paidLabel.Name = "paidLabel";
             paidLabel.Size = new System.Drawing.Size(60, 16);
@@ -196,7 +195,7 @@
             // keyinIDLabel
             // 
             keyinIDLabel.AutoSize = true;
-            keyinIDLabel.Location = new System.Drawing.Point(645, 536);
+            keyinIDLabel.Location = new System.Drawing.Point(645, 503);
             keyinIDLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             keyinIDLabel.Name = "keyinIDLabel";
             keyinIDLabel.Size = new System.Drawing.Size(60, 16);
@@ -206,7 +205,7 @@
             // removedLabel
             // 
             removedLabel.AutoSize = true;
-            removedLabel.Location = new System.Drawing.Point(644, 506);
+            removedLabel.Location = new System.Drawing.Point(644, 474);
             removedLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             removedLabel.Name = "removedLabel";
             removedLabel.Size = new System.Drawing.Size(44, 16);
@@ -216,7 +215,7 @@
             // lastUpdatedLabel
             // 
             lastUpdatedLabel.AutoSize = true;
-            lastUpdatedLabel.Location = new System.Drawing.Point(644, 566);
+            lastUpdatedLabel.Location = new System.Drawing.Point(644, 532);
             lastUpdatedLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lastUpdatedLabel.Name = "lastUpdatedLabel";
             lastUpdatedLabel.Size = new System.Drawing.Size(60, 16);
@@ -246,7 +245,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(789, 506);
+            label2.Location = new System.Drawing.Point(789, 475);
             label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(44, 16);
@@ -276,17 +275,16 @@
             // expenseBindingNavigator
             // 
             this.expenseBindingNavigator.AddNewItem = this.bindingNavigatorAddNewItem;
+            this.expenseBindingNavigator.BackgroundImage = global::VoucherExpense.Properties.Resources.NavBar_Back;
             this.expenseBindingNavigator.BindingSource = this.expenseBindingSource;
-            this.expenseBindingNavigator.CountItem = this.bindingNavigatorCountItem;
+            this.expenseBindingNavigator.CountItem = null;
             this.expenseBindingNavigator.DeleteItem = null;
             this.expenseBindingNavigator.Dock = System.Windows.Forms.DockStyle.None;
             this.expenseBindingNavigator.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.bindingNavigatorPositionItem,
-            this.bindingNavigatorCountItem,
-            this.bindingNavigatorSeparator1,
             this.bindingNavigatorAddNewItem,
             this.expenseBindingNavigatorSaveItem,
-            this.列印PToolStripButton});
+            this.列印PToolStripButton,
+            this.toolStripSeparator1});
             this.expenseBindingNavigator.Location = new System.Drawing.Point(727, 0);
             this.expenseBindingNavigator.MoveFirstItem = null;
             this.expenseBindingNavigator.MoveLastItem = null;
@@ -294,9 +292,9 @@
             this.expenseBindingNavigator.MovePreviousItem = null;
             this.expenseBindingNavigator.Name = "expenseBindingNavigator";
             this.expenseBindingNavigator.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.expenseBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
+            this.expenseBindingNavigator.PositionItem = null;
             this.expenseBindingNavigator.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.expenseBindingNavigator.Size = new System.Drawing.Size(167, 27);
+            this.expenseBindingNavigator.Size = new System.Drawing.Size(88, 25);
             this.expenseBindingNavigator.TabIndex = 0;
             this.expenseBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -306,7 +304,7 @@
             this.bindingNavigatorAddNewItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem.Image")));
             this.bindingNavigatorAddNewItem.Name = "bindingNavigatorAddNewItem";
             this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 24);
+            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorAddNewItem.Text = "加入新的";
             this.bindingNavigatorAddNewItem.Click += new System.EventHandler(this.bindingNavigatorAddNewItem_Click);
             // 
@@ -319,27 +317,6 @@
             // 
             this.vEDataSet.DataSetName = "VEDataSet";
             this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // bindingNavigatorCountItem
-            // 
-            this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 24);
-            this.bindingNavigatorCountItem.Text = "/{0}";
-            this.bindingNavigatorCountItem.ToolTipText = "項目總數";
-            // 
-            // bindingNavigatorPositionItem
-            // 
-            this.bindingNavigatorPositionItem.AccessibleName = "位置";
-            this.bindingNavigatorPositionItem.AutoSize = false;
-            this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
-            this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(48, 27);
-            this.bindingNavigatorPositionItem.Text = "0";
-            this.bindingNavigatorPositionItem.ToolTipText = "目前的位置";
-            // 
-            // bindingNavigatorSeparator1
-            // 
-            this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
-            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 27);
             // 
             // expenseBindingNavigatorSaveItem
             // 
@@ -365,18 +342,18 @@
             this.expenseDataGridView.AllowUserToAddRows = false;
             this.expenseDataGridView.AllowUserToDeleteRows = false;
             this.expenseDataGridView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Azure;
-            this.expenseDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle25.BackColor = System.Drawing.Color.Azure;
+            this.expenseDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle25;
             this.expenseDataGridView.AutoGenerateColumns = false;
             this.expenseDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.expenseDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle26.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            dataGridViewCellStyle26.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle26.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle26.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle26.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.expenseDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle26;
             this.expenseDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.expenseDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.columnID,
@@ -399,11 +376,54 @@
             this.expenseDataGridView.RowHeadersWidth = 25;
             this.expenseDataGridView.RowTemplate.Height = 24;
             this.expenseDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.expenseDataGridView.Size = new System.Drawing.Size(624, 567);
+            this.expenseDataGridView.Size = new System.Drawing.Size(624, 630);
             this.expenseDataGridView.TabIndex = 0;
             this.expenseDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.expenseDataGridView_DataError);
             this.expenseDataGridView.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.expenseDataGridView_RowPrePaint);
             this.expenseDataGridView.SelectionChanged += new System.EventHandler(this.expenseDataGridView_SelectionChanged);
+            // 
+            // columnID
+            // 
+            this.columnID.DataPropertyName = "ID";
+            this.columnID.HeaderText = "順序";
+            this.columnID.MinimumWidth = 2;
+            this.columnID.Name = "columnID";
+            this.columnID.ReadOnly = true;
+            this.columnID.Width = 2;
+            // 
+            // columnRemoved
+            // 
+            this.columnRemoved.DataPropertyName = "Removed";
+            this.columnRemoved.HeaderText = "";
+            this.columnRemoved.MinimumWidth = 2;
+            this.columnRemoved.Name = "columnRemoved";
+            this.columnRemoved.ReadOnly = true;
+            this.columnRemoved.Width = 2;
+            // 
+            // ApplyTime
+            // 
+            this.ApplyTime.DataPropertyName = "ApplyTime";
+            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle27.Format = "M/dd";
+            dataGridViewCellStyle27.NullValue = null;
+            this.ApplyTime.DefaultCellStyle = dataGridViewCellStyle27;
+            this.ApplyTime.HeaderText = "日期";
+            this.ApplyTime.Name = "ApplyTime";
+            this.ApplyTime.Width = 48;
+            // 
+            // columnApplier
+            // 
+            this.columnApplier.DataPropertyName = "ApplierID";
+            this.columnApplier.DataSource = this.employeeBindingSource;
+            this.columnApplier.DisplayMember = "EmployeeName";
+            this.columnApplier.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.columnApplier.HeaderText = "申請者";
+            this.columnApplier.Name = "columnApplier";
+            this.columnApplier.ReadOnly = true;
+            this.columnApplier.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.columnApplier.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.columnApplier.ValueMember = "EmployeeID";
+            this.columnApplier.Width = 66;
             // 
             // employeeBindingSource
             // 
@@ -411,11 +431,66 @@
             this.employeeBindingSource.DataSource = this.vEDataSet;
             this.employeeBindingSource.Filter = "";
             // 
+            // InnerID
+            // 
+            this.InnerID.DataPropertyName = "InnerID";
+            this.InnerID.HeaderText = "編號";
+            this.InnerID.Name = "InnerID";
+            this.InnerID.Width = 60;
+            // 
+            // Note
+            // 
+            this.Note.DataPropertyName = "Note";
+            this.Note.HeaderText = "摘要";
+            this.Note.Name = "Note";
+            this.Note.Width = 204;
+            // 
+            // columnMoney
+            // 
+            this.columnMoney.DataPropertyName = "Money";
+            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle28.Format = "N1";
+            dataGridViewCellStyle28.NullValue = null;
+            this.columnMoney.DefaultCellStyle = dataGridViewCellStyle28;
+            this.columnMoney.HeaderText = "金額";
+            this.columnMoney.Name = "columnMoney";
+            this.columnMoney.ReadOnly = true;
+            this.columnMoney.Width = 68;
+            // 
+            // TitleCode
+            // 
+            this.TitleCode.DataPropertyName = "TitleCode";
+            this.TitleCode.DataSource = this.titleBindingSource2;
+            this.TitleCode.DisplayMember = "Name";
+            this.TitleCode.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.TitleCode.HeaderText = "科目";
+            this.TitleCode.Name = "TitleCode";
+            this.TitleCode.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.TitleCode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.TitleCode.ValueMember = "TitleCode";
+            this.TitleCode.Width = 96;
+            // 
             // titleBindingSource2
             // 
             this.titleBindingSource2.DataMember = "AccountingTitle";
             this.titleBindingSource2.DataSource = this.vEDataSet;
             this.titleBindingSource2.Filter = "";
+            // 
+            // dataGridViewCheckBoxColumn1
+            // 
+            this.dataGridViewCheckBoxColumn1.DataPropertyName = "Paid";
+            this.dataGridViewCheckBoxColumn1.HeaderText = "ok";
+            this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
+            this.dataGridViewCheckBoxColumn1.ReadOnly = true;
+            this.dataGridViewCheckBoxColumn1.Width = 25;
+            // 
+            // columnCheck
+            // 
+            this.columnCheck.DataPropertyName = "Locked";
+            this.columnCheck.HeaderText = "核";
+            this.columnCheck.Name = "columnCheck";
+            this.columnCheck.ReadOnly = true;
+            this.columnCheck.Width = 25;
             // 
             // applierBindingSource
             // 
@@ -452,7 +527,7 @@
             // removedCheckBox
             // 
             this.removedCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.expenseBindingSource, "Removed", true));
-            this.removedCheckBox.Location = new System.Drawing.Point(727, 498);
+            this.removedCheckBox.Location = new System.Drawing.Point(727, 467);
             this.removedCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.removedCheckBox.Name = "removedCheckBox";
             this.removedCheckBox.Size = new System.Drawing.Size(25, 32);
@@ -463,7 +538,7 @@
             this.lockedCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lockedCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.expenseBindingSource, "Locked", true));
             this.lockedCheckBox.Enabled = false;
-            this.lockedCheckBox.Location = new System.Drawing.Point(841, 498);
+            this.lockedCheckBox.Location = new System.Drawing.Point(841, 467);
             this.lockedCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.lockedCheckBox.Name = "lockedCheckBox";
             this.lockedCheckBox.Size = new System.Drawing.Size(24, 32);
@@ -475,7 +550,7 @@
             this.lastUpdatedTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.lastUpdatedTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lastUpdatedTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.expenseBindingSource, "LastUpdated", true));
-            this.lastUpdatedTextBox.Location = new System.Drawing.Point(727, 564);
+            this.lastUpdatedTextBox.Location = new System.Drawing.Point(727, 532);
             this.lastUpdatedTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.lastUpdatedTextBox.Name = "lastUpdatedTextBox";
             this.lastUpdatedTextBox.ReadOnly = true;
@@ -580,7 +655,7 @@
             this.keyinIDComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
             this.keyinIDComboBox.Enabled = false;
             this.keyinIDComboBox.FormattingEnabled = true;
-            this.keyinIDComboBox.Location = new System.Drawing.Point(727, 532);
+            this.keyinIDComboBox.Location = new System.Drawing.Point(727, 501);
             this.keyinIDComboBox.Name = "keyinIDComboBox";
             this.keyinIDComboBox.Size = new System.Drawing.Size(139, 24);
             this.keyinIDComboBox.TabIndex = 11;
@@ -693,7 +768,7 @@
             this.bankAccountIDComboBox.DataSource = this.bankBindingSource;
             this.bankAccountIDComboBox.DisplayMember = "ShowName";
             this.bankAccountIDComboBox.FormattingEnabled = true;
-            this.bankAccountIDComboBox.Location = new System.Drawing.Point(727, 472);
+            this.bankAccountIDComboBox.Location = new System.Drawing.Point(727, 568);
             this.bankAccountIDComboBox.Name = "bankAccountIDComboBox";
             this.bankAccountIDComboBox.Size = new System.Drawing.Size(138, 24);
             this.bankAccountIDComboBox.TabIndex = 59;
@@ -703,7 +778,7 @@
             // labelBank
             // 
             this.labelBank.AutoSize = true;
-            this.labelBank.Location = new System.Drawing.Point(644, 476);
+            this.labelBank.Location = new System.Drawing.Point(644, 572);
             this.labelBank.Name = "labelBank";
             this.labelBank.Size = new System.Drawing.Size(76, 16);
             this.labelBank.TabIndex = 60;
@@ -768,110 +843,29 @@
             // 
             this.hRTableAdapter.ClearBeforeFill = true;
             // 
-            // columnID
+            // btnExportExcel
             // 
-            this.columnID.DataPropertyName = "ID";
-            this.columnID.HeaderText = "順序";
-            this.columnID.MinimumWidth = 2;
-            this.columnID.Name = "columnID";
-            this.columnID.ReadOnly = true;
-            this.columnID.Width = 2;
+            this.btnExportExcel.BackgroundImage = global::VoucherExpense.Properties.Resources.NavBar_Back;
+            this.btnExportExcel.Location = new System.Drawing.Point(849, 1);
+            this.btnExportExcel.Name = "btnExportExcel";
+            this.btnExportExcel.Size = new System.Drawing.Size(75, 27);
+            this.btnExportExcel.TabIndex = 66;
+            this.btnExportExcel.Text = "轉Excel";
+            this.btnExportExcel.UseVisualStyleBackColor = true;
+            this.btnExportExcel.Click += new System.EventHandler(this.btnExportExcel_Click);
             // 
-            // columnRemoved
+            // toolStripSeparator1
             // 
-            this.columnRemoved.DataPropertyName = "Removed";
-            this.columnRemoved.HeaderText = "";
-            this.columnRemoved.MinimumWidth = 2;
-            this.columnRemoved.Name = "columnRemoved";
-            this.columnRemoved.ReadOnly = true;
-            this.columnRemoved.Width = 2;
-            // 
-            // ApplyTime
-            // 
-            this.ApplyTime.DataPropertyName = "ApplyTime";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle7.Format = "M/dd";
-            dataGridViewCellStyle7.NullValue = null;
-            this.ApplyTime.DefaultCellStyle = dataGridViewCellStyle7;
-            this.ApplyTime.HeaderText = "日期";
-            this.ApplyTime.Name = "ApplyTime";
-            this.ApplyTime.Width = 48;
-            // 
-            // columnApplier
-            // 
-            this.columnApplier.DataPropertyName = "ApplierID";
-            this.columnApplier.DataSource = this.employeeBindingSource;
-            this.columnApplier.DisplayMember = "EmployeeName";
-            this.columnApplier.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.columnApplier.HeaderText = "申請者";
-            this.columnApplier.Name = "columnApplier";
-            this.columnApplier.ReadOnly = true;
-            this.columnApplier.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.columnApplier.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.columnApplier.ValueMember = "EmployeeID";
-            this.columnApplier.Width = 66;
-            // 
-            // InnerID
-            // 
-            this.InnerID.DataPropertyName = "InnerID";
-            this.InnerID.HeaderText = "編號";
-            this.InnerID.Name = "InnerID";
-            this.InnerID.Width = 60;
-            // 
-            // Note
-            // 
-            this.Note.DataPropertyName = "Note";
-            this.Note.HeaderText = "摘要";
-            this.Note.Name = "Note";
-            this.Note.Width = 204;
-            // 
-            // columnMoney
-            // 
-            this.columnMoney.DataPropertyName = "Money";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle8.Format = "N1";
-            dataGridViewCellStyle8.NullValue = null;
-            this.columnMoney.DefaultCellStyle = dataGridViewCellStyle8;
-            this.columnMoney.HeaderText = "金額";
-            this.columnMoney.Name = "columnMoney";
-            this.columnMoney.ReadOnly = true;
-            this.columnMoney.Width = 68;
-            // 
-            // TitleCode
-            // 
-            this.TitleCode.DataPropertyName = "TitleCode";
-            this.TitleCode.DataSource = this.titleBindingSource2;
-            this.TitleCode.DisplayMember = "Name";
-            this.TitleCode.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.TitleCode.HeaderText = "科目";
-            this.TitleCode.Name = "TitleCode";
-            this.TitleCode.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.TitleCode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.TitleCode.ValueMember = "TitleCode";
-            this.TitleCode.Width = 96;
-            // 
-            // dataGridViewCheckBoxColumn1
-            // 
-            this.dataGridViewCheckBoxColumn1.DataPropertyName = "Paid";
-            this.dataGridViewCheckBoxColumn1.HeaderText = "ok";
-            this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
-            this.dataGridViewCheckBoxColumn1.ReadOnly = true;
-            this.dataGridViewCheckBoxColumn1.Width = 25;
-            // 
-            // columnCheck
-            // 
-            this.columnCheck.DataPropertyName = "Locked";
-            this.columnCheck.HeaderText = "核";
-            this.columnCheck.Name = "columnCheck";
-            this.columnCheck.ReadOnly = true;
-            this.columnCheck.Width = 25;
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // Expense
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(913, 567);
+            this.ClientSize = new System.Drawing.Size(978, 630);
+            this.Controls.Add(this.btnExportExcel);
             this.Controls.Add(this.ckBoxAllowEdit);
             this.Controls.Add(this.checkBoxAllAccTitle);
             this.Controls.Add(this.comboBoxCredit);
@@ -909,9 +903,9 @@
             this.Controls.Add(this.removedCheckBox);
             this.Controls.Add(this.lockedCheckBox);
             this.Controls.Add(lastUpdatedLabel);
-            this.Controls.Add(this.expenseDataGridView);
             this.Controls.Add(this.expenseBindingNavigator);
             this.Controls.Add(this.applyTimeTextBox);
+            this.Controls.Add(this.expenseDataGridView);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Expense";
@@ -943,9 +937,6 @@
         private VoucherExpense.VEDataSetTableAdapters.ExpenseTableAdapter expenseTableAdapter;
         private System.Windows.Forms.BindingNavigator expenseBindingNavigator;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
-        private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
-        private System.Windows.Forms.ToolStripTextBox bindingNavigatorPositionItem;
-        private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator1;
         private System.Windows.Forms.ToolStripButton expenseBindingNavigatorSaveItem;
         private System.Windows.Forms.DataGridView expenseDataGridView;
         private System.Windows.Forms.TextBox expenseIDTextBox;
@@ -998,5 +989,7 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn TitleCode;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
         private System.Windows.Forms.DataGridViewCheckBoxColumn columnCheck;
+        private System.Windows.Forms.Button btnExportExcel;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }

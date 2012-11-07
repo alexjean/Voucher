@@ -3,6 +3,8 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Drawing.Drawing2D;
+
 
 namespace VoucherExpense
 {
@@ -636,6 +638,110 @@ namespace VoucherExpense
 
         private void expenseDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+
+        }
+
+        private void btnExportExcel_Click(object sender, EventArgs e)
+        {
+            Microsoft.Office.Interop.Excel.Application excel;
+            Microsoft.Office.Interop.Excel.Worksheet sheet;
+            Microsoft.Office.Interop.Excel.Workbook book;
+            try
+            {
+                excel = new Microsoft.Office.Interop.Excel.Application();
+                book = excel.Application.Workbooks.Add(true);
+                sheet = book.Worksheets[1];
+                sheet.Name = comboBoxMonth.SelectedItem.ToString() + "費用";
+            }
+            catch (Exception ex)
+            {
+            MessageBox.Show("開啟Excel出錯,原因:" + ex.Message);
+            return;
+            }
+            excel.Visible = true;
+            DataGridView view = expenseDataGridView;
+            Microsoft.Office.Interop.Excel.Range range;
+            int i = 1;
+            // 插入Logo圖片
+            range = sheet.Rows[1];
+            range.RowHeight = 50;
+            Bitmap img = GetThumbnail(global::VoucherExpense.Properties.Resources.LogoVI, 64);
+            range = sheet.Cells[1, 1];
+            Clipboard.SetDataObject(img, true);
+            sheet.Paste(range, "LogoVI");
+
+            //欄位表頭
+            i++;
+            sheet.Cells[i, 1] = "编号";
+
+            sheet.Cells[i, 2] = "日期";
+            range = sheet.Columns[2];
+            range.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignLeft;
+            range.ColumnWidth = 10;
+
+            sheet.Cells[i, 3] = "摘要";
+            range = sheet.Columns[3];
+            range.ColumnWidth = 30;
+
+            sheet.Cells[i, 4] = "金额";
+            range = sheet.Columns[4];
+            range.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignRight;
+
+            sheet.Cells[i, 5] = "科目";
+
+            sheet.Cells[i, 6] = "申請人";
+
+            i ++;
+            int n=3;
+            try
+            {
+                n = view.Columns["ApplyTime"].Index;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("程式被改錯了,DataGridView內找不到ApplyTime! 錯誤:"+ex.Message);
+                excel.Quit();
+                return;
+            }
+            foreach(DataGridViewRow vr in view.Rows)
+            {
+                sheet.Cells[i, 1] = vr.Cells[n + 2].FormattedValue;    // 編号
+                sheet.Cells[i, 2] = vr.Cells[n    ].FormattedValue;    // 日期
+                sheet.Cells[i, 3] = vr.Cells[n + 3].FormattedValue;
+                sheet.Cells[i, 4] = vr.Cells[n + 4].FormattedValue;
+                sheet.Cells[i, 5] = vr.Cells[n + 5].FormattedValue;
+                sheet.Cells[i, 6] = vr.Cells[n + 1].FormattedValue;   // 申請人
+
+                //DataRowView rowView = vr.DataBoundItem as DataRowView;
+                //VEDataSet.ExpenseRow row =  rowView.Row as VEDataSet.ExpenseRow;
+                //if (!row.IsInnerIDNull())   sheet.Cells[i, 1] = row.InnerID;
+                //                            sheet.Cells[i, 2] = row.ApplyTime;
+                //if (!row.IsNoteNull())      sheet.Cells[i, 3] = row.Note;
+                //if (!row.IsTitleCodeNull()) sheet.Cells[i, 4] = "'"+row.TitleCode.ToString();
+                //if (!row.IsMoneyNull())     sheet.Cells[i, 5] = row.Money;
+                //if (!row.IsApplierIDNull())
+                //{
+                //    sheet.Cells[i, 6] = row.ApplierID;
+                //}
+                i++;
+            }
+            excel.Quit();
+        }
+
+        Bitmap GetThumbnail(Bitmap img,int newHeight)
+        {
+            int x = img.Size.Width;
+            int y = img.Size.Height;
+            int y1 = newHeight;
+            int x1 = x*y1 / y;
+            Bitmap newbmp = new Bitmap(x1, y1);
+            Graphics g = Graphics.FromImage(newbmp);
+            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            g.SmoothingMode = SmoothingMode.HighQuality;
+            g.CompositingQuality = CompositingQuality.HighQuality;
+            g.DrawImage(img, new Rectangle(0, 0, x1, y1), new Rectangle(0, 0, img.Width, img.Height), GraphicsUnit.Pixel);
+            g.Dispose();
+            return newbmp;
 
         }
     }

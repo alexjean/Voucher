@@ -204,19 +204,23 @@ namespace VoucherExpense
             int month = comboBoxMonth.SelectedIndex;
             if (month < 1 || month > 12)
             {
-                MessageBox.Show("月份<"+month.ToString()+">有問題, 無法設定內碼!");
-                return;
+                month = DateTime.Now.Month;
+                MessageBox.Show("你未選擇月份, 電腦設定新增為<"+month.ToString()+"月>單子!");
             }
-
             
 //            int count=this.voucherBindingNavigator.PositionItem.
             int ma = MyFunction.MaxNoInDB("ID", vEDataSet.Voucher);
             int i=MyFunction.SetCellMaxNo("columnID", voucherDataGridView,ma);
             if (i > 0)
             {
-                int year = MyFunction.IntHeaderYear;
-                DateTime t=DateTime.Now;
                 this.iDTextBox.Text = i.ToString();
+                lockedCheckBox.Checked = false;                           // 只有對DateTime的Binding會受影響, bool不會,所以可以放ResetBindings前  
+                this.voucherBindingSource.ResetBindings(false);           // 這行加了會把stockTimeTextBox.Text和entryTimeTextBox.Text給清成空白,所以放前面
+                voucherVoucherDetailBindingSource.ResetBindings(false);   // 有id了,可以刷新下面的detail表
+                
+                // 初始時間, 放在ResetBindings後面
+                int year = MyFunction.IntHeaderYear;
+                DateTime t = DateTime.Now;
                 entryTimeTextBox.Text = t.ToString();
                 disableDateTimePicker = true;
                 this.dateTimePicker1.Value = new DateTime(year, month, 1);     // 代入的是資料庫的年份,選的月份
@@ -224,10 +228,7 @@ namespace VoucherExpense
                 // 有選月份時,先強設日期,否則在當月看不到
                 DateTime stockTime = new DateTime(year,month,MyFunction.DayCountOfMonth(month));   // 資料月份,設成該月最後一天
                 stockTimeTextBox.Text = stockTime.ToShortDateString();
-                lockedCheckBox.Checked = false;
-//                this.voucherBindingSource.ResetBindings(false);         // 這行加了會把stockTimeTextBox.Text給清成空白
-                voucherVoucherDetailBindingSource.ResetBindings(false);   // 刷下面的detail表
-                MessageBox.Show("進貨日期己暫時設定, 請設成正確日期!");
+                MessageBox.Show("進貨日期己暫時設定, 請設成正確日期!");   
             }
         }
 

@@ -44,4 +44,16 @@ namespace BakeryOrder
             return result;
         }
     }
+    class DrawerRecordAdapter : BakeryOrderSetTableAdapters.DrawerRecordTableAdapter
+    {
+        string SaveStr;
+        public int FillBySelectStr(BakeryOrderSet.DrawerRecordDataTable dataTable, string SelectStr)
+        {
+            SaveStr = base.CommandCollection[0].CommandText;
+            base.CommandCollection[0].CommandText = SelectStr;
+            int result = Fill(dataTable);
+            base.CommandCollection[0].CommandText = SaveStr;
+            return result;
+        }
+    }
 }

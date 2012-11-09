@@ -663,9 +663,10 @@ namespace VoucherExpense
             Microsoft.Office.Interop.Excel.Range range;
             int i = 1;
             // 插入Logo圖片
+            int imgHeight = 48;
             range = sheet.Rows[1];
-            range.RowHeight = 50;
-            Bitmap img = GetThumbnail(global::VoucherExpense.Properties.Resources.LogoVI, 64);
+            range.RowHeight = imgHeight+2;
+            Bitmap img = GetThumbnail(global::VoucherExpense.Properties.Resources.LogoVI, imgHeight*4/3);   // 一般圖是96DPI,換算就是4pixels=3單位
             range = sheet.Cells[1, 1];
             Clipboard.SetDataObject(img, true);
             sheet.Paste(range, "LogoVI");

@@ -38,14 +38,13 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnTestLeave = new System.Windows.Forms.Button();
             this.labelTotal = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.checkBoxDiscount = new System.Windows.Forms.CheckBox();
             this.pictureBoxOrdered = new System.Windows.Forms.PictureBox();
             this.btnCashDrawer = new System.Windows.Forms.Button();
             this.btnNewOrder = new System.Windows.Forms.Button();
-            this.productTableAdapter = new BakeryOrder.BakeryOrderSetTableAdapters.ProductTableAdapter();
-            this.bakeryOrderSet = new BakeryOrder.BakeryOrderSet();
             this.checkBoxTest = new System.Windows.Forms.CheckBox();
             this.panelLogin = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
@@ -64,10 +63,13 @@
             this.btnNumber2 = new System.Windows.Forms.Button();
             this.btnNumber1 = new System.Windows.Forms.Button();
             this.btnNumber0 = new System.Windows.Forms.Button();
+            this.productTableAdapter = new BakeryOrder.BakeryOrderSetTableAdapters.ProductTableAdapter();
+            this.bakeryOrderSet = new BakeryOrder.BakeryOrderSet();
+            this.cashierTableAdapter = new BakeryOrder.BakeryOrderSetTableAdapters.CashierTableAdapter();
             this.tabControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrdered)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).BeginInit();
             this.panelLogin.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).BeginInit();
             this.SuspendLayout();
             // 
             // lvItems
@@ -131,8 +133,8 @@
             // tabControl1
             // 
             this.tabControl1.Alignment = System.Windows.Forms.TabAlignment.Bottom;
-            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Right;
             this.tabControl1.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.tabControl1.ItemSize = new System.Drawing.Size(72, 32);
@@ -163,6 +165,18 @@
             this.tabPage2.Size = new System.Drawing.Size(783, 728);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "饮料西点";
+            // 
+            // btnTestLeave
+            // 
+            this.btnTestLeave.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnTestLeave.Location = new System.Drawing.Point(1, 706);
+            this.btnTestLeave.Name = "btnTestLeave";
+            this.btnTestLeave.Size = new System.Drawing.Size(106, 62);
+            this.btnTestLeave.TabIndex = 0;
+            this.btnTestLeave.Text = "測試用 離開程式";
+            this.btnTestLeave.UseVisualStyleBackColor = true;
+            this.btnTestLeave.Visible = false;
+            this.btnTestLeave.Click += new System.EventHandler(this.btnTestLeave_Click);
             // 
             // labelTotal
             // 
@@ -223,15 +237,6 @@
             this.btnNewOrder.Text = "新單";
             this.btnNewOrder.UseVisualStyleBackColor = true;
             this.btnNewOrder.Click += new System.EventHandler(this.btnNewOrder_Click);
-            // 
-            // productTableAdapter
-            // 
-            this.productTableAdapter.ClearBeforeFill = true;
-            // 
-            // bakeryOrderSet
-            // 
-            this.bakeryOrderSet.DataSetName = "BakeryOrderSet";
-            this.bakeryOrderSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // checkBoxTest
             // 
@@ -433,6 +438,19 @@
             this.btnNumber0.Text = "0";
             this.btnNumber0.UseVisualStyleBackColor = true;
             // 
+            // productTableAdapter
+            // 
+            this.productTableAdapter.ClearBeforeFill = true;
+            // 
+            // bakeryOrderSet
+            // 
+            this.bakeryOrderSet.DataSetName = "BakeryOrderSet";
+            this.bakeryOrderSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // cashierTableAdapter
+            // 
+            this.cashierTableAdapter.ClearBeforeFill = true;
+            // 
             // FormCashier
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -451,18 +469,18 @@
             this.Controls.Add(this.lvItems);
             this.Controls.Add(this.pictureBoxOrdered);
             this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.btnTestLeave);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormCashier";
             this.Text = "烘焙收銀";
-            this.TopMost = true;
             this.Load += new System.EventHandler(this.FormCashier_Load);
             this.tabControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrdered)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).EndInit();
             this.panelLogin.ResumeLayout(false);
             this.panelLogin.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -506,6 +524,8 @@
         private System.Windows.Forms.TextBox textBoxPassword;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxCashierID;
+        private BakeryOrderSetTableAdapters.CashierTableAdapter cashierTableAdapter;
+        private System.Windows.Forms.Button btnTestLeave;
     }
 }
 

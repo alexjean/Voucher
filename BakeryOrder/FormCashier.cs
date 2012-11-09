@@ -388,30 +388,35 @@ namespace BakeryOrder
         string       m_PrinterName  = "BTP-R580(U)";
         int          m_PosID        = 0;
         int          m_CashierID    = -1;
+        int m_MaxOrderID = 0;
+        int m_MaxDrawerRecordID = 0;
         HardwareConfig m_Cfg        = new HardwareConfig();
         OrderAdapter     m_OrderTableAdapter     = new OrderAdapter();
         OrderItemAdapter m_OrderItemTableAdapter = new OrderItemAdapter();
+        DrawerRecordAdapter m_DrawerReocrdAdapter= new DrawerRecordAdapter();
+        DateTime m_Today = DateTime.Now;
 
-        private void FormCashier_Load(object sender, EventArgs e)
+
+        void ReLoadAllData()
         {
             m_Cfg.Load();
             if (m_Cfg.PrinterName != null) m_PrinterName = m_Cfg.PrinterName;
             m_PosID = m_Cfg.iPosID;
-            
-//            productTableAdapter1.Connection = MapPath.BasicConnection;
+            //            productTableAdapter1.Connection = MapPath.BasicConnection;
             try
             {
-
-                this.productTableAdapter.Fill(this.bakeryOrderSet.Product);
+                productTableAdapter.Fill(bakeryOrderSet.Product);
+                cashierTableAdapter.Fill(bakeryOrderSet.Cashier);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("讀取BakeryOrder.Product時出錯! 原因:"+ex.Message);
+                MessageBox.Show("讀取BakeryOrder.Product Cashier時出錯! 原因:" + ex.Message);
                 Close();
                 return;
             }
-            DateTime now=DateTime.Now;
-            LoadData(now.Month, now.Day);
+            DateTime now = DateTime.Now;
+            m_MaxDrawerRecordID = LoadDrawerRecordData(now.Month, now.Day);
+            m_MaxOrderID = LoadData(now.Month, now.Day);
 
             // 程式保留row.Code 0做為菜單的寬高,這行不是產品
             var rows = from row in bakeryOrderSet.Product
@@ -425,6 +430,28 @@ namespace BakeryOrder
             LoadTabControlItem();
             tabControl1.DrawMode = TabDrawMode.OwnerDrawFixed;
             UpdateAllFoodMenu();
+            m_Today = DateTime.Now;
+        }
+
+        private void FormCashier_Load(object sender, EventArgs e)
+        {
+#if DEBUG
+            btnTestLeave.Visible=true;
+            btnTestLeave.BringToFront();
+#endif
+            for (int i = 0; i <= 9; i++)
+            {
+                string name = "btnNumber" + i.ToString();
+                foreach (Control ctl in panelLogin.Controls)
+                    if (ctl.Name == name)
+                    {
+                        ctl.Click += this.btnNumberX_Click;
+                        break;
+                    }
+            }
+
+
+            ReLoadAllData();
 
             m_FormCustomer = new FormCustomer();
             Screen scr = Screen.PrimaryScreen;
@@ -441,19 +468,10 @@ namespace BakeryOrder
             }
             else
                 SetLoginStatus(true);
-            for (int i = 0; i <= 9; i++)
-            {
-                string name="btnNumber" + i.ToString();
-                foreach(Control ctl in panelLogin.Controls)
-                    if (ctl.Name == name)
-                    {
-                        ctl.Click += this.btnNumberX_Click;
-                        break;
-                    }
-            }
+
         }
 
-        void LoadData(int m, int d)
+        int LoadData(int m, int d)
         {
             string sql = "Where INT(ID/1000000)=" + m.ToString("d2") + d.ToString("d2");
             int MaxID = 0;
@@ -463,14 +481,38 @@ namespace BakeryOrder
                 m_OrderItemTableAdapter.FillBySelectStr(bakeryOrderSet.OrderItem, "Select * From [OrderItem] " + sql);
                 foreach (BakeryOrderSet.OrderRow R in bakeryOrderSet.Order.Rows)
                 {
-                    int id = R.ID % 10000;       // 資料定義為 MMDDNN9999  N POS机号,此處店號放0不管,店長收資料時,再自動填上
+                    int id = R.ID % 10000;       // 資料定義為 MMDDNN9999  N POS机号,店長收資料時,再自動填上
                     if (id > MaxID) MaxID = id;
                 }
+                return MaxID;
             }
             catch (Exception ex)
             {
                 string str = ex.Message;
-                MessageBox.Show("BakeryOrder.Header讀取錯誤!" + str);
+                MessageBox.Show("BakeryOrder.Order讀取錯誤!" + str);
+                return -1;
+            }
+        }
+
+        int LoadDrawerRecordData(int m,int d)
+        {
+            string sql = "Where INT(DrawerRecordID/1000000)=" + m.ToString("d2") + d.ToString("d2");
+            int MaxID = 0;
+            try
+            {
+                m_DrawerReocrdAdapter.FillBySelectStr(bakeryOrderSet.DrawerRecord, "Select * From [DrawerRecord] " + sql);
+                foreach (BakeryOrderSet.DrawerRecordRow R in bakeryOrderSet.DrawerRecord.Rows)
+                {
+                    int id = R.DrawerRecordID % 100000;       // 資料定義為 MMDDN99999  N POS机号比Order.ID少一位, id最多10萬筆多十倍
+                    if (id > MaxID) MaxID = id;
+                }
+                return MaxID;
+            }
+            catch (Exception ex)
+            {
+                string str = ex.Message;
+                MessageBox.Show("BakeryOrder.DrawerRecord讀取錯誤!" + str);
+                return -1;
             }
         }
 
@@ -511,17 +553,12 @@ namespace BakeryOrder
             Buf.Append("\r\n");
         }
 
-        int CreateOrder(out BakeryOrderSet.OrderRow order)
+        // m_MaxOrderID在SaveOrder時才去更新
+        int CreateOrder(out BakeryOrderSet.OrderRow order,int maxID)
         {
             order = bakeryOrderSet.Order.NewOrderRow();
             DateTime now = DateTime.Now;
-            int maxID = 0;
             int id;
-            foreach (BakeryOrderSet.OrderRow row in bakeryOrderSet.Order)    // 編號 MMDDNN9999 , MM月 DD日 NN台號 9999單號
-            {
-                id = row.ID % 10000;
-                if (id > maxID) maxID = id;
-            }
             id = (m_PosID % 100) + now.Month * 10000 + now.Day * 100;
             order.ID = id*10000+maxID + 1;
             order.DiscountRate = 0.9m;
@@ -529,6 +566,30 @@ namespace BakeryOrder
             order.CashierID = m_CashierID;
             order.Deleted = false;
             return order.ID;
+        }
+
+        int CreateUpdateDrawerRecord(ref int maxID,int associateOrderID)
+        {
+            BakeryOrderSet.DrawerRecordRow record = bakeryOrderSet.DrawerRecord.NewDrawerRecordRow();
+            DateTime now = DateTime.Now;
+            int id;
+            id = (m_PosID % 10) + now.Month * 1000 + now.Day * 10;
+            record.DrawerRecordID = id * 100000 + maxID + 1;
+            record.CashierID = m_CashierID;
+            record.OpenTime=now;
+            record.AssociateOrderID = associateOrderID;
+            try
+            {
+                bakeryOrderSet.DrawerRecord.AddDrawerRecordRow(record);
+                m_DrawerReocrdAdapter.Update(bakeryOrderSet.DrawerRecord);
+                maxID ++;  // 存成功了才去更新maxID
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("更新BakeryOrder.DrawerRecord時出錯,原因:" + ex.Message);
+                return -1;
+            }
+            return record.DrawerRecordID;
         }
 
         string PrintTitle   = "     原麦山丘华宇店";
@@ -559,7 +620,7 @@ namespace BakeryOrder
             Buf.AppendPadRight(PrintTel, 19);
             n = (CurrentOrder.ID % 1000);
             Buf.Append("序号:" + n.ToString("d4") + "\r\n");
-            Buf.AppendPadRight("时间:" + CurrentOrder.PrintTime.ToString("yy/MM/dd hh:mm"), 19);
+            Buf.AppendPadRight("时间:" + CurrentOrder.PrintTime.ToString("yy/MM/dd HH:mm"), 19);
             Buf.Append("工号: 001" +  "\r\n\r\n");
 
             Buf.Append(BorderMode);                                      // 設定列印模式28
@@ -608,11 +669,12 @@ namespace BakeryOrder
             }
        }
 
+        byte[] m_CashDrawer = new byte[] { 0x1B, (byte)'p', 0, 150, 100 };
         private void btnPrint_Click(object sender, EventArgs e)
         {
             if (lvItems.Items.Count == 0) return;
             if (m_CurrentOrder == null)
-                CreateOrder(out m_CurrentOrder);
+                CreateOrder(out m_CurrentOrder,m_MaxOrderID);
             if (m_CurrentOrder.RowState != DataRowState.Detached)
             {
                 MessageBox.Show("己經打印過的單子,無法再印! 請按<新單>");
@@ -620,15 +682,16 @@ namespace BakeryOrder
             }
             m_CurrentOrder.Income = (decimal)CalcTotal();
             Print(m_CurrentOrder);
-            btnCashDrawer_Click(null, null);
+            if (!this.checkBoxTest.Checked)
+                RawPrint.SendManagedBytes(m_PrinterName, m_CashDrawer);
+            CreateUpdateDrawerRecord(ref m_MaxDrawerRecordID, m_CurrentOrder.ID % 10000);
         }
 
         private void btnCashDrawer_Click(object sender, EventArgs e)
         {
-            
-            byte[] CashDrawer = new byte[] { 0x1B, (byte)'p',0,150,100 };
             if (!this.checkBoxTest.Checked)
-                RawPrint.SendManagedBytes(m_PrinterName,CashDrawer);
+                RawPrint.SendManagedBytes(m_PrinterName,m_CashDrawer);
+            CreateUpdateDrawerRecord(ref m_MaxDrawerRecordID, -1);  // 沒有相應的訂單
         }
 
         private void btnStatics_Click(object sender, EventArgs e)
@@ -643,6 +706,7 @@ namespace BakeryOrder
             else if (result == DialogResult.Cancel)
             {
                 SetLoginStatus(false);
+                m_CashierID = -1;
                 textBoxCashierID.Text = "";
                 textBoxPassword.Text = "";
                 textBoxCashierID.Focus();
@@ -654,7 +718,7 @@ namespace BakeryOrder
 
         private void btnNewOrder_Click(object sender, EventArgs e)
         {
-            int no=CreateOrder(out m_CurrentOrder)%10000;
+            int no=CreateOrder(out m_CurrentOrder,m_MaxOrderID)%10000;
             foreach (ListViewItem lv in lvItems.Items)
             {
                 MenuItemForTag item=lv.Tag as MenuItemForTag;
@@ -725,6 +789,8 @@ namespace BakeryOrder
                 }
                 return false;
             }
+            int maxID=CurrentOrder.ID%10000;
+            if (maxID > m_MaxOrderID) m_MaxOrderID = maxID;
 
             List<BakeryOrderSet.OrderItemRow> ItemDeleted = new List<BakeryOrderSet.OrderItemRow>();
             BakeryOrderSet.OrderItemRow[]     OrderDetail = CurrentOrder.GetOrderItemRows();
@@ -799,7 +865,54 @@ namespace BakeryOrder
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            SetLoginStatus(true);
+            if ( m_Today.Date != DateTime.Now.Date) // 跨日了,沒關机,登入時發現,要重置
+            {
+                ReLoadAllData();
+                if (m_FormStatics != null) m_FormStatics.Close();
+                m_FormStatics = null;
+            }
+            string sID=textBoxCashierID.Text.Trim();
+            string sPass=textBoxPassword.Text.Trim();
+            if (sPass.Length < 2)
+            {
+                MessageBox.Show("密碼太短!");
+                return;
+            }
+            if (sID.Length < 1)
+            {
+                MessageBox.Show("請輸入收銀員号!");
+                return;
+            }
+            int id;
+            if (!int.TryParse(sID,out id))
+            {
+                MessageBox.Show("ID只能是數字!");
+                return;
+            }
+            foreach (BakeryOrderSet.CashierRow cashier in bakeryOrderSet.Cashier)
+            {
+                if (cashier.CashierID == id)
+                {
+                    if (cashier.IsInPositionNull() || (!cashier.InPosition))
+                    {
+                        MessageBox.Show("此收銀員己封印! 阿彌陀佛!");
+                        return;
+                    }
+                    if (cashier.CashierPassword.CompareTo(sPass) == 0)
+                    {
+                        MessageBox.Show("歡迎 <" + cashier.CashierName + "> \r\n今天是"+DateTime.Now.ToShortDateString());
+                        m_CashierID = cashier.CashierID;
+                        btnTestLeave.Visible = false;
+                        SetLoginStatus(true);
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show("密碼不符!");
+                        return;
+                    }
+                }
+            }
         }
 
         bool m_FocusID = true;
@@ -844,6 +957,11 @@ namespace BakeryOrder
                 current.SelectionLength = 0;
             }
             current.Focus();
+        }
+
+        private void btnTestLeave_Click(object sender, EventArgs e)
+        {
+            Close();
         }
 
 

@@ -122,6 +122,7 @@
             this.btnDrawerOpenedList.TabIndex = 5;
             this.btnDrawerOpenedList.Text = "錢箱記錄";
             this.btnDrawerOpenedList.UseVisualStyleBackColor = true;
+            this.btnDrawerOpenedList.Click += new System.EventHandler(this.btnDrawerOpenedList_Click);
             // 
             // tabPage1
             // 

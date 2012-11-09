@@ -246,7 +246,6 @@ namespace BakeryOrder
 
         private void MenuClick(object sender, MouseEventArgs e)
         {
-            m_FormCustomer.SetTimer(30000);   // 停止轉圖
             Label l = (Label)sender;
             MenuItemForTag item = (MenuItemForTag)l.Tag;
             Item2List(item, e.Button);
@@ -266,7 +265,10 @@ namespace BakeryOrder
             }
             Image img=Bitmap.FromFile(small);
             pictureBoxOrdered.Image = img;
+            Application.DoEvents();           // 先把前面做的顯示出來
+            m_FormCustomer.SetTimer(30000);   // 停止轉圖, 同時會把Dock改成Right,露出結帳單
             m_FormCustomer.SetPicture(img);
+
         }
         // 輸出的Label[,] 放到tabPage.Tag去
         private void InitFoodMenu(TabPage tabPage, int menuId, out Label[,] FoodName)
@@ -565,6 +567,12 @@ namespace BakeryOrder
             order.Income = (decimal)CalcTotal();
             order.CashierID = m_CashierID;
             order.Deleted = false;
+            // PrintTime和SaveTime在後面會設,NewRecord 如果有任一個Field沒設定是IsNull,再次Upate就會 並行違例.
+            // 舊的Record因為從Database讀出來時,就會有預設資料所以不會有問題
+            order.BranchID = 0;
+            order.Checked = false;
+            order.Deduct = 0;
+            order.CreditID = 0;
             return order.ID;
         }
 
@@ -772,10 +780,19 @@ namespace BakeryOrder
             }
             try
             {
-                if (CurrentOrder.RowState != DataRowState.Unchanged)   // 不用管Deleted,Detached不會發生
+                if (CurrentOrder.RowState == DataRowState.Deleted)
                 {
-                    m_OrderTableAdapter.Update(CurrentOrder);
-                    CurrentOrder.AcceptChanges();
+                    MessageBox.Show("程式不准刪,而此單是被刪除的,資料奇怪 ,無法存檔!");    // 本程式不准刪
+                    return false;
+                }
+                else if (CurrentOrder.RowState == DataRowState.Detached)
+                {
+                    MessageBox.Show("Order Detached! 不應該發生! 程式有誤!");
+                    return false;
+                }
+                if (CurrentOrder.RowState != DataRowState.Unchanged)   // Unchanged不存, Added Modified要存,程式不准改,理論上不會有Modified
+                {
+                    m_OrderTableAdapter.Update(CurrentOrder);          // Update內含了AcceptChanges,不用再呼叫 
                 }
             }
             catch (Exception E)
@@ -784,7 +801,7 @@ namespace BakeryOrder
                     MessageBox.Show(E.Message + "Update(CurrentOrder) 出錯");
                 else
                 {
-                    MessageBox.Show("發生並行違例,可能是別台己經改過這張單子,請重啟程式,你必需重新修改!");
+                    MessageBox.Show("Update(Order)發生並行違例,可能是別台己經改過這張單子,請重啟程式,你必需重新修改!");
                     Close();
                 }
                 return false;
@@ -845,7 +862,7 @@ namespace BakeryOrder
                     MessageBox.Show(E.Message + "Update(OrderItem)出錯");
                 else
                 {
-                    MessageBox.Show("發生並行違例,可能是別台己經改過這張單子,你必需重啟程式,重新修改!");
+                    MessageBox.Show("Update(OrderItem)發生並行違例,可能是別台己經改過這張單子,你必需重啟程式,重新修改!");
                     Close();
                 }
                 return false;

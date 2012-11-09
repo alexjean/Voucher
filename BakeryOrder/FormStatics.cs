@@ -150,6 +150,7 @@ namespace BakeryOrder
             {
                 return;
             }
+            order.BeginEdit();
             if (!order.IsDeletedNull() && order.Deleted)
             {
                 order.Deleted = false;
@@ -160,12 +161,13 @@ namespace BakeryOrder
                 order.Deleted = true;
                 t.BackColor = Color.Green;
             }
+            order.EndEdit();
             try
             {
                 if (order.RowState != DataRowState.Unchanged)   // 不用管Deleted,Detached不會發生
                 {
-                    m_OrderTableAdapter.Update(order);
-                    order.AcceptChanges();
+                    m_OrderTableAdapter.Update(order);    
+                    order.AcceptChanges();     // Update應該隱含AcceptChanges
                 }
             }
             catch (Exception E)
@@ -174,7 +176,9 @@ namespace BakeryOrder
                     MessageBox.Show(E.Message + "Update(CurrentOrder) 出錯");
                 else
                 {
-                    MessageBox.Show("發生並行違例,可能是別台己經改過這張單子,請重啟程式,你必需重新修改!");
+                    MessageBox.Show("Update(Order)發生並行違例,可能是別台己經改過這張單子,或新Order有初值未設定!");
+                    MessageBox.Show("請重啟程式,你必需重新修改!");
+                    this.DialogResult = DialogResult.Abort;  // 傳送.Abort給上層Form,代表ExitProgram
                     Close();
                 }
             }

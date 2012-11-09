@@ -9,13 +9,16 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>VoucherExpense</RootNamespace>
-    <AssemblyName>VoucherExpense</AssemblyName>
+    <AssemblyName>Manage</AssemblyName>
     <ApplicationIcon>iconHeart.ico</ApplicationIcon>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <PublishUrl>http://localhost/VoucherExpense/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
@@ -28,18 +31,15 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>true</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;Define_Bakery</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
@@ -317,6 +317,12 @@
     <Compile Include="EditBakeryProduct.designer.cs">
       <DependentUpon>EditBakeryProduct.cs</DependentUpon>
     </Compile>
+    <Compile Include="MonthlyReportBakery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MonthlyReportBakery.designer.cs">
+      <DependentUpon>MonthlyReportBakery.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AccountingTitle.resx">
       <SubType>Designer</SubType>
       <DependentUpon>AccountingTitle.cs</DependentUpon>
@@ -452,6 +458,9 @@
     <EmbeddedResource Include="EditBakeryProduct.resx">
       <DependentUpon>EditBakeryProduct.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MonthlyReportBakery.resx">
+      <DependentUpon>MonthlyReportBakery.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="BakeryOrderSet.xsc">
       <DependentUpon>BakeryOrderSet.xsd</DependentUpon>
@@ -569,7 +578,7 @@
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
-      <ProductName>.NET Framework Client Profile</ProductName>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">

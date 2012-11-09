@@ -86,8 +86,6 @@
             this.accountingTitleTableAdapter1 = new VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter();
             this.voucherTableAdapter1 = new VoucherExpense.VEDataSetTableAdapters.VoucherTableAdapter();
             this.voucherDetailTableAdapter1 = new VoucherExpense.VEDataSetTableAdapters.VoucherDetailTableAdapter();
-            this.basicDataSet1 = new VoucherExpense.BasicDataSet();
-            this.headerTableAdapter1 = new VoucherExpense.BasicDataSetTableAdapters.HeaderTableAdapter();
             this.bankAccountTableAdapter1 = new VoucherExpense.VEDataSetTableAdapters.BankAccountTableAdapter();
             this.bankDetailTableAdapter1 = new VoucherExpense.VEDataSetTableAdapters.BankDetailTableAdapter();
             this.label6 = new System.Windows.Forms.Label();
@@ -95,7 +93,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.cMonthBalanceBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.count = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Balance = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.revenueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -103,12 +100,12 @@
             this.expenseDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.assestDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.liabilityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cMonthBalanceBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTableBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTableBindingSource2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.veDataSet1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.basicDataSet1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cMonthBalanceBindingSource)).BeginInit();
@@ -530,15 +527,6 @@
             // 
             this.voucherDetailTableAdapter1.ClearBeforeFill = true;
             // 
-            // basicDataSet1
-            // 
-            this.basicDataSet1.DataSetName = "BasicDataSet";
-            this.basicDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // headerTableAdapter1
-            // 
-            this.headerTableAdapter1.ClearBeforeFill = true;
-            // 
             // bankAccountTableAdapter1
             // 
             this.bankAccountTableAdapter1.ClearBeforeFill = true;
@@ -624,10 +612,6 @@
             this.dataGridView3.TabIndex = 87;
             this.dataGridView3.Visible = false;
             // 
-            // cMonthBalanceBindingSource
-            // 
-            this.cMonthBalanceBindingSource.DataSource = typeof(VoucherExpense.CMonthBalance);
-            // 
             // count
             // 
             this.count.DataPropertyName = "Month";
@@ -695,6 +679,10 @@
             this.liabilityDataGridViewTextBoxColumn.HeaderText = "負債";
             this.liabilityDataGridViewTextBoxColumn.Name = "liabilityDataGridViewTextBoxColumn";
             // 
+            // cMonthBalanceBindingSource
+            // 
+            this.cMonthBalanceBindingSource.DataSource = typeof(VoucherExpense.CMonthBalance);
+            // 
             // ReportByTitle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -723,7 +711,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTableBindingSource2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.veDataSet1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.basicDataSet1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
@@ -765,8 +752,6 @@
         private System.Windows.Forms.Label labelEquity;
         private System.Windows.Forms.ComboBox comboBoxStart;
         private System.Windows.Forms.Label label11;
-        private BasicDataSet basicDataSet1;
-        private VoucherExpense.BasicDataSetTableAdapters.HeaderTableAdapter headerTableAdapter1;
         private System.Windows.Forms.ProgressBar progressBar1;
         private VoucherExpense.VEDataSetTableAdapters.BankAccountTableAdapter bankAccountTableAdapter1;
         private System.Windows.Forms.Label labelMessage;

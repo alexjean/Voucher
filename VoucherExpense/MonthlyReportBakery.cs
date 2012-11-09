@@ -8,22 +8,22 @@ using System.Windows.Forms;
 
 namespace VoucherExpense
 {
-    public partial class MonthlyReport : Form
+    public partial class MonthlyReportBakery : Form
     {
         
-        public MonthlyReport()
+        public MonthlyReportBakery()
         {
             InitializeComponent();
         }
 
-        RevenueCalc Revenue;
-        private void MonthlyReport_Load(object sender, EventArgs e)
+        RevenueCalcBakery Revenue;
+        private void MonthlyReportBakery_Load(object sender, EventArgs e)
         {
             decimal FeeRate = 1.8m;
             try
             {
-                headerTableAdapter1.Connection = MapPath.BasicConnection;
-                headerTableAdapter1.Fill(basicDataSet1.Header);
+                headerTableAdapter1.Connection = MapPath.BakeryConnection;
+                headerTableAdapter1.Fill(bakeryOrderSet.Header);
                 TitleSetup Setup = new TitleSetup();
                 Setup.Load();
                 FeeRate = Setup.FeeRate();
@@ -32,24 +32,20 @@ namespace VoucherExpense
             {
                 MessageBox.Show("標頭資料讀取錯誤,你的資料庫版本可能不對");
             }
-            int count=basicDataSet1.Header.Count;
+            int count=bakeryOrderSet.Header.Count;
             if (count == 0)
             {
                 MessageBox.Show("無資料!");
                 Close();
                 return;
             }
-            BasicDataSet.HeaderRow row = basicDataSet1.Header[count - 1];
-            Revenue = new RevenueCalc(row.DataDate,FeeRate/100);
+            BakeryOrderSet.HeaderRow row = bakeryOrderSet.Header[count - 1];
+            Revenue = new RevenueCalcBakery(row.DataDate,FeeRate/100);
             comboBoxMonth.SelectedIndex = row.DataDate.Month - 1;
             labelFeeRate.Text = FeeRate.ToString() + "%";
         }
 
-        
-//        OrderItemAdapter m_OrderItemAdapter = new OrderItemAdapter();
-
- 
-
+      
         void Calc()
         {
             int year = Revenue.Year;
@@ -67,8 +63,8 @@ namespace VoucherExpense
             List<MonthlyReportData> list = new List<MonthlyReportData>();
             for (int i = 1; i <= count; i++)
             {
-                if (Revenue.LoadData(basicDataSet1, year, month, i,checkBoxUse12.Checked))
-                    list.Add(Revenue.Statics(basicDataSet1));
+                if (Revenue.LoadData(bakeryOrderSet,  month, i))
+                    list.Add(Revenue.Statics(bakeryOrderSet));
                 progressBar1.Value = i;
                 Application.DoEvents();
             }

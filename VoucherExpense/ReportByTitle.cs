@@ -20,8 +20,6 @@ namespace VoucherExpense
             public BankDefault(string bankCode, string defaultCode) { BankCode = bankCode; DefaultCode = defaultCode; }
         }
 
-
-
         List<AccTitle> AssetList;     // 會計科目1字頭 資產
         List<AccTitle> LiabilityList;  // 會計科目2字頭 負債
         List<AccTitle> RevenueList; // 會計科目4字頭 營收
@@ -34,7 +32,7 @@ namespace VoucherExpense
         List<AccTitle> CostList1;     
         List<AccTitle> ExpenseList1;  
         Dictionary<int, BankDefault> BankDictionary; // < BankAccountID, TitleCode>
-        MonthlyReportData[] RevenueCache; // 計算加速用
+        VoucherExpense.MonthlyReportData[] RevenueCache; // 計算加速用
         CMonthBalance[] MonthBalances;    // 存月比較表用 
         TitleSetup Setup = new TitleSetup();
 
@@ -569,29 +567,51 @@ namespace VoucherExpense
             return list;
         }
 
-
+#if Define_Bakery
+        RevenueCalcBakery Revenue;
+        BakeryOrderSetTableAdapters.HeaderTableAdapter headerTableAdapter = new BakeryOrderSetTableAdapters.HeaderTableAdapter();
+        BakeryOrderSet bakeryOrderSet = new BakeryOrderSet();
+#else
         RevenueCalc Revenue;
+        BasicDataSetTableAdapters.HeaderTableAdapter headerTableAdapter = new BasicDataSetTableAdapters.HeaderTableAdapter();
+        BasicDataSet basicDataSet=new BasicDataSet();
+#endif
 
         private void ReportByTitle_Load(object sender, EventArgs e)
         {
+#if Define_Bakery
             try
             {
-                headerTableAdapter1.Connection = MapPath.BasicConnection;
-                headerTableAdapter1.Fill(basicDataSet1.Header);
+                headerTableAdapter.Connection = MapPath.BakeryConnection;
+                headerTableAdapter.Fill(bakeryOrderSet.Header);
             }
-            catch
-            {
-                MessageBox.Show("標頭資料讀取錯誤,你的資料庫版本可能不對");
-            }
-            int count = basicDataSet1.Header.Count;
+            catch { MessageBox.Show("標頭資料讀取錯誤,你的資料庫版本可能不對"); }
+            int count = bakeryOrderSet.Header.Count;
             if (count == 0)
             {
                 MessageBox.Show("無資料!");
                 Close();
                 return;
             }
-            BasicDataSet.HeaderRow row = basicDataSet1.Header[count - 1];
+            BakeryOrderSet.HeaderRow row = bakeryOrderSet.Header[count - 1];
+            Revenue = new RevenueCalcBakery(row.DataDate, 0);
+#else
+            try
+            {
+                headerTableAdapter.Connection = MapPath.BasicConnection;
+                headerTableAdapter.Fill(basicDataSet.Header);
+            }
+            catch { MessageBox.Show("標頭資料讀取錯誤,你的資料庫版本可能不對"); }
+            int count = basicDataSet.Header.Count;
+            if (count == 0)
+            {
+                MessageBox.Show("無資料!");
+                Close();
+                return;
+            }
+            BasicDataSet.HeaderRow row = basicDataSet.Header[count - 1];
             Revenue = new RevenueCalc(row.DataDate,0);
+#endif
             AssetList     = new List<AccTitle>();
             LiabilityList = new List<AccTitle>();
             RevenueList   = new List<AccTitle>();
@@ -690,8 +710,13 @@ namespace VoucherExpense
             List<MonthlyReportData> list = new List<MonthlyReportData>();
             for (int i = 1; i <= count; i++)
             {
-                if (Revenue.LoadData(basicDataSet1, year, month, i, true))
-                    list.Add(Revenue.Statics(basicDataSet1));
+#if Define_Bakery
+                if (Revenue.LoadData(bakeryOrderSet, month, i))
+                    list.Add(Revenue.Statics(bakeryOrderSet));
+#else
+                if (Revenue.LoadData(basicDataSet, year, month, i, true))
+                    list.Add(Revenue.Statics(basicDataSet));
+#endif
                 progressBar1.Value = i;
                 Application.DoEvents();
             }

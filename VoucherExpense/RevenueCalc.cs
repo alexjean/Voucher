@@ -5,6 +5,48 @@ using System.Threading.Tasks;
 
 namespace VoucherExpense
 {
+    class WorkingDay
+    {
+        private DateTime m_Date;
+        public int Year { get { return m_Date.Year; } }
+        public int Month { get { return m_Date.Month; } }
+        public int Day { get { return m_Date.Day; } }
+        public static int IDTagHead(int y, int m, int d)
+        {
+            int tag = y % 100;
+            tag = tag * 10000 + m * 100 + d;
+            return tag;
+        }
+        public int IDTag()
+        {
+            DateTime t = m_Date;
+            return IDTagHead(t.Year, t.Month, t.Day) * 10000;
+        }
+        public void Set(DateTime t)
+        {
+            m_Date = t;
+        }
+
+/*
+        public BasicDataSet.HeaderRow Basic_HeaderRow(BasicDataSet.HeaderDataTable header)
+        {
+            foreach (BasicDataSet.HeaderRow row in header)
+            {
+                if (row.DataDate.Day != m_Date.Day) continue;
+                if (row.DataDate.Month != m_Date.Month) continue;
+                if (row.DataDate.Year != m_Date.Year) continue;
+                return row;
+            }
+            return null;
+        }
+ */
+
+        public override string ToString()
+        {
+            return m_Date.ToShortDateString();
+        }
+    }
+
     class RevenueCalc
     {
         WorkingDay m_WorkingDay;
@@ -30,44 +72,6 @@ namespace VoucherExpense
                 int result = Fill(dataTable);
                 base.CommandCollection[0].CommandText = SaveStr;
                 return result;
-            }
-        }
-
-        class WorkingDay
-        {
-            private DateTime m_Date;
-            public int Year { get { return m_Date.Year; } }
-            public int Month { get { return m_Date.Month; } }
-            public int Day { get { return m_Date.Day; } }
-            public static int IDTagHead(int y, int m, int d)
-            {
-                int tag = y % 100;
-                tag = tag * 10000 + m * 100 + d;
-                return tag;
-            }
-            public int IDTag()
-            {
-                DateTime t = m_Date;
-                return IDTagHead(t.Year, t.Month, t.Day) * 10000;
-            }
-            public void Set(DateTime t)
-            {
-                m_Date = t;
-            }
-            public BasicDataSet.HeaderRow HeaderRow(BasicDataSet.HeaderDataTable header)
-            {
-                foreach (BasicDataSet.HeaderRow row in header)
-                {
-                    if (row.DataDate.Day != m_Date.Day) continue;
-                    if (row.DataDate.Month != m_Date.Month) continue;
-                    if (row.DataDate.Year != m_Date.Year) continue;
-                    return row;
-                }
-                return null;
-            }
-            public override string ToString()
-            {
-                return m_Date.ToShortDateString();
             }
         }
 
@@ -173,6 +177,112 @@ namespace VoucherExpense
             if (people != 0)
                 data.AvePerPerson = Math.Round((cash + credit) / people, 1);
             data.Revenue = Math.Round(cash + credit);
+            return data;
+        }
+    }
+
+    class RevenueCalcBakery
+    {
+        WorkingDay m_WorkingDay;
+        decimal FeeRate = 0;
+        public RevenueCalcBakery(DateTime d, decimal feeRate)
+        {
+            FeeRate = feeRate;
+            m_WorkingDay = new WorkingDay();
+            m_WorkingDay.Set(d);
+            m_OrderAdapter.Connection = MapPath.BakeryConnection;
+        }
+        public int Year { get { return m_WorkingDay.Year; } }
+
+
+        OrderAdapter m_OrderAdapter = new OrderAdapter();
+        public class OrderAdapter : BakeryOrderSetTableAdapters.OrderTableAdapter
+        {
+            string SaveStr;
+            public int FillBySelectStr(BakeryOrderSet.OrderDataTable dataTable, string SelectStr)
+            {
+                SaveStr = base.CommandCollection[0].CommandText;
+                base.CommandCollection[0].CommandText = SelectStr;
+                int result = Fill(dataTable);
+                base.CommandCollection[0].CommandText = SaveStr;
+                return result;
+            }
+        }
+
+        // BakeryOrderSet.Order.ID ==> MMDDNN9999
+        string CreateSql(int m, int d)
+        {
+            return "Where INT(ID/1000000)=" + m.ToString("d2") + d.ToString("d2"); 
+        }
+
+        public bool LoadData(BakeryOrderSet bakeryOrderSet, int month, int day)
+        {
+            int count = bakeryOrderSet.Header.Rows.Count;
+            if (count == 0) return false;
+            if (month < 1 || month > 12) return false;
+            if (day < 1 || day > 31) return false;
+            BakeryOrderSet.HeaderRow row;
+            foreach (BakeryOrderSet.HeaderRow r in bakeryOrderSet.Header.Rows)
+            {
+                if (r.DataDate.Month != month) continue;
+                if (r.DataDate.Day == day)
+                {
+                    row = r;
+                    goto Yes;
+                }
+            }
+            return false;
+        Yes:
+            string sql = CreateSql(row.DataDate.Month, row.DataDate.Day);
+            try
+            {
+                m_OrderAdapter.FillBySelectStr(bakeryOrderSet.Order, "Select * From [Order] " + sql + " Order by ID");
+                m_WorkingDay.Set(row.DataDate);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LastErrorString = ex.Message;
+            }
+            return false;
+        }
+
+        public string LastErrorString = "";
+
+        public MonthlyReportData Statics(BakeryOrderSet bakeryOrderSet)
+        {
+            decimal cash = 0, credit = 0,deletedMoney=0;
+            int orderCount = 0,deletedCount=0;
+            MonthlyReportData data = new MonthlyReportData();
+            foreach (BakeryOrderSet.OrderRow row in bakeryOrderSet.Order)
+            {
+                decimal income;
+                if (row.IsIncomeNull()) income = 0m;
+                else                    income = row.Income;
+                if (!row.IsDeletedNull() && row.Deleted)
+                {
+                    deletedMoney += income;
+                    deletedCount++;
+                    continue;
+                }
+                if (row.IsCreditIDNull() || row.CreditID == 0)
+                    cash    += income;
+                else
+                    credit  += income;
+                orderCount++;    //  一單一人
+            }
+            data.OrderCount = orderCount;
+            data.Cash = Math.Round(cash);
+            data.Date = (uint)m_WorkingDay.Day;
+            data.CreditCard = Math.Round(credit);
+            data.CreditFee = Math.Round(FeeRate * data.CreditCard, 2);
+            data.CreditNet = data.CreditCard - data.CreditFee;
+            if (orderCount != 0)
+                data.AvePerPerson = Math.Round((cash + credit) / orderCount, 1);
+            data.Revenue = Math.Round(cash + credit);
+
+            data.DeletedCount = deletedCount;
+            data.DeletedMoney = deletedMoney;
             return data;
         }
     }

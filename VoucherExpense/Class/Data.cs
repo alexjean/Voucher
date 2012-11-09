@@ -380,6 +380,23 @@ namespace VoucherExpense
             Expense += b.Expense;
             Balance += b.Balance;
         }
+    }  // End of class CMonthBalance
+
+    // MonthlyReport及MonthlyReportBakery用
+    public class MonthlyReportData
+    {
+        public uint Date { get; set; }
+        public decimal Revenue { get; set; }
+        public decimal Cash { get; set; }
+        public decimal CreditCard { get; set; }
+        public decimal CreditFee { get; set; }
+        public decimal CreditNet { get; set; }
+        public int OrderCount { get; set; }
+        public decimal AvePerPerson { get; set; }
+
+        public int DeletedCount { get; set; }
+        public decimal DeletedMoney { get; set; }
     }
+
 
 }

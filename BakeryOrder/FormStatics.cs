@@ -47,15 +47,18 @@ namespace BakeryOrder
             Close();
         }
 
-
+        string[] m_ListViewItemBackup;
         private void FormStatics_Load(object sender, EventArgs e)
         {
             Screen scr = Screen.PrimaryScreen;
             Location = new Point(scr.Bounds.X, scr.Bounds.Y);
             TopMost = true;
 
-//            InitTabControlItem(tabControl1);
+//          InitTabControlItem(tabControl1);
             tabControl1.DrawMode = TabDrawMode.OwnerDrawFixed;
+            m_ListViewItemBackup=new string[lvItems.Columns.Count]; // 備份給ResetListView用
+            for(int i=1;i<lvItems.Columns.Count;i++) 
+                m_ListViewItemBackup[i]=lvItems.Columns[i].Text;
         }
 
         private void tabControl1_DrawItem(object sender, DrawItemEventArgs e)
@@ -187,9 +190,8 @@ namespace BakeryOrder
         void ResetListView()
         {
             lvItems.Items.Clear();
-            lvItems.Columns[1].Text = "品名";
-            lvItems.Columns[2].Text = "量";
-            lvItems.Columns[3].Text = "金額";
+            for(int i=1;i<lvItems.Columns.Count;i++)
+                lvItems.Columns[i].Text = m_ListViewItemBackup[i];
         }
 
         private void ShowOrder(BakeryOrderSet.OrderRow order)

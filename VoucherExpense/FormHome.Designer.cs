@@ -47,8 +47,9 @@
             this.費用MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.進貨MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.收入MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.月報ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.明細ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.餐飲月報ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.餐飲明細ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.收銀授權ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.銀行MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.細目編修ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.匯入XLSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,7 +78,6 @@
             this.盤點ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vEDataSet = new VoucherExpense.VEDataSet();
             this.headerTableAdapter = new VoucherExpense.VEDataSetTableAdapters.HeaderTableAdapter();
-            this.收銀授權ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menu1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             this.SuspendLayout();
@@ -234,26 +234,33 @@
             // 收入MenuItem
             // 
             this.收入MenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.月報ToolStripMenuItem,
-            this.明細ToolStripMenuItem,
+            this.餐飲月報ToolStripMenuItem,
+            this.餐飲明細ToolStripMenuItem,
             this.收銀授權ToolStripMenuItem});
             this.收入MenuItem.Name = "收入MenuItem";
             this.收入MenuItem.Size = new System.Drawing.Size(52, 20);
             this.收入MenuItem.Text = "收入";
             // 
-            // 月報ToolStripMenuItem
+            // 餐飲月報ToolStripMenuItem
             // 
-            this.月報ToolStripMenuItem.Name = "月報ToolStripMenuItem";
-            this.月報ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.月報ToolStripMenuItem.Text = "月報";
-            this.月報ToolStripMenuItem.Click += new System.EventHandler(this.月報ToolStripMenuItem_Click);
+            this.餐飲月報ToolStripMenuItem.Name = "餐飲月報ToolStripMenuItem";
+            this.餐飲月報ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.餐飲月報ToolStripMenuItem.Text = "月報";
+            this.餐飲月報ToolStripMenuItem.Click += new System.EventHandler(this.月報ToolStripMenuItem_Click);
             // 
-            // 明細ToolStripMenuItem
+            // 餐飲明細ToolStripMenuItem
             // 
-            this.明細ToolStripMenuItem.Name = "明細ToolStripMenuItem";
-            this.明細ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.明細ToolStripMenuItem.Text = "明細";
-            this.明細ToolStripMenuItem.Click += new System.EventHandler(this.明細ToolStripMenuItem_Click);
+            this.餐飲明細ToolStripMenuItem.Name = "餐飲明細ToolStripMenuItem";
+            this.餐飲明細ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.餐飲明細ToolStripMenuItem.Text = "明細";
+            this.餐飲明細ToolStripMenuItem.Click += new System.EventHandler(this.明細ToolStripMenuItem_Click);
+            // 
+            // 收銀授權ToolStripMenuItem
+            // 
+            this.收銀授權ToolStripMenuItem.Name = "收銀授權ToolStripMenuItem";
+            this.收銀授權ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.收銀授權ToolStripMenuItem.Text = "收銀授權";
+            this.收銀授權ToolStripMenuItem.Click += new System.EventHandler(this.收銀授權ToolStripMenuItem_Click);
             // 
             // 銀行MenuItem
             // 
@@ -462,13 +469,6 @@
             // 
             this.headerTableAdapter.ClearBeforeFill = true;
             // 
-            // 收銀授權ToolStripMenuItem
-            // 
-            this.收銀授權ToolStripMenuItem.Name = "收銀授權ToolStripMenuItem";
-            this.收銀授權ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.收銀授權ToolStripMenuItem.Text = "收銀授權";
-            this.收銀授權ToolStripMenuItem.Click += new System.EventHandler(this.收銀授權ToolStripMenuItem_Click);
-            // 
             // FormHome
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -516,8 +516,8 @@
         private System.Windows.Forms.ToolStripMenuItem 銀行帳號MenuItem;
         private System.Windows.Forms.ToolStripMenuItem 銀行MenuItem;
         private System.Windows.Forms.ToolStripMenuItem 會計MenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 月報ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 明細ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 餐飲月報ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 餐飲明細ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 進銷比ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 傳票設定MenuItem;
         private System.Windows.Forms.ToolStripMenuItem 細目編修ToolStripMenuItem;

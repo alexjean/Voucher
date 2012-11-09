@@ -285,7 +285,11 @@ namespace VoucherExpense
 
         private void 月報ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+#if Define_Bakery
+            PopupOrRun("MonthlyIncome", typeof(MonthlyReportBakery));
+#else
             PopupOrRun("MonthlyIncome", typeof(MonthlyReport));
+#endif 
         }
 
         private void 進銷比ToolStripMenuItem_Click(object sender, EventArgs e)

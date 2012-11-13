@@ -17,10 +17,10 @@ namespace VoucherExpense
 
         private void ModifyPassword_Load(object sender, EventArgs e)
         {
-            operatorTableAdapter1.Connection = MapPath.VEConnection;
+            cashierTableAdapter.Connection = MapPath.VEConnection;
             try
             {
-                operatorTableAdapter1.Fill(veDataSet1.Operator);
+                cashierTableAdapter.Fill(BakeryOrderSet.Operator);
             }
             catch
             {
@@ -39,7 +39,7 @@ namespace VoucherExpense
         private VEDataSet.OperatorRow GetRecord()
         {
             int id = MyFunction.OperatorID;
-            foreach (VEDataSet.OperatorRow r in veDataSet1.Operator.Rows)
+            foreach (VEDataSet.OperatorRow r in BakeryOrderSet.Operator.Rows)
             {
                 if (r.OperatorID == id) return r;
             }
@@ -82,7 +82,7 @@ namespace VoucherExpense
                 row.BeginEdit();
                 row.Password=newPass;
                 row.EndEdit();
-                operatorTableAdapter1.Update(row);
+                cashierTableAdapter.Update(row);
             }
             catch(Exception ex)
             {

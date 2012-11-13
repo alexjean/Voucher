@@ -36,12 +36,12 @@
             this.comfirmPassTextBox = new System.Windows.Forms.TextBox();
             this.btnChangePassword = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.veDataSet1 = new VoucherExpense.VEDataSet();
-            this.operatorTableAdapter1 = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
+            this.BakeryOrderSet = new VoucherExpense.VEDataSet();
+            this.cashierTableAdapter = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
             oldPassLabel = new System.Windows.Forms.Label();
             newPassLabel = new System.Windows.Forms.Label();
             comfirmPassLabel = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.veDataSet1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BakeryOrderSet)).BeginInit();
             this.SuspendLayout();
             // 
             // oldPassLabel
@@ -123,14 +123,14 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // veDataSet1
+            // BakeryOrderSet
             // 
-            this.veDataSet1.DataSetName = "VEDataSet";
-            this.veDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.BakeryOrderSet.DataSetName = "BakeryOrder";
+            this.BakeryOrderSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // operatorTableAdapter1
+            // cashierTableAdapter
             // 
-            this.operatorTableAdapter1.ClearBeforeFill = true;
+            this.cashierTableAdapter.ClearBeforeFill = true;
             // 
             // ModifyPassword
             // 
@@ -151,7 +151,7 @@
             this.Name = "ModifyPassword";
             this.Text = "修改密碼";
             this.Load += new System.EventHandler(this.ModifyPassword_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.veDataSet1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BakeryOrderSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -164,8 +164,8 @@
         private System.Windows.Forms.TextBox comfirmPassTextBox;
         private System.Windows.Forms.Button btnChangePassword;
         private System.Windows.Forms.Button btnCancel;
-        private VEDataSet veDataSet1;
-        private VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter operatorTableAdapter1;
+        private VEDataSet BakeryOrderSet;
+        private VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter cashierTableAdapter;
 
 
     }

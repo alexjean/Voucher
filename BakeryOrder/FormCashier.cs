@@ -705,7 +705,7 @@ namespace BakeryOrder
         private void btnStatics_Click(object sender, EventArgs e)
         {
             if (m_FormStatics == null)
-                m_FormStatics = new FormStatics(bakeryOrderSet,m_OrderTableAdapter);
+                m_FormStatics = new FormStatics(bakeryOrderSet,m_OrderTableAdapter,m_CashierID);
             DialogResult result=m_FormStatics.ShowDialog();
             if (result == DialogResult.Abort)
             {
@@ -930,6 +930,7 @@ namespace BakeryOrder
                     }
                 }
             }
+            MessageBox.Show("沒有找到此收銀員!");
         }
 
         bool m_FocusID = true;
@@ -980,6 +981,8 @@ namespace BakeryOrder
         {
             Close();
         }
+
+      
 
 
 

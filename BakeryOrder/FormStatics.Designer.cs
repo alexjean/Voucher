@@ -182,6 +182,7 @@
             this.btnChangePassword.TabIndex = 9;
             this.btnChangePassword.Text = "修改密碼";
             this.btnChangePassword.UseVisualStyleBackColor = true;
+            this.btnChangePassword.Click += new System.EventHandler(this.btnChangePassword_Click);
             // 
             // FormStatics
             // 

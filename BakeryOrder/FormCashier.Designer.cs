@@ -36,8 +36,8 @@
             this.btnPrint = new System.Windows.Forms.Button();
             this.btnStatics = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.btnTestLeave = new System.Windows.Forms.Button();
             this.labelTotal = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -146,16 +146,6 @@
             this.tabControl1.TabIndex = 3;
             this.tabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
             // 
-            // tabPage1
-            // 
-            this.tabPage1.BackColor = System.Drawing.Color.Azure;
-            this.tabPage1.Location = new System.Drawing.Point(4, 4);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(783, 728);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "面包";
-            // 
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.Azure;
@@ -165,6 +155,16 @@
             this.tabPage2.Size = new System.Drawing.Size(783, 728);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "饮料西点";
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.Color.Azure;
+            this.tabPage1.Location = new System.Drawing.Point(4, 4);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(783, 728);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "面包";
             // 
             // btnTestLeave
             // 

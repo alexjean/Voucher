@@ -22,10 +22,12 @@ namespace BakeryOrder
 
         BakeryOrderSet m_BakeryOrderSet;
         BakeryOrderSetTableAdapters.OrderTableAdapter m_OrderTableAdapter;
-        public FormStatics(BakeryOrderSet bakeryOrderSet,BakeryOrderSetTableAdapters.OrderTableAdapter adapter)
+        int m_CashierID = 0;
+        public FormStatics(BakeryOrderSet bakeryOrderSet,BakeryOrderSetTableAdapters.OrderTableAdapter adapter,int cashierID)
         {
-            m_BakeryOrderSet = bakeryOrderSet;
+            m_BakeryOrderSet    = bakeryOrderSet;
             m_OrderTableAdapter = adapter;
+            m_CashierID         = cashierID;
             InitializeComponent();
         }
 
@@ -247,10 +249,10 @@ namespace BakeryOrder
         {
             TabControl tc = tabControl1;
             // worry about IsPrintTimeNull()
-            tc.TabPages.Clear();
             var groups = from row in m_BakeryOrderSet.Order
                          group row by row.PrintTime.Hour;
             if (groups.Count() == 0) return;
+            tc.TabPages.Clear();
             List<BakeryOrderSet.OrderRow> listXX = new List<BakeryOrderSet.OrderRow>();
             TabPage page=null;
             decimal total = 0;
@@ -365,10 +367,10 @@ namespace BakeryOrder
         {
             TabControl tc = tabControl1;
             // worry about IsPrintTimeNull()
-            tc.TabPages.Clear();
             var groups = from row in m_BakeryOrderSet.DrawerRecord
                          group row by row.OpenTime.Hour;
             if (groups.Count() == 0) return;
+            tc.TabPages.Clear();
             List<BakeryOrderSet.DrawerRecordRow> listXX = new List<BakeryOrderSet.DrawerRecordRow>();
             TabPage page = null;
             int count = 0;
@@ -429,6 +431,12 @@ namespace BakeryOrder
             lvItems.Items.Clear();
             lvItems.Focus();
             labelTotal.Text = "錢箱共開 " + count.ToString() + "次";
+        }
+
+        private void btnChangePassword_Click(object sender, EventArgs e)
+        {
+            Form form = new ModifyPassword(m_BakeryOrderSet,m_CashierID);
+            form.ShowDialog();
         }
 
     }

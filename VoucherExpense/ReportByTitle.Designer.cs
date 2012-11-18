@@ -146,6 +146,8 @@
             this.dataGridView1.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
             this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.Azure;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -215,6 +217,8 @@
             this.dataGridView2.AllowUserToResizeRows = false;
             dataGridViewCellStyle4.BackColor = System.Drawing.Color.Azure;
             this.dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            this.dataGridView2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.dataGridView2.AutoGenerateColumns = false;
             this.dataGridView2.BackgroundColor = System.Drawing.Color.Azure;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -466,7 +470,9 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(0, 0);
+            this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBar1.Location = new System.Drawing.Point(0, 3);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(921, 13);
             this.progressBar1.TabIndex = 79;
@@ -550,7 +556,8 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.progressBar1);
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.label10);
             this.panel1.Controls.Add(this.labelExpenseSum);
@@ -570,10 +577,10 @@
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.labelLiability);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 519);
+            this.panel1.Controls.Add(this.progressBar1);
+            this.panel1.Location = new System.Drawing.Point(0, 522);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(920, 123);
+            this.panel1.Size = new System.Drawing.Size(920, 120);
             this.panel1.TabIndex = 85;
             // 
             // checkBox1
@@ -592,6 +599,9 @@
             this.dataGridView3.AllowUserToDeleteRows = false;
             dataGridViewCellStyle7.BackColor = System.Drawing.Color.Azure;
             this.dataGridView3.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
+            this.dataGridView3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView3.AutoGenerateColumns = false;
             this.dataGridView3.BackgroundColor = System.Drawing.Color.SeaShell;
             this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -689,23 +699,22 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(920, 642);
+            this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.dataGridView3);
             this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelMessage);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.btnPrintCost);
             this.Controls.Add(this.comboBoxMonth);
             this.Controls.Add(this.label6);
+            this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ReportByTitle";
             this.Text = "月報表 會計科目別";
             this.Load += new System.EventHandler(this.ReportByTitle_Load);
-            this.SizeChanged += new System.EventHandler(this.ReportByTitle_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTableBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();

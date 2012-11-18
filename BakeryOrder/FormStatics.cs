@@ -151,6 +151,11 @@ namespace BakeryOrder
         {
             TextBox t = sender as TextBox;
             BakeryOrderSet.OrderRow order = t.Tag as BakeryOrderSet.OrderRow;
+            if (order.CashierID != m_CashierID)
+            {
+                MessageBox.Show("不是自己的單! 不能改");
+                return;
+            }
             if (MessageBox.Show("要更改刪除狀態?", "", MessageBoxButtons.YesNo) != DialogResult.Yes)
             {
                 return;

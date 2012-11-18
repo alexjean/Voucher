@@ -19,6 +19,7 @@ namespace VoucherExpense
             checkMode = false;
         }
 
+        // 原本設計 可以有非零用金mode,現己癈棄
         public Expense(bool isCheckMode,bool only零用金mode)
         {
             InitializeComponent();
@@ -655,8 +656,8 @@ namespace VoucherExpense
             }
             catch (Exception ex)
             {
-            MessageBox.Show("開啟Excel出錯,原因:" + ex.Message);
-            return;
+                MessageBox.Show("開啟Excel出錯,原因:" + ex.Message);
+                return;
             }
             excel.Visible = true;
             DataGridView view = expenseDataGridView;
@@ -706,12 +707,12 @@ namespace VoucherExpense
             }
             foreach(DataGridViewRow vr in view.Rows)
             {
-                sheet.Cells[i, 1] = vr.Cells[n + 2].FormattedValue;    // 編号
-                sheet.Cells[i, 2] = vr.Cells[n    ].FormattedValue;    // 日期
-                sheet.Cells[i, 3] = vr.Cells[n + 3].FormattedValue;
-                sheet.Cells[i, 4] = vr.Cells[n + 4].FormattedValue;
-                sheet.Cells[i, 5] = vr.Cells[n + 5].FormattedValue;
-                sheet.Cells[i, 6] = vr.Cells[n + 1].FormattedValue;   // 申請人
+                sheet.Cells[i, 1] = vr.Cells[n + 2].FormattedValue;         // 編号
+                sheet.Cells[i, 2] = vr.Cells[n    ].FormattedValue;         // 日期
+                sheet.Cells[i, 3] = "'"+vr.Cells[n + 3].FormattedValue;     // 摘要
+                sheet.Cells[i, 4] = vr.Cells[n + 4].FormattedValue;         // 金額
+                sheet.Cells[i, 5] = vr.Cells[n + 5].FormattedValue;         // 科目
+                sheet.Cells[i, 6] = vr.Cells[n + 1].FormattedValue;         // 申請人
 
                 //DataRowView rowView = vr.DataBoundItem as DataRowView;
                 //VEDataSet.ExpenseRow row =  rowView.Row as VEDataSet.ExpenseRow;
@@ -726,6 +727,10 @@ namespace VoucherExpense
                 //}
                 i++;
             }
+            sheet.Cells[i++, 3] = "'================================================";
+            sheet.Cells[i, 3] = "小計";
+            range = sheet.Cells[i, 3];
+            sheet.Cells[i , 4] = "=Sum(d3:d" + (i-2).ToString() + ")";
             excel.Quit();
         }
 

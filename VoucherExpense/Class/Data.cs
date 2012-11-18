@@ -398,5 +398,23 @@ namespace VoucherExpense
         public decimal DeletedMoney { get; set; }
     }
 
+    public class CLedgerRow
+    {
+        public DateTime Date    { get; set; }
+        public string   Note    { get; set; }
+        public decimal  debt    { get; set; }
+        public decimal  credit  { get; set; }
+        public decimal  sum     { get; set; }
+    }
+
+
+    public class BankDefault
+    {
+        public string BankCode;
+        public string DefaultCode;
+        public AccTitle DefaultTitle;
+        public BankDefault(string bankCode, string defaultCode) { BankCode = bankCode; DefaultCode = defaultCode; }
+    }
+
 
 }

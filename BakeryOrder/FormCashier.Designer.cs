@@ -241,14 +241,13 @@
             // checkBoxTest
             // 
             this.checkBoxTest.AutoSize = true;
-            this.checkBoxTest.Checked = true;
-            this.checkBoxTest.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxTest.Location = new System.Drawing.Point(17, 434);
             this.checkBoxTest.Name = "checkBoxTest";
             this.checkBoxTest.Size = new System.Drawing.Size(59, 20);
             this.checkBoxTest.TabIndex = 10;
             this.checkBoxTest.Text = "不印";
             this.checkBoxTest.UseVisualStyleBackColor = true;
+            this.checkBoxTest.Visible = false;
             // 
             // panelLogin
             // 

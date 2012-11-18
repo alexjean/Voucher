@@ -404,6 +404,11 @@ namespace VoucherExpense
         {
             PopupOrRun("收銀授權", typeof(FormCashierAuthen));
         }
+
+        private void 分類MenuItem_Click(object sender, EventArgs e)
+        {
+            PopupOrRun("分類帳", typeof(FormLedger));
+        }
       
         //private void 盤點ToolStripMenuItem_Click(object sender, EventArgs e)
         //{

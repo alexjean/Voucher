@@ -39,7 +39,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;Define_Bakery</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
@@ -105,6 +105,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BakeryOrderSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Class\AccTitleList.cs" />
     <Compile Include="EditBakeryMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -220,6 +221,12 @@
     </Compile>
     <Compile Include="FormInitNewYear.Designer.cs">
       <DependentUpon>FormInitNewYear.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormLedger.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormLedger.Designer.cs">
+      <DependentUpon>FormLedger.cs</DependentUpon>
     </Compile>
     <Compile Include="FormLogin.cs">
       <SubType>Form</SubType>
@@ -378,6 +385,9 @@
     <EmbeddedResource Include="FormInitNewYear.resx">
       <DependentUpon>FormInitNewYear.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormLedger.resx">
+      <DependentUpon>FormLedger.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormLogin.resx">
       <SubType>Designer</SubType>
       <DependentUpon>FormLogin.cs</DependentUpon>
@@ -485,6 +495,7 @@
       <DependentUpon>BasicDataSet.xsd</DependentUpon>
     </None>
     <None Include="EmptyBasic.gz" />
+    <None Include="Properties\DataSources\CLedgerTable.datasource" />
     <None Include="VoucherExpense.gz" />
     <None Include="Properties\DataSources\CBankAccountForComboBox.datasource" />
     <None Include="Properties\DataSources\CBankDetail.datasource" />

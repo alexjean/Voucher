@@ -102,7 +102,7 @@
             this.bankDetailBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.bankDetailBindingNavigator.Name = "bankDetailBindingNavigator";
             this.bankDetailBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.bankDetailBindingNavigator.Size = new System.Drawing.Size(252, 27);
+            this.bankDetailBindingNavigator.Size = new System.Drawing.Size(249, 27);
             this.bankDetailBindingNavigator.TabIndex = 0;
             this.bankDetailBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -129,7 +129,7 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(32, 24);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 24);
             this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
@@ -370,6 +370,7 @@
             this.dataGridViewTextBoxColumn3.DataPropertyName = "TitleCode";
             this.dataGridViewTextBoxColumn3.DataSource = this.accountingTitleBindingSource;
             this.dataGridViewTextBoxColumn3.DisplayMember = "Name";
+            this.dataGridViewTextBoxColumn3.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
             this.dataGridViewTextBoxColumn3.HeaderText = "科目";
             this.dataGridViewTextBoxColumn3.MaxDropDownItems = 16;
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";

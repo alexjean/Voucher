@@ -440,6 +440,8 @@ namespace BakeryOrder
 #if DEBUG
             btnTestLeave.Visible=true;
             btnTestLeave.BringToFront();
+            checkBoxTest.Visible=true;
+            checkBoxTest.Checked=true;
 #endif
             for (int i = 0; i <= 9; i++)
             {

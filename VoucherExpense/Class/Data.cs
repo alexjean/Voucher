@@ -402,9 +402,10 @@ namespace VoucherExpense
     {
         public DateTime Date    { get; set; }
         public string   Note    { get; set; }
-        public decimal  debt    { get; set; }
-        public decimal  credit  { get; set; }
-        public decimal  sum     { get; set; }
+        public decimal  Debt    { get; set; }
+        public decimal  Credit  { get; set; }
+        public decimal  Sum     { get; set; }
+        public string OthersideAccTitle  { get; set; }    // otherside account title, 存的是名字,不是TitleCode
     }
 
 

@@ -17,11 +17,11 @@ namespace VoucherExpense
         }
 
 #if Define_Bakery
-        RevenueCalcBakery Revenue;
+        RevenueCalcBakery m_Revenue;
         BakeryOrderSetTableAdapters.HeaderTableAdapter headerTableAdapter = new BakeryOrderSetTableAdapters.HeaderTableAdapter();
         BakeryOrderSet bakeryOrderSet = new BakeryOrderSet();
 #else
-        RevenueCalc Revenue;
+        RevenueCalc m_Revenue;
         BasicDataSetTableAdapters.HeaderTableAdapter headerTableAdapter = new BasicDataSetTableAdapters.HeaderTableAdapter();
         BasicDataSet basicDataSet=new BasicDataSet();
 #endif
@@ -54,7 +54,7 @@ namespace VoucherExpense
                 return;
             }
             BakeryOrderSet.HeaderRow row = bakeryOrderSet.Header[count - 1];
-            Revenue = new RevenueCalcBakery(row.DataDate, 0);
+            m_Revenue = new RevenueCalcBakery(row.DataDate, 0);
 #else
             try
             {
@@ -70,7 +70,7 @@ namespace VoucherExpense
                 return;
             }
             BasicDataSet.HeaderRow row = basicDataSet.Header[count - 1];
-            Revenue = new RevenueCalc(row.DataDate,0);
+            m_Revenue = new RevenueCalc(row.DataDate,0);
 #endif
             AccList.NewAll();
             BankDictionary = new Dictionary<int, BankDefault>();
@@ -147,7 +147,7 @@ namespace VoucherExpense
             if (DontRefresh) return;
             if (m_SelectedMonth < 0 || m_SelectedMonth > 12)
             {
-                MessageBox.Show("請選擇月份!");
+                Message("請選擇月份!!!");
                 return;
             }
             CreateTable(m_SelectedMonth);
@@ -212,17 +212,18 @@ namespace VoucherExpense
             return false;
         }
 
-        MonthlyReportData CalcRevenue(int month)
+        MonthlyReportData CalcRevenue(int month,out List<MonthlyReportData> reportList)
         {
-            int year = Revenue.Year;
+            int year = m_Revenue.Year;
+            reportList = null;
             if (month < 1 || month > 12)
             {
                 MessageBox.Show("所選月份不對!");
                 return null;
             }
             Message("計算 " + month.ToString() + "月營業額");
-            if (RevenueCache[month - 1] != null)
-                return RevenueCache[month - 1];
+            //if (RevenueCache[month - 1] != null)    // 不能用Cache了
+            //    return RevenueCache[month - 1];
             int count = MyFunction.DayCountOfMonth(month);
             progressBar1.Minimum = 0;
             progressBar1.Maximum = count;
@@ -232,11 +233,11 @@ namespace VoucherExpense
             for (int i = 1; i <= count; i++)
             {
 #if Define_Bakery
-                if (Revenue.LoadData(bakeryOrderSet, month, i))
-                    list.Add(Revenue.Statics(bakeryOrderSet));
+                if (m_Revenue.LoadData(bakeryOrderSet, month, i))
+                    list.Add(m_Revenue.Statics(bakeryOrderSet));
 #else
-                if (Revenue.LoadData(basicDataSet, year, month, i, true))
-                    list.Add(Revenue.Statics(basicDataSet));
+                if (m_Revenue.LoadData(basicDataSet, year, month, i, true))
+                    list.Add(m_Revenue.Statics(basicDataSet));
 #endif
                 progressBar1.Value = i;
                 Application.DoEvents();
@@ -251,6 +252,7 @@ namespace VoucherExpense
                 total.CreditCard += d.CreditCard;
             }
             RevenueCache[month - 1] = total;       // 存到Cache裏
+            reportList = list;
             return total;
         }
 
@@ -258,7 +260,9 @@ namespace VoucherExpense
         decimal m_TitleSum = 0;  // 實科目算期初值用的
         int     m_Direction = 1; // 借方科目Direction -1 ,貸方科目Direction 1
         List<CLedgerRow> m_LedgerTable;
-        bool AddIfWant(DateTime date,string titleCode,string note, decimal money, bool isDebt,bool isCurrent,bool inDuration)
+
+        // othersideTitle第一個數字,就當TitleCode找出科目名字,要不然就直接填
+        bool AddIfWant(DateTime date,string titleCode,string note, decimal money, bool isDebt,bool isCurrent,bool inDuration,string othersideTitle)
         {
             if (titleCode != m_SelectedTitleCode) return false;
             if (!AccTitleList.IsVirtualTitle(titleCode))
@@ -270,13 +274,34 @@ namespace VoucherExpense
             if (!isCurrent) return true; // 不是本期的
             CLedgerRow row = new CLedgerRow();
             row.Date = date;
-            if (isDebt) { row.debt = money; row.credit = 0; }
-            else        { row.debt = 0;     row.credit = money; }
+            if (isDebt) { row.Debt = money; row.Credit = 0; }
+            else        { row.Debt = 0;     row.Credit = money; }
             row.Note = note;            // row.sum最後再一起算
+            string titleName = "";
+            if (othersideTitle != null)
+            {
+                if (char.IsDigit(othersideTitle[0]))
+                {
+                    int tmp;
+                    AccTitle t=NewList.FindTitleByCode(othersideTitle, out tmp);
+                    if (t != null) titleName = t.Name;
+                }
+                else
+                    titleName = othersideTitle;
+            }
+            row.OthersideAccTitle=titleName;
             m_LedgerTable.Add(row);
             return true;
         }
 
+
+        class AccTemp
+        {
+            public string Code;
+            public decimal Money;
+            public bool IsDebt;
+            public AccTemp(string code, decimal money, bool isDebt) { Code = code; Money = money; IsDebt = isDebt; }
+        }
         void CreateTable(int mon)
         {
             m_LedgerTable = new List<CLedgerRow>();
@@ -316,9 +341,8 @@ namespace VoucherExpense
                     continue;
                 int m1 = ro.ApplyTime.Month;
                 inDuration = InDuration(m1, mon);
+                if (!inDuration) continue;   // inDuratio 一定 isCurrent
                 isCurrent = IsCurrent(m1, mon);
-                if (!inDuration && !isCurrent) continue;
-
                 int bankID = 1;
                 if (!ro.IsBankAccountIDNull())
                     bankID = ro.BankAccountID;
@@ -326,11 +350,13 @@ namespace VoucherExpense
                 if (bankID == 1)  // 零用金戶 ,貸方一定是零用金, 資產項要累計
                 {   // +++ 計算貸方科目 +++
                     creditTitle = null;
-                    if (inDuration)                      // 期前的, 不用算實科目
+                    BankDefault bank;
+                    if (BankDictionary.TryGetValue(bankID, out bank))    // 如果沒有設定好銀行的TitleCode, 零用金會不平
+                        creditTitle = bank.BankCode;
+                    else
                     {
-                        BankDefault bank;
-                        if (BankDictionary.TryGetValue(bankID, out bank))    // 如果沒有設定好銀行的TitleCode, 零用金會不平
-                            creditTitle = bank.BankCode;
+                        MessageBox.Show("銀行帳号第一個<零用金>的設定有問題! 計算中止");
+                        return;
                     }
                     // +++ 計算借方科目 +++
                     if (ro.IsTitleCodeNull())
@@ -338,8 +364,8 @@ namespace VoucherExpense
                     else
                         debitTitle = ro.TitleCode;
                     //NewList.PostToAccount(debitTitle, creditTitle, ro.Money, isCurrent, inDuration);
-                    AddIfWant(ro.ApplyTime,debitTitle , ro.Note, ro.Money, true , isCurrent, inDuration);
-                    AddIfWant(ro.ApplyTime,creditTitle, ro.Note, ro.Money, false, isCurrent, inDuration);
+                    AddIfWant(ro.ApplyTime,debitTitle , ro.Note, ro.Money, true , isCurrent, inDuration,creditTitle);
+                    AddIfWant(ro.ApplyTime,creditTitle, ro.Note, ro.Money, false, isCurrent, inDuration,debitTitle);
                 }
                 else  // 非零用金
                 {
@@ -350,8 +376,8 @@ namespace VoucherExpense
                     //NewList.PostToAccount(debitTitle, creditTitle, ro.Money, isCurrent, inDuration);
                     string note = "";
                     if (!ro.IsNoteNull()) note = ro.Note;
-                    AddIfWant(ro.ApplyTime,debitTitle , note, ro.Money, true, isCurrent, inDuration);
-                    AddIfWant(ro.ApplyTime,creditTitle, note, ro.Money, false, isCurrent, inDuration);
+                    AddIfWant(ro.ApplyTime,debitTitle , note, ro.Money, true , isCurrent, inDuration,creditTitle);
+                    AddIfWant(ro.ApplyTime,creditTitle, note, ro.Money, false, isCurrent, inDuration,debitTitle);
                 }
             }
             #endregion
@@ -367,17 +393,26 @@ namespace VoucherExpense
                 int m1 = ro.AccVoucherTime.Month;
                 inDuration = InDuration(m1, mon);
                 isCurrent = IsCurrent(m1, mon);
-                if (!inDuration && !isCurrent) continue;
-                //if (!ro.IsTitleCode0Null() && (!ro.IsMoney0Null())) NewList.PostTo1Account(ro.TitleCode0, ro.Money0, ro.IsDebt0, isCurrent, inDuration);
-                //if (!ro.IsTitleCode1Null() && (!ro.IsMoney1Null())) NewList.PostTo1Account(ro.TitleCode1, ro.Money1, ro.IsDebt1, isCurrent, inDuration);
-                //if (!ro.IsTitleCode2Null() && (!ro.IsMoney2Null())) NewList.PostTo1Account(ro.TitleCode2, ro.Money2, ro.IsDebt2, isCurrent, inDuration);
-                //if (!ro.IsTitleCode3Null() && (!ro.IsMoney3Null())) NewList.PostTo1Account(ro.TitleCode3, ro.Money3, ro.IsDebt3, isCurrent, inDuration);
+                if (!inDuration) continue;
+                
+                string othersideAccTitle="<傳票"+ro.ID.ToString()+">";   // 第一個不是數字,就直接顯示
                 string note = "";
                 if (!ro.IsNoteNull()) note = ro.Note;
-                if (!ro.IsTitleCode0Null() && (!ro.IsMoney0Null())) AddIfWant(ro.AccVoucherTime,ro.TitleCode0, note, ro.Money0, ro.IsDebt0, isCurrent, inDuration);
-                if (!ro.IsTitleCode1Null() && (!ro.IsMoney1Null())) AddIfWant(ro.AccVoucherTime,ro.TitleCode1, note, ro.Money1, ro.IsDebt1, isCurrent, inDuration);
-                if (!ro.IsTitleCode2Null() && (!ro.IsMoney2Null())) AddIfWant(ro.AccVoucherTime,ro.TitleCode2, note, ro.Money2, ro.IsDebt2, isCurrent, inDuration);
-                if (!ro.IsTitleCode3Null() && (!ro.IsMoney3Null())) AddIfWant(ro.AccVoucherTime,ro.TitleCode3, note, ro.Money3, ro.IsDebt3, isCurrent, inDuration);
+                List<AccTemp> temp = new List<AccTemp>();
+                if (!ro.IsTitleCode0Null() && (!ro.IsMoney0Null()) && ro.Money0 != 0m) temp.Add(new AccTemp(ro.TitleCode0, ro.Money0, ro.IsDebt0));
+                if (!ro.IsTitleCode1Null() && (!ro.IsMoney1Null()) && ro.Money1 != 0m) temp.Add(new AccTemp(ro.TitleCode1, ro.Money1, ro.IsDebt1));
+                if (!ro.IsTitleCode2Null() && (!ro.IsMoney2Null()) && ro.Money2 != 0m) temp.Add(new AccTemp(ro.TitleCode2, ro.Money2, ro.IsDebt2));
+                if (!ro.IsTitleCode3Null() && (!ro.IsMoney3Null()) && ro.Money3 != 0m) temp.Add(new AccTemp(ro.TitleCode3, ro.Money3, ro.IsDebt3));
+                if (temp.Count == 2)    // 只有二個,可以把對沖科目列出
+                {
+                    AddIfWant(ro.AccVoucherTime, temp[0].Code, note, temp[0].Money, temp[0].IsDebt, isCurrent, inDuration, temp[1].Code);
+                    AddIfWant(ro.AccVoucherTime, temp[1].Code, note, temp[1].Money, temp[1].IsDebt, isCurrent, inDuration, temp[0].Code);
+                }
+                else
+                {
+                    foreach(AccTemp ac in temp)
+                        AddIfWant(ro.AccVoucherTime, ac.Code, note, ac.Money, ac.IsDebt, isCurrent, inDuration, othersideAccTitle);
+                }
             }
             #endregion
 
@@ -401,16 +436,17 @@ namespace VoucherExpense
                 if (ro.IsCostNull()) continue;
                 inDuration = InDuration(m1, mon);
                 isCurrent = IsCurrent(m1, mon);
+                string vendorName="";
+                string sID=ro.ID.ToString();
+                if (ro.VendorRow!=null)
+                    vendorName=ro.VendorRow.Name;
                 if (inDuration) 
                 {
                     shouldPayMonth[m1] += ro.Cost;
                     if (shouldPay.Code==m_SelectedTitleCode)            // 先檢查下不浪費找SubRow時間
                     {
-                        string note="";
-                        if (ro.VendorRow!=null)                 // 應付帳款,note放廠商名 單号
-                            note+=ro.VendorRow.Name;
-                        note+=(" 單号"+ro.VoucherID.ToString());
-                        AddIfWant(ro.StockTime,shouldPay.Code,note,ro.Cost,false,isCurrent ,inDuration);
+                        string note=vendorName;     // 應付帳款,note放廠商名 ,對立科目放貨單号
+                        AddIfWant(ro.StockTime,shouldPay.Code,note,ro.Cost,false,isCurrent ,inDuration,"<貨單"+sID+">");
                     }
                 }
                 if (IsCurrent(m1, mon))  // 加總到每個成本科目去 
@@ -430,7 +466,7 @@ namespace VoucherExpense
                                     note+=r1.IngredientRow.Name.ToString();
                                 if (!r1.IsVolumeNull())
                                     note+="  "+r1.Volume.ToString();
-                                AddIfWant(ro.StockTime,r.Code,note, r1.Cost, true, isCurrent,inDuration);
+                                AddIfWant(ro.StockTime,r.Code,note, r1.Cost, true, isCurrent,inDuration,shouldPay.Name+"--"+vendorName);
                             }
                         }
                         //r.Add(r1.Cost);
@@ -458,19 +494,26 @@ namespace VoucherExpense
             for (int m1 = 1; m1 <= 12; m1++)
             {
                 inDuration = InDuration(m1, mon);
+                if (!inDuration) continue;
                 isCurrent = IsCurrent(m1, mon);
-                if (!inDuration && !isCurrent) continue;
-                total = CalcRevenue(m1);
+                List<MonthlyReportData> list;
+                total = CalcRevenue(m1,out list);   // RevenueCalc需要Header.Date 己經在FormLoad時給值
                 if (isCurrent)
                 {
                     if (cash   != null) cash.Add(total.Cash);
                     if (credit != null) credit.Add(total.CreditCard);
+                    foreach (MonthlyReportData report in list)
+                    {
+                        DateTime da = new DateTime(MyFunction.IntHeaderYear, m1,(int)report.Date);
+                        string note=m1.ToString()+"月"+report.Date.ToString()+"日 ";
+                        AddIfWant(da, cash.Code             , cash.Name             + note  , report.Cash      , false, isCurrent, inDuration, cashReceivable.Code);
+                        AddIfWant(da, cashReceivable.Code   , cashReceivable.Name   + note  , report.Cash      , true , isCurrent, inDuration, cash.Code);
+                        AddIfWant(da, credit.Code           , credit.Name           + note  , report.CreditCard, false, isCurrent, inDuration, creditReceivable.Code);
+                        AddIfWant(da, creditReceivable.Code , creditReceivable.Name + note  , report.CreditCard, true, isCurrent, inDuration, credit.Code);
+                    }
                 }
-                if (inDuration)
-                {
-                    if (cashReceivable   != null) cashReceivable.Add(total.Cash);
-                    if (creditReceivable != null) creditReceivable.Add(total.CreditCard);
-                }
+                if (cashReceivable   != null) cashReceivable.Add(total.Cash);
+                if (creditReceivable != null) creditReceivable.Add(total.CreditCard);
             }
             #endregion
             //            MessageBox.Show("計算銀行前 1040 刷卡應付 " + creditReceivable.Money.ToString("N1"));
@@ -507,8 +550,8 @@ namespace VoucherExpense
                 //    NewList.PostToAccount(bank.BankCode, code, ro.Money, isCurrent, inDuration, bank.DefaultTitle);
                 string note = "";
                 if (!ro.IsNoteNull()) note = ro.Note;
-                AddIfWant(ro.Day, code          , note, ro.Money,isPay , isCurrent, inDuration);
-                AddIfWant(ro.Day, bank.BankCode , note, ro.Money,!isPay , isCurrent, inDuration);
+                AddIfWant(ro.Day, code          , note, ro.Money,isPay  , isCurrent, inDuration,bank.BankCode);
+                AddIfWant(ro.Day, bank.BankCode , note, ro.Money,!isPay , isCurrent, inDuration,code);
             }
             #endregion
             Comparison<CLedgerRow> compare = new Comparison<CLedgerRow>(CompareDate);
@@ -523,22 +566,22 @@ namespace VoucherExpense
                 row.Note="期初值";
                 if (m_TitleSum>=0)
                 {
-                    if (isDebtTitle) { row.debt=m_TitleSum; row.credit=0;           }
-                    else             { row.debt=0;          row.credit=m_TitleSum;  }
+                    if (isDebtTitle) { row.Debt=m_TitleSum; row.Credit=0;           }
+                    else             { row.Debt=0;          row.Credit=m_TitleSum;  }
                 }
                 else
                 {
-                    if (isDebtTitle) { row.debt=0;           row.credit=-m_TitleSum; }
-                    else             { row.debt=-m_TitleSum; row.credit=0;           }
+                    if (isDebtTitle) { row.Debt=0;           row.Credit=-m_TitleSum; }
+                    else             { row.Debt=-m_TitleSum; row.Credit=0;           }
                 }
                 m_LedgerTable.Insert(0,row);
             }
             decimal sum=0;
             foreach (CLedgerRow r in m_LedgerTable)
             {
-                if (isDebtTitle) sum=sum-r.credit+r.debt;
-                else             sum=sum+r.credit-r.debt;
-                r.sum = sum;
+                if (isDebtTitle) sum=sum-r.Credit+r.Debt;
+                else             sum=sum+r.Credit-r.Debt;
+                r.Sum = sum;
             }
             cLedgerTableDataGridView.DataSource = m_LedgerTable;
             Message("");

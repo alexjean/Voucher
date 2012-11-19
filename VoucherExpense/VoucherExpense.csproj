@@ -39,7 +39,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;Define_Bakery</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
@@ -48,7 +48,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;Define_Bakery</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
@@ -495,7 +495,7 @@
       <DependentUpon>BasicDataSet.xsd</DependentUpon>
     </None>
     <None Include="EmptyBasic.gz" />
-    <None Include="Properties\DataSources\CLedgerTable.datasource" />
+    <None Include="Properties\DataSources\CLedgerRow.datasource" />
     <None Include="VoucherExpense.gz" />
     <None Include="Properties\DataSources\CBankAccountForComboBox.datasource" />
     <None Include="Properties\DataSources\CBankDetail.datasource" />

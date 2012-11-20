@@ -375,29 +375,29 @@ namespace VoucherExpense
 
         private void 銷售統計ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PopupOrRun("SoldProducts", typeof(FormSoldProducts));
+#if Define_Bakery            
+            PopupOrRun("SoldProducts", typeof(BakerySoldProducts));
+#else
+            PopupOrRun("SoldProducts", typeof(BasicSoldProducts));
+#endif
+
         }
 
-        
-        private void 烘培產品MenuItem_Click(object sender, EventArgs e)
+        private void 產品表MenuItem_Click(object sender, EventArgs e)
         {
-            PopupOrRun("烘培產品",typeof(EditBakeryProduct));
-        }
-
-        private void 烘培菜單MenuItem_Click(object sender, EventArgs e)
-        {
-            PopupOrRun("EditBakeryMenu", typeof(EditBakeryMenu));
-        }        
-
-        // BasicData目前被冰凍
-        private void 餐飲產品MenuItem_Click(object sender, EventArgs e)
-        {
+#if Define_Bakery
+            PopupOrRun("烘培產品", typeof(EditBakeryProduct));
+#else
             PopupOrRun("餐飲產品", typeof(EditBasicProduct));
+#endif
         }
-        // BasicData目前被冰凍
-        private void 餐飲菜單MenuItem_Click(object sender, EventArgs e)
+        private void 編修菜單MenuItem_Click(object sender, EventArgs e)
         {
+#if Define_Bakery
+            PopupOrRun("EditBakeryMenu", typeof(EditBakeryMenu));
+#else
             PopupOrRun("餐飲菜單", typeof(EditBasicMenu));
+#endif
         }
 
         private void 收銀授權ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -409,7 +409,8 @@ namespace VoucherExpense
         {
             PopupOrRun("分類帳", typeof(FormLedger));
         }
-      
+
+           
         //private void 盤點ToolStripMenuItem_Click(object sender, EventArgs e)
         //{
         //    PopupOrRun("Stock", typeof(FormStock));

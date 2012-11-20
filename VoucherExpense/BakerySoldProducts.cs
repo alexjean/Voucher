@@ -10,14 +10,14 @@ using System.IO;
 
 namespace VoucherExpense
 {
-    public partial class FormSoldProducts : Form
+    public partial class BakerySoldProducts : Form
     {
         List<CSaleItem> m_SaleList = new List<CSaleItem>();
         
         private Config Cfg = new Config();
         private string ConfigName = "SoldIngredients";
 
-        public FormSoldProducts()
+        public BakerySoldProducts()
         {
             InitializeComponent();
         }
@@ -82,11 +82,10 @@ namespace VoucherExpense
 
         private void FormSoldIngredients_Load(object sender, EventArgs e)
         {
-            m_OrderAdapter.Connection       = MapPath.BasicConnection;
-            m_OrderItemAdapter.Connection   = MapPath.BasicConnection;
-            productTableAdapter.Connection  = MapPath.BasicConnection;
-
-            this.productTableAdapter.Fill(this.basicDataSet.Product);
+            m_OrderAdapter.Connection = MapPath.BakeryConnection;
+            m_OrderItemAdapter.Connection   = MapPath.BakeryConnection;
+            productTableAdapter.Connection  = MapPath.BakeryConnection;
+            productTableAdapter.Fill(bakeryOrderSet.Product);
 
             cbBoxMonth.Items.Clear();
             for (int i = 1; i <= 12; i++)
@@ -172,25 +171,25 @@ namespace VoucherExpense
                 return;
             }
             textBoxName.Text = tableName;
-            int code;
+            int productID;
             XmlNode sale = root.SelectSingleNode("Product");
 //            XmlNode stock = root.SelectSingleNode("Ingredient");
             m_SaleList = new List<CSaleItem>();
 //            m_StockList = new List<StockItem>();
             foreach (XmlNode node in sale.ChildNodes)
             {
-                if (node.Name != "Code") continue;
-                code = 0;
+                if (node.Name != "ProductID") continue;
+                productID = 0;
                 try
                 {
-                    code = Convert.ToInt32(node.InnerText);
+                    productID = Convert.ToInt32(node.InnerText);
                 }
                 catch { continue; }
-                if (code <= 0) continue;
-                CSaleItem m = new CSaleItem(code);
-                foreach (BasicDataSet.ProductRow row in this.basicDataSet.Product)
+                if (productID <= 0) continue;
+                CSaleItem m = new CSaleItem(productID);
+                foreach (BakeryOrderSet.ProductRow row in this.bakeryOrderSet.Product)
                 {
-                    if (row.Code == code)
+                    if (row.ProductID == productID)
                     {
                         if (!row.IsPriceNull())
                             m.Price = (decimal)row.Price;
@@ -213,7 +212,7 @@ namespace VoucherExpense
             foreach (CSaleItem item in m_SaleList)
             {
                 if (item.ProductID < 1) continue;
-                xml.Append("<Code>" + item.ProductID.ToString() + "</Code>");
+                xml.Append("<ProductID>" + item.ProductID.ToString() + "</ProductID>");
             }
             xml.Append("</Product>");
             xml.Append("</" + ConfigName + ">");
@@ -256,10 +255,10 @@ namespace VoucherExpense
         OrderAdapter m_OrderAdapter = new OrderAdapter();
         OrderItemAdapter m_OrderItemAdapter = new OrderItemAdapter();
 
-        class OrderAdapter : BasicDataSetTableAdapters.OrderTableAdapter
+        class OrderAdapter : BakeryOrderSetTableAdapters.OrderTableAdapter
         {
             string SaveStr;
-            public int FillBySelectStr(BasicDataSet.OrderDataTable dataTable, string SelectStr)
+            public int FillBySelectStr(BakeryOrderSet.OrderDataTable dataTable, string SelectStr)
             {
                 SaveStr = base.CommandCollection[0].CommandText;
                 base.CommandCollection[0].CommandText = SelectStr;
@@ -268,10 +267,10 @@ namespace VoucherExpense
                 return result;
             }
         }
-        class OrderItemAdapter : BasicDataSetTableAdapters.OrderItemTableAdapter
+        class OrderItemAdapter : BakeryOrderSetTableAdapters.OrderItemTableAdapter
         {
             string SaveStr;
-            public int FillBySelectStr(BasicDataSet.OrderItemDataTable dataTable, string SelectStr)
+            public int FillBySelectStr(BakeryOrderSet.OrderItemDataTable dataTable, string SelectStr)
             {
                 SaveStr = base.CommandCollection[0].CommandText;
                 base.CommandCollection[0].CommandText = SelectStr;
@@ -316,13 +315,13 @@ namespace VoucherExpense
                     DateTime next = new DateTime(year, month, to);
                     sql = "Where (INT(ID/10000)>=" + DateStr(prev)
                         + " And INT(ID/10000)<=" + DateStr(next) + ")";
-                    BasicDataSet.OrderDataTable temp = new BasicDataSet.OrderDataTable();
+                    BakeryOrderSet.OrderDataTable temp = new BakeryOrderSet.OrderDataTable();
                     m_OrderAdapter.FillBySelectStr(temp, "Select * From [Order] " + sql + " Order by ID");
                     int nextID = IDTagHead(next.Year, next.Month, next.Day);
                     int prevID = IDTagHead(prev.Year, prev.Month, prev.Day);
-                    basicDataSet.Order.Clear();
+                    bakeryOrderSet.Order.Clear();
 
-                    foreach (BasicDataSet.OrderRow r in temp)
+                    foreach (BakeryOrderSet.OrderRow r in temp)
                     {
                         int idHead = r.ID / 10000;
                         if (idHead == nextID)
@@ -333,18 +332,18 @@ namespace VoucherExpense
                         {
                             if (r.PrintTime.Hour >= 7) continue;
                         }
-                        BasicDataSet.OrderRow oRow = basicDataSet.Order.NewOrderRow();
+                        BakeryOrderSet.OrderRow oRow = bakeryOrderSet.Order.NewOrderRow();
                         oRow.ItemArray = r.ItemArray;
-                        basicDataSet.Order.AddOrderRow(oRow);
+                        bakeryOrderSet.Order.AddOrderRow(oRow);
                     }
                 }
                 else
                 {
                     sql = "Where (INT(ID/10000)>=" + DateStr(year, month, from)
                         + " And INT(ID/10000)<=" + DateStr(year, month, to) + ")";
-                    m_OrderAdapter.FillBySelectStr(basicDataSet.Order, "Select * From [Order] " + sql + " Order by ID");
+                    m_OrderAdapter.FillBySelectStr(bakeryOrderSet.Order, "Select * From [Order] " + sql + " Order by ID");
                 }
-                m_OrderItemAdapter.FillBySelectStr(basicDataSet.OrderItem, "Select * From [OrderItem] " + sql);
+                m_OrderItemAdapter.FillBySelectStr(bakeryOrderSet.OrderItem, "Select * From [OrderItem] " + sql);
             }
             catch (Exception ex)
             {
@@ -376,15 +375,15 @@ namespace VoucherExpense
             }
             labelMessage.Text = "計算中...";
 
-            InitProgressBar(basicDataSet.Order.Count);
+            InitProgressBar(bakeryOrderSet.Order.Count);
             Application.DoEvents();
 
             bool[] debug = new bool[count];   // items code會重複, 不知為何 ,只好用此辦法
-            foreach (BasicDataSet.OrderRow row in basicDataSet.Order)
+            foreach (BakeryOrderSet.OrderRow row in bakeryOrderSet.Order)
             {
-                BasicDataSet.OrderItemRow[] items = row.GetOrderItemRows();
+                BakeryOrderSet.OrderItemRow[] items = row.GetOrderItemRows();
                 for (int i = 0; i < count; i++) debug[i] = false;
-                foreach (BasicDataSet.OrderItemRow it in items)
+                foreach (BakeryOrderSet.OrderItemRow it in items)
                 {
                     if (it.IsProductIDNull()) continue;
                     for (int i = 0; i < m_SaleList.Count; i++)
@@ -510,7 +509,7 @@ namespace VoucherExpense
             Buf.SetEncoding(GB2312);
 
             Buf.Append(BorderMode);                                      // 設定列印模式28
-            Buf.Append("     吴记老锅底大华店\r\n", GB2312);
+//            Buf.Append("     吴记老锅底大华店\r\n", GB2312);
             Buf.Append("     销售物料统计表\r\n"  , GB2312);
             Buf.Append(NormalMode);                                      // 設定列印模式正常 
 

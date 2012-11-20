@@ -39,7 +39,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;Define_Bakery</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
@@ -270,11 +270,11 @@
     <Compile Include="FormShift.Designer.cs">
       <DependentUpon>FormShift.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormSoldProducts.cs">
+    <Compile Include="BasicSoldProducts.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormSoldProducts.Designer.cs">
-      <DependentUpon>FormSoldProducts.cs</DependentUpon>
+    <Compile Include="BasicSoldProducts.Designer.cs">
+      <DependentUpon>BasicSoldProducts.cs</DependentUpon>
     </Compile>
     <Compile Include="FormStock.cs">
       <SubType>Form</SubType>
@@ -329,6 +329,12 @@
     </Compile>
     <Compile Include="MonthlyReportBakery.designer.cs">
       <DependentUpon>MonthlyReportBakery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BakerySoldProducts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BakerySoldProducts.Designer.cs">
+      <DependentUpon>BakerySoldProducts.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="AccountingTitle.resx">
       <SubType>Designer</SubType>
@@ -412,8 +418,8 @@
     <EmbeddedResource Include="FormShift.resx">
       <DependentUpon>FormShift.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormSoldProducts.resx">
-      <DependentUpon>FormSoldProducts.cs</DependentUpon>
+    <EmbeddedResource Include="BasicSoldProducts.resx">
+      <DependentUpon>BasicSoldProducts.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormStock.resx">
       <DependentUpon>FormStock.cs</DependentUpon>
@@ -470,6 +476,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MonthlyReportBakery.resx">
       <DependentUpon>MonthlyReportBakery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BakerySoldProducts.resx">
+      <DependentUpon>BakerySoldProducts.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="BakeryOrderSet.xsc">

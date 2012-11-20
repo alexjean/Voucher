@@ -667,7 +667,7 @@ namespace VoucherExpense
             int imgHeight = 48;
             range = sheet.Rows[1];
             range.RowHeight = imgHeight+2;
-            Bitmap img = GetThumbnail(global::VoucherExpense.Properties.Resources.LogoVI, imgHeight*4/3);   // 一般圖是96DPI,換算就是4pixels=3單位
+            Bitmap img = MyFunction.GetThumbnail(global::VoucherExpense.Properties.Resources.LogoVI, imgHeight*4/3);   // 一般圖是96DPI,換算就是4pixels=3單位
             range = sheet.Cells[1, 1];
             Clipboard.SetDataObject(img, true);
             sheet.Paste(range, "LogoVI");
@@ -734,21 +734,6 @@ namespace VoucherExpense
             excel.Quit();
         }
 
-        Bitmap GetThumbnail(Bitmap img,int newHeight)
-        {
-            int x = img.Size.Width;
-            int y = img.Size.Height;
-            int y1 = newHeight;
-            int x1 = x*y1 / y;
-            Bitmap newbmp = new Bitmap(x1, y1);
-            Graphics g = Graphics.FromImage(newbmp);
-            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-            g.SmoothingMode = SmoothingMode.HighQuality;
-            g.CompositingQuality = CompositingQuality.HighQuality;
-            g.DrawImage(img, new Rectangle(0, 0, x1, y1), new Rectangle(0, 0, img.Width, img.Height), GraphicsUnit.Pixel);
-            g.Dispose();
-            return newbmp;
-
-        }
+ 
     }
 }

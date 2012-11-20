@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Data.OleDb;
+using System.Drawing.Drawing2D;
 
 namespace VoucherExpense
 {
@@ -468,6 +469,23 @@ namespace VoucherExpense
                 if (destStream != null) destStream.Close();
             }
             return flag;
+        }
+
+        static public Bitmap GetThumbnail(Bitmap img, int newHeight)
+        {
+            int x = img.Size.Width;
+            int y = img.Size.Height;
+            int y1 = newHeight;
+            int x1 = x * y1 / y;
+            Bitmap newbmp = new Bitmap(x1, y1);
+            Graphics g = Graphics.FromImage(newbmp);
+            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            g.SmoothingMode = SmoothingMode.HighQuality;
+            g.CompositingQuality = CompositingQuality.HighQuality;
+            g.DrawImage(img, new Rectangle(0, 0, x1, y1), new Rectangle(0, 0, img.Width, img.Height), GraphicsUnit.Pixel);
+            g.Dispose();
+            return newbmp;
+
         }
 
     }

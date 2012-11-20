@@ -462,10 +462,14 @@ namespace VoucherExpense
                             if (r.Code==m_SelectedTitleCode)          // 要找SubRow費時,先檢查一下  
                             {
                                 string note="<"+ro.ID.ToString("d4")+"> ";
-                                if (r1.IngredientRow!=null && (!r1.IngredientRow.IsNameNull()))
-                                    note+=r1.IngredientRow.Name.ToString();
+                                VEDataSet.IngredientRow ingredient = r1.IngredientRow;
+                                if (ingredient!=null && (!ingredient.IsNameNull()))
+                                    note+=r1.IngredientRow.Name;
                                 if (!r1.IsVolumeNull())
                                     note+="  "+r1.Volume.ToString();
+                                if (ingredient != null && (!ingredient.IsUnitNull()))
+                                    note += ingredient.Unit;
+                                
                                 AddIfWant(ro.StockTime,r.Code,note, r1.Cost, true, isCurrent,inDuration,shouldPay.Name+"--"+vendorName);
                             }
                         }
@@ -504,12 +508,19 @@ namespace VoucherExpense
                     if (credit != null) credit.Add(total.CreditCard);
                     foreach (MonthlyReportData report in list)
                     {
+                        
                         DateTime da = new DateTime(MyFunction.IntHeaderYear, m1,(int)report.Date);
                         string note=m1.ToString()+"月"+report.Date.ToString()+"日 ";
-                        AddIfWant(da, cash.Code             , cash.Name             + note  , report.Cash      , false, isCurrent, inDuration, cashReceivable.Code);
-                        AddIfWant(da, cashReceivable.Code   , cashReceivable.Name   + note  , report.Cash      , true , isCurrent, inDuration, cash.Code);
-                        AddIfWant(da, credit.Code           , credit.Name           + note  , report.CreditCard, false, isCurrent, inDuration, creditReceivable.Code);
-                        AddIfWant(da, creditReceivable.Code , creditReceivable.Name + note  , report.CreditCard, true, isCurrent, inDuration, credit.Code);
+                        if (report.Cash != 0m)
+                        {
+                            AddIfWant(da, cash.Code, cash.Name + note, report.Cash, false, isCurrent, inDuration, cashReceivable.Code);
+                            AddIfWant(da, cashReceivable.Code, cashReceivable.Name + note, report.Cash, true, isCurrent, inDuration, cash.Code);
+                        }
+                        if (report.CreditCard != 0m)
+                        {
+                            AddIfWant(da, credit.Code, credit.Name + note, report.CreditCard, false, isCurrent, inDuration, creditReceivable.Code);
+                            AddIfWant(da, creditReceivable.Code, creditReceivable.Name + note, report.CreditCard, true, isCurrent, inDuration, credit.Code);
+                        }
                     }
                 }
                 if (cashReceivable   != null) cashReceivable.Add(total.Cash);
@@ -594,6 +605,95 @@ namespace VoucherExpense
             if (t1 > t2) return 1;
             if (t1 < t2) return -1;
             return 0;
+        }
+
+        private void btnExport2Excel_Click(object sender, EventArgs e)
+        {
+            if (m_SelectedMonth<0) 
+            {
+                Message("請先選擇月份!!");
+                return;
+            }
+            Microsoft.Office.Interop.Excel.Application excel;
+            Microsoft.Office.Interop.Excel.Worksheet sheet;
+            Microsoft.Office.Interop.Excel.Workbook book;
+            try
+            {
+                excel = new Microsoft.Office.Interop.Excel.Application();
+                book = excel.Application.Workbooks.Add(true);
+                sheet = book.Worksheets[1];
+                sheet.Name = comboBoxMonth.SelectedItem.ToString() + "費用";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("開啟Excel出錯,原因:" + ex.Message);
+                return;
+            }
+            excel.Visible = true;
+            DataGridView view = cLedgerTableDataGridView;
+            Microsoft.Office.Interop.Excel.Range range;
+            int i = 1;
+            // 插入Logo圖片
+            int imgHeight = 48;
+            range = sheet.Rows[1];
+            range.RowHeight = imgHeight + 2;
+            Bitmap img = MyFunction.GetThumbnail(global::VoucherExpense.Properties.Resources.LogoVI, imgHeight * 4 / 3);   // 一般圖是96DPI,換算就是4pixels=3單位
+            range = sheet.Cells[1, 1];
+            Clipboard.SetDataObject(img, true);
+            sheet.Paste(range, "LogoVI");
+
+            //欄位表頭
+            i++;
+
+            sheet.Cells[i, 1] = "日期";
+            range = sheet.Columns[1];
+            range.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignLeft;
+            range.ColumnWidth = 10;
+
+            sheet.Cells[i, 2] = "摘要";
+            range = sheet.Columns[2];
+            range.ColumnWidth = 30;
+
+            sheet.Cells[i, 3] = "借方";
+            range = sheet.Columns[3];
+            range.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignRight;
+            sheet.Cells[i, 4] = "貸方";
+            range = sheet.Columns[4];
+            range.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignRight;
+
+            sheet.Cells[i, 5] = "餘額";
+            range = sheet.Columns[5];
+            range.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignRight;
+
+            sheet.Cells[i, 6] = "科目";
+
+
+            i++;
+            foreach (DataGridViewRow vr in view.Rows)
+            {
+                sheet.Cells[i, 1] = vr.Cells[0].FormattedValue;         // 日期
+                sheet.Cells[i, 2] = "'" + vr.Cells[1].FormattedValue;   // 摘要
+                sheet.Cells[i, 3] = vr.Cells[2].FormattedValue;         // 借方
+                sheet.Cells[i, 4] = vr.Cells[3].FormattedValue;         // 貸方
+                sheet.Cells[i, 5] = vr.Cells[4].FormattedValue;         // 餘額
+                sheet.Cells[i, 6] = vr.Cells[5].FormattedValue;         // 對沖科目
+
+                //DataRowView rowView = vr.DataBoundItem as DataRowView;
+                //VEDataSet.ExpenseRow row =  rowView.Row as VEDataSet.ExpenseRow;
+                //if (!row.IsInnerIDNull())   sheet.Cells[i, 1] = row.InnerID;
+                //                            sheet.Cells[i, 2] = row.ApplyTime;
+                //if (!row.IsNoteNull())      sheet.Cells[i, 3] = row.Note;
+                //if (!row.IsTitleCodeNull()) sheet.Cells[i, 4] = "'"+row.TitleCode.ToString();
+                //if (!row.IsMoneyNull())     sheet.Cells[i, 5] = row.Money;
+                //if (!row.IsApplierIDNull())
+                //{
+                //    sheet.Cells[i, 6] = row.ApplierID;
+                //}
+                i++;
+            }
+            sheet.Cells[i++, 2] = "'================================================";
+            excel.Quit();
+
         }
 
     }

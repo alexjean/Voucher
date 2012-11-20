@@ -124,7 +124,7 @@ namespace VoucherExpense
                     for (int i = 0; i < m_SaleList.Count; i++)
                     {
                         CSaleItem m = m_SaleList[i];
-                        if (m.Code == it.Code)
+                        if (m.ProductID == it.ProductID)
                         {
                             if (debug[i]) break;        // 重複算了二次, items存入有bug,只好先跳掉
                             debug[i] = true;
@@ -151,7 +151,7 @@ namespace VoucherExpense
         {
             List<StockItem> list = new List<StockItem>();
             foreach (StockItem item in m_StockList)
-                list.Add(new StockItem(item.Code));
+                list.Add(new StockItem(item.IngredientID));
             VEDataSet.VoucherDataTable voucher = new VEDataSet.VoucherDataTable();
             int count = 0, checkedCount = 0;
             foreach (VEDataSet.VoucherRow vr in vEDataSet.Voucher)
@@ -172,16 +172,16 @@ namespace VoucherExpense
                 decimal checkSum = 0;
                 foreach (VEDataSet.VoucherDetailRow dr in vr.GetVoucherDetailRows())
                 {
-                    if (dr.IsIngredientCodeNull()) continue;
+                    if (dr.IsIngredientIDNull()) continue;
 
                     decimal co = 0, vo = 0;
                     if (!dr.IsCostNull()) co = dr.Cost;
                     
                     checkSum += co;
-                    int code = dr.IngredientCode;
+                    int ingredientID = dr.IngredientID;
                     foreach (StockItem p in list)
                     {
-                        if (p.Code == code)
+                        if (p.IngredientID == ingredientID)
                         {
                             p.TotalCost += co;
                             p.OrderCount++;

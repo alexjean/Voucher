@@ -102,7 +102,7 @@
             this.lockedCheckBox = new System.Windows.Forms.CheckBox();
             this.detailColumnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnVoID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgIngredientCodeColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.dgIngredientIDColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.dgVolumeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IngredientCode = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.dgCostColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -502,7 +502,7 @@
             this.voucherDetailDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.detailColumnID,
             this.columnVoID,
-            this.dgIngredientCodeColumn,
+            this.dgIngredientIDColumn,
             this.dgVolumeColumn,
             this.IngredientCode,
             this.dgCostColumn,
@@ -788,19 +788,19 @@
             this.columnVoID.ReadOnly = true;
             this.columnVoID.Visible = false;
             // 
-            // dgIngredientCodeColumn
+            // dgIngredientIDColumn
             // 
-            this.dgIngredientCodeColumn.DataPropertyName = "IngredientCode";
-            this.dgIngredientCodeColumn.DataSource = this.IngredientBindingSource;
-            this.dgIngredientCodeColumn.DisplayMember = "Name";
-            this.dgIngredientCodeColumn.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.dgIngredientCodeColumn.HeaderText = "食材";
-            this.dgIngredientCodeColumn.MaxDropDownItems = 22;
-            this.dgIngredientCodeColumn.Name = "dgIngredientCodeColumn";
-            this.dgIngredientCodeColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgIngredientCodeColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dgIngredientCodeColumn.ValueMember = "IngredientID";
-            this.dgIngredientCodeColumn.Width = 232;
+            this.dgIngredientIDColumn.DataPropertyName = "IngredientID";
+            this.dgIngredientIDColumn.DataSource = this.IngredientBindingSource;
+            this.dgIngredientIDColumn.DisplayMember = "Name";
+            this.dgIngredientIDColumn.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.dgIngredientIDColumn.HeaderText = "食材";
+            this.dgIngredientIDColumn.MaxDropDownItems = 22;
+            this.dgIngredientIDColumn.Name = "dgIngredientIDColumn";
+            this.dgIngredientIDColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgIngredientIDColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dgIngredientIDColumn.ValueMember = "IngredientID";
+            this.dgIngredientIDColumn.Width = 232;
             // 
             // dgVolumeColumn
             // 
@@ -961,7 +961,7 @@
         private System.Windows.Forms.CheckBox lockedCheckBox;
         private System.Windows.Forms.DataGridViewTextBoxColumn detailColumnID;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnVoID;
-        private System.Windows.Forms.DataGridViewComboBoxColumn dgIngredientCodeColumn;
+        private System.Windows.Forms.DataGridViewComboBoxColumn dgIngredientIDColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgVolumeColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn IngredientCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgCostColumn;

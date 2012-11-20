@@ -343,10 +343,10 @@ namespace VoucherExpense
     // 在 SaleSpendRatio.cs和FormSoldIngredients.cs中使用
     public class CSaleItem  
     {
-        public CSaleItem() { Code = 0; Volume = 0; }  // 必需有這行BindingSource才能AllowNew
-        public CSaleItem(int code) { Code = code; Volume = 0; }
-
-        public int Code { get; set; }
+        public CSaleItem() { ProductID = 0; Volume = 0; }  // 必需有這行BindingSource才能AllowNew
+        public CSaleItem(int productID) { ProductID = productID; Volume = 0; }
+//        public int Code { get; set; }
+        public int ProductID { get; set; }
         public decimal Volume { get; set; }
         public decimal Price { get; set; }
         public decimal Total { get; set; }

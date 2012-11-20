@@ -31,10 +31,6 @@ namespace VoucherExpense
             btnDelete.Visible = flag;
             btnExport.Visible = flag;
             btnImport.Visible = flag;
-            DataGridViewComboBoxDisplayStyle style;
-            if (flag) style = DataGridViewComboBoxDisplayStyle.DropDownButton;
-            else style = DataGridViewComboBoxDisplayStyle.Nothing;
-            codeColumnSale.DisplayStyle = style;
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -216,8 +212,8 @@ namespace VoucherExpense
             xml.Append("<Product>");
             foreach (CSaleItem item in m_SaleList)
             {
-                if (item.Code < 1) continue;
-                xml.Append("<Code>" + item.Code.ToString() + "</Code>");
+                if (item.ProductID < 1) continue;
+                xml.Append("<Code>" + item.ProductID.ToString() + "</Code>");
             }
             xml.Append("</Product>");
             xml.Append("</" + ConfigName + ">");
@@ -390,10 +386,11 @@ namespace VoucherExpense
                 for (int i = 0; i < count; i++) debug[i] = false;
                 foreach (BasicDataSet.OrderItemRow it in items)
                 {
+                    if (it.IsProductIDNull()) continue;
                     for (int i = 0; i < m_SaleList.Count; i++)
                     {
                         CSaleItem m = m_SaleList[i];
-                        if (m.Code == it.Code)
+                        if (m.ProductID == it.ProductID)
                         {
                             if (debug[i]) break;        // 重複算了二次, items存入有bug,只好先跳掉
                             debug[i] = true;
@@ -467,8 +464,8 @@ namespace VoucherExpense
 
         void Item2Buffer(ByteBuilder Buf, CSaleItem item)
         {
-            int index = productBindingSource.Find("Code", item.Code);
-            string s="產品"+item.Code.ToString();
+            int index = productBindingSource.Find("ProductID", item.ProductID);
+            string s="產品"+item.ProductID.ToString();
             if (index >= 0)
             {
                 object o = productBindingSource.DataSource;

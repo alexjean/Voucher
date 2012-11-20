@@ -81,12 +81,12 @@ namespace VoucherExpense
                 decimal checkSum = 0;
                 foreach (VEDataSet.VoucherDetailRow dr in vr.GetVoucherDetailRows())
                 {
-                    if (dr.IsIngredientCodeNull()) continue;
+                    if (dr.IsIngredientIDNull()) continue;
                     decimal co=0,vo=0;
                     if (!dr.IsCostNull())   co = dr.Cost;
                     if (!dr.IsVolumeNull()) vo = dr.Volume;
                     checkSum += co;
-                    Add2List(list,dr.IngredientCode, co, vo);
+                    Add2List(list,dr.IngredientID, co, vo);
                 }
                 decimal vrCost=0;
                 if (!vr.IsCostNull()) vrCost = vr.Cost;

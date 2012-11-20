@@ -31,11 +31,11 @@ namespace VoucherExpense
             btnDelete.Visible = flag;
             btnExport.Visible = flag;
             btnImport.Visible = flag;
-            DataGridViewComboBoxDisplayStyle style;
-            if (flag) style = DataGridViewComboBoxDisplayStyle.DropDownButton;
-            else      style = DataGridViewComboBoxDisplayStyle.Nothing;
-            codeColumnSale.DisplayStyle = style;
-            codeColumnStock.DisplayStyle = style;
+            //DataGridViewComboBoxDisplayStyle style;
+            //if (flag) style = DataGridViewComboBoxDisplayStyle.DropDownButton;
+            //else      style = DataGridViewComboBoxDisplayStyle.Nothing;
+            //codeColumnSale.DisplayStyle = style;
+            //codeColumnStock.DisplayStyle = style;
 
         }
 
@@ -45,21 +45,23 @@ namespace VoucherExpense
             textBoxName.Text = cbBoxTable.Text.Trim();
         }
 
+        // Config內以前存的是 產品Code及食材Code
+        // 現在全部改成ProductID, IngredientID
         private string Config2Xml(string name)
         {
             StringBuilder xml = new StringBuilder("<" + ConfigName + " Name=\""+name+"\">",512);
             xml.Append("<Product>");
             foreach (CSaleItem item in m_SaleList)
             {
-                if (item.Code < 1) continue;
-                xml.Append("<Code>" + item.Code.ToString() + "</Code>");
+                if (item.ProductID < 1) continue;
+                xml.Append("<Code>" + item.ProductID.ToString() + "</Code>");
             }
             xml.Append("</Product>");
             xml.Append("<Ingredient>");
             foreach (StockItem item in m_StockList)
             {
-                if (item.Code < 1) continue;
-                xml.Append("<Code>" + item.Code.ToString() + "</Code>");
+                if (item.IngredientID < 1) continue;
+                xml.Append("<Code>" + item.IngredientID.ToString() + "</Code>");
             }
             xml.Append("</Ingredient>");
             xml.Append("</" + ConfigName + ">");
@@ -103,9 +105,9 @@ namespace VoucherExpense
             // 位於 CalcSaleList.cs
             m_OrderAdapter.Connection = MapPath.BasicConnection;
             m_OrderItemAdapter.Connection = MapPath.BasicConnection;
+            productTableAdapter.Connection = MapPath.BasicConnection;
 
             ingredientTableAdapter.Connection = MapPath.VEConnection;
-            productTableAdapter.Connection = MapPath.BasicConnection;
             voucherTableAdapter.Connection = MapPath.VEConnection;
             voucherDetailTableAdapter.Connection = MapPath.VEConnection;
 
@@ -268,9 +270,10 @@ namespace VoucherExpense
 
     public class StockItem
     {
-        public StockItem() { Code = 0; Volume = 0; } 
-        public StockItem(int code) { Code = code; Volume = 0; }  
-        public int Code          { get; set; }
+        public StockItem() { IngredientID = 0; Volume = 0; } 
+        public StockItem(int ingredient) { IngredientID = ingredient; Volume = 0; }  
+//        public int Code          { get; set; }
+        public int IngredientID  { get; set; }
         public decimal Volume    { get; set; }
         public decimal TotalCost { get; set; }
         public decimal UnitCost  { get; set; }

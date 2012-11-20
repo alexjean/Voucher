@@ -181,12 +181,12 @@ namespace VoucherExpense
                 return;
             }
             productBindingSource.EndEdit();
-            string str = codeTextBox.Text.Trim();
-            int code = 0;
+            string str = this.productIDTextBox.Text.Trim();
+            int productID = 0;
             string name;
             try
             {
-                code = Convert.ToInt32(str);
+                productID = Convert.ToInt32(str);
                 name = nameTextBox.Text.Trim();
             }
             catch
@@ -194,8 +194,8 @@ namespace VoucherExpense
                 MessageBox.Show("要刪除的產品代碼必需是數字!");
                 return;
             }
-            string strCode="產品 代碼<"+code.ToString()+">";
-            if (MessageBox.Show("能刪除的產品必需是本年度從來沒有被客人點過的\r\n按'確定', 開始載入並檢查全年度點菜單!", "刪除"+strCode+name, MessageBoxButtons.OKCancel)
+            string strProductID="產品 <"+productID.ToString()+">";
+            if (MessageBox.Show("能刪除的產品必需是本年度從來沒有被客人點過的\r\n按'確定', 開始載入並檢查全年度點菜單!", "刪除"+strProductID+name, MessageBoxButtons.OKCancel)
                 != DialogResult.OK) return;
             if (!m_OrderItemLoaded)
             {
@@ -213,15 +213,15 @@ namespace VoucherExpense
             }
             foreach (BasicDataSet.OrderItemRow row in basicDataSet.OrderItem)
             {
-                if (row.Code == code)
+                if (row.ProductID == productID)
                 {
                     BasicDataSet.OrderRow order=row.OrderRow;
-                    MessageBox.Show("點菜單"+order.ID.ToString()+"  己經點了"+strCode+" 無法刪除");
+                    MessageBox.Show("點菜單"+order.ID.ToString()+"  己經點了"+strProductID+" 無法刪除");
                     return;
                 }
             }
 
-            if (MessageBox.Show(strCode+" 本年度沒有人點過,可以被刪除\r\n按'確定' 刪除",strCode,MessageBoxButtons.OKCancel)==
+            if (MessageBox.Show(strProductID+" 本年度沒有人點過,可以被刪除\r\n按'確定' 刪除",strProductID,MessageBoxButtons.OKCancel)==
                 DialogResult.OK)
             {
                 try
@@ -231,13 +231,13 @@ namespace VoucherExpense
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("刪除"+strCode+"及存檔過程錯誤:" + ex.Message);
+                    MessageBox.Show("刪除"+strProductID+"及存檔過程錯誤:" + ex.Message);
                     return;
                 }
-                MessageBox.Show("己刪除" + strCode + name + " 並存檔成功!");
+                MessageBox.Show("己刪除" + strProductID + name + " 並存檔成功!");
                 return;
             }
-            MessageBox.Show("沒有刪除 " + strCode + name);
+            MessageBox.Show("沒有刪除 " + strProductID + name);
         }
 
 

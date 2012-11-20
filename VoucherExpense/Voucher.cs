@@ -243,7 +243,7 @@ namespace VoucherExpense
                 e.Cancel = true;
             }
             else
-            {   // 這個欄位是IngredientCode的 comboBox, 如果 CanPurchase被勾掉了就看不到
+            {   // 這個欄位是IngredientID的 comboBox, 如果 CanPurchase被勾掉了就看不到
                 DataGridViewCell cell = view.Rows[row].Cells[col];
                 int code=0;
                 try
@@ -322,7 +322,7 @@ namespace VoucherExpense
             {
                 this.costTextBox.Text=CostTotal().ToString();
             }
-            else if (cellName == "dgIngredientCodeColumn")
+            else if (cellName == "dgIngredientIDColumn")
             {
                 DataGridViewRow dgRow = view.Rows[e.RowIndex];
                 DataGridViewCell cell=dgRow.Cells[e.ColumnIndex];
@@ -331,7 +331,7 @@ namespace VoucherExpense
                 int code=(int)cell.Value;
                 try
                 {
-                    string str="Code="+code.ToString();
+                    string str="ID="+code.ToString();
                     VEDataSet.IngredientRow[] row = (VEDataSet.IngredientRow[])vEDataSet.Ingredient.Select(str);
                     if (row != null || row.Length>0)
                     {
@@ -580,7 +580,7 @@ namespace VoucherExpense
         {   // 避免出現ComboBox沒有的
             foreach (DataGridViewRow row in voucherDetailDataGridView.Rows)
             {
-                DataGridViewCell cell = row.Cells["dgIngredientCodeColumn"];
+                DataGridViewCell cell = row.Cells["dgIngredientIDColumn"];
                 if (cell == null) continue;
                 if (cell.Value == null) continue;
                 if (cell.Value == DBNull.Value) continue;
@@ -628,7 +628,7 @@ namespace VoucherExpense
             if (IsCellNull(row, "dgVolumeColumn", out obj) != CellStatus.Good) return false;
             if (obj.GetType() != typeof(decimal)) return false;
             decimal volume = (decimal)obj;
-            if (IsCellNull(row, "dgIngredientCodeColumn", out obj) != CellStatus.Good) return false;
+            if (IsCellNull(row, "dgIngredientIDColumn", out obj) != CellStatus.Good) return false;
             int code = (int)obj;
             VEDataSet.IngredientRow[] Rows = (VEDataSet.IngredientRow[])vEDataSet.Ingredient.Select("Code =" + code.ToString());
             if (Rows == null || Rows.Length == 0) return false;
@@ -664,7 +664,7 @@ namespace VoucherExpense
         {
             DataGridView view = (DataGridView)sender;
             string cellName = view.Columns[e.ColumnIndex].Name;
-            if (cellName == "dgVolumeColumn" || cellName == "dgIngredientCodeColumn" || cellName == "dgCostColumn")
+            if (cellName == "dgVolumeColumn" || cellName == "dgIngredientIDColumn" || cellName == "dgCostColumn")
             {
                 DataGridViewCell costCell;
                 if (CostColorChanged(view.Rows[e.RowIndex],out costCell))
@@ -735,7 +735,7 @@ namespace VoucherExpense
                     MessageBox.Show("小計資料有誤!");
                     goto Error;
                 }
-                DataGridViewCell codeCell = r.Cells["dgIngredientCodeColumn"];
+                DataGridViewCell codeCell = r.Cells["dgIngredientIDColumn"];
                 if (IsDataWrong( typeof(int),codeCell.Value))
                 {
                     MessageBox.Show("有食材沒有輸入!");

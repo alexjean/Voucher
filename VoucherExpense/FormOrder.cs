@@ -32,9 +32,10 @@ namespace VoucherExpense
         private System.Windows.Forms.Label[] WineMenu;
         private System.Windows.Forms.Label[] WineItemNo;
         private int WineItemCount;
-        class MenuItem
+        class MenuItemForTag
         {
-            public int code;
+//            public int code;
+            public int productID;
             public string name;
             public double No;
             public double Price;
@@ -67,7 +68,7 @@ namespace VoucherExpense
             public static int NoWidth = 40;
         }
 
-        private MenuItem[] GuoDi,OneDollorGuoDi;
+        private MenuItemForTag[] GuoDi,OneDollorGuoDi;
         private GroupBox groupBoxWine;  // 用來複製 groupBoxFood
         private BasicDataSet DataSet1;
         private BasicDataSet.OrderRow CurrentOrder;
@@ -145,10 +146,10 @@ namespace VoucherExpense
                     BasicDataSet.ProductRow Row = GetFoodMenuItem(x, y);
                     if (Row != null)
                     {
-                        MenuItem content = new MenuItem();
+                        MenuItemForTag content = new MenuItemForTag();
                         content.No = 0;
                         content.Price = Row.Price;
-                        content.code = Row.Code;
+                        content.productID = Row.ProductID;
                         content.classcode = Row.Class;
                         content.LabelNo = FoodItemNo[x, y];
                         content.name = Row.Name.ToString();
@@ -201,10 +202,10 @@ namespace VoucherExpense
 
             if (Row != null)
             {
-                MenuItem content = new MenuItem();
+                MenuItemForTag content = new MenuItemForTag();
                 content.No = 0;
                 content.Price = Row.Price;
-                content.code = (int)Row.Code;
+                content.productID = (int)Row.ProductID;
                 content.classcode = Row.Class;
                 content.LabelNo = WineItemNo[i];
                 content.name = Row.Name.ToString();
@@ -259,12 +260,12 @@ namespace VoucherExpense
         private void InitGuoDi()
         {
             int i;
-            GuoDi = new MenuItem[MyConstant.MaxNo];
-            OneDollorGuoDi = new MenuItem[MyConstant.MaxNo];
+            GuoDi = new MenuItemForTag[MyConstant.MaxNo];
+            OneDollorGuoDi = new MenuItemForTag[MyConstant.MaxNo];
             comboBoxGuoDi.Items.Clear();
             for (i = 0; i < MyConstant.MaxNo; i++)
             {
-                MenuItem content = GuoDi[i] = new MenuItem();
+                MenuItemForTag content = GuoDi[i] = new MenuItemForTag();
                 int code = MyConstant.Code[i];   
                 BasicDataSet.ProductRow Row= GetMenuItemByCode(code);
                 if (Row == null)
@@ -274,14 +275,14 @@ namespace VoucherExpense
                 }
                 content.No = 0;
                 content.Price = Row.Price;
-                content.code = (int)Row.Code;
+                content.productID = (int)Row.ProductID;
                 content.classcode = Row.Class;
                 content.LabelNo = null;
                 content.name = Row.Name;
                 comboBoxGuoDi.Items.Add(Row.Name);
 
                 // 一元鍋底
-                content = OneDollorGuoDi[i]=new MenuItem();
+                content = OneDollorGuoDi[i]=new MenuItemForTag();
                 code = MyConstant.OneDollorCode[i];
                 Row = GetMenuItemByCode(code);
                 if (Row == null)
@@ -292,7 +293,7 @@ namespace VoucherExpense
                 }
                 content.No = 0;
                 content.Price = Row.Price;
-                content.code = (int)Row.Code;
+                content.productID = (int)Row.ProductID;
                 content.classcode = Row.Class;
                 content.LabelNo = null;
                 content.name = Row.Name;
@@ -349,7 +350,7 @@ namespace VoucherExpense
             this.PerformLayout();
         }
 
-        private void item2List(MenuItem item,MouseButtons btn)
+        private void item2List(MenuItemForTag item,MouseButtons btn)
         {
             if (item == null) return;
             if (btn == MouseButtons.Right)
@@ -370,7 +371,7 @@ namespace VoucherExpense
         private void MenuClick(object sender, MouseEventArgs e)
         {
             Label l = (Label)sender;
-            MenuItem item=(MenuItem)l.Tag;
+            MenuItemForTag item=(MenuItemForTag)l.Tag;
             item2List(item,e.Button);
             if (item.No > 0)
                  l.BorderStyle = BorderStyle.FixedSingle;
@@ -381,25 +382,25 @@ namespace VoucherExpense
                  item.LabelNo.Text = item.NoToString();
          }
 
-        private ListViewItem FindByCode(int code)
+        private ListViewItem FindByProductID(int productID)
         {
             foreach (ListViewItem lvItem in lvNoDiscount.Items)
             {
-                MenuItem item = (MenuItem)lvItem.Tag;
-                if (code == item.code) return lvItem;
+                MenuItemForTag item = (MenuItemForTag)lvItem.Tag;
+                if (productID == item.productID) return lvItem;
             }
             foreach (ListViewItem lvItem in lvCanDiscount.Items)
             {
-                MenuItem item = (MenuItem)lvItem.Tag;
-                if (code == item.code) return lvItem;
+                MenuItemForTag item = (MenuItemForTag)lvItem.Tag;
+                if (productID == item.productID) return lvItem;
             }
             return null;
         }
 
         // ListView的tag 指向MenuItem
-        private bool Sub2List(MenuItem item)
+        private bool Sub2List(MenuItemForTag item)
         {
-            ListViewItem lvItem = FindByCode(item.code);
+            ListViewItem lvItem = FindByProductID(item.productID);
             if (lvItem == null) return false; // 沒東西刪
             if (item.No > 0)
             {
@@ -413,7 +414,7 @@ namespace VoucherExpense
             CalcTotal();
             return true;            // 刪除成功
         }
-        private void Add2List(MenuItem item,bool AtFirst)
+        private void Add2List(MenuItemForTag item,bool AtFirst)
         {
             if (item.No == 0)
             {
@@ -421,7 +422,7 @@ namespace VoucherExpense
                 return;
             }
 
-            ListViewItem lvItem=FindByCode(item.code);
+            ListViewItem lvItem=FindByProductID(item.productID);
             double no = item.No;
             
             double money = item.Money();
@@ -435,16 +436,16 @@ namespace VoucherExpense
                 if (item.classcode != MyConstant.CanDiscountClass)
                 {
                     if (AtFirst)
-                        lvItem = lvNoDiscount.Items.Insert(0, item.code.ToString());
+                        lvItem = lvNoDiscount.Items.Insert(0, item.productID.ToString());
                     else
-                        lvItem = lvNoDiscount.Items.Add(item.code.ToString());
+                        lvItem = lvNoDiscount.Items.Add(item.productID.ToString());
                 }
                 else
                 {
                     if (AtFirst)
-                        lvItem = lvCanDiscount.Items.Insert(0, item.code.ToString());
+                        lvItem = lvCanDiscount.Items.Insert(0, item.productID.ToString());
                     else
-                        lvItem = lvCanDiscount.Items.Add(item.code.ToString());
+                        lvItem = lvCanDiscount.Items.Add(item.productID.ToString());
                 }
                 lvItem.SubItems.Add(item.name);
                 lvItem.SubItems.Add(no.ToString());
@@ -460,7 +461,7 @@ namespace VoucherExpense
             double no=0,sum=0;
             foreach (ListViewItem lvItem in lvNoDiscount.Items)
             {
-                MenuItem item = (MenuItem)lvItem.Tag;
+                MenuItemForTag item = (MenuItemForTag)lvItem.Tag;
                 sum += item.Money();
                 no+=item.No;
             }
@@ -471,7 +472,7 @@ namespace VoucherExpense
             sum = no = 0;
             foreach (ListViewItem lvItem in lvCanDiscount.Items)
             {
-                MenuItem item = (MenuItem)lvItem.Tag;
+                MenuItemForTag item = (MenuItemForTag)lvItem.Tag;
                 sum += item.Money();
                 no+=item.No;
             }
@@ -508,15 +509,15 @@ namespace VoucherExpense
             return( (char)checksum);
         }
         
-        private bool WineLabelTagCodeIs(Label menu,int code)
+        private bool WineLabelTagCodeIs(Label menu,int productID)
         {
             if (menu != null)
             {
                 object obj = menu.Tag;
                 if (obj != null)
                 {
-                    MenuItem item = (MenuItem)obj;
-                    if (item.code == code) return true;
+                    MenuItemForTag item = (MenuItemForTag)obj;
+                    if (item.productID== productID) return true;
                 }
             }
             return false;
@@ -529,7 +530,7 @@ namespace VoucherExpense
                 int co;
                 for (int i = 0; i < MyConstant.MaxNo; i++)
                 {
-                    co=GuoDi[i].code;
+                    co=GuoDi[i].productID;
                     for (int j = 0; j < WineItemCount; j++)
                     {
                         if (WineLabelTagCodeIs(WineMenu[j],co)) 
@@ -541,7 +542,7 @@ namespace VoucherExpense
                 }
                 for (int i = 0; i < MyConstant.MaxNo; i++)
                 {
-                    co=OneDollorGuoDi[i].code;
+                    co=OneDollorGuoDi[i].productID;
                     for (int j = WineItemCount-1; j >=0; j--)  // 反過來的,因為一元鍋底加在後面
                     {
                         if (WineLabelTagCodeIs(WineMenu[j],co))
@@ -556,13 +557,13 @@ namespace VoucherExpense
             Label l;
             for (int i = 0; i < MyConstant.MaxNo; i++)
             {
-                int co = GuoDi[i].code;
+                int co = GuoDi[i].productID;
                 for (int j = 0; j < WineItemCount; j++)
                 {
                     if (WineLabelTagCodeIs(WineMenu[j], co))
                     {
                         l = WineMenu[j];
-                        ((MenuItem)l.Tag).SetZero();
+                        ((MenuItemForTag)l.Tag).SetZero();
                         l.Enabled = false;
                         l.BorderStyle = BorderStyle.None;
                         WineItemNo[j].Text = "";
@@ -572,13 +573,13 @@ namespace VoucherExpense
             }
             for (int i = 0; i < MyConstant.MaxNo; i++)  
             {
-                int co = OneDollorGuoDi[i].code;
+                int co = OneDollorGuoDi[i].productID;
                 for (int j = WineItemCount - 1; j >= 0; j--)
                 {
                     if (WineLabelTagCodeIs(WineMenu[j], co))
                     {
                         l = WineMenu[j];
-                        ((MenuItem)l.Tag).SetZero();
+                        ((MenuItemForTag)l.Tag).SetZero();
                         l.Enabled = false;
                         l.BorderStyle = BorderStyle.None;
                         WineItemNo[j].Text = "";
@@ -592,12 +593,12 @@ namespace VoucherExpense
         {
             int n = comboBoxGuoDi.SelectedIndex;
             if (n < 0 || n > MyConstant.MaxNo) return;  // bug 或清 0
-            foreach(MenuItem item in GuoDi)
+            foreach(MenuItemForTag item in GuoDi)
             {
                 item.SetZero();
                 while (Sub2List(item)) ;
             }
-            foreach (MenuItem item in OneDollorGuoDi)
+            foreach (MenuItemForTag item in OneDollorGuoDi)
             {
                 item.SetZero();
                 while (Sub2List(item)) ;
@@ -744,15 +745,15 @@ namespace VoucherExpense
                 btnPrintUndiscountPart.Enabled = false;
             }
             foreach (BasicDataSet.OrderItemRow Ro in OrderDetail)
-                Row2ListAndMenu(Ro.Code, (double)Ro.No);
+                Row2ListAndMenu(Ro.ProductID, (double)Ro.No);
             m_DisablePeopleNoSelect = false;
         }
 
-        private void Row2ListAndMenu(int Code, double No)
+        private void Row2ListAndMenu(int ProductID, double No)
         {
-            Label l = FindMenuLabel(Code);
+            Label l = FindMenuLabel(ProductID);
             if (l == null) return;
-            MenuItem item = (MenuItem)l.Tag;
+            MenuItemForTag item = (MenuItemForTag)l.Tag;
             if (item == null) return;
             item.No = No;
             if (item.No > 0) l.BorderStyle = BorderStyle.FixedSingle;
@@ -762,22 +763,22 @@ namespace VoucherExpense
             Add2List(item, false);
         }
 
-        private Label FindMenuLabel(int Code)
+        private Label FindMenuLabel(int productID)
         {
-            MenuItem item;
+            MenuItemForTag item;
             foreach (Label l in WineMenu)
             {
                 if (l == null) break;
-                item = (MenuItem)l.Tag;
+                item = (MenuItemForTag)l.Tag;
                 if (item == null) continue;
-                if (item.code == Code) return l;
+                if (item.productID == productID) return l;
             }
             foreach (Label l in FoodMenu)
             {
                 if (l == null) continue;   // 因為Food可能有空洞所以continue;
-                item = (MenuItem)l.Tag;
+                item = (MenuItemForTag)l.Tag;
                 if (item == null) continue;
-                if (item.code == Code) return l;
+                if (item.productID == productID) return l;
             }
             return null;
         }
@@ -792,27 +793,27 @@ namespace VoucherExpense
         }
 
         // 0 相同 1 小可樂不同 2 毛巾不同 3 都不同
-        private int  PeopleNoDifferent()
-        {
-            int no = 0;
-            int colaNo = 0;     
-            int napkinNo = 0;
-            try
-            {
-                no = comboBoxPeopleNo.SelectedIndex;
-            }
-            catch { }
-            foreach (ListViewItem item in lvNoDiscount.Items)
-            {
-                MenuItem mItem = (MenuItem)item.Tag;
-                if      (mItem.code == MyConstant.ColaCode  ) colaNo   =(int)mItem.No;
-                else if (mItem.code == MyConstant.NapkinCode) napkinNo =(int)mItem.No;
-            }
-            if (no != colaNo && no != napkinNo) return 3;
-            if (no != colaNo  )                 return 1;
-            if (no != napkinNo)                 return 2;
-            return 0;
-        }
+        //private int  PeopleNoDifferent()
+        //{
+        //    int no = 0;
+        //    int colaNo = 0;     
+        //    int napkinNo = 0;
+        //    try
+        //    {
+        //        no = comboBoxPeopleNo.SelectedIndex;
+        //    }
+        //    catch { }
+        //    foreach (ListViewItem item in lvNoDiscount.Items)
+        //    {
+        //        MenuItemForTag mItem = (MenuItemForTag)item.Tag;
+        //        if      (mItem.code == MyConstant.ColaCode  ) colaNo   =(int)mItem.No;
+        //        else if (mItem.code == MyConstant.NapkinCode) napkinNo =(int)mItem.No;
+        //    }
+        //    if (no != colaNo && no != napkinNo) return 3;
+        //    if (no != colaNo  )                 return 1;
+        //    if (no != napkinNo)                 return 2;
+        //    return 0;
+        //}
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
@@ -827,7 +828,7 @@ namespace VoucherExpense
                     FoodMenu[x, y].BorderStyle = BorderStyle.None;
                     FoodItemNo[x, y].Text = "";
                     if (FoodMenu[x, y].Tag != null)
-                        ((MenuItem)FoodMenu[x, y].Tag).SetZero();
+                        ((MenuItemForTag)FoodMenu[x, y].Tag).SetZero();
                 }
             for (int i = 0; i < MyLayout.NoX * MyLayout.NoY; i++)
             {
@@ -835,12 +836,12 @@ namespace VoucherExpense
                 WineMenu[i].BorderStyle = BorderStyle.None;
                 WineItemNo[i].Text = "";
                 if (WineMenu[i].Tag!=null)
-                    ((MenuItem)WineMenu[i].Tag).SetZero();
+                    ((MenuItemForTag)WineMenu[i].Tag).SetZero();
             }
             labelTotal.Text = "";
             comboBoxGuoDi.SelectedIndex = -1;
-            foreach (MenuItem item in GuoDi) item.SetZero();
-            foreach (MenuItem item in OneDollorGuoDi) item.SetZero();
+            foreach (MenuItemForTag item in GuoDi) item.SetZero();
+            foreach (MenuItemForTag item in OneDollorGuoDi) item.SetZero();
             mtbOrderNo.Text = "";
             textBoxTable.Text = "";
         }
@@ -877,9 +878,9 @@ namespace VoucherExpense
 
         void SetOrderItemFromListViewItem(BasicDataSet.OrderItemRow Row,ListViewItem lvItem,int i)
         {
-            MenuItem item = (MenuItem)lvItem.Tag;
+            MenuItemForTag item = (MenuItemForTag)lvItem.Tag;
             Row.No = (decimal)item.No;
-            Row.Code = item.code;
+            Row.ProductID = item.productID;
             Row.Price =(decimal)item.Price;
             Row.Index = (short)i;
             if (item.classcode == MyConstant.CanDiscountClass )
@@ -1092,7 +1093,7 @@ namespace VoucherExpense
                 textBoxCode.Focus();
                 return;
             }
-            MenuItem item = (MenuItem)l.Tag;
+            MenuItemForTag item = (MenuItemForTag)l.Tag;
             if (item == null) return;
             item.No = d;
             if (item.No > 0) l.BorderStyle = BorderStyle.FixedSingle;
@@ -1111,8 +1112,8 @@ namespace VoucherExpense
             if (listView.SelectedItems.Count <= 0) return;
             if (Keys.Delete == e.KeyData)
             {
-                MenuItem item = (MenuItem)(listView.SelectedItems[0].Tag);
-                Row2ListAndMenu(item.code, 0);
+                MenuItemForTag item = (MenuItemForTag)(listView.SelectedItems[0].Tag);
+                Row2ListAndMenu(item.productID, 0);
             }
         }
 
@@ -1122,37 +1123,37 @@ namespace VoucherExpense
             if (listView.SelectedItems.Count <= 0) return;
             if (Keys.Delete == e.KeyData)
             {
-                MenuItem item = (MenuItem)(listView.SelectedItems[0].Tag);
-                if (item.code == MyConstant.NapkinCode)
-                {
-                    MessageBox.Show("毛巾請用別的方式刪!");
-                    return;
-                }
-                foreach (int code in MyConstant.AddPeopleCode)
-                {
-                    if (code == item.code)
-                    {
-                        MessageBox.Show("加人數請用別的方式刪!");
-                        return;
-                    }
-                }
-                foreach (int code in MyConstant.Code)
-                {
-                    if (code == item.code)
-                    {
-                        MessageBox.Show("鍋底請用別的方式刪!");
-                        return;
-                    }
-                }
-                foreach (int code in MyConstant.OneDollorCode)
-                {
-                    if (code == item.code)
-                    {
-                        MessageBox.Show("鍋底請用別的方式刪!");
-                        return;
-                    }
-                }
-                Row2ListAndMenu(item.code, 0);
+                MenuItemForTag item = (MenuItemForTag)(listView.SelectedItems[0].Tag);
+                //if (item.code == MyConstant.NapkinCode)
+                //{
+                //    MessageBox.Show("毛巾請用別的方式刪!");
+                //    return;
+                //}
+                //foreach (int code in MyConstant.AddPeopleCode)
+                //{
+                //    if (code == item.code)
+                //    {
+                //        MessageBox.Show("加人數請用別的方式刪!");
+                //        return;
+                //    }
+                //}
+                //foreach (int code in MyConstant.Code)
+                //{
+                //    if (code == item.code)
+                //    {
+                //        MessageBox.Show("鍋底請用別的方式刪!");
+                //        return;
+                //    }
+                //}
+                //foreach (int code in MyConstant.OneDollorCode)
+                //{
+                //    if (code == item.code)
+                //    {
+                //        MessageBox.Show("鍋底請用別的方式刪!");
+                //        return;
+                //    }
+                //}
+                Row2ListAndMenu(item.productID, 0);
             }
         }
 

@@ -84,19 +84,19 @@ namespace BakeryOrder
         }
 
         #region ====== ListView Operate ======
-        private ListViewItem FindByCodeFromList(int code)
+        private ListViewItem FindByProductIDFromList(int productID)
         {
             foreach (ListViewItem lvItem in lvItems.Items)
             {
                 MenuItemForTag item = (MenuItemForTag)lvItem.Tag;
-                if (code == item.code) return lvItem;
+                if (productID == item.ProductID) return lvItem;
             }
             return null;
         }
 
         private void Add2List(MenuItemForTag item, bool AtFirst)
         {
-            ListViewItem lvItem = FindByCodeFromList(item.code);
+            ListViewItem lvItem = FindByProductIDFromList(item.ProductID);
             double no = item.No;
 
             double money = item.Money();
@@ -108,9 +108,9 @@ namespace BakeryOrder
             else
             {
                if (AtFirst)
-                   lvItem = lvItems.Items.Insert(0, item.code.ToString());
+                   lvItem = lvItems.Items.Insert(0, item.ProductID.ToString());
                else
-                   lvItem = lvItems.Items.Add(item.code.ToString());
+                   lvItem = lvItems.Items.Add(item.ProductID.ToString());
                 lvItem.SubItems.Add(item.name);
                 lvItem.SubItems.Add(no.ToString());
                 lvItem.SubItems.Add(money.ToString());
@@ -121,7 +121,7 @@ namespace BakeryOrder
         // ListView的tag 指向MenuItem
         private bool Sub2List(MenuItemForTag item)
         {
-            ListViewItem lvItem = FindByCodeFromList(item.code);
+            ListViewItem lvItem = FindByProductIDFromList(item.ProductID);
             if (lvItem == null) return false; // 沒東西刪
             if (item.No > 0)
             {
@@ -150,7 +150,7 @@ namespace BakeryOrder
                 Add2List(item, false);
             }
             CalcTotal();
-            m_FormCustomer.Item2List(item.code, item.name, item.No, item.Money());
+            m_FormCustomer.Item2List(item.ProductID, item.name, item.No, item.Money());
             return;
         }
 
@@ -304,7 +304,7 @@ namespace BakeryOrder
                         content.id = Row.ProductID;
                         content.No = 0;
                         content.Price = Row.Price;
-                        content.code = Row.Code;
+                        content.ProductID = Row.ProductID;
                         content.classcode = Row.Class;
                         content.LabelNo = l;  
                         content.name = Row.Name.ToString();
@@ -746,7 +746,7 @@ namespace BakeryOrder
         {   // Row.ID由ParentRow決定不用填
             MenuItemForTag item = (MenuItemForTag)lvItem.Tag;
             Row.Index = (short)i;
-            Row.Code  = item.code;
+            Row.ProductID  = item.ProductID;
             Row.No    = (decimal)item.No;
             Row.Price = (decimal)item.Price;
             Row.Discount = false;    // 目前不使用打折

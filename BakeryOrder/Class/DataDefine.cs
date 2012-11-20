@@ -9,7 +9,8 @@ namespace BakeryOrder
     class MenuItemForTag
     {
         public int id;
-        public int code;
+//        public int code;     // 全面改成ProductID
+        public int ProductID;
         public string name;
         public double No;
         public double Price;

@@ -582,9 +582,7 @@
     <Content Include="iconHeart.ico" />
     <None Include="NavBar_Back.png" />
     <None Include="Resources\LogoVI.jpg" />
-    <Content Include="VoucherExpense.mdb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="VoucherExpense.mdb" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

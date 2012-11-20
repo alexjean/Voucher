@@ -173,12 +173,12 @@ namespace VoucherExpense
                 return;
             }
             productBindingSource.EndEdit();
-            string str = codeTextBox.Text.Trim();
-            int code = 0;
+            string str = this.productIDTextBox.Text.Trim();
+            int productID = 0;
             string name;
             try
             {
-                code = Convert.ToInt32(str);
+                productID = Convert.ToInt32(str);
                 name = nameTextBox.Text.Trim();
             }
             catch
@@ -186,7 +186,7 @@ namespace VoucherExpense
                 MessageBox.Show("要刪除的產品代碼必需是數字!");
                 return;
             }
-            string strCode="產品 代碼<"+code.ToString()+">";
+            string strCode="產品 <"+productID.ToString()+">";
             if (MessageBox.Show("能刪除的產品必需是本年度從來沒有被客人點過的\r\n按'確定', 開始載入並檢查全年度點菜單!", "刪除"+strCode+name, MessageBoxButtons.OKCancel)
                 != DialogResult.OK) return;
             if (!m_OrderItemLoaded)
@@ -205,7 +205,8 @@ namespace VoucherExpense
             }
             foreach (BakeryOrderSet.OrderItemRow row in bakeryOrderSet.OrderItem)
             {
-                if (row.Code == code)
+                if (row.IsProductIDNull()) continue;
+                if (row.ProductID == productID)
                 {
                     BakeryOrderSet.OrderRow order=row.OrderRow;
                     MessageBox.Show("點菜單"+order.ID.ToString()+"  己經點了"+strCode+" 無法刪除");

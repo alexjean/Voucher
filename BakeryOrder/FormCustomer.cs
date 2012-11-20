@@ -66,25 +66,25 @@ namespace BakeryOrder
             labelTotal.Text = total.ToString();
         }
 
-        private ListViewItem FindByCodeFromList(int code)
+        private ListViewItem FindByProductIDFromList(int productID)
         {
             foreach (ListViewItem lvItem in lvCustomer.Items)
             {
-                if (code == (int)lvItem.Tag) return lvItem;
+                if (productID == (int)lvItem.Tag) return lvItem;
             }
             return null;
         }
 
-        public void Item2List(int code,string name, double No, double money)
+        public void Item2List(int productID,string name, double No, double money)
         {
-            ListViewItem lvItem=FindByCodeFromList(code);
+            ListViewItem lvItem=FindByProductIDFromList(productID);
             if (lvItem==null)
             {
                 if (No==0) return;
                 lvItem = lvCustomer.Items.Add(name);
                 lvItem.SubItems.Add(No.ToString());
                 lvItem.SubItems.Add(money.ToString());
-                lvItem.Tag = code;
+                lvItem.Tag = productID;
             }
             else
             {

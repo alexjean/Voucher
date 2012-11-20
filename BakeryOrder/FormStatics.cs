@@ -138,11 +138,11 @@ namespace BakeryOrder
             tabPage.Controls.Add(b);
         }
 
-        string  FindNameFromProduct(int code)
+        string  FindNameFromProduct(int productID)
         {
             foreach (BakeryOrderSet.ProductRow row in m_BakeryOrderSet.Product)
             {
-                if (code == row.Code) return row.Name;
+                if (productID == row.ProductID) return row.Name;
             }
             return "";
         }
@@ -201,7 +201,7 @@ namespace BakeryOrder
                 lvItems.Columns[i].Text = m_ListViewItemBackup[i];
         }
 
-        private void ShowOrder(BakeryOrderSet.OrderRow order)
+        private bool ShowOrder(BakeryOrderSet.OrderRow order)
         {
             BakeryOrderSet.OrderItemRow[] items = order.GetOrderItemRows();
             lvItems.Items.Clear();
@@ -210,9 +210,9 @@ namespace BakeryOrder
             {
                 decimal no = item.No;
                 decimal money = item.Price * no;
-                int code = item.Code;
-                ListViewItem lvItem = lvItems.Items.Add(code.ToString());
-                lvItem.SubItems.Add(FindNameFromProduct(code));
+                int productID = item.ProductID;
+                ListViewItem lvItem = lvItems.Items.Add(productID.ToString());
+                lvItem.SubItems.Add(FindNameFromProduct(productID));
                 lvItem.SubItems.Add(no.ToString());
                 lvItem.SubItems.Add(money.ToString());
                 total += money;
@@ -225,7 +225,9 @@ namespace BakeryOrder
             if (total != order.Income)
             {
                 MessageBox.Show("計算金額<" + total.ToString() + ">不符 " + order.Income.ToString());
+                return false;
             }
+            return true;
         }
 
         private void b_DrawerRecordMouseClick(object sender, MouseEventArgs e)
@@ -247,7 +249,8 @@ namespace BakeryOrder
         private void b_MouseClick(object sender, MouseEventArgs e)
         {
             TextBox t = (TextBox)sender;
-            ShowOrder(t.Tag as BakeryOrderSet.OrderRow);
+            if (!ShowOrder(t.Tag as BakeryOrderSet.OrderRow))   // 總額不符,自動跳刪除
+                b_MouseDoubleClick(sender, e);
         }
 
         private void btnOrderList_Click(object sender, EventArgs e)

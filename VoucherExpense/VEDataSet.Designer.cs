@@ -72,15 +72,11 @@ namespace VoucherExpense {
         
         private global::System.Data.DataRelation relationAccountingTitle_VoucherDetail;
         
-        private global::System.Data.DataRelation relationIngredientVoucherDetail;
-        
         private global::System.Data.DataRelation relationAccountingTitle_Ingredient;
         
         private global::System.Data.DataRelation relationIngredientStock;
         
         private global::System.Data.DataRelation relationAccountingTitleBankDetail;
-        
-        private global::System.Data.DataRelation relationProductVoucherDetail;
         
         private global::System.Data.DataRelation relationIngredientStock1;
         
@@ -93,6 +89,8 @@ namespace VoucherExpense {
         private global::System.Data.DataRelation relationHR_OnDutyData;
         
         private global::System.Data.DataRelation relationShiftTableShiftDetail;
+        
+        private global::System.Data.DataRelation relationIngredient_VoucherDetail;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -663,17 +661,16 @@ namespace VoucherExpense {
             this.relationOperatorVoucher = this.Relations["OperatorVoucher"];
             this.relationVendorStock = this.Relations["VendorStock"];
             this.relationAccountingTitle_VoucherDetail = this.Relations["AccountingTitle_VoucherDetail"];
-            this.relationIngredientVoucherDetail = this.Relations["IngredientVoucherDetail"];
             this.relationAccountingTitle_Ingredient = this.Relations["AccountingTitle_Ingredient"];
             this.relationIngredientStock = this.Relations["IngredientStock"];
             this.relationAccountingTitleBankDetail = this.Relations["AccountingTitleBankDetail"];
-            this.relationProductVoucherDetail = this.Relations["ProductVoucherDetail"];
             this.relationIngredientStock1 = this.Relations["IngredientStock1"];
             this.relationBankAccountBankDetail = this.Relations["BankAccountBankDetail"];
             this.relationHR_HRDetail = this.Relations["HR_HRDetail"];
             this.relationVoucherVoucherDetail = this.Relations["VoucherVoucherDetail"];
             this.relationHR_OnDutyData = this.Relations["HR_OnDutyData"];
             this.relationShiftTableShiftDetail = this.Relations["ShiftTableShiftDetail"];
+            this.relationIngredient_VoucherDetail = this.Relations["Ingredient_VoucherDetail"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -742,10 +739,6 @@ namespace VoucherExpense {
                         this.tableAccountingTitle.TitleCodeColumn}, new global::System.Data.DataColumn[] {
                         this.tableVoucherDetail.TitleCodeColumn}, false);
             this.Relations.Add(this.relationAccountingTitle_VoucherDetail);
-            this.relationIngredientVoucherDetail = new global::System.Data.DataRelation("IngredientVoucherDetail", new global::System.Data.DataColumn[] {
-                        this.tableIngredient.CodeColumn}, new global::System.Data.DataColumn[] {
-                        this.tableVoucherDetail.IngredientCodeColumn}, false);
-            this.Relations.Add(this.relationIngredientVoucherDetail);
             this.relationAccountingTitle_Ingredient = new global::System.Data.DataRelation("AccountingTitle_Ingredient", new global::System.Data.DataColumn[] {
                         this.tableAccountingTitle.TitleCodeColumn}, new global::System.Data.DataColumn[] {
                         this.tableIngredient.TitleCodeColumn}, false);
@@ -758,10 +751,6 @@ namespace VoucherExpense {
                         this.tableAccountingTitle.TitleCodeColumn}, new global::System.Data.DataColumn[] {
                         this.tableBankDetail.TitleCodeColumn}, false);
             this.Relations.Add(this.relationAccountingTitleBankDetail);
-            this.relationProductVoucherDetail = new global::System.Data.DataRelation("ProductVoucherDetail", new global::System.Data.DataColumn[] {
-                        this.tableIngredient.IngredientIDColumn}, new global::System.Data.DataColumn[] {
-                        this.tableVoucherDetail.IngredientCodeColumn}, false);
-            this.Relations.Add(this.relationProductVoucherDetail);
             this.relationIngredientStock1 = new global::System.Data.DataRelation("IngredientStock1", new global::System.Data.DataColumn[] {
                         this.tableIngredient.IngredientIDColumn}, new global::System.Data.DataColumn[] {
                         this.tableStock.IngredientCodeColumn}, false);
@@ -786,6 +775,10 @@ namespace VoucherExpense {
                         this.tableShiftTable.ShiftIDColumn}, new global::System.Data.DataColumn[] {
                         this.tableShiftDetail.ShiftIDColumn}, false);
             this.Relations.Add(this.relationShiftTableShiftDetail);
+            this.relationIngredient_VoucherDetail = new global::System.Data.DataRelation("Ingredient_VoucherDetail", new global::System.Data.DataColumn[] {
+                        this.tableIngredient.IngredientIDColumn}, new global::System.Data.DataColumn[] {
+                        this.tableVoucherDetail.IngredientIDColumn}, false);
+            this.Relations.Add(this.relationIngredient_VoucherDetail);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3490,8 +3483,6 @@ namespace VoucherExpense {
             
             private global::System.Data.DataColumn columnVoID;
             
-            private global::System.Data.DataColumn columnIngredientCode;
-            
             private global::System.Data.DataColumn columnCost;
             
             private global::System.Data.DataColumn columnVolume;
@@ -3540,14 +3531,6 @@ namespace VoucherExpense {
             public global::System.Data.DataColumn VoIDColumn {
                 get {
                     return this.columnVoID;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn IngredientCodeColumn {
-                get {
-                    return this.columnIngredientCode;
                 }
             }
             
@@ -3628,24 +3611,23 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public VoucherDetailRow AddVoucherDetailRow(VoucherRow parentVoucherRowByVoucherVoucherDetail, IngredientRow parentIngredientRowByIngredientVoucherDetail, decimal Cost, decimal Volume, AccountingTitleRow parentAccountingTitleRowByAccountingTitle_VoucherDetail, System.Guid ID, int IngredientID) {
+            public VoucherDetailRow AddVoucherDetailRow(VoucherRow parentVoucherRowByVoucherVoucherDetail, decimal Cost, decimal Volume, AccountingTitleRow parentAccountingTitleRowByAccountingTitle_VoucherDetail, System.Guid ID, IngredientRow parentIngredientRowByIngredient_VoucherDetail) {
                 VoucherDetailRow rowVoucherDetailRow = ((VoucherDetailRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        null,
                         null,
                         Cost,
                         Volume,
                         null,
                         ID,
-                        IngredientID};
+                        null};
                 if ((parentVoucherRowByVoucherVoucherDetail != null)) {
                     columnValuesArray[0] = parentVoucherRowByVoucherVoucherDetail[0];
                 }
-                if ((parentIngredientRowByIngredientVoucherDetail != null)) {
-                    columnValuesArray[1] = parentIngredientRowByIngredientVoucherDetail[1];
-                }
                 if ((parentAccountingTitleRowByAccountingTitle_VoucherDetail != null)) {
-                    columnValuesArray[4] = parentAccountingTitleRowByAccountingTitle_VoucherDetail[0];
+                    columnValuesArray[3] = parentAccountingTitleRowByAccountingTitle_VoucherDetail[0];
+                }
+                if ((parentIngredientRowByIngredient_VoucherDetail != null)) {
+                    columnValuesArray[5] = parentIngredientRowByIngredient_VoucherDetail[0];
                 }
                 rowVoucherDetailRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowVoucherDetailRow);
@@ -3677,7 +3659,6 @@ namespace VoucherExpense {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
                 this.columnVoID = base.Columns["VoID"];
-                this.columnIngredientCode = base.Columns["IngredientCode"];
                 this.columnCost = base.Columns["Cost"];
                 this.columnVolume = base.Columns["Volume"];
                 this.columnTitleCode = base.Columns["TitleCode"];
@@ -3690,8 +3671,6 @@ namespace VoucherExpense {
             private void InitClass() {
                 this.columnVoID = new global::System.Data.DataColumn("VoID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnVoID);
-                this.columnIngredientCode = new global::System.Data.DataColumn("IngredientCode", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnIngredientCode);
                 this.columnCost = new global::System.Data.DataColumn("Cost", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCost);
                 this.columnVolume = new global::System.Data.DataColumn("Volume", typeof(decimal), null, global::System.Data.MappingType.Element);
@@ -10343,22 +10322,6 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int IngredientCode {
-                get {
-                    try {
-                        return ((int)(this[this.tableVoucherDetail.IngredientCodeColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("資料表 \'VoucherDetail\' 中資料行 \'IngredientCode\' 的值是 DBNull。", e);
-                    }
-                }
-                set {
-                    this[this.tableVoucherDetail.IngredientCodeColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public decimal Cost {
                 get {
                     try {
@@ -10445,34 +10408,23 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public IngredientRow IngredientRow {
-                get {
-                    return ((IngredientRow)(this.GetParentRow(this.Table.ParentRelations["IngredientVoucherDetail"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["IngredientVoucherDetail"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public IngredientRow IngredientRowByProductVoucherDetail {
-                get {
-                    return ((IngredientRow)(this.GetParentRow(this.Table.ParentRelations["ProductVoucherDetail"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["ProductVoucherDetail"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public VoucherRow VoucherRow {
                 get {
                     return ((VoucherRow)(this.GetParentRow(this.Table.ParentRelations["VoucherVoucherDetail"])));
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["VoucherVoucherDetail"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public IngredientRow IngredientRow {
+                get {
+                    return ((IngredientRow)(this.GetParentRow(this.Table.ParentRelations["Ingredient_VoucherDetail"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["Ingredient_VoucherDetail"]);
                 }
             }
             
@@ -10486,18 +10438,6 @@ namespace VoucherExpense {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetVoIDNull() {
                 this[this.tableVoucherDetail.VoIDColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsIngredientCodeNull() {
-                return this.IsNull(this.tableVoucherDetail.IngredientCodeColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetIngredientCodeNull() {
-                this[this.tableVoucherDetail.IngredientCodeColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -10811,17 +10751,6 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public VoucherDetailRow[] GetVoucherDetailRows() {
-                if ((this.Table.ChildRelations["IngredientVoucherDetail"] == null)) {
-                    return new VoucherDetailRow[0];
-                }
-                else {
-                    return ((VoucherDetailRow[])(base.GetChildRows(this.Table.ChildRelations["IngredientVoucherDetail"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public StockRow[] GetStockRows() {
                 if ((this.Table.ChildRelations["IngredientStock"] == null)) {
                     return new StockRow[0];
@@ -10833,23 +10762,23 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public VoucherDetailRow[] GetVoucherDetailRowsByProductVoucherDetail() {
-                if ((this.Table.ChildRelations["ProductVoucherDetail"] == null)) {
-                    return new VoucherDetailRow[0];
-                }
-                else {
-                    return ((VoucherDetailRow[])(base.GetChildRows(this.Table.ChildRelations["ProductVoucherDetail"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public StockRow[] GetStockRowsByIngredientStock1() {
                 if ((this.Table.ChildRelations["IngredientStock1"] == null)) {
                     return new StockRow[0];
                 }
                 else {
                     return ((StockRow[])(base.GetChildRows(this.Table.ChildRelations["IngredientStock1"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public VoucherDetailRow[] GetVoucherDetailRows() {
+                if ((this.Table.ChildRelations["Ingredient_VoucherDetail"] == null)) {
+                    return new VoucherDetailRow[0];
+                }
+                else {
+                    return ((VoucherDetailRow[])(base.GetChildRows(this.Table.ChildRelations["Ingredient_VoucherDetail"])));
                 }
             }
         }
@@ -17172,7 +17101,6 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "VoucherDetail";
             tableMapping.ColumnMappings.Add("VoID", "VoID");
-            tableMapping.ColumnMappings.Add("IngredientCode", "IngredientCode");
             tableMapping.ColumnMappings.Add("Cost", "Cost");
             tableMapping.ColumnMappings.Add("Volume", "Volume");
             tableMapping.ColumnMappings.Add("TitleCode", "TitleCode");
@@ -17181,12 +17109,10 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `VoucherDetail` WHERE (((? = 1 AND `VoID` IS NULL) OR (`VoID` = ?)) AND ((? = 1 AND `IngredientCode` IS NULL) OR (`IngredientCode` = ?)) AND ((? = 1 AND `Cost` IS NULL) OR (`Cost` = ?)) AND ((? = 1 AND `Volume` IS NULL) OR (`Volume` = ?)) AND ((? = 1 AND `TitleCode` IS NULL) OR (`TitleCode` = ?)) AND (`ID` = ?) AND ((? = 1 AND `IngredientID` IS NULL) OR (`IngredientID` = ?)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `VoucherDetail` WHERE (((? = 1 AND `VoID` IS NULL) OR (`VoID` = ?)) AND ((? = 1 AND `Cost` IS NULL) OR (`Cost` = ?)) AND ((? = 1 AND `Volume` IS NULL) OR (`Volume` = ?)) AND ((? = 1 AND `TitleCode` IS NULL) OR (`TitleCode` = ?)) AND (`ID` = ?) AND ((? = 1 AND `IngredientID` IS NULL) OR (`IngredientID` = ?)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_VoID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "VoID", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_VoID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "VoID", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_IngredientCode", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IngredientCode", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_IngredientCode", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IngredientCode", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Cost", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Cost", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Cost", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Cost", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Volume", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Volume", global::System.Data.DataRowVersion.Original, true, null));
@@ -17198,11 +17124,10 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_IngredientID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IngredientID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO `VoucherDetail` (`VoID`, `IngredientCode`, `Cost`, `Volume`, `TitleCo" +
-                "de`, `ID`, `IngredientID`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO `VoucherDetail` (`VoID`, `Cost`, `Volume`, `TitleCode`, `ID`, `Ingred" +
+                "ientID`) VALUES (?, ?, ?, ?, ?, ?)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("VoID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "VoID", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IngredientCode", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IngredientCode", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Cost", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Cost", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Volume", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Volume", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("TitleCode", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TitleCode", global::System.Data.DataRowVersion.Current, false, null));
@@ -17210,10 +17135,9 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IngredientID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IngredientID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE `VoucherDetail` SET `VoID` = ?, `IngredientCode` = ?, `Cost` = ?, `Volume` = ?, `TitleCode` = ?, `ID` = ?, `IngredientID` = ? WHERE (((? = 1 AND `VoID` IS NULL) OR (`VoID` = ?)) AND ((? = 1 AND `IngredientCode` IS NULL) OR (`IngredientCode` = ?)) AND ((? = 1 AND `Cost` IS NULL) OR (`Cost` = ?)) AND ((? = 1 AND `Volume` IS NULL) OR (`Volume` = ?)) AND ((? = 1 AND `TitleCode` IS NULL) OR (`TitleCode` = ?)) AND (`ID` = ?) AND ((? = 1 AND `IngredientID` IS NULL) OR (`IngredientID` = ?)))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE `VoucherDetail` SET `VoID` = ?, `Cost` = ?, `Volume` = ?, `TitleCode` = ?, `ID` = ?, `IngredientID` = ? WHERE (((? = 1 AND `VoID` IS NULL) OR (`VoID` = ?)) AND ((? = 1 AND `Cost` IS NULL) OR (`Cost` = ?)) AND ((? = 1 AND `Volume` IS NULL) OR (`Volume` = ?)) AND ((? = 1 AND `TitleCode` IS NULL) OR (`TitleCode` = ?)) AND (`ID` = ?) AND ((? = 1 AND `IngredientID` IS NULL) OR (`IngredientID` = ?)))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("VoID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "VoID", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IngredientCode", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IngredientCode", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Cost", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Cost", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Volume", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Volume", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("TitleCode", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TitleCode", global::System.Data.DataRowVersion.Current, false, null));
@@ -17221,8 +17145,6 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IngredientID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IngredientID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_VoID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "VoID", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_VoID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "VoID", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_IngredientCode", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IngredientCode", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_IngredientCode", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IngredientCode", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Cost", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Cost", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Cost", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Cost", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Volume", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Volume", global::System.Data.DataRowVersion.Original, true, null));
@@ -17247,8 +17169,7 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT VoID, IngredientCode, Cost, Volume, TitleCode, ID, IngredientID FROM Vouch" +
-                "erDetail";
+            this._commandCollection[0].CommandText = "SELECT VoID, Cost, Volume, TitleCode, ID, IngredientID FROM VoucherDetail";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -17309,7 +17230,7 @@ namespace VoucherExpense.VEDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(global::System.Nullable<int> Original_VoID, global::System.Nullable<int> Original_IngredientCode, global::System.Nullable<decimal> Original_Cost, global::System.Nullable<decimal> Original_Volume, string Original_TitleCode, global::System.Nullable<global::System.Guid> Original_ID, global::System.Nullable<int> Original_IngredientID) {
+        public virtual int Delete(global::System.Nullable<int> Original_VoID, global::System.Nullable<decimal> Original_Cost, global::System.Nullable<decimal> Original_Volume, string Original_TitleCode, global::System.Nullable<global::System.Guid> Original_ID, global::System.Nullable<int> Original_IngredientID) {
             if ((Original_VoID.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[0].Value = ((object)(0));
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_VoID.Value));
@@ -17318,51 +17239,43 @@ namespace VoucherExpense.VEDataSetTableAdapters {
                 this.Adapter.DeleteCommand.Parameters[0].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
-            if ((Original_IngredientCode.HasValue == true)) {
+            if ((Original_Cost.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((int)(Original_IngredientCode.Value));
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((decimal)(Original_Cost.Value));
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
-            if ((Original_Cost.HasValue == true)) {
+            if ((Original_Volume.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[4].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[5].Value = ((decimal)(Original_Cost.Value));
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((decimal)(Original_Volume.Value));
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[4].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
-            if ((Original_Volume.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[6].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[7].Value = ((decimal)(Original_Volume.Value));
-            }
-            else {
+            if ((Original_TitleCode == null)) {
                 this.Adapter.DeleteCommand.Parameters[6].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
-            if ((Original_TitleCode == null)) {
-                this.Adapter.DeleteCommand.Parameters[8].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[9].Value = global::System.DBNull.Value;
-            }
             else {
-                this.Adapter.DeleteCommand.Parameters[8].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[9].Value = ((string)(Original_TitleCode));
+                this.Adapter.DeleteCommand.Parameters[6].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[7].Value = ((string)(Original_TitleCode));
             }
             if ((Original_ID.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[10].Value = ((System.Guid)(Original_ID.Value));
+                this.Adapter.DeleteCommand.Parameters[8].Value = ((System.Guid)(Original_ID.Value));
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[10].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[8].Value = global::System.DBNull.Value;
             }
             if ((Original_IngredientID.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[12].Value = ((int)(Original_IngredientID.Value));
+                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[10].Value = ((int)(Original_IngredientID.Value));
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[12].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[10].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -17384,48 +17297,42 @@ namespace VoucherExpense.VEDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(global::System.Nullable<int> VoID, global::System.Nullable<int> IngredientCode, global::System.Nullable<decimal> Cost, global::System.Nullable<decimal> Volume, string TitleCode, global::System.Nullable<global::System.Guid> ID, global::System.Nullable<int> IngredientID) {
+        public virtual int Insert(global::System.Nullable<int> VoID, global::System.Nullable<decimal> Cost, global::System.Nullable<decimal> Volume, string TitleCode, global::System.Nullable<global::System.Guid> ID, global::System.Nullable<int> IngredientID) {
             if ((VoID.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[0].Value = ((int)(VoID.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
-            if ((IngredientCode.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((int)(IngredientCode.Value));
+            if ((Cost.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[1].Value = ((decimal)(Cost.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
-            if ((Cost.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((decimal)(Cost.Value));
+            if ((Volume.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((decimal)(Volume.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
-            if ((Volume.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((decimal)(Volume.Value));
-            }
-            else {
+            if ((TitleCode == null)) {
                 this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
-            if ((TitleCode == null)) {
-                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
             else {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((string)(TitleCode));
+                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(TitleCode));
             }
             if ((ID.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[5].Value = ((System.Guid)(ID.Value));
+                this.Adapter.InsertCommand.Parameters[4].Value = ((System.Guid)(ID.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            if ((IngredientID.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[5].Value = ((int)(IngredientID.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
-            }
-            if ((IngredientID.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[6].Value = ((int)(IngredientID.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -17447,102 +17354,88 @@ namespace VoucherExpense.VEDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(global::System.Nullable<int> VoID, global::System.Nullable<int> IngredientCode, global::System.Nullable<decimal> Cost, global::System.Nullable<decimal> Volume, string TitleCode, global::System.Nullable<global::System.Guid> ID, global::System.Nullable<int> IngredientID, global::System.Nullable<int> Original_VoID, global::System.Nullable<int> Original_IngredientCode, global::System.Nullable<decimal> Original_Cost, global::System.Nullable<decimal> Original_Volume, string Original_TitleCode, global::System.Nullable<global::System.Guid> Original_ID, global::System.Nullable<int> Original_IngredientID) {
+        public virtual int Update(global::System.Nullable<int> VoID, global::System.Nullable<decimal> Cost, global::System.Nullable<decimal> Volume, string TitleCode, global::System.Nullable<global::System.Guid> ID, global::System.Nullable<int> IngredientID, global::System.Nullable<int> Original_VoID, global::System.Nullable<decimal> Original_Cost, global::System.Nullable<decimal> Original_Volume, string Original_TitleCode, global::System.Nullable<global::System.Guid> Original_ID, global::System.Nullable<int> Original_IngredientID) {
             if ((VoID.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(VoID.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
-            if ((IngredientCode.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(IngredientCode.Value));
+            if ((Cost.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((decimal)(Cost.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
-            if ((Cost.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((decimal)(Cost.Value));
+            if ((Volume.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((decimal)(Volume.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
-            if ((Volume.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((decimal)(Volume.Value));
-            }
-            else {
+            if ((TitleCode == null)) {
                 this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
-            if ((TitleCode == null)) {
-                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
             else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(TitleCode));
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(TitleCode));
             }
             if ((ID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((System.Guid)(ID.Value));
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((System.Guid)(ID.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            if ((IngredientID.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(IngredientID.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
-            if ((IngredientID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(IngredientID.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
-            }
             if ((Original_VoID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Original_VoID.Value));
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_VoID.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
-            }
-            if ((Original_IngredientCode.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(Original_IngredientCode.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
             if ((Original_Cost.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((decimal)(Original_Cost.Value));
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((decimal)(Original_Cost.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
             if ((Original_Volume.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((decimal)(Original_Volume.Value));
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((decimal)(Original_Volume.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[14].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
             }
             if ((Original_TitleCode == null)) {
-                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[16].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[13].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[16].Value = ((string)(Original_TitleCode));
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((string)(Original_TitleCode));
             }
             if ((Original_ID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[17].Value = ((System.Guid)(Original_ID.Value));
+                this.Adapter.UpdateCommand.Parameters[14].Value = ((System.Guid)(Original_ID.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[17].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[14].Value = global::System.DBNull.Value;
             }
             if ((Original_IngredientID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[19].Value = ((int)(Original_IngredientID.Value));
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[16].Value = ((int)(Original_IngredientID.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[19].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[16].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -17564,8 +17457,8 @@ namespace VoucherExpense.VEDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(global::System.Nullable<int> VoID, global::System.Nullable<int> IngredientCode, global::System.Nullable<decimal> Cost, global::System.Nullable<decimal> Volume, string TitleCode, global::System.Nullable<int> IngredientID, global::System.Nullable<int> Original_VoID, global::System.Nullable<int> Original_IngredientCode, global::System.Nullable<decimal> Original_Cost, global::System.Nullable<decimal> Original_Volume, string Original_TitleCode, global::System.Nullable<global::System.Guid> Original_ID, global::System.Nullable<int> Original_IngredientID) {
-            return this.Update(VoID, IngredientCode, Cost, Volume, TitleCode, Original_ID, IngredientID, Original_VoID, Original_IngredientCode, Original_Cost, Original_Volume, Original_TitleCode, Original_ID, Original_IngredientID);
+        public virtual int Update(global::System.Nullable<int> VoID, global::System.Nullable<decimal> Cost, global::System.Nullable<decimal> Volume, string TitleCode, global::System.Nullable<int> IngredientID, global::System.Nullable<int> Original_VoID, global::System.Nullable<decimal> Original_Cost, global::System.Nullable<decimal> Original_Volume, string Original_TitleCode, global::System.Nullable<global::System.Guid> Original_ID, global::System.Nullable<int> Original_IngredientID) {
+            return this.Update(VoID, Cost, Volume, TitleCode, Original_ID, IngredientID, Original_VoID, Original_Cost, Original_Volume, Original_TitleCode, Original_ID, Original_IngredientID);
         }
     }
     

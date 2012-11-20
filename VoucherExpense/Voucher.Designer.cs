@@ -104,7 +104,7 @@
             this.columnVoID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgIngredientIDColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.dgVolumeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IngredientCode = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.dgUnitComlumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.dgCostColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnTitleCode = new System.Windows.Forms.DataGridViewComboBoxColumn();
             iDLabel = new System.Windows.Forms.Label();
@@ -504,7 +504,7 @@
             this.columnVoID,
             this.dgIngredientIDColumn,
             this.dgVolumeColumn,
-            this.IngredientCode,
+            this.dgUnitComlumn,
             this.dgCostColumn,
             this.columnTitleCode});
             this.voucherDetailDataGridView.DataSource = this.voucherVoucherDetailBindingSource;
@@ -811,19 +811,19 @@
             this.dgVolumeColumn.Name = "dgVolumeColumn";
             this.dgVolumeColumn.Width = 48;
             // 
-            // IngredientCode
+            // dgUnitComlumn
             // 
-            this.IngredientCode.DataPropertyName = "IngredientCode";
-            this.IngredientCode.DataSource = this.IngredientBindingSource;
-            this.IngredientCode.DisplayMember = "Unit";
-            this.IngredientCode.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.IngredientCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.IngredientCode.HeaderText = "";
-            this.IngredientCode.MaxDropDownItems = 16;
-            this.IngredientCode.Name = "IngredientCode";
-            this.IngredientCode.ReadOnly = true;
-            this.IngredientCode.ValueMember = "Code";
-            this.IngredientCode.Width = 40;
+            this.dgUnitComlumn.DataPropertyName = "IngredientID";
+            this.dgUnitComlumn.DataSource = this.IngredientBindingSource;
+            this.dgUnitComlumn.DisplayMember = "Unit";
+            this.dgUnitComlumn.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.dgUnitComlumn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.dgUnitComlumn.HeaderText = "";
+            this.dgUnitComlumn.MaxDropDownItems = 16;
+            this.dgUnitComlumn.Name = "dgUnitComlumn";
+            this.dgUnitComlumn.ReadOnly = true;
+            this.dgUnitComlumn.ValueMember = "IngredientID";
+            this.dgUnitComlumn.Width = 40;
             // 
             // dgCostColumn
             // 
@@ -963,7 +963,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn columnVoID;
         private System.Windows.Forms.DataGridViewComboBoxColumn dgIngredientIDColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgVolumeColumn;
-        private System.Windows.Forms.DataGridViewComboBoxColumn IngredientCode;
+        private System.Windows.Forms.DataGridViewComboBoxColumn dgUnitComlumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgCostColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn columnTitleCode;
     }

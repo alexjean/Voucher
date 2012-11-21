@@ -340,7 +340,7 @@ namespace VoucherExpense
     }
 
 
-    // 在 SaleSpendRatio.cs和FormSoldIngredients.cs中使用
+    // 在 SaleSpend和 SoldProduct中使用
     public class CSaleItem  
     {
         public CSaleItem() { ProductID = 0; Volume = 0; }  // 必需有這行BindingSource才能AllowNew
@@ -351,6 +351,18 @@ namespace VoucherExpense
         public decimal Price { get; set; }
         public decimal Total { get; set; }
         public string Unit { get; set; }
+    }
+
+    // BasicSoldSpend BakerySoldSpend使用
+    public class CStockItem
+    {
+        public CStockItem() { IngredientID = 0; Volume = 0; }
+        public CStockItem(int ingredient) { IngredientID = ingredient; Volume = 0; }
+        public int IngredientID { get; set; }
+        public decimal Volume { get; set; }
+        public decimal TotalCost { get; set; }
+        public decimal UnitCost { get; set; }
+        public int OrderCount { get; set; }
     }
 
     // ReportByTitle.cs用
@@ -416,6 +428,7 @@ namespace VoucherExpense
         public AccTitle DefaultTitle;
         public BankDefault(string bankCode, string defaultCode) { BankCode = bankCode; DefaultCode = defaultCode; }
     }
+
 
 
 }

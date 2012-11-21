@@ -84,13 +84,13 @@ namespace VoucherExpense {
         
         private global::System.Data.DataRelation relationHR_HRDetail;
         
-        private global::System.Data.DataRelation relationVoucherVoucherDetail;
-        
         private global::System.Data.DataRelation relationHR_OnDutyData;
         
         private global::System.Data.DataRelation relationShiftTableShiftDetail;
         
         private global::System.Data.DataRelation relationIngredient_VoucherDetail;
+        
+        private global::System.Data.DataRelation relationVoucherVoucherDetail;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -667,10 +667,10 @@ namespace VoucherExpense {
             this.relationIngredientStock1 = this.Relations["IngredientStock1"];
             this.relationBankAccountBankDetail = this.Relations["BankAccountBankDetail"];
             this.relationHR_HRDetail = this.Relations["HR_HRDetail"];
-            this.relationVoucherVoucherDetail = this.Relations["VoucherVoucherDetail"];
             this.relationHR_OnDutyData = this.Relations["HR_OnDutyData"];
             this.relationShiftTableShiftDetail = this.Relations["ShiftTableShiftDetail"];
             this.relationIngredient_VoucherDetail = this.Relations["Ingredient_VoucherDetail"];
+            this.relationVoucherVoucherDetail = this.Relations["VoucherVoucherDetail"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -763,10 +763,6 @@ namespace VoucherExpense {
                         this.tableHR.EmployeeIDColumn}, new global::System.Data.DataColumn[] {
                         this.tableHRDetail.EmployeeIDColumn}, false);
             this.Relations.Add(this.relationHR_HRDetail);
-            this.relationVoucherVoucherDetail = new global::System.Data.DataRelation("VoucherVoucherDetail", new global::System.Data.DataColumn[] {
-                        this.tableVoucher.IDColumn}, new global::System.Data.DataColumn[] {
-                        this.tableVoucherDetail.VoIDColumn}, false);
-            this.Relations.Add(this.relationVoucherVoucherDetail);
             this.relationHR_OnDutyData = new global::System.Data.DataRelation("HR_OnDutyData", new global::System.Data.DataColumn[] {
                         this.tableHR.FingerPintNoColumn}, new global::System.Data.DataColumn[] {
                         this.tableOnDutyData.OnDutyCodeColumn}, false);
@@ -779,6 +775,10 @@ namespace VoucherExpense {
                         this.tableIngredient.IngredientIDColumn}, new global::System.Data.DataColumn[] {
                         this.tableVoucherDetail.IngredientIDColumn}, false);
             this.Relations.Add(this.relationIngredient_VoucherDetail);
+            this.relationVoucherVoucherDetail = new global::System.Data.DataRelation("VoucherVoucherDetail", new global::System.Data.DataColumn[] {
+                        this.tableVoucher.IDColumn}, new global::System.Data.DataColumn[] {
+                        this.tableVoucherDetail.VoIDColumn}, false);
+            this.Relations.Add(this.relationVoucherVoucherDetail);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -10408,23 +10408,23 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public VoucherRow VoucherRow {
-                get {
-                    return ((VoucherRow)(this.GetParentRow(this.Table.ParentRelations["VoucherVoucherDetail"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["VoucherVoucherDetail"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public IngredientRow IngredientRow {
                 get {
                     return ((IngredientRow)(this.GetParentRow(this.Table.ParentRelations["Ingredient_VoucherDetail"])));
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["Ingredient_VoucherDetail"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public VoucherRow VoucherRow {
+                get {
+                    return ((VoucherRow)(this.GetParentRow(this.Table.ParentRelations["VoucherVoucherDetail"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["VoucherVoucherDetail"]);
                 }
             }
             

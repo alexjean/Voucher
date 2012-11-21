@@ -292,9 +292,14 @@ namespace VoucherExpense
 #endif 
         }
 
-        private void 進銷比ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void 銷貨進貨ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PopupOrRun("SaleSpendRatio", typeof(SaleSpendRatio));
+#if Define_Bakery
+            PopupOrRun("BakerySoldSpent", typeof(BakerySoldSpent));
+#else
+            PopupOrRun("BasicSoldSpent", typeof(BasicSoldSpent));
+#endif
+
         }
 
         private void 傳票設定MenuItem_Click(object sender, EventArgs e)
@@ -373,7 +378,7 @@ namespace VoucherExpense
             PopupOrRun("編修部門", typeof(FormApartment));
         }
 
-        private void 銷售統計ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void 銷貨統計ToolStripMenuItem_Click(object sender, EventArgs e)
         {
 #if Define_Bakery            
             PopupOrRun("SoldProducts", typeof(BakerySoldProducts));

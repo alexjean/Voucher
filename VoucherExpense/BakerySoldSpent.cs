@@ -10,14 +10,14 @@ using System.IO;
 
 namespace VoucherExpense
 {
-    public partial class SaleSpendRatio : Form
+    public partial class BakerySoldSpent : Form
     {
         List<CSaleItem> m_SaleList = new List<CSaleItem>();
-        List<StockItem> m_StockList = new List<StockItem>();
+        List<CStockItem> m_StockList = new List<CStockItem>();
 
         private Config Cfg = new Config();
-        private string ConfigName = "SaleSpend";
-        public SaleSpendRatio()
+        private string ConfigName = "BakerySoldSpent";
+        public BakerySoldSpent()
         {
             InitializeComponent();
         }
@@ -31,12 +31,6 @@ namespace VoucherExpense
             btnDelete.Visible = flag;
             btnExport.Visible = flag;
             btnImport.Visible = flag;
-            //DataGridViewComboBoxDisplayStyle style;
-            //if (flag) style = DataGridViewComboBoxDisplayStyle.DropDownButton;
-            //else      style = DataGridViewComboBoxDisplayStyle.Nothing;
-            //codeColumnSale.DisplayStyle = style;
-            //codeColumnStock.DisplayStyle = style;
-
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -54,14 +48,14 @@ namespace VoucherExpense
             foreach (CSaleItem item in m_SaleList)
             {
                 if (item.ProductID < 1) continue;
-                xml.Append("<Code>" + item.ProductID.ToString() + "</Code>");
+                xml.Append("<ProductID>" + item.ProductID.ToString() + "</ProductID>");
             }
             xml.Append("</Product>");
             xml.Append("<Ingredient>");
-            foreach (StockItem item in m_StockList)
+            foreach (CStockItem item in m_StockList)
             {
                 if (item.IngredientID < 1) continue;
-                xml.Append("<Code>" + item.IngredientID.ToString() + "</Code>");
+                xml.Append("<IngredientID>" + item.IngredientID.ToString() + "</IngredientID>");
             }
             xml.Append("</Ingredient>");
             xml.Append("</" + ConfigName + ">");
@@ -100,12 +94,183 @@ namespace VoucherExpense
             }
         }
 
+        OrderAdapter m_OrderAdapter = new OrderAdapter();
+        OrderItemAdapter m_OrderItemAdapter = new OrderItemAdapter();
+
+        class OrderAdapter : BakeryOrderSetTableAdapters.OrderTableAdapter
+        {
+            string SaveStr;
+            public int FillBySelectStr(BakeryOrderSet.OrderDataTable dataTable, string SelectStr)
+            {
+                SaveStr = base.CommandCollection[0].CommandText;
+                base.CommandCollection[0].CommandText = SelectStr;
+                int result = Fill(dataTable);
+                base.CommandCollection[0].CommandText = SaveStr;
+                return result;
+            }
+        }
+        class OrderItemAdapter : BakeryOrderSetTableAdapters.OrderItemTableAdapter
+        {
+            string SaveStr;
+            public int FillBySelectStr(BakeryOrderSet.OrderItemDataTable dataTable, string SelectStr)
+            {
+                SaveStr = base.CommandCollection[0].CommandText;
+                base.CommandCollection[0].CommandText = SelectStr;
+                int result = Fill(dataTable);
+                base.CommandCollection[0].CommandText = SaveStr;
+                return result;
+            }
+        }
+        //string DateStr(DateTime da)
+        //{
+        //    return DateStr(da.Month, da.Day);
+        //}
+        string DateStr(int m, int d)
+        {
+            return m.ToString("d2") + d.ToString("d2");
+        }
+        //int IDTagHead(int y, int m, int d)
+        //{
+        //    int tag = y % 100;
+        //    tag = tag * 10000 + m * 100 + d;
+        //    return tag;
+        //}
+
+        // BakeryOrder的ID格式是 MMDDNN9999
+        void LoadData(int month, int from, int to)
+        {
+            string sql;
+            try
+            {
+               sql = "Where (INT(ID/1000000)>=" + DateStr(month, from)
+                   + " And INT(ID/1000000)<=" + DateStr(month, to) + ")";
+                m_OrderAdapter.FillBySelectStr(bakeryOrderSet.Order, "Select * From [Order] " + sql + " Order by ID");
+                m_OrderItemAdapter.FillBySelectStr(bakeryOrderSet.OrderItem, "Select * From [OrderItem] " + sql);
+            }
+            catch (Exception ex)
+            {
+                string str = ex.Message;
+                MessageBox.Show("訂菜單資料庫讀取錯誤!");
+            }
+        }
+
+        private decimal CalcSaleList(int month)
+        {
+            if (month < 1 || month > 12)
+            {
+                MessageBox.Show("所選月份<" + month.ToString() + ">不對!");
+                return 0;
+            }
+            int count = m_SaleList.Count;
+            if (count <= 1) return 0;
+            int year = MyFunction.IntHeaderYear;
+            int to = MyFunction.DayCountOfMonth(month);
+            if (month == 2 && DateTime.IsLeapYear(year)) to = 29;
+            LoadData( month, 1, to);   // 一律稅控制
+            foreach (CSaleItem m in m_SaleList)
+            {
+                m.Total = 0;
+                m.Volume = 0;
+            }
+            bool[] debug = new bool[count];   // items code會重複, 不知為何 ,只好用此辦法
+            foreach (BakeryOrderSet.OrderRow row in bakeryOrderSet.Order)
+            {
+                BakeryOrderSet.OrderItemRow[] items = row.GetOrderItemRows();
+                for (int i = 0; i < count; i++) debug[i] = false;
+                foreach (BakeryOrderSet.OrderItemRow it in items)
+                {
+                    for (int i = 0; i < m_SaleList.Count; i++)
+                    {
+                        CSaleItem m = m_SaleList[i];
+                        if (m.ProductID == it.ProductID)
+                        {
+                            if (debug[i]) break;        // 重複算了二次, items存入有bug,只好先跳掉
+                            debug[i] = true;
+                            m.Volume += it.No;
+                            if (it.Discount)
+                                m.Total += it.Price * it.No * 0.88m;
+                            else
+                                m.Total += it.Price * it.No;
+                            break;
+                        }
+                    }
+                }
+            }
+            decimal sum = 0;
+            foreach (CSaleItem item in m_SaleList) sum += item.Total;
+            return sum;
+
+            //            materialBindingSource.ResetBindings(false);
+            //            Text = "物料統計 " + month.ToString() + "月 " + from.ToString() + "日 至 " + to.ToString() + "日";
+            //            if (ckBoxUse12.Checked) Text += "  稅控制";
+        }
+
+        decimal CalcStockList(int month)
+        {
+            List<CStockItem> list = new List<CStockItem>();
+            foreach (CStockItem item in m_StockList)
+                list.Add(new CStockItem(item.IngredientID));
+            VEDataSet.VoucherDataTable voucher = new VEDataSet.VoucherDataTable();
+            int count = 0, checkedCount = 0;
+            foreach (VEDataSet.VoucherRow vr in vEDataSet.Voucher)
+            {
+                if (vr.IsStockTimeNull()) continue;
+                if (month != 0)
+                {
+                    if (vr.StockTime.Month != month) continue;
+                }
+                if (vr.StockTime.Year != MyFunction.IntHeaderYear) continue;
+                if (!vr.IsRemovedNull())
+                    if (vr.Removed) continue;
+                VEDataSet.VoucherRow row = voucher.NewVoucherRow();
+                row.ItemArray = vr.ItemArray;
+                voucher.AddVoucherRow(row);
+                count++;
+                if (vr.Locked) checkedCount++;
+                decimal checkSum = 0;
+                foreach (VEDataSet.VoucherDetailRow dr in vr.GetVoucherDetailRows())
+                {
+                    if (dr.IsIngredientIDNull()) continue;
+
+                    decimal co = 0, vo = 0;
+                    if (!dr.IsCostNull()) co = dr.Cost;
+
+                    checkSum += co;
+                    int ingredientID = dr.IngredientID;
+                    foreach (CStockItem p in list)
+                    {
+                        if (p.IngredientID == ingredientID)
+                        {
+                            p.TotalCost += co;
+                            p.OrderCount++;
+                            if (!dr.IsVolumeNull()) vo = dr.Volume;
+                            p.Volume += vo;
+                            if (p.Volume != 0)
+                                p.UnitCost = p.TotalCost / p.Volume;
+                            break;
+                        }
+                    }
+                }
+                decimal vrCost = 0;
+                if (!vr.IsCostNull()) vrCost = vr.Cost;
+                if (checkSum != vrCost)
+                    MessageBox.Show("警告!<" + vr.VoucherID.ToString() +
+                        ">號細項和" + checkSum.ToString("f1") +
+                        "和總和" + vr.Cost.ToString("f1") + "不符!");
+            }
+            m_StockList = list;
+            decimal sum = 0;
+            foreach (CStockItem p in list)
+                sum += p.TotalCost;
+            return sum;
+        }
+
         private void SaleSpendRatio_Load(object sender, EventArgs e)
         {
             // 位於 CalcSaleList.cs
-            m_OrderAdapter.Connection = MapPath.BasicConnection;
-            m_OrderItemAdapter.Connection = MapPath.BasicConnection;
-            productTableAdapter.Connection = MapPath.BasicConnection;
+            m_OrderAdapter.Connection = MapPath.BakeryConnection;
+            m_OrderItemAdapter.Connection = MapPath.BakeryConnection;
+            productTableAdapter.Connection = MapPath.BakeryConnection;
 
             ingredientTableAdapter.Connection = MapPath.VEConnection;
             voucherTableAdapter.Connection = MapPath.VEConnection;
@@ -114,7 +279,7 @@ namespace VoucherExpense
             try
             {
                 ingredientTableAdapter.Fill(vEDataSet.Ingredient);
-                productTableAdapter.Fill   (basicDataSet.Product);
+                productTableAdapter.Fill   (bakeryOrderSet.Product);
                 this.voucherTableAdapter.Fill(vEDataSet.Voucher);
                 this.voucherDetailTableAdapter.Fill(vEDataSet.VoucherDetail);
             }
@@ -174,10 +339,10 @@ namespace VoucherExpense
             XmlNode sale = root.SelectSingleNode("Product");
             XmlNode stock = root.SelectSingleNode("Ingredient");
             m_SaleList = new List<CSaleItem>();
-            m_StockList = new List<StockItem>();
+            m_StockList = new List<CStockItem>();
             foreach (XmlNode node in sale.ChildNodes)
             {
-                if (node.Name!="Code") continue;
+                if (node.Name!="ProductID") continue;
                 code=0;
                 try
                 {
@@ -186,7 +351,7 @@ namespace VoucherExpense
                 catch{ continue; }
                 if (code<=0) continue;
                 CSaleItem m = new CSaleItem(code);
-                foreach (BasicDataSet.ProductRow row in this.basicDataSet.Product)
+                foreach (BakeryOrderSet.ProductRow row in this.bakeryOrderSet.Product)
                 {
                     if (row.Code == code)
                     {
@@ -203,7 +368,7 @@ namespace VoucherExpense
             }
             foreach (XmlNode node in stock.ChildNodes)
             {
-                if (node.Name != "Code") continue;
+                if (node.Name != "IngredientID") continue;
                 code = 0;
                 try
                 {
@@ -211,7 +376,7 @@ namespace VoucherExpense
                 }
                 catch { continue; }
                 if (code <= 0) continue;
-                m_StockList.Add(new StockItem(code));
+                m_StockList.Add(new CStockItem(code));
             }
             int mon = comboBoxMonth.SelectedIndex;
             if (mon > 0 && mon <= 12)
@@ -268,16 +433,5 @@ namespace VoucherExpense
         }
     }
 
-    public class StockItem
-    {
-        public StockItem() { IngredientID = 0; Volume = 0; } 
-        public StockItem(int ingredient) { IngredientID = ingredient; Volume = 0; }  
-//        public int Code          { get; set; }
-        public int IngredientID  { get; set; }
-        public decimal Volume    { get; set; }
-        public decimal TotalCost { get; set; }
-        public decimal UnitCost  { get; set; }
-        public int OrderCount    { get; set; }
-    }
 
 }

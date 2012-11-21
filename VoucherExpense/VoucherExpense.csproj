@@ -125,9 +125,6 @@
       <DependentUpon>BasicDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Class\ByteBuilder.cs" />
-    <Compile Include="CalcSaleList.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Class\Config.cs" />
     <Compile Include="Class\Data.cs">
     </Compile>
@@ -336,6 +333,12 @@
     <Compile Include="BakerySoldProducts.Designer.cs">
       <DependentUpon>BakerySoldProducts.cs</DependentUpon>
     </Compile>
+    <Compile Include="BakerySoldSpent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BakerySoldSpent.Designer.cs">
+      <DependentUpon>BakerySoldSpent.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AccountingTitle.resx">
       <SubType>Designer</SubType>
       <DependentUpon>AccountingTitle.cs</DependentUpon>
@@ -455,8 +458,8 @@
       <SubType>Designer</SubType>
       <DependentUpon>ReportByVender.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SaleSpendRatio.resx">
-      <DependentUpon>SaleSpendRatio.cs</DependentUpon>
+    <EmbeddedResource Include="BasicSoldSpent.resx">
+      <DependentUpon>BasicSoldSpent.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Vendor.resx">
       <SubType>Designer</SubType>
@@ -479,6 +482,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BakerySoldProducts.resx">
       <DependentUpon>BakerySoldProducts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BakerySoldSpent.resx">
+      <DependentUpon>BakerySoldSpent.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="BakeryOrderSet.xsc">
@@ -553,11 +559,11 @@
       <DependentUpon>ReportByVender.cs</DependentUpon>
     </Compile>
     <Compile Include="RevenueCalc.cs" />
-    <Compile Include="SaleSpendRatio.cs">
+    <Compile Include="BasicSoldSpent.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SaleSpendRatio.Designer.cs">
-      <DependentUpon>SaleSpendRatio.cs</DependentUpon>
+    <Compile Include="BasicSoldSpent.Designer.cs">
+      <DependentUpon>BasicSoldSpent.cs</DependentUpon>
     </Compile>
     <Compile Include="VEDataSet.cs">
       <DependentUpon>VEDataSet.xsd</DependentUpon>

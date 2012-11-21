@@ -15,7 +15,7 @@ namespace VoucherExpense
         List<CSaleItem> m_SaleList = new List<CSaleItem>();
         
         private Config Cfg = new Config();
-        private string ConfigName = "SoldIngredients";
+        private string ConfigName = "BakerySoldProducts";
 
         public BakerySoldProducts()
         {
@@ -303,46 +303,22 @@ namespace VoucherExpense
             progressBar1.Step = 1;
         }
 
-        void LoadData(int year, int month, int from, int to, bool Use12)
+
+        
+        string DateStr(int m, int d)
+        {
+            return  m.ToString("d2") + d.ToString("d2");
+        }
+
+        // BakeryOrderSet.Order.ID ==> MMDDNN9999
+        void LoadData(int year, int month, int from, int to)
         {
             string sql;
             try
             {
-                if (Use12)
-                {
-                    TimeSpan oneDay = new TimeSpan(24, 0, 0);
-                    DateTime prev = new DateTime(year, month, from).Subtract(oneDay);
-                    DateTime next = new DateTime(year, month, to);
-                    sql = "Where (INT(ID/10000)>=" + DateStr(prev)
-                        + " And INT(ID/10000)<=" + DateStr(next) + ")";
-                    BakeryOrderSet.OrderDataTable temp = new BakeryOrderSet.OrderDataTable();
-                    m_OrderAdapter.FillBySelectStr(temp, "Select * From [Order] " + sql + " Order by ID");
-                    int nextID = IDTagHead(next.Year, next.Month, next.Day);
-                    int prevID = IDTagHead(prev.Year, prev.Month, prev.Day);
-                    bakeryOrderSet.Order.Clear();
-
-                    foreach (BakeryOrderSet.OrderRow r in temp)
-                    {
-                        int idHead = r.ID / 10000;
-                        if (idHead == nextID)
-                        {
-                            if (r.PrintTime.Hour < 7) continue;
-                        }
-                        else if (idHead == prevID)
-                        {
-                            if (r.PrintTime.Hour >= 7) continue;
-                        }
-                        BakeryOrderSet.OrderRow oRow = bakeryOrderSet.Order.NewOrderRow();
-                        oRow.ItemArray = r.ItemArray;
-                        bakeryOrderSet.Order.AddOrderRow(oRow);
-                    }
-                }
-                else
-                {
-                    sql = "Where (INT(ID/10000)>=" + DateStr(year, month, from)
-                        + " And INT(ID/10000)<=" + DateStr(year, month, to) + ")";
-                    m_OrderAdapter.FillBySelectStr(bakeryOrderSet.Order, "Select * From [Order] " + sql + " Order by ID");
-                }
+                sql = "Where (INT(ID/1000000)>=" + DateStr(month, from)
+                    + " And INT(ID/1000000)<=" + DateStr(month, to) + ")";
+                m_OrderAdapter.FillBySelectStr(bakeryOrderSet.Order, "Select * From [Order] " + sql + " Order by ID");
                 m_OrderItemAdapter.FillBySelectStr(bakeryOrderSet.OrderItem, "Select * From [OrderItem] " + sql);
             }
             catch (Exception ex)
@@ -354,7 +330,7 @@ namespace VoucherExpense
         #endregion
 
 
-        private decimal CalcSaleList(int month,int from,int to,bool taxBased)
+        private decimal CalcSaleList(int month,int from,int to)
         {
             int count = m_SaleList.Count;
             if (count <= 1)
@@ -367,7 +343,7 @@ namespace VoucherExpense
             labelMessage.Text = "載入資料中.";
             labelMessage.Visible = true;
             Application.DoEvents();
-            LoadData(year, month, from , to, taxBased);   // 一律稅控制
+            LoadData(year, month, from , to);   
             foreach (CSaleItem m in m_SaleList)
             {
                 m.Total = 0;
@@ -440,7 +416,7 @@ namespace VoucherExpense
                 MessageBox.Show("所選結束日期<" + to.ToString() + ">不對!");
                 return false;
             }
-            if (CalcSaleList(month, from, to, ckBoxUse12.Checked) ==decimal.MinValue) return false;
+            if (CalcSaleList(month, from, to) ==decimal.MinValue) return false;
             cSaleItemBindingSource.DataSource = m_SaleList;
             cSaleItemBindingSource.ResetBindings(false);
             return true;
@@ -517,9 +493,7 @@ namespace VoucherExpense
             Buf.AppendPadRight("印表时间:" + DateTime.Now.ToString("yy/MM/dd hh:mm"), 19, GB2312);
             Buf.Append("\r\n表单: " + cbBoxTable.Text + "\r\n", GB2312);
             string str = cbBoxMonth.Text.Trim() + cbBoxFrom.Text.Trim() + "至" + cbBoxTo.Text.Trim()+" ";
-            if (ckBoxUse12.Checked)
-                str += "营业日";
-            else str += "0_24时";
+            str += "0_24时";
             Buf.Append("时段: "+str +"\r\n\r\n");
 
             Buf.Append("  品名          数量      金额\r\n", GB2312);

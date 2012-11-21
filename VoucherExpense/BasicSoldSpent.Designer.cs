@@ -1,6 +1,6 @@
 ﻿namespace VoucherExpense
 {
-    partial class SaleSpendRatio
+    partial class BasicSoldSpent
     {
         /// <summary>
         /// Required designer variable.
@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.basicDataSet = new VoucherExpense.BasicDataSet();
             this.cbBoxTable = new System.Windows.Forms.ComboBox();
@@ -48,6 +48,11 @@
             this.comboBoxMonth = new System.Windows.Forms.ComboBox();
             this.productTableAdapter = new VoucherExpense.BasicDataSetTableAdapters.ProductTableAdapter();
             this.dgViewSale = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.volumeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Unit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cSaleItemBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.vEDataSet = new VoucherExpense.VEDataSet();
             this.ingredientBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -68,11 +73,6 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnImport = new System.Windows.Forms.Button();
-            this.Column1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.volumeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Unit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.basicDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgViewSale)).BeginInit();
@@ -111,7 +111,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 16);
             this.label1.TabIndex = 3;
-            this.label1.Text = "銷售";
+            this.label1.Text = "銷貨";
             // 
             // label2
             // 
@@ -214,6 +214,61 @@
             this.dgViewSale.TabIndex = 0;
             this.dgViewSale.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgViewSale_DataError);
             // 
+            // Column1
+            // 
+            this.Column1.DataPropertyName = "ProductID";
+            this.Column1.DataSource = this.productBindingSource;
+            this.Column1.DisplayMember = "Name";
+            this.Column1.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.Column1.HeaderText = "產品";
+            this.Column1.Name = "Column1";
+            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Column1.ValueMember = "ProductID";
+            this.Column1.Width = 160;
+            // 
+            // volumeDataGridViewTextBoxColumn
+            // 
+            this.volumeDataGridViewTextBoxColumn.DataPropertyName = "Volume";
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.volumeDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
+            this.volumeDataGridViewTextBoxColumn.HeaderText = "量";
+            this.volumeDataGridViewTextBoxColumn.Name = "volumeDataGridViewTextBoxColumn";
+            this.volumeDataGridViewTextBoxColumn.ReadOnly = true;
+            this.volumeDataGridViewTextBoxColumn.Width = 56;
+            // 
+            // Unit
+            // 
+            this.Unit.DataPropertyName = "Unit";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.Unit.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Unit.HeaderText = "";
+            this.Unit.Name = "Unit";
+            this.Unit.ReadOnly = true;
+            this.Unit.Width = 32;
+            // 
+            // Price
+            // 
+            this.Price.DataPropertyName = "Price";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Price.DefaultCellStyle = dataGridViewCellStyle3;
+            this.Price.HeaderText = "價";
+            this.Price.Name = "Price";
+            this.Price.ReadOnly = true;
+            this.Price.Width = 48;
+            // 
+            // Total
+            // 
+            this.Total.DataPropertyName = "Total";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle4.Format = "N1";
+            dataGridViewCellStyle4.NullValue = null;
+            this.Total.DefaultCellStyle = dataGridViewCellStyle4;
+            this.Total.HeaderText = "總計";
+            this.Total.Name = "Total";
+            this.Total.ReadOnly = true;
+            this.Total.Width = 92;
+            // 
             // cSaleItemBindingSource
             // 
             this.cSaleItemBindingSource.AllowNew = true;
@@ -313,7 +368,7 @@
             // 
             // stockItemBindingSource
             // 
-            this.stockItemBindingSource.DataSource = typeof(VoucherExpense.StockItem);
+            this.stockItemBindingSource.DataSource = typeof(VoucherExpense.CStockItem);
             // 
             // voucherDetailTableAdapter
             // 
@@ -391,62 +446,7 @@
             this.btnImport.Visible = false;
             this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
             // 
-            // Column1
-            // 
-            this.Column1.DataPropertyName = "ProductID";
-            this.Column1.DataSource = this.productBindingSource;
-            this.Column1.DisplayMember = "Name";
-            this.Column1.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.Column1.HeaderText = "產品";
-            this.Column1.Name = "Column1";
-            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Column1.ValueMember = "ProductID";
-            this.Column1.Width = 160;
-            // 
-            // volumeDataGridViewTextBoxColumn
-            // 
-            this.volumeDataGridViewTextBoxColumn.DataPropertyName = "Volume";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.volumeDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
-            this.volumeDataGridViewTextBoxColumn.HeaderText = "量";
-            this.volumeDataGridViewTextBoxColumn.Name = "volumeDataGridViewTextBoxColumn";
-            this.volumeDataGridViewTextBoxColumn.ReadOnly = true;
-            this.volumeDataGridViewTextBoxColumn.Width = 56;
-            // 
-            // Unit
-            // 
-            this.Unit.DataPropertyName = "Unit";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.Unit.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Unit.HeaderText = "";
-            this.Unit.Name = "Unit";
-            this.Unit.ReadOnly = true;
-            this.Unit.Width = 32;
-            // 
-            // Price
-            // 
-            this.Price.DataPropertyName = "Price";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Price.DefaultCellStyle = dataGridViewCellStyle3;
-            this.Price.HeaderText = "價";
-            this.Price.Name = "Price";
-            this.Price.ReadOnly = true;
-            this.Price.Width = 48;
-            // 
-            // Total
-            // 
-            this.Total.DataPropertyName = "Total";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.Format = "N1";
-            dataGridViewCellStyle4.NullValue = null;
-            this.Total.DefaultCellStyle = dataGridViewCellStyle4;
-            this.Total.HeaderText = "總計";
-            this.Total.Name = "Total";
-            this.Total.ReadOnly = true;
-            this.Total.Width = 92;
-            // 
-            // SaleSpendRatio
+            // BasicSoldSpent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -471,8 +471,8 @@
             this.Controls.Add(this.textBoxName);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "SaleSpendRatio";
-            this.Text = "銷貨耗料比";
+            this.Name = "BasicSoldSpent";
+            this.Text = "餐飲銷貨進貨並列";
             this.Load += new System.EventHandler(this.SaleSpendRatio_Load);
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.basicDataSet)).EndInit();

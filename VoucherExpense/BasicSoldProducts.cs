@@ -15,7 +15,7 @@ namespace VoucherExpense
         List<CSaleItem> m_SaleList = new List<CSaleItem>();
         
         private Config Cfg = new Config();
-        private string ConfigName = "SoldIngredients";
+        private string ConfigName = "BasicSoldProducts";
 
         public BasicSoldProducts()
         {

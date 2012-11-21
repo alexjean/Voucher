@@ -294,6 +294,13 @@ namespace VoucherExpense
 
         private void photoPictureBox_DoubleClick(object sender, EventArgs e)
         {
+            DataRowView rowView = productBindingSource.Current as DataRowView;
+            BasicDataSet.ProductRow row = rowView.Row as BasicDataSet.ProductRow;
+            if (row.ProductID <= 0)
+            {
+                MessageBox.Show("抱歉! 新增時內碼小於 0 無法存照片!\r\n請存檔後關閉產品表,再重新進入設定照片!");
+                return;
+            }
             DialogResult result = openFileDialog1.ShowDialog();
             if (result != DialogResult.OK) return;
             string ext = Path.GetExtension(openFileDialog1.FileName).ToLower();

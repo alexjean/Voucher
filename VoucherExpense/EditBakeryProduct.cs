@@ -183,7 +183,7 @@ namespace VoucherExpense
             }
             catch
             {
-                MessageBox.Show("要刪除的產品代碼必需是數字!");
+                MessageBox.Show("要刪除的產品內碼必需是數字!");
                 return;
             }
             string strCode="產品 <"+productID.ToString()+">";

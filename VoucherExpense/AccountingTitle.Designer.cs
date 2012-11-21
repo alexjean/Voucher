@@ -30,11 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AccountingTitle));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.accountingTitleBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.accountingTitleBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -58,6 +58,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.accountingTitleTableAdapter = new VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter();
+            this.DeletetoolStripButton = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingNavigator)).BeginInit();
             this.accountingTitleBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).BeginInit();
@@ -84,7 +85,8 @@
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorSeparator2,
             this.bindingNavigatorAddNewItem,
-            this.accountingTitleBindingNavigatorSaveItem});
+            this.accountingTitleBindingNavigatorSaveItem,
+            this.DeletetoolStripButton});
             this.accountingTitleBindingNavigator.Location = new System.Drawing.Point(0, 0);
             this.accountingTitleBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.accountingTitleBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
@@ -199,18 +201,18 @@
             this.accountingTitleDataGridView.AllowUserToAddRows = false;
             this.accountingTitleDataGridView.AllowUserToDeleteRows = false;
             this.accountingTitleDataGridView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle26.BackColor = System.Drawing.Color.Azure;
-            this.accountingTitleDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle26;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
+            this.accountingTitleDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.accountingTitleDataGridView.AutoGenerateColumns = false;
             this.accountingTitleDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
-            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle27.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            dataGridViewCellStyle27.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle27.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle27.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle27.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.accountingTitleDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle27;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.accountingTitleDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.accountingTitleDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.TitleCode,
             this.columnTitleName,
@@ -233,8 +235,8 @@
             // TitleCode
             // 
             this.TitleCode.DataPropertyName = "TitleCode";
-            dataGridViewCellStyle28.NullValue = null;
-            this.TitleCode.DefaultCellStyle = dataGridViewCellStyle28;
+            dataGridViewCellStyle3.NullValue = null;
+            this.TitleCode.DefaultCellStyle = dataGridViewCellStyle3;
             this.TitleCode.HeaderText = "科目編號";
             this.TitleCode.Name = "TitleCode";
             this.TitleCode.Width = 80;
@@ -249,19 +251,19 @@
             // InitialValue
             // 
             this.InitialValue.DataPropertyName = "InitialValue";
-            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle29.Format = "N2";
-            dataGridViewCellStyle29.NullValue = null;
-            this.InitialValue.DefaultCellStyle = dataGridViewCellStyle29;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle4.Format = "N2";
+            dataGridViewCellStyle4.NullValue = null;
+            this.InitialValue.DefaultCellStyle = dataGridViewCellStyle4;
             this.InitialValue.HeaderText = "期初值";
             this.InitialValue.Name = "InitialValue";
             // 
             // dataGridViewTextBoxColumn4
             // 
             this.dataGridViewTextBoxColumn4.DataPropertyName = "LastUpdated";
-            dataGridViewCellStyle30.Format = "d";
-            dataGridViewCellStyle30.NullValue = null;
-            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle30;
+            dataGridViewCellStyle5.Format = "d";
+            dataGridViewCellStyle5.NullValue = null;
+            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridViewTextBoxColumn4.HeaderText = "更新日";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
@@ -320,6 +322,17 @@
             // 
             this.accountingTitleTableAdapter.ClearBeforeFill = true;
             // 
+            // DeletetoolStripButton
+            // 
+            this.DeletetoolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.DeletetoolStripButton.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.DeletetoolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("DeletetoolStripButton.Image")));
+            this.DeletetoolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.DeletetoolStripButton.Name = "DeletetoolStripButton";
+            this.DeletetoolStripButton.Size = new System.Drawing.Size(23, 24);
+            this.DeletetoolStripButton.Text = "刪除";
+            this.DeletetoolStripButton.Click += new System.EventHandler(this.DeletetoolStripButton_Click);
+            // 
             // AccountingTitle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -369,6 +382,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn columnTitleName;
         private System.Windows.Forms.DataGridViewTextBoxColumn InitialValue;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.ToolStripButton DeletetoolStripButton;
 
     }
 }

@@ -39,7 +39,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;Define_Bakery</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
@@ -105,7 +105,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BakeryOrderSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Class\AccTitleList.cs" />
+    <Compile Include="AccTitleList.cs" />
     <Compile Include="EditBakeryMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -285,6 +285,7 @@
     <Compile Include="FormTitleSetup.Designer.cs">
       <DependentUpon>FormTitleSetup.cs</DependentUpon>
     </Compile>
+    <Compile Include="LedgerTableGenerator.cs" />
     <Compile Include="ModifyPassword.cs">
       <SubType>Form</SubType>
     </Compile>

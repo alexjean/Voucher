@@ -150,6 +150,11 @@ namespace VoucherExpense
  //           MyFunction.AddNewItem(this.accountingTitleDataGridView, "TitleCode", "TitleCode", vEDataSet.AccountingTitle);
         }
 
+        private void DeletetoolStripButton_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("施工中...");
+        }
+
      }
 
 }

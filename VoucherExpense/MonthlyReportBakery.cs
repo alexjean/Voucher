@@ -95,15 +95,12 @@ namespace VoucherExpense
             dgViewMonthly.Focus();
         }
 
-        private void MonthlyReport_SizeChanged(object sender, EventArgs e)
-        {
-            dgViewMonthly.Size = new Size(dgViewMonthly.Width, ClientSize.Height - 43);
-        }
-
         private void checkBoxUse12_CheckedChanged(object sender, EventArgs e)
         {
             Calc();
         }
+
+     
 
 
     }

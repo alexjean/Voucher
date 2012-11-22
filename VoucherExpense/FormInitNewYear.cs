@@ -90,6 +90,7 @@ namespace VoucherExpense
                         "Ingredient"    ,
                         "BankAccount"   ,
                         "Config"        ,
+                        "Apartment"     ,
                         "HR"            ,
                         "HRDetail"
                     };

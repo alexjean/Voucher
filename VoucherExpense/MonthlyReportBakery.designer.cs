@@ -77,6 +77,8 @@
             this.dgViewMonthly.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
             this.dgViewMonthly.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgViewMonthly.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.dgViewMonthly.AutoGenerateColumns = false;
             this.dgViewMonthly.BackgroundColor = System.Drawing.Color.SeaShell;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
@@ -101,15 +103,14 @@
             this.CreditFee,
             this.Column1});
             this.dgViewMonthly.DataSource = this.monthlyReportDataBindingSource;
-            this.dgViewMonthly.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dgViewMonthly.Location = new System.Drawing.Point(0, 77);
+            this.dgViewMonthly.Location = new System.Drawing.Point(0, 26);
             this.dgViewMonthly.Margin = new System.Windows.Forms.Padding(4);
             this.dgViewMonthly.Name = "dgViewMonthly";
             this.dgViewMonthly.ReadOnly = true;
             this.dgViewMonthly.RowHeadersWidth = 25;
             this.dgViewMonthly.RowTemplate.Height = 24;
             this.dgViewMonthly.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgViewMonthly.Size = new System.Drawing.Size(946, 585);
+            this.dgViewMonthly.Size = new System.Drawing.Size(946, 417);
             this.dgViewMonthly.TabIndex = 0;
             // 
             // dateDataGridViewTextBoxColumn
@@ -246,7 +247,7 @@
             "十月",
             "十一月",
             "十二月"});
-            this.comboBoxMonth.Location = new System.Drawing.Point(13, 11);
+            this.comboBoxMonth.Location = new System.Drawing.Point(13, 2);
             this.comboBoxMonth.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxMonth.Name = "comboBoxMonth";
             this.comboBoxMonth.Size = new System.Drawing.Size(84, 24);
@@ -259,7 +260,7 @@
             // 
             // labelOrderCount
             // 
-            this.labelOrderCount.Location = new System.Drawing.Point(378, 22);
+            this.labelOrderCount.Location = new System.Drawing.Point(378, 7);
             this.labelOrderCount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelOrderCount.Name = "labelOrderCount";
             this.labelOrderCount.Size = new System.Drawing.Size(64, 14);
@@ -268,7 +269,7 @@
             // 
             // labelCash
             // 
-            this.labelCash.Location = new System.Drawing.Point(292, 20);
+            this.labelCash.Location = new System.Drawing.Point(292, 6);
             this.labelCash.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelCash.Name = "labelCash";
             this.labelCash.Size = new System.Drawing.Size(90, 16);
@@ -277,7 +278,7 @@
             // 
             // labelCredit
             // 
-            this.labelCredit.Location = new System.Drawing.Point(194, 22);
+            this.labelCredit.Location = new System.Drawing.Point(194, 6);
             this.labelCredit.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelCredit.Name = "labelCredit";
             this.labelCredit.Size = new System.Drawing.Size(90, 16);
@@ -286,7 +287,7 @@
             // 
             // labelRevenue
             // 
-            this.labelRevenue.Location = new System.Drawing.Point(96, 21);
+            this.labelRevenue.Location = new System.Drawing.Point(96, 6);
             this.labelRevenue.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelRevenue.Name = "labelRevenue";
             this.labelRevenue.Size = new System.Drawing.Size(90, 16);
@@ -295,16 +296,18 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(0, 48);
+            this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBar1.Location = new System.Drawing.Point(0, 317);
             this.progressBar1.Margin = new System.Windows.Forms.Padding(4);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(1004, 13);
+            this.progressBar1.Size = new System.Drawing.Size(946, 40);
             this.progressBar1.TabIndex = 7;
             this.progressBar1.Visible = false;
             // 
             // labelCreditNet
             // 
-            this.labelCreditNet.Location = new System.Drawing.Point(450, 21);
+            this.labelCreditNet.Location = new System.Drawing.Point(450, 6);
             this.labelCreditNet.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelCreditNet.Name = "labelCreditNet";
             this.labelCreditNet.Size = new System.Drawing.Size(56, 16);
@@ -313,7 +316,7 @@
             // 
             // labelCreditFee
             // 
-            this.labelCreditFee.Location = new System.Drawing.Point(671, 21);
+            this.labelCreditFee.Location = new System.Drawing.Point(671, 6);
             this.labelCreditFee.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelCreditFee.Name = "labelCreditFee";
             this.labelCreditFee.Size = new System.Drawing.Size(90, 16);
@@ -322,7 +325,7 @@
             // 
             // labelFeeRate
             // 
-            this.labelFeeRate.Location = new System.Drawing.Point(781, 21);
+            this.labelFeeRate.Location = new System.Drawing.Point(781, 6);
             this.labelFeeRate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelFeeRate.Name = "labelFeeRate";
             this.labelFeeRate.Size = new System.Drawing.Size(65, 16);
@@ -334,7 +337,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(226)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(946, 662);
+            this.ClientSize = new System.Drawing.Size(946, 444);
             this.Controls.Add(this.labelFeeRate);
             this.Controls.Add(this.labelCreditFee);
             this.Controls.Add(this.labelCreditNet);
@@ -350,7 +353,6 @@
             this.Name = "MonthlyReportBakery";
             this.Text = "烘焙收入月報";
             this.Load += new System.EventHandler(this.MonthlyReportBakery_Load);
-            this.SizeChanged += new System.EventHandler(this.MonthlyReport_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dgViewMonthly)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.monthlyReportDataBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).EndInit();

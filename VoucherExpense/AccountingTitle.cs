@@ -176,8 +176,15 @@ namespace VoucherExpense
             }
             DataRowView rowView = cells[0].OwningRow.DataBoundItem as DataRowView;
             VEDataSet.AccountingTitleRow row = rowView.Row as VEDataSet.AccountingTitleRow;
+            if (Convert.IsDBNull(cells[0].OwningRow.Cells[0].Value))    // 只有新增未存檔的才可能沒資料
+            {
+                accountingTitleBindingSource.RemoveCurrent();
+                return;
+            }
             string titleCode=row.TitleCode.Trim();
-            string titleName = row.Name;
+
+            string titleName = "";
+            if (!row.IsNameNull()) titleName=row.Name;
             if (titleCode.Length == 0)
             {
                 MessageBox.Show("沒有科目代碼!");
@@ -360,6 +367,23 @@ namespace VoucherExpense
         }
 
         #endregion
+
+        private void accountingTitleDataGridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            DataGridView view = sender as DataGridView;
+            if (view.Columns[e.ColumnIndex].Name == "TitleCode")
+            {
+                DataGridViewCell cell = view.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                if (cell.Value == Convert.DBNull || cell.Value == null || cell.Value.ToString()=="")
+                    return;
+                e.Cancel = true;
+            }
+        }
+
+        private void accountingTitleDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+
+        }
 
      
 

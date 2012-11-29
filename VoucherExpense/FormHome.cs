@@ -280,7 +280,11 @@ namespace VoucherExpense
 
         private void 明細ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PopupOrRun("OrderBrowse", typeof(FormBrowse));
+#if Define_Bakery
+            PopupOrRun("BakeryOrderBrowse",typeof(BakeryOrderBrowse));
+#else
+            PopupOrRun("BasicOrderBrowse", typeof(FormBrowse));
+#endif
         }
 
         private void 月報ToolStripMenuItem_Click(object sender, EventArgs e)

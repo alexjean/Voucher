@@ -273,6 +273,12 @@
     <Compile Include="BasicSoldProducts.Designer.cs">
       <DependentUpon>BasicSoldProducts.cs</DependentUpon>
     </Compile>
+    <Compile Include="BakeryOrderBrowse.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BakeryOrderBrowse.Designer.cs">
+      <DependentUpon>BakeryOrderBrowse.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormStock.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -424,6 +430,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BasicSoldProducts.resx">
       <DependentUpon>BasicSoldProducts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BakeryOrderBrowse.resx">
+      <DependentUpon>BakeryOrderBrowse.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormStock.resx">
       <DependentUpon>FormStock.cs</DependentUpon>

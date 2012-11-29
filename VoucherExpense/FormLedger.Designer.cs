@@ -276,6 +276,7 @@
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormLedger";
+            this.ShowIcon = false;
             this.Text = "分類帳";
             this.Load += new System.EventHandler(this.FormLedger_Load);
             ((System.ComponentModel.ISupportInitialize)(this.cLedgerTableBindingSource)).EndInit();

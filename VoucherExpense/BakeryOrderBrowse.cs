@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace BakeryOrder
+namespace VoucherExpense
 {
-    public partial class FormStatics : Form
+    public partial class BakeryOrderBrowse : Form
     {
         private static class MyLayout
         {
@@ -20,48 +20,118 @@ namespace BakeryOrder
             public static int NoWidth = 8;
         }
 
-        BakeryOrderSet m_BakeryOrderSet;
-        BakeryOrderSetTableAdapters.OrderTableAdapter m_OrderTableAdapter;
-        int m_CashierID = 0;
-        public FormStatics(BakeryOrderSet bakeryOrderSet,BakeryOrderSetTableAdapters.OrderTableAdapter adapter,int cashierID)
+        public BakeryOrderBrowse()
         {
-            m_BakeryOrderSet    = bakeryOrderSet;
-            m_OrderTableAdapter = adapter;
-            m_CashierID         = cashierID;
             InitializeComponent();
         }
 
-        private void btnReturn_Click(object sender, EventArgs e)
-        {
-            this.DialogResult = DialogResult.OK;
-            Close();
-        }
-
-        private void btnExitProgram_Click(object sender, EventArgs e)
-        {
-            this.DialogResult = DialogResult.Abort;
-            Close();
-        }
-
-        private void btnLogout_Click(object sender, EventArgs e)
-        {
-            this.DialogResult = DialogResult.Cancel;
-            Close();
-        }
-
         string[] m_ListViewItemBackup;
-        private void FormStatics_Load(object sender, EventArgs e)
-        {
-            Screen scr = Screen.PrimaryScreen;
-            Location = new Point(scr.Bounds.X, scr.Bounds.Y);
-            TopMost = true;
 
-//          InitTabControlItem(tabControl1);
-            tabControl1.DrawMode = TabDrawMode.OwnerDrawFixed;
+        private void BakeryOrderBrowse_Load(object sender, EventArgs e)
+        {
             m_ListViewItemBackup=new string[lvItems.Columns.Count]; // 備份給ResetListView用
             for(int i=1;i<lvItems.Columns.Count;i++) 
                 m_ListViewItemBackup[i]=lvItems.Columns[i].Text;
+
+            try
+            {
+                this.productTableAdapter.Fill(bakeryOrderSet.Product);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("載入烘焙產品表時出錯,原因:" + ex.Message);
+            }
+            cbBoxMonth.SelectedIndexChanged += new EventHandler(cbBoxMonth_SelectedIndexChanged);
+            cbBoxMonth.SelectedIndex = DateTime.Now.Month - 1;
+            cbBoxDay.SelectedIndex = DateTime.Now.Day - 1;
         }
+
+        class OrderAdapter : BakeryOrderSetTableAdapters.OrderTableAdapter
+        {
+            string SaveStr;
+            public int FillBySelectStr(BakeryOrderSet.OrderDataTable dataTable, string SelectStr)
+            {
+                SaveStr = base.CommandCollection[0].CommandText;
+                base.CommandCollection[0].CommandText = SelectStr;
+                int result = Fill(dataTable);
+                base.CommandCollection[0].CommandText = SaveStr;
+                return result;
+            }
+        }
+        class OrderItemAdapter : BakeryOrderSetTableAdapters.OrderItemTableAdapter
+        {
+            string SaveStr;
+            public int FillBySelectStr(BakeryOrderSet.OrderItemDataTable dataTable, string SelectStr)
+            {
+                SaveStr = base.CommandCollection[0].CommandText;
+                base.CommandCollection[0].CommandText = SelectStr;
+                int result = Fill(dataTable);
+                base.CommandCollection[0].CommandText = SaveStr;
+                return result;
+            }
+        }
+        class DrawerRecordAdapter : BakeryOrderSetTableAdapters.DrawerRecordTableAdapter
+        {
+            string SaveStr;
+            public int FillBySelectStr(BakeryOrderSet.DrawerRecordDataTable dataTable, string SelectStr)
+            {
+                SaveStr = base.CommandCollection[0].CommandText;
+                base.CommandCollection[0].CommandText = SelectStr;
+                int result = Fill(dataTable);
+                base.CommandCollection[0].CommandText = SaveStr;
+                return result;
+            }
+        }
+
+        OrderAdapter m_OrderTableAdapter = new OrderAdapter();
+        OrderItemAdapter m_OrderItemTableAdapter = new OrderItemAdapter();
+        DrawerRecordAdapter m_DrawerReocrdAdapter = new DrawerRecordAdapter();
+
+        int LoadData(int m, int d)
+        {
+            string sql = "Where INT(ID/1000000)=" + m.ToString("d2") + d.ToString("d2");
+            int MaxID = 0;
+            try
+            {
+                m_OrderTableAdapter.FillBySelectStr(bakeryOrderSet.Order, "Select * From [Order] " + sql + " Order by ID");
+                m_OrderItemTableAdapter.FillBySelectStr(bakeryOrderSet.OrderItem, "Select * From [OrderItem] " + sql);
+                foreach (BakeryOrderSet.OrderRow R in bakeryOrderSet.Order.Rows)
+                {
+                    int id = R.ID % 10000;       // 資料定義為 MMDDNN9999  N POS机号,店長收資料時,再自動填上
+                    if (id > MaxID) MaxID = id;
+                }
+                return MaxID;
+            }
+            catch (Exception ex)
+            {
+                string str = ex.Message;
+                MessageBox.Show("BakeryOrder.Order OrderItem讀取錯誤!" + str);
+                return -1;
+            }
+        }
+
+        int LoadDrawerRecordData(int m, int d)
+        {
+            string sql = "Where INT(DrawerRecordID/1000000)=" + m.ToString("d2") + d.ToString("d2");
+            int MaxID = 0;
+            try
+            {
+                m_DrawerReocrdAdapter.FillBySelectStr(bakeryOrderSet.DrawerRecord, "Select * From [DrawerRecord] " + sql);
+                foreach (BakeryOrderSet.DrawerRecordRow R in bakeryOrderSet.DrawerRecord.Rows)
+                {
+                    int id = R.DrawerRecordID % 100000;       // 資料定義為 MMDDN99999  N POS机号比Order.ID少一位, id最多10萬筆多十倍
+                    if (id > MaxID) MaxID = id;
+                }
+                return MaxID;
+            }
+            catch (Exception ex)
+            {
+                string str = ex.Message;
+                MessageBox.Show("BakeryOrder.DrawerRecord讀取錯誤!" + str);
+                return -1;
+            }
+        }
+
 
         private void tabControl1_DrawItem(object sender, DrawItemEventArgs e)
         {
@@ -117,7 +187,6 @@ namespace BakeryOrder
             yy = MyLayout.OffsetY + y * HeightY;
             TextBox b = new TextBox();
             b.MouseClick+=new MouseEventHandler(b_MouseClick);
-            b.MouseDoubleClick+=new MouseEventHandler(b_MouseDoubleClick);
             b.Multiline = true;
             b.Font = SystemFonts.MenuFont;
             b.AutoSize = false;
@@ -140,59 +209,13 @@ namespace BakeryOrder
 
         string  FindNameFromProduct(int productID)
         {
-            foreach (BakeryOrderSet.ProductRow row in m_BakeryOrderSet.Product)
+            foreach (BakeryOrderSet.ProductRow row in bakeryOrderSet.Product)
             {
                 if (productID == row.ProductID) return row.Name;
             }
             return "";
         }
 
-        private void b_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            TextBox t = sender as TextBox;
-            BakeryOrderSet.OrderRow order = t.Tag as BakeryOrderSet.OrderRow;
-            if (order.CashierID != m_CashierID)
-            {
-                MessageBox.Show("不是自己的單! 不能改");
-                return;
-            }
-            if (MessageBox.Show("要更改刪除狀態?", "", MessageBoxButtons.YesNo) != DialogResult.Yes)
-            {
-                return;
-            }
-            order.BeginEdit();
-            if (!order.IsDeletedNull() && order.Deleted)
-            {
-                order.Deleted = false;
-                t.BackColor = tabControl1.TabPages[0].BackColor;
-            }
-            else
-            {
-                order.Deleted = true;
-                t.BackColor = Color.Green;
-            }
-            order.EndEdit();
-            try
-            {
-                if (order.RowState != DataRowState.Unchanged)   // 不用管Deleted,Detached不會發生
-                {
-                    m_OrderTableAdapter.Update(order);    
-                    order.AcceptChanges();     // Update應該隱含AcceptChanges
-                }
-            }
-            catch (Exception E)
-            {
-                if (E.GetType() != typeof(System.Data.DBConcurrencyException))
-                    MessageBox.Show(E.Message + "Update(CurrentOrder) 出錯");
-                else
-                {
-                    MessageBox.Show("Update(Order)發生並行違例,可能是別台己經改過這張單子,或新Order有初值未設定!");
-                    MessageBox.Show("請重啟程式,你必需重新修改!");
-                    this.DialogResult = DialogResult.Abort;  // 傳送.Abort給上層Form,代表ExitProgram
-                    Close();
-                }
-            }
-        }
 
         void ResetListView()
         {
@@ -239,7 +262,7 @@ namespace BakeryOrder
             BakeryOrderSet.DrawerRecordRow record = t.Tag as BakeryOrderSet.DrawerRecordRow;
             ResetListView();
             if (record.IsAssociateOrderIDNull() || record.AssociateOrderID < 0) return;
-            foreach (BakeryOrderSet.OrderRow row in m_BakeryOrderSet.Order)
+            foreach (BakeryOrderSet.OrderRow row in bakeryOrderSet.Order)
             {
                 if ((row.ID % 10000) == record.AssociateOrderID)    // bakeryOrderSet.Order內只會讀入今天的, 所以MMDDNN9999 只比對9999部分
                 {
@@ -252,15 +275,27 @@ namespace BakeryOrder
         private void b_MouseClick(object sender, MouseEventArgs e)
         {
             TextBox t = (TextBox)sender;
-            if (!ShowOrder(t.Tag as BakeryOrderSet.OrderRow))   // 總額不符,自動跳刪除
-                b_MouseDoubleClick(sender, e);
+            BakeryOrderSet.OrderRow row = t.Tag as BakeryOrderSet.OrderRow;
+            if (ShowOrder(row))         // return false 總額不符
+                labelTotal.Text =  row.Income.ToString();
+            else
+                labelTotal.Text =  row.Income.ToString() + "???";
+
         }
 
         private void btnOrderList_Click(object sender, EventArgs e)
         {
+            int mon = cbBoxMonth.SelectedIndex+1;
+            int day = cbBoxDay.SelectedIndex+1;
+            if (mon < 1 || mon > 12 || day < 1 || day > 31)
+            {
+                MessageBox.Show("所選日期有誤!");
+                return;
+            }
+            LoadData(mon, day);
             TabControl tc = tabControl1;
             // worry about IsPrintTimeNull()
-            var groups = from row in m_BakeryOrderSet.Order
+            var groups = from row in bakeryOrderSet.Order
                          group row by row.PrintTime.Hour;
             if (groups.Count() == 0) return;
             tc.TabPages.Clear();
@@ -376,9 +411,19 @@ namespace BakeryOrder
         }
         private void btnDrawerOpenedList_Click(object sender, EventArgs e)
         {
+            int mon = cbBoxMonth.SelectedIndex + 1;
+            int day = cbBoxDay.SelectedIndex + 1;
+            if (mon < 1 || mon > 12 || day < 1 || day > 31)
+            {
+                MessageBox.Show("所選日期有誤!");
+                return;
+            }
+            LoadData(mon, day);
+            LoadDrawerRecordData(mon, day);
+
             TabControl tc = tabControl1;
             // worry about IsPrintTimeNull()
-            var groups = from row in m_BakeryOrderSet.DrawerRecord
+            var groups = from row in bakeryOrderSet.DrawerRecord
                          group row by row.OpenTime.Hour;
             if (groups.Count() == 0) return;
             tc.TabPages.Clear();
@@ -444,11 +489,22 @@ namespace BakeryOrder
             labelTotal.Text = "錢箱共開 " + count.ToString() + "次";
         }
 
-        private void btnChangePassword_Click(object sender, EventArgs e)
+        private void cbBoxMonth_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Form form = new ModifyPassword(m_BakeryOrderSet,m_CashierID);
-            form.ShowDialog();
+            ComboBox box = (ComboBox)sender;
+            int month = box.SelectedIndex;
+            if (month < 0 || month >= 12) return;
+
+            int count = MyFunction.DayCountOfMonth(month+1);
+            cbBoxDay.Items.Clear();
+            int result;
+            for (int i = 1; i <= count; i++)
+            {
+                result=cbBoxDay.Items.Add(i.ToString() + "日");
+            }
+            cbBoxDay.SelectedIndex = 0;
         }
+
 
     }
 }

@@ -493,7 +493,7 @@ namespace BakeryOrder
             catch (Exception ex)
             {
                 string str = ex.Message;
-                MessageBox.Show("BakeryOrder.Order讀取錯誤!" + str);
+                MessageBox.Show("BakeryOrder.Order OrderItem讀取錯誤!" + str);
                 return -1;
             }
         }

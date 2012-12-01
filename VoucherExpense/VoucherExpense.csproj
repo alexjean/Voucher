@@ -521,6 +521,7 @@
     </None>
     <None Include="EmptyBasic.gz" />
     <None Include="Properties\DataSources\CLedgerRow.datasource" />
+    <None Include="Properties\DataSources\FormShift.CMonthForCombo.datasource" />
     <None Include="VoucherExpense.gz" />
     <None Include="Properties\DataSources\CBankAccountForComboBox.datasource" />
     <None Include="Properties\DataSources\CBankDetail.datasource" />

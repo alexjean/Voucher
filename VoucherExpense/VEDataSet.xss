@@ -23,8 +23,8 @@
     <Shape ID="DesignTable:Apartment" ZOrder="12" X="2267" Y="-30" Height="135" Width="244" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="76" />
     <Shape ID="DesignTable:HR" ZOrder="11" X="2581" Y="-30" Height="365" Width="187" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="306" />
     <Shape ID="DesignTable:HRDetail" ZOrder="10" X="2838" Y="-30" Height="273" Width="230" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="214" />
-    <Shape ID="DesignTable:ShiftTable" ZOrder="6" X="1654" Y="515" Height="204" Width="239" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="145" />
-    <Shape ID="DesignTable:ShiftDetail" ZOrder="5" X="1963" Y="512" Height="227" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="168" />
+    <Shape ID="DesignTable:ShiftTable" ZOrder="6" X="1654" Y="515" Height="230" Width="215" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="175" />
+    <Shape ID="DesignTable:ShiftDetail" ZOrder="5" X="1963" Y="512" Height="272" Width="218" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="217" />
   </Shapes>
   <Connectors>
     <Connector ID="DesignRelation:AccountingCodeListFee" ZOrder="33" LineWidth="11">

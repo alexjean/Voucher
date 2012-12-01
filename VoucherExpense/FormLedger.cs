@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace VoucherExpense
 {
@@ -211,7 +212,6 @@ namespace VoucherExpense
 
  
 
-
         private void btnExport2Excel_Click(object sender, EventArgs e)
         {
             if (m_SelectedMonth<0) 
@@ -219,15 +219,17 @@ namespace VoucherExpense
                 labelMessage.Text="請先選擇月份!!";
                 return;
             }
-            Microsoft.Office.Interop.Excel.Application excel;
-            Microsoft.Office.Interop.Excel.Worksheet sheet;
-            Microsoft.Office.Interop.Excel.Workbook book;
+            Excel.Application excel;
+            Excel.Worksheet sheet;
+            Excel.Workbook book;
             try
             {
-                excel = new Microsoft.Office.Interop.Excel.Application();
+                excel = new Excel.Application();
                 book = excel.Application.Workbooks.Add(true);
                 sheet = book.Worksheets[1];
-                sheet.Name = comboBoxMonth.SelectedItem.ToString() + "費用";
+                DataRowView rowView = comboBoxAccTitle.SelectedItem as DataRowView;
+                VEDataSet.AccountingTitleRow row = rowView.Row as VEDataSet.AccountingTitleRow;
+                sheet.Name = comboBoxMonth.SelectedItem.ToString() + "  " + row.Name;
             }
             catch (Exception ex)
             {
@@ -247,12 +249,16 @@ namespace VoucherExpense
             Clipboard.SetDataObject(img, true);
             sheet.Paste(range, "LogoVI");
 
+            //range = sheet.Cells[1, 3];
+            //range.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            //sheet.Cells[1, 3] = sheet.Name;
+
             //欄位表頭
             i++;
 
             sheet.Cells[i, 1] = "日期";
             range = sheet.Columns[1];
-            range.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignLeft;
+            range.HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
             range.ColumnWidth = 10;
 
             sheet.Cells[i, 2] = "摘要";
@@ -261,16 +267,21 @@ namespace VoucherExpense
 
             sheet.Cells[i, 3] = "借方";
             range = sheet.Columns[3];
-            range.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignRight;
+            range.HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
             sheet.Cells[i, 4] = "貸方";
             range = sheet.Columns[4];
-            range.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignRight;
+            range.HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
 
             sheet.Cells[i, 5] = "餘額";
             range = sheet.Columns[5];
-            range.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignRight;
+            range.HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+            range.ColumnWidth = 10;
+            range.NumberFormat = "0.00";
 
             sheet.Cells[i, 6] = "科目";
+            range = sheet.Columns[6];
+            range.ColumnWidth = 10;
+
 
 
             i++;
@@ -299,6 +310,40 @@ namespace VoucherExpense
             sheet.Cells[i++, 2] = "'================================================";
             excel.Quit();
 
+        }
+
+        int m_DebtColumn = -1;
+        int m_CreditColumn = -1;
+        private void cLedgerTableDataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (m_DebtColumn==int.MaxValue) return;   // 發生過錯誤了
+            if (m_DebtColumn < 0)
+            {
+                try
+                {
+                    m_CreditColumn = cLedgerTableDataGridView.Columns["ColumnCredit"].Index;
+                    m_DebtColumn = cLedgerTableDataGridView.Columns["ColumnDebt"].Index;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("程式錯誤! ColumnCredit ,ColumnDebt有問題:" + ex.Message);
+                    m_DebtColumn = int.MaxValue;
+                    return;
+                }
+            }
+            int iCol = e.ColumnIndex;
+            if (iCol == m_DebtColumn || iCol == m_CreditColumn)
+            {
+                if (e.Value == null || e.Value == DBNull.Value)
+                {
+                    e.Value = " ";
+                }
+                else
+                {
+                    decimal d = (decimal)e.Value;
+                    if (d == 0m) e.Value = " ";
+                }
+            }
         }
 
     }

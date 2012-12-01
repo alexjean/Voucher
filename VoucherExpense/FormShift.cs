@@ -16,10 +16,22 @@ namespace VoucherExpense
             InitializeComponent();
         }
 
+        public class CMonthForCombo
+        {
+            public int Index { get; set; }
+            public string Name { get; set; }
+            public CMonthForCombo(int i, string na)
+            {
+                Index = i;
+                Name = na;
+            }
+        }
+
+        List<CMonthForCombo> m_MonthList = new List<CMonthForCombo>();
         const string strDay = "Day";
+
         private void FormShift_Load(object sender, EventArgs e)
         {
-            this.apartmentTableAdapter.Connection   = MapPath.VEConnection;
             this.shiftTableTableAdapter.Connection  = MapPath.VEConnection;
             this.shiftDetailTableAdapter.Connection = MapPath.VEConnection;
             this.hRTableAdapter.Connection          = MapPath.VEConnection;
@@ -27,7 +39,6 @@ namespace VoucherExpense
 
             try
             {
-                this.apartmentTableAdapter.Fill (this.vEDataSet.Apartment);
                 this.shiftTableTableAdapter.Fill(this.vEDataSet.ShiftTable);
                 this.shiftDetailTableAdapter.Fill(    vEDataSet.ShiftDetail);
                 this.hRTableAdapter.Fill        (this.vEDataSet.HR);
@@ -37,47 +48,30 @@ namespace VoucherExpense
             {
                 MessageBox.Show("Ex:" + ex.Message);
             }
-            for (int i = 1; i <= 31; i++)
-            {
-                string str = i.ToString("d02");
-                DataGridViewCheckBoxCell cbCell = new DataGridViewCheckBoxCell();
-                cbCell.Value = false;
-                DataGridViewColumn col = new DataGridViewColumn(cbCell);
-                col.Name = strDay + str;
-                col.HeaderText = str;
-                col.Width = 24;
-                col.Visible = true;
-
-                try
-                {
-                    dgvShift.Columns.Add(col);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "產生dgvShift.Column錯誤");
-                    break;
-                }
-            }
-            comboBoxApartment.DataSource = GetApartmentList();
+            //comboBoxApartment.DataSource = GetApartmentList();
+            m_MonthList.Add(new CMonthForCombo(0," "));
+            for (int mon = 1; mon <= 12; mon++)
+                m_MonthList.Add(new CMonthForCombo(mon,mon.ToString()+"月"));
+            cMonthForComboBindingSource.DataSource = m_MonthList;
         }
 
-        List<CNameIDForComboBox> GetApartmentList()
-        {
-            List<CNameIDForComboBox> list = new List<CNameIDForComboBox>();
-            if (vEDataSet.Apartment.Rows.Count > 1)               // 多於一個才有全部這個選項
-            {
-                list.Add(new CNameIDForComboBox(0, " "));
-                comboBoxApartment.Enabled = true;
-            }
-            else
-                comboBoxApartment.Enabled = false;
-            foreach (VEDataSet.ApartmentRow row in vEDataSet.Apartment)
-            {
-                if (row.IsApartmentNameNull()) continue;
-                list.Add(new CNameIDForComboBox(row.ApartmentID, row.ApartmentName));
-            }
-            return list;
-        }
+        //List<CNameIDForComboBox> GetApartmentList()
+        //{
+        //    List<CNameIDForComboBox> list = new List<CNameIDForComboBox>();
+        //    if (vEDataSet.Apartment.Rows.Count > 1)               // 多於一個才有全部這個選項
+        //    {
+        //        list.Add(new CNameIDForComboBox(0, " "));
+        //        comboBoxApartment.Enabled = true;
+        //    }
+        //    else
+        //        comboBoxApartment.Enabled = false;
+        //    foreach (VEDataSet.ApartmentRow row in vEDataSet.Apartment)
+        //    {
+        //        if (row.IsApartmentNameNull()) continue;
+        //        list.Add(new CNameIDForComboBox(row.ApartmentID, row.ApartmentName));
+        //    }
+        //    return list;
+        //}
 
 
         private void comboBoxMonth_SelectedIndexChanged(object sender, EventArgs e)
@@ -136,9 +130,10 @@ namespace VoucherExpense
                 return;
             }
             this.dgvShift.EndEdit();    // 這行一加,現有RowState一定變成Modified (經查是photo惹的禍)
-            this.dgvShiftDetail.EndEdit();
+//            this.dgvShiftDetail.EndEdit();
             VEDataSet.ShiftTableDataTable  table  = (VEDataSet.ShiftTableDataTable )vEDataSet.ShiftTable.GetChanges();
-            VEDataSet.ShiftDetailDataTable detail = (VEDataSet.ShiftDetailDataTable)vEDataSet.ShiftDetail.GetChanges();
+            VEDataSet.ShiftDetailDataTable detail = null;
+            //            VEDataSet.ShiftDetailDataTable detail = (VEDataSet.ShiftDetailDataTable)vEDataSet.ShiftDetail.GetChanges();
             if (table == null && detail == null)
             {
                 MessageBox.Show("沒有改動任何資料! 不用存");
@@ -166,18 +161,23 @@ namespace VoucherExpense
                 }
                 vEDataSet.ShiftTable.AcceptChanges();
             }
-            if (detail != null)
-            {
-                vEDataSet.ShiftDetail.Merge(detail);
-                this.shiftDetailTableAdapter.Update(vEDataSet.ShiftDetail);
-                vEDataSet.ShiftDetail.AcceptChanges();
-            }
+        //    if (detail != null)
+        //    {
+        //        vEDataSet.ShiftDetail.Merge(detail);
+        //        this.shiftDetailTableAdapter.Update(vEDataSet.ShiftDetail);
+        //        vEDataSet.ShiftDetail.AcceptChanges();
+        //    }
         }
 
         private void dgvShiftDetail_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
         {
             DataGridViewRow row = e.Row;
             row.Cells["columnID"].Value = Guid.NewGuid();
+        }
+
+        private void bindingNavigatorDeleteItem_Click(object sender, EventArgs e)
+        {
+
         }
 
       

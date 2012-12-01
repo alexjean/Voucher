@@ -4,7 +4,7 @@ using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
-
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace VoucherExpense
 {
@@ -644,12 +644,12 @@ namespace VoucherExpense
 
         private void btnExportExcel_Click(object sender, EventArgs e)
         {
-            Microsoft.Office.Interop.Excel.Application excel;
-            Microsoft.Office.Interop.Excel.Worksheet sheet;
-            Microsoft.Office.Interop.Excel.Workbook book;
+            Excel.Application excel;
+            Excel.Worksheet sheet;
+            Excel.Workbook book;
             try
             {
-                excel = new Microsoft.Office.Interop.Excel.Application();
+                excel = new Excel.Application();
                 book = excel.Application.Workbooks.Add(true);
                 sheet = book.Worksheets[1];
                 sheet.Name = comboBoxMonth.SelectedItem.ToString() + "費用";
@@ -661,7 +661,7 @@ namespace VoucherExpense
             }
             excel.Visible = true;
             DataGridView view = expenseDataGridView;
-            Microsoft.Office.Interop.Excel.Range range;
+            Excel.Range range;
             int i = 1;
             // 插入Logo圖片
             int imgHeight = 48;
@@ -672,13 +672,18 @@ namespace VoucherExpense
             Clipboard.SetDataObject(img, true);
             sheet.Paste(range, "LogoVI");
 
+            range = sheet.Cells[1, 3];
+            range.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            sheet.Cells[1,3]= sheet.Name;
+
+
             //欄位表頭
             i++;
             sheet.Cells[i, 1] = "编号";
 
             sheet.Cells[i, 2] = "日期";
             range = sheet.Columns[2];
-            range.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignLeft;
+            range.HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
             range.ColumnWidth = 10;
 
             sheet.Cells[i, 3] = "摘要";
@@ -687,7 +692,8 @@ namespace VoucherExpense
 
             sheet.Cells[i, 4] = "金额";
             range = sheet.Columns[4];
-            range.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignRight;
+            range.HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+            range.NumberFormat = "0.0";
 
             sheet.Cells[i, 5] = "科目";
 

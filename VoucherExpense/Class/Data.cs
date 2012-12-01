@@ -429,6 +429,4 @@ namespace VoucherExpense
         public BankDefault(string bankCode, string defaultCode) { BankCode = bankCode; DefaultCode = defaultCode; }
     }
 
-
-
 }

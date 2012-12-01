@@ -788,6 +788,7 @@
             this.ApplyTime.DefaultCellStyle = dataGridViewCellStyle3;
             this.ApplyTime.HeaderText = "日期";
             this.ApplyTime.Name = "ApplyTime";
+            this.ApplyTime.ReadOnly = true;
             this.ApplyTime.Width = 48;
             // 
             // columnApplier
@@ -809,6 +810,7 @@
             this.InnerID.DataPropertyName = "InnerID";
             this.InnerID.HeaderText = "編號";
             this.InnerID.Name = "InnerID";
+            this.InnerID.ReadOnly = true;
             this.InnerID.Width = 60;
             // 
             // Note
@@ -816,6 +818,7 @@
             this.Note.DataPropertyName = "Note";
             this.Note.HeaderText = "摘要";
             this.Note.Name = "Note";
+            this.Note.ReadOnly = true;
             this.Note.Width = 204;
             // 
             // columnMoney
@@ -838,6 +841,7 @@
             this.TitleCode.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
             this.TitleCode.HeaderText = "科目";
             this.TitleCode.Name = "TitleCode";
+            this.TitleCode.ReadOnly = true;
             this.TitleCode.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.TitleCode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.TitleCode.ValueMember = "TitleCode";

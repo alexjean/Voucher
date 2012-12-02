@@ -32,6 +32,10 @@ namespace VoucherExpense
 
         private void FormShift_Load(object sender, EventArgs e)
         {
+            // TODO: 這行程式碼會將資料載入 'vEDataSet.ShiftTable' 資料表。您可以視需要進行移動或移除。
+            this.shiftTableTableAdapter.Fill(this.vEDataSet.ShiftTable);
+            // TODO: 這行程式碼會將資料載入 'vEDataSet.Operator' 資料表。您可以視需要進行移動或移除。
+            this.operatorTableAdapter.Fill(this.vEDataSet.Operator);
             this.shiftTableTableAdapter.Connection  = MapPath.VEConnection;
             this.shiftDetailTableAdapter.Connection = MapPath.VEConnection;
             this.hRTableAdapter.Connection          = MapPath.VEConnection;
@@ -146,7 +150,7 @@ namespace VoucherExpense
                     if (r.RowState != DataRowState.Deleted)
                     {
                         r.BeginEdit();
-                        r.KeyID = MyFunction.OperatorID;
+                        r.KeyinID = MyFunction.OperatorID;
                         r.LastUpdated = DateTime.Now;
                         r.EndEdit();
                     }
@@ -157,7 +161,7 @@ namespace VoucherExpense
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Ex:" + ex.Message);
+                    MessageBox.Show("更新時出錯,原因:" + ex.Message);
                 }
                 vEDataSet.ShiftTable.AcceptChanges();
             }
@@ -173,11 +177,36 @@ namespace VoucherExpense
         {
             DataGridViewRow row = e.Row;
             row.Cells["columnID"].Value = Guid.NewGuid();
+            row.Cells["ColumnTableMonth"].Value = 0;
         }
 
         private void bindingNavigatorDeleteItem_Click(object sender, EventArgs e)
         {
+            // 檢查是否有子表
+        }
 
+        private void btnModify_Click(object sender, EventArgs e)
+        {
+            if (dgvShift.SelectedCells.Count<=0)
+            {
+                MessageBox.Show("請選擇要編修的表!");
+                return;
+            }
+            DataGridViewRow dgvRow = dgvShift.SelectedCells[0].OwningRow;
+            DataRowView rowView = dgvRow.DataBoundItem as DataRowView;
+            VEDataSet.ShiftTableRow row = rowView.Row as VEDataSet.ShiftTableRow;
+            if (row.IsTableMonthNull() || row.TableMonth<1)
+            {
+                MessageBox.Show("請設定月份!");
+                return;
+            }
+            if (row.IsTableNameNull() || row.TableName.Trim().Length==0)
+            {
+                MessageBox.Show("請輸入該表名稱!");
+                return;
+            }
+            Form form = new FormShiftDetail(vEDataSet,row);
+            form.ShowDialog();
         }
 
       

@@ -3,6 +3,9 @@
 
     partial class VEDataSet
     {
- 
+
+        partial class ShiftTableDataTable
+        {
+        }
     }
 }

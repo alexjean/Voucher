@@ -231,6 +231,7 @@
             // 
             this.ColumnDebt.DataPropertyName = "Debt";
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Format = "N2";
             this.ColumnDebt.DefaultCellStyle = dataGridViewCellStyle2;
             this.ColumnDebt.HeaderText = "借方";
             this.ColumnDebt.Name = "ColumnDebt";
@@ -240,6 +241,7 @@
             // 
             this.ColumnCredit.DataPropertyName = "Credit";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.Format = "N2";
             this.ColumnCredit.DefaultCellStyle = dataGridViewCellStyle3;
             this.ColumnCredit.HeaderText = "貸方";
             this.ColumnCredit.Name = "ColumnCredit";
@@ -249,6 +251,8 @@
             // 
             this.Sum.DataPropertyName = "Sum";
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle4.Format = "N2";
+            dataGridViewCellStyle4.NullValue = null;
             this.Sum.DefaultCellStyle = dataGridViewCellStyle4;
             this.Sum.HeaderText = "餘額";
             this.Sum.Name = "Sum";

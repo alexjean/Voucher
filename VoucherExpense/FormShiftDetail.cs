@@ -211,6 +211,8 @@ namespace VoucherExpense
             int dayCount = MyFunction.DayCountOfMonth(mon);
             DayOfWeek dayOfWeek = (new DateTime(MyFunction.IntHeaderYear, mon, 1)).DayOfWeek;
             CheckedListBox box = sender as CheckedListBox;
+
+            if (checkedListBoxEmployee.SelectedItem == null) return;
             
             tempHR temp = checkedListBoxEmployee.SelectedItem as tempHR;
             Panel panel=CreatePanel(temp.ID,temp.Name,dayOfWeek,dayCount);
@@ -229,9 +231,6 @@ namespace VoucherExpense
         {
             Close();
         }
-
- 
-
 
      
     }

@@ -268,15 +268,20 @@ namespace VoucherExpense
             sheet.Cells[i, 3] = "借方";
             range = sheet.Columns[3];
             range.HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+            range.ColumnWidth = 10;
+            range.NumberFormat = "#,##0.00";
+
             sheet.Cells[i, 4] = "貸方";
             range = sheet.Columns[4];
             range.HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+            range.ColumnWidth = 10;
+            range.NumberFormat = "#,##0.00";    // "0.00";
 
             sheet.Cells[i, 5] = "餘額";
             range = sheet.Columns[5];
             range.HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
             range.ColumnWidth = 10;
-            range.NumberFormat = "0.00";
+            range.NumberFormat = "#,##0.00";
 
             sheet.Cells[i, 6] = "科目";
             range = sheet.Columns[6];

@@ -82,7 +82,7 @@ namespace VoucherExpense
             row.Date = date;
             if (isDebt) { row.Debt = money; row.Credit = 0; }
             else { row.Debt = 0; row.Credit = money; }
-            row.Note = note;            // row.sum最後再一起算
+            row.Note = note.TrimEnd();            // row.sum最後再一起算
             string titleName = "";
             if (othersideTitle != null)
             {

@@ -155,7 +155,7 @@ namespace VoucherExpense
         private void btnConfirmTrans_Click(object sender, EventArgs e)
         {
             string[] data = System.IO.File.ReadAllLines(m_FileName);
-            char[] sept= new char[1] {','};
+            char[] sept= new char[3] {',',' ','\t'};
             string[] l;
             int code;
             DateTime dt;
@@ -168,12 +168,14 @@ namespace VoucherExpense
                 if (r.ID > max) max = r.ID;
             foreach (string s in data)
             {
-                l = s.Split(sept);
-                if (l.Length < 2) continue;
+                l = s.Split(sept,StringSplitOptions.RemoveEmptyEntries);
+                if (l.Length < 7) continue;
                 try
                 {
-                    if (!int.TryParse(l[0]         , out code   )) continue;
-                    if (!DateTime.TryParse(l[1], out dt      )) continue;
+                    //if (!int.TryParse(l[0]         , out code   )) continue;
+                    //if (!DateTime.TryParse(l[1], out dt      )) continue;
+                    if (!int.TryParse(l[2], out code)) continue;
+                    if (!DateTime.TryParse(l[5]+" "+l[6],out dt)) continue;
                     var linqRow = from lr in vEDataSet.OnDutyData
                                   where (lr.TimeMark.Date == dt.Date && lr.TimeMark.Hour == dt.Hour && lr.TimeMark.Minute == dt.Minute && lr.OnDutyCode == code)
                                   select lr.RowState;

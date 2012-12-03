@@ -238,7 +238,7 @@ namespace VoucherExpense
             }
             excel.Visible = true;
             DataGridView view = cLedgerTableDataGridView;
-            Microsoft.Office.Interop.Excel.Range range;
+            Excel.Range range;
             int i = 1;
             // 插入Logo圖片
             int imgHeight = 48;

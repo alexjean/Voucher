@@ -62,6 +62,18 @@ namespace VoucherExpense
             return xml.ToString();
         }
 
+        void Reload()
+        {
+            List<XmlNode> list = Cfg.LoadAll(ConfigName);
+            cbBoxTable.Items.Clear();
+            foreach (XmlNode node in list)
+            {
+                XmlAttribute attr = node.Attributes["Name"];
+                if (attr == null) continue;
+                cbBoxTable.Items.Add(attr.Value);
+            }
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             string name = textBoxName.Text.Trim();
@@ -82,17 +94,7 @@ namespace VoucherExpense
             }
         }
 
-        void Reload()
-        {
-            List<XmlNode> list = Cfg.LoadAll(ConfigName);
-            cbBoxTable.Items.Clear();
-            foreach (XmlNode node in list)
-            {
-                XmlAttribute attr = node.Attributes["Name"];
-                if (attr == null) continue;
-                cbBoxTable.Items.Add(attr.Value);
-            }
-        }
+
 
         OrderAdapter m_OrderAdapter = new OrderAdapter();
         OrderItemAdapter m_OrderItemAdapter = new OrderItemAdapter();

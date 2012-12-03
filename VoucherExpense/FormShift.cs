@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace VoucherExpense
 {
@@ -27,15 +28,39 @@ namespace VoucherExpense
             }
         }
 
+        public class CCodeForCombo
+        {
+            public char Code { get; set; }
+            public CCodeForCombo(char code)
+            {
+                Code = code;
+            }
+        }
+
+        public class CHourForCombo
+        {
+            public int Hour { get; set; }
+            public CHourForCombo(int hour)
+            {
+                Hour = hour;
+            }
+        }
+
+        public class CShiftCode
+        {
+            public char   Code { get; set; }
+            public string Note { get; set; }
+            public int    Hour { get; set; }
+        }
+
         List<CMonthForCombo> m_MonthList = new List<CMonthForCombo>();
+        List<CCodeForCombo>  m_CodeList  = new List<CCodeForCombo>();
+        List<CHourForCombo>  m_HourList  = new List<CHourForCombo>();
+        List<CShiftCode> m_ShiftCodeList = new List<CShiftCode>();
         const string strDay = "Day";
 
         private void FormShift_Load(object sender, EventArgs e)
         {
-            // TODO: 這行程式碼會將資料載入 'vEDataSet.ShiftTable' 資料表。您可以視需要進行移動或移除。
-            this.shiftTableTableAdapter.Fill(this.vEDataSet.ShiftTable);
-            // TODO: 這行程式碼會將資料載入 'vEDataSet.Operator' 資料表。您可以視需要進行移動或移除。
-            this.operatorTableAdapter.Fill(this.vEDataSet.Operator);
             this.shiftTableTableAdapter.Connection  = MapPath.VEConnection;
             this.shiftDetailTableAdapter.Connection = MapPath.VEConnection;
             this.hRTableAdapter.Connection          = MapPath.VEConnection;
@@ -57,6 +82,15 @@ namespace VoucherExpense
             for (int mon = 1; mon <= 12; mon++)
                 m_MonthList.Add(new CMonthForCombo(mon,mon.ToString()+"月"));
             cMonthForComboBindingSource.DataSource = m_MonthList;
+
+            m_CodeList.Add(new CCodeForCombo(' '));
+            for (char c = 'A'; c <= 'Z'; c++) m_CodeList.Add(new CCodeForCombo(c));
+            cCodeForComboBindingSource.DataSource = m_CodeList;
+
+            for (int h=0;h<16; h++) m_HourList.Add(new CHourForCombo(h));
+            cHourForComboBindingSource.DataSource = m_HourList;
+
+            cShiftCodeBindingSource.DataSource = m_ShiftCodeList;
         }
 
         //List<CNameIDForComboBox> GetApartmentList()
@@ -209,6 +243,48 @@ namespace VoucherExpense
             form.ShowDialog();
         }
 
+        private void dgvConfigShiftCode_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+            DataGridViewRow vr = e.Row;
+            if (vr == null) return;
+            vr.Cells["columnHour"].Value = 0;
+            vr.Cells["columnCode"].Value = ' ';
+            vr.Cells["columnNote"].Value = "";
+        }
+
+        private void btnSaveCodeConfig_Click(object sender, EventArgs e)
+        {
+        
+        }
+
+        Config Cfg = new Config();
+        string ShiftCodeConfigName = "ShiftCodeConfig";
+        private string Config2Xml(string name)
+        {
+            StringBuilder xml = new StringBuilder("<" + ShiftCodeConfigName + " Name=\"" + name + "\">", 512);
+            foreach (CShiftCode sc in m_ShiftCodeList)
+            {
+                xml.Append("<CodeConfig");
+                xml.Append("CodeConfig Code=\""+sc.Code+"\" Note=\""+sc.Note+"\" Hour="+sc.Hour.ToString()+" />");
+            }
+            xml.Append("</"+ShiftCodeConfigName+">");
+            return xml.ToString();
+        }
+
+        void Reload()
+        {
+            List<XmlNode> list = Cfg.LoadAll(ShiftCodeConfigName);
+            m_ShiftCodeList.Clear();
+            foreach (XmlNode node in list)
+            {
+                XmlAttribute attr = node.Attributes["Name"];
+                if (attr == null) continue;
+                //cbBoxTable.Items.Add(attr.Value);
+            }
+        }
+
+
+    
       
     }
 }

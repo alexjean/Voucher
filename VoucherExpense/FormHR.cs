@@ -79,6 +79,11 @@ namespace VoucherExpense
             MyFunction.SetFieldLength(hRDataGridView, vEDataSet.HR);
             MyFunction.SetFieldLength(hRDetailDataGridView, vEDataSet.HRDetail);
             MyFunction.SetControlLengthFromDB(this,vEDataSet.HR);
+
+            checkBoxShowAll.Checked = false;
+
+            
+
         }
 
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
@@ -272,6 +277,20 @@ namespace VoucherExpense
         private void hRDetailDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             
+        }
+
+        private void checkBoxShowAll_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxShowAll.Checked)
+                hRBindingSource.RemoveFilter();
+            else 
+                hRBindingSource.Filter = "InPosition";
+        }
+
+        private void birthdayDateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            DateTimePicker picker = sender as DateTimePicker;
+            birthdayTextBox.Text = picker.Text;
         }
 
  

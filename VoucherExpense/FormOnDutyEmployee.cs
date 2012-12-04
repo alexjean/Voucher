@@ -92,7 +92,7 @@ namespace VoucherExpense
                     {
                         d = t.Day - 1;
                         h = t.Hour;
-                        if (h < 7) d--;
+                        if (h < 4) d--;
                         if (d < 0) continue;
                     }
                     else if (t.Month == (month + 1))    // 下個月七點前的算到上個月去
@@ -100,7 +100,7 @@ namespace VoucherExpense
                         d = t.Day - 1;
                         if (d != 0) continue;
                         h = t.Hour;
-                        if (h < 7) continue;
+                        if (h < 4) continue;
                         d = count - 1;
                     }
                     else continue;

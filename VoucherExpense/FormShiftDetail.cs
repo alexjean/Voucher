@@ -519,13 +519,25 @@ namespace VoucherExpense
             sheet.Cells[i, 5] = "职位";
             range = sheet.Columns[5];
             range.HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
-            range.ColumnWidth = 10;
+            range.ColumnWidth = 12;
 
-            sheet.Cells[i, 6] = "出勤时数";
+            sheet.Cells[i, 6] = "出勤时";
             range = sheet.Columns[6];
+            range.HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+            range.ColumnWidth = 8;
+
+            sheet.Cells[i, 7] = "出勤天";
+            range = sheet.Columns[7];
+            range.HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+            range.ColumnWidth = 8;
+            range.NumberFormat="0.00";
+
+
+            sheet.Cells[i, 8] = "工资标准";
+            range = sheet.Columns[8];
+            range.HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
             range.ColumnWidth = 10;
-
-
+            range.NumberFormat = "#,##0";
 
             i++;
             foreach (VEDataSet.ShiftDetailRow ro in details)
@@ -556,7 +568,14 @@ namespace VoucherExpense
                         sheet.Cells[i, 5] = "'"+hr.Title;       // 职位
                 }
                 if (!ro.IsRealHoursNull())
+                {
                     sheet.Cells[i, 6] = ro.RealHours.ToString();    // 出勤时数
+                    sheet.Cells[i, 7] = "=" + ro.RealHours + "/8";
+                }
+                if (!hr.IsSalaryNull())
+                {
+                    sheet.Cells[i, 8] = hr.Salary.ToString();
+                }
 
                 i++;
             }

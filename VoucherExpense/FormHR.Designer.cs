@@ -51,8 +51,8 @@
             System.Windows.Forms.Label bankAccoutLabel;
             System.Windows.Forms.Label salaryLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormHR));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.vEDataSet = new VoucherExpense.VEDataSet();
             this.hRBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.hRTableAdapter = new VoucherExpense.VEDataSetTableAdapters.HRTableAdapter();
@@ -116,6 +116,8 @@
             this.operatorBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.operatorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
             this.salaryTextBox = new System.Windows.Forms.TextBox();
+            this.checkBoxShowAll = new System.Windows.Forms.CheckBox();
+            this.birthdayTextBox = new System.Windows.Forms.TextBox();
             employeeIDLabel = new System.Windows.Forms.Label();
             employeeCodeLabel = new System.Windows.Forms.Label();
             employeeNameLabel = new System.Windows.Forms.Label();
@@ -349,6 +351,7 @@
             // 
             this.hRBindingSource.DataMember = "HR";
             this.hRBindingSource.DataSource = this.vEDataSet;
+            this.hRBindingSource.Filter = "InPosition";
             this.hRBindingSource.CurrentChanged += new System.EventHandler(this.hRBindingSource_CurrentChanged);
             // 
             // hRTableAdapter
@@ -482,14 +485,14 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.hRDataGridView.AutoGenerateColumns = false;
             this.hRDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.hRDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.hRDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.hRDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.hRDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.columnEmployeeID,
@@ -519,6 +522,7 @@
             this.dataGridViewTextBoxColumn3.DataPropertyName = "EmployeeName";
             this.dataGridViewTextBoxColumn3.HeaderText = "姓名";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.Width = 96;
             // 
             // dataGridViewCheckBoxColumn2
             // 
@@ -532,6 +536,7 @@
             this.dataGridViewTextBoxColumn11.DataPropertyName = "Mobile";
             this.dataGridViewTextBoxColumn11.HeaderText = "手机";
             this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            this.dataGridViewTextBoxColumn11.Width = 104;
             // 
             // ApartmentID
             // 
@@ -607,13 +612,14 @@
             // 
             // birthdayDateTimePicker
             // 
-            this.birthdayDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.hRBindingSource, "Birthday", true));
-            this.birthdayDateTimePicker.Location = new System.Drawing.Point(449, 157);
+            this.birthdayDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.birthdayDateTimePicker.Location = new System.Drawing.Point(577, 159);
             this.birthdayDateTimePicker.MaxDate = new System.DateTime(2020, 12, 31, 0, 0, 0, 0);
             this.birthdayDateTimePicker.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
             this.birthdayDateTimePicker.Name = "birthdayDateTimePicker";
-            this.birthdayDateTimePicker.Size = new System.Drawing.Size(147, 27);
+            this.birthdayDateTimePicker.Size = new System.Drawing.Size(19, 27);
             this.birthdayDateTimePicker.TabIndex = 2;
+            this.birthdayDateTimePicker.ValueChanged += new System.EventHandler(this.birthdayDateTimePicker_ValueChanged);
             // 
             // marriageTextBox
             // 
@@ -782,9 +788,9 @@
             // columnEffectiveDate
             // 
             this.columnEffectiveDate.DataPropertyName = "EffectiveDate";
-            dataGridViewCellStyle2.Format = "d";
-            dataGridViewCellStyle2.NullValue = null;
-            this.columnEffectiveDate.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Format = "d";
+            dataGridViewCellStyle6.NullValue = null;
+            this.columnEffectiveDate.DefaultCellStyle = dataGridViewCellStyle6;
             this.columnEffectiveDate.HeaderText = "生效日";
             this.columnEffectiveDate.Name = "columnEffectiveDate";
             // 
@@ -918,12 +924,33 @@
             this.salaryTextBox.TabIndex = 13;
             this.salaryTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
+            // checkBoxShowAll
+            // 
+            this.checkBoxShowAll.AutoSize = true;
+            this.checkBoxShowAll.Location = new System.Drawing.Point(390, 7);
+            this.checkBoxShowAll.Name = "checkBoxShowAll";
+            this.checkBoxShowAll.Size = new System.Drawing.Size(59, 20);
+            this.checkBoxShowAll.TabIndex = 51;
+            this.checkBoxShowAll.Text = "全部";
+            this.checkBoxShowAll.UseVisualStyleBackColor = true;
+            this.checkBoxShowAll.CheckedChanged += new System.EventHandler(this.checkBoxShowAll_CheckedChanged);
+            // 
+            // birthdayTextBox
+            // 
+            this.birthdayTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.hRBindingSource, "Birthday", true));
+            this.birthdayTextBox.Location = new System.Drawing.Point(449, 159);
+            this.birthdayTextBox.Name = "birthdayTextBox";
+            this.birthdayTextBox.Size = new System.Drawing.Size(129, 27);
+            this.birthdayTextBox.TabIndex = 52;
+            // 
             // FormHR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(226)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(972, 816);
+            this.Controls.Add(this.birthdayTextBox);
+            this.Controls.Add(this.checkBoxShowAll);
             this.Controls.Add(salaryLabel);
             this.Controls.Add(this.salaryTextBox);
             this.Controls.Add(this.keyinIDComboBox);
@@ -1038,11 +1065,6 @@
         private System.Windows.Forms.BindingSource hRHRDetailBindingSource;
         private System.Windows.Forms.BindingSource apartmentBindingSource;
         private VEDataSetTableAdapters.ApartmentTableAdapter apartmentTableAdapter;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnEmployeeID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
-        private System.Windows.Forms.DataGridViewComboBoxColumn ApartmentID;
         private System.Windows.Forms.PictureBox photoPictureBox;
         private System.Windows.Forms.Button btnPhoto;
         private System.Windows.Forms.ComboBox apartmentIDComboBox;
@@ -1061,5 +1083,12 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn columnApprover;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnLastUpdated;
         private System.Windows.Forms.TextBox salaryTextBox;
+        private System.Windows.Forms.CheckBox checkBoxShowAll;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnEmployeeID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
+        private System.Windows.Forms.DataGridViewComboBoxColumn ApartmentID;
+        private System.Windows.Forms.TextBox birthdayTextBox;
     }
 }

@@ -46,12 +46,6 @@ namespace VoucherExpense
             }
         }
 
-        public class CShiftCode
-        {
-            public char   Code { get; set; }
-            public string Note { get; set; }
-            public int    Hour { get; set; }
-        }
 
         List<CMonthForCombo> m_MonthList = new List<CMonthForCombo>();
         List<CCodeForCombo>  m_CodeList  = new List<CCodeForCombo>();
@@ -90,6 +84,7 @@ namespace VoucherExpense
             for (int h=0;h<16; h++) m_HourList.Add(new CHourForCombo(h));
             cHourForComboBindingSource.DataSource = m_HourList;
 
+            LoadCfg();
             cShiftCodeBindingSource.DataSource = m_ShiftCodeList;
         }
 
@@ -207,16 +202,33 @@ namespace VoucherExpense
         //    }
         }
 
-        private void dgvShiftDetail_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
-        {
-            DataGridViewRow row = e.Row;
-            row.Cells["columnID"].Value = Guid.NewGuid();
-            row.Cells["ColumnTableMonth"].Value = 0;
-        }
+        //private void dgvShiftDetail_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
+        //{
+        //    DataGridViewRow row = e.Row;
+        //    row.Cells["columnID"].Value = Guid.NewGuid();
+        //    row.Cells["ColumnTableMonth"].Value = 0;
+        //}
 
         private void bindingNavigatorDeleteItem_Click(object sender, EventArgs e)
         {
             // 檢查是否有子表
+            if (dgvShift.SelectedCells.Count <= 0) return;
+            DataGridViewRow dgvRow = dgvShift.SelectedCells[0].OwningRow;
+            DataRowView     rowView=dgvRow.DataBoundItem as DataRowView;   // 指到BindingSource
+            VEDataSet.ShiftTableRow row = rowView.Row as VEDataSet.ShiftTableRow;
+            VEDataSet.ShiftDetailRow[] details = row.GetShiftDetailRows();
+            if (details.Count() != 0)
+            {
+                MessageBox.Show("此班表己經有員工,不能刪除!");
+            }
+            else
+            {
+                string msg="";
+                if (!row.IsTableMonthNull()) msg=row.TableMonth.ToString()+"月";
+                if (!row.IsTableNameNull())  msg+="<"+row.TableName+">";
+                if (MessageBox.Show("確定刪除" + msg, "", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                    shiftTableBindingSource.RemoveCurrent();
+            }
         }
 
         private void btnModify_Click(object sender, EventArgs e)
@@ -239,7 +251,7 @@ namespace VoucherExpense
                 MessageBox.Show("請輸入該表名稱!");
                 return;
             }
-            Form form = new FormShiftDetail(vEDataSet,row);
+            Form form = new FormShiftDetail(vEDataSet,row,m_ShiftCodeList);
             form.ShowDialog();
         }
 
@@ -254,32 +266,44 @@ namespace VoucherExpense
 
         private void btnSaveCodeConfig_Click(object sender, EventArgs e)
         {
-        
+            string str=Config2Xml(ShiftCodeTableName);
+            Cfg.Save(ShiftCodeConfigName,ShiftCodeTableName,str);
         }
 
         Config Cfg = new Config();
         string ShiftCodeConfigName = "ShiftCodeConfig";
+        string ShiftCodeTableName = "CodeTable";
         private string Config2Xml(string name)
         {
             StringBuilder xml = new StringBuilder("<" + ShiftCodeConfigName + " Name=\"" + name + "\">", 512);
             foreach (CShiftCode sc in m_ShiftCodeList)
             {
-                xml.Append("<CodeConfig");
-                xml.Append("CodeConfig Code=\""+sc.Code+"\" Note=\""+sc.Note+"\" Hour="+sc.Hour.ToString()+" />");
+                xml.Append("<CodeConfig Code=\""+sc.Code+"\" Note=\""+sc.Note+"\" Hour=\""+sc.Hour.ToString()+"\" />");
             }
             xml.Append("</"+ShiftCodeConfigName+">");
             return xml.ToString();
         }
 
-        void Reload()
+        void LoadCfg()
         {
-            List<XmlNode> list = Cfg.LoadAll(ShiftCodeConfigName);
+            XmlNode list = Cfg.Load(ShiftCodeConfigName,ShiftCodeTableName);
+            if (list == null) return;
             m_ShiftCodeList.Clear();
             foreach (XmlNode node in list)
             {
-                XmlAttribute attr = node.Attributes["Name"];
-                if (attr == null) continue;
-                //cbBoxTable.Items.Add(attr.Value);
+                XmlAttribute code = node.Attributes["Code"];
+                if (code == null) continue;
+                XmlAttribute hour = node.Attributes["Hour"];
+                if (hour == null) continue;
+                XmlAttribute note = node.Attributes["Note"];
+                CShiftCode shiftCode=new CShiftCode();
+                char co;
+                if (char.TryParse(code.Value, out co))
+                    shiftCode.Code = co;
+                int hr;
+                if (int.TryParse(hour.Value, out hr)) shiftCode.Hour = hr;
+                if (note != null) shiftCode.Note = note.Value;
+                m_ShiftCodeList.Add(shiftCode);
             }
         }
 

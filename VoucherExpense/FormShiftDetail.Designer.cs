@@ -37,6 +37,7 @@
             this.btnLeave = new System.Windows.Forms.Button();
             this.btnExcel = new System.Windows.Forms.Button();
             this.btnPrint = new System.Windows.Forms.Button();
+            this.shiftDetailTableAdapter = new VoucherExpense.VEDataSetTableAdapters.ShiftDetailTableAdapter();
             this.panelBase.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -118,6 +119,7 @@
             this.btnSave.TabIndex = 5;
             this.btnSave.Text = "存檔";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnLeave
             // 
@@ -131,6 +133,7 @@
             // 
             // btnExcel
             // 
+            this.btnExcel.Enabled = false;
             this.btnExcel.Location = new System.Drawing.Point(88, 535);
             this.btnExcel.Name = "btnExcel";
             this.btnExcel.Size = new System.Drawing.Size(61, 29);
@@ -140,12 +143,17 @@
             // 
             // btnPrint
             // 
+            this.btnPrint.Enabled = false;
             this.btnPrint.Location = new System.Drawing.Point(2, 535);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(61, 29);
             this.btnPrint.TabIndex = 8;
             this.btnPrint.Text = "列印";
             this.btnPrint.UseVisualStyleBackColor = true;
+            // 
+            // shiftDetailTableAdapter
+            // 
+            this.shiftDetailTableAdapter.ClearBeforeFill = true;
             // 
             // FormShiftDetail
             // 
@@ -184,5 +192,6 @@
         private System.Windows.Forms.Button btnLeave;
         private System.Windows.Forms.Button btnExcel;
         private System.Windows.Forms.Button btnPrint;
+        private VEDataSetTableAdapters.ShiftDetailTableAdapter shiftDetailTableAdapter;
     }
 }

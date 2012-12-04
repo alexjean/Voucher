@@ -545,7 +545,6 @@
     <None Include="Properties\DataSources\FormShift.CCodeForCombo.datasource" />
     <None Include="Properties\DataSources\FormShift.CHourForCombo.datasource" />
     <None Include="Properties\DataSources\FormShift.CMonthForCombo.datasource" />
-    <None Include="Properties\DataSources\FormShift.CShiftCode.datasource" />
     <None Include="VoucherExpense.gz" />
     <None Include="Properties\DataSources\CBankAccountForComboBox.datasource" />
     <None Include="Properties\DataSources\CBankDetail.datasource" />

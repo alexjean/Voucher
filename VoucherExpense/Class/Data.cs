@@ -429,4 +429,16 @@ namespace VoucherExpense
         public BankDefault(string bankCode, string defaultCode) { BankCode = bankCode; DefaultCode = defaultCode; }
     }
 
+    public class CShiftCode
+    {
+        public char Code { get; set; }
+        public string Note { get; set; }
+        public int Hour { get; set; }
+        public CShiftCode()
+        {
+            Code = ' '; Note = ""; Hour = 0;
+        }
+    }
+
+
 }

@@ -7654,23 +7654,19 @@ namespace VoucherExpense {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class ShiftDetailDataTable : global::System.Data.TypedTableBase<ShiftDetailRow> {
             
-            private global::System.Data.DataColumn columnID;
-            
             private global::System.Data.DataColumn columnShiftID;
             
             private global::System.Data.DataColumn columnEmpolyeeID;
             
             private global::System.Data.DataColumn columnShiftData;
             
-            private global::System.Data.DataColumn columnWage;
-            
             private global::System.Data.DataColumn columnRealData;
             
-            private global::System.Data.DataColumn columnScheduleDays;
+            private global::System.Data.DataColumn columnID;
             
-            private global::System.Data.DataColumn columnRealDays;
+            private global::System.Data.DataColumn columnShiftHours;
             
-            private global::System.Data.DataColumn columnKeyinID;
+            private global::System.Data.DataColumn columnRealHours;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -7707,14 +7703,6 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn IDColumn {
-                get {
-                    return this.columnID;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn ShiftIDColumn {
                 get {
                     return this.columnShiftID;
@@ -7739,14 +7727,6 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn WageColumn {
-                get {
-                    return this.columnWage;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn RealDataColumn {
                 get {
                     return this.columnRealData;
@@ -7755,25 +7735,25 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn ScheduleDaysColumn {
+            public global::System.Data.DataColumn IDColumn {
                 get {
-                    return this.columnScheduleDays;
+                    return this.columnID;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn RealDaysColumn {
+            public global::System.Data.DataColumn ShiftHoursColumn {
                 get {
-                    return this.columnRealDays;
+                    return this.columnShiftHours;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn KeyinIDColumn {
+            public global::System.Data.DataColumn RealHoursColumn {
                 get {
-                    return this.columnKeyinID;
+                    return this.columnRealHours;
                 }
             }
             
@@ -7814,20 +7794,18 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ShiftDetailRow AddShiftDetailRow(System.Guid ID, ShiftTableRow parentShiftTableRowByShiftTableShiftDetail, int EmpolyeeID, string ShiftData, int Wage, string RealData, decimal ScheduleDays, int RealDays, int KeyinID) {
+            public ShiftDetailRow AddShiftDetailRow(ShiftTableRow parentShiftTableRowByShiftTableShiftDetail, int EmpolyeeID, string ShiftData, string RealData, System.Guid ID, int ShiftHours, int RealHours) {
                 ShiftDetailRow rowShiftDetailRow = ((ShiftDetailRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        ID,
                         null,
                         EmpolyeeID,
                         ShiftData,
-                        Wage,
                         RealData,
-                        ScheduleDays,
-                        RealDays,
-                        KeyinID};
+                        ID,
+                        ShiftHours,
+                        RealHours};
                 if ((parentShiftTableRowByShiftTableShiftDetail != null)) {
-                    columnValuesArray[1] = parentShiftTableRowByShiftTableShiftDetail[0];
+                    columnValuesArray[0] = parentShiftTableRowByShiftTableShiftDetail[0];
                 }
                 rowShiftDetailRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowShiftDetailRow);
@@ -7858,44 +7836,38 @@ namespace VoucherExpense {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
-                this.columnID = base.Columns["ID"];
                 this.columnShiftID = base.Columns["ShiftID"];
                 this.columnEmpolyeeID = base.Columns["EmpolyeeID"];
                 this.columnShiftData = base.Columns["ShiftData"];
-                this.columnWage = base.Columns["Wage"];
                 this.columnRealData = base.Columns["RealData"];
-                this.columnScheduleDays = base.Columns["ScheduleDays"];
-                this.columnRealDays = base.Columns["RealDays"];
-                this.columnKeyinID = base.Columns["KeyinID"];
+                this.columnID = base.Columns["ID"];
+                this.columnShiftHours = base.Columns["ShiftHours"];
+                this.columnRealHours = base.Columns["RealHours"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             private void InitClass() {
-                this.columnID = new global::System.Data.DataColumn("ID", typeof(global::System.Guid), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnID);
                 this.columnShiftID = new global::System.Data.DataColumn("ShiftID", typeof(global::System.Guid), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnShiftID);
                 this.columnEmpolyeeID = new global::System.Data.DataColumn("EmpolyeeID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnEmpolyeeID);
                 this.columnShiftData = new global::System.Data.DataColumn("ShiftData", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnShiftData);
-                this.columnWage = new global::System.Data.DataColumn("Wage", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnWage);
                 this.columnRealData = new global::System.Data.DataColumn("RealData", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRealData);
-                this.columnScheduleDays = new global::System.Data.DataColumn("ScheduleDays", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnScheduleDays);
-                this.columnRealDays = new global::System.Data.DataColumn("RealDays", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnRealDays);
-                this.columnKeyinID = new global::System.Data.DataColumn("KeyinID", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnKeyinID);
+                this.columnID = new global::System.Data.DataColumn("ID", typeof(global::System.Guid), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnID);
+                this.columnShiftHours = new global::System.Data.DataColumn("ShiftHours", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnShiftHours);
+                this.columnRealHours = new global::System.Data.DataColumn("RealHours", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRealHours);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnID}, true));
-                this.columnID.AllowDBNull = false;
-                this.columnID.Unique = true;
                 this.columnShiftData.MaxLength = 31;
                 this.columnRealData.MaxLength = 31;
+                this.columnID.AllowDBNull = false;
+                this.columnID.Unique = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -13275,17 +13247,6 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public System.Guid ID {
-                get {
-                    return ((global::System.Guid)(this[this.tableShiftDetail.IDColumn]));
-                }
-                set {
-                    this[this.tableShiftDetail.IDColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public System.Guid ShiftID {
                 get {
                     try {
@@ -13334,22 +13295,6 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int Wage {
-                get {
-                    try {
-                        return ((int)(this[this.tableShiftDetail.WageColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("資料表 \'ShiftDetail\' 中資料行 \'Wage\' 的值是 DBNull。", e);
-                    }
-                }
-                set {
-                    this[this.tableShiftDetail.WageColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string RealData {
                 get {
                     try {
@@ -13366,49 +13311,44 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public decimal ScheduleDays {
+            public System.Guid ID {
                 get {
-                    try {
-                        return ((decimal)(this[this.tableShiftDetail.ScheduleDaysColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("資料表 \'ShiftDetail\' 中資料行 \'ScheduleDays\' 的值是 DBNull。", e);
-                    }
+                    return ((global::System.Guid)(this[this.tableShiftDetail.IDColumn]));
                 }
                 set {
-                    this[this.tableShiftDetail.ScheduleDaysColumn] = value;
+                    this[this.tableShiftDetail.IDColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int RealDays {
+            public int ShiftHours {
                 get {
                     try {
-                        return ((int)(this[this.tableShiftDetail.RealDaysColumn]));
+                        return ((int)(this[this.tableShiftDetail.ShiftHoursColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("資料表 \'ShiftDetail\' 中資料行 \'RealDays\' 的值是 DBNull。", e);
+                        throw new global::System.Data.StrongTypingException("資料表 \'ShiftDetail\' 中資料行 \'ShiftHours\' 的值是 DBNull。", e);
                     }
                 }
                 set {
-                    this[this.tableShiftDetail.RealDaysColumn] = value;
+                    this[this.tableShiftDetail.ShiftHoursColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int KeyinID {
+            public int RealHours {
                 get {
                     try {
-                        return ((int)(this[this.tableShiftDetail.KeyinIDColumn]));
+                        return ((int)(this[this.tableShiftDetail.RealHoursColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("資料表 \'ShiftDetail\' 中資料行 \'KeyinID\' 的值是 DBNull。", e);
+                        throw new global::System.Data.StrongTypingException("資料表 \'ShiftDetail\' 中資料行 \'RealHours\' 的值是 DBNull。", e);
                     }
                 }
                 set {
-                    this[this.tableShiftDetail.KeyinIDColumn] = value;
+                    this[this.tableShiftDetail.RealHoursColumn] = value;
                 }
             }
             
@@ -13461,18 +13401,6 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsWageNull() {
-                return this.IsNull(this.tableShiftDetail.WageColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetWageNull() {
-                this[this.tableShiftDetail.WageColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsRealDataNull() {
                 return this.IsNull(this.tableShiftDetail.RealDataColumn);
             }
@@ -13485,38 +13413,26 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsScheduleDaysNull() {
-                return this.IsNull(this.tableShiftDetail.ScheduleDaysColumn);
+            public bool IsShiftHoursNull() {
+                return this.IsNull(this.tableShiftDetail.ShiftHoursColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetScheduleDaysNull() {
-                this[this.tableShiftDetail.ScheduleDaysColumn] = global::System.Convert.DBNull;
+            public void SetShiftHoursNull() {
+                this[this.tableShiftDetail.ShiftHoursColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsRealDaysNull() {
-                return this.IsNull(this.tableShiftDetail.RealDaysColumn);
+            public bool IsRealHoursNull() {
+                return this.IsNull(this.tableShiftDetail.RealHoursColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetRealDaysNull() {
-                this[this.tableShiftDetail.RealDaysColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsKeyinIDNull() {
-                return this.IsNull(this.tableShiftDetail.KeyinIDColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetKeyinIDNull() {
-                this[this.tableShiftDetail.KeyinIDColumn] = global::System.Convert.DBNull;
+            public void SetRealHoursNull() {
+                this[this.tableShiftDetail.RealHoursColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -22669,82 +22585,67 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "ShiftDetail";
-            tableMapping.ColumnMappings.Add("ID", "ID");
             tableMapping.ColumnMappings.Add("ShiftID", "ShiftID");
             tableMapping.ColumnMappings.Add("EmpolyeeID", "EmpolyeeID");
             tableMapping.ColumnMappings.Add("ShiftData", "ShiftData");
-            tableMapping.ColumnMappings.Add("Wage", "Wage");
             tableMapping.ColumnMappings.Add("RealData", "RealData");
-            tableMapping.ColumnMappings.Add("ScheduleDays", "ScheduleDays");
-            tableMapping.ColumnMappings.Add("RealDays", "RealDays");
-            tableMapping.ColumnMappings.Add("KeyinID", "KeyinID");
+            tableMapping.ColumnMappings.Add("ID", "ID");
+            tableMapping.ColumnMappings.Add("ShiftHours", "ShiftHours");
+            tableMapping.ColumnMappings.Add("RealHours", "RealHours");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `ShiftDetail` WHERE ((`ID` = ?) AND ((? = 1 AND `ShiftID` IS NULL) OR (`ShiftID` = ?)) AND ((? = 1 AND `EmpolyeeID` IS NULL) OR (`EmpolyeeID` = ?)) AND ((? = 1 AND `ShiftData` IS NULL) OR (`ShiftData` = ?)) AND ((? = 1 AND `Wage` IS NULL) OR (`Wage` = ?)) AND ((? = 1 AND `KeyinID` IS NULL) OR (`KeyinID` = ?)) AND ((? = 1 AND `RealData` IS NULL) OR (`RealData` = ?)) AND ((? = 1 AND `RealDays` IS NULL) OR (`RealDays` = ?)) AND ((? = 1 AND `ScheduleDays` IS NULL) OR (`ScheduleDays` = ?)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `ShiftDetail` WHERE (((? = 1 AND `ShiftID` IS NULL) OR (`ShiftID` = ?)) AND ((? = 1 AND `EmpolyeeID` IS NULL) OR (`EmpolyeeID` = ?)) AND ((? = 1 AND `ShiftData` IS NULL) OR (`ShiftData` = ?)) AND ((? = 1 AND `RealData` IS NULL) OR (`RealData` = ?)) AND (`ID` = ?) AND ((? = 1 AND `RealHours` IS NULL) OR (`RealHours` = ?)) AND ((? = 1 AND `ShiftHours` IS NULL) OR (`ShiftHours` = ?)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.Guid, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ShiftID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ShiftID", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ShiftID", global::System.Data.OleDb.OleDbType.Guid, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ShiftID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_EmpolyeeID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmpolyeeID", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_EmpolyeeID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmpolyeeID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ShiftData", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ShiftData", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ShiftData", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ShiftData", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Wage", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Wage", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Wage", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Wage", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_KeyinID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "KeyinID", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_KeyinID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "KeyinID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_RealData", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "RealData", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_RealData", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "RealData", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_RealDays", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "RealDays", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_RealDays", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "RealDays", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ScheduleDays", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ScheduleDays", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ScheduleDays", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ScheduleDays", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.Guid, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_RealHours", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "RealHours", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_RealHours", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "RealHours", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ShiftHours", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ShiftHours", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ShiftHours", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ShiftHours", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO `ShiftDetail` (`ID`, `ShiftID`, `EmpolyeeID`, `ShiftData`, `Wage`, `K" +
-                "eyinID`, `RealData`, `RealDays`, `ScheduleDays`) VALUES (?, ?, ?, ?, ?, ?, ?, ?," +
-                " ?)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO `ShiftDetail` (`ShiftID`, `EmpolyeeID`, `ShiftData`, `RealData`, `ID`" +
+                ", `RealHours`, `ShiftHours`) VALUES (?, ?, ?, ?, ?, ?, ?)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ID", global::System.Data.OleDb.OleDbType.Guid, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ShiftID", global::System.Data.OleDb.OleDbType.Guid, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ShiftID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("EmpolyeeID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmpolyeeID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ShiftData", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ShiftData", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Wage", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Wage", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("KeyinID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "KeyinID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("RealData", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "RealData", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("RealDays", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "RealDays", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ScheduleDays", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ScheduleDays", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ID", global::System.Data.OleDb.OleDbType.Guid, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("RealHours", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "RealHours", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ShiftHours", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ShiftHours", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE `ShiftDetail` SET `ID` = ?, `ShiftID` = ?, `EmpolyeeID` = ?, `ShiftData` = ?, `Wage` = ?, `KeyinID` = ?, `RealData` = ?, `RealDays` = ?, `ScheduleDays` = ? WHERE ((`ID` = ?) AND ((? = 1 AND `ShiftID` IS NULL) OR (`ShiftID` = ?)) AND ((? = 1 AND `EmpolyeeID` IS NULL) OR (`EmpolyeeID` = ?)) AND ((? = 1 AND `ShiftData` IS NULL) OR (`ShiftData` = ?)) AND ((? = 1 AND `Wage` IS NULL) OR (`Wage` = ?)) AND ((? = 1 AND `KeyinID` IS NULL) OR (`KeyinID` = ?)) AND ((? = 1 AND `RealData` IS NULL) OR (`RealData` = ?)) AND ((? = 1 AND `RealDays` IS NULL) OR (`RealDays` = ?)) AND ((? = 1 AND `ScheduleDays` IS NULL) OR (`ScheduleDays` = ?)))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE `ShiftDetail` SET `ShiftID` = ?, `EmpolyeeID` = ?, `ShiftData` = ?, `RealData` = ?, `ID` = ?, `RealHours` = ?, `ShiftHours` = ? WHERE (((? = 1 AND `ShiftID` IS NULL) OR (`ShiftID` = ?)) AND ((? = 1 AND `EmpolyeeID` IS NULL) OR (`EmpolyeeID` = ?)) AND ((? = 1 AND `ShiftData` IS NULL) OR (`ShiftData` = ?)) AND ((? = 1 AND `RealData` IS NULL) OR (`RealData` = ?)) AND (`ID` = ?) AND ((? = 1 AND `RealHours` IS NULL) OR (`RealHours` = ?)) AND ((? = 1 AND `ShiftHours` IS NULL) OR (`ShiftHours` = ?)))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ID", global::System.Data.OleDb.OleDbType.Guid, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ShiftID", global::System.Data.OleDb.OleDbType.Guid, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ShiftID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("EmpolyeeID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmpolyeeID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ShiftData", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ShiftData", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Wage", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Wage", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("KeyinID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "KeyinID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("RealData", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "RealData", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("RealDays", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "RealDays", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ScheduleDays", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ScheduleDays", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.Guid, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ID", global::System.Data.OleDb.OleDbType.Guid, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("RealHours", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "RealHours", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ShiftHours", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ShiftHours", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ShiftID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ShiftID", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ShiftID", global::System.Data.OleDb.OleDbType.Guid, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ShiftID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_EmpolyeeID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmpolyeeID", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_EmpolyeeID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmpolyeeID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ShiftData", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ShiftData", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ShiftData", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ShiftData", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Wage", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Wage", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Wage", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Wage", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_KeyinID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "KeyinID", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_KeyinID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "KeyinID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_RealData", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "RealData", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_RealData", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "RealData", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_RealDays", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "RealDays", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_RealDays", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "RealDays", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ScheduleDays", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ScheduleDays", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ScheduleDays", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ScheduleDays", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.Guid, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_RealHours", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "RealHours", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_RealHours", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "RealHours", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ShiftHours", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ShiftHours", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ShiftHours", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ShiftHours", global::System.Data.DataRowVersion.Original, false, null));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -22760,8 +22661,8 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, ShiftID, EmpolyeeID, ShiftData, Wage, KeyinID, RealData, RealDays, Sch" +
-                "eduleDays FROM ShiftDetail";
+            this._commandCollection[0].CommandText = "SELECT ShiftID, EmpolyeeID, ShiftData, RealData, ID, RealHours, ShiftHours FROM S" +
+                "hiftDetail";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -22822,76 +22723,60 @@ namespace VoucherExpense.VEDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(global::System.Nullable<global::System.Guid> Original_ID, global::System.Nullable<global::System.Guid> Original_ShiftID, global::System.Nullable<int> Original_EmpolyeeID, string Original_ShiftData, global::System.Nullable<int> Original_Wage, global::System.Nullable<int> Original_KeyinID, string Original_RealData, global::System.Nullable<int> Original_RealDays, global::System.Nullable<decimal> Original_ScheduleDays) {
-            if ((Original_ID.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[0].Value = ((System.Guid)(Original_ID.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[0].Value = global::System.DBNull.Value;
-            }
+        public virtual int Delete(global::System.Nullable<global::System.Guid> Original_ShiftID, global::System.Nullable<int> Original_EmpolyeeID, string Original_ShiftData, string Original_RealData, global::System.Nullable<global::System.Guid> Original_ID, global::System.Nullable<int> Original_RealHours, global::System.Nullable<int> Original_ShiftHours) {
             if ((Original_ShiftID.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((System.Guid)(Original_ShiftID.Value));
+                this.Adapter.DeleteCommand.Parameters[0].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[1].Value = ((System.Guid)(Original_ShiftID.Value));
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[0].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             if ((Original_EmpolyeeID.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((int)(Original_EmpolyeeID.Value));
+                this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((int)(Original_EmpolyeeID.Value));
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
             if ((Original_ShiftData == null)) {
-                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[6].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[4].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[6].Value = ((string)(Original_ShiftData));
+                this.Adapter.DeleteCommand.Parameters[4].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((string)(Original_ShiftData));
             }
-            if ((Original_Wage.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[8].Value = ((int)(Original_Wage.Value));
+            if ((Original_RealData == null)) {
+                this.Adapter.DeleteCommand.Parameters[6].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[6].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[7].Value = ((string)(Original_RealData));
+            }
+            if ((Original_ID.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[8].Value = ((System.Guid)(Original_ID.Value));
+            }
+            else {
                 this.Adapter.DeleteCommand.Parameters[8].Value = global::System.DBNull.Value;
             }
-            if ((Original_KeyinID.HasValue == true)) {
+            if ((Original_RealHours.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[10].Value = ((int)(Original_KeyinID.Value));
+                this.Adapter.DeleteCommand.Parameters[10].Value = ((int)(Original_RealHours.Value));
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[10].Value = global::System.DBNull.Value;
             }
-            if ((Original_RealData == null)) {
+            if ((Original_ShiftHours.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[12].Value = ((int)(Original_ShiftHours.Value));
+            }
+            else {
                 this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[12].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[12].Value = ((string)(Original_RealData));
-            }
-            if ((Original_RealDays.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[13].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[14].Value = ((int)(Original_RealDays.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[13].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[14].Value = global::System.DBNull.Value;
-            }
-            if ((Original_ScheduleDays.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[15].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[16].Value = ((decimal)(Original_ScheduleDays.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[15].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[16].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -22913,60 +22798,48 @@ namespace VoucherExpense.VEDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(global::System.Nullable<global::System.Guid> ID, global::System.Nullable<global::System.Guid> ShiftID, global::System.Nullable<int> EmpolyeeID, string ShiftData, global::System.Nullable<int> Wage, global::System.Nullable<int> KeyinID, string RealData, global::System.Nullable<int> RealDays, global::System.Nullable<decimal> ScheduleDays) {
-            if ((ID.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[0].Value = ((System.Guid)(ID.Value));
+        public virtual int Insert(global::System.Nullable<global::System.Guid> ShiftID, global::System.Nullable<int> EmpolyeeID, string ShiftData, string RealData, global::System.Nullable<global::System.Guid> ID, global::System.Nullable<int> RealHours, global::System.Nullable<int> ShiftHours) {
+            if ((ShiftID.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[0].Value = ((System.Guid)(ShiftID.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
-            if ((ShiftID.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((System.Guid)(ShiftID.Value));
+            if ((EmpolyeeID.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[1].Value = ((int)(EmpolyeeID.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
-            if ((EmpolyeeID.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((int)(EmpolyeeID.Value));
-            }
-            else {
+            if ((ShiftData == null)) {
                 this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
-            if ((ShiftData == null)) {
+            else {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(ShiftData));
+            }
+            if ((RealData == null)) {
                 this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(ShiftData));
+                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(RealData));
             }
-            if ((Wage.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((int)(Wage.Value));
+            if ((ID.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[4].Value = ((System.Guid)(ID.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
-            if ((KeyinID.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[5].Value = ((int)(KeyinID.Value));
+            if ((RealHours.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[5].Value = ((int)(RealHours.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
-            if ((RealData == null)) {
+            if ((ShiftHours.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[6].Value = ((int)(ShiftHours.Value));
+            }
+            else {
                 this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[6].Value = ((string)(RealData));
-            }
-            if ((RealDays.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[7].Value = ((int)(RealDays.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[7].Value = global::System.DBNull.Value;
-            }
-            if ((ScheduleDays.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[8].Value = ((decimal)(ScheduleDays.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[8].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -22988,148 +22861,102 @@ namespace VoucherExpense.VEDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(
-                    global::System.Nullable<global::System.Guid> ID, 
-                    global::System.Nullable<global::System.Guid> ShiftID, 
-                    global::System.Nullable<int> EmpolyeeID, 
-                    string ShiftData, 
-                    global::System.Nullable<int> Wage, 
-                    global::System.Nullable<int> KeyinID, 
-                    string RealData, 
-                    global::System.Nullable<int> RealDays, 
-                    global::System.Nullable<decimal> ScheduleDays, 
-                    global::System.Nullable<global::System.Guid> Original_ID, 
-                    global::System.Nullable<global::System.Guid> Original_ShiftID, 
-                    global::System.Nullable<int> Original_EmpolyeeID, 
-                    string Original_ShiftData, 
-                    global::System.Nullable<int> Original_Wage, 
-                    global::System.Nullable<int> Original_KeyinID, 
-                    string Original_RealData, 
-                    global::System.Nullable<int> Original_RealDays, 
-                    global::System.Nullable<decimal> Original_ScheduleDays) {
-            if ((ID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[0].Value = ((System.Guid)(ID.Value));
+        public virtual int Update(global::System.Nullable<global::System.Guid> ShiftID, global::System.Nullable<int> EmpolyeeID, string ShiftData, string RealData, global::System.Nullable<global::System.Guid> ID, global::System.Nullable<int> RealHours, global::System.Nullable<int> ShiftHours, global::System.Nullable<global::System.Guid> Original_ShiftID, global::System.Nullable<int> Original_EmpolyeeID, string Original_ShiftData, string Original_RealData, global::System.Nullable<global::System.Guid> Original_ID, global::System.Nullable<int> Original_RealHours, global::System.Nullable<int> Original_ShiftHours) {
+            if ((ShiftID.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[0].Value = ((System.Guid)(ShiftID.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
-            if ((ShiftID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((System.Guid)(ShiftID.Value));
+            if ((EmpolyeeID.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(EmpolyeeID.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
-            if ((EmpolyeeID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(EmpolyeeID.Value));
-            }
-            else {
+            if ((ShiftData == null)) {
                 this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
-            if ((ShiftData == null)) {
+            else {
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(ShiftData));
+            }
+            if ((RealData == null)) {
                 this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(ShiftData));
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(RealData));
             }
-            if ((Wage.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Wage.Value));
+            if ((ID.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((System.Guid)(ID.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
-            if ((KeyinID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(KeyinID.Value));
+            if ((RealHours.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(RealHours.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
-            if ((RealData == null)) {
+            if ((ShiftHours.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(ShiftHours.Value));
+            }
+            else {
                 this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
-            else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(RealData));
-            }
-            if ((RealDays.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(RealDays.Value));
+            if ((Original_ShiftID.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((System.Guid)(Original_ShiftID.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
-            }
-            if ((ScheduleDays.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((decimal)(ScheduleDays.Value));
-            }
-            else {
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
             }
-            if ((Original_ID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((System.Guid)(Original_ID.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
-            }
-            if ((Original_ShiftID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((System.Guid)(Original_ShiftID.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
-            }
             if ((Original_EmpolyeeID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((int)(Original_EmpolyeeID.Value));
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(Original_EmpolyeeID.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[13].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
             }
             if ((Original_ShiftData == null)) {
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[15].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[15].Value = ((string)(Original_ShiftData));
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((string)(Original_ShiftData));
             }
-            if ((Original_Wage.HasValue == true)) {
+            if ((Original_RealData == null)) {
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[14].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[14].Value = ((string)(Original_RealData));
+            }
+            if ((Original_ID.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((System.Guid)(Original_ID.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[15].Value = global::System.DBNull.Value;
+            }
+            if ((Original_RealHours.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[17].Value = ((int)(Original_Wage.Value));
+                this.Adapter.UpdateCommand.Parameters[17].Value = ((int)(Original_RealHours.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[17].Value = global::System.DBNull.Value;
             }
-            if ((Original_KeyinID.HasValue == true)) {
+            if ((Original_ShiftHours.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[19].Value = ((int)(Original_KeyinID.Value));
+                this.Adapter.UpdateCommand.Parameters[19].Value = ((int)(Original_ShiftHours.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[19].Value = global::System.DBNull.Value;
-            }
-            if ((Original_RealData == null)) {
-                this.Adapter.UpdateCommand.Parameters[20].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[21].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[20].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[21].Value = ((string)(Original_RealData));
-            }
-            if ((Original_RealDays.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[22].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[23].Value = ((int)(Original_RealDays.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[22].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[23].Value = global::System.DBNull.Value;
-            }
-            if ((Original_ScheduleDays.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[24].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[25].Value = ((decimal)(Original_ScheduleDays.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[24].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[25].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -23151,25 +22978,8 @@ namespace VoucherExpense.VEDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(
-                    global::System.Nullable<global::System.Guid> ShiftID, 
-                    global::System.Nullable<int> EmpolyeeID, 
-                    string ShiftData, 
-                    global::System.Nullable<int> Wage, 
-                    global::System.Nullable<int> KeyinID, 
-                    string RealData, 
-                    global::System.Nullable<int> RealDays, 
-                    global::System.Nullable<decimal> ScheduleDays, 
-                    global::System.Nullable<global::System.Guid> Original_ID, 
-                    global::System.Nullable<global::System.Guid> Original_ShiftID, 
-                    global::System.Nullable<int> Original_EmpolyeeID, 
-                    string Original_ShiftData, 
-                    global::System.Nullable<int> Original_Wage, 
-                    global::System.Nullable<int> Original_KeyinID, 
-                    string Original_RealData, 
-                    global::System.Nullable<int> Original_RealDays, 
-                    global::System.Nullable<decimal> Original_ScheduleDays) {
-            return this.Update(Original_ID, ShiftID, EmpolyeeID, ShiftData, Wage, KeyinID, RealData, RealDays, ScheduleDays, Original_ID, Original_ShiftID, Original_EmpolyeeID, Original_ShiftData, Original_Wage, Original_KeyinID, Original_RealData, Original_RealDays, Original_ScheduleDays);
+        public virtual int Update(global::System.Nullable<global::System.Guid> ShiftID, global::System.Nullable<int> EmpolyeeID, string ShiftData, string RealData, global::System.Nullable<int> RealHours, global::System.Nullable<int> ShiftHours, global::System.Nullable<global::System.Guid> Original_ShiftID, global::System.Nullable<int> Original_EmpolyeeID, string Original_ShiftData, string Original_RealData, global::System.Nullable<global::System.Guid> Original_ID, global::System.Nullable<int> Original_RealHours, global::System.Nullable<int> Original_ShiftHours) {
+            return this.Update(ShiftID, EmpolyeeID, ShiftData, RealData, Original_ID, RealHours, ShiftHours, Original_ShiftID, Original_EmpolyeeID, Original_ShiftData, Original_RealData, Original_ID, Original_RealHours, Original_ShiftHours);
         }
     }
     

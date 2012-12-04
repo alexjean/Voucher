@@ -94,6 +94,7 @@ namespace VoucherExpense
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message + " in " + configName);
+                        row.Delete();   // 壞的,刪掉
                         continue;
                     }
 

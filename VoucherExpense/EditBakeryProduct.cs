@@ -243,12 +243,12 @@ namespace VoucherExpense
 
         Size SizeSave = new Size(0, 0);
         Point LocationSave = new Point(0, 0);
-        private void photoPictureBox_Click(object sender, EventArgs e)
+        private void photoPictureBox_MouseClick(object sender, MouseEventArgs e)
         {
             if (!photoPictureBox.Visible) return;
-            if (photoPictureBox.ImageLocation == null)
+            if (e.Button == MouseButtons.Right)
             {
-                photoPictureBox_DoubleClick(null, null);
+                SavePicture();
                 return;
             }
             if (LocationSave.X == 0)
@@ -285,7 +285,7 @@ namespace VoucherExpense
 
         }
 
-        private void photoPictureBox_DoubleClick(object sender, EventArgs e)
+        private void SavePicture()
         {
             DataRowView rowView = productBindingSource.Current as DataRowView;
             BakeryOrderSet.ProductRow row = rowView.Row as BakeryOrderSet.ProductRow;
@@ -306,5 +306,6 @@ namespace VoucherExpense
             File.Copy(openFileDialog1.FileName, path, true);
             photoPictureBox.ImageLocation = path;
         }
+
     }
 }

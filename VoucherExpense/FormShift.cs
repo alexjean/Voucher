@@ -86,6 +86,8 @@ namespace VoucherExpense
 
             LoadCfg();
             cShiftCodeBindingSource.DataSource = m_ShiftCodeList;
+
+            columnLocked.ReadOnly = !MyFunction.LockHR;
         }
 
         //List<CNameIDForComboBox> GetApartmentList()
@@ -216,6 +218,11 @@ namespace VoucherExpense
             DataGridViewRow dgvRow = dgvShift.SelectedCells[0].OwningRow;
             DataRowView     rowView=dgvRow.DataBoundItem as DataRowView;   // 指到BindingSource
             VEDataSet.ShiftTableRow row = rowView.Row as VEDataSet.ShiftTableRow;
+            if (row.Locked)
+            {
+                MessageBox.Show("己核可無法刪除!");
+                return;
+            }
             VEDataSet.ShiftDetailRow[] details = row.GetShiftDetailRows();
             if (details.Count() != 0)
             {

@@ -90,31 +90,6 @@ namespace VoucherExpense
 
         Size SizeSave = new Size(0, 0);
         Point LocationSave = new Point(0, 0);
-        private void photoPictureBox_Click(object sender, EventArgs e)
-        {
-            if (!photoPictureBox.Visible) return;
-            if (photoPictureBox.ImageLocation == null)
-            {
-                photoPictureBox_DoubleClick(null,null);
-                return;
-            }
-            if (LocationSave.X == 0)
-            {
-                SizeSave = photoPictureBox.Size;
-                LocationSave = photoPictureBox.Location;
-            }
-            if (photoPictureBox.Location.X == 0)
-            {
-                photoPictureBox.Location = LocationSave;
-                photoPictureBox.Size = SizeSave;
-            }
-            else
-            {
-                photoPictureBox.Location = new Point(0, 0);
-                photoPictureBox.Size = this.Size;
-                photoPictureBox.BringToFront();
-            }
-        }
 
         private void IngredientBindingSource_CurrentChanged(object sender, EventArgs e)
         {
@@ -132,20 +107,6 @@ namespace VoucherExpense
 
         }
 
-        private void photoPictureBox_DoubleClick(object sender, EventArgs e)
-        {
-            DialogResult result = openFileDialog1.ShowDialog();
-            if (result != DialogResult.OK) return;
-            string ext = Path.GetExtension(openFileDialog1.FileName).ToLower();
-            if (ext != ".jpg")
-            {
-                MessageBox.Show("對不起!只接受jpg檔");
-                return;
-            }
-            string path = CurrentPhotoPath();
-            File.Copy(openFileDialog1.FileName, path, true);
-            photoPictureBox.ImageLocation = path;
-        }
 
         bool m_VoucherDetailLoaded = false;   
         private void DeletetoolStripButton_Click(object sender, EventArgs e)
@@ -216,6 +177,50 @@ namespace VoucherExpense
             MessageBox.Show("沒有刪除 " + strCodeName);
 
         }
+
+        private void SavePicture()
+        {
+            DialogResult result = openFileDialog1.ShowDialog();
+            if (result != DialogResult.OK) return;
+            string ext = Path.GetExtension(openFileDialog1.FileName).ToLower();
+            if (ext != ".jpg")
+            {
+                MessageBox.Show("對不起!只接受jpg檔");
+                return;
+            }
+            string path = CurrentPhotoPath();
+            File.Copy(openFileDialog1.FileName, path, true);
+            photoPictureBox.ImageLocation = path;
+        }
+
+        private void photoPictureBox_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (!photoPictureBox.Visible) return;
+            if (e.Button == MouseButtons.Right)
+            {
+                SavePicture();
+                return;
+            }
+            if (LocationSave.X == 0)
+            {
+                SizeSave = photoPictureBox.Size;
+                LocationSave = photoPictureBox.Location;
+            }
+            if (photoPictureBox.Location.X == 0)
+            {
+                photoPictureBox.Location = LocationSave;
+                photoPictureBox.Size = SizeSave;
+            }
+            else
+            {
+                photoPictureBox.Location = new Point(0, 0);
+                photoPictureBox.Size = this.Size;
+                photoPictureBox.BringToFront();
+            }
+
+        }
+
+
 
      
     }

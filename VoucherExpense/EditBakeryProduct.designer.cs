@@ -537,6 +537,8 @@
             // tableAdapterManager
             // 
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.CashierTableAdapter = null;
+            this.tableAdapterManager.DrawerRecordTableAdapter = null;
             this.tableAdapterManager.HeaderTableAdapter = null;
             this.tableAdapterManager.OrderItemTableAdapter = this.orderItemTableAdapter;
             this.tableAdapterManager.OrderTableAdapter = this.orderTableAdapter;
@@ -561,8 +563,7 @@
             this.photoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.photoPictureBox.TabIndex = 22;
             this.photoPictureBox.TabStop = false;
-            this.photoPictureBox.Click += new System.EventHandler(this.photoPictureBox_Click);
-            this.photoPictureBox.DoubleClick += new System.EventHandler(this.photoPictureBox_DoubleClick);
+            this.photoPictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.photoPictureBox_MouseClick);
             // 
             // openFileDialog1
             // 

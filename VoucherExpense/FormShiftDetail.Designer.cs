@@ -36,7 +36,6 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnLeave = new System.Windows.Forms.Button();
             this.btnExcel = new System.Windows.Forms.Button();
-            this.btnPrint = new System.Windows.Forms.Button();
             this.shiftDetailTableAdapter = new VoucherExpense.VEDataSetTableAdapters.ShiftDetailTableAdapter();
             this.panelBase.SuspendLayout();
             this.SuspendLayout();
@@ -133,23 +132,13 @@
             // 
             // btnExcel
             // 
-            this.btnExcel.Enabled = false;
             this.btnExcel.Location = new System.Drawing.Point(88, 535);
             this.btnExcel.Name = "btnExcel";
             this.btnExcel.Size = new System.Drawing.Size(61, 29);
             this.btnExcel.TabIndex = 7;
             this.btnExcel.Text = "Excel";
             this.btnExcel.UseVisualStyleBackColor = true;
-            // 
-            // btnPrint
-            // 
-            this.btnPrint.Enabled = false;
-            this.btnPrint.Location = new System.Drawing.Point(2, 535);
-            this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(61, 29);
-            this.btnPrint.TabIndex = 8;
-            this.btnPrint.Text = "列印";
-            this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
             // 
             // shiftDetailTableAdapter
             // 
@@ -161,7 +150,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(921, 605);
-            this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.btnExcel);
             this.Controls.Add(this.btnLeave);
             this.Controls.Add(this.btnSave);
@@ -191,7 +179,6 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnLeave;
         private System.Windows.Forms.Button btnExcel;
-        private System.Windows.Forms.Button btnPrint;
         private VEDataSetTableAdapters.ShiftDetailTableAdapter shiftDetailTableAdapter;
     }
 }

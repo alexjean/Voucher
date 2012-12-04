@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormShift));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cMonthForComboBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.operatorBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.vEDataSet = new VoucherExpense.VEDataSet();
@@ -58,13 +58,13 @@
             this.columnHour = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.cHourForComboBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cShiftCodeBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.lastUpdatedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.KeyinID = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Locked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.ColumnTableMonth = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.tableNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnShiftID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvShift = new System.Windows.Forms.DataGridView();
+            this.columnShiftID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tableNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnTableMonth = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.columnLocked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.KeyinID = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.lastUpdatedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.cMonthForComboBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
@@ -125,7 +125,7 @@
             this.shiftTableBindingNavigator.MovePreviousItem = null;
             this.shiftTableBindingNavigator.Name = "shiftTableBindingNavigator";
             this.shiftTableBindingNavigator.PositionItem = null;
-            this.shiftTableBindingNavigator.Size = new System.Drawing.Size(142, 25);
+            this.shiftTableBindingNavigator.Size = new System.Drawing.Size(111, 25);
             this.shiftTableBindingNavigator.TabIndex = 58;
             this.shiftTableBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -279,14 +279,67 @@
             // 
             this.cShiftCodeBindingSource.DataSource = typeof(VoucherExpense.CShiftCode);
             // 
-            // lastUpdatedDataGridViewTextBoxColumn
+            // dgvShift
             // 
-            this.lastUpdatedDataGridViewTextBoxColumn.DataPropertyName = "LastUpdated";
-            dataGridViewCellStyle3.Format = "MM-dd HH:mm";
-            this.lastUpdatedDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
-            this.lastUpdatedDataGridViewTextBoxColumn.HeaderText = "更新";
-            this.lastUpdatedDataGridViewTextBoxColumn.Name = "lastUpdatedDataGridViewTextBoxColumn";
-            this.lastUpdatedDataGridViewTextBoxColumn.ReadOnly = true;
+            this.dgvShift.AllowUserToAddRows = false;
+            this.dgvShift.AllowUserToDeleteRows = false;
+            this.dgvShift.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
+            this.dgvShift.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvShift.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.dgvShift.AutoGenerateColumns = false;
+            this.dgvShift.BackgroundColor = System.Drawing.Color.SeaShell;
+            this.dgvShift.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvShift.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.columnShiftID,
+            this.tableNameDataGridViewTextBoxColumn,
+            this.ColumnTableMonth,
+            this.columnLocked,
+            this.KeyinID,
+            this.lastUpdatedDataGridViewTextBoxColumn});
+            this.dgvShift.DataSource = this.shiftTableBindingSource;
+            this.dgvShift.Location = new System.Drawing.Point(0, 32);
+            this.dgvShift.MultiSelect = false;
+            this.dgvShift.Name = "dgvShift";
+            this.dgvShift.RowHeadersVisible = false;
+            this.dgvShift.RowTemplate.Height = 24;
+            this.dgvShift.Size = new System.Drawing.Size(458, 642);
+            this.dgvShift.TabIndex = 56;
+            this.dgvShift.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvShift_DataError);
+            // 
+            // columnShiftID
+            // 
+            this.columnShiftID.DataPropertyName = "ShiftID";
+            this.columnShiftID.HeaderText = "ShiftID";
+            this.columnShiftID.Name = "columnShiftID";
+            this.columnShiftID.Visible = false;
+            // 
+            // tableNameDataGridViewTextBoxColumn
+            // 
+            this.tableNameDataGridViewTextBoxColumn.DataPropertyName = "TableName";
+            this.tableNameDataGridViewTextBoxColumn.HeaderText = "名稱";
+            this.tableNameDataGridViewTextBoxColumn.Name = "tableNameDataGridViewTextBoxColumn";
+            this.tableNameDataGridViewTextBoxColumn.Width = 160;
+            // 
+            // ColumnTableMonth
+            // 
+            this.ColumnTableMonth.DataPropertyName = "TableMonth";
+            this.ColumnTableMonth.DataSource = this.cMonthForComboBindingSource;
+            this.ColumnTableMonth.DisplayMember = "Name";
+            this.ColumnTableMonth.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.ColumnTableMonth.HeaderText = "月份";
+            this.ColumnTableMonth.Name = "ColumnTableMonth";
+            this.ColumnTableMonth.ValueMember = "Index";
+            this.ColumnTableMonth.Width = 64;
+            // 
+            // columnLocked
+            // 
+            this.columnLocked.DataPropertyName = "Locked";
+            this.columnLocked.HeaderText = "核";
+            this.columnLocked.Name = "columnLocked";
+            this.columnLocked.ReadOnly = true;
+            this.columnLocked.Width = 32;
             // 
             // KeyinID
             // 
@@ -302,66 +355,14 @@
             this.KeyinID.ValueMember = "OperatorID";
             this.KeyinID.Width = 80;
             // 
-            // Locked
+            // lastUpdatedDataGridViewTextBoxColumn
             // 
-            this.Locked.DataPropertyName = "Locked";
-            this.Locked.HeaderText = "核";
-            this.Locked.Name = "Locked";
-            this.Locked.Width = 32;
-            // 
-            // ColumnTableMonth
-            // 
-            this.ColumnTableMonth.DataPropertyName = "TableMonth";
-            this.ColumnTableMonth.DataSource = this.cMonthForComboBindingSource;
-            this.ColumnTableMonth.DisplayMember = "Name";
-            this.ColumnTableMonth.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.ColumnTableMonth.HeaderText = "月份";
-            this.ColumnTableMonth.Name = "ColumnTableMonth";
-            this.ColumnTableMonth.ValueMember = "Index";
-            this.ColumnTableMonth.Width = 64;
-            // 
-            // tableNameDataGridViewTextBoxColumn
-            // 
-            this.tableNameDataGridViewTextBoxColumn.DataPropertyName = "TableName";
-            this.tableNameDataGridViewTextBoxColumn.HeaderText = "名稱";
-            this.tableNameDataGridViewTextBoxColumn.Name = "tableNameDataGridViewTextBoxColumn";
-            this.tableNameDataGridViewTextBoxColumn.Width = 160;
-            // 
-            // columnShiftID
-            // 
-            this.columnShiftID.DataPropertyName = "ShiftID";
-            this.columnShiftID.HeaderText = "ShiftID";
-            this.columnShiftID.Name = "columnShiftID";
-            this.columnShiftID.Visible = false;
-            // 
-            // dgvShift
-            // 
-            this.dgvShift.AllowUserToAddRows = false;
-            this.dgvShift.AllowUserToDeleteRows = false;
-            this.dgvShift.AllowUserToResizeRows = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Azure;
-            this.dgvShift.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.dgvShift.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.dgvShift.AutoGenerateColumns = false;
-            this.dgvShift.BackgroundColor = System.Drawing.Color.SeaShell;
-            this.dgvShift.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvShift.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.columnShiftID,
-            this.tableNameDataGridViewTextBoxColumn,
-            this.ColumnTableMonth,
-            this.Locked,
-            this.KeyinID,
-            this.lastUpdatedDataGridViewTextBoxColumn});
-            this.dgvShift.DataSource = this.shiftTableBindingSource;
-            this.dgvShift.Location = new System.Drawing.Point(0, 32);
-            this.dgvShift.MultiSelect = false;
-            this.dgvShift.Name = "dgvShift";
-            this.dgvShift.RowHeadersVisible = false;
-            this.dgvShift.RowTemplate.Height = 24;
-            this.dgvShift.Size = new System.Drawing.Size(458, 642);
-            this.dgvShift.TabIndex = 56;
-            this.dgvShift.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvShift_DataError);
+            this.lastUpdatedDataGridViewTextBoxColumn.DataPropertyName = "LastUpdated";
+            dataGridViewCellStyle2.Format = "MM-dd HH:mm";
+            this.lastUpdatedDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            this.lastUpdatedDataGridViewTextBoxColumn.HeaderText = "更新";
+            this.lastUpdatedDataGridViewTextBoxColumn.Name = "lastUpdatedDataGridViewTextBoxColumn";
+            this.lastUpdatedDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // FormShift
             // 
@@ -428,12 +429,12 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn columnCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnNote;
         private System.Windows.Forms.DataGridViewComboBoxColumn columnHour;
-        private System.Windows.Forms.DataGridViewTextBoxColumn lastUpdatedDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewComboBoxColumn KeyinID;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Locked;
-        private System.Windows.Forms.DataGridViewComboBoxColumn ColumnTableMonth;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tableNameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnShiftID;
         private System.Windows.Forms.DataGridView dgvShift;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnShiftID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tableNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewComboBoxColumn ColumnTableMonth;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn columnLocked;
+        private System.Windows.Forms.DataGridViewComboBoxColumn KeyinID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn lastUpdatedDataGridViewTextBoxColumn;
     }
 }

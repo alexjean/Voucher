@@ -56,6 +56,7 @@
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.IngredientBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
+            this.DeletetoolStripButton = new System.Windows.Forms.ToolStripButton();
             this.IngredientDataGridView = new System.Windows.Forms.DataGridView();
             this.columnIngredientID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CanPurchase = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -79,7 +80,6 @@
             this.titleCodeComboBox = new System.Windows.Forms.ComboBox();
             this.photoPictureBox = new System.Windows.Forms.PictureBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.DeletetoolStripButton = new System.Windows.Forms.ToolStripButton();
             this.voucherDetailTableAdapter = new VoucherExpense.VEDataSetTableAdapters.VoucherDetailTableAdapter();
             this.voucherTableAdapter = new VoucherExpense.VEDataSetTableAdapters.VoucherTableAdapter();
             IngredientIDLabel = new System.Windows.Forms.Label();
@@ -318,6 +318,17 @@
             this.IngredientBindingNavigatorSaveItem.Text = "儲存資料";
             this.IngredientBindingNavigatorSaveItem.Click += new System.EventHandler(this.IngredientBindingNavigatorSaveItem_Click);
             // 
+            // DeletetoolStripButton
+            // 
+            this.DeletetoolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.DeletetoolStripButton.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.DeletetoolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("DeletetoolStripButton.Image")));
+            this.DeletetoolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.DeletetoolStripButton.Name = "DeletetoolStripButton";
+            this.DeletetoolStripButton.Size = new System.Drawing.Size(23, 24);
+            this.DeletetoolStripButton.Text = "刪除";
+            this.DeletetoolStripButton.Click += new System.EventHandler(this.DeletetoolStripButton_Click);
+            // 
             // IngredientDataGridView
             // 
             this.IngredientDataGridView.AllowUserToAddRows = false;
@@ -542,8 +553,7 @@
             this.photoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.photoPictureBox.TabIndex = 47;
             this.photoPictureBox.TabStop = false;
-            this.photoPictureBox.Click += new System.EventHandler(this.photoPictureBox_Click);
-            this.photoPictureBox.DoubleClick += new System.EventHandler(this.photoPictureBox_DoubleClick);
+            this.photoPictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.photoPictureBox_MouseClick);
             // 
             // openFileDialog1
             // 
@@ -551,17 +561,6 @@
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.RestoreDirectory = true;
             this.openFileDialog1.Title = "請選擇本食材的圖片";
-            // 
-            // DeletetoolStripButton
-            // 
-            this.DeletetoolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.DeletetoolStripButton.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.DeletetoolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("DeletetoolStripButton.Image")));
-            this.DeletetoolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.DeletetoolStripButton.Name = "DeletetoolStripButton";
-            this.DeletetoolStripButton.Size = new System.Drawing.Size(23, 24);
-            this.DeletetoolStripButton.Text = "刪除";
-            this.DeletetoolStripButton.Click += new System.EventHandler(this.DeletetoolStripButton_Click);
             // 
             // voucherDetailTableAdapter
             // 

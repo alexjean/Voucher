@@ -461,101 +461,107 @@ namespace VoucherExpense
             Excel.Application excel;
             Excel.Worksheet sheet;
             Excel.Workbook book;
-            /*
-                        try
-                        {
-                            excel = new Excel.Application();
-                            book = excel.Application.Workbooks.Add(true);
-                            sheet = book.Worksheets[1];
-                            DataRowView rowView = comboBoxAccTitle.SelectedItem as DataRowView;
-                            VEDataSet.AccountingTitleRow row = rowView.Row as VEDataSet.AccountingTitleRow;
-                            sheet.Name = comboBoxMonth.SelectedItem.ToString() + "  " + row.Name;
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("開啟Excel出錯,原因:" + ex.Message);
-                            return;
-                        }
-                        excel.Visible = true;
-                        DataGridView view = cLedgerTableDataGridView;
-                        Excel.Range range;
-                        int i = 1;
-                        // 插入Logo圖片
-                        int imgHeight = 48;
-                        range = sheet.Rows[1];
-                        range.RowHeight = imgHeight + 2;
-                        Bitmap img = MyFunction.GetThumbnail(global::VoucherExpense.Properties.Resources.LogoVI, imgHeight * 4 / 3);   // 一般圖是96DPI,換算就是4pixels=3單位
-                        range = sheet.Cells[1, 1];
-                        Clipboard.SetDataObject(img, true);
-                        sheet.Paste(range, "LogoVI");
 
-                        //range = sheet.Cells[1, 3];
-                        //range.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        //sheet.Cells[1, 3] = sheet.Name;
+            VEDataSet.ShiftDetailRow[] details = Row.GetShiftDetailRows();
+            try
+            {
+                excel = new Excel.Application();
+                book = excel.Application.Workbooks.Add(true);
+                sheet = book.Worksheets[1];
+                sheet.Name = Row.TableName +" "+ Row.TableMonth.ToString() + "月";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("開啟Excel出錯,原因:" + ex.Message);
+                return;
+            }
+            excel.Visible = true;
 
-                        //欄位表頭
-                        i++;
+            Excel.Range range;
+            int i = 1;
+            // 插入Logo圖片
+            int imgHeight = 48;
+            range = sheet.Rows[1];
+            range.RowHeight = imgHeight + 2;
+            Bitmap img = MyFunction.GetThumbnail(global::VoucherExpense.Properties.Resources.LogoVI, imgHeight * 4 / 3);   // 一般圖是96DPI,換算就是4pixels=3單位
+            range = sheet.Cells[1, 1];
+            Clipboard.SetDataObject(img, true);
+            sheet.Paste(range, "LogoVI");
 
-                        sheet.Cells[i, 1] = "日期";
-                        range = sheet.Columns[1];
-                        range.HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
-                        range.ColumnWidth = 10;
+            sheet.Cells[1, 3] = sheet.Name;
+            range = sheet.Cells[1, 3];
+            range.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            range.Select();
 
-                        sheet.Cells[i, 2] = "摘要";
-                        range = sheet.Columns[2];
-                        range.ColumnWidth = 30;
+            //欄位表頭
+            i++;
 
-                        sheet.Cells[i, 3] = "借方";
-                        range = sheet.Columns[3];
-                        range.HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
-                        range.ColumnWidth = 10;
-                        range.NumberFormat = "#,##0.00";
+            sheet.Cells[i, 1] = "序号";
+            range = sheet.Columns[1];
+            range.HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+            range.ColumnWidth = 10;
 
-                        sheet.Cells[i, 4] = "貸方";
-                        range = sheet.Columns[4];
-                        range.HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
-                        range.ColumnWidth = 10;
-                        range.NumberFormat = "#,##0.00";    // "0.00";
+            sheet.Cells[i, 2] = "姓名";
+            range = sheet.Columns[2];
+            range.ColumnWidth = 12;
 
-                        sheet.Cells[i, 5] = "餘額";
-                        range = sheet.Columns[5];
-                        range.HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
-                        range.ColumnWidth = 10;
-                        range.NumberFormat = "#,##0.00";
+            sheet.Cells[i, 3] = "身份证号";
+            range = sheet.Columns[3];
+            range.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            range.ColumnWidth = 20;
+                
 
-                        sheet.Cells[i, 6] = "科目";
-                        range = sheet.Columns[6];
-                        range.ColumnWidth = 10;
+            sheet.Cells[i, 4] = "银行卡号";
+            range = sheet.Columns[4];
+            range.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            range.ColumnWidth = 20;
+
+            sheet.Cells[i, 5] = "职位";
+            range = sheet.Columns[5];
+            range.HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+            range.ColumnWidth = 10;
+
+            sheet.Cells[i, 6] = "出勤时数";
+            range = sheet.Columns[6];
+            range.ColumnWidth = 10;
 
 
 
-                        i++;
-                        foreach (DataGridViewRow vr in view.Rows)
-                        {
-                            sheet.Cells[i, 1] = vr.Cells[0].FormattedValue;         // 日期
-                            sheet.Cells[i, 2] = "'" + vr.Cells[1].FormattedValue;   // 摘要
-                            sheet.Cells[i, 3] = vr.Cells[2].FormattedValue;         // 借方
-                            sheet.Cells[i, 4] = vr.Cells[3].FormattedValue;         // 貸方
-                            sheet.Cells[i, 5] = vr.Cells[4].FormattedValue;         // 餘額
-                            sheet.Cells[i, 6] = vr.Cells[5].FormattedValue;         // 對沖科目
+            i++;
+            foreach (VEDataSet.ShiftDetailRow ro in details)
+            {
+                string A2 = "A" + (i - 1).ToString();
+                string str="=IF(ISNumber("+A2+"),"+A2+",0)+1";
+                sheet.Cells[i, 1] = str;         // 序号
+                VEDataSet.HRRow hr=null;
+                str = "员工" + ro.EmpolyeeID.ToString();
+                foreach(VEDataSet.HRRow h in vEDataSet.HR)
+                {
+                    if (h.EmployeeID==ro.EmpolyeeID)
+                    {
+                        if (!h.IsEmployeeNameNull())
+                            str=h.EmployeeName;
+                        hr = h;
+                        break;
+                    }
+                }
+                sheet.Cells[i, 2] = str;                        // 姓名
+                if (hr != null)
+                {
+                    if (!hr.IsIdNoNull())
+                        sheet.Cells[i, 3] = "'"+hr.IdNo;        // 身份证号
+                    if (!hr.IsBankAccoutNull())
+                        sheet.Cells[i, 4] = "'"+hr.BankAccout;  // 银行卡号
+                    if (!hr.IsTitleNull())
+                        sheet.Cells[i, 5] = "'"+hr.Title;       // 职位
+                }
+                if (!ro.IsRealHoursNull())
+                    sheet.Cells[i, 6] = ro.RealHours.ToString();    // 出勤时数
 
-                            //DataRowView rowView = vr.DataBoundItem as DataRowView;
-                            //VEDataSet.ExpenseRow row =  rowView.Row as VEDataSet.ExpenseRow;
-                            //if (!row.IsInnerIDNull())   sheet.Cells[i, 1] = row.InnerID;
-                            //                            sheet.Cells[i, 2] = row.ApplyTime;
-                            //if (!row.IsNoteNull())      sheet.Cells[i, 3] = row.Note;
-                            //if (!row.IsTitleCodeNull()) sheet.Cells[i, 4] = "'"+row.TitleCode.ToString();
-                            //if (!row.IsMoneyNull())     sheet.Cells[i, 5] = row.Money;
-                            //if (!row.IsApplierIDNull())
-                            //{
-                            //    sheet.Cells[i, 6] = row.ApplierID;
-                            //}
-                            i++;
-                        }
-                        sheet.Cells[i++, 2] = "'================================================";
-                        excel.Quit();
-            */
-
+                i++;
+            }
+            sheet.Cells[i++, 2] = "'===================================================";
+            excel.Quit();
         }
     }
 }

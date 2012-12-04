@@ -249,9 +249,10 @@ namespace VoucherExpense
             Clipboard.SetDataObject(img, true);
             sheet.Paste(range, "LogoVI");
 
-            //range = sheet.Cells[1, 3];
-            //range.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-            //sheet.Cells[1, 3] = sheet.Name;
+            range = sheet.Cells[1, 3];
+            range.HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+            sheet.Cells[1, 3] = sheet.Name+"  分類帳";
+            range.Select();
 
             //欄位表頭
             i++;

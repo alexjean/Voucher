@@ -675,6 +675,7 @@ namespace VoucherExpense
             range = sheet.Cells[1, 3];
             range.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
             sheet.Cells[1,3]= sheet.Name;
+            range.Select();
 
 
             //欄位表頭

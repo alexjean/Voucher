@@ -32,17 +32,21 @@ namespace VoucherExpense
         public static void DoBackup(HardwareConfig Config)
         {
             string voucher = "VoucherExpense.mdb";
-            string basic = "BasicData.mdb";
-            string voucherFile, basicFile;
+#if (Define_Bakery)            
+            string income = "BakeryOrder.mdb";
+#else
+            string income  = "BasicData.mdb";
+#endif
+            string voucherFile, incomeFile;
             if (!Config.IsServer)
             {
                 voucherFile = Config.DataDir + "\\" + voucher;
-                basicFile = Config.DataDir + "\\" + basic;
+                incomeFile  = Config.DataDir + "\\" + income;
             }
             else
             {
                 voucherFile = voucher;
-                basicFile = basic;
+                incomeFile  = income;
             }
             if (Config.BackupDir.Length == 0)
             {
@@ -59,11 +63,11 @@ namespace VoucherExpense
                 return;
             }
             string destVoucher = Config.BackupDir + "\\" + voucher;
-            string destBasic = Config.BackupDir + "\\" + basic;
+            string destIncome  = Config.BackupDir + "\\" + income;
 
             if (FileCheckCopy(voucherFile, destVoucher))
             {
-                if (FileCheckCopy(basicFile, destBasic))
+                if (FileCheckCopy(incomeFile, destIncome))
                 {
                     MessageBox.Show("己備份至<" + Path.GetFullPath(Config.BackupDir) + ">");
                     return;

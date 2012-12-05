@@ -95,7 +95,7 @@ namespace VoucherExpense
                         if (h < 4) d--;
                         if (d < 0) continue;
                     }
-                    else if (t.Month == (month + 1))    // 下個月七點前的算到上個月去
+                    else if (t.Month == (month + 1))    // 下個月4點前的算到上個月去
                     {
                         d = t.Day - 1;
                         if (d != 0) continue;

@@ -51,8 +51,8 @@
             System.Windows.Forms.Label bankAccoutLabel;
             System.Windows.Forms.Label salaryLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormHR));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.vEDataSet = new VoucherExpense.VEDataSet();
             this.hRBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.hRTableAdapter = new VoucherExpense.VEDataSetTableAdapters.HRTableAdapter();
@@ -485,14 +485,14 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.hRDataGridView.AutoGenerateColumns = false;
             this.hRDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.hRDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.hRDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.hRDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.hRDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.columnEmployeeID,
@@ -613,11 +613,11 @@
             // birthdayDateTimePicker
             // 
             this.birthdayDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.birthdayDateTimePicker.Location = new System.Drawing.Point(577, 159);
+            this.birthdayDateTimePicker.Location = new System.Drawing.Point(578, 159);
             this.birthdayDateTimePicker.MaxDate = new System.DateTime(2020, 12, 31, 0, 0, 0, 0);
             this.birthdayDateTimePicker.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
             this.birthdayDateTimePicker.Name = "birthdayDateTimePicker";
-            this.birthdayDateTimePicker.Size = new System.Drawing.Size(19, 27);
+            this.birthdayDateTimePicker.Size = new System.Drawing.Size(18, 27);
             this.birthdayDateTimePicker.TabIndex = 2;
             this.birthdayDateTimePicker.ValueChanged += new System.EventHandler(this.birthdayDateTimePicker_ValueChanged);
             // 
@@ -788,9 +788,9 @@
             // columnEffectiveDate
             // 
             this.columnEffectiveDate.DataPropertyName = "EffectiveDate";
-            dataGridViewCellStyle6.Format = "d";
-            dataGridViewCellStyle6.NullValue = null;
-            this.columnEffectiveDate.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Format = "d";
+            dataGridViewCellStyle2.NullValue = null;
+            this.columnEffectiveDate.DefaultCellStyle = dataGridViewCellStyle2;
             this.columnEffectiveDate.HeaderText = "生效日";
             this.columnEffectiveDate.Name = "columnEffectiveDate";
             // 
@@ -940,7 +940,7 @@
             this.birthdayTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.hRBindingSource, "Birthday", true));
             this.birthdayTextBox.Location = new System.Drawing.Point(449, 159);
             this.birthdayTextBox.Name = "birthdayTextBox";
-            this.birthdayTextBox.Size = new System.Drawing.Size(129, 27);
+            this.birthdayTextBox.Size = new System.Drawing.Size(131, 27);
             this.birthdayTextBox.TabIndex = 52;
             // 
             // FormHR

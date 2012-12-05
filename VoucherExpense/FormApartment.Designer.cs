@@ -187,7 +187,9 @@
             // 
             // apartmentDataGridView
             // 
+            this.apartmentDataGridView.AllowUserToAddRows = false;
             this.apartmentDataGridView.AllowUserToDeleteRows = false;
+            this.apartmentDataGridView.AllowUserToResizeRows = false;
             this.apartmentDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.apartmentDataGridView.AutoGenerateColumns = false;

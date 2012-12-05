@@ -57,6 +57,8 @@
             // 
             // chListBoxBasic
             // 
+            this.chListBoxBasic.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.chListBoxBasic.FormattingEnabled = true;
             this.chListBoxBasic.Location = new System.Drawing.Point(49, 160);
             this.chListBoxBasic.Name = "chListBoxBasic";
@@ -66,6 +68,8 @@
             // 
             // chListBoxVE
             // 
+            this.chListBoxVE.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.chListBoxVE.FormattingEnabled = true;
             this.chListBoxVE.Location = new System.Drawing.Point(318, 160);
             this.chListBoxVE.Name = "chListBoxVE";

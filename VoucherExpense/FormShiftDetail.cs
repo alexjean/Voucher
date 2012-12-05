@@ -456,6 +456,17 @@ namespace VoucherExpense
 
         }
 
+        string ExistBlackFont()
+        {
+            foreach (FontFamily font in FontFamily.Families)
+            {
+                if (font.Name == "微軟正黑體") return font.Name;
+                if (font.Name == "微软雅黑"  ) return font.Name;
+            }
+            return "微軟正黑體";
+        }
+
+
         private void btnExcel_Click(object sender, EventArgs e)
         {
             Excel.Application excel;
@@ -488,9 +499,11 @@ namespace VoucherExpense
             Clipboard.SetDataObject(img, true);
             sheet.Paste(range, "LogoVI");
 
-            sheet.Cells[1, 3] = sheet.Name;
-            range = sheet.Cells[1, 3];
+            sheet.Cells[1, 4] = sheet.Name;
+            range = sheet.Cells[1, 4];
             range.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            range.Font.Name = "標楷體";
+            range.Font.Size = 14;
             range.Select();
 
             //欄位表頭
@@ -499,47 +512,48 @@ namespace VoucherExpense
             sheet.Cells[i, 1] = "序号";
             range = sheet.Columns[1];
             range.HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
-            range.ColumnWidth = 10;
+            range.ColumnWidth = 4;
 
             sheet.Cells[i, 2] = "姓名";
             range = sheet.Columns[2];
-            range.ColumnWidth = 12;
+            range.ColumnWidth = 8;
 
             sheet.Cells[i, 3] = "身份证号";
             range = sheet.Columns[3];
             range.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-            range.ColumnWidth = 20;
+            range.ColumnWidth = 16;
                 
 
             sheet.Cells[i, 4] = "银行卡号";
             range = sheet.Columns[4];
             range.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-            range.ColumnWidth = 20;
+            range.ColumnWidth = 16;
 
             sheet.Cells[i, 5] = "职位";
             range = sheet.Columns[5];
             range.HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
-            range.ColumnWidth = 12;
+            range.ColumnWidth = 9;
 
             sheet.Cells[i, 6] = "出勤时";
             range = sheet.Columns[6];
             range.HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
-            range.ColumnWidth = 8;
+            range.ColumnWidth = 6;
 
             sheet.Cells[i, 7] = "出勤天";
             range = sheet.Columns[7];
             range.HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
-            range.ColumnWidth = 8;
+            range.ColumnWidth = 6;
             range.NumberFormat="0.00";
 
 
-            sheet.Cells[i, 8] = "工资标准";
+            sheet.Cells[i, 8] = "本薪";
             range = sheet.Columns[8];
             range.HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
-            range.ColumnWidth = 10;
+            range.ColumnWidth =8;
             range.NumberFormat = "#,##0";
 
             i++;
+            int beginRow = i;
             foreach (VEDataSet.ShiftDetailRow ro in details)
             {
                 string A2 = "A" + (i - 1).ToString();
@@ -576,10 +590,27 @@ namespace VoucherExpense
                 {
                     sheet.Cells[i, 8] = hr.Salary.ToString();
                 }
-
                 i++;
             }
+            int endRow = i - 1;
             sheet.Cells[i++, 2] = "'===================================================";
+
+            string BlackFont = ExistBlackFont();
+            range = sheet.Range[sheet.Cells[beginRow, 2], sheet.Cells[endRow, 2]];      // 姓名   , get_Range在.net4.0不能用
+            range.Font.Name = BlackFont;    range.Font.Size = 11; 
+            range = sheet.Range[sheet.Cells[beginRow, 3], sheet.Cells[endRow, 3]];      // 身份証号
+            range.Font.Name = BlackFont;    range.Font.Size = 8;
+            range = sheet.Range[sheet.Cells[beginRow, 4], sheet.Cells[endRow, 4]];      // 银行卡号
+            range.Font.Name = BlackFont;    range.Font.Size = 8;
+            range = sheet.Range[sheet.Cells[beginRow, 5], sheet.Cells[endRow, 5]];      // 职位
+            range.Font.Name = BlackFont;    range.Font.Size = 10;
+            range = sheet.Range[sheet.Cells[beginRow, 6], sheet.Cells[endRow, 6]];      // 出勤时
+            range.Font.Name = BlackFont;    range.Font.Size = 10;
+            range = sheet.Range[sheet.Cells[beginRow, 7], sheet.Cells[endRow, 7]];      // 出勤天
+            range.Font.Name = BlackFont;    range.Font.Size = 10;
+            range = sheet.Range[sheet.Cells[beginRow, 8], sheet.Cells[endRow, 8]];      // 本薪
+            range.Font.Name = BlackFont;    range.Font.Size = 10;
+
             excel.Quit();
         }
     }

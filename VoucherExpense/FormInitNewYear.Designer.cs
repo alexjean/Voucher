@@ -38,9 +38,11 @@
             this.labelPath = new System.Windows.Forms.Label();
             this.btnAction = new System.Windows.Forms.Button();
             this.labelMessage = new System.Windows.Forms.Label();
-            this.basicHeaderAdapter = new VoucherExpense.BasicDataSetTableAdapters.HeaderTableAdapter();
+            this.bakeryOrderSet1 = new VoucherExpense.BakeryOrderSet();
+            this.voucherHeaderAdapter = new VoucherExpense.VEDataSetTableAdapters.HeaderTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.basicDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.veDataSet1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet1)).BeginInit();
             this.SuspendLayout();
             // 
             // basicDataSet1
@@ -121,9 +123,14 @@
             this.labelMessage.TabIndex = 8;
             this.labelMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // basicHeaderAdapter
+            // bakeryOrderSet1
             // 
-            this.basicHeaderAdapter.ClearBeforeFill = true;
+            this.bakeryOrderSet1.DataSetName = "BakeryOrderSet";
+            this.bakeryOrderSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // voucherHeaderAdapter
+            // 
+            this.voucherHeaderAdapter.ClearBeforeFill = true;
             // 
             // FormInitNewYear
             // 
@@ -146,6 +153,7 @@
             this.Load += new System.EventHandler(this.FormInitNewYear_Load);
             ((System.ComponentModel.ISupportInitialize)(this.basicDataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.veDataSet1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -162,6 +170,7 @@
         private System.Windows.Forms.Label labelPath;
         private System.Windows.Forms.Button btnAction;
         private System.Windows.Forms.Label labelMessage;
-        private BasicDataSetTableAdapters.HeaderTableAdapter basicHeaderAdapter;
+        private BakeryOrderSet bakeryOrderSet1;
+        private VEDataSetTableAdapters.HeaderTableAdapter voucherHeaderAdapter;
     }
 }

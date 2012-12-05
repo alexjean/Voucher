@@ -77,7 +77,8 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>AlexCode.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
@@ -542,8 +543,8 @@
       <DependentUpon>BakerySoldSpent.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="AlexCode.snk" />
     <None Include="app.config" />
+    <None Include="BakeryOrder.gz" />
     <None Include="BakeryOrderSet.xsc">
       <DependentUpon>BakeryOrderSet.xsd</DependentUpon>
     </None>
@@ -572,7 +573,6 @@
     <None Include="Properties\DataSources\FormShift.CCodeForCombo.datasource" />
     <None Include="Properties\DataSources\FormShift.CHourForCombo.datasource" />
     <None Include="Properties\DataSources\FormShift.CMonthForCombo.datasource" />
-    <None Include="VoucherExpense.gz" />
     <None Include="Properties\DataSources\CBankAccountForComboBox.datasource" />
     <None Include="Properties\DataSources\CBankDetail.datasource" />
     <None Include="Properties\DataSources\CHRType.datasource" />
@@ -646,9 +646,7 @@
     <Compile Include="Voucher.Designer.cs">
       <DependentUpon>Voucher.cs</DependentUpon>
     </Compile>
-    <None Include="VoucherExpense_1_TemporaryKey.pfx" />
-    <None Include="VoucherExpense_2_TemporaryKey.pfx" />
-    <None Include="VoucherExpense_TemporaryKey.pfx" />
+    <None Include="VoucherExpense.gz" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="BakeryOrder.mdb">

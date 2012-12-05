@@ -17,7 +17,8 @@ namespace VoucherExpense
         const string HeadStr = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=";
         const string TailStr = ";Persist Security Info=True;Jet OLEDB:Database Password=";
         static public string VoucherPass = "CalcVoucher";
-        static public string BasicPass = "love";
+        static public string BasicPass  = "love";
+        static public string BakeryPass = "love";
         static public string ConnectString(string path, string password)
         {
             return HeadStr + path + TailStr + password; 

@@ -30,10 +30,10 @@ namespace VoucherExpense
         int m_Year;
         private void FormInitNewYear_Load(object sender, EventArgs e)
         {
-             try
+            try
             {
-                basicHeaderAdapter.Connection = MapPath.BasicConnection;
-                basicHeaderAdapter.Fill(basicDataSet1.Header);
+                voucherHeaderAdapter.Connection = MapPath.VEConnection;
+                voucherHeaderAdapter.Fill(veDataSet1.Header);
             }
             catch
             {
@@ -41,26 +41,28 @@ namespace VoucherExpense
                 Close();
                 return;
             }
-            int count = basicDataSet1.Header.Rows.Count;
+            int count = veDataSet1.Header.Rows.Count;
             string path = Application.ExecutablePath;
-            int len=path.Length;
-            if (path[len - 1] == '\\')
-                path = path.Substring(0, len - 1);      // 去掉最後面的 \
+            int len = path.Length;
+            if (path[len - 1] == '\\')     path = path.Substring(0, len - 1);      // 去掉最後面的 \
             len = path.LastIndexOf('\\');
-            if (len>0)
-                path = path.Substring(0, len);
-            DateTime dt=DateTime.Now;
+            if (len > 0)                   path = path.Substring(0, len);          // 取路
+            DateTime dt = DateTime.Now;
             if (count != 0)
             {
-                BasicDataSet.HeaderRow row = (BasicDataSet.HeaderRow)basicDataSet1.Header.Rows[count - 1]; // 沒指定用最後一個
-                dt = row.DataDate;
+                VEDataSet.HeaderRow row = (VEDataSet.HeaderRow)veDataSet1.Header.Rows[count - 1]; // 沒指定用最後一個
+                dt = row.DataYear;
             }
             m_Year=dt.Year+1;
-            labelYear.Text = "今年是 " + dt.Year.ToString() + " 將啟始"+m_Year.ToString()+"年資料";
+            labelYear.Text = "原資料年是 " + dt.Year.ToString() + " 將啟始"+m_Year.ToString()+"年資料";
             labelNote.Text = "起始資料將被放在 " + System.Net.Dns.GetHostName() + "的";
-            m_Dir = path + "\\Voucher" + m_Year.ToString();
+            m_Dir = path + "\\Manage" + m_Year.ToString();
             labelPath.Text = m_Dir;
+#if (Define_Bakery)            
+            List<string> list1=GetTableName(bakeryOrderSet1);
+#else
             List<string> list1=GetTableName(basicDataSet1);
+#endif
             foreach (string s in list1)
             {
                 if (s == "Header") continue;      // Header要特殊處理
@@ -81,6 +83,7 @@ namespace VoucherExpense
         }
         // 二個資料庫除了Header沒有同名的,所以放在一起了
         // BasicData.mdb 的Header要放 今年的12月31日, 過午夜的部分要手打.打完再啟始新日就是1月1日了
+        // BakeryOrder.mdb 放1月1日
         // VoucherExpense.mdb的Header 要放1月1日
         List<string> ReservedTable = new List<string>()
                     {   "Product"       ,
@@ -114,25 +117,41 @@ namespace VoucherExpense
                 Directory.CreateDirectory(m_Dir);
                 Message("複製" + HardwareConfig.CfgFileName);
                 File.Copy(HardwareConfig.CfgFileName, m_Dir + "\\" + HardwareConfig.CfgFileName);
-                Message("創建BasicData.mdb!");
-                string basicPath= m_Dir + "\\BasicData.mdb";
-                string voucherPath= m_Dir + "\\VoucherExpense.mdb";
-                OleDbConnection basicConn   =new OleDbConnection(MapPath.ConnectString(basicPath    ,MapPath.BasicPass+"you"    ));
-                OleDbConnection voucherConn =new OleDbConnection(MapPath.ConnectString(voucherPath  ,MapPath.VoucherPass+"888"  ));
-                if (!MyFunction.Decompress(Properties.Resources.EmptyBasic,basicPath))
-                {
-                    MessageBox.Show("空白BasicData.mdb建立失敗,無法繼續!");
-                    return;
-                }
 
+#if (Define_Bakery)
+                string IncomeMdb = "BakeryOrder.mdb";
+                Message("創建" + IncomeMdb + "!");
+                string incomePath = m_Dir + "\\" + IncomeMdb;
+                OleDbConnection incomeConn       = new OleDbConnection(MapPath.ConnectString(incomePath, MapPath.BakeryPass + "Bakery"));
+                OleDbConnection sourceIncomeConn = MapPath.BakeryConnection;
+                if (!MyFunction.Decompress(Properties.Resources.BakeryOrder, incomePath))
+                {
+                    MessageBox.Show("空白" + IncomeMdb + "建立失敗,無法繼續!");   return;
+                }
+                bakeryOrderSet1.Header.Clear();
+                BakeryOrderSet.HeaderRow row1 = bakeryOrderSet1.Header.AddHeaderRow(new DateTime(m_Year , 1, 1), false);
+                BakeryOrderSetTableAdapters.HeaderTableAdapter adapterBa = new BakeryOrderSetTableAdapters.HeaderTableAdapter();
+#else
+                string IncomeMdb = "BasicData.mdb";
+                Message("創建" + IncomeMdb + "!");
+                string incomePath = m_Dir + "\\" + IncomeMdb;
+                OleDbConnection incomeConn       = new OleDbConnection(MapPath.ConnectString(incomePath, MapPath.BasicPass + "you"));
+                OleDbConnection sourceIncomeConn = MapPath.BasicConnection;
+                if (!MyFunction.Decompress(Properties.Resources.EmptyBasic,incomePath))
+                {
+                    MessageBox.Show("空白"+IncomeMdb+"建立失敗,無法繼續!");       return;
+                }
                 basicDataSet1.Header.Clear();
                 BasicDataSet.HeaderRow row1=basicDataSet1.Header.AddHeaderRow(new DateTime(m_Year-1,12,31),false);
                 BasicDataSetTableAdapters.HeaderTableAdapter adapterBa = new BasicDataSetTableAdapters.HeaderTableAdapter();
-                adapterBa.Connection = basicConn;
+#endif
+                adapterBa.Connection = incomeConn;
                 adapterBa.Update(row1);
 
                 Message("創建VoucherExpense.mdb!");
-                if (!MyFunction.Decompress(Properties.Resources.VoucherExpense,voucherPath))
+                string voucherPath = m_Dir + "\\VoucherExpense.mdb";
+                OleDbConnection voucherConn = new OleDbConnection(MapPath.ConnectString(voucherPath, MapPath.VoucherPass + "888"));
+                if (!MyFunction.Decompress(Properties.Resources.VoucherExpense, voucherPath))
                 {
                     MessageBox.Show("空白VoucherExpense.mdb建立失敗,無法繼續!");
                     return;
@@ -143,14 +162,10 @@ namespace VoucherExpense
                 VEDataSetTableAdapters.HeaderTableAdapter adapterVE = new VEDataSetTableAdapters.HeaderTableAdapter();
                 adapterVE.Connection = voucherConn;
                 adapterVE.Update(row2);
-
                 MessageBox.Show("己建立空白資料庫!");
 
-
-                foreach (string s in chListBoxBasic.CheckedItems)
-                    CopyTable(s,  MapPath.BasicConnection, basicConn);
-                foreach (string s in chListBoxVE.CheckedItems)
-                    CopyTable(s,  MapPath.VEConnection, voucherConn);
+                foreach (string s in chListBoxBasic.CheckedItems)      CopyTable(s,  sourceIncomeConn    , incomeConn);
+                foreach (string s in chListBoxVE.CheckedItems   )      CopyTable(s,  MapPath.VEConnection, voucherConn);
                 Message("資料拷貝完成!");
             }
             catch (Exception ex)

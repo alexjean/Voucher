@@ -48,7 +48,6 @@ namespace VoucherExpense
             textBoxUserName.Text  = Config.UserName;
             textBoxPassword.Text  = Config.Password;
             textBoxBackupDir.Text = Config.BackupDir;
-            comboBoxPosID.SelectedIndex = Config.iPosID;
             labelProgramVersion.Text = "程式版本 "+Application.ProductVersion.ToString();
         }
 
@@ -61,7 +60,6 @@ namespace VoucherExpense
             Config.UserName   = textBoxUserName.Text.Trim();
             Config.Password   = textBoxPassword.Text.Trim();
             Config.BackupDir  = textBoxBackupDir.Text.Trim();
-            Config.PosID      = comboBoxPosID.SelectedItem.ToString();
             Config.Save();
             MessageBox.Show("存檔完成! 重新啟動程式後, 設定方生效.");
         }

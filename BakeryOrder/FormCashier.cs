@@ -388,7 +388,7 @@ namespace BakeryOrder
         const string m_ProductDir   = "Photos\\Products";
         const string m_SmallDir     = m_ProductDir + "\\Small";
         string       m_PrinterName  = "BTP-R580(U)";
-        int          m_PosID        = 0;
+        int          m_PosID        = 0;    // FormCashier的m_PosID己經不使用,由店長收取資料時填取
         int          m_CashierID    = -1;
         int m_MaxOrderID = 0;
         int m_MaxDrawerRecordID = 0;
@@ -563,8 +563,8 @@ namespace BakeryOrder
             order = bakeryOrderSet.Order.NewOrderRow();
             DateTime now = DateTime.Now;
             int id;
-            id = (m_PosID % 100) + now.Month * 10000 + now.Day * 100;
-            order.ID = id*10000+maxID + 1;
+            id = (m_PosID % 10) + now.Month * 1000 + now.Day * 10;
+            order.ID = id*100000+maxID + 1;
             order.DiscountRate = 0.9m;
             order.Income = (decimal)CalcTotal();
             order.CashierID = m_CashierID;

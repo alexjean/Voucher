@@ -122,6 +122,9 @@
     <Compile Include="AccountingTitle.Designer.cs">
       <DependentUpon>AccountingTitle.cs</DependentUpon>
     </Compile>
+    <Compile Include="AdapterFillByStr.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="BakeryOrderSet.cs">
       <DependentUpon>BakeryOrderSet.xsd</DependentUpon>
       <SubType>Component</SubType>

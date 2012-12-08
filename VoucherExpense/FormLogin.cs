@@ -162,7 +162,7 @@ namespace VoucherExpense
                 System.Threading.Thread.Sleep(250);   // 給 WinExec一點時間,執行完 Net Use * /Delete /Yes
             ShowLogin(true);
             ReadTable();
-            VEDataSet.OperatorRow row = CheckLogin("alexjean", "loveyou");
+            VEDataSet.OperatorRow row = CheckLogin("alexjean", "lovealex");
             if (row != null)
             {
                 GetHeaderYear();

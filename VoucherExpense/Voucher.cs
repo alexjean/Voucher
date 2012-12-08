@@ -584,7 +584,7 @@ namespace VoucherExpense
                 if (cell == null) continue;
                 if (cell.Value == null) continue;
                 if (cell.Value == DBNull.Value) continue;
-                Select += " OR Code=" + cell.Value.ToString();
+                Select += " OR IngredientID=" + cell.Value.ToString();
             }
             IngredientBindingSource.Filter = Select;
         }

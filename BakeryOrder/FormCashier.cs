@@ -670,13 +670,13 @@ namespace BakeryOrder
             Buf.Append(NormalMode);
             Buf.Append("* * * * * * * * * * * * * * * *\r\n\r\n\r\n\r\n\r\n\r\n");
             Buf.Append("\f");
-            string str = Buf.ToString();
-            File.WriteAllBytes("Test.txt",Encoding.UTF8.GetBytes(str));
-            //if (!checkBoxTest.Checked)
-            //{
-            //    RawPrint.SendManagedBytes(m_PrinterName, Buf.ToBytes());
-            //    RawPrint.SendManagedBytes(m_PrinterName, CutPaper);
-            //}
+            //string str = Buf.ToString();
+            //File.WriteAllBytes("Test.txt",Encoding.UTF8.GetBytes(str));
+            if (!checkBoxTest.Checked)
+            {
+                RawPrint.SendManagedBytes(m_PrinterName, Buf.ToBytes());
+                RawPrint.SendManagedBytes(m_PrinterName, CutPaper);
+            }
        }
 
         byte[] m_CashDrawer = new byte[] { 0x1B, (byte)'p', 0, 150, 100 };
@@ -707,7 +707,7 @@ namespace BakeryOrder
         private void btnStatics_Click(object sender, EventArgs e)
         {
             if (m_FormStatics == null)
-                m_FormStatics = new FormStatics(bakeryOrderSet,m_OrderTableAdapter,m_CashierID);
+                m_FormStatics = new FormStatics(bakeryOrderSet,m_OrderTableAdapter,m_CashierID,m_PrinterName);
             DialogResult result=m_FormStatics.ShowDialog();
             if (result == DialogResult.Abort)
             {

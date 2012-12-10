@@ -43,6 +43,7 @@
             this.labelTotal = new System.Windows.Forms.Label();
             this.btnLogout = new System.Windows.Forms.Button();
             this.btnChangePassword = new System.Windows.Forms.Button();
+            this.btnInvoicesMatch = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,7 +59,7 @@
             // 
             // btnExitProgram
             // 
-            this.btnExitProgram.Location = new System.Drawing.Point(108, 712);
+            this.btnExitProgram.Location = new System.Drawing.Point(2, 504);
             this.btnExitProgram.Name = "btnExitProgram";
             this.btnExitProgram.Size = new System.Drawing.Size(88, 56);
             this.btnExitProgram.TabIndex = 1;
@@ -78,7 +79,7 @@
             this.lvItems.HideSelection = false;
             this.lvItems.Location = new System.Drawing.Point(2, 0);
             this.lvItems.Name = "lvItems";
-            this.lvItems.Size = new System.Drawing.Size(226, 458);
+            this.lvItems.Size = new System.Drawing.Size(226, 434);
             this.lvItems.TabIndex = 2;
             this.lvItems.UseCompatibleStateImageBehavior = false;
             this.lvItems.View = System.Windows.Forms.View.Details;
@@ -151,7 +152,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 485);
+            this.label1.Location = new System.Drawing.Point(15, 450);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 16);
             this.label1.TabIndex = 6;
@@ -159,14 +160,14 @@
             // 
             // labelTotal
             // 
-            this.labelTotal.Location = new System.Drawing.Point(58, 485);
+            this.labelTotal.Location = new System.Drawing.Point(61, 450);
             this.labelTotal.Name = "labelTotal";
             this.labelTotal.Size = new System.Drawing.Size(147, 16);
             this.labelTotal.TabIndex = 7;
             // 
             // btnLogout
             // 
-            this.btnLogout.Location = new System.Drawing.Point(108, 574);
+            this.btnLogout.Location = new System.Drawing.Point(108, 504);
             this.btnLogout.Name = "btnLogout";
             this.btnLogout.Size = new System.Drawing.Size(88, 56);
             this.btnLogout.TabIndex = 8;
@@ -184,12 +185,23 @@
             this.btnChangePassword.UseVisualStyleBackColor = true;
             this.btnChangePassword.Click += new System.EventHandler(this.btnChangePassword_Click);
             // 
+            // btnInvoicesMatch
+            // 
+            this.btnInvoicesMatch.Location = new System.Drawing.Point(108, 574);
+            this.btnInvoicesMatch.Name = "btnInvoicesMatch";
+            this.btnInvoicesMatch.Size = new System.Drawing.Size(88, 56);
+            this.btnInvoicesMatch.TabIndex = 10;
+            this.btnInvoicesMatch.Text = "對帳列印";
+            this.btnInvoicesMatch.UseVisualStyleBackColor = true;
+            this.btnInvoicesMatch.Click += new System.EventHandler(this.btnInvoicesMatch_Click);
+            // 
             // FormStatics
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Azure;
             this.ClientSize = new System.Drawing.Size(1024, 768);
+            this.Controls.Add(this.btnInvoicesMatch);
             this.Controls.Add(this.btnChangePassword);
             this.Controls.Add(this.btnLogout);
             this.Controls.Add(this.labelTotal);
@@ -229,5 +241,6 @@
         private System.Windows.Forms.Label labelTotal;
         private System.Windows.Forms.Button btnLogout;
         private System.Windows.Forms.Button btnChangePassword;
+        private System.Windows.Forms.Button btnInvoicesMatch;
     }
 }

@@ -631,7 +631,7 @@ namespace BakeryOrder
             n = (CurrentOrder.ID % 1000);
             Buf.Append("序号:" + n.ToString("d4") + "\r\n");
             Buf.AppendPadRight("时间:" + CurrentOrder.PrintTime.ToString("yy/MM/dd HH:mm"), 19);
-            Buf.Append("工号: 001" +  "\r\n\r\n");
+            Buf.Append("工号: "+m_CashierID.ToString("d03") +  "\r\n\r\n");
 
             Buf.Append(BorderMode);                                      // 設定列印模式28
             Buf.Append("  品名        数量 单价   金额\r\n");
@@ -670,13 +670,13 @@ namespace BakeryOrder
             Buf.Append(NormalMode);
             Buf.Append("* * * * * * * * * * * * * * * *\r\n\r\n\r\n\r\n\r\n\r\n");
             Buf.Append("\f");
-//            string str = Buf.ToString();
-//            File.WriteAllBytes("Test.txt",Encoding.UTF8.GetBytes(str));
-            if (!checkBoxTest.Checked)
-            {
-                RawPrint.SendManagedBytes(m_PrinterName, Buf.ToBytes());
-                RawPrint.SendManagedBytes(m_PrinterName, CutPaper);
-            }
+            string str = Buf.ToString();
+            File.WriteAllBytes("Test.txt",Encoding.UTF8.GetBytes(str));
+            //if (!checkBoxTest.Checked)
+            //{
+            //    RawPrint.SendManagedBytes(m_PrinterName, Buf.ToBytes());
+            //    RawPrint.SendManagedBytes(m_PrinterName, CutPaper);
+            //}
        }
 
         byte[] m_CashDrawer = new byte[] { 0x1B, (byte)'p', 0, 150, 100 };

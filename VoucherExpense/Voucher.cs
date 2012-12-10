@@ -410,7 +410,7 @@ namespace VoucherExpense
             m_SelectedVoucher.Sort(comparer);
             Form form = new FormPrintSelect(this);
             form.ShowDialog();
-            if (m_SelectedVenderID.Count>= 0)
+            if (m_SelectedVenderID.Count> 0)
                   printDocument.Print();
         }
 

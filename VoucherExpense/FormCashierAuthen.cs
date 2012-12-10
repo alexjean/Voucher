@@ -17,11 +17,14 @@ namespace VoucherExpense
             InitializeComponent();
         }
 
+        List<TextBox> m_TextBoxPaths=new List<TextBox>();
         private void cashierBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
             BakeryOrderSet.CashierDataTable table = MyFunction.SaveCheck<BakeryOrderSet.CashierDataTable>(
                                             this, cashierBindingSource, bakeryOrderSet.Cashier);
             if (table == null) return;
+            listBoxReadme.Items.Clear();
+            Message("設定店長本机收銀授權!");
             foreach (BakeryOrderSet.CashierRow r in table.Rows)
             {
                 if (r.RowState == DataRowState.Deleted) continue;
@@ -34,6 +37,50 @@ namespace VoucherExpense
             this.cashierTableAdapter.Update(bakeryOrderSet.Cashier);
             bakeryOrderSet.Cashier.AcceptChanges();
             this.cashierBindingSource.ResetBindings(false);
+            // 更改收銀机授權,因不知歷史, 用全面覆蓋,反正資料庫小
+            for(int i=0;i<m_TextBoxPaths.Count;i++)
+            {
+                string dir = m_TextBoxPaths[i].Text.Trim();
+                if (dir.Length == 0) continue;
+                Message("設定收銀机<" + i.ToString() + ">位於 "+dir);
+                string connStr = MapPath.ConnectString(dir + "\\BakeryOrder.mdb", MapPath.BakeryPass + "Bakery");
+                BakeryOrderSet posBakerySet = new BakeryOrderSet();
+                System.Data.OleDb.OleDbConnection dbConnection = new System.Data.OleDb.OleDbConnection(connStr);
+                BakeryOrderSetTableAdapters.CashierTableAdapter adapter = new BakeryOrderSetTableAdapters.CashierTableAdapter();
+                adapter.Connection = dbConnection;
+                try
+                {
+                    adapter.Fill(posBakerySet.Cashier);
+                    // 先看POS裏面有的
+                    foreach (BakeryOrderSet.CashierRow pos in posBakerySet.Cashier)
+                    {
+                        var cashiers = from row in bakeryOrderSet.Cashier where (row.CashierID == pos.CashierID) select row;
+                        BakeryOrderSet.CashierRow cashier;
+                        if (cashiers.Count() <= 0)    // 此記錄店長資料庫不存在
+                            pos.Delete();
+                        else
+                        {
+                            cashier = cashiers.First();
+                            pos.ItemArray = cashier.ItemArray;
+                        }
+                    }
+                    // 加入POS裏面沒有的
+                    foreach (BakeryOrderSet.CashierRow cashier in bakeryOrderSet.Cashier)
+                    {
+                        var rows = from row in posBakerySet.Cashier where (row.CashierID == cashier.CashierID) select row;
+                        if (rows.Count() > 0) continue;   // 己經存在了
+                        var pos=posBakerySet.Cashier.NewCashierRow();  // 沒有關聯,所以沒必要BeginEdit EndEdit
+                        pos.ItemArray = cashier.ItemArray;
+                        posBakerySet.Cashier.AddCashierRow(pos);
+                    }
+                    adapter.Update(posBakerySet.Cashier);
+                }
+                catch (Exception ex)
+                {
+                    Message("錯誤:" + ex.Message,true);
+                }
+            }
+            Message("收銀授權完成!");
         }
 
         // 店長DB
@@ -59,6 +106,9 @@ namespace VoucherExpense
             todayPicker.MaxDate = new DateTime(MyFunction.IntHeaderYear, 12, 31);
             todayPicker.Value = now;
             LoadCfg();
+            m_TextBoxPaths.Add(textBoxPOS1);
+            m_TextBoxPaths.Add(textBoxPOS2);
+            m_TextBoxPaths.Add(textBoxPOS3);
         }
 
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
@@ -103,20 +153,22 @@ namespace VoucherExpense
             textBoxPOS3.Text = folderBrowserDialog.SelectedPath;
         }
 
+        private void btnBackupDir_Click(object sender, EventArgs e)
+        {
+            if (folderBrowserDialog.ShowDialog() != DialogResult.OK) return;
+            textBoxBackupDir.Text = folderBrowserDialog.SelectedPath;
+        }
 
         Config Cfg = new Config();
         string ConfigName = "CashierAuthen";
         string TableName = "DirectoryPath";
         private void btnConfigSave_Click(object sender, EventArgs e)
         {
-            string[] paths=new string[3];
-            paths[0] = textBoxPOS1.Text.Trim();
-            paths[1] = textBoxPOS2.Text.Trim();
-            paths[2] = textBoxPOS3.Text.Trim();
+            int count=m_TextBoxPaths.Count;
             StringBuilder xml = new StringBuilder("<" + ConfigName + " Name=\"" + TableName + "\">", 512);
-            for(int i=0;i<3;i++)
-                xml.Append("<POS"+(i+1).ToString()+" Dir=\""+paths[i]+"\" />");
-
+            for(int i=0;i<count;i++)
+                xml.Append("<POS"+(i+1).ToString()+" Dir=\""+m_TextBoxPaths[i].Text.Trim()+"\" />");
+            xml.Append("<Backup Dir=\"" + textBoxBackupDir.Text.Trim() + "\" />");
             xml.Append("</" + ConfigName + ">");
             Cfg.Save(ConfigName, TableName, xml.ToString());
         }
@@ -132,6 +184,7 @@ namespace VoucherExpense
                 if      (node.Name == "POS1") textBoxPOS1.Text = dir.Value;
                 else if (node.Name == "POS2") textBoxPOS2.Text = dir.Value;
                 else if (node.Name == "POS3") textBoxPOS3.Text = dir.Value;
+                else if (node.Name == "Backup") textBoxBackupDir.Text = dir.Value;
             }
         }
 
@@ -264,7 +317,7 @@ namespace VoucherExpense
                 Message("--------");
                 return false;
             }
-            Message("--------"+sID + "匯入完成!");
+            Message("--------"+sID + "匯入完成！");
             return true;
         }
 
@@ -294,7 +347,7 @@ namespace VoucherExpense
                     var header = headers.First();
                     if (!header.IsClosedNull() && header.Closed)
                     {
-                        Message("今日資料己封印! 無法再轉檔!");
+                        Message("今日資料己封印！ 無法再轉檔!");
                         return;
                     }
                 }
@@ -307,10 +360,9 @@ namespace VoucherExpense
                 Message("載入店長端資料庫錯誤:" + ex.Message);
                 return;
             }
-            int count=0;
-            if (GetCashierData(1, textBoxPOS1.Text, today)) count++;
-            if (GetCashierData(2, textBoxPOS2.Text, today)) count++;
-            if (GetCashierData(3, textBoxPOS3.Text, today)) count++;
+            int count = m_TextBoxPaths.Count;
+            for (int i = 0; i < count; i++)
+                GetCashierData(i + 1, textBoxPOS1.Text, today);
             Message("共成功匯入了 " + count.ToString() + " 台收銀机的資料!");
         }
 
@@ -320,5 +372,81 @@ namespace VoucherExpense
             if (showWarning)
                 MessageBox.Show(msg);
         }
+
+        private void btnClosedBackup_Click(object sender, EventArgs e)
+        {
+            DateTime today = todayPicker.Value;
+            headerTableAdapter.Fill(bakeryOrderSet.Header);
+            var headers = from row in bakeryOrderSet.Header where row.DataDate == today.Date select row;
+            listBoxReadme.Items.Clear();
+            if (headers.Count() > 0)
+            {
+                var header = headers.First();
+                if (!header.IsClosedNull() && header.Closed)
+                {
+                    Message("今日資料己封印！ 不用再做");
+                    return;
+                }
+            }
+            else
+            {
+                Message("找不到"+today.Month+"月"+today.Day+"日 資料, 你確定己經收取了收銀机資料?");
+                return;
+            }
+            if (MessageBox.Show("確定要封印" + today.Month + "月" + today.Day + "日 資料?", "", MessageBoxButtons.OKCancel) != DialogResult.OK)
+            {
+                Message("使用者取消封印!");
+                return;
+            }
+            int i = 0;
+            string dir;
+            foreach(TextBox box in m_TextBoxPaths)
+            {
+                dir = box.Text.Trim();
+                i++;
+                if (dir.Length <= 0) continue;
+                Message("封印收銀机<" + i.ToString() + "> " + today.Date.ToShortDateString());
+                string connStr = MapPath.ConnectString(dir + "\\BakeryOrder.mdb", MapPath.BakeryPass + "Bakery");
+                BakeryOrderSet posBakerySet = new BakeryOrderSet();
+                System.Data.OleDb.OleDbConnection dbConnection = new System.Data.OleDb.OleDbConnection(connStr);
+                BakeryOrderSetTableAdapters.HeaderTableAdapter adapter=new BakeryOrderSetTableAdapters.HeaderTableAdapter();
+                adapter.Connection = dbConnection;
+                try
+                {
+                    adapter.Fill(posBakerySet.Header);
+                    var posHeaders = from row in posBakerySet.Header where (row.DataDate == today.Date) select row;
+                    BakeryOrderSet.HeaderRow posHeader;
+                    if (posHeaders.Count() > 0)
+                    {
+                        posHeader = posHeaders.First();
+                        posHeader.Closed = true;
+                    }
+                    else
+                    {
+                        posHeader = posBakerySet.Header.NewHeaderRow();
+                        posHeader.DataDate = today.Date;
+                        posHeader.Closed = true;
+                        posBakerySet.Header.AddHeaderRow(posHeader);
+                    }
+                    adapter.Update(posBakerySet.Header);
+                }
+                catch(Exception ex)
+                {
+                    Message("錯誤:" + ex.Message, true);
+                    return;
+                }
+            }
+            dir=textBoxBackupDir.Text.Trim();
+            if (dir.Length > 0)
+            {
+                Message("備份至<" + dir + ">");
+                BackupData.DoBackup(".", dir);
+                Message("封印及備份完成！");
+            }
+            else
+                Message("封印完成！");
+        }
+
+ 
     }
 }

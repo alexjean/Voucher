@@ -29,14 +29,48 @@ namespace VoucherExpense
             return true;
         }
 
+        static string voucher = "VoucherExpense.mdb";
+#if (Define_Bakery)
+        static string income = "BakeryOrder.mdb";
+#else
+        static string income  = "BasicData.mdb";
+#endif
+        public static void DoBackup(string fromDir, string toDir)
+        {
+            string voucherFile, incomeFile;
+            voucherFile = fromDir+"\\"+voucher;
+            incomeFile = fromDir+"\\"+income;
+            if (toDir.Length == 0)
+            {
+                MessageBox.Show("請輸入備份位置!");
+                return;
+            }
+
+            string dir1 = Path.GetDirectoryName(Path.GetFullPath(voucherFile));
+            string dir2 = Path.GetDirectoryName(Path.GetFullPath(toDir + "\\"));
+
+            if (dir1 == dir2)
+            {
+                MessageBox.Show("不能備份同一資料目錄!");
+                return;
+            }
+            string destVoucher = toDir + "\\" + voucher;
+            string destIncome  = toDir + "\\" + income;
+
+            if (FileCheckCopy(voucherFile, destVoucher))
+            {
+                if (FileCheckCopy(incomeFile, destIncome))
+                {
+                    MessageBox.Show("己備份至<" + Path.GetFullPath(toDir) + ">");
+                    return;
+                }
+            }
+            MessageBox.Show("備份失敗!");
+        }
+
+
         public static void DoBackup(HardwareConfig Config)
         {
-            string voucher = "VoucherExpense.mdb";
-#if (Define_Bakery)            
-            string income = "BakeryOrder.mdb";
-#else
-            string income  = "BasicData.mdb";
-#endif
             string voucherFile, incomeFile;
             if (!Config.IsServer)
             {

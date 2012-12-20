@@ -47,6 +47,7 @@
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.operatorBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.operatorDataGridView = new System.Windows.Forms.DataGridView();
+            this.operatorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
             this.OperatorID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StopAccount = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.LoginName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -54,6 +55,7 @@
             this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewCheckBoxColumn2 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewCheckBoxColumn3 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.EditProduct = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewCheckBoxColumn4 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewCheckBoxColumn5 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewCheckBoxColumn6 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -68,7 +70,6 @@
             this.dataGridViewCheckBoxColumn9 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.IsSuper = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.operatorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingNavigator)).BeginInit();
             this.operatorBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).BeginInit();
@@ -219,6 +220,7 @@
             this.dataGridViewCheckBoxColumn1,
             this.dataGridViewCheckBoxColumn2,
             this.dataGridViewCheckBoxColumn3,
+            this.EditProduct,
             this.dataGridViewCheckBoxColumn4,
             this.dataGridViewCheckBoxColumn5,
             this.dataGridViewCheckBoxColumn6,
@@ -243,6 +245,10 @@
             this.operatorDataGridView.TabIndex = 1;
             this.operatorDataGridView.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.operatorDataGridView_CellValidating);
             this.operatorDataGridView.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.operatorDataGridView_RowValidating);
+            // 
+            // operatorTableAdapter
+            // 
+            this.operatorTableAdapter.ClearBeforeFill = true;
             // 
             // OperatorID
             // 
@@ -294,6 +300,13 @@
             this.dataGridViewCheckBoxColumn3.HeaderText = "食材表";
             this.dataGridViewCheckBoxColumn3.Name = "dataGridViewCheckBoxColumn3";
             this.dataGridViewCheckBoxColumn3.Width = 32;
+            // 
+            // EditProduct
+            // 
+            this.EditProduct.DataPropertyName = "EditProduct";
+            this.EditProduct.HeaderText = "產品表";
+            this.EditProduct.Name = "EditProduct";
+            this.EditProduct.Width = 32;
             // 
             // dataGridViewCheckBoxColumn4
             // 
@@ -397,10 +410,6 @@
             this.dataGridViewTextBoxColumn6.ReadOnly = true;
             this.dataGridViewTextBoxColumn6.Width = 88;
             // 
-            // operatorTableAdapter
-            // 
-            this.operatorTableAdapter.ClearBeforeFill = true;
-            // 
             // FormOperator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -449,6 +458,7 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn2;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn3;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn EditProduct;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn4;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn5;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn6;

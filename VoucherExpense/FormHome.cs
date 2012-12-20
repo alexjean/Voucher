@@ -48,6 +48,8 @@ namespace VoucherExpense
             basic.DropDownItems["操作員MenuItem"].Enabled   = Op.EditOperator;
             basic.DropDownItems["環境設定MenuItem"].Enabled = Op.IsManager;
             basic.DropDownItems["食材表MenuItem"].Enabled   = Op.EditIngredient;
+            basic.DropDownItems["產品表MenuItem"].Enabled   = Op.EditProduct;
+            basic.DropDownItems["編修菜單MenuItem"].Enabled = Op.EditProduct;
             basic.DropDownItems["供應商MenuItem"].Enabled   = Op.EditVendor;
             basic.DropDownItems["會計科目MenuItem"].Enabled = Op.EditAccountingTitle;
             basic.DropDownItems["銀行帳號MenuItem"].Enabled = Op.EditBank ;

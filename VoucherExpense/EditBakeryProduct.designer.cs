@@ -38,11 +38,11 @@
             System.Windows.Forms.Label unitLabel;
             System.Windows.Forms.Label evaluatedCostLabel;
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditBakeryProduct));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditBakeryProduct));
             this.productIDTextBox = new System.Windows.Forms.TextBox();
             this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bakeryOrderSet = new VoucherExpense.BakeryOrderSet();
@@ -53,15 +53,6 @@
             this.menuYTextBox = new System.Windows.Forms.TextBox();
             this.classTextBox = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.productIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.codeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.classDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Unit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EvaluatedCost = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.menuXDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.menuYDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -84,6 +75,15 @@
             this.evaluatedCostTextBox = new System.Windows.Forms.TextBox();
             this.photoPictureBox = new System.Windows.Forms.PictureBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.productIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.codeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.classDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Unit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EvaluatedCost = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.menuXDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.menuYDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             codeLabel = new System.Windows.Forms.Label();
             classLabel = new System.Windows.Forms.Label();
             nameLabel = new System.Windows.Forms.Label();
@@ -290,88 +290,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(631, 629);
             this.dataGridView1.TabIndex = 16;
             // 
-            // productIDDataGridViewTextBoxColumn
-            // 
-            this.productIDDataGridViewTextBoxColumn.DataPropertyName = "ProductID";
-            this.productIDDataGridViewTextBoxColumn.HeaderText = "內碼";
-            this.productIDDataGridViewTextBoxColumn.Name = "productIDDataGridViewTextBoxColumn";
-            this.productIDDataGridViewTextBoxColumn.ReadOnly = true;
-            this.productIDDataGridViewTextBoxColumn.Width = 64;
-            // 
-            // codeColumn
-            // 
-            this.codeColumn.DataPropertyName = "Code";
-            this.codeColumn.HeaderText = "代碼";
-            this.codeColumn.Name = "codeColumn";
-            this.codeColumn.ReadOnly = true;
-            this.codeColumn.Width = 64;
-            // 
-            // classDataGridViewTextBoxColumn
-            // 
-            this.classDataGridViewTextBoxColumn.DataPropertyName = "Class";
-            this.classDataGridViewTextBoxColumn.HeaderText = "類";
-            this.classDataGridViewTextBoxColumn.Name = "classDataGridViewTextBoxColumn";
-            this.classDataGridViewTextBoxColumn.ReadOnly = true;
-            this.classDataGridViewTextBoxColumn.Width = 32;
-            // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "品名";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
-            this.nameDataGridViewTextBoxColumn.Width = 176;
-            // 
-            // priceDataGridViewTextBoxColumn
-            // 
-            this.priceDataGridViewTextBoxColumn.DataPropertyName = "Price";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.priceDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
-            this.priceDataGridViewTextBoxColumn.HeaderText = "價格";
-            this.priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
-            this.priceDataGridViewTextBoxColumn.ReadOnly = true;
-            this.priceDataGridViewTextBoxColumn.Width = 64;
-            // 
-            // Unit
-            // 
-            this.Unit.DataPropertyName = "Unit";
-            this.Unit.HeaderText = "單位";
-            this.Unit.Name = "Unit";
-            this.Unit.ReadOnly = true;
-            this.Unit.Width = 64;
-            // 
-            // EvaluatedCost
-            // 
-            this.EvaluatedCost.DataPropertyName = "EvaluatedCost";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "N1";
-            dataGridViewCellStyle3.NullValue = null;
-            this.EvaluatedCost.DefaultCellStyle = dataGridViewCellStyle3;
-            this.EvaluatedCost.HeaderText = "成本";
-            this.EvaluatedCost.Name = "EvaluatedCost";
-            this.EvaluatedCost.ReadOnly = true;
-            this.EvaluatedCost.Width = 64;
-            // 
-            // menuXDataGridViewTextBoxColumn
-            // 
-            this.menuXDataGridViewTextBoxColumn.DataPropertyName = "MenuX";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.menuXDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
-            this.menuXDataGridViewTextBoxColumn.HeaderText = "X";
-            this.menuXDataGridViewTextBoxColumn.Name = "menuXDataGridViewTextBoxColumn";
-            this.menuXDataGridViewTextBoxColumn.ReadOnly = true;
-            this.menuXDataGridViewTextBoxColumn.Width = 32;
-            // 
-            // menuYDataGridViewTextBoxColumn
-            // 
-            this.menuYDataGridViewTextBoxColumn.DataPropertyName = "MenuY";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.menuYDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle5;
-            this.menuYDataGridViewTextBoxColumn.HeaderText = "Y";
-            this.menuYDataGridViewTextBoxColumn.Name = "menuYDataGridViewTextBoxColumn";
-            this.menuYDataGridViewTextBoxColumn.ReadOnly = true;
-            this.menuYDataGridViewTextBoxColumn.Width = 32;
-            // 
             // bindingNavigator
             // 
             this.bindingNavigator.AddNewItem = this.bindingNavigatorAddNewItem;
@@ -569,6 +487,88 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // productIDDataGridViewTextBoxColumn
+            // 
+            this.productIDDataGridViewTextBoxColumn.DataPropertyName = "ProductID";
+            this.productIDDataGridViewTextBoxColumn.HeaderText = "內碼";
+            this.productIDDataGridViewTextBoxColumn.Name = "productIDDataGridViewTextBoxColumn";
+            this.productIDDataGridViewTextBoxColumn.ReadOnly = true;
+            this.productIDDataGridViewTextBoxColumn.Width = 64;
+            // 
+            // codeColumn
+            // 
+            this.codeColumn.DataPropertyName = "Code";
+            this.codeColumn.HeaderText = "代碼";
+            this.codeColumn.Name = "codeColumn";
+            this.codeColumn.ReadOnly = true;
+            this.codeColumn.Width = 64;
+            // 
+            // classDataGridViewTextBoxColumn
+            // 
+            this.classDataGridViewTextBoxColumn.DataPropertyName = "Class";
+            this.classDataGridViewTextBoxColumn.HeaderText = "類";
+            this.classDataGridViewTextBoxColumn.Name = "classDataGridViewTextBoxColumn";
+            this.classDataGridViewTextBoxColumn.ReadOnly = true;
+            this.classDataGridViewTextBoxColumn.Width = 32;
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "品名";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
+            this.nameDataGridViewTextBoxColumn.Width = 176;
+            // 
+            // priceDataGridViewTextBoxColumn
+            // 
+            this.priceDataGridViewTextBoxColumn.DataPropertyName = "Price";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.priceDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            this.priceDataGridViewTextBoxColumn.HeaderText = "價格";
+            this.priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
+            this.priceDataGridViewTextBoxColumn.ReadOnly = true;
+            this.priceDataGridViewTextBoxColumn.Width = 64;
+            // 
+            // Unit
+            // 
+            this.Unit.DataPropertyName = "Unit";
+            this.Unit.HeaderText = "單位";
+            this.Unit.Name = "Unit";
+            this.Unit.ReadOnly = true;
+            this.Unit.Width = 64;
+            // 
+            // EvaluatedCost
+            // 
+            this.EvaluatedCost.DataPropertyName = "EvaluatedCost";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.Format = "N2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.EvaluatedCost.DefaultCellStyle = dataGridViewCellStyle3;
+            this.EvaluatedCost.HeaderText = "成本";
+            this.EvaluatedCost.Name = "EvaluatedCost";
+            this.EvaluatedCost.ReadOnly = true;
+            this.EvaluatedCost.Width = 64;
+            // 
+            // menuXDataGridViewTextBoxColumn
+            // 
+            this.menuXDataGridViewTextBoxColumn.DataPropertyName = "MenuX";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.menuXDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
+            this.menuXDataGridViewTextBoxColumn.HeaderText = "X";
+            this.menuXDataGridViewTextBoxColumn.Name = "menuXDataGridViewTextBoxColumn";
+            this.menuXDataGridViewTextBoxColumn.ReadOnly = true;
+            this.menuXDataGridViewTextBoxColumn.Width = 32;
+            // 
+            // menuYDataGridViewTextBoxColumn
+            // 
+            this.menuYDataGridViewTextBoxColumn.DataPropertyName = "MenuY";
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.menuYDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle5;
+            this.menuYDataGridViewTextBoxColumn.HeaderText = "Y";
+            this.menuYDataGridViewTextBoxColumn.Name = "menuYDataGridViewTextBoxColumn";
+            this.menuYDataGridViewTextBoxColumn.ReadOnly = true;
+            this.menuYDataGridViewTextBoxColumn.Width = 32;
+            // 
             // EditBakeryProduct
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -644,6 +644,10 @@
         private System.Windows.Forms.ToolStripButton DeletetoolStripButton;
         private BakeryOrderSetTableAdapters.OrderItemTableAdapter orderItemTableAdapter;
         private BakeryOrderSetTableAdapters.OrderTableAdapter orderTableAdapter;
+        private BakeryOrderSetTableAdapters.TableAdapterManager tableAdapterManager;
+        private System.Windows.Forms.TextBox evaluatedCostTextBox;
+        private System.Windows.Forms.PictureBox photoPictureBox;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.DataGridViewTextBoxColumn productIDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn codeColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn classDataGridViewTextBoxColumn;
@@ -653,9 +657,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn EvaluatedCost;
         private System.Windows.Forms.DataGridViewTextBoxColumn menuXDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn menuYDataGridViewTextBoxColumn;
-        private BakeryOrderSetTableAdapters.TableAdapterManager tableAdapterManager;
-        private System.Windows.Forms.TextBox evaluatedCostTextBox;
-        private System.Windows.Forms.PictureBox photoPictureBox;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }

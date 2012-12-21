@@ -103,6 +103,12 @@
     <Compile Include="FormStatics.Designer.cs">
       <DependentUpon>FormStatics.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormSystemSetup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSystemSetup.Designer.cs">
+      <DependentUpon>FormSystemSetup.cs</DependentUpon>
+    </Compile>
     <Compile Include="ModifyPassword.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,6 +125,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormStatics.resx">
       <DependentUpon>FormStatics.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSystemSetup.resx">
+      <DependentUpon>FormSystemSetup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ModifyPassword.resx">
       <DependentUpon>ModifyPassword.cs</DependentUpon>
@@ -161,6 +170,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BakeryOrder.mdb" />
+    <None Include="Resources\Wheat.jpg" />
+    <None Include="Resources\Powder.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

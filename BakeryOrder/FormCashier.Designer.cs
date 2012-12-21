@@ -240,6 +240,7 @@
             // panelLogin
             // 
             this.panelLogin.BackColor = System.Drawing.Color.SeaShell;
+            this.panelLogin.BackgroundImage = global::BakeryOrder.Properties.Resources.Powder;
             this.panelLogin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelLogin.Controls.Add(this.label3);
             this.panelLogin.Controls.Add(this.textBoxPassword);
@@ -265,6 +266,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label3.Location = new System.Drawing.Point(32, 98);
             this.label3.Name = "label3";
@@ -286,6 +288,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label2.Location = new System.Drawing.Point(32, 33);
             this.label2.Name = "label2";

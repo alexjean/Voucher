@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.btnReturn = new System.Windows.Forms.Button();
-            this.btnExitProgram = new System.Windows.Forms.Button();
             this.lvItems = new System.Windows.Forms.ListView();
             this.columnHeader代碼 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader品名 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -41,10 +40,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.label1 = new System.Windows.Forms.Label();
             this.labelTotal = new System.Windows.Forms.Label();
-            this.btnLogout = new System.Windows.Forms.Button();
-            this.btnChangePassword = new System.Windows.Forms.Button();
-            this.btnInvoicesMatch = new System.Windows.Forms.Button();
-            this.btnOther = new System.Windows.Forms.Button();
+            this.btnSystemSetup = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,16 +53,6 @@
             this.btnReturn.Text = "结帐画面";
             this.btnReturn.UseVisualStyleBackColor = true;
             this.btnReturn.Click += new System.EventHandler(this.btnReturn_Click);
-            // 
-            // btnExitProgram
-            // 
-            this.btnExitProgram.Location = new System.Drawing.Point(2, 504);
-            this.btnExitProgram.Name = "btnExitProgram";
-            this.btnExitProgram.Size = new System.Drawing.Size(88, 56);
-            this.btnExitProgram.TabIndex = 1;
-            this.btnExitProgram.Text = "离开程式";
-            this.btnExitProgram.UseVisualStyleBackColor = true;
-            this.btnExitProgram.Click += new System.EventHandler(this.btnExitProgram_Click);
             // 
             // lvItems
             // 
@@ -166,44 +152,15 @@
             this.labelTotal.Size = new System.Drawing.Size(147, 16);
             this.labelTotal.TabIndex = 7;
             // 
-            // btnLogout
+            // btnSystemSetup
             // 
-            this.btnLogout.Location = new System.Drawing.Point(108, 504);
-            this.btnLogout.Name = "btnLogout";
-            this.btnLogout.Size = new System.Drawing.Size(88, 56);
-            this.btnLogout.TabIndex = 8;
-            this.btnLogout.Text = "登出";
-            this.btnLogout.UseVisualStyleBackColor = true;
-            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
-            // 
-            // btnChangePassword
-            // 
-            this.btnChangePassword.Location = new System.Drawing.Point(2, 574);
-            this.btnChangePassword.Name = "btnChangePassword";
-            this.btnChangePassword.Size = new System.Drawing.Size(88, 56);
-            this.btnChangePassword.TabIndex = 9;
-            this.btnChangePassword.Text = "修改密碼";
-            this.btnChangePassword.UseVisualStyleBackColor = true;
-            this.btnChangePassword.Click += new System.EventHandler(this.btnChangePassword_Click);
-            // 
-            // btnInvoicesMatch
-            // 
-            this.btnInvoicesMatch.Location = new System.Drawing.Point(108, 574);
-            this.btnInvoicesMatch.Name = "btnInvoicesMatch";
-            this.btnInvoicesMatch.Size = new System.Drawing.Size(88, 56);
-            this.btnInvoicesMatch.TabIndex = 10;
-            this.btnInvoicesMatch.Text = "對帳列印";
-            this.btnInvoicesMatch.UseVisualStyleBackColor = true;
-            this.btnInvoicesMatch.Click += new System.EventHandler(this.btnInvoicesMatch_Click);
-            // 
-            // btnOther
-            // 
-            this.btnOther.Location = new System.Drawing.Point(108, 712);
-            this.btnOther.Name = "btnOther";
-            this.btnOther.Size = new System.Drawing.Size(88, 56);
-            this.btnOther.TabIndex = 11;
-            this.btnOther.Text = "其他作業";
-            this.btnOther.UseVisualStyleBackColor = true;
+            this.btnSystemSetup.Location = new System.Drawing.Point(108, 712);
+            this.btnSystemSetup.Name = "btnSystemSetup";
+            this.btnSystemSetup.Size = new System.Drawing.Size(88, 56);
+            this.btnSystemSetup.TabIndex = 11;
+            this.btnSystemSetup.Text = "系統設定";
+            this.btnSystemSetup.UseVisualStyleBackColor = true;
+            this.btnSystemSetup.Click += new System.EventHandler(this.btnSystemSetup_Click);
             // 
             // FormStatics
             // 
@@ -211,17 +168,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Azure;
             this.ClientSize = new System.Drawing.Size(1024, 768);
-            this.Controls.Add(this.btnOther);
-            this.Controls.Add(this.btnInvoicesMatch);
-            this.Controls.Add(this.btnChangePassword);
-            this.Controls.Add(this.btnLogout);
+            this.Controls.Add(this.btnSystemSetup);
             this.Controls.Add(this.labelTotal);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnDrawerOpenedList);
             this.Controls.Add(this.btnOrderList);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.lvItems);
-            this.Controls.Add(this.btnExitProgram);
             this.Controls.Add(this.btnReturn);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -238,7 +191,6 @@
         #endregion
 
         private System.Windows.Forms.Button btnReturn;
-        private System.Windows.Forms.Button btnExitProgram;
         private System.Windows.Forms.ListView lvItems;
         private System.Windows.Forms.ColumnHeader columnHeader代碼;
         private System.Windows.Forms.ColumnHeader columnHeader品名;
@@ -250,9 +202,6 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelTotal;
-        private System.Windows.Forms.Button btnLogout;
-        private System.Windows.Forms.Button btnChangePassword;
-        private System.Windows.Forms.Button btnInvoicesMatch;
-        private System.Windows.Forms.Button btnOther;
+        private System.Windows.Forms.Button btnSystemSetup;
     }
 }

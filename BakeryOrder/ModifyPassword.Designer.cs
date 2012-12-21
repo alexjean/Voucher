@@ -56,6 +56,7 @@
             // oldPassLabel
             // 
             oldPassLabel.AutoSize = true;
+            oldPassLabel.BackColor = System.Drawing.Color.Transparent;
             oldPassLabel.Font = new System.Drawing.Font("標楷體", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             oldPassLabel.Location = new System.Drawing.Point(40, 64);
             oldPassLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -67,6 +68,7 @@
             // newPassLabel
             // 
             newPassLabel.AutoSize = true;
+            newPassLabel.BackColor = System.Drawing.Color.Transparent;
             newPassLabel.Font = new System.Drawing.Font("標楷體", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             newPassLabel.Location = new System.Drawing.Point(40, 154);
             newPassLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -78,6 +80,7 @@
             // comfirmPassLabel
             // 
             comfirmPassLabel.AutoSize = true;
+            comfirmPassLabel.BackColor = System.Drawing.Color.Transparent;
             comfirmPassLabel.Font = new System.Drawing.Font("標楷體", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             comfirmPassLabel.Location = new System.Drawing.Point(40, 244);
             comfirmPassLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -265,6 +268,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.BackgroundImage = global::BakeryOrder.Properties.Resources.Powder;
             this.ClientSize = new System.Drawing.Size(706, 451);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnClear);
@@ -286,11 +290,12 @@
             this.Controls.Add(this.oldPassTextBox);
             this.Controls.Add(oldPassLabel);
             this.Font = new System.Drawing.Font("新細明體", 12F);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ModifyPassword";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "修改密碼";
             this.Load += new System.EventHandler(this.ModifyPassword_Load);
             this.ResumeLayout(false);

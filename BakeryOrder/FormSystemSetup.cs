@@ -22,6 +22,12 @@ namespace BakeryOrder
             InitializeComponent();
         }
 
+        DialogResult MessageBoxShow(string msg,bool returnResult=false)
+        {
+            Form form = new FormMessage(msg,returnResult);
+            return form.ShowDialog();
+        }
+
         private void FormSystemSetup_Load(object sender, EventArgs e)
         {
             this.TopMost = true;
@@ -99,7 +105,7 @@ namespace BakeryOrder
 
         private void btnInvoicesMatch_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("列印 收銀員<" + m_CashierID.ToString() + "> 今日對帳明細嗎?", "", MessageBoxButtons.OKCancel) != DialogResult.OK) return;
+            if (MessageBoxShow("列印 收銀員<" + m_CashierID.ToString() + "> 今日對帳明細嗎?", true) != DialogResult.Yes) return;
             Print();
         }
 

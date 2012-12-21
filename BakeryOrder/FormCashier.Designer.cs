@@ -168,7 +168,7 @@
             // 
             // labelTotal
             // 
-            this.labelTotal.Location = new System.Drawing.Point(152, 434);
+            this.labelTotal.Location = new System.Drawing.Point(152, 431);
             this.labelTotal.Name = "labelTotal";
             this.labelTotal.Size = new System.Drawing.Size(55, 20);
             this.labelTotal.TabIndex = 4;
@@ -178,7 +178,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(106, 436);
+            this.label1.Location = new System.Drawing.Point(106, 433);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 16);
             this.label1.TabIndex = 5;
@@ -229,7 +229,7 @@
             // checkBoxTest
             // 
             this.checkBoxTest.AutoSize = true;
-            this.checkBoxTest.Location = new System.Drawing.Point(109, 407);
+            this.checkBoxTest.Location = new System.Drawing.Point(109, 404);
             this.checkBoxTest.Name = "checkBoxTest";
             this.checkBoxTest.Size = new System.Drawing.Size(59, 20);
             this.checkBoxTest.TabIndex = 10;
@@ -446,7 +446,7 @@
             this.btnClass.BackColor = System.Drawing.Color.SeaShell;
             this.btnClass.Location = new System.Drawing.Point(1, 398);
             this.btnClass.Name = "btnClass";
-            this.btnClass.Size = new System.Drawing.Size(75, 51);
+            this.btnClass.Size = new System.Drawing.Size(75, 53);
             this.btnClass.TabIndex = 11;
             this.btnClass.Text = "现金";
             this.btnClass.UseVisualStyleBackColor = false;

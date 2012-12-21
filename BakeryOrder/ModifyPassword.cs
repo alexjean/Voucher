@@ -19,6 +19,12 @@ namespace BakeryOrder
             InitializeComponent();
         }
 
+        void MessageBoxShow(string msg)
+        {
+            Form form = new FormMessage(msg);
+            form.ShowDialog();
+        }
+
         private void ModifyPassword_Load(object sender, EventArgs e)
         {
             this.TopMost = true;
@@ -38,7 +44,7 @@ namespace BakeryOrder
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
-            MessageBox.Show("己取消,密碼未更改!");
+            MessageBoxShow("己取消,密碼未更改!");
         }
 
         private BakeryOrderSet.CashierRow GetRecord()
@@ -55,30 +61,30 @@ namespace BakeryOrder
             string newPass=newPassTextBox.Text.Trim();
             if (newPass.Length<5)
             {
-                MessageBox.Show("新密碼長度太短!");
+                MessageBoxShow("新密碼長度太短!");
                 return;
             }
             if (newPass!=comfirmPassTextBox.Text.Trim())
             {
-                MessageBox.Show("確認密碼和新密碼不同!");
+                MessageBoxShow("確認密碼和新密碼不同!");
                 return;
             }
             string oldPass=oldPassTextBox.Text.Trim();
             if (newPass == oldPass)
             {
-                MessageBox.Show("不要玩了!新舊密碼都一樣");
+                MessageBoxShow("不要玩了!新舊密碼都一樣");
                 return;
             }
             BakeryOrderSet.CashierRow row = GetRecord();
             if (row==null)
             {
-                MessageBox.Show("對不起!系統發生錯誤,找不到你的密碼!");
+                MessageBoxShow("對不起!系統發生錯誤,找不到你的密碼!");
                 Close();
                 return;
             }
             if (row.CashierPassword.Trim()!=oldPass)
             {
-                MessageBox.Show("舊密碼不符!");
+                MessageBoxShow("舊密碼不符!");
                 return;
             }
             try
@@ -90,11 +96,11 @@ namespace BakeryOrder
             }
             catch(Exception ex)
             {
-                MessageBox.Show("更新密碼時出錯," + ex.Message);
+                MessageBoxShow("更新密碼時出錯," + ex.Message);
                 return;
             }
             Close();
-            MessageBox.Show("更改成功, 請記住新密碼!");
+            MessageBoxShow("更改成功, 請記住新密碼!");
         }
 
         TextBox m_Current = null;

@@ -241,7 +241,7 @@ namespace BakeryOrder
                 }
                 newbmp.Save(destFile);
             }
-            
+            GC.Collect();
         }
 
         private void MenuClick(object sender, MouseEventArgs e)
@@ -423,7 +423,7 @@ namespace BakeryOrder
             }
             catch (Exception ex)
             {
-                MessageBox.Show("讀取BakeryOrder.Product Cashier時出錯! 原因:" + ex.Message);
+                MessageBoxShow("讀取BakeryOrder.Product Cashier時出錯! 原因:" + ex.Message);
                 Close();
                 return;
             }
@@ -503,7 +503,7 @@ namespace BakeryOrder
             catch (Exception ex)
             {
                 string str = ex.Message;
-                MessageBox.Show("BakeryOrder.Order OrderItem讀取錯誤!" + str);
+                MessageBoxShow("BakeryOrder.Order OrderItem讀取錯誤!" + str);
                 return -1;
             }
         }
@@ -525,7 +525,7 @@ namespace BakeryOrder
             catch (Exception ex)
             {
                 string str = ex.Message;
-                MessageBox.Show("BakeryOrder.DrawerRecord讀取錯誤!" + str);
+                MessageBoxShow("BakeryOrder.DrawerRecord讀取錯誤!" + str);
                 return -1;
             }
         }
@@ -606,7 +606,7 @@ namespace BakeryOrder
             }
             catch (Exception ex)
             {
-                MessageBox.Show("更新BakeryOrder.DrawerRecord時出錯,原因:" + ex.Message);
+                MessageBoxShow("更新BakeryOrder.DrawerRecord時出錯,原因:" + ex.Message);
                 return -1;
             }
             return record.DrawerRecordID;
@@ -697,7 +697,7 @@ namespace BakeryOrder
                 CreateOrder(out m_CurrentOrder,m_MaxOrderID);
             if (m_CurrentOrder.RowState != DataRowState.Detached)
             {
-                MessageBox.Show("己經打印過的單子,無法再印! 請按<新單>");
+                MessageBoxShow("己經打印過的單子,無法再印! 請按<新單>");
                 return;
             }
             m_CurrentOrder.Income = (decimal)CalcTotal();
@@ -779,6 +779,11 @@ namespace BakeryOrder
             }
         }
 
+        void MessageBoxShow(string msg)
+        {
+            Form form = new FormMessage(msg);
+            form.ShowDialog();
+        }
 
         private bool SaveOrder(BakeryOrderSet.OrderRow CurrentOrder)
         {
@@ -794,12 +799,12 @@ namespace BakeryOrder
             {
                 if (CurrentOrder.RowState == DataRowState.Deleted)
                 {
-                    MessageBox.Show("程式不准刪,而此單是被刪除的,資料奇怪 ,無法存檔!");    // 本程式不准刪
+                    MessageBoxShow("程式不准刪,而此單是被刪除的,資料奇怪 ,無法存檔!");    // 本程式不准刪
                     return false;
                 }
                 else if (CurrentOrder.RowState == DataRowState.Detached)
                 {
-                    MessageBox.Show("Order Detached! 不應該發生! 程式有誤!");
+                    MessageBoxShow("Order Detached! 不應該發生! 程式有誤!");
                     return false;
                 }
                 if (CurrentOrder.RowState != DataRowState.Unchanged)   // Unchanged不存, Added Modified要存,程式不准改,理論上不會有Modified
@@ -810,10 +815,10 @@ namespace BakeryOrder
             catch (Exception E)
             {
                 if (E.GetType() != typeof(System.Data.DBConcurrencyException))
-                    MessageBox.Show(E.Message + "Update(CurrentOrder) 出錯");
+                    MessageBoxShow(E.Message + "Update(CurrentOrder) 出錯");
                 else
                 {
-                    MessageBox.Show("Update(Order)發生並行違例,可能是別台己經改過這張單子,請重啟程式,你必需重新修改!");
+                    MessageBoxShow("Update(Order)發生並行違例,可能是別台己經改過這張單子,請重啟程式,你必需重新修改!");
                     Close();
                 }
                 return false;
@@ -848,7 +853,7 @@ namespace BakeryOrder
             }
             catch (Exception E)
             {
-                MessageBox.Show(E.Message + "<OrderItem更新出錯,是否二台在改同一單?>");
+                MessageBoxShow(E.Message + "<OrderItem更新出錯,是否二台在改同一單?>");
                 return false;
             }
 
@@ -871,10 +876,10 @@ namespace BakeryOrder
             catch (Exception E)
             {
                 if (E.GetType() != typeof(System.Data.DBConcurrencyException))
-                    MessageBox.Show(E.Message + "Update(OrderItem)出錯");
+                    MessageBoxShow(E.Message + "Update(OrderItem)出錯");
                 else
                 {
-                    MessageBox.Show("Update(OrderItem)發生並行違例,可能是別台己經改過這張單子,你必需重啟程式,重新修改!");
+                    MessageBoxShow("Update(OrderItem)發生並行違例,可能是別台己經改過這張單子,你必需重啟程式,重新修改!");
                     Close();
                 }
                 return false;
@@ -904,18 +909,18 @@ namespace BakeryOrder
             string sPass=textBoxPassword.Text.Trim();
             if (sPass.Length < 2)
             {
-                MessageBox.Show("密碼太短!");
+                MessageBoxShow("密碼太短!");
                 return;
             }
             if (sID.Length < 1)
             {
-                MessageBox.Show("請輸入收銀員号!");
+                MessageBoxShow("請輸入收銀員号!");
                 return;
             }
             int id;
             if (!int.TryParse(sID,out id))
             {
-                MessageBox.Show("ID只能是數字!");
+                MessageBoxShow("ID只能是數字!");
                 return;
             }
             foreach (BakeryOrderSet.CashierRow cashier in bakeryOrderSet.Cashier)
@@ -924,24 +929,24 @@ namespace BakeryOrder
                 {
                     if (cashier.IsInPositionNull() || (!cashier.InPosition))
                     {
-                        MessageBox.Show("此收銀員己封印! 阿彌陀佛!");
+                        MessageBoxShow("此收銀員己封印! 阿彌陀佛!");
                         return;
                     }
                     if (cashier.CashierPassword.CompareTo(sPass) == 0)
                     {
-                        MessageBox.Show("歡迎 <" + cashier.CashierName + "> \r\n今天是"+DateTime.Now.ToShortDateString());
+                        MessageBoxShow("歡迎 <" + cashier.CashierName + "> \r\n今天是"+DateTime.Now.ToShortDateString());
                         m_CashierID = cashier.CashierID;
                         SetLoginStatus(true);
                         return;
                     }
                     else
                     {
-                        MessageBox.Show("密碼不符!");
+                        MessageBoxShow("密碼不符!");
                         return;
                     }
                 }
             }
-            MessageBox.Show("沒有找到此收銀員!");
+            MessageBoxShow("沒有找到此收銀員!");
         }
 
         bool m_FocusID = true;

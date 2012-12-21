@@ -17,6 +17,13 @@ namespace BakeryOrder
             InitializeComponent();
         }
 
+        void MessageBoxShow(string msg)
+        {
+            Form form = new FormMessage(msg);
+            form.ShowDialog();
+        }
+
+
         string[] m_Files = null;
         string m_Path = "SlideShow";
         int m_Count = 0;
@@ -32,7 +39,7 @@ namespace BakeryOrder
             }
             if (!Directory.Exists(m_Path))
             {
-                MessageBox.Show("照片目錄不存在!");
+                MessageBoxShow("照片目錄不存在!");
                 return;
             }
             m_Files=Directory.GetFiles(m_Path);
@@ -102,7 +109,5 @@ namespace BakeryOrder
         {
             pictureBoxOrdered.Image = img;
         }
-
-
     }
 }

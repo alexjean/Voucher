@@ -60,6 +60,12 @@ namespace BakeryOrder
                 m_ListViewItemBackup[i]=lvItems.Columns[i].Text;
         }
 
+        DialogResult MessageBoxShow(string msg,bool returnResult=false)
+        {
+            Form form = new FormMessage(msg,returnResult);
+            return form.ShowDialog();
+        }
+
         private void tabControl1_DrawItem(object sender, DrawItemEventArgs e)
         {
             Font fntTab;
@@ -150,10 +156,10 @@ namespace BakeryOrder
             BakeryOrderSet.OrderRow order = t.Tag as BakeryOrderSet.OrderRow;
             if (order.CashierID != m_CashierID)
             {
-                MessageBox.Show("不是自己的單! 不能改");
+                MessageBoxShow("不是自己的單! 不能改");
                 return;
             }
-            if (MessageBox.Show("要更改刪除狀態?", "", MessageBoxButtons.YesNo) != DialogResult.Yes)
+            if (MessageBoxShow("要更改刪除狀態?",true) != DialogResult.Yes)
             {
                 return;
             }
@@ -180,11 +186,11 @@ namespace BakeryOrder
             catch (Exception E)
             {
                 if (E.GetType() != typeof(System.Data.DBConcurrencyException))
-                    MessageBox.Show(E.Message + "Update(CurrentOrder) 出錯");
+                    MessageBoxShow(E.Message + "Update(CurrentOrder) 出錯");
                 else
                 {
-                    MessageBox.Show("Update(Order)發生並行違例,可能是別台己經改過這張單子,或新Order有初值未設定!");
-                    MessageBox.Show("請重啟程式,你必需重新修改!");
+                    MessageBoxShow("Update(Order)發生並行違例,可能是別台己經改過這張單子,或新Order有初值未設定!");
+                    MessageBoxShow("請重啟程式,你必需重新修改!");
                     this.DialogResult = DialogResult.Abort;  // 傳送.Abort給上層Form,代表ExitProgram
                     Close();
                 }
@@ -224,7 +230,7 @@ namespace BakeryOrder
                 lvItems.Columns[3].Text = order.Income.ToString();
             if (total != order.Income)
             {
-                MessageBox.Show("計算金額<" + total.ToString() + ">不符 " + order.Income.ToString());
+                MessageBoxShow("計算金額<" + total.ToString() + ">不符 " + order.Income.ToString());
                 return false;
             }
             return true;

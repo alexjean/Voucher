@@ -661,6 +661,7 @@
     <Content Include="iconHeart.ico" />
     <None Include="NavBar_Back.png" />
     <None Include="Resources\LogoVI.jpg" />
+    <None Include="Resources\Company_Back.jpg" />
     <Content Include="VoucherExpense.mdb" />
   </ItemGroup>
   <ItemGroup>

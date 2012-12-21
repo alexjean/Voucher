@@ -360,28 +360,28 @@
             // 統計廠商MenuItem
             // 
             this.統計廠商MenuItem.Name = "統計廠商MenuItem";
-            this.統計廠商MenuItem.Size = new System.Drawing.Size(152, 22);
+            this.統計廠商MenuItem.Size = new System.Drawing.Size(148, 22);
             this.統計廠商MenuItem.Text = "進貨統計";
             this.統計廠商MenuItem.Click += new System.EventHandler(this.統計廠商MenuItem_Click);
             // 
             // 付款總表ToolStripMenuItem
             // 
             this.付款總表ToolStripMenuItem.Name = "付款總表ToolStripMenuItem";
-            this.付款總表ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.付款總表ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.付款總表ToolStripMenuItem.Text = "付款總表";
             this.付款總表ToolStripMenuItem.Click += new System.EventHandler(this.付款總表ToolStripMenuItem_Click);
             // 
             // 銷貨進貨ToolStripMenuItem
             // 
             this.銷貨進貨ToolStripMenuItem.Name = "銷貨進貨ToolStripMenuItem";
-            this.銷貨進貨ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.銷貨進貨ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.銷貨進貨ToolStripMenuItem.Text = "銷貨進貨";
             this.銷貨進貨ToolStripMenuItem.Click += new System.EventHandler(this.銷貨進貨ToolStripMenuItem_Click);
             // 
             // 銷貨統計ToolStripMenuItem
             // 
             this.銷貨統計ToolStripMenuItem.Name = "銷貨統計ToolStripMenuItem";
-            this.銷貨統計ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.銷貨統計ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.銷貨統計ToolStripMenuItem.Text = "銷貨統計";
             this.銷貨統計ToolStripMenuItem.Click += new System.EventHandler(this.銷貨統計ToolStripMenuItem_Click);
             // 

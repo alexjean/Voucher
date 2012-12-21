@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Drawing.Drawing2D;
 
 namespace BakeryOrder
 {
@@ -17,15 +18,9 @@ namespace BakeryOrder
             InitializeComponent();
         }
 
-        void MessageBoxShow(string msg)
-        {
-            Form form = new FormMessage(msg);
-            form.ShowDialog();
-        }
-
-
         string[] m_Files = null;
         string m_Path = "SlideShow";
+        string m_Original = "SlideShow\\Original";
         int m_Count = 0;
         const int m_DefaultInterval = 4000;
         private void FormCustomer_Load(object sender, EventArgs e)
@@ -39,10 +34,41 @@ namespace BakeryOrder
             }
             if (!Directory.Exists(m_Path))
             {
-                MessageBoxShow("照片目錄不存在!");
+                MessageBox.Show("照片目錄不存在!");
                 return;
             }
-            m_Files=Directory.GetFiles(m_Path);
+            // 圖太大的先縮圖
+            try
+            {
+                if (!Directory.Exists(m_Original))
+                    Directory.CreateDirectory(m_Original);
+                DirectoryInfo dirInfo = new DirectoryInfo(m_Path);
+                FileInfo[] infos = dirInfo.GetFiles();
+                foreach (FileInfo info in infos)
+                {
+                    if (info.Extension.ToUpper()!=".JPG") continue;
+                    if (info.Length > 1000 * 1024)
+                    {
+                        string dest=m_Original+"\\"+info.Name;
+                        string newName = m_Path + "\\" + "Small_" + info.Name;
+                        try
+                        {
+                            if (File.Exists(dest))
+                                File.Replace(info.FullName, dest, null, true);
+                            else
+                                File.Move(info.FullName, dest);
+                        }
+                        catch(Exception ex)
+                        {
+                            MessageBox.Show("轉換" + info.Name + "成小圖時出錯:" + ex.Message);
+                        }
+                        CreateSmallImage(dest, 1024, 768, newName);
+                    }
+                }
+                
+            }
+            catch { }
+            m_Files = Directory.GetFiles(m_Path,"*.jpg");
             if (m_Files.Count()==0) return;
             pictureBoxPhoto.ImageLocation =  m_Files[m_Count];
             timer1.Interval = m_DefaultInterval;
@@ -109,5 +135,38 @@ namespace BakeryOrder
         {
             pictureBoxOrdered.Image = img;
         }
+
+        void CreateSmallImage(string sourceFile, int w, int h, string destFile)
+        {
+            if (!File.Exists(sourceFile))
+            {
+                Bitmap img1 = new Bitmap(1, 1);
+                img1.Save(destFile);
+                return;
+            }
+            Bitmap img = new Bitmap(sourceFile);
+            int x = img.Size.Width;
+            int y = img.Size.Height;
+            {
+                int x1 = w;
+                int y1 = y * x1 / x;
+                Bitmap newbmp = new Bitmap(x1, y1);//新建一个放大后大小的图片
+                double times = ((double)x1) / x;
+                if (times >= 1)
+                    newbmp = img;
+                else
+                {
+                    Graphics g = Graphics.FromImage(newbmp);
+                    g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    g.SmoothingMode = SmoothingMode.HighQuality;
+                    g.CompositingQuality = CompositingQuality.HighQuality;
+                    g.DrawImage(img, new Rectangle(0, 0, x1, y1), new Rectangle(0, 0, img.Width, img.Height), GraphicsUnit.Pixel);
+                    g.Dispose();
+                }
+                newbmp.Save(destFile,System.Drawing.Imaging.ImageFormat.Jpeg);
+            }
+            GC.Collect();
+        }
+
     }
 }

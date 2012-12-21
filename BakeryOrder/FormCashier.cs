@@ -239,7 +239,7 @@ namespace BakeryOrder
                     g.DrawImage(img, new Rectangle(0, 0, x1, y1), new Rectangle(0, 0, img.Width, img.Height), GraphicsUnit.Pixel);
                     g.Dispose();
                 }
-                newbmp.Save(destFile);
+                newbmp.Save(destFile,System.Drawing.Imaging.ImageFormat.Jpeg);
             }
             GC.Collect();
         }

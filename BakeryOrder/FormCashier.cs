@@ -894,10 +894,10 @@ namespace BakeryOrder
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            if ( m_Today.Date != DateTime.Now.Date) // 跨日了,沒關机,登入時發現,要重置
+            ReLoadAllData();
+            if (m_FormStatics != null)
             {
-                ReLoadAllData();
-                if (m_FormStatics != null) m_FormStatics.Close();
+                m_FormStatics.Close();
                 m_FormStatics = null;
             }
             string sID=textBoxCashierID.Text.Trim();

@@ -463,6 +463,79 @@ namespace VoucherExpense
                 Message("封印完成！");
         }
 
+        private void btnUpdateProduct_Click(object sender, EventArgs e)
+        {
+            listBoxReadme.Items.Clear();
+            try
+            {
+                productTableAdapter.Fill(bakeryOrderSet.Product);
+            }
+            catch (Exception ex)
+            {
+                Message("讀取店長產品表出錯,原因:" + ex.Message,true);
+                return;
+            }
+            int i = 0;
+            string dir;
+            foreach (TextBox box in m_TextBoxPaths)
+            {
+                dir = box.Text.Trim();
+                i++;
+                if (dir.Length <= 0) continue;
+                Message("更新收銀机<" + i.ToString() + "> 產品表");
+                string connStr = MapPath.ConnectString(dir + "\\BakeryOrder.mdb", MapPath.BakeryPass + "Bakery");
+                BakeryOrderSet posBakerySet = new BakeryOrderSet();
+                System.Data.OleDb.OleDbConnection dbConnection = new System.Data.OleDb.OleDbConnection(connStr);
+                BakeryOrderSetTableAdapters.ProductTableAdapter adapter = new BakeryOrderSetTableAdapters.ProductTableAdapter();
+                adapter.Connection = dbConnection;
+                try
+                {
+                    adapter.Fill(posBakerySet.Product);
+                    int updated=0,added = 0;
+
+                    foreach (var pr in bakeryOrderSet.Product)
+                    {
+                        var posProducts = from row in posBakerySet.Product where (pr.ProductID==row.ProductID) select row;
+                        BakeryOrderSet.ProductRow posProduct;
+                        if (posProducts.Count() > 0)
+                        {
+                            posProduct = posProducts.First();
+                            posProduct.BeginEdit();
+                            posProduct.ItemArray = pr.ItemArray;
+                            posProduct.EndEdit();
+                            updated++;
+                        }
+                        else
+                        {
+                            posProduct = posBakerySet.Product.NewProductRow();
+                            posProduct.ItemArray = pr.ItemArray;
+                            posBakerySet.Product.AddProductRow(posProduct);
+                            added++;
+                        }
+                    }
+                    // 刪除不在店長資料庫的
+                    int deleted = 0;
+                    foreach (var pr in posBakerySet.Product)
+                    {
+                        var Products = from row in bakeryOrderSet.Product where (pr.ProductID == row.ProductID) select row;
+                        if (Products.Count() > 0) continue;
+                        pr.Delete();
+                        deleted++;
+                    }
+                    adapter.Update(posBakerySet.Product);
+                    Message("共更新 " + updated.ToString() + "筆,新增 " + added.ToString() + "筆,刪除 " + deleted.ToString() + "筆");
+                    Message("---------------------------------------------");
+                }
+                catch (Exception ex)
+                {
+                    Message("錯誤:" + ex.Message, true);
+                    return;
+                }
+            }
+            Message("所有收銀机都更新完畢!");
+            Message("收銀机必需重新登入更新才會生效!");
+        }
+
  
     }
 }

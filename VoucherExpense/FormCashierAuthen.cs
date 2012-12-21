@@ -42,7 +42,8 @@ namespace VoucherExpense
             {
                 string dir = m_TextBoxPaths[i].Text.Trim();
                 if (dir.Length == 0) continue;
-                Message("設定收銀机<" + i.ToString() + ">位於 "+dir);
+                string PosID=(i+1).ToString();
+                Message("設定收銀机<" + PosID + ">位於 "+dir);
                 string connStr = MapPath.ConnectString(dir + "\\BakeryOrder.mdb", MapPath.BakeryPass + "Bakery");
                 BakeryOrderSet posBakerySet = new BakeryOrderSet();
                 System.Data.OleDb.OleDbConnection dbConnection = new System.Data.OleDb.OleDbConnection(connStr);
@@ -51,9 +52,24 @@ namespace VoucherExpense
                 try
                 {
                     adapter.Fill(posBakerySet.Cashier);
+                    // 先加入PosID
+                    var posCashiers = from row in posBakerySet.Cashier where (row.CashierID == int.MinValue) select row;
+                    if (posCashiers.Count() > 0)
+                    {
+                        BakeryOrderSet.CashierRow cashier = posCashiers.First();
+                        cashier.CashierName = "PosID="+PosID;
+                    }
+                    else
+                    {
+                        var pos = posBakerySet.Cashier.NewCashierRow();  // 沒有關聯,所以沒必要BeginEdit EndEdit
+                        pos.CashierID = int.MinValue;
+                        pos.CashierName = "PosID=" + PosID;
+                        posBakerySet.Cashier.AddCashierRow(pos);
+                    }
                     // 先看POS裏面有的
                     foreach (BakeryOrderSet.CashierRow pos in posBakerySet.Cashier)
                     {
+                        if (pos.CashierID == int.MinValue) continue;    // 是PosID,保留
                         var cashiers = from row in bakeryOrderSet.Cashier where (row.CashierID == pos.CashierID) select row;
                         BakeryOrderSet.CashierRow cashier;
                         if (cashiers.Count() <= 0)    // 此記錄店長資料庫不存在

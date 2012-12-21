@@ -38,7 +38,6 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.btnTestLeave = new System.Windows.Forms.Button();
             this.labelTotal = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.checkBoxDiscount = new System.Windows.Forms.CheckBox();
@@ -66,6 +65,7 @@
             this.productTableAdapter = new BakeryOrder.BakeryOrderSetTableAdapters.ProductTableAdapter();
             this.bakeryOrderSet = new BakeryOrder.BakeryOrderSet();
             this.cashierTableAdapter = new BakeryOrder.BakeryOrderSetTableAdapters.CashierTableAdapter();
+            this.btnClass = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrdered)).BeginInit();
             this.panelLogin.SuspendLayout();
@@ -84,7 +84,7 @@
             this.lvItems.HideSelection = false;
             this.lvItems.Location = new System.Drawing.Point(1, 0);
             this.lvItems.Name = "lvItems";
-            this.lvItems.Size = new System.Drawing.Size(226, 426);
+            this.lvItems.Size = new System.Drawing.Size(226, 398);
             this.lvItems.TabIndex = 0;
             this.lvItems.UseCompatibleStateImageBehavior = false;
             this.lvItems.View = System.Windows.Forms.View.Details;
@@ -166,18 +166,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "面包";
             // 
-            // btnTestLeave
-            // 
-            this.btnTestLeave.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnTestLeave.Location = new System.Drawing.Point(1, 706);
-            this.btnTestLeave.Name = "btnTestLeave";
-            this.btnTestLeave.Size = new System.Drawing.Size(106, 62);
-            this.btnTestLeave.TabIndex = 0;
-            this.btnTestLeave.Text = "測試用 離開程式";
-            this.btnTestLeave.UseVisualStyleBackColor = true;
-            this.btnTestLeave.Visible = false;
-            this.btnTestLeave.Click += new System.EventHandler(this.btnTestLeave_Click);
-            // 
             // labelTotal
             // 
             this.labelTotal.Location = new System.Drawing.Point(152, 434);
@@ -241,7 +229,7 @@
             // checkBoxTest
             // 
             this.checkBoxTest.AutoSize = true;
-            this.checkBoxTest.Location = new System.Drawing.Point(17, 434);
+            this.checkBoxTest.Location = new System.Drawing.Point(109, 407);
             this.checkBoxTest.Name = "checkBoxTest";
             this.checkBoxTest.Size = new System.Drawing.Size(59, 20);
             this.checkBoxTest.TabIndex = 10;
@@ -450,12 +438,25 @@
             // 
             this.cashierTableAdapter.ClearBeforeFill = true;
             // 
+            // btnClass
+            // 
+            this.btnClass.BackColor = System.Drawing.Color.SeaShell;
+            this.btnClass.Location = new System.Drawing.Point(1, 398);
+            this.btnClass.Name = "btnClass";
+            this.btnClass.Size = new System.Drawing.Size(75, 51);
+            this.btnClass.TabIndex = 11;
+            this.btnClass.Text = "现金";
+            this.btnClass.UseVisualStyleBackColor = false;
+            this.btnClass.Click += new System.EventHandler(this.btnClass_Click);
+            // 
             // FormCashier
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(1024, 768);
+            this.Controls.Add(this.btnClass);
+            this.Controls.Add(this.lvItems);
             this.Controls.Add(this.checkBoxTest);
             this.Controls.Add(this.btnNewOrder);
             this.Controls.Add(this.btnCashDrawer);
@@ -465,10 +466,8 @@
             this.Controls.Add(this.panelLogin);
             this.Controls.Add(this.btnStatics);
             this.Controls.Add(this.btnPrint);
-            this.Controls.Add(this.lvItems);
             this.Controls.Add(this.pictureBoxOrdered);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.btnTestLeave);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -524,7 +523,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxCashierID;
         private BakeryOrderSetTableAdapters.CashierTableAdapter cashierTableAdapter;
-        private System.Windows.Forms.Button btnTestLeave;
+        private System.Windows.Forms.Button btnClass;
     }
 }
 

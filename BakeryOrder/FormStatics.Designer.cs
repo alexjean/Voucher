@@ -44,6 +44,7 @@
             this.btnLogout = new System.Windows.Forms.Button();
             this.btnChangePassword = new System.Windows.Forms.Button();
             this.btnInvoicesMatch = new System.Windows.Forms.Button();
+            this.btnOther = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -195,12 +196,22 @@
             this.btnInvoicesMatch.UseVisualStyleBackColor = true;
             this.btnInvoicesMatch.Click += new System.EventHandler(this.btnInvoicesMatch_Click);
             // 
+            // btnOther
+            // 
+            this.btnOther.Location = new System.Drawing.Point(108, 712);
+            this.btnOther.Name = "btnOther";
+            this.btnOther.Size = new System.Drawing.Size(88, 56);
+            this.btnOther.TabIndex = 11;
+            this.btnOther.Text = "其他作業";
+            this.btnOther.UseVisualStyleBackColor = true;
+            // 
             // FormStatics
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Azure;
             this.ClientSize = new System.Drawing.Size(1024, 768);
+            this.Controls.Add(this.btnOther);
             this.Controls.Add(this.btnInvoicesMatch);
             this.Controls.Add(this.btnChangePassword);
             this.Controls.Add(this.btnLogout);
@@ -242,5 +253,6 @@
         private System.Windows.Forms.Button btnLogout;
         private System.Windows.Forms.Button btnChangePassword;
         private System.Windows.Forms.Button btnInvoicesMatch;
+        private System.Windows.Forms.Button btnOther;
     }
 }

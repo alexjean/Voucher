@@ -266,7 +266,7 @@ namespace BakeryOrder
             Image img=Bitmap.FromFile(small);
             pictureBoxOrdered.Image = img;
             Application.DoEvents();           // 先把前面做的顯示出來
-            m_FormCustomer.SetTimer(30000);   // 停止轉圖, 同時會把Dock改成Right,露出結帳單
+            m_FormCustomer.SetTimer(45000);   // 停止轉圖, 同時會把Dock改成Right,露出結帳單
             m_FormCustomer.SetPicture(img);
 
         }
@@ -403,12 +403,23 @@ namespace BakeryOrder
         {
             m_Cfg.Load();
             if (m_Cfg.PrinterName != null) m_PrinterName = m_Cfg.PrinterName;
-            m_PosID = m_Cfg.iPosID;
             //            productTableAdapter1.Connection = MapPath.BasicConnection;
             try
             {
                 productTableAdapter.Fill(bakeryOrderSet.Product);
                 cashierTableAdapter.Fill(bakeryOrderSet.Cashier);
+                // m_PosID存在 [Cashier.CashierName] where CashierID= int.Max , 每次店長修改權限存檔時放進去
+                var cashiers = from row in bakeryOrderSet.Cashier where (row.CashierID == int.MinValue) select row;
+                if (cashiers.Count() != 0)
+                {
+                    var cashier = cashiers.First();
+                    string name=cashier.CashierName;
+                    if (name.Substring(0, 6) == "PosID=")
+                    {
+                        int result;
+                        if (int.TryParse(name.Substring(6), out result)) m_PosID = result;
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -438,10 +449,9 @@ namespace BakeryOrder
         private void FormCashier_Load(object sender, EventArgs e)
         {
 #if DEBUG
-            btnTestLeave.Visible=true;
-            btnTestLeave.BringToFront();
             checkBoxTest.Visible=true;
             checkBoxTest.Checked=true;
+            m_CashierID = 1;
 #endif
             for (int i = 0; i <= 9; i++)
             {
@@ -921,7 +931,6 @@ namespace BakeryOrder
                     {
                         MessageBox.Show("歡迎 <" + cashier.CashierName + "> \r\n今天是"+DateTime.Now.ToShortDateString());
                         m_CashierID = cashier.CashierID;
-                        btnTestLeave.Visible = false;
                         SetLoginStatus(true);
                         return;
                     }
@@ -982,6 +991,43 @@ namespace BakeryOrder
         private void btnTestLeave_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        void MarkButton(RadioButton btn)
+        {
+            btn.FlatAppearance.BorderSize = 0;
+            if (btn.Checked)
+            {
+                btn.BackColor = Color.SeaShell;
+                
+            }
+            else
+                btn.BackColor = Color.FromArgb(216, 228, 248);
+        }
+
+        private void rbtnCreditCard_CheckedChanged(object sender, EventArgs e)
+        {
+            MarkButton(sender as RadioButton);
+        }
+
+        private void rbtnCash_CheckedChanged(object sender, EventArgs e)
+        {
+            MarkButton(sender as RadioButton);
+        }
+
+        string[] ClassString = new string[3] { "现金", "刷卡", "优惠" };
+        private void btnClass_Click(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            string str = btn.Text.Trim();
+            int i = 0;
+            for (; i < 3; i++)
+            {
+                if (ClassString[i] == str) break;
+            }
+            i++;
+            if (i >= 3) i = 0;
+            btn.Text = ClassString[i];
         }
 
       

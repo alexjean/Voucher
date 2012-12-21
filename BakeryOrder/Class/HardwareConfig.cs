@@ -16,23 +16,6 @@ namespace BakeryOrder
         public string Password;
         public bool   IsServer;
         public string BackupDir;
-        public string PosID;
-        public int iPosID
-        {
-            get
-            {
-                char c;
-                if (PosID == null || PosID.Length == 0) c = '0';
-                else c = PosID[0];
-                if (c > '9' || c < '0') return 0;
-                return c - '0';
-            }
-            set
-            {
-                if (value > 9 || value < 0) PosID = "0";
-                PosID = new string((char)(value + '0'), 1);
-            }
-        }
 
         public string MaskDataDir()
         {
@@ -103,7 +86,6 @@ namespace BakeryOrder
                 XmlNode root = doc.DocumentElement;
                 GetAttrib(root.SelectSingleNode("ComPort")       ,"Name", ref ComPortName);
                 GetAttrib(root.SelectSingleNode("ReceiptPrinter"),"Name", ref PrinterName);
-                GetAttrib(root.SelectSingleNode("Pos")           , "ID" , ref PosID);
 
                 XmlNode Server = root.SelectSingleNode("DataSource");
                 if (Server != null)
@@ -128,7 +110,6 @@ namespace BakeryOrder
             XmlNode root = doc.FirstChild;
             UpdateXmlAttrib(doc, root, "ComPort"       , "Name" , ComPortName);
             UpdateXmlAttrib(doc, root, "ReceiptPrinter", "Name" , PrinterName);
-            UpdateXmlAttrib(doc, root, "Pos"           , "ID"   , PosID);
             UpdateXmlAttrib(doc, root, "DataSource", "IsServer" , (IsServer ? "YES" : "NO"));
             UpdateXmlAttribEncrypted(doc, root, "DataSource", "DataDir", DataDir);
             UpdateXmlAttribEncrypted(doc, root, "DataSource", "UserName", UserName);

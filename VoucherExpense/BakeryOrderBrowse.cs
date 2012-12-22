@@ -13,10 +13,10 @@ namespace VoucherExpense
     {
         private static class MyLayout
         {
-            public static int NoX = 12;
-            public static int NoY = 12;
-            public static int OffsetX = 10;
-            public static int OffsetY = 10;
+            public static int NoX = 10;
+            public static int NoY = 10;
+            public static int OffsetX = 8;
+            public static int OffsetY = 8;
             public static int NoWidth = 8;
         }
 
@@ -97,7 +97,7 @@ namespace VoucherExpense
                 m_OrderItemTableAdapter.FillBySelectStr(bakeryOrderSet.OrderItem, "Select * From [OrderItem] " + sql);
                 foreach (BakeryOrderSet.OrderRow R in bakeryOrderSet.Order.Rows)
                 {
-                    int id = R.ID % 10000;       // 資料定義為 MMDDNN9999  N POS机号,店長收資料時,再自動填上
+                    int id = PureID(R.ID);       // 資料定義為 MMDDNN9999  N POS机号,店長收資料時,再自動填上
                     if (id > MaxID) MaxID = id;
                 }
                 return MaxID;
@@ -119,7 +119,7 @@ namespace VoucherExpense
                 m_DrawerReocrdAdapter.FillBySelectStr(bakeryOrderSet.DrawerRecord, "Select * From [DrawerRecord] " + sql);
                 foreach (BakeryOrderSet.DrawerRecordRow R in bakeryOrderSet.DrawerRecord.Rows)
                 {
-                    int id = R.DrawerRecordID % 100000;       // 資料定義為 MMDDN99999  N POS机号比Order.ID少一位, id最多10萬筆多十倍
+                    int id = PureID(R.DrawerRecordID);       // 資料定義為 MMDDN99999  N POS机号比Order.ID少一位, id最多10萬筆多十倍
                     if (id > MaxID) MaxID = id;
                 }
                 return MaxID;
@@ -131,6 +131,22 @@ namespace VoucherExpense
                 return -1;
             }
         }
+
+        int PureID(int id)
+        {
+            return id % 100000;
+        }
+        string PureIDStr(int id)
+        {
+            return (id%100000).ToString();
+        }
+
+        string PurePosNoStr(int id)
+        {
+            id = (id / 100000)%10;
+            return id.ToString();
+        }
+
 
 
         private void tabControl1_DrawItem(object sender, DrawItemEventArgs e)
@@ -197,7 +213,12 @@ namespace VoucherExpense
             b.BackColor = tabPage.BackColor;
             if (!Row.IsPrintTimeNull())
                 b.Text =  Row.PrintTime.ToString("mm:ss");
-            b.Text += "\r\n" + (Row.ID % 10000).ToString();
+            b.Text += "\r\n" + PurePosNoStr(Row.ID)+"-"+PureIDStr(Row.ID);
+            if (!Row.IsPayByNull())
+            {
+                if (Row.PayBy == "B")      b.Text += "卡";
+                else if (Row.PayBy == "C") b.Text += "券";
+            }
 
             b.Text += "\r\n" + Row.Income.ToString()+"元";
             if (!Row.IsDeletedNull() &&　Row.Deleted) b.BackColor = Color.Green;
@@ -244,7 +265,7 @@ namespace VoucherExpense
                 total += money;
                 count++;
             }
-            lvItems.Columns[1].Text = "ID " + (order.ID % 10000).ToString() + (order.Deleted ? " deleted" : "");
+            lvItems.Columns[1].Text = "ID " + PureIDStr(order.ID) + (order.Deleted ? " deleted" : "");
             lvItems.Columns[2].Text = count.ToString();
             if (!order.IsIncomeNull())
                 lvItems.Columns[3].Text = order.Income.ToString();
@@ -262,14 +283,8 @@ namespace VoucherExpense
             BakeryOrderSet.DrawerRecordRow record = t.Tag as BakeryOrderSet.DrawerRecordRow;
             ResetListView();
             if (record.IsAssociateOrderIDNull() || record.AssociateOrderID < 0) return;
-            foreach (BakeryOrderSet.OrderRow row in bakeryOrderSet.Order)
-            {
-                if ((row.ID % 10000) == record.AssociateOrderID)    // bakeryOrderSet.Order內只會讀入今天的, 所以MMDDNN9999 只比對9999部分
-                {
-                    ShowOrder(row);
-                    return;
-                }
-            }
+            var Orders = from row in bakeryOrderSet.Order where (row.ID%1000000 == record.AssociateOrderID) select row;   // 要含Pos机号
+            if (Orders.Count() > 0) ShowOrder(Orders.First());
         }
 
         private void b_MouseClick(object sender, MouseEventArgs e)
@@ -398,7 +413,10 @@ namespace VoucherExpense
             if (!Row.IsAssociateOrderIDNull())
             {
                 if (Row.AssociateOrderID > 0)
-                    b.Text +=  Row.AssociateOrderID.ToString();
+                {
+                    int id = Row.AssociateOrderID;
+                    b.Text += PurePosNoStr(id)+"-"+PureIDStr(id);
+                }
             }
             if (Row.IsCashierIDNull() || Row.CashierID < 0)
                 b.Text += "\r\n";

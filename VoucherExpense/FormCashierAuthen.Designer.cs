@@ -35,9 +35,9 @@
             System.Windows.Forms.Label labelTime;
             System.Windows.Forms.Label label4;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCashierAuthen));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.bakeryOrderSet = new VoucherExpense.BakeryOrderSet();
             this.cashierBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cashierTableAdapter = new VoucherExpense.BakeryOrderSetTableAdapters.CashierTableAdapter();
@@ -54,8 +54,14 @@
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.cashierBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.cashierDataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.CashierIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCashierName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PasswordColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.operatorBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.vEDataSet = new VoucherExpense.VEDataSet();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.operatorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
             this.chBoxOnlyInPosition = new System.Windows.Forms.CheckBox();
             this.listBoxReadme = new System.Windows.Forms.ListBox();
@@ -75,12 +81,6 @@
             this.textBoxBackupDir = new System.Windows.Forms.TextBox();
             this.btnUpdateProduct = new System.Windows.Forms.Button();
             this.productTableAdapter = new VoucherExpense.BakeryOrderSetTableAdapters.ProductTableAdapter();
-            this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.CashierIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCashierName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PasswordColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             label1 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
             label3 = new System.Windows.Forms.Label();
@@ -125,7 +125,7 @@
             // 
             // labelTime
             // 
-            labelTime.Location = new System.Drawing.Point(665, 645);
+            labelTime.Location = new System.Drawing.Point(665, 637);
             labelTime.Name = "labelTime";
             labelTime.Size = new System.Drawing.Size(56, 30);
             labelTime.TabIndex = 15;
@@ -297,6 +297,57 @@
             this.cashierDataGridView.TabIndex = 1;
             this.cashierDataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.cashierDataGridView_CellFormatting);
             // 
+            // dataGridViewCheckBoxColumn1
+            // 
+            this.dataGridViewCheckBoxColumn1.DataPropertyName = "InPosition";
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.NullValue = false;
+            this.dataGridViewCheckBoxColumn1.DefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridViewCheckBoxColumn1.HeaderText = "在職";
+            this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
+            this.dataGridViewCheckBoxColumn1.Width = 48;
+            // 
+            // CashierIDColumn
+            // 
+            this.CashierIDColumn.DataPropertyName = "CashierID";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.CashierIDColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            this.CashierIDColumn.HeaderText = "編号";
+            this.CashierIDColumn.Name = "CashierIDColumn";
+            this.CashierIDColumn.ReadOnly = true;
+            this.CashierIDColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.CashierIDColumn.Width = 64;
+            // 
+            // ColumnCashierName
+            // 
+            this.ColumnCashierName.DataPropertyName = "CashierName";
+            this.ColumnCashierName.HeaderText = "姓名";
+            this.ColumnCashierName.MaxInputLength = 10;
+            this.ColumnCashierName.Name = "ColumnCashierName";
+            this.ColumnCashierName.Width = 80;
+            // 
+            // PasswordColumn
+            // 
+            this.PasswordColumn.DataPropertyName = "CashierPassword";
+            this.PasswordColumn.HeaderText = "密碼";
+            this.PasswordColumn.MaxInputLength = 6;
+            this.PasswordColumn.Name = "PasswordColumn";
+            this.PasswordColumn.Width = 80;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "AuthenID";
+            this.dataGridViewTextBoxColumn4.DataSource = this.operatorBindingSource;
+            this.dataGridViewTextBoxColumn4.DisplayMember = "Name";
+            this.dataGridViewTextBoxColumn4.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.dataGridViewTextBoxColumn4.HeaderText = "授權者";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTextBoxColumn4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewTextBoxColumn4.ValueMember = "OperatorID";
+            this.dataGridViewTextBoxColumn4.Width = 80;
+            // 
             // operatorBindingSource
             // 
             this.operatorBindingSource.DataMember = "Operator";
@@ -306,6 +357,16 @@
             // 
             this.vEDataSet.DataSetName = "VEDataSet";
             this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "LastUpdated";
+            dataGridViewCellStyle3.Format = "MM-dd hh:mm";
+            dataGridViewCellStyle3.NullValue = null;
+            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridViewTextBoxColumn5.HeaderText = "更新時間";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
             // 
             // operatorTableAdapter
             // 
@@ -440,7 +501,7 @@
             // 
             // todayPicker
             // 
-            this.todayPicker.Location = new System.Drawing.Point(722, 645);
+            this.todayPicker.Location = new System.Drawing.Point(738, 639);
             this.todayPicker.Name = "todayPicker";
             this.todayPicker.Size = new System.Drawing.Size(146, 27);
             this.todayPicker.TabIndex = 17;
@@ -497,67 +558,6 @@
             // productTableAdapter
             // 
             this.productTableAdapter.ClearBeforeFill = true;
-            // 
-            // dataGridViewCheckBoxColumn1
-            // 
-            this.dataGridViewCheckBoxColumn1.DataPropertyName = "InPosition";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.NullValue = false;
-            this.dataGridViewCheckBoxColumn1.DefaultCellStyle = dataGridViewCellStyle7;
-            this.dataGridViewCheckBoxColumn1.HeaderText = "在職";
-            this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
-            this.dataGridViewCheckBoxColumn1.Width = 48;
-            // 
-            // CashierIDColumn
-            // 
-            this.CashierIDColumn.DataPropertyName = "CashierID";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.CashierIDColumn.DefaultCellStyle = dataGridViewCellStyle8;
-            this.CashierIDColumn.HeaderText = "編号";
-            this.CashierIDColumn.Name = "CashierIDColumn";
-            this.CashierIDColumn.ReadOnly = true;
-            this.CashierIDColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.CashierIDColumn.Width = 64;
-            // 
-            // ColumnCashierName
-            // 
-            this.ColumnCashierName.DataPropertyName = "CashierName";
-            this.ColumnCashierName.HeaderText = "姓名";
-            this.ColumnCashierName.MaxInputLength = 10;
-            this.ColumnCashierName.Name = "ColumnCashierName";
-            this.ColumnCashierName.Width = 80;
-            // 
-            // PasswordColumn
-            // 
-            this.PasswordColumn.DataPropertyName = "CashierPassword";
-            this.PasswordColumn.HeaderText = "密碼";
-            this.PasswordColumn.MaxInputLength = 6;
-            this.PasswordColumn.Name = "PasswordColumn";
-            this.PasswordColumn.Width = 80;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "AuthenID";
-            this.dataGridViewTextBoxColumn4.DataSource = this.operatorBindingSource;
-            this.dataGridViewTextBoxColumn4.DisplayMember = "Name";
-            this.dataGridViewTextBoxColumn4.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.dataGridViewTextBoxColumn4.HeaderText = "授權者";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewTextBoxColumn4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridViewTextBoxColumn4.ValueMember = "OperatorID";
-            this.dataGridViewTextBoxColumn4.Width = 80;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "LastUpdated";
-            dataGridViewCellStyle9.Format = "MM-dd hh:mm";
-            dataGridViewCellStyle9.NullValue = null;
-            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle9;
-            this.dataGridViewTextBoxColumn5.HeaderText = "更新時間";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
             // 
             // FormCashierAuthen
             // 

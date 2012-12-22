@@ -7,7 +7,7 @@
 <DiagramLayout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ex:showrelationlabel="False" ViewPortX="-10" ViewPortY="-47" xmlns:ex="urn:schemas-microsoft-com:xml-msdatasource-layout-extended" xmlns="urn:schemas-microsoft-com:xml-msdatasource-layout">
   <Shapes>
     <Shape ID="DesignTable:Header" ZOrder="7" X="70" Y="70" Height="135" Width="218" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="76" />
-    <Shape ID="DesignTable:Order" ZOrder="6" X="358" Y="70" Height="342" Width="207" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="283" />
+    <Shape ID="DesignTable:Order" ZOrder="6" X="358" Y="70" Height="272" Width="188" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="217" />
     <Shape ID="DesignTable:OrderItem" ZOrder="5" X="635" Y="70" Height="227" Width="240" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="168" />
     <Shape ID="DesignTable:Product" ZOrder="4" X="945" Y="70" Height="296" Width="222" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="237" />
     <Shape ID="DesignTable:Cashier" ZOrder="2" X="1237" Y="70" Height="227" Width="218" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="28" OldDataTableHeight="0" SplitterPosition="168" />
@@ -17,7 +17,7 @@
     <Connector ID="DesignRelation:{B0060338-846F-4601-A61E-B7F15D59AE65}" ZOrder="3" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>565</X>
+          <X>546</X>
           <Y>183</Y>
         </Point>
         <Point>

@@ -209,7 +209,7 @@ namespace VoucherExpense
             }
         }
 
-        // BakeryOrderSet.Order.ID ==> MMDDNN9999
+        // BakeryOrderSet.Order.ID ==> MMDDN99999
         string CreateSql(int m, int d)
         {
             return "Where INT(ID/1000000)=" + m.ToString("d2") + d.ToString("d2"); 
@@ -251,7 +251,7 @@ namespace VoucherExpense
 
         public MonthlyReportData Statics(BakeryOrderSet bakeryOrderSet)
         {
-            decimal cash = 0, credit = 0,deletedMoney=0;
+            decimal cash = 0, credit = 0,coupond=0,deletedMoney=0;
             int orderCount = 0,deletedCount=0;
             MonthlyReportData data = new MonthlyReportData();
             foreach (BakeryOrderSet.OrderRow row in bakeryOrderSet.Order)
@@ -265,21 +265,24 @@ namespace VoucherExpense
                     deletedCount++;
                     continue;
                 }
-                if (row.IsCreditIDNull() || row.CreditID == 0)
-                    cash    += income;
-                else
-                    credit  += income;
+                if (row.IsPayByNull() || row.PayBy == "A")   // A現金 B刷卡 C券
+                    cash += income;
+                else if (row.PayBy == "B")
+                    credit += income;
+                else if (row.PayBy == "C")
+                    coupond += income;
                 orderCount++;    //  一單一人
             }
             data.OrderCount = orderCount;
-            data.Cash = Math.Round(cash);
+            data.Cash    = Math.Round(cash);
+            data.Coupond = Math.Round(coupond);
             data.Date = (uint)m_WorkingDay.Day;
             data.CreditCard = Math.Round(credit);
             data.CreditFee = Math.Round(FeeRate * data.CreditCard, 2);
             data.CreditNet = data.CreditCard - data.CreditFee;
             if (orderCount != 0)
-                data.AvePerPerson = Math.Round((cash + credit) / orderCount, 1);
-            data.Revenue = Math.Round(cash + credit);
+                data.AvePerPerson = Math.Round((cash + credit + coupond) / orderCount, 1);
+            data.Revenue = Math.Round(cash + credit + coupond);
 
             data.DeletedCount = deletedCount;
             data.DeletedMoney = deletedMoney;

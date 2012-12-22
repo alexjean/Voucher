@@ -75,7 +75,7 @@
             this.evaluatedCostTextBox = new System.Windows.Forms.TextBox();
             this.photoPictureBox = new System.Windows.Forms.PictureBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.productIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnProductID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.codeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.classDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -269,7 +269,7 @@
             this.dataGridView1.BackgroundColor = System.Drawing.Color.SeaShell;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.productIDDataGridViewTextBoxColumn,
+            this.ColumnProductID,
             this.codeColumn,
             this.classDataGridViewTextBoxColumn,
             this.nameDataGridViewTextBoxColumn,
@@ -487,13 +487,13 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // productIDDataGridViewTextBoxColumn
+            // ColumnProductID
             // 
-            this.productIDDataGridViewTextBoxColumn.DataPropertyName = "ProductID";
-            this.productIDDataGridViewTextBoxColumn.HeaderText = "內碼";
-            this.productIDDataGridViewTextBoxColumn.Name = "productIDDataGridViewTextBoxColumn";
-            this.productIDDataGridViewTextBoxColumn.ReadOnly = true;
-            this.productIDDataGridViewTextBoxColumn.Width = 64;
+            this.ColumnProductID.DataPropertyName = "ProductID";
+            this.ColumnProductID.HeaderText = "內碼 ";
+            this.ColumnProductID.Name = "ColumnProductID";
+            this.ColumnProductID.ReadOnly = true;
+            this.ColumnProductID.Width = 64;
             // 
             // codeColumn
             // 
@@ -648,7 +648,7 @@
         private System.Windows.Forms.TextBox evaluatedCostTextBox;
         private System.Windows.Forms.PictureBox photoPictureBox;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn productIDDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnProductID;
         private System.Windows.Forms.DataGridViewTextBoxColumn codeColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn classDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;

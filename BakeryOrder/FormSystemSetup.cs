@@ -84,8 +84,12 @@ namespace BakeryOrder
                     Buf.Append(id.ToString("d3") + " " + order.PrintTime.ToString("HH:mm:ss") + " " + order.Income.ToString("f0"));
                     if (!order.IsDeletedNull() && order.Deleted)
                         Buf.Append(" 删");
-                    if (!order.IsCreditIDNull() && order.CreditID != 0m)
-                        Buf.Append(" 卡" + order.CreditID.ToString("f0"));
+                    if (!order.IsPayByNull())
+                    {
+                        if      (order.PayBy =="B") Buf.Append(" 卡");
+                        else if (order.PayBy =="C") Buf.Append(" 券");
+                    }
+                    
                     Buf.Append("\r\n");
                     count++;
                     total += order.Income;

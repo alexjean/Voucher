@@ -410,9 +410,10 @@ namespace VoucherExpense
                 return;
             }
             int count = m_TextBoxPaths.Count;
+            int success = 0;
             for (int i = 0; i < count; i++)
-                GetCashierData(i + 1, textBoxPOS1.Text, today);
-            Message("共成功匯入了 " + count.ToString() + " 台收銀机的資料!");
+                if (GetCashierData(i + 1, m_TextBoxPaths[i].Text, today)) success++;
+            Message("共成功匯入了 " + success.ToString() + " 台收銀机的資料!");
         }
 
         void Message(string msg,bool showWarning=false)
@@ -555,8 +556,8 @@ namespace VoucherExpense
                         pr.Delete();
                         deleted++;
                     }
-                    adapter.Update(posBakerySet.Product);
-                    Message("共更新 " + updated.ToString() + "筆,新增 " + added.ToString() + "筆,刪除 " + deleted.ToString() + "筆");
+                    int succeed=adapter.Update(posBakerySet.Product);
+                    Message("更新 " + updated.ToString() + "筆,新增 " + added.ToString() + "筆,刪除 " + deleted.ToString() + "筆=>寫出"+succeed.ToString()+"筆");
                     Message("---------------------------------------------");
                 }
                 catch (Exception ex)

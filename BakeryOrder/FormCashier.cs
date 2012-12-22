@@ -579,12 +579,11 @@ namespace BakeryOrder
             order.Income = (decimal)CalcTotal();
             order.CashierID = m_CashierID;
             order.Deleted = false;
-            // PrintTime和SaveTime在後面會設,NewRecord 如果有任一個Field沒設定是IsNull,再次Upate就會 並行違例.
+            // PrintTime在後面會設,NewRecord 如果有任一個Field沒設定是IsNull,再次Upate就會 並行違例.
             // 舊的Record因為從Database讀出來時,就會有預設資料所以不會有問題
             order.BranchID = 0;
-            order.Checked = false;
             order.Deduct = 0;
-            order.CreditID = 0;
+            order.PayBy = " ";
             return order.ID;
         }
 
@@ -701,6 +700,7 @@ namespace BakeryOrder
                 return;
             }
             m_CurrentOrder.Income = (decimal)CalcTotal();
+            m_CurrentOrder.PayBy = PayByFromBtn().ToString();
             Print(m_CurrentOrder);
             if (!this.checkBoxTest.Checked)
                 RawPrint.SendManagedBytes(m_PrinterName, m_CashDrawer);
@@ -750,6 +750,7 @@ namespace BakeryOrder
             lvItems.Columns[1].Text = "序号 " + no.ToString();
             lvItems.Columns[2].Text = "量";
             lvItems.Columns[3].Text = "金额";
+            btnClass.Text = DicPayBy.First().Value;
         }
 
         void SetOrderItemFromListViewItem(BakeryOrderSet.OrderItemRow Row, ListViewItem lvItem, int i)
@@ -790,7 +791,6 @@ namespace BakeryOrder
             bool IsNewRecord = (CurrentOrder.RowState == DataRowState.Detached);
             if (IsNewRecord)
             {
-                CurrentOrder.SaveTime = DateTime.Now;
                 if (CurrentOrder.IsPrintTimeNull())
                     CurrentOrder.PrintTime = DateTime.Now;
                 bakeryOrderSet.Order.AddOrderRow(CurrentOrder);
@@ -1020,24 +1020,35 @@ namespace BakeryOrder
             MarkButton(sender as RadioButton);
         }
 
-        string[] ClassString = new string[3] { "现金", "刷卡", "优惠" };
+        Dictionary<char, string> DicPayBy = new Dictionary<char, string> { { 'A', "现金" }, { 'B', "刷卡" }, { 'C', "券" } };
         private void btnClass_Click(object sender, EventArgs e)
         {
             Button btn = sender as Button;
             string str = btn.Text.Trim();
-            int i = 0;
-            for (; i < 3; i++)
+            List<string> compare = new List<string>();
+            foreach (string s in DicPayBy.Values) compare.Add(s);
+            int count=compare.Count;
+            for(int i=0;i<count;i++)
             {
-                if (ClassString[i] == str) break;
+                if (compare[i] == str)
+                {
+                    i++;
+                    if (i >= count) btn.Text = compare[0];
+                    else            btn.Text = compare[i];
+                    return;
+                }
             }
-            i++;
-            if (i >= 3) i = 0;
-            btn.Text = ClassString[i];
+            btn.Text = compare[0];
         }
 
-      
-
-
-
+        char PayByFromBtn()
+        {
+            string str = btnClass.Text.Trim();
+            foreach(KeyValuePair<char,string> pair in DicPayBy)
+            {
+                if (pair.Value==str) return pair.Key;
+            }
+            return DicPayBy.First().Key;
+        }
     }
 }

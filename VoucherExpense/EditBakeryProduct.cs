@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Linq;
 
 namespace VoucherExpense
 
@@ -93,6 +94,10 @@ namespace VoucherExpense
 
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
+//            MyFunction.AddNewItem(dataGridView1, "ColumnProductID","ProductID", bakeryOrderSet.Product);
+            int max = (from row in bakeryOrderSet.Product select row.ProductID).Max();
+            int productID=MyFunction.SetCellMaxNo("ColumnProductID",dataGridView1 ,max);
+            productIDTextBox.Text = productID.ToString();
             string code=MaxNoInDGView("codeColumn", dataGridView1).ToString();
             codeTextBox.Text = code;
             nameTextBox.Text = "产品" + code;
@@ -238,6 +243,7 @@ namespace VoucherExpense
         {
             DataRowView rowView = productBindingSource.Current as DataRowView;
             BakeryOrderSet.ProductRow row = rowView.Row as BakeryOrderSet.ProductRow;
+            if (row.RowState == DataRowState.Detached) return "";   // 因為此時row.ProductID 會出錯
             return m_PhotoPath + row.ProductID.ToString() + ".jpg";
         }
 

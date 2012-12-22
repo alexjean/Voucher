@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
 
 namespace BakeryOrder
 {
@@ -57,6 +58,18 @@ namespace BakeryOrder
             Close();
         }
 
+        string CashierName(int id)
+        {
+            var cashiers = from row in m_BakeryOrderSet.Cashier where (row.CashierID == id) select row;
+            if (cashiers.Count() != 0)
+            {
+                var cashier = cashiers.First();
+                if (cashier.IsCashierNameNull()) return "";
+                return cashier.CashierName;
+            }
+            return "";
+        }
+
         void Print()
         {
             byte[] BorderMode = new byte[] { 0x1c, 0x21, 0x28 };
@@ -70,7 +83,8 @@ namespace BakeryOrder
 
             Buf.Append("对帐明细\r\n");
             Buf.AppendPadRight("时间:" + DateTime.Now.ToString("yy/MM/dd HH:mm"), 19);
-            Buf.Append("\r\n收银: " + m_CashierID.ToString("d03") + "\r\n");
+            string cashierIDName = m_CashierID.ToString("d03") + "  " + CashierName(m_CashierID);
+            Buf.Append("\r\n收银: " + cashierIDName + "\r\n");
             Buf.Append(NormalMode);                                      // 設定列印模式正常 
             Buf.Append("- - - - - - - - - - - - - - - -\r\n");
             int count = 0;
@@ -96,13 +110,13 @@ namespace BakeryOrder
                 }
             }
             Buf.Append("- - - - - - - - - - - - - - - -\r\n");
-            Buf.Append("收银: " + m_CashierID.ToString("d03") + "\r\n");
+            Buf.Append("收银: " + cashierIDName + "\r\n");
             Buf.Append("共 " + count.ToString("d") + " 笔," + total.ToString("f0") + "元\r\n");
             Buf.Append(NormalMode);
             Buf.Append("* * * * * * * * * * * * * * * *\r\n\r\n\r\n\r\n\r\n\r\n");
             Buf.Append("\f");
-            //string str = Buf.ToString();
-            //File.WriteAllBytes("Test.txt", Encoding.UTF8.GetBytes(str));
+//            string str = Buf.ToString();
+//            File.WriteAllBytes("Test.txt", Encoding.UTF8.GetBytes(str));
             RawPrint.SendManagedBytes(m_PrinterName, Buf.ToBytes());
             RawPrint.SendManagedBytes(m_PrinterName, CutPaper);
         }

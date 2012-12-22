@@ -41,6 +41,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.labelTotal = new System.Windows.Forms.Label();
             this.btnSystemSetup = new System.Windows.Forms.Button();
+            this.btnClass = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,7 +67,7 @@
             this.lvItems.HideSelection = false;
             this.lvItems.Location = new System.Drawing.Point(2, 0);
             this.lvItems.Name = "lvItems";
-            this.lvItems.Size = new System.Drawing.Size(226, 388);
+            this.lvItems.Size = new System.Drawing.Size(226, 399);
             this.lvItems.TabIndex = 2;
             this.lvItems.UseCompatibleStateImageBehavior = false;
             this.lvItems.View = System.Windows.Forms.View.Details;
@@ -162,19 +163,31 @@
             this.btnSystemSetup.UseVisualStyleBackColor = true;
             this.btnSystemSetup.Click += new System.EventHandler(this.btnSystemSetup_Click);
             // 
+            // btnClass
+            // 
+            this.btnClass.BackColor = System.Drawing.Color.SeaShell;
+            this.btnClass.Enabled = false;
+            this.btnClass.Location = new System.Drawing.Point(2, 394);
+            this.btnClass.Name = "btnClass";
+            this.btnClass.Size = new System.Drawing.Size(75, 53);
+            this.btnClass.TabIndex = 12;
+            this.btnClass.Text = "现金";
+            this.btnClass.UseVisualStyleBackColor = false;
+            // 
             // FormStatics
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Azure;
             this.ClientSize = new System.Drawing.Size(1024, 768);
+            this.Controls.Add(this.lvItems);
+            this.Controls.Add(this.btnClass);
             this.Controls.Add(this.btnSystemSetup);
             this.Controls.Add(this.labelTotal);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnDrawerOpenedList);
             this.Controls.Add(this.btnOrderList);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.lvItems);
             this.Controls.Add(this.btnReturn);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -203,5 +216,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelTotal;
         private System.Windows.Forms.Button btnSystemSetup;
+        private System.Windows.Forms.Button btnClass;
     }
 }

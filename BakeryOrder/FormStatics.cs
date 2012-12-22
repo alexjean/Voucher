@@ -25,12 +25,14 @@ namespace BakeryOrder
         BakeryOrderSetTableAdapters.OrderTableAdapter m_OrderTableAdapter;
         int m_CashierID = 0;
         string m_PrinterName;
-        public FormStatics(BakeryOrderSet bakeryOrderSet,BakeryOrderSetTableAdapters.OrderTableAdapter adapter,int cashierID,string printerName)
+        bool m_DataSealed = false;
+        public FormStatics(BakeryOrderSet bakeryOrderSet,BakeryOrderSetTableAdapters.OrderTableAdapter adapter,int cashierID,string printerName,bool dataSealed)
         {
             m_BakeryOrderSet    = bakeryOrderSet;
             m_OrderTableAdapter = adapter;
             m_CashierID         = cashierID;
             m_PrinterName       = printerName;
+            m_DataSealed        = dataSealed;
             InitializeComponent();
         }
 
@@ -131,8 +133,12 @@ namespace BakeryOrder
             b.BackColor = tabPage.BackColor;
             if (!Row.IsPrintTimeNull())
                 b.Text =  Row.PrintTime.ToString("mm:ss");
-            b.Text += "\r\n" + (Row.ID % 10000).ToString();
-
+            b.Text += "\r\n"+(Row.ID % 100000).ToString();
+            if (!Row.IsPayByNull())
+            {
+                if      (Row.PayBy == "B") b.Text += "卡";
+                else if (Row.PayBy == "C") b.Text += "券";
+            }
             b.Text += "\r\n" + Row.Income.ToString()+"元";
             if (!Row.IsDeletedNull() &&　Row.Deleted) b.BackColor = Color.Green;
             b.Tag = Row;
@@ -152,6 +158,11 @@ namespace BakeryOrder
 
         private void b_MouseDoubleClick(object sender, MouseEventArgs e)
         {
+            if (m_DataSealed)
+            {
+                MessageBoxShow("今日資料己封印,無法更改刪除狀態!");
+                return;
+            }
             TextBox t = sender as TextBox;
             BakeryOrderSet.OrderRow order = t.Tag as BakeryOrderSet.OrderRow;
             if (order.CashierID != m_CashierID)
@@ -204,6 +215,7 @@ namespace BakeryOrder
                 lvItems.Columns[i].Text = m_ListViewItemBackup[i];
         }
 
+        Dictionary<char, string> DicPayBy = new Dictionary<char, string> { { 'A', "现金" }, { 'B', "刷卡" }, { 'C', "券" } };
         private bool ShowOrder(BakeryOrderSet.OrderRow order)
         {
             BakeryOrderSet.OrderItemRow[] items = order.GetOrderItemRows();
@@ -228,6 +240,14 @@ namespace BakeryOrder
             lvItems.Columns[2].Text = count.ToString();
             if (!order.IsIncomeNull())
                 lvItems.Columns[3].Text = order.Income.ToString();
+            if (!order.IsPayByNull() && order.PayBy.Length>0)
+            {
+                char c=order.PayBy[0];
+                if (DicPayBy.Keys.Contains(c))
+                    btnClass.Text = DicPayBy[c];
+                else
+                    btnClass.Text = DicPayBy.First().Value;
+            }
             if (total != order.Income)
             {
                 MessageBoxShow("計算金額<" + total.ToString() + ">不符 " + order.Income.ToString());

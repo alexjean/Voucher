@@ -35,9 +35,9 @@
             System.Windows.Forms.Label labelTime;
             System.Windows.Forms.Label label4;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCashierAuthen));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.bakeryOrderSet = new VoucherExpense.BakeryOrderSet();
             this.cashierBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cashierTableAdapter = new VoucherExpense.BakeryOrderSetTableAdapters.CashierTableAdapter();
@@ -300,9 +300,9 @@
             // dataGridViewCheckBoxColumn1
             // 
             this.dataGridViewCheckBoxColumn1.DataPropertyName = "InPosition";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.NullValue = false;
-            this.dataGridViewCheckBoxColumn1.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.NullValue = false;
+            this.dataGridViewCheckBoxColumn1.DefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridViewCheckBoxColumn1.HeaderText = "在職";
             this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
             this.dataGridViewCheckBoxColumn1.Width = 48;
@@ -310,8 +310,8 @@
             // CashierIDColumn
             // 
             this.CashierIDColumn.DataPropertyName = "CashierID";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.CashierIDColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.CashierIDColumn.DefaultCellStyle = dataGridViewCellStyle5;
             this.CashierIDColumn.HeaderText = "編号";
             this.CashierIDColumn.Name = "CashierIDColumn";
             this.CashierIDColumn.ReadOnly = true;
@@ -361,9 +361,9 @@
             // dataGridViewTextBoxColumn5
             // 
             this.dataGridViewTextBoxColumn5.DataPropertyName = "LastUpdated";
-            dataGridViewCellStyle3.Format = "MM-dd hh:mm";
-            dataGridViewCellStyle3.NullValue = null;
-            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Format = "MM-dd hh:mm";
+            dataGridViewCellStyle6.NullValue = null;
+            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridViewTextBoxColumn5.HeaderText = "更新時間";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.ReadOnly = true;
@@ -392,22 +392,26 @@
             this.listBoxReadme.ItemHeight = 16;
             this.listBoxReadme.Items.AddRange(new object[] {
             "",
-            " \t為保持資料一致性,故不提供刪除",
-            "",
-            " \t收銀員離職後,應將在職勾選取消",
-            "",
             " \t新收銀員應使用新編號",
             "",
             " \t不可重複使用同一編号",
             "",
             " \t密碼必須是5個以上的數字",
             "",
-            "\t收銀員修改密碼,只限該机有效",
+            "\t收銀員自己修改密碼,只限該机有效",
+            "",
+            " \t為保持資料一致性,故不提供刪除",
+            "",
+            " \t收銀員離職後,應將在職勾選取消",
+            "",
+            "\t當日可多次收取資料,封印後即不可變動",
+            "",
+            "\t當日多次收取資料間,不可變動收銀机台号定義",
             "",
             " \t年度開帳全部授權消除,需重新授權"});
-            this.listBoxReadme.Location = new System.Drawing.Point(494, 28);
+            this.listBoxReadme.Location = new System.Drawing.Point(494, 0);
             this.listBoxReadme.Name = "listBoxReadme";
-            this.listBoxReadme.Size = new System.Drawing.Size(447, 276);
+            this.listBoxReadme.Size = new System.Drawing.Size(447, 308);
             this.listBoxReadme.TabIndex = 3;
             // 
             // textBoxPOS1

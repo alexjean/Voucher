@@ -66,6 +66,7 @@
             this.bakeryOrderSet = new BakeryOrder.BakeryOrderSet();
             this.cashierTableAdapter = new BakeryOrder.BakeryOrderSetTableAdapters.CashierTableAdapter();
             this.btnClass = new System.Windows.Forms.Button();
+            this.headerTableAdapter = new BakeryOrder.BakeryOrderSetTableAdapters.HeaderTableAdapter();
             this.tabControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrdered)).BeginInit();
             this.panelLogin.SuspendLayout();
@@ -452,6 +453,10 @@
             this.btnClass.UseVisualStyleBackColor = false;
             this.btnClass.Click += new System.EventHandler(this.btnClass_Click);
             // 
+            // headerTableAdapter
+            // 
+            this.headerTableAdapter.ClearBeforeFill = true;
+            // 
             // FormCashier
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -527,6 +532,7 @@
         private System.Windows.Forms.TextBox textBoxCashierID;
         private BakeryOrderSetTableAdapters.CashierTableAdapter cashierTableAdapter;
         private System.Windows.Forms.Button btnClass;
+        private BakeryOrderSetTableAdapters.HeaderTableAdapter headerTableAdapter;
     }
 }
 

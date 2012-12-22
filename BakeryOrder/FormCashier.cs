@@ -390,6 +390,7 @@ namespace BakeryOrder
         string       m_PrinterName  = "BTP-R580(U)";
         int          m_PosID        = 0;    // FormCashier的m_PosID己經不使用,由店長收取資料時填取
         int          m_CashierID    = -1;
+        bool m_DataSealed = false;
         int m_MaxOrderID = 0;
         int m_MaxDrawerRecordID = 0;
         HardwareConfig m_Cfg        = new HardwareConfig();
@@ -397,15 +398,18 @@ namespace BakeryOrder
         OrderItemAdapter m_OrderItemTableAdapter = new OrderItemAdapter();
         DrawerRecordAdapter m_DrawerReocrdAdapter= new DrawerRecordAdapter();
         DateTime m_Today = DateTime.Now;
+        
 
 
         void ReLoadAllData()
         {
             m_Cfg.Load();
             if (m_Cfg.PrinterName != null) m_PrinterName = m_Cfg.PrinterName;
+            m_Today = DateTime.Now;
             //            productTableAdapter1.Connection = MapPath.BasicConnection;
             try
             {
+                headerTableAdapter.Fill(bakeryOrderSet.Header);
                 productTableAdapter.Fill(bakeryOrderSet.Product);
                 cashierTableAdapter.Fill(bakeryOrderSet.Cashier);
                 // m_PosID存在 [Cashier.CashierName] where CashierID= int.Max , 每次店長修改權限存檔時放進去
@@ -419,6 +423,14 @@ namespace BakeryOrder
                         int result;
                         if (int.TryParse(name.Substring(6), out result)) m_PosID = result;
                     }
+                }
+                // 讀取封印資訊
+                var headers = from row in bakeryOrderSet.Header where (row.DataDate.Date == m_Today.Date) select row;
+                m_DataSealed = false;
+                if (headers.Count() > 0)
+                {
+                    var header = headers.First();
+                    if (!header.IsClosedNull() && header.Closed) m_DataSealed = true;
                 }
             }
             catch (Exception ex)
@@ -443,7 +455,6 @@ namespace BakeryOrder
             LoadTabControlItem();
             tabControl1.DrawMode = TabDrawMode.OwnerDrawFixed;
             UpdateAllFoodMenu();
-            m_Today = DateTime.Now;
         }
 
         private void FormCashier_Load(object sender, EventArgs e)
@@ -691,6 +702,11 @@ namespace BakeryOrder
         byte[] m_CashDrawer = new byte[] { 0x1B, (byte)'p', 0, 150, 100 };
         private void btnPrint_Click(object sender, EventArgs e)
         {
+            if (m_DataSealed)
+            {
+                MessageBoxShow("今日資料己封印! 無法打單");
+                return;
+            }
             if (lvItems.Items.Count == 0) return;
             if (m_CurrentOrder == null)
                 CreateOrder(out m_CurrentOrder,m_MaxOrderID);
@@ -717,7 +733,7 @@ namespace BakeryOrder
         private void btnStatics_Click(object sender, EventArgs e)
         {
             if (m_FormStatics == null)
-                m_FormStatics = new FormStatics(bakeryOrderSet,m_OrderTableAdapter,m_CashierID,m_PrinterName);
+                m_FormStatics = new FormStatics(bakeryOrderSet,m_OrderTableAdapter,m_CashierID,m_PrinterName,m_DataSealed);
             DialogResult result=m_FormStatics.ShowDialog();
             if (result == DialogResult.Abort)
             {

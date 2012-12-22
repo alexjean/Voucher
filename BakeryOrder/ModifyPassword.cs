@@ -91,6 +91,7 @@ namespace BakeryOrder
             {
                 row.BeginEdit();
                 row.CashierPassword=newPass;
+                row.LastUpdated = DateTime.Now;       // 必需更新,以便店長端來覆蓋時能判斷
                 row.EndEdit();
                 this.cashierTableAdapter.Update(row);
             }
@@ -100,7 +101,7 @@ namespace BakeryOrder
                 return;
             }
             Close();
-            MessageBoxShow("更改成功, 請記住新密碼!");
+            MessageBoxShow("更改成功, 請記住新密碼!\r\n新密碼只在本机有效,店長無法知曉!\r\n店長再次設定時,新密碼將被店長設定取代");
         }
 
         TextBox m_Current = null;

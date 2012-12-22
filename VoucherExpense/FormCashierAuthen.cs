@@ -32,6 +32,18 @@ namespace VoucherExpense
                 r.LastUpdated = DateTime.Now;
                 r.AuthenID = MyFunction.OperatorID;
                 r.EndEdit();
+                if (r.CashierPassword.Length < 5) Message("==>收銀員 " + r.CashierID.ToString() + " 密碼太短,無法登入!");
+                else
+                {
+                    foreach (char c in r.CashierPassword)
+                    {
+                        if (!char.IsDigit(c))
+                        {
+                            Message("==>收銀員 " + r.CashierID.ToString() + " 密碼含有非數字,無法登入!");
+                            break;
+                        }
+                    }
+                }
             }
             bakeryOrderSet.Cashier.Merge(table);
             this.cashierTableAdapter.Update(bakeryOrderSet.Cashier);
@@ -77,7 +89,15 @@ namespace VoucherExpense
                         else
                         {
                             cashier = cashiers.First();
-                            pos.ItemArray = cashier.ItemArray;
+                            if (cashier.IsCashierNameNull() || cashier.IsLastUpdatedNull() || pos.IsCashierNameNull() || pos.IsLastUpdatedNull())
+                                pos.ItemArray = cashier.ItemArray;
+                            else if ((cashier.CashierName == pos.CashierName) && (pos.LastUpdated > cashier.LastUpdated))   // ID Name相同,POS端還晚,表示修改過密碼
+                            {                                                                                        // 要保留LastUpdated和CashierPassword           
+                                pos.AuthenID = cashier.AuthenID;
+                                pos.InPosition = cashier.InPosition;
+                            }
+                            else
+                                pos.ItemArray = cashier.ItemArray;
                         }
                     }
                     // 加入POS裏面沒有的
@@ -131,6 +151,19 @@ namespace VoucherExpense
         {
             MyFunction.AddNewItem(cashierDataGridView, "CashierIDColumn", "CashierID", bakeryOrderSet.Cashier);
             DataGridViewRow row = cashierDataGridView.CurrentRow;
+            DataRowView rowView = row.DataBoundItem as DataRowView;
+            BakeryOrderSet.CashierRow cashier = rowView.Row as BakeryOrderSet.CashierRow;
+            cashier.InPosition = true;
+            cashier.CashierName = "Cashier"+cashier.CashierID.ToString();
+            try
+            {
+                DataGridViewCell cell = row.Cells["ColumnCashierName"];
+                cashierDataGridView.CurrentCell = cell;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("程式錯誤, 可能ColumnCashierName定義有問題:" + ex.Message);
+            }
         }
 
         private void cashierDataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)

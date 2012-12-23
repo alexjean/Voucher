@@ -78,6 +78,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BakeryOrderSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Class\BakeryConfig.cs" />
     <Compile Include="Class\ByteBuilder.cs" />
     <Compile Include="Class\DataDefine.cs">
       <SubType>Component</SubType>

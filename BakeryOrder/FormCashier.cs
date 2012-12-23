@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Drawing.Drawing2D;
+using System.Xml;
 
 namespace BakeryOrder
 {
@@ -398,13 +399,38 @@ namespace BakeryOrder
         OrderItemAdapter m_OrderItemTableAdapter = new OrderItemAdapter();
         DrawerRecordAdapter m_DrawerReocrdAdapter= new DrawerRecordAdapter();
         DateTime m_Today = DateTime.Now;
-        
+
+        BakeryConfig m_BakeryConfig = new BakeryConfig(".");
+        string BakeryConfigName = "FormCashier";
+        string BakeryTableName  = "PrintTitle";
+        string PrintTitle   = "     原麦山丘华宇店";
+        string PrintAddress = "地址:中关村南大街2号";
+        string PrintTel     = "电话:60956577";
+
+        void LoadBakeryConfig()
+        {
+            XmlNode root = m_BakeryConfig.Load(BakeryConfigName, BakeryTableName);
+            if (root == null) return;
+            XmlNode node = root.FirstChild;
+            if (node == null) return;
+            if (node.Name == "Print")
+            {
+                XmlAttribute attr;
+                attr = node.Attributes["Title"];
+                if (attr != null) PrintTitle    = attr.Value;
+                attr = node.Attributes["Addr"];
+                if (attr != null) PrintAddress  = attr.Value;
+                attr = node.Attributes["Tel"];
+                if (attr != null) PrintTel      = attr.Value;
+            }
+        }
 
 
         void ReLoadAllData()
         {
             m_Cfg.Load();
             if (m_Cfg.PrinterName != null) m_PrinterName = m_Cfg.PrinterName;
+            LoadBakeryConfig();
             m_Today = DateTime.Now;
             //            productTableAdapter1.Connection = MapPath.BasicConnection;
             try
@@ -622,9 +648,7 @@ namespace BakeryOrder
             return record.DrawerRecordID;
         }
 
-        string PrintTitle   = "     原麦山丘华宇店";
-        string PrintAddress = "地址:中关村南大街2号";
-        string PrintTel     = "电话:60956577";
+
         BakeryOrderSet.OrderRow m_CurrentOrder = null;
 
         void Print(BakeryOrderSet.OrderRow CurrentOrder)      
@@ -690,12 +714,15 @@ namespace BakeryOrder
             Buf.Append(NormalMode);
             Buf.Append("* * * * * * * * * * * * * * * *\r\n\r\n\r\n\r\n\r\n\r\n");
             Buf.Append("\f");
-            //string str = Buf.ToString();
-            //File.WriteAllBytes("Test.txt",Encoding.UTF8.GetBytes(str));
             if (!checkBoxTest.Checked)
             {
                 RawPrint.SendManagedBytes(m_PrinterName, Buf.ToBytes());
                 RawPrint.SendManagedBytes(m_PrinterName, CutPaper);
+            }
+            else
+            {
+                string str = Buf.ToString();
+                File.WriteAllBytes("Test.txt",Encoding.UTF8.GetBytes(str));
             }
        }
 

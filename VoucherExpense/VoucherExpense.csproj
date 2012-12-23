@@ -135,6 +135,7 @@
       <DependentUpon>BakeryOrderSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="AccTitleList.cs" />
+    <Compile Include="Class\BakeryConfig.cs" />
     <Compile Include="EditBakeryMenu.cs">
       <SubType>Form</SubType>
     </Compile>

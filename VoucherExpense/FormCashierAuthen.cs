@@ -55,7 +55,7 @@ namespace VoucherExpense
                 string dir = m_TextBoxPaths[i].Text.Trim();
                 if (dir.Length == 0) continue;
                 string PosID=(i+1).ToString();
-                Message("設定收銀机<" + PosID + ">位於 "+dir);
+                Message("設定收銀机<" + PosID + ">");
                 string connStr = MapPath.ConnectString(dir + "\\BakeryOrder.mdb", MapPath.BakeryPass + "Bakery");
                 BakeryOrderSet posBakerySet = new BakeryOrderSet();
                 System.Data.OleDb.OleDbConnection dbConnection = new System.Data.OleDb.OleDbConnection(connStr);
@@ -142,6 +142,7 @@ namespace VoucherExpense
             todayPicker.MaxDate = new DateTime(MyFunction.IntHeaderYear, 12, 31);
             todayPicker.Value = now;
             LoadCfg();
+            LoadBakeryConfig();
             m_TextBoxPaths.Add(textBoxPOS1);
             m_TextBoxPaths.Add(textBoxPOS2);
             m_TextBoxPaths.Add(textBoxPOS3);
@@ -569,7 +570,66 @@ namespace VoucherExpense
             Message("所有收銀机都更新完畢!");
             Message("收銀机必需重新登入更新才會生效!");
         }
+        
+        // 這個存在每個POS机, [BakeryOrder.BakeryConfig]
+        BakeryConfig BakeryConfig = new BakeryConfig(".");
+        string BakeryConfigName = "FormCashier";
+        string BakeryTableName  = "PrintTitle";
+        string PrintConfig2Xml(string configName,string tableName)
+        {
+            string title = textBoxPrintTitle.Text.TrimEnd();
+            string addr  = textBoxPrintAddress.Text.TrimEnd();
+            string tel   = textBoxPrintTelephone.Text.TrimEnd();
 
+            StringBuilder xml = new StringBuilder("<" + configName + " Name=\"" + tableName + "\">", 512);
+            xml.Append("<Print Title=\""+title+"\" Addr=\""+addr+"\" Tel=\""+tel+"\" />");
+            xml.Append("</" + configName + ">");
+            return xml.ToString();
+        }
+
+        void LoadBakeryConfig()
+        {
+            XmlNode root=BakeryConfig.Load(BakeryConfigName, BakeryTableName);
+            if (root == null) return;
+            XmlNode node = root.FirstChild;
+            if (node==null) return;
+            if (node.Name == "Print")
+            {
+                XmlAttribute attr;
+                attr = node.Attributes["Title"];
+                if (attr != null) textBoxPrintTitle.Text = attr.Value;
+                attr = node.Attributes["Addr"];
+                if (attr != null) textBoxPrintAddress.Text = attr.Value;
+                attr = node.Attributes["Tel"];
+                if (attr != null) textBoxPrintTelephone.Text = attr.Value;
+            }
+        }
+
+        private void btnSavePrintTitle_Click(object sender, EventArgs e)
+        {
+            string content=PrintConfig2Xml(BakeryConfigName,BakeryTableName);
+            if (BakeryConfig.Save(BakeryConfigName, BakeryTableName, content))
+                MessageBox.Show("本机存檔成功!");
+        }
+
+        private void btnSaveToAllPos_Click(object sender, EventArgs e)
+        {
+            int i = 0;
+            string dir;
+            string xmlContent=PrintConfig2Xml(BakeryConfigName,BakeryTableName);
+            listBoxReadme.Items.Clear();
+            foreach (TextBox box in m_TextBoxPaths)
+            {
+                dir = box.Text.Trim();
+                if (dir.Length <= 0) continue;
+                BakeryConfig bakeryConfig = new BakeryConfig(dir);
+                i++;
+                Message("更新收銀机<" + i.ToString() + "> 印表抬頭設定");
+                bakeryConfig.Save(BakeryConfigName, BakeryTableName,xmlContent);
+            }
+            Message("所有收銀机都更新完畢!");
+            Message("收銀机必需重新登入更新才會生效!");
+        }
  
     }
 }

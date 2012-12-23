@@ -70,7 +70,7 @@ namespace VoucherExpense
             {
                 XmlAttribute attr = node.Attributes["Name"];
                 if (attr == null) continue;
-                cbBoxTable.Items.Add(attr.Value);
+                cbBoxTable.Items.Add(attr.Value);     // 將表的名字填入 combox
             }
         }
 

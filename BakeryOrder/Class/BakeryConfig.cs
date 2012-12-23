@@ -1,22 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Windows.Forms;
 using System.IO;
+using System.Data.OleDb;
+using System.Data;
 
-namespace VoucherExpense
+namespace BakeryOrder
 {
-    class Config
+    class BakeryConfig
     {
-        VEDataSet vEDataset = new VEDataSet();
-        VEDataSetTableAdapters.ConfigTableAdapter adapter = new VEDataSetTableAdapters.ConfigTableAdapter();
-        public Config()
+        BakeryOrderSet bakeryOrderSet= new BakeryOrderSet();
+        BakeryOrderSetTableAdapters.BakeryConfigTableAdapter configAdapter = new BakeryOrderSetTableAdapters.BakeryConfigTableAdapter();
+        public string BakeryPass = "love";
+
+        public BakeryConfig(string MdbDir)
         {
-            adapter.Connection = MapPath.VEConnection;
+            string connStr = ConnectString(MdbDir + "\\BakeryOrder.mdb", BakeryPass + "Bakery");
+            OleDbConnection dbConnection = new OleDbConnection(connStr);
+            configAdapter.Connection = dbConnection;
             try
             {
-                adapter.Fill(vEDataset.Config);
+                configAdapter.Fill(bakeryOrderSet.BakeryConfig);
             }
             catch (Exception ex)
             {
@@ -24,17 +31,22 @@ namespace VoucherExpense
             }
         }
 
+        public string ConnectString(string path, string password)
+        {
+            return "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Persist Security Info=True;Jet OLEDB:Database Password=" + password;
+        }
+
         public List<XmlNode> LoadAll(string ConfigName)
         {
             List<XmlNode> list = new List<XmlNode>();
-            foreach (VEDataSet.ConfigRow row in vEDataset.Config)
+            foreach (BakeryOrderSet.BakeryConfigRow row in bakeryOrderSet.BakeryConfig)
             {
-                if (row.Name.Trim() == ConfigName.Trim())
+                if (row.ConfigName.Trim() == ConfigName.Trim())
                 {
                     try
                     {
                         XmlDocument xml = new XmlDocument();
-                        xml.LoadXml(row.Content);
+                        xml.LoadXml(row.XMLContent);
                         list.Add(xml.DocumentElement);
                     }
                     catch (Exception ex)
@@ -48,14 +60,15 @@ namespace VoucherExpense
 
         public XmlNode Load(string ConfigName,string Name)
         {
-            foreach (VEDataSet.ConfigRow row in vEDataset.Config)
+            foreach (BakeryOrderSet.BakeryConfigRow row in bakeryOrderSet.BakeryConfig)
             {
-                if (row.Name.Trim() == ConfigName.Trim())
+                if (row.RowState == DataRowState.Deleted) continue;
+                if (row.ConfigName.Trim() == ConfigName.Trim())
                 {
                     try
                     {
                         XmlDocument xml=new XmlDocument();
-                        xml.LoadXml(row.Content);
+                        xml.LoadXml(row.XMLContent);
                         XmlNode root = xml.DocumentElement;
                         XmlAttribute attr = root.Attributes["Name"];
                         if (attr == null)
@@ -67,7 +80,8 @@ namespace VoucherExpense
                     }
                     catch(Exception ex)
                     {
-                        MessageBox.Show(ex.Message+" in "+ConfigName);
+                        MessageBox.Show(ex.Message+" in {"+ConfigName+"}<=記錄出錯,自動移除");
+                        row.Delete();
                     }
                 }
             }
@@ -77,15 +91,16 @@ namespace VoucherExpense
         public bool Save(string configName,string tableName, string content)
         {
             if (content.Length > 32787) return false;       // 太大了,不讓存
-            foreach (VEDataSet.ConfigRow row in vEDataset.Config)
+            foreach (BakeryOrderSet.BakeryConfigRow row in bakeryOrderSet.BakeryConfig)
             {
-                if (row.Name.Trim() == configName.Trim())
+                if (row.RowState == DataRowState.Deleted) continue;
+                if (row.ConfigName.Trim() == configName.Trim())
                 {
                     string rootName="";
                     try
                     {
                         XmlDocument xml = new XmlDocument();
-                        xml.LoadXml(row.Content);
+                        xml.LoadXml(row.XMLContent);
                         XmlAttribute attr = xml.DocumentElement.Attributes["Name"];
                         if (attr == null)
                         {
@@ -105,24 +120,25 @@ namespace VoucherExpense
                         continue;
                     }
 
-                    row.Content = content;
+                    row.XMLContent = content;
                     goto Update;
                 }
             }
-            VEDataSet.ConfigRow r = vEDataset.Config.NewConfigRow();
-            r.Name = configName;
-            r.Content = content;
+            BakeryOrderSet.BakeryConfigRow r = bakeryOrderSet.BakeryConfig.NewBakeryConfigRow();
+            r.ConfigName = configName;
+            r.XMLContent = content;
             int max = 0;
-            foreach (VEDataSet.ConfigRow row in vEDataset.Config)
+            foreach (BakeryOrderSet.BakeryConfigRow row in bakeryOrderSet.BakeryConfig)
             {
+                if (row.RowState == DataRowState.Deleted) continue;
                 if (row.ID > max) max = row.ID;
             }
             r.ID = max + 1;
-            vEDataset.Config.AddConfigRow(r);
+            bakeryOrderSet.BakeryConfig.AddBakeryConfigRow(r);
         Update:
             try
             {
-                adapter.Update(vEDataset.Config);
+                configAdapter.Update(bakeryOrderSet.BakeryConfig);
                 return true;
             }
             catch { }
@@ -131,15 +147,16 @@ namespace VoucherExpense
 
         public bool Remove(string configName, string tableName)
         {
-            foreach (VEDataSet.ConfigRow row in vEDataset.Config)
+            foreach (BakeryOrderSet.BakeryConfigRow row in bakeryOrderSet.BakeryConfig)
             {
-                if (row.Name.Trim() == configName.Trim())
+                if (row.RowState == DataRowState.Deleted) continue;
+                if (row.ConfigName.Trim() == configName.Trim())
                 {
                     string rootName = "";
                     try
                     {
                         XmlDocument xml = new XmlDocument();
-                        xml.LoadXml(row.Content);
+                        xml.LoadXml(row.XMLContent);
                         XmlAttribute attr = xml.DocumentElement.Attributes["Name"];
                         if (attr == null)
                         {
@@ -160,7 +177,7 @@ namespace VoucherExpense
                     try
                     {
                         row.Delete();
-                        adapter.Update(vEDataset.Config);
+                        configAdapter.Update(bakeryOrderSet.BakeryConfig);
                         return true;
                     }
                     catch { }

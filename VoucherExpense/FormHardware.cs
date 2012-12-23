@@ -75,6 +75,16 @@ namespace VoucherExpense
         {
             BackupData.DoBackup(Config);
         }
+
+        private void textBoxPrinter_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
  
     }
 }

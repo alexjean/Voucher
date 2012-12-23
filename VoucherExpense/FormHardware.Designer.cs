@@ -127,6 +127,7 @@
             this.label2.Size = new System.Drawing.Size(88, 16);
             this.label2.TabIndex = 3;
             this.label2.Text = "小票机名稱";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // textBoxPrinter
             // 
@@ -134,6 +135,7 @@
             this.textBoxPrinter.Name = "textBoxPrinter";
             this.textBoxPrinter.Size = new System.Drawing.Size(277, 27);
             this.textBoxPrinter.TabIndex = 6;
+            this.textBoxPrinter.TextChanged += new System.EventHandler(this.textBoxPrinter_TextChanged);
             // 
             // btnFindPrinter
             // 

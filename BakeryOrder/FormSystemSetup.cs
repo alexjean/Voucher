@@ -127,6 +127,22 @@ namespace BakeryOrder
             Print();
         }
 
+        HardwareConfig Config = new HardwareConfig();
+        private void btnSetupPrinter_Click(object sender, EventArgs e)
+        {
+            if (printDialog1.ShowDialog() == DialogResult.OK)
+            {
+                Config.PrinterName=textBoxPrinter.Text = printDialog1.PrinterSettings.PrinterName;
+                Config.Save();
+            }
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+            Config.Load();
+            textBoxPrinter.Text=Config.PrinterName ;
+        }
+
 
     }
 }

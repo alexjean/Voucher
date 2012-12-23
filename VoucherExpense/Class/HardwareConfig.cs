@@ -152,6 +152,7 @@ namespace VoucherExpense
                 node = xml.CreateElement(Name);
                 root.AppendChild(node);
             }
+            if (Value == null) return;
             XmlAttribute att = xml.CreateAttribute(Attrib);
 
             byte[] bufs=Encoder.RC2Encrypt(Encoding.Unicode.GetBytes(Value),Key);

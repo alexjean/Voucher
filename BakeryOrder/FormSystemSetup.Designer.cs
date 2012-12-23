@@ -34,6 +34,10 @@
             this.btnInvoicesMatch = new System.Windows.Forms.Button();
             this.btnLogout = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnSetupPrinter = new System.Windows.Forms.Button();
+            this.textBoxPrinter = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -69,7 +73,7 @@
             // 
             // btnInvoicesMatch
             // 
-            this.btnInvoicesMatch.Location = new System.Drawing.Point(461, 356);
+            this.btnInvoicesMatch.Location = new System.Drawing.Point(438, 356);
             this.btnInvoicesMatch.Name = "btnInvoicesMatch";
             this.btnInvoicesMatch.Size = new System.Drawing.Size(88, 56);
             this.btnInvoicesMatch.TabIndex = 13;
@@ -90,6 +94,9 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.Controls.Add(this.textBoxPrinter);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.btnSetupPrinter);
             this.panel1.Controls.Add(this.btnChangePassword);
             this.panel1.Controls.Add(this.btnLogout);
             this.panel1.Controls.Add(this.btnExitProgram);
@@ -99,6 +106,39 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(677, 425);
             this.panel1.TabIndex = 15;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // btnSetupPrinter
+            // 
+            this.btnSetupPrinter.Location = new System.Drawing.Point(438, 258);
+            this.btnSetupPrinter.Name = "btnSetupPrinter";
+            this.btnSetupPrinter.Size = new System.Drawing.Size(88, 56);
+            this.btnSetupPrinter.TabIndex = 15;
+            this.btnSetupPrinter.Text = "設小票机";
+            this.btnSetupPrinter.UseVisualStyleBackColor = true;
+            this.btnSetupPrinter.Click += new System.EventHandler(this.btnSetupPrinter_Click);
+            // 
+            // textBoxPrinter
+            // 
+            this.textBoxPrinter.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.textBoxPrinter.Location = new System.Drawing.Point(438, 200);
+            this.textBoxPrinter.Name = "textBoxPrinter";
+            this.textBoxPrinter.ReadOnly = true;
+            this.textBoxPrinter.Size = new System.Drawing.Size(226, 27);
+            this.textBoxPrinter.TabIndex = 18;
+            // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label2.Location = new System.Drawing.Point(507, 179);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(88, 30);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "小票机名稱";
+            // 
+            // printDialog1
+            // 
+            this.printDialog1.UseEXDialog = true;
             // 
             // FormSystemSetup
             // 
@@ -116,6 +156,7 @@
             this.Text = "系統設定";
             this.Load += new System.EventHandler(this.FormSystemSetup_Load);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -128,5 +169,9 @@
         private System.Windows.Forms.Button btnInvoicesMatch;
         private System.Windows.Forms.Button btnLogout;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btnSetupPrinter;
+        private System.Windows.Forms.TextBox textBoxPrinter;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.PrintDialog printDialog1;
     }
 }

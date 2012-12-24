@@ -383,14 +383,16 @@ namespace BakeryOrder
         {
             InitializeComponent();
         }
+ 
+
 
         FormCustomer m_FormCustomer =null;
         FormStatics  m_FormStatics  = null;
         const string m_ProductDir   = "Photos\\Products";
         const string m_SmallDir     = m_ProductDir + "\\Small";
-        string       m_PrinterName  = "BTP-R580(U)";
         int          m_PosID        = 0;    // FormCashier的m_PosID己經不使用,由店長收取資料時填取
         int          m_CashierID    = -1;
+        PrintInfo    m_Printer      =new PrintInfo();
         bool m_DataSealed = false;
         int m_MaxOrderID = 0;
         int m_MaxDrawerRecordID = 0;
@@ -403,9 +405,6 @@ namespace BakeryOrder
         BakeryConfig m_BakeryConfig = new BakeryConfig(".");
         string BakeryConfigName = "FormCashier";
         string BakeryTableName  = "PrintTitle";
-        string PrintTitle   = "     原麦山丘华宇店";
-        string PrintAddress = "地址:中关村南大街2号";
-        string PrintTel     = "电话:60956577";
 
         void LoadBakeryConfig()
         {
@@ -417,11 +416,13 @@ namespace BakeryOrder
             {
                 XmlAttribute attr;
                 attr = node.Attributes["Title"];
-                if (attr != null) PrintTitle    = attr.Value;
+                if (attr != null) m_Printer.Title    = attr.Value;
                 attr = node.Attributes["Addr"];
-                if (attr != null) PrintAddress  = attr.Value;
+                if (attr != null) m_Printer.Address  = attr.Value;
                 attr = node.Attributes["Tel"];
-                if (attr != null) PrintTel      = attr.Value;
+                if (attr != null) m_Printer.Tel      = attr.Value;
+                attr = node.Attributes["PosNo"];
+                if (attr != null && attr.Value!=null) int.TryParse(attr.Value,out m_PosID);
             }
         }
 
@@ -429,7 +430,7 @@ namespace BakeryOrder
         void ReLoadAllData()
         {
             m_Cfg.Load();
-            if (m_Cfg.PrinterName != null) m_PrinterName = m_Cfg.PrinterName;
+            if (m_Cfg.PrinterName != null) m_Printer.PrinterName = m_Cfg.PrinterName;
             LoadBakeryConfig();
             m_Today = DateTime.Now;
             //            productTableAdapter1.Connection = MapPath.BasicConnection;
@@ -666,16 +667,16 @@ namespace BakeryOrder
             if (!SaveOrder(CurrentOrder)) return;
 
             Buf.Append(BorderMode);                                      // 設定列印模式28
-            Buf.Append(PrintTitle+"\r\n");
+            Buf.Append(m_Printer.Title+"\r\n");
             Buf.Append(NormalMode);                                      // 設定列印模式正常 
 
             Buf.Append("\r\n");
-            Buf.Append(PrintAddress+"\r\n");
-            Buf.AppendPadRight(PrintTel, 19);
+            Buf.Append(m_Printer.Address+"\r\n");
+            Buf.AppendPadRight(m_Printer.Tel, 19);
             n = (CurrentOrder.ID % 1000);
-            Buf.Append("序号:" + n.ToString("d4") + "\r\n");
+            Buf.Append("序号:"+m_PosID.ToString()+"-" + n.ToString("d4") + "\r\n");
             Buf.AppendPadRight("时间:" + CurrentOrder.PrintTime.ToString("yy/MM/dd HH:mm"), 19);
-            Buf.Append("工号: "+m_CashierID.ToString("d03") +  "\r\n\r\n");
+            Buf.Append("收银:   "+m_CashierID.ToString("d03") +  "\r\n\r\n");
 
             Buf.Append(BorderMode);                                      // 設定列印模式28
             Buf.Append("  品名        数量 单价   金额\r\n");
@@ -716,8 +717,8 @@ namespace BakeryOrder
             Buf.Append("\f");
             if (!checkBoxTest.Checked)
             {
-                RawPrint.SendManagedBytes(m_PrinterName, Buf.ToBytes());
-                RawPrint.SendManagedBytes(m_PrinterName, CutPaper);
+                RawPrint.SendManagedBytes(m_Printer.PrinterName, Buf.ToBytes());
+                RawPrint.SendManagedBytes(m_Printer.PrinterName, CutPaper);
             }
             else
             {
@@ -746,21 +747,21 @@ namespace BakeryOrder
             m_CurrentOrder.PayBy = PayByFromBtn().ToString();
             Print(m_CurrentOrder);
             if (!this.checkBoxTest.Checked)
-                RawPrint.SendManagedBytes(m_PrinterName, m_CashDrawer);
+                RawPrint.SendManagedBytes(m_Printer.PrinterName, m_CashDrawer);
             CreateUpdateDrawerRecord(ref m_MaxDrawerRecordID, m_CurrentOrder.ID % 10000);
         }
 
         private void btnCashDrawer_Click(object sender, EventArgs e)
         {
             if (!this.checkBoxTest.Checked)
-                RawPrint.SendManagedBytes(m_PrinterName,m_CashDrawer);
+                RawPrint.SendManagedBytes(m_Printer.PrinterName,m_CashDrawer);
             CreateUpdateDrawerRecord(ref m_MaxDrawerRecordID, -1);  // 沒有相應的訂單
         }
 
         private void btnStatics_Click(object sender, EventArgs e)
         {
             if (m_FormStatics == null)
-                m_FormStatics = new FormStatics(bakeryOrderSet,m_OrderTableAdapter,m_CashierID,m_PrinterName,m_DataSealed);
+                m_FormStatics = new FormStatics(bakeryOrderSet,m_OrderTableAdapter,m_CashierID,m_Printer,m_DataSealed,m_PosID);
             DialogResult result=m_FormStatics.ShowDialog();
             if (result == DialogResult.Abort)
             {

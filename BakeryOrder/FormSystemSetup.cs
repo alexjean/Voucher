@@ -14,12 +14,14 @@ namespace BakeryOrder
     {
         BakeryOrderSet m_BakeryOrderSet;
         int m_CashierID;
-        string m_PrinterName;
-        public FormSystemSetup(BakeryOrderSet bakeryOrderSet,int id,string printerName)
+        PrintInfo m_Printer;
+        int m_PosID = 0;
+        public FormSystemSetup(BakeryOrderSet bakeryOrderSet,int id,PrintInfo printer,int posID)
         {
             m_CashierID = id;
             m_BakeryOrderSet = bakeryOrderSet;
-            m_PrinterName = printerName;
+            m_Printer   = printer;
+            m_PosID     = posID;
             InitializeComponent();
         }
 
@@ -32,6 +34,9 @@ namespace BakeryOrder
         private void FormSystemSetup_Load(object sender, EventArgs e)
         {
             this.TopMost = true;
+            Config.Load();
+            textBoxPrinter.Text = Config.PrinterName;
+            ShowInfomation();
         }
 
         private void btnChangePassword_Click(object sender, EventArgs e)
@@ -81,7 +86,7 @@ namespace BakeryOrder
             //            Buf.Append(BorderMode);                                      // 設定列印模式28
             Buf.Append(NormalMode);                                      // 設定列印模式正常 
 
-            Buf.Append("对帐明细\r\n");
+            Buf.Append(m_Printer.Title+"对帐明细\r\n");
             Buf.AppendPadRight("时间:" + DateTime.Now.ToString("yy/MM/dd HH:mm"), 19);
             string cashierIDName = m_CashierID.ToString("d03") + "  " + CashierName(m_CashierID);
             Buf.Append("\r\n收银: " + cashierIDName + "\r\n");
@@ -117,8 +122,8 @@ namespace BakeryOrder
             Buf.Append("\f");
 //            string str = Buf.ToString();
 //            File.WriteAllBytes("Test.txt", Encoding.UTF8.GetBytes(str));
-            RawPrint.SendManagedBytes(m_PrinterName, Buf.ToBytes());
-            RawPrint.SendManagedBytes(m_PrinterName, CutPaper);
+            RawPrint.SendManagedBytes(m_Printer.PrinterName, Buf.ToBytes());
+            RawPrint.SendManagedBytes(m_Printer.PrinterName, CutPaper);
         }
 
         private void btnInvoicesMatch_Click(object sender, EventArgs e)
@@ -137,12 +142,20 @@ namespace BakeryOrder
             }
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        private void ShowInfomation()
         {
-            Config.Load();
-            textBoxPrinter.Text=Config.PrinterName ;
+            listBoxInfo.Items.Add(m_Printer.Title);
+            listBoxInfo.Items.Add(m_Printer.Address);
+            listBoxInfo.Items.Add(m_Printer.Tel);
+            listBoxInfo.Items.Add("");
+            listBoxInfo.Items.Add("");
+            listBoxInfo.Items.Add(CashierName(m_CashierID) + "你好!, 你的登入号是 " + m_CashierID.ToString() + " 号");
+            DateTime now=DateTime.Now;
+            listBoxInfo.Items.Add("今天是"+now.ToString("MM月dd日")+" "+now.DayOfWeek.ToString());
+            if (m_PosID <= 0 || m_PosID>9)
+                listBoxInfo.Items.Add("店長尚未指定本机机号");
+            else 
+                listBoxInfo.Items.Add("本机店長指定為 <收銀机" + m_PosID + ">");
         }
-
-
     }
 }

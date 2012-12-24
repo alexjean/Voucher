@@ -10,6 +10,14 @@ using System.Data;
 
 namespace BakeryOrder
 {
+    public class PrintInfo
+    {
+        public string PrinterName;
+        public string Title;
+        public string Address;
+        public string Tel;
+    }
+
     class BakeryConfig
     {
         BakeryOrderSet bakeryOrderSet= new BakeryOrderSet();

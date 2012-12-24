@@ -34,10 +34,11 @@
             this.btnInvoicesMatch = new System.Windows.Forms.Button();
             this.btnLogout = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnSetupPrinter = new System.Windows.Forms.Button();
             this.textBoxPrinter = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnSetupPrinter = new System.Windows.Forms.Button();
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
+            this.listBoxInfo = new System.Windows.Forms.ListBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -94,6 +95,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.Controls.Add(this.listBoxInfo);
             this.panel1.Controls.Add(this.textBoxPrinter);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.btnSetupPrinter);
@@ -106,17 +108,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(677, 425);
             this.panel1.TabIndex = 15;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
-            // 
-            // btnSetupPrinter
-            // 
-            this.btnSetupPrinter.Location = new System.Drawing.Point(438, 258);
-            this.btnSetupPrinter.Name = "btnSetupPrinter";
-            this.btnSetupPrinter.Size = new System.Drawing.Size(88, 56);
-            this.btnSetupPrinter.TabIndex = 15;
-            this.btnSetupPrinter.Text = "設小票机";
-            this.btnSetupPrinter.UseVisualStyleBackColor = true;
-            this.btnSetupPrinter.Click += new System.EventHandler(this.btnSetupPrinter_Click);
             // 
             // textBoxPrinter
             // 
@@ -136,9 +127,29 @@
             this.label2.TabIndex = 16;
             this.label2.Text = "小票机名稱";
             // 
+            // btnSetupPrinter
+            // 
+            this.btnSetupPrinter.Location = new System.Drawing.Point(438, 258);
+            this.btnSetupPrinter.Name = "btnSetupPrinter";
+            this.btnSetupPrinter.Size = new System.Drawing.Size(88, 56);
+            this.btnSetupPrinter.TabIndex = 15;
+            this.btnSetupPrinter.Text = "設小票机";
+            this.btnSetupPrinter.UseVisualStyleBackColor = true;
+            this.btnSetupPrinter.Click += new System.EventHandler(this.btnSetupPrinter_Click);
+            // 
             // printDialog1
             // 
             this.printDialog1.UseEXDialog = true;
+            // 
+            // listBoxInfo
+            // 
+            this.listBoxInfo.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.listBoxInfo.FormattingEnabled = true;
+            this.listBoxInfo.ItemHeight = 16;
+            this.listBoxInfo.Location = new System.Drawing.Point(18, 22);
+            this.listBoxInfo.Name = "listBoxInfo";
+            this.listBoxInfo.Size = new System.Drawing.Size(289, 212);
+            this.listBoxInfo.TabIndex = 19;
             // 
             // FormSystemSetup
             // 
@@ -173,5 +184,6 @@
         private System.Windows.Forms.TextBox textBoxPrinter;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PrintDialog printDialog1;
+        private System.Windows.Forms.ListBox listBoxInfo;
     }
 }

@@ -24,15 +24,17 @@ namespace BakeryOrder
         BakeryOrderSet m_BakeryOrderSet;
         BakeryOrderSetTableAdapters.OrderTableAdapter m_OrderTableAdapter;
         int m_CashierID = 0;
-        string m_PrinterName;
+        int m_PosID = 0;
+        PrintInfo m_Printer;
         bool m_DataSealed = false;
-        public FormStatics(BakeryOrderSet bakeryOrderSet,BakeryOrderSetTableAdapters.OrderTableAdapter adapter,int cashierID,string printerName,bool dataSealed)
+        public FormStatics(BakeryOrderSet bakeryOrderSet,BakeryOrderSetTableAdapters.OrderTableAdapter adapter,int cashierID,PrintInfo printer,bool dataSealed,int posID)
         {
             m_BakeryOrderSet    = bakeryOrderSet;
             m_OrderTableAdapter = adapter;
             m_CashierID         = cashierID;
-            m_PrinterName       = printerName;
+            m_Printer           = printer;
             m_DataSealed        = dataSealed;
+            m_PosID             = posID;
             InitializeComponent();
         }
 
@@ -469,7 +471,7 @@ namespace BakeryOrder
 
         private void btnSystemSetup_Click(object sender, EventArgs e)
         {
-            Form form = new FormSystemSetup(m_BakeryOrderSet, m_CashierID,m_PrinterName);
+            Form form = new FormSystemSetup(m_BakeryOrderSet, m_CashierID,m_Printer,m_PosID);
             DialogResult result=form.ShowDialog();
             if ((result == DialogResult.Abort) || (result==DialogResult.Cancel))
             {

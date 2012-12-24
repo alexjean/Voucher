@@ -575,14 +575,17 @@ namespace VoucherExpense
         BakeryConfig BakeryConfig = new BakeryConfig(".");
         string BakeryConfigName = "FormCashier";
         string BakeryTableName  = "PrintTitle";
-        string PrintConfig2Xml(string configName,string tableName)
+        string PrintConfig2Xml(string configName,string tableName,int posNo=0)
         {
             string title = textBoxPrintTitle.Text.TrimEnd();
             string addr  = textBoxPrintAddress.Text.TrimEnd();
             string tel   = textBoxPrintTelephone.Text.TrimEnd();
 
             StringBuilder xml = new StringBuilder("<" + configName + " Name=\"" + tableName + "\">", 512);
-            xml.Append("<Print Title=\""+title+"\" Addr=\""+addr+"\" Tel=\""+tel+"\" />");
+            xml.Append("<Print Title=\""+title+"\" Addr=\""+addr+"\" Tel=\""+tel+"\"");
+            if (posNo > 0 && posNo<=9)
+                xml.Append(" PosNo=\""+posNo.ToString()+"\"");
+            xml.Append(" />");
             xml.Append("</" + configName + ">");
             return xml.ToString();
         }
@@ -612,11 +615,12 @@ namespace VoucherExpense
                 MessageBox.Show("本机存檔成功!");
         }
 
+        // 各POS存的和店長處不同,多了PosNo
         private void btnSaveToAllPos_Click(object sender, EventArgs e)
         {
             int i = 0;
             string dir;
-            string xmlContent=PrintConfig2Xml(BakeryConfigName,BakeryTableName);
+            string xmlContent;
             listBoxReadme.Items.Clear();
             foreach (TextBox box in m_TextBoxPaths)
             {
@@ -625,6 +629,7 @@ namespace VoucherExpense
                 BakeryConfig bakeryConfig = new BakeryConfig(dir);
                 i++;
                 Message("更新收銀机<" + i.ToString() + "> 印表抬頭設定");
+                xmlContent=PrintConfig2Xml(BakeryConfigName,BakeryTableName,i);
                 bakeryConfig.Save(BakeryConfigName, BakeryTableName,xmlContent);
             }
             Message("所有收銀机都更新完畢!");

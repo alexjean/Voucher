@@ -59,7 +59,8 @@ namespace BakeryOrder
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message + " in " + ConfigName);
+                        MessageBox.Show(ex.Message + " in {" + ConfigName + "}<=\r\n記錄出錯,己自動移除,請存檔");
+                        row.Delete();
                     }
                 }
             }
@@ -88,7 +89,7 @@ namespace BakeryOrder
                     }
                     catch(Exception ex)
                     {
-                        MessageBox.Show(ex.Message+" in {"+ConfigName+"}<=記錄出錯,自動移除");
+                        MessageBox.Show(ex.Message + " in {" + ConfigName + "}<=\r\n記錄出錯,己自動移除,請存檔");
                         row.Delete();
                     }
                 }

@@ -27,19 +27,10 @@ namespace VoucherExpense
             m_Date = t;
         }
 
-/*
-        public BasicDataSet.HeaderRow Basic_HeaderRow(BasicDataSet.HeaderDataTable header)
+        public string ChineseDateString()
         {
-            foreach (BasicDataSet.HeaderRow row in header)
-            {
-                if (row.DataDate.Day != m_Date.Day) continue;
-                if (row.DataDate.Month != m_Date.Month) continue;
-                if (row.DataDate.Year != m_Date.Year) continue;
-                return row;
-            }
-            return null;
+            return Year.ToString("d2") + "年" + Month.ToString("d2") + "月" + Day.ToString("d2") + "日";
         }
- */
 
         public override string ToString()
         {
@@ -183,7 +174,7 @@ namespace VoucherExpense
 
     class RevenueCalcBakery
     {
-        WorkingDay m_WorkingDay;
+        public WorkingDay m_WorkingDay;
         decimal FeeRate = 0;
         public RevenueCalcBakery(DateTime d, decimal feeRate)
         {

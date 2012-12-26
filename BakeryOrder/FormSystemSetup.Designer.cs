@@ -34,11 +34,11 @@
             this.btnInvoicesMatch = new System.Windows.Forms.Button();
             this.btnLogout = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.listBoxInfo = new System.Windows.Forms.ListBox();
             this.textBoxPrinter = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnSetupPrinter = new System.Windows.Forms.Button();
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
-            this.listBoxInfo = new System.Windows.Forms.ListBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -109,6 +109,16 @@
             this.panel1.Size = new System.Drawing.Size(677, 425);
             this.panel1.TabIndex = 15;
             // 
+            // listBoxInfo
+            // 
+            this.listBoxInfo.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.listBoxInfo.FormattingEnabled = true;
+            this.listBoxInfo.ItemHeight = 16;
+            this.listBoxInfo.Location = new System.Drawing.Point(18, 22);
+            this.listBoxInfo.Name = "listBoxInfo";
+            this.listBoxInfo.Size = new System.Drawing.Size(289, 212);
+            this.listBoxInfo.TabIndex = 19;
+            // 
             // textBoxPrinter
             // 
             this.textBoxPrinter.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -140,16 +150,6 @@
             // printDialog1
             // 
             this.printDialog1.UseEXDialog = true;
-            // 
-            // listBoxInfo
-            // 
-            this.listBoxInfo.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.listBoxInfo.FormattingEnabled = true;
-            this.listBoxInfo.ItemHeight = 16;
-            this.listBoxInfo.Location = new System.Drawing.Point(18, 22);
-            this.listBoxInfo.Name = "listBoxInfo";
-            this.listBoxInfo.Size = new System.Drawing.Size(289, 212);
-            this.listBoxInfo.TabIndex = 19;
             // 
             // FormSystemSetup
             // 

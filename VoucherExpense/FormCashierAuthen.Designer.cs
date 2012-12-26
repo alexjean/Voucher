@@ -84,14 +84,17 @@
             this.btnUpdateProduct = new System.Windows.Forms.Button();
             this.productTableAdapter = new VoucherExpense.BakeryOrderSetTableAdapters.ProductTableAdapter();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPageDaily = new System.Windows.Forms.TabPage();
+            this.btnDailyReport = new System.Windows.Forms.Button();
+            this.tabPagePosDir = new System.Windows.Forms.TabPage();
             this.tabPagePrinter = new System.Windows.Forms.TabPage();
+            this.label8 = new System.Windows.Forms.Label();
             this.btnSaveToAllPos = new System.Windows.Forms.Button();
             this.btnSavePrintTitle = new System.Windows.Forms.Button();
             this.textBoxPrintTelephone = new System.Windows.Forms.TextBox();
             this.textBoxPrintAddress = new System.Windows.Forms.TextBox();
             this.textBoxPrintTitle = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
+            this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             label1 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
             label3 = new System.Windows.Forms.Label();
@@ -108,14 +111,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tabPageDaily.SuspendLayout();
+            this.tabPagePosDir.SuspendLayout();
             this.tabPagePrinter.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(164, 24);
+            label1.Location = new System.Drawing.Point(161, 38);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(68, 16);
             label1.TabIndex = 7;
@@ -124,7 +128,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(164, 86);
+            label2.Location = new System.Drawing.Point(161, 100);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(68, 16);
             label2.TabIndex = 8;
@@ -133,7 +137,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(164, 145);
+            label3.Location = new System.Drawing.Point(161, 159);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(68, 16);
             label3.TabIndex = 9;
@@ -141,7 +145,7 @@
             // 
             // labelTime
             // 
-            labelTime.Location = new System.Drawing.Point(662, 594);
+            labelTime.Location = new System.Drawing.Point(193, 28);
             labelTime.Name = "labelTime";
             labelTime.Size = new System.Drawing.Size(56, 30);
             labelTime.TabIndex = 15;
@@ -151,7 +155,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new System.Drawing.Point(164, 206);
+            label4.Location = new System.Drawing.Point(161, 220);
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(72, 16);
             label4.TabIndex = 15;
@@ -319,6 +323,7 @@
             // 
             this.cashierDataGridView.AllowUserToAddRows = false;
             this.cashierDataGridView.AllowUserToDeleteRows = false;
+            this.cashierDataGridView.AllowUserToResizeRows = false;
             this.cashierDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.cashierDataGridView.AutoGenerateColumns = false;
@@ -434,6 +439,7 @@
             this.listBoxReadme.FormattingEnabled = true;
             this.listBoxReadme.ItemHeight = 16;
             this.listBoxReadme.Items.AddRange(new object[] {
+            "",
             " \t新收銀員應使用新編號",
             "",
             " \t不可重複使用同一編号",
@@ -451,28 +457,28 @@
             "\t當日多次收取資料間,不可變動收銀机台号定義",
             "",
             " \t年度開帳全部授權消除,需重新授權"});
-            this.listBoxReadme.Location = new System.Drawing.Point(494, 0);
+            this.listBoxReadme.Location = new System.Drawing.Point(494, 31);
             this.listBoxReadme.Name = "listBoxReadme";
-            this.listBoxReadme.Size = new System.Drawing.Size(447, 292);
+            this.listBoxReadme.Size = new System.Drawing.Size(447, 324);
             this.listBoxReadme.TabIndex = 3;
             // 
             // textBoxPOS1
             // 
-            this.textBoxPOS1.Location = new System.Drawing.Point(5, 48);
+            this.textBoxPOS1.Location = new System.Drawing.Point(2, 62);
             this.textBoxPOS1.Name = "textBoxPOS1";
             this.textBoxPOS1.Size = new System.Drawing.Size(431, 27);
             this.textBoxPOS1.TabIndex = 4;
             // 
             // textBoxPOS2
             // 
-            this.textBoxPOS2.Location = new System.Drawing.Point(5, 107);
+            this.textBoxPOS2.Location = new System.Drawing.Point(2, 121);
             this.textBoxPOS2.Name = "textBoxPOS2";
             this.textBoxPOS2.Size = new System.Drawing.Size(431, 27);
             this.textBoxPOS2.TabIndex = 5;
             // 
             // textBoxPOS3
             // 
-            this.textBoxPOS3.Location = new System.Drawing.Point(5, 166);
+            this.textBoxPOS3.Location = new System.Drawing.Point(2, 180);
             this.textBoxPOS3.Name = "textBoxPOS3";
             this.textBoxPOS3.Size = new System.Drawing.Size(431, 27);
             this.textBoxPOS3.TabIndex = 6;
@@ -480,7 +486,7 @@
             // btnBrowse1
             // 
             this.btnBrowse1.AutoSize = true;
-            this.btnBrowse1.Location = new System.Drawing.Point(262, 19);
+            this.btnBrowse1.Location = new System.Drawing.Point(259, 33);
             this.btnBrowse1.Name = "btnBrowse1";
             this.btnBrowse1.Size = new System.Drawing.Size(75, 26);
             this.btnBrowse1.TabIndex = 10;
@@ -491,7 +497,7 @@
             // btnBrowse2
             // 
             this.btnBrowse2.AutoSize = true;
-            this.btnBrowse2.Location = new System.Drawing.Point(262, 81);
+            this.btnBrowse2.Location = new System.Drawing.Point(259, 95);
             this.btnBrowse2.Name = "btnBrowse2";
             this.btnBrowse2.Size = new System.Drawing.Size(75, 26);
             this.btnBrowse2.TabIndex = 11;
@@ -502,7 +508,7 @@
             // btnBrowse3
             // 
             this.btnBrowse3.AutoSize = true;
-            this.btnBrowse3.Location = new System.Drawing.Point(262, 140);
+            this.btnBrowse3.Location = new System.Drawing.Point(259, 154);
             this.btnBrowse3.Name = "btnBrowse3";
             this.btnBrowse3.Size = new System.Drawing.Size(75, 26);
             this.btnBrowse3.TabIndex = 12;
@@ -513,7 +519,7 @@
             // btnConfigSave
             // 
             this.btnConfigSave.AutoSize = true;
-            this.btnConfigSave.Location = new System.Drawing.Point(17, 3);
+            this.btnConfigSave.Location = new System.Drawing.Point(89, 6);
             this.btnConfigSave.Name = "btnConfigSave";
             this.btnConfigSave.Size = new System.Drawing.Size(82, 26);
             this.btnConfigSave.TabIndex = 13;
@@ -523,7 +529,7 @@
             // 
             // btnGetDataFromPOS
             // 
-            this.btnGetDataFromPOS.Location = new System.Drawing.Point(494, 589);
+            this.btnGetDataFromPOS.Location = new System.Drawing.Point(25, 24);
             this.btnGetDataFromPOS.Name = "btnGetDataFromPOS";
             this.btnGetDataFromPOS.Size = new System.Drawing.Size(162, 40);
             this.btnGetDataFromPOS.TabIndex = 14;
@@ -533,7 +539,7 @@
             // 
             // btnClosedBackup
             // 
-            this.btnClosedBackup.Location = new System.Drawing.Point(494, 632);
+            this.btnClosedBackup.Location = new System.Drawing.Point(25, 142);
             this.btnClosedBackup.Name = "btnClosedBackup";
             this.btnClosedBackup.Size = new System.Drawing.Size(162, 40);
             this.btnClosedBackup.TabIndex = 16;
@@ -547,7 +553,7 @@
             // 
             // todayPicker
             // 
-            this.todayPicker.Location = new System.Drawing.Point(724, 596);
+            this.todayPicker.Location = new System.Drawing.Point(255, 30);
             this.todayPicker.Name = "todayPicker";
             this.todayPicker.Size = new System.Drawing.Size(146, 27);
             this.todayPicker.TabIndex = 17;
@@ -555,7 +561,7 @@
             // btnBackupDir
             // 
             this.btnBackupDir.AutoSize = true;
-            this.btnBackupDir.Location = new System.Drawing.Point(262, 199);
+            this.btnBackupDir.Location = new System.Drawing.Point(259, 213);
             this.btnBackupDir.Name = "btnBackupDir";
             this.btnBackupDir.Size = new System.Drawing.Size(75, 26);
             this.btnBackupDir.TabIndex = 16;
@@ -565,16 +571,16 @@
             // 
             // textBoxBackupDir
             // 
-            this.textBoxBackupDir.Location = new System.Drawing.Point(5, 225);
+            this.textBoxBackupDir.Location = new System.Drawing.Point(2, 239);
             this.textBoxBackupDir.Name = "textBoxBackupDir";
             this.textBoxBackupDir.Size = new System.Drawing.Size(431, 27);
             this.textBoxBackupDir.TabIndex = 14;
             // 
             // btnUpdateProduct
             // 
-            this.btnUpdateProduct.Location = new System.Drawing.Point(724, 632);
+            this.btnUpdateProduct.Location = new System.Drawing.Point(255, 84);
             this.btnUpdateProduct.Name = "btnUpdateProduct";
-            this.btnUpdateProduct.Size = new System.Drawing.Size(150, 40);
+            this.btnUpdateProduct.Size = new System.Drawing.Size(146, 40);
             this.btnUpdateProduct.TabIndex = 19;
             this.btnUpdateProduct.Text = "更新收銀机產品表";
             this.btnUpdateProduct.UseVisualStyleBackColor = true;
@@ -586,40 +592,70 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPageDaily);
+            this.tabControl1.Controls.Add(this.tabPagePosDir);
             this.tabControl1.Controls.Add(this.tabPagePrinter);
-            this.tabControl1.Location = new System.Drawing.Point(494, 300);
+            this.tabControl1.Location = new System.Drawing.Point(494, 361);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(447, 283);
+            this.tabControl1.Size = new System.Drawing.Size(447, 311);
             this.tabControl1.TabIndex = 21;
             // 
-            // tabPage1
+            // tabPageDaily
             // 
-            this.tabPage1.BackColor = System.Drawing.Color.Azure;
-            this.tabPage1.Controls.Add(this.textBoxBackupDir);
-            this.tabPage1.Controls.Add(this.btnBackupDir);
-            this.tabPage1.Controls.Add(this.btnConfigSave);
-            this.tabPage1.Controls.Add(this.textBoxPOS1);
-            this.tabPage1.Controls.Add(label4);
-            this.tabPage1.Controls.Add(this.btnBrowse2);
-            this.tabPage1.Controls.Add(label3);
-            this.tabPage1.Controls.Add(this.btnBrowse1);
-            this.tabPage1.Controls.Add(this.btnBrowse3);
-            this.tabPage1.Controls.Add(label2);
-            this.tabPage1.Controls.Add(this.textBoxPOS2);
-            this.tabPage1.Controls.Add(label1);
-            this.tabPage1.Controls.Add(this.textBoxPOS3);
-            this.tabPage1.Location = new System.Drawing.Point(4, 26);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(439, 253);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "收銀机網路位置";
+            this.tabPageDaily.BackColor = System.Drawing.Color.Azure;
+            this.tabPageDaily.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.tabPageDaily.Controls.Add(this.btnDailyReport);
+            this.tabPageDaily.Controls.Add(this.btnGetDataFromPOS);
+            this.tabPageDaily.Controls.Add(this.btnUpdateProduct);
+            this.tabPageDaily.Controls.Add(this.todayPicker);
+            this.tabPageDaily.Controls.Add(this.btnClosedBackup);
+            this.tabPageDaily.Controls.Add(labelTime);
+            this.tabPageDaily.Location = new System.Drawing.Point(4, 26);
+            this.tabPageDaily.Name = "tabPageDaily";
+            this.tabPageDaily.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageDaily.Size = new System.Drawing.Size(439, 281);
+            this.tabPageDaily.TabIndex = 2;
+            this.tabPageDaily.Text = "日常操作";
+            // 
+            // btnDailyReport
+            // 
+            this.btnDailyReport.Location = new System.Drawing.Point(25, 84);
+            this.btnDailyReport.Name = "btnDailyReport";
+            this.btnDailyReport.Size = new System.Drawing.Size(162, 40);
+            this.btnDailyReport.TabIndex = 20;
+            this.btnDailyReport.Text = "營收日報";
+            this.btnDailyReport.UseVisualStyleBackColor = true;
+            this.btnDailyReport.Click += new System.EventHandler(this.btnDailyReport_Click);
+            // 
+            // tabPagePosDir
+            // 
+            this.tabPagePosDir.BackColor = System.Drawing.Color.Azure;
+            this.tabPagePosDir.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.tabPagePosDir.Controls.Add(this.textBoxBackupDir);
+            this.tabPagePosDir.Controls.Add(this.btnBackupDir);
+            this.tabPagePosDir.Controls.Add(this.btnConfigSave);
+            this.tabPagePosDir.Controls.Add(this.textBoxPOS1);
+            this.tabPagePosDir.Controls.Add(label4);
+            this.tabPagePosDir.Controls.Add(this.btnBrowse2);
+            this.tabPagePosDir.Controls.Add(label3);
+            this.tabPagePosDir.Controls.Add(this.btnBrowse1);
+            this.tabPagePosDir.Controls.Add(this.btnBrowse3);
+            this.tabPagePosDir.Controls.Add(label2);
+            this.tabPagePosDir.Controls.Add(this.textBoxPOS2);
+            this.tabPagePosDir.Controls.Add(label1);
+            this.tabPagePosDir.Controls.Add(this.textBoxPOS3);
+            this.tabPagePosDir.Location = new System.Drawing.Point(4, 26);
+            this.tabPagePosDir.Name = "tabPagePosDir";
+            this.tabPagePosDir.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPagePosDir.Size = new System.Drawing.Size(439, 281);
+            this.tabPagePosDir.TabIndex = 0;
+            this.tabPagePosDir.Text = "收銀机網路位置";
             // 
             // tabPagePrinter
             // 
             this.tabPagePrinter.BackColor = System.Drawing.Color.Azure;
+            this.tabPagePrinter.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.tabPagePrinter.Controls.Add(this.label8);
             this.tabPagePrinter.Controls.Add(this.btnSaveToAllPos);
             this.tabPagePrinter.Controls.Add(this.btnSavePrintTitle);
@@ -632,9 +668,18 @@
             this.tabPagePrinter.Location = new System.Drawing.Point(4, 26);
             this.tabPagePrinter.Name = "tabPagePrinter";
             this.tabPagePrinter.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePrinter.Size = new System.Drawing.Size(439, 253);
+            this.tabPagePrinter.Size = new System.Drawing.Size(439, 281);
             this.tabPagePrinter.TabIndex = 1;
             this.tabPagePrinter.Text = "印表抬頭設定";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(77, 218);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(268, 16);
+            this.label8.TabIndex = 16;
+            this.label8.Text = "更新印表抬頭時 收銀机号也同時設定";
             // 
             // btnSaveToAllPos
             // 
@@ -650,7 +695,7 @@
             // btnSavePrintTitle
             // 
             this.btnSavePrintTitle.AutoSize = true;
-            this.btnSavePrintTitle.Location = new System.Drawing.Point(138, 6);
+            this.btnSavePrintTitle.Location = new System.Drawing.Point(212, 6);
             this.btnSavePrintTitle.Name = "btnSavePrintTitle";
             this.btnSavePrintTitle.Size = new System.Drawing.Size(82, 26);
             this.btnSavePrintTitle.TabIndex = 14;
@@ -682,14 +727,11 @@
             this.textBoxPrintTitle.Size = new System.Drawing.Size(264, 27);
             this.textBoxPrintTitle.TabIndex = 5;
             // 
-            // label8
+            // printDocument1
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(77, 218);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(268, 16);
-            this.label8.TabIndex = 16;
-            this.label8.Text = "更新印表抬頭時 收銀机号也同時設定";
+            this.printDocument1.BeginPrint += new System.Drawing.Printing.PrintEventHandler(this.printDocument_BeginPrint);
+            this.printDocument1.EndPrint += new System.Drawing.Printing.PrintEventHandler(this.printDocument_EndPrint);
+            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument_PrintPage);
             // 
             // FormCashierAuthen
             // 
@@ -698,11 +740,6 @@
             this.BackColor = System.Drawing.Color.Azure;
             this.ClientSize = new System.Drawing.Size(953, 672);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.btnUpdateProduct);
-            this.Controls.Add(this.todayPicker);
-            this.Controls.Add(this.btnClosedBackup);
-            this.Controls.Add(labelTime);
-            this.Controls.Add(this.btnGetDataFromPOS);
             this.Controls.Add(this.listBoxReadme);
             this.Controls.Add(this.chBoxOnlyInPosition);
             this.Controls.Add(this.cashierDataGridView);
@@ -721,8 +758,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
             this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.tabPageDaily.ResumeLayout(false);
+            this.tabPagePosDir.ResumeLayout(false);
+            this.tabPagePosDir.PerformLayout();
             this.tabPagePrinter.ResumeLayout(false);
             this.tabPagePrinter.PerformLayout();
             this.ResumeLayout(false);
@@ -775,7 +813,7 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPagePosDir;
         private System.Windows.Forms.TabPage tabPagePrinter;
         private System.Windows.Forms.Button btnSavePrintTitle;
         private System.Windows.Forms.TextBox textBoxPrintTelephone;
@@ -783,5 +821,8 @@
         private System.Windows.Forms.TextBox textBoxPrintTitle;
         private System.Windows.Forms.Button btnSaveToAllPos;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TabPage tabPageDaily;
+        private System.Windows.Forms.Button btnDailyReport;
+        private System.Drawing.Printing.PrintDocument printDocument1;
     }
 }

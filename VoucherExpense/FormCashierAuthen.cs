@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
+using System.Drawing.Printing;
+using System.Collections;
 
 namespace VoucherExpense
 {
@@ -22,32 +24,39 @@ namespace VoucherExpense
         {
             BakeryOrderSet.CashierDataTable table = MyFunction.SaveCheck<BakeryOrderSet.CashierDataTable>(
                                             this, cashierBindingSource, bakeryOrderSet.Cashier);
-            if (table == null) return;
-            listBoxReadme.Items.Clear();
-            Message("設定店長本机收銀授權!");
-            foreach (BakeryOrderSet.CashierRow r in table.Rows)
+            if (table == null)
             {
-                if (r.RowState == DataRowState.Deleted) continue;
-                r.BeginEdit();
-                r.LastUpdated = DateTime.Now;
-                r.AuthenID = MyFunction.OperatorID;
-                r.EndEdit();
-                if (r.CashierPassword.Length < 5) Message("==>收銀員 " + r.CashierID.ToString() + " 密碼太短,無法登入!");
-                else
+                if (MessageBox.Show("資料沒有修改,仍要傳遞收銀權限至各收銀机嗎?","",MessageBoxButtons.YesNo)!=DialogResult.Yes)
+                    return;
+            }
+            ClearMessage();
+            if (table != null)
+            {
+                Message("設定店長本机收銀授權!");
+                foreach (BakeryOrderSet.CashierRow r in table.Rows)
                 {
-                    foreach (char c in r.CashierPassword)
+                    if (r.RowState == DataRowState.Deleted) continue;
+                    r.BeginEdit();
+                    r.LastUpdated = DateTime.Now;
+                    r.AuthenID = MyFunction.OperatorID;
+                    r.EndEdit();
+                    if (r.CashierPassword.Length < 5) Message("==>收銀員 " + r.CashierID.ToString() + " 密碼太短,無法登入!");
+                    else
                     {
-                        if (!char.IsDigit(c))
+                        foreach (char c in r.CashierPassword)
                         {
-                            Message("==>收銀員 " + r.CashierID.ToString() + " 密碼含有非數字,無法登入!");
-                            break;
+                            if (!char.IsDigit(c))
+                            {
+                                Message("==>收銀員 " + r.CashierID.ToString() + " 密碼含有非數字,無法登入!");
+                                break;
+                            }
                         }
                     }
                 }
+                bakeryOrderSet.Cashier.Merge(table);
+                this.cashierTableAdapter.Update(bakeryOrderSet.Cashier);
+                bakeryOrderSet.Cashier.AcceptChanges();
             }
-            bakeryOrderSet.Cashier.Merge(table);
-            this.cashierTableAdapter.Update(bakeryOrderSet.Cashier);
-            bakeryOrderSet.Cashier.AcceptChanges();
             this.cashierBindingSource.ResetBindings(false);
             // 更改收銀机授權,因不知歷史, 用全面覆蓋,反正資料庫小
             for(int i=0;i<m_TextBoxPaths.Count;i++)
@@ -64,20 +73,20 @@ namespace VoucherExpense
                 try
                 {
                     adapter.Fill(posBakerySet.Cashier);
-                    // 先加入PosID
-                    var posCashiers = from row in posBakerySet.Cashier where (row.CashierID == int.MinValue) select row;
-                    if (posCashiers.Count() > 0)
-                    {
-                        BakeryOrderSet.CashierRow cashier = posCashiers.First();
-                        cashier.CashierName = "PosID="+PosID;
-                    }
-                    else
-                    {
-                        var pos = posBakerySet.Cashier.NewCashierRow();  // 沒有關聯,所以沒必要BeginEdit EndEdit
-                        pos.CashierID = int.MinValue;
-                        pos.CashierName = "PosID=" + PosID;
-                        posBakerySet.Cashier.AddCashierRow(pos);
-                    }
+                    //// 先加入PosID <== 己經改至[BakeryConfig]
+                    //var posCashiers = from row in posBakerySet.Cashier where (row.CashierID == int.MinValue) select row;
+                    //if (posCashiers.Count() > 0)
+                    //{
+                    //    BakeryOrderSet.CashierRow cashier = posCashiers.First();
+                    //    cashier.CashierName = "PosID="+PosID;
+                    //}
+                    //else
+                    //{
+                    //    var pos = posBakerySet.Cashier.NewCashierRow();  // 沒有關聯,所以沒必要BeginEdit EndEdit
+                    //    pos.CashierID = int.MinValue;
+                    //    pos.CashierName = "PosID=" + PosID;
+                    //    posBakerySet.Cashier.AddCashierRow(pos);
+                    //}
                     // 先看POS裏面有的
                     foreach (BakeryOrderSet.CashierRow pos in posBakerySet.Cashier)
                     {
@@ -140,7 +149,7 @@ namespace VoucherExpense
             DateTime now = DateTime.Now;
             todayPicker.MinDate = new DateTime(MyFunction.IntHeaderYear, 1, 1);
             todayPicker.MaxDate = new DateTime(MyFunction.IntHeaderYear, 12, 31);
-            todayPicker.Value = now;
+            todayPicker.Value = now.Date;
             LoadCfg();
             LoadBakeryConfig();
             m_TextBoxPaths.Add(textBoxPOS1);
@@ -214,6 +223,7 @@ namespace VoucherExpense
         string TableName = "DirectoryPath";
         private void btnConfigSave_Click(object sender, EventArgs e)
         {
+            ClearMessage();
             int count=m_TextBoxPaths.Count;
             StringBuilder xml = new StringBuilder("<" + ConfigName + " Name=\"" + TableName + "\">", 512);
             for(int i=0;i<count;i++)
@@ -221,6 +231,7 @@ namespace VoucherExpense
             xml.Append("<Backup Dir=\"" + textBoxBackupDir.Text.Trim() + "\" />");
             xml.Append("</" + ConfigName + ">");
             Cfg.Save(ConfigName, TableName, xml.ToString());
+            Message("網路位置存檔完成!",true);
         }
 
         void LoadCfg()
@@ -384,7 +395,7 @@ namespace VoucherExpense
             DateTime today = todayPicker.Value;
             DialogResult result = MessageBox.Show("從收銀机匯整<" + today.ToShortDateString() + ">資料!", "", MessageBoxButtons.OKCancel);
             if (result == DialogResult.Cancel) return;
-            listBoxReadme.Items.Clear();
+            ClearMessage();
             Message("載入店長端資料庫!");
             SqlOrder  = "Where INT(ID/1000000)="             + today.Month.ToString("d2") + today.Day.ToString("d2");   // 資料定義為 MMDDN99999  N POS机号,店長收資料時,再自動填上        
             SqlDrawer = "Where INT(DrawerRecordID/1000000)=" + today.Month.ToString("d2") + today.Day.ToString("d2");   // 資料定義為 MMDDN99999  N POS机号, id最多10萬筆
@@ -397,7 +408,7 @@ namespace VoucherExpense
                     var header = headers.First();
                     if (!header.IsClosedNull() && header.Closed)
                     {
-                        Message("今日資料己封印！ 無法再轉檔!");
+                        Message("今日資料己封印！ 無法再轉檔!",true);
                         return;
                     }
                 }
@@ -417,6 +428,11 @@ namespace VoucherExpense
             Message("共成功匯入了 " + success.ToString() + " 台收銀机的資料!");
         }
 
+        void ClearMessage()
+        {
+            listBoxReadme.Items.Clear();
+        }
+
         void Message(string msg,bool showWarning=false)
         {
             listBoxReadme.Items.Add(msg);
@@ -429,13 +445,14 @@ namespace VoucherExpense
             DateTime today = todayPicker.Value;
             headerTableAdapter.Fill(bakeryOrderSet.Header);
             var headers = from row in bakeryOrderSet.Header where row.DataDate == today.Date select row;
-            listBoxReadme.Items.Clear();
+            ClearMessage();
+            BakeryOrderSet.HeaderRow mainHeader = null;
             if (headers.Count() > 0)
             {
-                var header = headers.First();
-                if (!header.IsClosedNull() && header.Closed)
+                mainHeader = headers.First();
+                if (!mainHeader.IsClosedNull() && mainHeader.Closed)
                 {
-                    Message("今日資料己封印！ 不用再做");
+                    Message("今日資料己封印！ 不用再做",true);
                     return;
                 }
             }
@@ -487,12 +504,23 @@ namespace VoucherExpense
                     return;
                 }
             }
+            Message("封印店長端 <"+today.ToShortDateString()+"> 營收資料!");
+            try  
+            {
+                mainHeader.Closed = true;
+                headerTableAdapter.Update(bakeryOrderSet.Header);
+            }
+            catch (Exception ex)
+            {
+                Message("更新店長封印資訊時,錯誤:" + ex.Message,true);
+            }
+            
             dir=textBoxBackupDir.Text.Trim();
             if (dir.Length > 0)
             {
                 Message("備份至<" + dir + ">");
                 BackupData.DoBackup(".", dir);
-                Message("封印及備份完成！");
+                Message("封印及備份完成！",true);
             }
             else
                 Message("封印完成！");
@@ -500,7 +528,7 @@ namespace VoucherExpense
 
         private void btnUpdateProduct_Click(object sender, EventArgs e)
         {
-            listBoxReadme.Items.Clear();
+            ClearMessage();
             try
             {
                 productTableAdapter.Fill(bakeryOrderSet.Product);
@@ -621,7 +649,7 @@ namespace VoucherExpense
             int i = 0;
             string dir;
             string xmlContent;
-            listBoxReadme.Items.Clear();
+            ClearMessage();
             foreach (TextBox box in m_TextBoxPaths)
             {
                 dir = box.Text.Trim();
@@ -635,6 +663,204 @@ namespace VoucherExpense
             Message("所有收銀机都更新完畢!");
             Message("收銀机必需重新登入更新才會生效!");
         }
+
+
+
+        #region ====== Print Function ======
+        int PageIndex = -1;
+        private void printDocument_BeginPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
+        {
+            PrintAction action = e.PrintAction;
+            PageIndex = 1;
+        }
+
+        Graphics m_Graphics = null;
+        Font m_Font = null;
+        Brush m_Brush = null;
+        void PrintMoney(string str,decimal money, int x, int y, int width,string format="f1")
+        {
+            m_Graphics.DrawString(str, m_Font, m_Brush, new PointF(x, y));
+            string sMoney=money.ToString(format);
+            SizeF size = m_Graphics.MeasureString(sMoney, m_Font);
+            x += (int)(width - size.Width);
+            m_Graphics.DrawString(sMoney, m_Font, m_Brush, new PointF(x, y));
+        }
+  
+        //private void Draw2Line(int x, int y, int x1, int y1, int offset)
+        //{
+        //    Pen pen = SystemPens.WindowText;
+        //    m_Graphics.DrawLine(pen, x, y, x1, y1);
+        //    m_Graphics.DrawLine(pen, x, y + offset, x1, y1 + offset);
+        //}
+
+        //private void Draw2Str(string str, int x, int y, int offset)
+        //{
+        //    m_Graphics.DrawString(str, m_Font, m_Brush, x, y);
+        //    m_Graphics.DrawString(str, m_Font, m_Brush, x, y + offset);
+        //}
+
+        private void DrawLine(int x, int y, int x1, int y1)
+        {
+            Pen pen = SystemPens.WindowText;
+            m_Graphics.DrawLine(pen, x, y, x1, y1);
+        }
+
+        private void DrawStr(string str, int x, int y)
+        {
+            m_Graphics.DrawString(str, m_Font, m_Brush, x, y);
+        }
+
+
+        private void GetStatics(out int orderCount, out decimal sum, out decimal averagePerOrder, out decimal cash, out decimal credit,out decimal coupon,out Dictionary<int,decimal> cashiers)
+        {
+            sum = 0;
+            orderCount = 0;
+            cash = credit = coupon = 0;
+            averagePerOrder = 0;
+            cashiers = new Dictionary<int,decimal>();
+            foreach (BakeryOrderSet.OrderRow Row in bakeryOrderSet.Order.Rows)
+            {
+                int id=Row.CashierID;
+                if (!cashiers.Keys.Contains(id))
+                    cashiers.Add(id, 0m);
+                decimal income = Row.Income;
+                sum += income;
+                orderCount++;
+                if (Row.IsPayByNull() || Row.PayBy.Length <= 0)
+                {
+                    cashiers[id] = cashiers[id] + income;
+                    cash += income;
+                }
+                else if (Row.PayBy[0] == 'B') credit += income;
+                else if (Row.PayBy[0] == 'C') coupon += income;
+                else
+                {
+                    cashiers[id] = cashiers[id] + income;
+                    cash += income;
+                }
+            }
+            if (orderCount!=0)
+                averagePerOrder = sum / orderCount;
+        }
+
+        private void DrawStatics(int x, int y, int height, int width)
+        {
+            int no;
+            decimal ave, sum, cash, credit, coupon;
+            Dictionary<int,decimal> cashiers;
+            GetStatics(out no, out sum, out ave, out cash, out credit, out coupon,out  cashiers);
+            int w = width / 2 - 50;
+            PrintMoney("營收" , sum, x, y, w);
+            y += height;
+            PrintMoney("現金" , cash   , x , y               , w);
+            PrintMoney("刷卡" , credit , x , y + height      , w);
+            PrintMoney("券  " , coupon , x , y + height * 2  , w);
+            PrintMoney("檔數" , no     , x , y + height * 3  , w ,"f0");
+            PrintMoney("單均" , ave    , x , y + height * 4  , w);
+
+            int x1 = x + width / 2;
+            int y1 = y;
+            foreach (KeyValuePair<int, decimal> cashier in cashiers)
+            {
+                PrintMoney("收銀" + cashier.Key.ToString() , cashier.Value, x1, y1 ,w);
+                y1 += height;
+            }
+        }
+
+
+        const int LinePerPage = 50;
+        const int NoPerBlock = 40;
+        const int BlockWidth = 330;
+
+        private void printDocument_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            m_Graphics = e.Graphics;
+            PageSettings settings = e.PageSettings;
+            Rectangle inner = e.MarginBounds;
+            Rectangle outter = e.PageBounds;
+
+            int start = (PageIndex - 1) * LinePerPage;
+            int end = start + LinePerPage;
+            e.HasMorePages = false;
+
+            m_Font = new Font("細明體", 12.0f);
+            m_Brush = SystemBrushes.WindowText;
+            int x = inner.Left;
+            int height = 23;
+            int y = outter.Top + height;
+            string sDate = m_Revenue.m_WorkingDay.ChineseDateString();
+            string str = "     "+textBoxPrintTitle.Text +"  "+sDate+" 營收日報表";
+            DrawStr(str, x, y);
+
+            y = outter.Top + 2 * height;
+            // DrawRectangle
+            Pen pen = SystemPens.WindowText;
+            int h = height * NoPerBlock + height;
+            int half = height + height * NoPerBlock / 2;
+            int w = BlockWidth;
+            int x1 = inner.Left;
+            for (; x1 <= inner.Left + BlockWidth ; x1 += BlockWidth)
+                    m_Graphics.DrawRectangle(pen, new Rectangle(x1, y - 2, w, h));   // 方框寬w 高h
+            x1 = inner.Left;
+            DrawStr("收銀對帳單浮貼處", x1, y);
+            DrawStr("刷卡收銀單浮貼處", x1 + BlockWidth, y);
+            int y2 = half;
+            DrawStr("刷卡日結單浮貼處", x1, y2);
+            x1 = inner.Left + BlockWidth;
+            DrawStr("異常單說明", x1, y2);
+            DrawLine(inner.Left, y2, inner.Left + w*2, y2);  // 中間橫線
+
+            y2 = y2 + height * 9;
+            DrawLine(x1, y2 - 2, x1 + w, y2 - 2);   // 統計那格上方那條橫線
+            DrawStatics(x1, y2, height, w);
+
+            y2 = y2 + height * 7;
+            DrawStr("單據 授權簽字 電腦資料"  , x1, y2);
+            y2 += height;
+            DrawStr("各金額 均核對無誤後簽字!", x1, y2);
+            y2 += height;
+            DrawLine(x1, y2, x1 + w, y2);           // 簽字上方那條橫線
+            DrawStr("收銀簽字", x1, y2);
+            x1 = x1 + w / 2;
+            DrawLine(x1, y2, x1, y-2+h);  // 二人簽名中間那條直線  
+            DrawStr("主管簽字", x1, y2);
+    
+        }
+
+        private void printDocument_EndPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
+        {
+            PageIndex = -1;
+        }
+        #endregion ===============
+
+        RevenueCalcBakery m_Revenue = null;
+        private void btnDailyReport_Click(object sender, EventArgs e)
+        {
+            ClearMessage();
+            try
+            {
+                headerTableAdapter.Fill(bakeryOrderSet.Header);
+            }
+            catch (Exception ex)
+            {
+                Message("讀取[BakeryOrder.Header]出錯:"+ex.Message,true);
+                return;
+            }
+            DateTime today = todayPicker.Value.Date;
+            m_Revenue = new RevenueCalcBakery(today, 0m);   // 先不管手續費
+            m_Revenue.LoadData(bakeryOrderSet, today.Month, today.Day);
+            try
+            {
+                printDocument1.Print();
+                Message("營收日報印表完成!");
+            }
+            catch (Exception ex)
+            {
+                Message("印表出錯:" + ex.Message,true);
+            }
+        }
+
+
  
     }
 }

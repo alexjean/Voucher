@@ -333,7 +333,7 @@
             this.CreditFee.HeaderText = "手續費";
             this.CreditFee.Name = "CreditFee";
             this.CreditFee.ReadOnly = true;
-            this.CreditFee.Width = 84;
+            this.CreditFee.Width = 80;
             // 
             // Column1
             // 

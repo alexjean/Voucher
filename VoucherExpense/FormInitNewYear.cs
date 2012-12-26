@@ -86,7 +86,8 @@ namespace VoucherExpense
         // BakeryOrder.mdb 放1月1日
         // VoucherExpense.mdb的Header 要放1月1日
         List<string> ReservedTable = new List<string>()
-                    {   "Product"       ,
+                    {   "BakeryConfig"  ,
+                        "Product"       ,
                         "AccountingTitle",
                         "Operator"      ,
                         "Vendor"        ,

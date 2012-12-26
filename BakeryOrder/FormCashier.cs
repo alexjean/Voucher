@@ -439,18 +439,18 @@ namespace BakeryOrder
                 headerTableAdapter.Fill(bakeryOrderSet.Header);
                 productTableAdapter.Fill(bakeryOrderSet.Product);
                 cashierTableAdapter.Fill(bakeryOrderSet.Cashier);
-                // m_PosID存在 [Cashier.CashierName] where CashierID= int.Max , 每次店長修改權限存檔時放進去
-                var cashiers = from row in bakeryOrderSet.Cashier where (row.CashierID == int.MinValue) select row;
-                if (cashiers.Count() != 0)
-                {
-                    var cashier = cashiers.First();
-                    string name=cashier.CashierName;
-                    if (name.Substring(0, 6) == "PosID=")
-                    {
-                        int result;
-                        if (int.TryParse(name.Substring(6), out result)) m_PosID = result;
-                    }
-                }
+                //// m_PosID存在 [Cashier.CashierName] where CashierID= int.Max , 每次店長修改權限存檔時放進去
+                //var cashiers = from row in bakeryOrderSet.Cashier where (row.CashierID == int.MinValue) select row;
+                //if (cashiers.Count() != 0)
+                //{
+                //    var cashier = cashiers.First();
+                //    string name=cashier.CashierName;
+                //    if (name.Substring(0, 6) == "PosID=")
+                //    {
+                //        int result;
+                //        if (int.TryParse(name.Substring(6), out result)) m_PosID = result;
+                //    }
+                //}
                 // 讀取封印資訊
                 var headers = from row in bakeryOrderSet.Header where (row.DataDate.Date == m_Today.Date) select row;
                 m_DataSealed = false;

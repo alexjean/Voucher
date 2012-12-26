@@ -154,8 +154,8 @@ namespace BakeryOrder
             listBoxInfo.Items.Add("今天是"+now.ToString("MM月dd日")+" "+now.DayOfWeek.ToString());
             if (m_PosID <= 0 || m_PosID>9)
                 listBoxInfo.Items.Add("店長尚未指定本机机号");
-            else 
-                listBoxInfo.Items.Add("本机店長指定為 <收銀机" + m_PosID + ">");
+            else
+                listBoxInfo.Items.Add("店長指定本机為 <收銀机" + m_PosID + ">");
         }
     }
 }

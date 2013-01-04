@@ -176,6 +176,7 @@ namespace VoucherExpense
                     //if (!DateTime.TryParse(l[1], out dt      )) continue;
                     if (!int.TryParse(l[2], out code)) continue;
                     if (!DateTime.TryParse(l[5]+" "+l[6],out dt)) continue;
+                    if (dt.Year != MyFunction.IntHeaderYear) continue;       // 不是今年的資料,不收錄
                     var linqRow = from lr in vEDataSet.OnDutyData
                                   where (lr.TimeMark.Date == dt.Date && lr.TimeMark.Hour == dt.Hour && lr.TimeMark.Minute == dt.Minute && lr.OnDutyCode == code)
                                   select lr.RowState;

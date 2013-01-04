@@ -18,5 +18,4 @@ BakeryOrder/bin/*
 BakeryOrder/obj/*
 VoucherExpense/bin/*
 VoucherExpense/AlexCode.snk
-VoucherExpense/Properties/app.manifest
 VoucherExpense/VoucherExpense_2_TemporaryKey.pfx

@@ -6,6 +6,8 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Windows.Forms;
+using System.Linq;
+
 
 namespace VoucherExpense
 {
@@ -328,18 +330,42 @@ namespace VoucherExpense
                 DataGridViewCell cell=dgRow.Cells[e.ColumnIndex];
                 if (cell.ValueType!=typeof(int)) return;  // IngridentCode是int
                 if (cell.Value==null || cell.Value==DBNull.Value) return;
-                int code=(int)cell.Value;
+                int ingredientID=(int)cell.Value;
                 try
                 {
-                    string str="ID="+code.ToString();
-                    VEDataSet.IngredientRow[] row = (VEDataSet.IngredientRow[])vEDataSet.Ingredient.Select(str);
-                    if (row != null || row.Length>0)
+                    //string str="ID="+code.ToString();
+                    //VEDataSet.IngredientRow[] row = (VEDataSet.IngredientRow[])vEDataSet.Ingredient.Select(str);
+                    var rows = from row in vEDataSet.Ingredient where (row.IngredientID == ingredientID) select row;
+                    if (rows.Count()>0)
                     {
-                        if (!row[0].IsTitleCodeNull())
-                            dgRow.Cells["columnTitleCode"].Value = row[0].TitleCode;
+                        VEDataSet.IngredientRow row = rows.First();
+                        if (!row.IsTitleCodeNull())
+                            dgRow.Cells["columnTitleCode"].Value = row.TitleCode;
                     }
                 }
                 catch { }
+            }
+            else if (cellName == "dgVolumeColumn")
+            {
+                try
+                {
+                    DataGridViewRow dgRow = view.Rows[e.RowIndex];
+                    DataGridViewCell costCell = dgRow.Cells["dgCostColumn"];
+                    if (costCell.ValueType != typeof(decimal)) return;  // Cost不是decimal,資料庫定義必然被改過了,程式碼失效
+                    if (costCell.Value == null) return;
+                    if (costCell.Value != DBNull.Value) return;         // Cost有資料時就不改
+                    DataRowView rowView=dgRow.DataBoundItem as DataRowView;
+                    VEDataSet.VoucherDetailRow voucherDetailRow=rowView.Row as VEDataSet.VoucherDetailRow;
+                    // 查出食材表中相對應記錄
+                    var rows = from ro in vEDataSet.Ingredient
+                               where (ro.IngredientID == voucherDetailRow.IngredientID) select ro;
+                    if (rows.Count()<=0) return;
+                    VEDataSet.IngredientRow row = rows.First();
+                    if (row.IsPriceNull()) return;
+                    if (row.Price<=0)      return;                      // 參考價不合理
+                    costCell.Value = voucherDetailRow.Volume * (decimal)row.Price;
+                }
+                catch{}
             }
         }
 
@@ -629,11 +655,15 @@ namespace VoucherExpense
             if (obj.GetType() != typeof(decimal)) return false;
             decimal volume = (decimal)obj;
             if (IsCellNull(row, "dgIngredientIDColumn", out obj) != CellStatus.Good) return false;
-            int code = (int)obj;
-            VEDataSet.IngredientRow[] Rows = (VEDataSet.IngredientRow[])vEDataSet.Ingredient.Select("Code =" + code.ToString());
-            if (Rows == null || Rows.Length == 0) return false;
+            int ingredientID = (int)obj;
+            // Code 己經被改成IngredientID
+            //VEDataSet.IngredientRow[] Rows = (VEDataSet.IngredientRow[])vEDataSet.Ingredient.Select("Code =" + code.ToString());  
+            //if (Rows == null || Rows.Length == 0) return false;
+            var rows = from ro in vEDataSet.Ingredient where (ro.IngredientID == ingredientID) select ro;
+            if (rows.Count() <= 0) return false;
+            VEDataSet.IngredientRow ingredient=rows.First();
             double price=0;
-            if (!Rows[0].IsPriceNull()) price=Rows[0].Price;
+            if (!ingredient.IsPriceNull()) price=ingredient.Price;
             costCell = row.Cells["dgCostColumn"];
             double diff = (double)cost - price * (double)volume;
             if (volume != 0) costCell.ToolTipText = (cost / volume).ToString("f2");

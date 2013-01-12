@@ -661,9 +661,9 @@ namespace VoucherExpense
             foreach (TextBox box in m_TextBoxPaths)
             {
                 dir = box.Text.Trim();
+                i++;
                 if (dir.Length <= 0) continue;
                 BakeryConfig bakeryConfig = new BakeryConfig(dir);
-                i++;
                 Message("更新收銀机<" + i.ToString() + "> 印表抬頭設定");
                 xmlContent=PrintConfig2Xml(BakeryConfigName,BakeryTableName,i);
                 bakeryConfig.Save(BakeryConfigName, BakeryTableName,xmlContent);

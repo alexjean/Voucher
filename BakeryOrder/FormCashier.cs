@@ -491,6 +491,9 @@ namespace BakeryOrder
 
         private void FormCashier_Load(object sender, EventArgs e)
         {
+            Screen scr = Screen.PrimaryScreen;
+            Location = new Point(scr.Bounds.Left, scr.Bounds.Top);
+
 #if DEBUG
             checkBoxTest.Visible = true;
             checkBoxTest.Checked = true;
@@ -512,8 +515,6 @@ namespace BakeryOrder
             if (Screen.AllScreens.Count()>1)
             {
                 m_FormCustomer = new FormCustomer();
-                Screen scr = Screen.PrimaryScreen;
-                Location = new Point(scr.Bounds.X, scr.Bounds.Y);
                 m_FormCustomer.Show();
             }
             tabControl1.DrawMode = TabDrawMode.OwnerDrawFixed;

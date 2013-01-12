@@ -151,7 +151,8 @@ namespace BakeryOrder
                 Add2List(item, false);
             }
             CalcTotal();
-            m_FormCustomer.Item2List(item.ProductID, item.name, item.No, item.Money());
+            if (m_FormCustomer!=null)
+                m_FormCustomer.Item2List(item.ProductID, item.name, item.No, item.Money());
             return;
         }
 
@@ -179,7 +180,8 @@ namespace BakeryOrder
 */
             total = Math.Round(total, 0, MidpointRounding.AwayFromZero);
             labelTotal.Text = total.ToString();
-            m_FormCustomer.ShowTotal(total);
+            if (m_FormCustomer != null)
+                m_FormCustomer.ShowTotal(total);
             return total;
         }
 
@@ -209,7 +211,8 @@ namespace BakeryOrder
                 }
                 Image img = Bitmap.FromFile(small);
                 pictureBoxOrdered.Image = img;
-                m_FormCustomer.SetPicture(img);
+                if (m_FormCustomer != null)
+                    m_FormCustomer.SetPicture(img);
             }
         }
 
@@ -267,9 +270,11 @@ namespace BakeryOrder
             Image img=Bitmap.FromFile(small);
             pictureBoxOrdered.Image = img;
             Application.DoEvents();           // 先把前面做的顯示出來
-            m_FormCustomer.SetTimer(45000);   // 停止轉圖, 同時會把Dock改成Right,露出結帳單
-            m_FormCustomer.SetPicture(img);
-
+            if (m_FormCustomer != null)
+            {
+                m_FormCustomer.SetTimer(45000);   // 停止轉圖, 同時會把Dock改成Right,露出結帳單
+                m_FormCustomer.SetPicture(img);
+            }
         }
         // 輸出的Label[,] 放到tabPage.Tag去
         private void InitFoodMenu(TabPage tabPage, int menuId, out Label[,] FoodName)
@@ -487,8 +492,8 @@ namespace BakeryOrder
         private void FormCashier_Load(object sender, EventArgs e)
         {
 #if DEBUG
-            checkBoxTest.Visible=true;
-            checkBoxTest.Checked=true;
+            checkBoxTest.Visible = true;
+            checkBoxTest.Checked = true;
             m_CashierID = 1;
 #endif
             for (int i = 0; i <= 9; i++)
@@ -504,11 +509,13 @@ namespace BakeryOrder
 
 
             ReLoadAllData();
-
-            m_FormCustomer = new FormCustomer();
-            Screen scr = Screen.PrimaryScreen;
-            Location = new Point(scr.Bounds.X, scr.Bounds.Y);
-            m_FormCustomer.Show();
+            if (Screen.AllScreens.Count()>1)
+            {
+                m_FormCustomer = new FormCustomer();
+                Screen scr = Screen.PrimaryScreen;
+                Location = new Point(scr.Bounds.X, scr.Bounds.Y);
+                m_FormCustomer.Show();
+            }
             tabControl1.DrawMode = TabDrawMode.OwnerDrawFixed;
             if (!Directory.Exists(m_ProductDir))
                 Directory.CreateDirectory(m_ProductDir);

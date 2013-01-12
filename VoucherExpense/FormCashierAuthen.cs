@@ -142,16 +142,24 @@ namespace VoucherExpense
             orderItemTableAdapter.Connection = MapPath.BakeryConnection;
             drawerTableAdapter.Connection    = MapPath.BakeryConnection;
             cashierTableAdapter.Connection   = MapPath.BakeryConnection;     // cashierTableAdapter宣告位置不同
-
-            this.operatorTableAdapter.Fill(this.vEDataSet.Operator);
-            this.cashierTableAdapter.Fill(this.bakeryOrderSet.Cashier);
-            chBoxOnlyInPosition_CheckedChanged(null, null);
-            DateTime now = DateTime.Now;
-            todayPicker.MinDate = new DateTime(MyFunction.IntHeaderYear, 1, 1);
-            todayPicker.MaxDate = new DateTime(MyFunction.IntHeaderYear, 12, 31);
-            todayPicker.Value = now.Date;
-            LoadCfg();
-            LoadBakeryConfig();
+            try
+            {
+                this.operatorTableAdapter.Fill(this.vEDataSet.Operator);
+                this.cashierTableAdapter.Fill(this.bakeryOrderSet.Cashier);
+                chBoxOnlyInPosition_CheckedChanged(null, null);
+                DateTime now = DateTime.Now;
+                todayPicker.MinDate = new DateTime(MyFunction.IntHeaderYear, 1, 1);
+                todayPicker.MaxDate = new DateTime(MyFunction.IntHeaderYear, 12, 31);
+                if      (now.Date < todayPicker.MinDate) todayPicker.Value = todayPicker.MinDate;
+                else if (now.Date > todayPicker.MaxDate) todayPicker.Value = todayPicker.MaxDate;
+                else                                     todayPicker.Value = now.Date;
+                LoadCfg();
+                LoadBakeryConfig();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("錯誤:" + ex.Message);
+            }
             m_TextBoxPaths.Add(textBoxPOS1);
             m_TextBoxPaths.Add(textBoxPOS2);
             m_TextBoxPaths.Add(textBoxPOS3);

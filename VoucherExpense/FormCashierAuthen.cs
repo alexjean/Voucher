@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Drawing.Printing;
 using System.Collections;
+using System.IO;
 
 namespace VoucherExpense
 {
@@ -537,15 +538,20 @@ namespace VoucherExpense
         private void btnUpdateProduct_Click(object sender, EventArgs e)
         {
             ClearMessage();
+            DirectoryInfo mainDirInfo = new DirectoryInfo(".\\Photos\\Products");
+            FileInfo[] mainFileInfos;
+
             try
             {
                 productTableAdapter.Fill(bakeryOrderSet.Product);
+                mainFileInfos = mainDirInfo.GetFiles("*.jpg");
             }
             catch (Exception ex)
             {
                 Message("讀取店長產品表出錯,原因:" + ex.Message,true);
                 return;
             }
+
             int i = 0;
             string dir;
             foreach (TextBox box in m_TextBoxPaths)
@@ -595,6 +601,42 @@ namespace VoucherExpense
                     }
                     int succeed=adapter.Update(posBakerySet.Product);
                     Message("更新 " + updated.ToString() + "筆,新增 " + added.ToString() + "筆,刪除 " + deleted.ToString() + "筆=>寫出"+succeed.ToString()+"筆");
+                    // 更新Photos\\Product
+                    updated = added = deleted = 0;
+                    string productsDir = dir + "\\Photos\\Products";
+                    DirectoryInfo dirInfo = new DirectoryInfo(productsDir);
+                    List<FileInfo> fileInfos=dirInfo.GetFiles("*.jpg").ToList<FileInfo>();
+                    bool smallExist = Directory.Exists(productsDir + "\\Small");
+                    foreach (FileInfo mainFile in mainFileInfos)
+                    {
+                        string name = mainFile.Name;
+                        string destName=productsDir+"\\"+name;
+                        var dests = from fi in fileInfos where (fi.Name == name) select fi;
+                        FileInfo fileInfo;
+                        if (dests.Count() > 0)
+                        {
+                            fileInfo = dests.First();
+                            if (fileInfo.Length == mainFile.Length && fileInfo.CreationTime == mainFile.CreationTime)
+                            {
+                                fileInfos.Remove(fileInfo);
+                                continue;       // 名字,長度,創立時間都相同,視為相同
+                            }
+                            File.Delete(fileInfo.FullName);
+                            fileInfos.Remove(fileInfo);
+                        }
+                        File.Copy(mainFile.FullName, destName);
+                        File.SetCreationTime(destName, mainFile.CreationTime);
+                        if (smallExist) File.Delete(productsDir+"\\Small\\"+name);
+                        updated++;
+                    }
+                    // 剩下的都要刪掉
+                    foreach (FileInfo fi in fileInfos)
+                    {
+                        File.Delete(fi.FullName);
+                        if (smallExist) File.Delete(productsDir + "\\Small\\"   + fi.Name);
+                        deleted++;
+                    }
+                    Message("更新 " + updated.ToString() + "張產品照片,刪除 " + deleted.ToString() + "張");
                     Message("---------------------------------------------");
                 }
                 catch (Exception ex)

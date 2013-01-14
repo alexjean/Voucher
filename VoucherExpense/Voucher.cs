@@ -765,8 +765,8 @@ namespace VoucherExpense
                     MessageBox.Show("小計資料有誤!");
                     goto Error;
                 }
-                DataGridViewCell codeCell = r.Cells["dgIngredientIDColumn"];
-                if (IsDataWrong( typeof(int),codeCell.Value))
+                DataGridViewCell ingredientIDCell = r.Cells["dgIngredientIDColumn"];
+                if (IsDataWrong( typeof(int),ingredientIDCell.Value))
                 {
                     MessageBox.Show("有食材沒有輸入!");
                     goto Error;
@@ -774,31 +774,35 @@ namespace VoucherExpense
                 object volume = r.Cells["dgVolumeColumn"].Value;
                 if (IsDataWrong(typeof(decimal),volume) || (decimal)volume == 0m)
                 {
-                    MessageBox.Show(codeCell.FormattedValue + " 量有問題,請重新輸入!", "", MessageBoxButtons.OK);
+                    MessageBox.Show(ingredientIDCell.FormattedValue + " 量有問題,請重新輸入!", "", MessageBoxButtons.OK);
                     goto Error;
                 }
                 Color color=costCell.Style.ForeColor;
                 decimal price = (decimal)costCell.Value / (decimal)volume;
                 if (color == Color.Green || color==Color.Red)
                 {
-                    VEDataSet.IngredientRow[] rows = (VEDataSet.IngredientRow[])vEDataSet.Ingredient.Select(
-                                                                "Code=" + codeCell.Value.ToString());
-                    if (rows.Length == 0)
+                    int id;
+                    if (int.TryParse(ingredientIDCell.Value.ToString(), out id))
                     {
-                        MessageBox.Show("查不到<" + codeCell.FormattedValue + ">,無法比對價格!");
-                        return;
-                    }
-                    VEDataSet.IngredientRow r0=rows[0];
-                    double price0 = 0;
-                    if (!r0.IsPriceNull()) price0 = r0.Price;
-                    DialogResult result=MessageBox.Show(codeCell.FormattedValue+"價格<"+PriceForHuman((double)price)
-                        +">和參考價<"+PriceForHuman(price0)+">不同,是否改變參考價?", "", MessageBoxButtons.YesNoCancel);
-                    if (result == DialogResult.No)     continue;
-                    if (result == DialogResult.Cancel) goto Error;
-                    if (result == DialogResult.Yes)
-                    {
-                        r0.Price = (double)price;
-                        IngredientTableAdapter.Update(r0);
+                        //                    VEDataSet.IngredientRow[] rows = (VEDataSet.IngredientRow[])vEDataSet.Ingredient.Select("Code=" + codeCell.Value.ToString());
+                        var rows = from ro in vEDataSet.Ingredient where (ro.IngredientID == id) select ro;
+                        if (rows.Count() == 0)
+                        {
+                            MessageBox.Show("查不到<" + ingredientIDCell.FormattedValue + ">,無法比對價格!");
+                            return;
+                        }
+                        VEDataSet.IngredientRow r0 = rows.First();
+                        double price0 = 0;
+                        if (!r0.IsPriceNull()) price0 = r0.Price;
+                        DialogResult result = MessageBox.Show(ingredientIDCell.FormattedValue + "價格<" + PriceForHuman((double)price)
+                            + ">和參考價<" + PriceForHuman(price0) + ">不同,是否改變參考價?", "", MessageBoxButtons.YesNoCancel);
+                        if (result == DialogResult.No) continue;
+                        if (result == DialogResult.Cancel) goto Error;
+                        if (result == DialogResult.Yes)
+                        {
+                            r0.Price = (double)price;
+                            IngredientTableAdapter.Update(r0);
+                        }
                     }
                 }
             }

@@ -4,6 +4,7 @@ using System.Data;
 using System.Windows.Forms;
 using System.IO;
 using System.Drawing;
+using System.Collections.Generic;
 
 namespace VoucherExpense
 {
@@ -43,12 +44,27 @@ namespace VoucherExpense
         }
 
         private string m_PhotoPath = "Photos\\Ingredients\\";
+        private List<CNameIDForComboBox> m_VendorList = new List<CNameIDForComboBox>();
         private void Ingredient_Load(object sender, EventArgs e)
         {
+            vendorTableAdapter.Connection           = MapPath.VEConnection;
             accountingTitleTableAdapter.Connection  = MapPath.VEConnection;
             IngredientTableAdapter.Connection       = MapPath.VEConnection;
-            accountingTitleTableAdapter.Fill(this.vEDataSet.AccountingTitle);
-            IngredientTableAdapter.Fill(this.vEDataSet.Ingredient);
+            try
+            {
+                vendorTableAdapter.Fill         (this.vEDataSet.Vendor);
+                m_VendorList.Add(new CNameIDForComboBox(0, ""));                                // 提到 .Fill(vEdataSet.Ingredient)之前,要不然第一次 BindingSource.CurrentChanged會先發生
+                foreach (VEDataSet.VendorRow vendor in vEDataSet.Vendor)
+                    m_VendorList.Add(new CNameIDForComboBox(vendor.VendorID, vendor.Name));
+                vendorIDComboBox.DataSource = m_VendorList;
+                accountingTitleTableAdapter.Fill(this.vEDataSet.AccountingTitle);
+                IngredientTableAdapter.Fill     (this.vEDataSet.Ingredient);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("錯誤:" + ex.Message);
+            }
+           
             MyFunction.SetFieldLength(IngredientDataGridView, vEDataSet.Ingredient);
             MyFunction.SetControlLengthFromDB(this, vEDataSet.Ingredient);
             photoPictureBox.Visible = Directory.Exists(m_PhotoPath);
@@ -93,6 +109,25 @@ namespace VoucherExpense
 
         private void IngredientBindingSource_CurrentChanged(object sender, EventArgs e)
         {
+            if (m_VendorList != null && m_VendorList.Count > 0)
+            {
+                DataRowView rowView = IngredientBindingSource.Current as DataRowView;
+                VEDataSet.IngredientRow row = rowView.Row as VEDataSet.IngredientRow;
+                CNameIDForComboBox vendor = m_VendorList[0];    // 第一個放的是ID=0 Name ""
+                if (!row.IsVendorIDNull())
+                {
+                    int id = row.VendorID;
+                    foreach (CNameIDForComboBox v in m_VendorList)
+                    {
+                        if (id == v.ID)
+                        {
+                            vendor = v;
+                            break;
+                        }
+                    }
+                }
+                vendorIDComboBox.SelectedItem = vendor;
+            }
             if (!photoPictureBox.Visible) return;
             if (photoPictureBox.Location.X == 0)
             {
@@ -220,8 +255,22 @@ namespace VoucherExpense
 
         }
 
+        private void vendorIDComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox box=sender as ComboBox;
+            DataRowView rowView = IngredientBindingSource.Current as DataRowView;
+            VEDataSet.IngredientRow row = rowView.Row as VEDataSet.IngredientRow;
+            object obj = box.SelectedItem;
+            if (obj != null && obj != DBNull.Value)
+            {
+                CNameIDForComboBox nameId = obj as CNameIDForComboBox;
+                row.VendorID = nameId.ID;
+            }
+        }
 
-
-     
+        private void Ingredient_Shown(object sender, EventArgs e)
+        {
+            vendorIDComboBox.SelectedIndexChanged += this.vendorIDComboBox_SelectedIndexChanged;    // 這裏才加,避免第一個Record VendorID被清0
+        }
     }
 }

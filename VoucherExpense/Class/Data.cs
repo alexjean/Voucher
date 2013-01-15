@@ -324,7 +324,7 @@ namespace VoucherExpense
         }
     }
 
-    // FormOnDutyEmployee有用到
+    // FormOnDutyEmployee有用到 Ingredient有用到
     public class CNameIDForComboBox
     {
         public string Name { set; get; }
@@ -336,6 +336,10 @@ namespace VoucherExpense
         public CNameIDForComboBox(int id, string name)
         {
             ID = id; Name = name;
+        }
+        override public string ToString()
+        {
+            return Name;
         }
     }
 

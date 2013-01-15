@@ -31,13 +31,15 @@
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Label IngredientIDLabel;
             System.Windows.Forms.Label codeLabel;
-            System.Windows.Forms.Label classLabel;
             System.Windows.Forms.Label nameLabel;
             System.Windows.Forms.Label priceLabel;
             System.Windows.Forms.Label unitLabel;
             System.Windows.Forms.Label lastUpdatedLabel;
-            System.Windows.Forms.Label canPurchaseLabel;
             System.Windows.Forms.Label titleCodeLabel;
+            System.Windows.Forms.Label unitWeightLabel;
+            System.Windows.Forms.Label vendorIDLabel;
+            System.Windows.Forms.Label specsLabel;
+            System.Windows.Forms.Label minOrderLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ingredient));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -61,7 +63,6 @@
             this.columnIngredientID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CanPurchase = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.columnCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnClass = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Unit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnTitleCode = new System.Windows.Forms.DataGridViewComboBoxColumn();
@@ -69,7 +70,6 @@
             this.columnPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IngredientIDTextBox = new System.Windows.Forms.TextBox();
             this.codeTextBox = new System.Windows.Forms.TextBox();
-            this.classTextBox = new System.Windows.Forms.TextBox();
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.priceTextBox = new System.Windows.Forms.TextBox();
             this.unitTextBox = new System.Windows.Forms.TextBox();
@@ -82,15 +82,23 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.voucherDetailTableAdapter = new VoucherExpense.VEDataSetTableAdapters.VoucherDetailTableAdapter();
             this.voucherTableAdapter = new VoucherExpense.VEDataSetTableAdapters.VoucherTableAdapter();
+            this.unitWeightTextBox = new System.Windows.Forms.TextBox();
+            this.vendorIDComboBox = new System.Windows.Forms.ComboBox();
+            this.specsTextBox = new System.Windows.Forms.TextBox();
+            this.minOrderTextBox = new System.Windows.Forms.TextBox();
+            this.vendorBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.vendorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.VendorTableAdapter();
             IngredientIDLabel = new System.Windows.Forms.Label();
             codeLabel = new System.Windows.Forms.Label();
-            classLabel = new System.Windows.Forms.Label();
             nameLabel = new System.Windows.Forms.Label();
             priceLabel = new System.Windows.Forms.Label();
             unitLabel = new System.Windows.Forms.Label();
             lastUpdatedLabel = new System.Windows.Forms.Label();
-            canPurchaseLabel = new System.Windows.Forms.Label();
             titleCodeLabel = new System.Windows.Forms.Label();
+            unitWeightLabel = new System.Windows.Forms.Label();
+            vendorIDLabel = new System.Windows.Forms.Label();
+            specsLabel = new System.Windows.Forms.Label();
+            minOrderLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.IngredientBindingNavigator)).BeginInit();
             this.IngredientBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.IngredientBindingSource)).BeginInit();
@@ -98,95 +106,113 @@
             ((System.ComponentModel.ISupportInitialize)(this.IngredientDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.photoPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vendorBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // IngredientIDLabel
             // 
             IngredientIDLabel.AutoSize = true;
-            IngredientIDLabel.Location = new System.Drawing.Point(627, 87);
+            IngredientIDLabel.Location = new System.Drawing.Point(626, 42);
             IngredientIDLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             IngredientIDLabel.Name = "IngredientIDLabel";
-            IngredientIDLabel.Size = new System.Drawing.Size(44, 16);
+            IngredientIDLabel.Size = new System.Drawing.Size(40, 16);
             IngredientIDLabel.TabIndex = 2;
-            IngredientIDLabel.Text = "內碼:";
+            IngredientIDLabel.Text = "內碼";
             // 
             // codeLabel
             // 
             codeLabel.AutoSize = true;
-            codeLabel.Location = new System.Drawing.Point(627, 124);
+            codeLabel.Location = new System.Drawing.Point(626, 79);
             codeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             codeLabel.Name = "codeLabel";
-            codeLabel.Size = new System.Drawing.Size(44, 16);
+            codeLabel.Size = new System.Drawing.Size(40, 16);
             codeLabel.TabIndex = 4;
-            codeLabel.Text = "代号:";
-            // 
-            // classLabel
-            // 
-            classLabel.AutoSize = true;
-            classLabel.Location = new System.Drawing.Point(627, 161);
-            classLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            classLabel.Name = "classLabel";
-            classLabel.Size = new System.Drawing.Size(44, 16);
-            classLabel.TabIndex = 6;
-            classLabel.Text = "類別:";
+            codeLabel.Text = "代号";
             // 
             // nameLabel
             // 
             nameLabel.AutoSize = true;
-            nameLabel.Location = new System.Drawing.Point(627, 198);
+            nameLabel.Location = new System.Drawing.Point(626, 116);
             nameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             nameLabel.Name = "nameLabel";
-            nameLabel.Size = new System.Drawing.Size(44, 16);
+            nameLabel.Size = new System.Drawing.Size(40, 16);
             nameLabel.TabIndex = 8;
-            nameLabel.Text = "品名:";
+            nameLabel.Text = "品名";
             // 
             // priceLabel
             // 
             priceLabel.AutoSize = true;
-            priceLabel.Location = new System.Drawing.Point(627, 272);
+            priceLabel.Location = new System.Drawing.Point(626, 190);
             priceLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             priceLabel.Name = "priceLabel";
-            priceLabel.Size = new System.Drawing.Size(60, 16);
+            priceLabel.Size = new System.Drawing.Size(56, 16);
             priceLabel.TabIndex = 10;
-            priceLabel.Text = "參考價:";
+            priceLabel.Text = "參考價";
             // 
             // unitLabel
             // 
             unitLabel.AutoSize = true;
-            unitLabel.Location = new System.Drawing.Point(626, 346);
+            unitLabel.Location = new System.Drawing.Point(626, 227);
             unitLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             unitLabel.Name = "unitLabel";
-            unitLabel.Size = new System.Drawing.Size(44, 16);
+            unitLabel.Size = new System.Drawing.Size(40, 16);
             unitLabel.TabIndex = 16;
-            unitLabel.Text = "單位:";
+            unitLabel.Text = "單位";
             // 
             // lastUpdatedLabel
             // 
             lastUpdatedLabel.AutoSize = true;
-            lastUpdatedLabel.Location = new System.Drawing.Point(627, 383);
+            lastUpdatedLabel.Location = new System.Drawing.Point(626, 412);
             lastUpdatedLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lastUpdatedLabel.Name = "lastUpdatedLabel";
-            lastUpdatedLabel.Size = new System.Drawing.Size(60, 16);
+            lastUpdatedLabel.Size = new System.Drawing.Size(56, 16);
             lastUpdatedLabel.TabIndex = 22;
-            lastUpdatedLabel.Text = "更新日:";
-            // 
-            // canPurchaseLabel
-            // 
-            canPurchaseLabel.AutoSize = true;
-            canPurchaseLabel.Location = new System.Drawing.Point(627, 309);
-            canPurchaseLabel.Name = "canPurchaseLabel";
-            canPurchaseLabel.Size = new System.Drawing.Size(60, 16);
-            canPurchaseLabel.TabIndex = 26;
-            canPurchaseLabel.Text = "能進貨:";
+            lastUpdatedLabel.Text = "更新日";
             // 
             // titleCodeLabel
             // 
             titleCodeLabel.AutoSize = true;
-            titleCodeLabel.Location = new System.Drawing.Point(626, 235);
+            titleCodeLabel.Location = new System.Drawing.Point(626, 301);
             titleCodeLabel.Name = "titleCodeLabel";
-            titleCodeLabel.Size = new System.Drawing.Size(44, 16);
+            titleCodeLabel.Size = new System.Drawing.Size(40, 16);
             titleCodeLabel.TabIndex = 27;
-            titleCodeLabel.Text = "科目:";
+            titleCodeLabel.Text = "科目";
+            // 
+            // unitWeightLabel
+            // 
+            unitWeightLabel.AutoSize = true;
+            unitWeightLabel.Location = new System.Drawing.Point(626, 264);
+            unitWeightLabel.Name = "unitWeightLabel";
+            unitWeightLabel.Size = new System.Drawing.Size(60, 16);
+            unitWeightLabel.TabIndex = 47;
+            unitWeightLabel.Text = "克/單位";
+            // 
+            // vendorIDLabel
+            // 
+            vendorIDLabel.AutoSize = true;
+            vendorIDLabel.Location = new System.Drawing.Point(626, 153);
+            vendorIDLabel.Name = "vendorIDLabel";
+            vendorIDLabel.Size = new System.Drawing.Size(56, 16);
+            vendorIDLabel.TabIndex = 48;
+            vendorIDLabel.Text = "供貨商";
+            // 
+            // specsLabel
+            // 
+            specsLabel.AutoSize = true;
+            specsLabel.Location = new System.Drawing.Point(626, 338);
+            specsLabel.Name = "specsLabel";
+            specsLabel.Size = new System.Drawing.Size(40, 16);
+            specsLabel.TabIndex = 49;
+            specsLabel.Text = "規格";
+            // 
+            // minOrderLabel
+            // 
+            minOrderLabel.AutoSize = true;
+            minOrderLabel.Location = new System.Drawing.Point(626, 375);
+            minOrderLabel.Name = "minOrderLabel";
+            minOrderLabel.Size = new System.Drawing.Size(72, 16);
+            minOrderLabel.TabIndex = 50;
+            minOrderLabel.Text = "最小起訂";
             // 
             // IngredientBindingNavigator
             // 
@@ -351,7 +377,6 @@
             this.columnIngredientID,
             this.CanPurchase,
             this.columnCode,
-            this.columnClass,
             this.columnName,
             this.Unit,
             this.columnTitleCode,
@@ -364,7 +389,7 @@
             this.IngredientDataGridView.Name = "IngredientDataGridView";
             this.IngredientDataGridView.RowHeadersWidth = 25;
             this.IngredientDataGridView.RowTemplate.Height = 24;
-            this.IngredientDataGridView.Size = new System.Drawing.Size(617, 657);
+            this.IngredientDataGridView.Size = new System.Drawing.Size(617, 702);
             this.IngredientDataGridView.TabIndex = 2;
             this.IngredientDataGridView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.IngredientDataGridView_CellBeginEdit);
             // 
@@ -379,23 +404,16 @@
             // CanPurchase
             // 
             this.CanPurchase.DataPropertyName = "CanPurchase";
-            this.CanPurchase.HeaderText = "可進";
+            this.CanPurchase.HeaderText = "可";
             this.CanPurchase.Name = "CanPurchase";
-            this.CanPurchase.Width = 50;
+            this.CanPurchase.Width = 32;
             // 
             // columnCode
             // 
             this.columnCode.DataPropertyName = "Code";
             this.columnCode.HeaderText = "代号";
             this.columnCode.Name = "columnCode";
-            this.columnCode.Width = 50;
-            // 
-            // columnClass
-            // 
-            this.columnClass.DataPropertyName = "Class";
-            this.columnClass.HeaderText = "類";
-            this.columnClass.Name = "columnClass";
-            this.columnClass.Width = 25;
+            this.columnCode.Width = 90;
             // 
             // columnName
             // 
@@ -443,50 +461,39 @@
             this.IngredientIDTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.IngredientIDTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.IngredientIDTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.IngredientBindingSource, "IngredientID", true));
-            this.IngredientIDTextBox.Location = new System.Drawing.Point(717, 85);
+            this.IngredientIDTextBox.Location = new System.Drawing.Point(716, 40);
             this.IngredientIDTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.IngredientIDTextBox.Name = "IngredientIDTextBox";
             this.IngredientIDTextBox.ReadOnly = true;
-            this.IngredientIDTextBox.Size = new System.Drawing.Size(121, 20);
+            this.IngredientIDTextBox.Size = new System.Drawing.Size(79, 20);
             this.IngredientIDTextBox.TabIndex = 3;
             // 
             // codeTextBox
             // 
             this.codeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.IngredientBindingSource, "Code", true));
             this.codeTextBox.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.codeTextBox.Location = new System.Drawing.Point(717, 119);
+            this.codeTextBox.Location = new System.Drawing.Point(716, 74);
             this.codeTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.codeTextBox.Name = "codeTextBox";
             this.codeTextBox.Size = new System.Drawing.Size(121, 27);
             this.codeTextBox.TabIndex = 5;
             this.codeTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.codeTextBox_Validating);
             // 
-            // classTextBox
-            // 
-            this.classTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.IngredientBindingSource, "Class", true));
-            this.classTextBox.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.classTextBox.Location = new System.Drawing.Point(717, 156);
-            this.classTextBox.Margin = new System.Windows.Forms.Padding(4);
-            this.classTextBox.Name = "classTextBox";
-            this.classTextBox.Size = new System.Drawing.Size(121, 27);
-            this.classTextBox.TabIndex = 7;
-            this.classTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.classTextBox_Validating);
-            // 
             // nameTextBox
             // 
             this.nameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.IngredientBindingSource, "Name", true));
             this.nameTextBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.nameTextBox.Location = new System.Drawing.Point(717, 193);
+            this.nameTextBox.Location = new System.Drawing.Point(716, 111);
             this.nameTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.nameTextBox.Name = "nameTextBox";
-            this.nameTextBox.Size = new System.Drawing.Size(183, 27);
+            this.nameTextBox.Size = new System.Drawing.Size(201, 27);
             this.nameTextBox.TabIndex = 9;
             // 
             // priceTextBox
             // 
             this.priceTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.IngredientBindingSource, "Price", true));
             this.priceTextBox.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.priceTextBox.Location = new System.Drawing.Point(717, 267);
+            this.priceTextBox.Location = new System.Drawing.Point(716, 185);
             this.priceTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.priceTextBox.Name = "priceTextBox";
             this.priceTextBox.Size = new System.Drawing.Size(121, 27);
@@ -496,7 +503,7 @@
             // unitTextBox
             // 
             this.unitTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.IngredientBindingSource, "Unit", true));
-            this.unitTextBox.Location = new System.Drawing.Point(716, 341);
+            this.unitTextBox.Location = new System.Drawing.Point(716, 222);
             this.unitTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.unitTextBox.Name = "unitTextBox";
             this.unitTextBox.Size = new System.Drawing.Size(121, 27);
@@ -507,7 +514,7 @@
             this.lastUpdatedTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.lastUpdatedTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lastUpdatedTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.IngredientBindingSource, "LastUpdated", true));
-            this.lastUpdatedTextBox.Location = new System.Drawing.Point(716, 381);
+            this.lastUpdatedTextBox.Location = new System.Drawing.Point(716, 410);
             this.lastUpdatedTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.lastUpdatedTextBox.Name = "lastUpdatedTextBox";
             this.lastUpdatedTextBox.ReadOnly = true;
@@ -517,10 +524,11 @@
             // canPurchaseCheckBox
             // 
             this.canPurchaseCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.IngredientBindingSource, "CanPurchase", true));
-            this.canPurchaseCheckBox.Location = new System.Drawing.Point(716, 305);
+            this.canPurchaseCheckBox.Location = new System.Drawing.Point(812, 38);
             this.canPurchaseCheckBox.Name = "canPurchaseCheckBox";
-            this.canPurchaseCheckBox.Size = new System.Drawing.Size(104, 24);
+            this.canPurchaseCheckBox.Size = new System.Drawing.Size(87, 24);
             this.canPurchaseCheckBox.TabIndex = 27;
+            this.canPurchaseCheckBox.Text = "能進貨";
             // 
             // IngredientTableAdapter
             // 
@@ -536,7 +544,7 @@
             this.titleCodeComboBox.DataSource = this.accountingTitleBindingSource;
             this.titleCodeComboBox.DisplayMember = "Name";
             this.titleCodeComboBox.FormattingEnabled = true;
-            this.titleCodeComboBox.Location = new System.Drawing.Point(716, 231);
+            this.titleCodeComboBox.Location = new System.Drawing.Point(716, 297);
             this.titleCodeComboBox.MaxDropDownItems = 16;
             this.titleCodeComboBox.Name = "titleCodeComboBox";
             this.titleCodeComboBox.Size = new System.Drawing.Size(121, 24);
@@ -547,7 +555,7 @@
             // 
             this.photoPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.photoPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.photoPictureBox.Location = new System.Drawing.Point(659, 421);
+            this.photoPictureBox.Location = new System.Drawing.Point(662, 467);
             this.photoPictureBox.Name = "photoPictureBox";
             this.photoPictureBox.Size = new System.Drawing.Size(223, 215);
             this.photoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -570,24 +578,72 @@
             // 
             this.voucherTableAdapter.ClearBeforeFill = true;
             // 
+            // unitWeightTextBox
+            // 
+            this.unitWeightTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.IngredientBindingSource, "UnitWeight", true));
+            this.unitWeightTextBox.Location = new System.Drawing.Point(716, 259);
+            this.unitWeightTextBox.Name = "unitWeightTextBox";
+            this.unitWeightTextBox.Size = new System.Drawing.Size(120, 27);
+            this.unitWeightTextBox.TabIndex = 48;
+            // 
+            // vendorIDComboBox
+            // 
+            this.vendorIDComboBox.CausesValidation = false;
+            this.vendorIDComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.IngredientBindingSource, "VendorID", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0"));
+            this.vendorIDComboBox.FormattingEnabled = true;
+            this.vendorIDComboBox.Location = new System.Drawing.Point(716, 149);
+            this.vendorIDComboBox.Name = "vendorIDComboBox";
+            this.vendorIDComboBox.Size = new System.Drawing.Size(121, 24);
+            this.vendorIDComboBox.TabIndex = 49;
+            // 
+            // specsTextBox
+            // 
+            this.specsTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.IngredientBindingSource, "Specs", true));
+            this.specsTextBox.Location = new System.Drawing.Point(713, 333);
+            this.specsTextBox.Name = "specsTextBox";
+            this.specsTextBox.Size = new System.Drawing.Size(204, 27);
+            this.specsTextBox.TabIndex = 50;
+            // 
+            // minOrderTextBox
+            // 
+            this.minOrderTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.IngredientBindingSource, "MinOrder", true));
+            this.minOrderTextBox.Location = new System.Drawing.Point(713, 370);
+            this.minOrderTextBox.Name = "minOrderTextBox";
+            this.minOrderTextBox.Size = new System.Drawing.Size(204, 27);
+            this.minOrderTextBox.TabIndex = 51;
+            // 
+            // vendorBindingSource
+            // 
+            this.vendorBindingSource.DataMember = "Vendor";
+            this.vendorBindingSource.DataSource = this.vEDataSet;
+            // 
+            // vendorTableAdapter
+            // 
+            this.vendorTableAdapter.ClearBeforeFill = true;
+            // 
             // Ingredient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(924, 657);
+            this.ClientSize = new System.Drawing.Size(943, 702);
+            this.Controls.Add(minOrderLabel);
+            this.Controls.Add(this.minOrderTextBox);
+            this.Controls.Add(specsLabel);
+            this.Controls.Add(this.specsTextBox);
+            this.Controls.Add(vendorIDLabel);
+            this.Controls.Add(this.vendorIDComboBox);
+            this.Controls.Add(unitWeightLabel);
+            this.Controls.Add(this.unitWeightTextBox);
             this.Controls.Add(this.photoPictureBox);
             this.Controls.Add(this.titleCodeComboBox);
             this.Controls.Add(titleCodeLabel);
-            this.Controls.Add(canPurchaseLabel);
             this.Controls.Add(this.canPurchaseCheckBox);
             this.Controls.Add(this.lastUpdatedTextBox);
             this.Controls.Add(IngredientIDLabel);
             this.Controls.Add(this.IngredientIDTextBox);
             this.Controls.Add(codeLabel);
             this.Controls.Add(this.codeTextBox);
-            this.Controls.Add(classLabel);
-            this.Controls.Add(this.classTextBox);
             this.Controls.Add(nameLabel);
             this.Controls.Add(this.nameTextBox);
             this.Controls.Add(priceLabel);
@@ -602,6 +658,7 @@
             this.Name = "Ingredient";
             this.Text = "食材表";
             this.Load += new System.EventHandler(this.Ingredient_Load);
+            this.Shown += new System.EventHandler(this.Ingredient_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.IngredientBindingNavigator)).EndInit();
             this.IngredientBindingNavigator.ResumeLayout(false);
             this.IngredientBindingNavigator.PerformLayout();
@@ -610,6 +667,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.IngredientDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.photoPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vendorBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -635,7 +693,6 @@
         private System.Windows.Forms.DataGridView IngredientDataGridView;
         private System.Windows.Forms.TextBox IngredientIDTextBox;
         private System.Windows.Forms.TextBox codeTextBox;
-        private System.Windows.Forms.TextBox classTextBox;
         private System.Windows.Forms.TextBox nameTextBox;
         private System.Windows.Forms.TextBox priceTextBox;
         private System.Windows.Forms.TextBox unitTextBox;
@@ -646,17 +703,22 @@
         private System.Windows.Forms.ComboBox titleCodeComboBox;
         private System.Windows.Forms.PictureBox photoPictureBox;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.ToolStripButton DeletetoolStripButton;
+        private VEDataSetTableAdapters.VoucherDetailTableAdapter voucherDetailTableAdapter;
+        private VEDataSetTableAdapters.VoucherTableAdapter voucherTableAdapter;
+        private System.Windows.Forms.TextBox unitWeightTextBox;
+        private System.Windows.Forms.ComboBox vendorIDComboBox;
+        private System.Windows.Forms.TextBox specsTextBox;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnIngredientID;
         private System.Windows.Forms.DataGridViewCheckBoxColumn CanPurchase;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnCode;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnClass;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Unit;
         private System.Windows.Forms.DataGridViewComboBoxColumn columnTitleCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnPrice;
-        private System.Windows.Forms.ToolStripButton DeletetoolStripButton;
-        private VEDataSetTableAdapters.VoucherDetailTableAdapter voucherDetailTableAdapter;
-        private VEDataSetTableAdapters.VoucherTableAdapter voucherTableAdapter;
+        private System.Windows.Forms.TextBox minOrderTextBox;
+        private System.Windows.Forms.BindingSource vendorBindingSource;
+        private VEDataSetTableAdapters.VendorTableAdapter vendorTableAdapter;
 
     }
 }

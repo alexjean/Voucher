@@ -634,6 +634,12 @@ namespace VoucherExpense
             ModifyIngredientFilterForSafe(Select);      
         }
 
+        private void vendorIDComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
         private CellStatus IsCellNull(DataGridViewRow row, string name, out object obj)
         {
             obj = null;
@@ -820,10 +826,7 @@ namespace VoucherExpense
             cellID.Value = Guid.NewGuid();
         }
 
-        private void voucherDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
+  
+  
     }
 }

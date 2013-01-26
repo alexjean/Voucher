@@ -444,6 +444,7 @@
             this.vendorIDComboBox.Size = new System.Drawing.Size(146, 24);
             this.vendorIDComboBox.TabIndex = 45;
             this.vendorIDComboBox.ValueMember = "VendorID";
+            this.vendorIDComboBox.SelectedIndexChanged += new System.EventHandler(this.vendorIDComboBox_SelectedIndexChanged);
             // 
             // venderFilterSource
             // 
@@ -679,7 +680,6 @@
             this.voucherDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.voucherDataGridView.Size = new System.Drawing.Size(403, 670);
             this.voucherDataGridView.TabIndex = 1;
-            this.voucherDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.voucherDataGridView_CellContentClick);
             this.voucherDataGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.voucherDataGridView_CellValueChanged);
             this.voucherDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.voucherDataGridView_DataError);
             this.voucherDataGridView.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.voucherDataGridView_RowPrePaint);

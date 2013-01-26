@@ -128,6 +128,7 @@ namespace VoucherExpense
                 }
                 vendorIDComboBox.SelectedItem = vendor;
             }
+//            CalcCostPerGram();
             if (!photoPictureBox.Visible) return;
             if (photoPictureBox.Location.X == 0)
             {
@@ -271,6 +272,35 @@ namespace VoucherExpense
         private void Ingredient_Shown(object sender, EventArgs e)
         {
             vendorIDComboBox.SelectedIndexChanged += this.vendorIDComboBox_SelectedIndexChanged;    // 這裏才加,避免第一個Record VendorID被清0
+        }
+
+        void CalcCostPerGram()
+        {
+            decimal unitWeight;
+            if (decimal.TryParse(unitWeightTextBox.Text.Trim(), out unitWeight) && unitWeight > 0)
+            {
+                decimal cost = 0;
+                decimal.TryParse(this.priceTextBox.Text.Trim(), out cost);
+                decimal costPerGram = cost / unitWeight;
+                textBoxCostPerGram.Text = costPerGram.ToString("f3")+"元/克";
+            }
+            else
+                textBoxCostPerGram.Text = "";
+        }
+
+        private void unitWeightTextBox_Validated(object sender, EventArgs e)
+        {
+            CalcCostPerGram();
+        }
+
+        private void priceTextBox_Validated(object sender, EventArgs e)
+        {
+            CalcCostPerGram();
+        }
+
+        private void IngredientBindingSource_BindingComplete(object sender, BindingCompleteEventArgs e)
+        {
+            CalcCostPerGram();
         }
     }
 }

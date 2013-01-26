@@ -88,6 +88,7 @@
             this.minOrderTextBox = new System.Windows.Forms.TextBox();
             this.vendorBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.vendorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.VendorTableAdapter();
+            this.textBoxCostPerGram = new System.Windows.Forms.TextBox();
             IngredientIDLabel = new System.Windows.Forms.Label();
             codeLabel = new System.Windows.Forms.Label();
             nameLabel = new System.Windows.Forms.Label();
@@ -181,7 +182,7 @@
             // unitWeightLabel
             // 
             unitWeightLabel.AutoSize = true;
-            unitWeightLabel.Location = new System.Drawing.Point(626, 264);
+            unitWeightLabel.Location = new System.Drawing.Point(626, 259);
             unitWeightLabel.Name = "unitWeightLabel";
             unitWeightLabel.Size = new System.Drawing.Size(60, 16);
             unitWeightLabel.TabIndex = 47;
@@ -261,6 +262,7 @@
             // 
             this.IngredientBindingSource.DataMember = "Ingredient";
             this.IngredientBindingSource.DataSource = this.vEDataSet;
+            this.IngredientBindingSource.BindingComplete += new System.Windows.Forms.BindingCompleteEventHandler(this.IngredientBindingSource_BindingComplete);
             this.IngredientBindingSource.CurrentChanged += new System.EventHandler(this.IngredientBindingSource_CurrentChanged);
             // 
             // vEDataSet
@@ -496,9 +498,10 @@
             this.priceTextBox.Location = new System.Drawing.Point(716, 185);
             this.priceTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.priceTextBox.Name = "priceTextBox";
-            this.priceTextBox.Size = new System.Drawing.Size(121, 27);
+            this.priceTextBox.Size = new System.Drawing.Size(100, 27);
             this.priceTextBox.TabIndex = 11;
             this.priceTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.priceTextBox_Validating);
+            this.priceTextBox.Validated += new System.EventHandler(this.priceTextBox_Validated);
             // 
             // unitTextBox
             // 
@@ -506,7 +509,7 @@
             this.unitTextBox.Location = new System.Drawing.Point(716, 222);
             this.unitTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.unitTextBox.Name = "unitTextBox";
-            this.unitTextBox.Size = new System.Drawing.Size(121, 27);
+            this.unitTextBox.Size = new System.Drawing.Size(100, 27);
             this.unitTextBox.TabIndex = 17;
             // 
             // lastUpdatedTextBox
@@ -547,7 +550,7 @@
             this.titleCodeComboBox.Location = new System.Drawing.Point(716, 297);
             this.titleCodeComboBox.MaxDropDownItems = 16;
             this.titleCodeComboBox.Name = "titleCodeComboBox";
-            this.titleCodeComboBox.Size = new System.Drawing.Size(121, 24);
+            this.titleCodeComboBox.Size = new System.Drawing.Size(100, 24);
             this.titleCodeComboBox.TabIndex = 28;
             this.titleCodeComboBox.ValueMember = "TitleCode";
             // 
@@ -581,10 +584,11 @@
             // unitWeightTextBox
             // 
             this.unitWeightTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.IngredientBindingSource, "UnitWeight", true));
-            this.unitWeightTextBox.Location = new System.Drawing.Point(716, 259);
+            this.unitWeightTextBox.Location = new System.Drawing.Point(717, 256);
             this.unitWeightTextBox.Name = "unitWeightTextBox";
-            this.unitWeightTextBox.Size = new System.Drawing.Size(120, 27);
+            this.unitWeightTextBox.Size = new System.Drawing.Size(99, 27);
             this.unitWeightTextBox.TabIndex = 48;
+            this.unitWeightTextBox.Validated += new System.EventHandler(this.unitWeightTextBox_Validated);
             // 
             // vendorIDComboBox
             // 
@@ -593,7 +597,7 @@
             this.vendorIDComboBox.FormattingEnabled = true;
             this.vendorIDComboBox.Location = new System.Drawing.Point(716, 149);
             this.vendorIDComboBox.Name = "vendorIDComboBox";
-            this.vendorIDComboBox.Size = new System.Drawing.Size(121, 24);
+            this.vendorIDComboBox.Size = new System.Drawing.Size(100, 24);
             this.vendorIDComboBox.TabIndex = 49;
             // 
             // specsTextBox
@@ -621,12 +625,21 @@
             // 
             this.vendorTableAdapter.ClearBeforeFill = true;
             // 
+            // textBoxCostPerGram
+            // 
+            this.textBoxCostPerGram.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.textBoxCostPerGram.Location = new System.Drawing.Point(818, 256);
+            this.textBoxCostPerGram.Name = "textBoxCostPerGram";
+            this.textBoxCostPerGram.Size = new System.Drawing.Size(99, 27);
+            this.textBoxCostPerGram.TabIndex = 52;
+            // 
             // Ingredient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(943, 702);
+            this.Controls.Add(this.textBoxCostPerGram);
             this.Controls.Add(minOrderLabel);
             this.Controls.Add(this.minOrderTextBox);
             this.Controls.Add(specsLabel);
@@ -719,6 +732,7 @@
         private System.Windows.Forms.TextBox minOrderTextBox;
         private System.Windows.Forms.BindingSource vendorBindingSource;
         private VEDataSetTableAdapters.VendorTableAdapter vendorTableAdapter;
+        private System.Windows.Forms.TextBox textBoxCostPerGram;
 
     }
 }

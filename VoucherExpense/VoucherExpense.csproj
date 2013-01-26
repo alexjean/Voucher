@@ -291,6 +291,12 @@
     <Compile Include="FormPrintSelect.Designer.cs">
       <DependentUpon>FormPrintSelect.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormRecipe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRecipe.Designer.cs">
+      <DependentUpon>FormRecipe.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormShift.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -465,6 +471,9 @@
     <EmbeddedResource Include="FormPrintSelect.resx">
       <SubType>Designer</SubType>
       <DependentUpon>FormPrintSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRecipe.resx">
+      <DependentUpon>FormRecipe.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormShift.resx">
       <DependentUpon>FormShift.cs</DependentUpon>

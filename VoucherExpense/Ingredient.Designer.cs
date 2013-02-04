@@ -400,7 +400,6 @@
             this.columnIngredientID.DataPropertyName = "IngredientID";
             this.columnIngredientID.HeaderText = "內碼";
             this.columnIngredientID.Name = "columnIngredientID";
-            this.columnIngredientID.ReadOnly = true;
             this.columnIngredientID.Width = 50;
             // 
             // CanPurchase

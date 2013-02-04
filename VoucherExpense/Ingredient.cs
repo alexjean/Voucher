@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Drawing;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace VoucherExpense
 {
@@ -17,8 +18,19 @@ namespace VoucherExpense
 
         private void IngredientBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
-            VEDataSet.IngredientDataTable table = MyFunction.SaveCheck<VEDataSet.IngredientDataTable>(
-                                                        this, IngredientBindingSource, vEDataSet.Ingredient);
+//            VEDataSet.IngredientDataTable table = MyFunction.SaveCheck<VEDataSet.IngredientDataTable>(this, IngredientBindingSource, vEDataSet.Ingredient);
+            if (!this.Validate())
+            {
+                MessageBox.Show("有資料錯誤, 請改好再存!");
+                return;
+            }
+            IngredientBindingSource.EndEdit();     // 執行此行時,若無問題 RowState.Detached => RowState.Added
+            VEDataSet.IngredientDataTable table = (VEDataSet.IngredientDataTable)vEDataSet.Ingredient.GetChanges();
+            if (table == null)
+            {
+                MessageBox.Show("沒有改動任何資料! 不用存");
+                return;
+            }
             if (table == null) return;
             MyFunction.SetGlobalFlag(GlobalFlag.basicDataModified);
 
@@ -72,29 +84,43 @@ namespace VoucherExpense
 
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
-            MyFunction.AddNewItem(IngredientDataGridView, "columnIngredientID", 
-                                   "IngredientID", vEDataSet.Ingredient);
+//            MyFunction.AddNewItem(IngredientDataGridView, "columnIngredientID","IngredientID", vEDataSet.Ingredient);
+            int max = (from ro in vEDataSet.Ingredient select ro.IngredientID).Max();
+            int ingredientID = MyFunction.SetCellMaxNo("columnIngredientID", IngredientDataGridView, max);
+            DataRowView rowView = (DataRowView)IngredientBindingSource.Current;
+            VEDataSet.IngredientRow row = (VEDataSet.IngredientRow)rowView.Row;
+            if (row.RowState == DataRowState.Detached)     // 因為row資料沒有啟始值, 所以 BindingSource.EndEdit時,無法成功==> RowState還是Detached
+                vEDataSet.Ingredient.Rows.Add(row);        // 硬上,自己加.   EditBakeryProduct.cs的處理方式比較文明, 每個Field都在螢幕上填值
         }
 
+        bool m_ShowValidatingWarning = true;
         private void codeTextBox_Validating(object sender, CancelEventArgs e)
         {
             e.Cancel=!MyFunction.UintValidate(((TextBox )sender).Text);
+            if (m_ShowValidatingWarning && e.Cancel)
+                MessageBox.Show("代号必需是正整數!");
         }
 
         private void classTextBox_Validating(object sender, CancelEventArgs e)
         {
             e.Cancel = !MyFunction.UintValidate(((TextBox)sender).Text);
+            if (m_ShowValidatingWarning && e.Cancel)
+                MessageBox.Show("代号必需是正整數!");
         }
 
         private void priceTextBox_Validating(object sender, CancelEventArgs e)
         {
             e.Cancel = !MyFunction.DecimalValidate(((TextBox)sender).Text);
+            if (m_ShowValidatingWarning && e.Cancel)
+                MessageBox.Show("價格必需是Decimal!");
         }
 
         private void IngredientDataGridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
             if (!MyFunction.ColumnIDGood((DataGridView)sender, "columnIngredientID", e.RowIndex))
                 e.Cancel = true;
+            if (m_ShowValidatingWarning && e.Cancel)
+                MessageBox.Show("DataGridView的<食材內碼>不正確!");
         }
 
         string CurrentPhotoPath()

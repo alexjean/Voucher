@@ -45,13 +45,14 @@ namespace VoucherExpense
             }
             try
             {
+//                VEDataSet.IngredientRow ing = table[0];
                 vEDataSet.Ingredient.Merge(table);
                 this.IngredientTableAdapter.Update(this.vEDataSet.Ingredient);
                 vEDataSet.Ingredient.AcceptChanges();
             }
-            catch
+            catch(Exception ex)
             {
-                MessageBox.Show("存檔發生錯誤,請關閉程式,重新登入！");
+                MessageBox.Show("錯誤原因:"+ex.Message+"\r\n存檔發生錯誤,請關閉程式,重新登入！");
             }
         }
 
@@ -69,6 +70,8 @@ namespace VoucherExpense
                 foreach (VEDataSet.VendorRow vendor in vEDataSet.Vendor)
                     m_VendorList.Add(new CNameIDForComboBox(vendor.VendorID, vendor.Name));
                 vendorIDComboBox.DataSource = m_VendorList;
+                //vendorIDComboBox.ValueMember = "ID";
+                //vendorIDComboBox.DisplayMember = "Name";
                 accountingTitleTableAdapter.Fill(this.vEDataSet.AccountingTitle);
                 IngredientTableAdapter.Fill     (this.vEDataSet.Ingredient);
             }
@@ -87,10 +90,15 @@ namespace VoucherExpense
 //            MyFunction.AddNewItem(IngredientDataGridView, "columnIngredientID","IngredientID", vEDataSet.Ingredient);
             int max = (from ro in vEDataSet.Ingredient select ro.IngredientID).Max();
             int ingredientID = MyFunction.SetCellMaxNo("columnIngredientID", IngredientDataGridView, max);
-            DataRowView rowView = (DataRowView)IngredientBindingSource.Current;
-            VEDataSet.IngredientRow row = (VEDataSet.IngredientRow)rowView.Row;
-            if (row.RowState == DataRowState.Detached)     // 因為row資料沒有啟始值, 所以 BindingSource.EndEdit時,無法成功==> RowState還是Detached
-                vEDataSet.Ingredient.Rows.Add(row);        // 硬上,自己加.   EditBakeryProduct.cs的處理方式比較文明, 每個Field都在螢幕上填值
+            // 因為供應商資料沒有ValueMember啟始值,只Binding了SelectedValue
+            // 所以後來 BindingSource.EndEdit時,無法成功==> RowState還是Detached,永遠無法改
+
+
+            // 測試方案1:硬上,自己加.   EditBakeryProduct.cs的處理方式比較文明, 每個Field都在螢幕上填值
+            //DataRowView rowView = (DataRowView)IngredientBindingSource.Current;
+            //VEDataSet.IngredientRow row = (VEDataSet.IngredientRow)rowView.Row;
+            //if (row.RowState == DataRowState.Detached)
+            //    vEDataSet.Ingredient.Rows.Add(row);        
         }
 
         bool m_ShowValidatingWarning = true;

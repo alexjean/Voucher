@@ -41,9 +41,9 @@
             System.Windows.Forms.Label specsLabel;
             System.Windows.Forms.Label minOrderLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ingredient));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.IngredientBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.IngredientBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -89,6 +89,7 @@
             this.vendorBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.vendorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.VendorTableAdapter();
             this.textBoxCostPerGram = new System.Windows.Forms.TextBox();
+            this.cNameIDForComboBoxBindingSource = new System.Windows.Forms.BindingSource(this.components);
             IngredientIDLabel = new System.Windows.Forms.Label();
             codeLabel = new System.Windows.Forms.Label();
             nameLabel = new System.Windows.Forms.Label();
@@ -108,6 +109,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.photoPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vendorBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cNameIDForComboBoxBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // IngredientIDLabel
@@ -363,18 +365,18 @@
             this.IngredientDataGridView.AllowUserToDeleteRows = false;
             this.IngredientDataGridView.AllowUserToOrderColumns = true;
             this.IngredientDataGridView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
-            this.IngredientDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Azure;
+            this.IngredientDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.IngredientDataGridView.AutoGenerateColumns = false;
             this.IngredientDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.IngredientDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.IngredientDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.IngredientDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.columnIngredientID,
             this.CanPurchase,
@@ -451,8 +453,8 @@
             // columnPrice
             // 
             this.columnPrice.DataPropertyName = "Price";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.columnPrice.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.columnPrice.DefaultCellStyle = dataGridViewCellStyle6;
             this.columnPrice.HeaderText = "參考";
             this.columnPrice.Name = "columnPrice";
             this.columnPrice.Width = 55;
@@ -592,12 +594,15 @@
             // vendorIDComboBox
             // 
             this.vendorIDComboBox.CausesValidation = false;
-            this.vendorIDComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.IngredientBindingSource, "VendorID", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0"));
+            this.vendorIDComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.IngredientBindingSource, "VendorID", true));
+            this.vendorIDComboBox.DataSource = this.cNameIDForComboBoxBindingSource;
+            this.vendorIDComboBox.DisplayMember = "Name";
             this.vendorIDComboBox.FormattingEnabled = true;
             this.vendorIDComboBox.Location = new System.Drawing.Point(716, 149);
             this.vendorIDComboBox.Name = "vendorIDComboBox";
             this.vendorIDComboBox.Size = new System.Drawing.Size(100, 24);
             this.vendorIDComboBox.TabIndex = 49;
+            this.vendorIDComboBox.ValueMember = "ID";
             // 
             // specsTextBox
             // 
@@ -631,6 +636,10 @@
             this.textBoxCostPerGram.Name = "textBoxCostPerGram";
             this.textBoxCostPerGram.Size = new System.Drawing.Size(99, 27);
             this.textBoxCostPerGram.TabIndex = 52;
+            // 
+            // cNameIDForComboBoxBindingSource
+            // 
+            this.cNameIDForComboBoxBindingSource.DataSource = typeof(VoucherExpense.CNameIDForComboBox);
             // 
             // Ingredient
             // 
@@ -680,6 +689,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.photoPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vendorBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cNameIDForComboBoxBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -732,6 +742,7 @@
         private System.Windows.Forms.BindingSource vendorBindingSource;
         private VEDataSetTableAdapters.VendorTableAdapter vendorTableAdapter;
         private System.Windows.Forms.TextBox textBoxCostPerGram;
+        private System.Windows.Forms.BindingSource cNameIDForComboBoxBindingSource;
 
     }
 }

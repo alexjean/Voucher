@@ -41,9 +41,9 @@
             System.Windows.Forms.Label specsLabel;
             System.Windows.Forms.Label minOrderLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ingredient));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.IngredientBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.IngredientBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -84,12 +84,12 @@
             this.voucherTableAdapter = new VoucherExpense.VEDataSetTableAdapters.VoucherTableAdapter();
             this.unitWeightTextBox = new System.Windows.Forms.TextBox();
             this.vendorIDComboBox = new System.Windows.Forms.ComboBox();
+            this.cNameIDForComboBoxBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.specsTextBox = new System.Windows.Forms.TextBox();
             this.minOrderTextBox = new System.Windows.Forms.TextBox();
             this.vendorBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.vendorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.VendorTableAdapter();
             this.textBoxCostPerGram = new System.Windows.Forms.TextBox();
-            this.cNameIDForComboBoxBindingSource = new System.Windows.Forms.BindingSource(this.components);
             IngredientIDLabel = new System.Windows.Forms.Label();
             codeLabel = new System.Windows.Forms.Label();
             nameLabel = new System.Windows.Forms.Label();
@@ -108,8 +108,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.IngredientDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.photoPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vendorBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cNameIDForComboBoxBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vendorBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // IngredientIDLabel
@@ -365,18 +365,18 @@
             this.IngredientDataGridView.AllowUserToDeleteRows = false;
             this.IngredientDataGridView.AllowUserToOrderColumns = true;
             this.IngredientDataGridView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Azure;
-            this.IngredientDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
+            this.IngredientDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.IngredientDataGridView.AutoGenerateColumns = false;
             this.IngredientDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.IngredientDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.IngredientDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.IngredientDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.columnIngredientID,
             this.CanPurchase,
@@ -453,8 +453,8 @@
             // columnPrice
             // 
             this.columnPrice.DataPropertyName = "Price";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.columnPrice.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.columnPrice.DefaultCellStyle = dataGridViewCellStyle3;
             this.columnPrice.HeaderText = "參考";
             this.columnPrice.Name = "columnPrice";
             this.columnPrice.Width = 55;
@@ -604,6 +604,10 @@
             this.vendorIDComboBox.TabIndex = 49;
             this.vendorIDComboBox.ValueMember = "ID";
             // 
+            // cNameIDForComboBoxBindingSource
+            // 
+            this.cNameIDForComboBoxBindingSource.DataSource = typeof(VoucherExpense.CNameIDForComboBox);
+            // 
             // specsTextBox
             // 
             this.specsTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.IngredientBindingSource, "Specs", true));
@@ -636,10 +640,6 @@
             this.textBoxCostPerGram.Name = "textBoxCostPerGram";
             this.textBoxCostPerGram.Size = new System.Drawing.Size(99, 27);
             this.textBoxCostPerGram.TabIndex = 52;
-            // 
-            // cNameIDForComboBoxBindingSource
-            // 
-            this.cNameIDForComboBoxBindingSource.DataSource = typeof(VoucherExpense.CNameIDForComboBox);
             // 
             // Ingredient
             // 
@@ -677,6 +677,7 @@
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Ingredient";
+            this.ShowIcon = false;
             this.Text = "食材表";
             this.Load += new System.EventHandler(this.Ingredient_Load);
             this.Shown += new System.EventHandler(this.Ingredient_Shown);
@@ -688,8 +689,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.IngredientDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.photoPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vendorBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cNameIDForComboBoxBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vendorBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

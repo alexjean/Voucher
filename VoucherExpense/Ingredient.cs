@@ -293,8 +293,8 @@ namespace VoucherExpense
         private void vendorIDComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox box=sender as ComboBox;
-            DataRowView rowView = IngredientBindingSource.Current as DataRowView;
-            VEDataSet.IngredientRow row = rowView.Row as VEDataSet.IngredientRow;
+            var rowView = IngredientBindingSource.Current as DataRowView;
+            var row     = rowView.Row as VEDataSet.IngredientRow;
             object obj = box.SelectedItem;
             if (obj != null && obj != DBNull.Value)
             {

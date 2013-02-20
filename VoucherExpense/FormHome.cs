@@ -332,10 +332,6 @@ namespace VoucherExpense
             }
         }
 
-        private void 盤點ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            PopupOrRun("Stock", typeof(FormStock));
-        }
 
         private void 環境設定MenuItem_Click(object sender, EventArgs e)
         {

@@ -1,11 +1,6 @@
 ﻿namespace VoucherExpense {
-
-
-    partial class VEDataSet
-    {
-
-        partial class ShiftTableDataTable
-        {
-        }
+    
+    
+    public partial class VEDataSet {
     }
 }

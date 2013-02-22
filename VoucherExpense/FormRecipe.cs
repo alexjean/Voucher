@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
 
 namespace VoucherExpense
 {
@@ -17,19 +18,21 @@ namespace VoucherExpense
         }
 
         List<CNameIDForComboBox> m_ProductList = null;
+        List<CNameIDForComboBox> m_SourceList = null;
         private void FormRecipe_Load(object sender, EventArgs e)
         {
-            // TODO: 這行程式碼會將資料載入 'vEDataSet.RecipeDetail' 資料表。您可以視需要進行移動或移除。
-            this.recipeDetailTableAdapter.Fill(this.vEDataSet.RecipeDetail);
             try
             {
                 this.productTableAdapter.Fill(this.bakeryOrderSet.Product);
                 this.recipeTableAdapter.Fill(this.vEDataSet.Recipe);
+                this.recipeDetailTableAdapter.Fill(this.vEDataSet.RecipeDetail);
+                this.ingredientTableAdapter.Fill(this.vEDataSet.Ingredient);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("載入產品及配方錯誤!原因:" + ex.Message);
+                MessageBox.Show("載入產品食材及配方錯誤!原因:" + ex.Message);
             }
+            // 填給使用者選的產品表, 第一個為空白
             m_ProductList = new List<CNameIDForComboBox>();
             m_ProductList.Add(new CNameIDForComboBox(0, " "));
             foreach (var product in bakeryOrderSet.Product)
@@ -39,6 +42,30 @@ namespace VoucherExpense
                 m_ProductList.Add(new CNameIDForComboBox(product.ProductID, product.Name));
             }
             this.cNameIDForProductBindingSource.DataSource = m_ProductList;
+            // 填 食材+配方表 (RecipeID +10000)
+            m_SourceList = new List<CNameIDForComboBox>();
+            foreach (var ing in vEDataSet.Ingredient)
+            {
+                if (ing.CanPurchase)
+                {
+                    string name;
+                    if (ing.IsNameNull()) name="食材"+ing.IngredientID.ToString();
+                    else                  name= ing.Name;
+                    m_SourceList.Add(new CNameIDForComboBox(ing.IngredientID, name));
+                }
+            }
+            foreach (var recipe in vEDataSet.Recipe)
+            {
+                if (recipe.IsFinalProductIDNull() || recipe.FinalProductID <= 0)   // 該配方沒有最終產品,才列入
+                {
+                    string name = "配方:";
+                    if (recipe.IsRecipeNameNull()) name+=recipe.RecipeID.ToString();
+                    else                           name+=recipe.RecipeName;
+                    m_SourceList.Add(new CNameIDForComboBox(recipe.RecipeID+10000,name));
+                }
+            }
+            sourceBindingSource.DataSource = m_SourceList;
+
         }
 
         private void recipeBindingNavigatorSaveItem_Click(object sender, EventArgs e)
@@ -151,7 +178,7 @@ namespace VoucherExpense
         {
             if (m_ProductList == null || m_ProductList.Count<=0) return;
             ShowProductName();
-
+            ShowCurrentPicture();
         }
 
         private void FormRecipe_Shown(object sender, EventArgs e)
@@ -159,11 +186,7 @@ namespace VoucherExpense
             if (m_ProductList == null || m_ProductList.Count <= 0) return;
             // 參照Ingredient.cs解法和這裏不同
             ShowProductName();     // 第一次Shown時, finalProductIDComboBox.SelectedValue會被改成0, 先在這Shown就可以搶蓋回來, @@"
-        }
-
-        private void pictureBoxRecipe_Click(object sender, EventArgs e)
-        {
-
+            ShowCurrentPicture();
         }
 
         private void dgvRecipeDetail_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
@@ -172,5 +195,61 @@ namespace VoucherExpense
             DataGridViewCell cellID = row.Cells["ColumnDetailID"];
             cellID.Value = Guid.NewGuid();
         }
+
+        private void dgvRecipeDetail_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            DataGridView dgv = sender as DataGridView;
+            int rowIndex = e.RowIndex;
+            int colIndex = e.ColumnIndex;
+            if (rowIndex < 0) return;
+            if (colIndex < 0) return;
+            string name=dgv.Columns[colIndex].Name;
+            if ( name== "ColumnSourceID") return;
+            MessageBox.Show("row" + rowIndex.ToString() + " column<" + name + "> ex:" + e.Exception.Message);
+        }
+
+        bool m_DirChecked = false;
+        string CurrentPhotoPath()
+        {   
+            string RecipePhotoPath = "Photos\\Recipes\\";
+            DataRowView rowView = this.recipeBindingSource.Current as DataRowView;
+            var row = rowView.Row as VEDataSet.RecipeRow;
+            if (!m_DirChecked)
+            {
+                if (!Directory.Exists(RecipePhotoPath))
+                    Directory.CreateDirectory(RecipePhotoPath);
+                m_DirChecked=true;
+            }
+            return RecipePhotoPath + row.RecipeID.ToString() + ".jpg";
+        }
+
+        private void ShowCurrentPicture()
+        {
+            string path = CurrentPhotoPath();
+            if (File.Exists(path))
+                pictureBoxRecipe.ImageLocation = path;
+            else
+                pictureBoxRecipe.ImageLocation = null;
+        }
+
+        private void SavePicture()
+        {
+            DialogResult result = openFileDialog1.ShowDialog();
+            if (result != DialogResult.OK) return;
+            string ext = Path.GetExtension(openFileDialog1.FileName).ToLower();
+            if (ext != ".jpg")
+            {
+                MessageBox.Show("對不起!只接受jpg檔");
+                return;
+            }
+            string path = CurrentPhotoPath();
+            File.Copy(openFileDialog1.FileName, path, true);
+            pictureBoxRecipe.ImageLocation = path;
+        }
+        private void pictureBoxRecipe_Click(object sender, EventArgs e)
+        {
+            SavePicture();
+        }
+
     }
 }

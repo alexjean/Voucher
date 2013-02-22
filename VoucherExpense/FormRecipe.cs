@@ -157,6 +157,7 @@ namespace VoucherExpense
         private void ShowProductName()
         {
             var rowView = recipeBindingSource.Current as DataRowView;
+            if (rowView == null) return;
             var row = rowView.Row as VEDataSet.RecipeRow;
             CNameIDForComboBox product = m_ProductList[0];    // 第一個放的是ID=0 Name ""
             if (!row.IsFinalProductIDNull())
@@ -213,7 +214,16 @@ namespace VoucherExpense
         {   
             string RecipePhotoPath = "Photos\\Recipes\\";
             DataRowView rowView = this.recipeBindingSource.Current as DataRowView;
+            if (rowView==null) return null;
             var row = rowView.Row as VEDataSet.RecipeRow;
+            if (row.RowState == DataRowState.Detached)    //  新增時, RecipeID有時沒有值,會Exception
+            {
+                try
+                {
+                    if (row.RecipeID <= 0) return null;
+                }
+                catch { return null; }
+            }
             if (!m_DirChecked)
             {
                 if (!Directory.Exists(RecipePhotoPath))
@@ -226,7 +236,7 @@ namespace VoucherExpense
         private void ShowCurrentPicture()
         {
             string path = CurrentPhotoPath();
-            if (File.Exists(path))
+            if (path!=null && File.Exists(path))
                 pictureBoxRecipe.ImageLocation = path;
             else
                 pictureBoxRecipe.ImageLocation = null;
@@ -234,6 +244,12 @@ namespace VoucherExpense
 
         private void SavePicture()
         {
+            string path = CurrentPhotoPath();
+            if (path == null)
+            {
+                MessageBox.Show("沒有當前記錄,請按 '+' 新增資料!");
+                return;          // 沒有當前記錄則不存檔
+            }
             DialogResult result = openFileDialog1.ShowDialog();
             if (result != DialogResult.OK) return;
             string ext = Path.GetExtension(openFileDialog1.FileName).ToLower();
@@ -242,7 +258,6 @@ namespace VoucherExpense
                 MessageBox.Show("對不起!只接受jpg檔");
                 return;
             }
-            string path = CurrentPhotoPath();
             File.Copy(openFileDialog1.FileName, path, true);
             pictureBoxRecipe.ImageLocation = path;
         }
@@ -250,6 +265,5 @@ namespace VoucherExpense
         {
             SavePicture();
         }
-
     }
 }

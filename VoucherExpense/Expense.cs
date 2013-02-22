@@ -190,7 +190,7 @@ namespace VoucherExpense
             int mon;
             if (month >= 1 && month <= 12) mon = month;
             else                           mon = DateTime.Now.Month;
-            DateTime t = new DateTime(DateTime.Now.Year, mon, MyFunction.DayCountOfMonth(mon));
+            DateTime t = new DateTime(MyFunction.IntHeaderYear, mon, MyFunction.DayCountOfMonth(mon));
             DataGridViewRow row = expenseDataGridView.CurrentRow;
             // DataGridView和textBox都設定, 以免日期是空白,日期排序,會跑到最前面
             row.Cells["applyTime"].Value = applyTimeTextBox.Text = t.ToShortDateString();

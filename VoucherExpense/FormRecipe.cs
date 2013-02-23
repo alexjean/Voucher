@@ -49,8 +49,8 @@ namespace VoucherExpense
                 if (ing.CanPurchase)
                 {
                     string name;
-                    if (ing.IsNameNull()) name="食材"+ing.IngredientID.ToString();
-                    else                  name= ing.Name;
+                    if (ing.IsNameNull()) name = "食材" + ing.IngredientID.ToString();
+                    else name = ing.Name;
                     m_SourceList.Add(new CNameIDForComboBox(ing.IngredientID, name));
                 }
             }
@@ -59,9 +59,9 @@ namespace VoucherExpense
                 if (recipe.IsFinalProductIDNull() || recipe.FinalProductID <= 0)   // 該配方沒有最終產品,才列入
                 {
                     string name = "配方:";
-                    if (recipe.IsRecipeNameNull()) name+=recipe.RecipeID.ToString();
-                    else                           name+=recipe.RecipeName;
-                    m_SourceList.Add(new CNameIDForComboBox(recipe.RecipeID+10000,name));
+                    if (recipe.IsRecipeNameNull()) name += recipe.RecipeID.ToString();
+                    else name += recipe.RecipeName;
+                    m_SourceList.Add(new CNameIDForComboBox(recipe.RecipeID + 10000, name));
                 }
             }
             sourceBindingSource.DataSource = m_SourceList;
@@ -83,7 +83,7 @@ namespace VoucherExpense
             }
             var table = (VEDataSet.RecipeDataTable)vEDataSet.Recipe.GetChanges();
             var detail = (VEDataSet.RecipeDetailDataTable)vEDataSet.RecipeDetail.GetChanges();
-            if (table==null && detail==null)
+            if (table == null && detail == null)
             {
                 MessageBox.Show("沒有更改,不需存檔!");
                 return;
@@ -177,9 +177,10 @@ namespace VoucherExpense
 
         private void recipeBindingSource_CurrentChanged(object sender, EventArgs e)
         {
-            if (m_ProductList == null || m_ProductList.Count<=0) return;
+            if (m_ProductList == null || m_ProductList.Count <= 0) return;
             ShowProductName();
             ShowCurrentPicture();
+            CalcWeight();
         }
 
         private void FormRecipe_Shown(object sender, EventArgs e)
@@ -188,6 +189,7 @@ namespace VoucherExpense
             // 參照Ingredient.cs解法和這裏不同
             ShowProductName();     // 第一次Shown時, finalProductIDComboBox.SelectedValue會被改成0, 先在這Shown就可以搶蓋回來, @@"
             ShowCurrentPicture();
+            CalcWeight();
         }
 
         private void dgvRecipeDetail_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
@@ -204,17 +206,17 @@ namespace VoucherExpense
             int colIndex = e.ColumnIndex;
             if (rowIndex < 0) return;
             if (colIndex < 0) return;
-            string name=dgv.Columns[colIndex].Name;
-            if ( name== "ColumnSourceID") return;
+            string name = dgv.Columns[colIndex].Name;
+            if (name == "ColumnSourceID") return;
             MessageBox.Show("row" + rowIndex.ToString() + " column<" + name + "> ex:" + e.Exception.Message);
         }
 
         bool m_DirChecked = false;
         string CurrentPhotoPath()
-        {   
+        {
             string RecipePhotoPath = "Photos\\Recipes\\";
             DataRowView rowView = this.recipeBindingSource.Current as DataRowView;
-            if (rowView==null) return null;
+            if (rowView == null) return null;
             var row = rowView.Row as VEDataSet.RecipeRow;
             if (row.RowState == DataRowState.Detached)    //  新增時, RecipeID有時沒有值,會Exception
             {
@@ -228,7 +230,7 @@ namespace VoucherExpense
             {
                 if (!Directory.Exists(RecipePhotoPath))
                     Directory.CreateDirectory(RecipePhotoPath);
-                m_DirChecked=true;
+                m_DirChecked = true;
             }
             return RecipePhotoPath + row.RecipeID.ToString() + ".jpg";
         }
@@ -236,7 +238,7 @@ namespace VoucherExpense
         private void ShowCurrentPicture()
         {
             string path = CurrentPhotoPath();
-            if (path!=null && File.Exists(path))
+            if (path != null && File.Exists(path))
                 pictureBoxRecipe.ImageLocation = path;
             else
                 pictureBoxRecipe.ImageLocation = null;
@@ -264,6 +266,121 @@ namespace VoucherExpense
         private void pictureBoxRecipe_Click(object sender, EventArgs e)
         {
             SavePicture();
+        }
+
+        private int m_ColumnWeightIndex = -1;
+        int ColumnWeightIndex
+        {
+            get
+            {
+                if (m_ColumnWeightIndex < 0)
+                {
+                    foreach (DataGridViewColumn col in dgvRecipeDetail.Columns)
+                        if (col.Name == "ColumnWeight")
+                        {
+                            m_ColumnWeightIndex = col.Index;
+                            break;
+                        }
+                    if (m_ColumnWeightIndex < 0)
+                        MessageBox.Show("程式有誤! ColumnWeight定義找不到!");
+                }
+                return m_ColumnWeightIndex;
+            }
+        }
+        private void dgvRecipeDetail_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView dgv = sender as DataGridView;
+            int rowIndex = e.RowIndex;
+            int colIndex = e.ColumnIndex;
+            if (rowIndex < 0) return;
+            if (colIndex < 0) return;
+            if (colIndex == ColumnWeightIndex) CalcWeight(useDataTable: false);
+        }
+
+        private void CalcWeight(bool useDataTable = true)
+        {
+            decimal sum = 0m;
+            // 去找DataTable,最後新增那行還是DataRowState.Detached, 會少加一行
+            if (useDataTable)
+            {
+                DataRowView rowView = this.recipeBindingSource.Current as DataRowView;
+                if (rowView == null) return;
+                var row = rowView.Row as VEDataSet.RecipeRow;
+                var details = row.GetRecipeDetailRows();
+                foreach (var d in details)
+                {
+                    if (!d.IsWeightNull()) sum += d.Weight;
+                }
+                this.textBoxFloatCost.Text = CalcCost(details, usedRecipes: new List<int>()).ToString("N1");
+            }
+            else
+            {   // From DataGridViewCell , Event BindingSource.CurrentChanged時,DataGridView內容還沒改
+                foreach (DataGridViewRow row in dgvRecipeDetail.Rows)
+                {
+                    DataGridViewCell cell = row.Cells[ColumnWeightIndex];
+                    if (cell.ValueType == typeof(Decimal))
+                    {
+                        if (cell.Value != null && cell.Value != Convert.DBNull)
+                            sum += (decimal)cell.Value;
+                    }
+                }
+            }
+            textBoxIngredientWeight.Text = sum.ToString("N2");
+        }
+
+        private decimal CalcCost(VEDataSet.RecipeDetailRow[] details, List<int> usedRecipes)  // usedRecipes填入己使用的配方,避免Recursive
+        {
+            decimal cost = 0m;
+            // 去找DataTable,最後新增那行還是DataRowState.Detached, 會少加一行
+            foreach (var d in details)
+            {
+                if (d.IsWeightNull()) continue;
+                if (d.IsSourceIDNull()) continue;
+                if (d.SourceID < 10000)  // 是食材
+                {
+                    var ingredients = from ing in vEDataSet.Ingredient where ing.IngredientID == d.SourceID select ing;
+                    if (ingredients.Count() <= 0) continue;
+                    var ingredient = ingredients.First();
+                    if (ingredient.IsPriceNull())
+                    {
+                        MessageBox.Show(ingredient.Name + "沒有參考進價,無法計算每克成本!");
+                        continue;  
+                    }
+                    if (ingredient.IsUnitWeightNull() || ingredient.UnitWeight <= 0)
+                    {
+                        MessageBox.Show(ingredient.Name + "沒有單位重量,無法計算每克成本!");
+                        continue;  
+                    }
+                    cost += (decimal)ingredient.Price * d.Weight / ingredient.UnitWeight;
+                }
+                else                   // 是配方
+                {
+                    int recipeID = d.SourceID % 10000;
+                    var ids = from i in usedRecipes where i == recipeID select i;
+                    if (ids.Count() == 0)   // 沒有使用過此配方可用
+                    {
+                        var recipes = from row in vEDataSet.Recipe where row.RecipeID == recipeID select row;
+                        if (recipes.Count() > 0)
+                        {
+                            usedRecipes.Add(recipeID);
+                            var recipe = recipes.First();
+                            var details1 = recipe.GetRecipeDetailRows();
+                            cost += CalcCost(details1, usedRecipes);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("配方:" + ids.First().ToString() + "重複使用,不計入!");
+                    }
+                }
+                cost += d.Weight;
+            }
+            return cost;
+        }
+
+        private void btnUpdateEvaluatedCost_Click(object sender, EventArgs e)
+        {
+            // 更新估算成本時,要計算一張表給User看, 列出每一筆食材及價格 重量
         }
     }
 }

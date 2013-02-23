@@ -134,7 +134,19 @@ namespace VoucherExpense
         string CurrentPhotoPath()
         {
             DataRowView rowView = IngredientBindingSource.Current as DataRowView;
+            if (rowView == null) return null;
             VEDataSet.IngredientRow row = rowView.Row as VEDataSet.IngredientRow;
+            if (row.RowState == DataRowState.Detached)
+            {
+                try
+                {
+                    if (row.IngredientID <= 0) return null;
+                }
+                catch 
+                {
+                    return null;
+                }
+            }
             return m_PhotoPath + row.IngredientID.ToString() + ".jpg";
         }
 
@@ -170,7 +182,7 @@ namespace VoucherExpense
                 photoPictureBox.Size = SizeSave;
             }
             string path = CurrentPhotoPath();
-            if (File.Exists(path))
+            if (path!=null && File.Exists(path))
                 photoPictureBox.ImageLocation = path;
             else
                 photoPictureBox.ImageLocation = null;
@@ -259,6 +271,7 @@ namespace VoucherExpense
                 return;
             }
             string path = CurrentPhotoPath();
+            if (path == null) return;
             File.Copy(openFileDialog1.FileName, path, true);
             photoPictureBox.ImageLocation = path;
         }

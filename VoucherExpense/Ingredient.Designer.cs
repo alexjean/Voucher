@@ -570,7 +570,6 @@
             // openFileDialog1
             // 
             this.openFileDialog1.DefaultExt = "jpg";
-            this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.RestoreDirectory = true;
             this.openFileDialog1.Title = "請選擇本食材的圖片";
             // 

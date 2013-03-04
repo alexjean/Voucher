@@ -218,7 +218,8 @@ namespace VoucherExpense
             DataRowView rowView = this.recipeBindingSource.Current as DataRowView;
             if (rowView == null) return null;
             var row = rowView.Row as VEDataSet.RecipeRow;
-            if (row.RowState == DataRowState.Detached)    //  新增時, RecipeID有時沒有值,會Exception
+            if (row.RowState == DataRowState.Deleted) return null;
+            if (row.RowState == DataRowState.Detached )    //  新增時, RecipeID有時沒有值,會Exception
             {
                 try
                 {
@@ -262,10 +263,6 @@ namespace VoucherExpense
             }
             File.Copy(openFileDialog1.FileName, path, true);
             pictureBoxRecipe.ImageLocation = path;
-        }
-        private void pictureBoxRecipe_Click(object sender, EventArgs e)
-        {
-            SavePicture();
         }
 
         private int m_ColumnWeightIndex = -1;
@@ -359,7 +356,7 @@ namespace VoucherExpense
                     var ids = from i in usedRecipes where i == recipeID select i;
                     if (ids.Count() == 0)   // 沒有使用過此配方可用
                     {
-                        var recipes = from row in vEDataSet.Recipe where row.RecipeID == recipeID select row;
+                        var recipes = from row in vEDataSet.Recipe where (row.RowState!=DataRowState.Deleted) && (row.RecipeID == recipeID) select row;
                         if (recipes.Count() > 0)
                         {
                             usedRecipes.Add(recipeID);
@@ -381,6 +378,30 @@ namespace VoucherExpense
         private void btnUpdateEvaluatedCost_Click(object sender, EventArgs e)
         {
             // 更新估算成本時,要計算一張表給User看, 列出每一筆食材及價格 重量
+        }
+
+        private void bindingNavigatorDeleteItem_Click(object sender, EventArgs e)
+        {
+            var rowView = recipeBindingSource.Current as DataRowView;
+            if (rowView == null) return;
+            var row = rowView.Row as VEDataSet.RecipeRow;
+            var details = row.GetRecipeDetailRows();
+            foreach (var d in details)
+                d.Delete();
+            this.recipeRecipeDetailBindingSource.ResetBindings(false);
+            string name;
+            if (row.IsRecipeNameNull())
+                name = "配方<" + row.RecipeID.ToString() + ">";
+            else name = row.RecipeName;
+            row.Delete();
+            recipeBindingSource.ResetBindings(false);
+            MessageBox.Show(name + " 己刪除,請按存檔更新資料庫");
+        }
+
+        private void pictureBoxRecipe_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button != MouseButtons.Right) return;
+            SavePicture();
         }
     }
 }

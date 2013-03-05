@@ -624,19 +624,44 @@ namespace VoucherExpense
                 ckBoxAllowEdit.Checked = false;
         }
 
+        int m_UserSelectedTitleCode = 0;
         private void cbBoxIngredientSelector_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox box = (ComboBox)sender;
             TitleCode title = (TitleCode)box.SelectedItem;
+            if (title == null) return;
+            m_UserSelectedTitleCode = title.Code;
+            SetIngredientFilter(m_UserSelectedTitleCode, m_UserSelectedVendorID);
+        }
+
+        void SetIngredientFilter(int titleCode, int vendorID)
+        {
             string Select = "CanPurchase=true";
-            if (title.Code != 0)
-                Select = "(CanPurchase=true And TitleCode=" + title.Code.ToString()+")";
+            if (titleCode != 0)
+                Select += " And TitleCode=" + titleCode.ToString();
+            if (m_UserSelectedVendorID > 0)
+                Select += " And VendorID=" + vendorID.ToString();
             ModifyIngredientFilterForSafe(Select);      
         }
 
+        int m_UserSelectedVendorID = -1;
         private void vendorIDComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            DataRowView rowView = (DataRowView)vendorIDComboBox.SelectedItem;
+            if (rowView == null)  // 沒有選,空白時也是rowView為null
+            {
+                m_UserSelectedVendorID = -1;
+                goto ret;
+            }
+            if (rowView.Row == null)
+            {
+                m_UserSelectedVendorID = -1;
+                goto ret;
+            }
+            VEDataSet.VendorRow vendor = (VEDataSet.VendorRow)(rowView.Row);
+            m_UserSelectedVendorID = vendor.VendorID;
+        ret:
+            SetIngredientFilter(m_UserSelectedTitleCode, m_UserSelectedVendorID);
         }
 
 

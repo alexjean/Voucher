@@ -169,7 +169,6 @@ namespace BakeryOrder
             sum = Math.Round(sum, 1);
             lvItems.Columns[2].Text = no.ToString();
             lvItems.Columns[3].Text = sum.ToString();
-            if (checkBoxDiscount.Checked)  sum = sum * 0.9;
             total = sum;
 /*
             if (mtbDeduct.Text != "")
@@ -629,7 +628,7 @@ namespace BakeryOrder
             // 舊的Record因為從Database讀出來時,就會有預設資料所以不會有問題
             order.BranchID = 0;
             order.Deduct = 0;
-            order.PayBy = " ";
+            order.PayBy = DicPayBy.First().Key.ToString();
             return order.ID;
         }
 
@@ -660,7 +659,7 @@ namespace BakeryOrder
 
         BakeryOrderSet.OrderRow m_CurrentOrder = null;
 
-        void Print(BakeryOrderSet.OrderRow CurrentOrder)      
+        void Print(BakeryOrderSet.OrderRow CurrentOrder,double moneyGot)      
         {
             //byte[] PrintChinese = new byte[] { };
             byte[] BorderMode = new byte[] { 0x1c, 0x21, 0x28 };
@@ -700,26 +699,24 @@ namespace BakeryOrder
                 no += mItem.No;
                 discount += mItem.Money();
             }
-            if (checkBoxDiscount.Checked)
-            {
-                Buf.Append("    以上小计             "); Buf.Append(d2str(discount, 7) + "\r\n");
-                Buf.Append("- - - - - - - - - - - - - - - -\r\n");
-                discount *= (double)CurrentOrder.DiscountRate;
-                Buf.Append("    折扣后      ========>"); Buf.Append(d2str(discount, 7) + "\r\n");
-            }
-            else
-            {
-                Buf.Append("- - - - - - - - - - - - - - - -\r\n");
-                Buf.Append("合计:        " + d2str(no, 7) + d2str(discount , 12) + "\r\n");
-            }
-/*
-            if (CurrentOrder.Deduct != 0)
+            Buf.Append("- - - - - - - - - - - - - - - -\r\n");
+            Buf.Append("小计:        " + d2str(no, 7) + d2str(discount, 12) + "\r\n");
+            if ((!CurrentOrder.IsDeductNull()) && (CurrentOrder.Deduct != 0))
             {
                 Buf.Append("优惠:              ");
                 Buf.Append(d2str((double)-CurrentOrder.Deduct, 13) + "\r\n");
+                Buf.Append("应收:   ========>  ");
+                Buf.Append(d2str((double)CurrentOrder.Income, 13) + "\r\n");
             }
-*/
-            Buf.Append("现金:              " + d2str((double)CurrentOrder.Income, 13) + "\r\n");
+
+            
+            if (moneyGot > 0)
+            {
+                Buf.Append("        实收             "); Buf.Append(d2str(moneyGot, 7) + "\r\n");
+                Buf.Append("        找零             "); Buf.Append(d2str(moneyGot - (double)CurrentOrder.Income , 7) + "\r\n");
+            }
+            else
+            Buf.Append(PayByChinese(CurrentOrder.PayBy[0])+":              " + d2str((double)CurrentOrder.Income, 13) + "\r\n");
             Buf.Append(NormalMode);
             Buf.Append("* * * * * * * * * * * * * * * *\r\n\r\n\r\n\r\n\r\n\r\n");
             Buf.Append("\f");
@@ -752,11 +749,12 @@ namespace BakeryOrder
                 return;
             }
             m_CurrentOrder.Income = (decimal)CalcTotal();
-            m_CurrentOrder.PayBy = PayByFromBtn().ToString();
-            Print(m_CurrentOrder);
+//            m_CurrentOrder.PayBy = PayByFromBtn().ToString();
+            Print(m_CurrentOrder,0);
             if (!this.checkBoxTest.Checked)
                 RawPrint.SendManagedBytes(m_Printer.PrinterName, m_CashDrawer);
             CreateUpdateDrawerRecord(ref m_MaxDrawerRecordID, m_CurrentOrder.ID % 10000);
+//            DoNewOrder();
         }
 
         private void btnCashDrawer_Click(object sender, EventArgs e)
@@ -788,12 +786,12 @@ namespace BakeryOrder
                 Show();
         }
 
-        private void btnNewOrder_Click(object sender, EventArgs e)
+        private void DoNewOrder()
         {
-            int no=CreateOrder(out m_CurrentOrder,m_MaxOrderID)%10000;
+            int no = CreateOrder(out m_CurrentOrder, m_MaxOrderID) % 10000;
             foreach (ListViewItem lv in lvItems.Items)
             {
-                MenuItemForTag item=lv.Tag as MenuItemForTag;
+                MenuItemForTag item = lv.Tag as MenuItemForTag;
                 Item2List(item, MouseButtons.Right);
                 Label l = item.LabelNo;
                 l.BorderStyle = BorderStyle.Fixed3D;
@@ -802,7 +800,12 @@ namespace BakeryOrder
             lvItems.Columns[1].Text = "序号 " + no.ToString();
             lvItems.Columns[2].Text = "量";
             lvItems.Columns[3].Text = "金额";
-            btnClass.Text = DicPayBy.First().Value;
+//            btnClass.Text = DicPayBy.First().Value;
+        }
+
+        private void btnNewOrder_Click(object sender, EventArgs e)
+        {
+            DoNewOrder();
         }
 
         void SetOrderItemFromListViewItem(BakeryOrderSet.OrderItemRow Row, ListViewItem lvItem, int i)
@@ -1072,35 +1075,86 @@ namespace BakeryOrder
             MarkButton(sender as RadioButton);
         }
 
-        Dictionary<char, string> DicPayBy = new Dictionary<char, string> { { 'A', "现金" }, { 'B', "刷卡" }, { 'C', "券" } };
-        private void btnClass_Click(object sender, EventArgs e)
+        //private void btnClass_Click(object sender, EventArgs e)
+        //{
+        //    Button btn = sender as Button;
+        //    string str = btn.Text.Trim();
+        //    List<string> compare = new List<string>();
+        //    foreach (string s in DicPayBy.Values) compare.Add(s);
+        //    int count=compare.Count;
+        //    for(int i=0;i<count;i++)
+        //    {
+        //        if (compare[i] == str)
+        //        {
+        //            i++;
+        //            if (i >= count) btn.Text = compare[0];
+        //            else            btn.Text = compare[i];
+        //            return;
+        //        }
+        //    }
+        //    btn.Text = compare[0];
+        //}
+
+
+        //char PayByFromBtn()
+        //{
+        //    string str = btnClass.Text.Trim();
+        //    foreach(KeyValuePair<char,string> pair in DicPayBy)
+        //    {
+        //        if (pair.Value==str) return pair.Key;
+        //    }
+        //    return DicPayBy.First().Key;
+        //}
+
+        Dictionary<char, string> DicPayBy = new Dictionary<char, string> { { 'A', "现金" }, { 'B', "刷卡" }, { 'C', "券  " } };
+        string PayByChinese(char payBy)
         {
-            Button btn = sender as Button;
-            string str = btn.Text.Trim();
-            List<string> compare = new List<string>();
-            foreach (string s in DicPayBy.Values) compare.Add(s);
-            int count=compare.Count;
-            for(int i=0;i<count;i++)
-            {
-                if (compare[i] == str)
-                {
-                    i++;
-                    if (i >= count) btn.Text = compare[0];
-                    else            btn.Text = compare[i];
-                    return;
-                }
-            }
-            btn.Text = compare[0];
+            string str;
+            if (DicPayBy.TryGetValue(payBy, out str)) return str;
+            return DicPayBy.First().Value;
         }
 
-        char PayByFromBtn()
+        private void btnDoCashier_Click(object sender, EventArgs e)
         {
-            string str = btnClass.Text.Trim();
-            foreach(KeyValuePair<char,string> pair in DicPayBy)
+            if (m_DataSealed)
             {
-                if (pair.Value==str) return pair.Key;
+                MessageBoxShow("今日資料己封印! 無法打單");
+                return;
             }
-            return DicPayBy.First().Key;
+            if (lvItems.Items.Count == 0)
+                return;
+            if (m_CurrentOrder == null)
+                CreateOrder(out m_CurrentOrder, m_MaxOrderID);
+            if (m_CurrentOrder.RowState != DataRowState.Detached)
+            {
+                MessageBoxShow("己經打印過的單子,無法再印! 請按<新單>");
+                return;
+            }
+            decimal moneyGot=0;
+            Form form = new FormCheckout(tabControl1.Left+8, 8,m_CurrentOrder,(decimal)CalcTotal());
+            if (form.ShowDialog(this) == DialogResult.OK)
+            {
+                if (form.Tag.GetType() == typeof(decimal))
+                    moneyGot = (decimal)(form.Tag);
+                else
+                    moneyGot = 0m;
+                if (m_CurrentOrder.IsIncomeNull())
+                {
+                    MessageBox.Show("沒有應收數字! 無法打單");
+                    return;
+                }
+                if ((!m_CurrentOrder.IsDeductNull()) && m_CurrentOrder.Deduct != 0)
+                {
+                    labelDeduct.Text = m_CurrentOrder.Deduct.ToString();
+                    labelDeduct.Visible = labelDeductTitle.Visible = true;
+                    labelTotal.Text = m_CurrentOrder.Income.ToString();
+                }
+                labelClass.Text=PayByChinese(m_CurrentOrder.PayBy[0]);
+                Print(m_CurrentOrder,(double)moneyGot);
+                if (!this.checkBoxTest.Checked)   
+                    RawPrint.SendManagedBytes(m_Printer.PrinterName, m_CashDrawer);   // 彈出錢箱
+                CreateUpdateDrawerRecord(ref m_MaxDrawerRecordID, m_CurrentOrder.ID % 10000);
+            }
         }
     }
 }

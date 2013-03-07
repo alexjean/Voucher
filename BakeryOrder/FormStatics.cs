@@ -56,7 +56,6 @@ namespace BakeryOrder
             Screen scr = Screen.PrimaryScreen;
             Location = new Point(scr.Bounds.X, scr.Bounds.Y);
             TopMost = true;
-
 //          InitTabControlItem(tabControl1);
             tabControl1.DrawMode = TabDrawMode.OwnerDrawFixed;
             m_ListViewItemBackup=new string[lvItems.Columns.Count]; // 備份給ResetListView用
@@ -240,8 +239,7 @@ namespace BakeryOrder
             }
             lvItems.Columns[1].Text = "ID " + (order.ID % 10000).ToString() + (order.Deleted ? " deleted" : "");
             lvItems.Columns[2].Text = count.ToString();
-            if (!order.IsIncomeNull())
-                lvItems.Columns[3].Text = order.Income.ToString();
+            lvItems.Columns[3].Text = total.ToString();
             if (!order.IsPayByNull() && order.PayBy.Length>0)
             {
                 char c=order.PayBy[0];
@@ -250,6 +248,15 @@ namespace BakeryOrder
                 else
                     btnClass.Text = DicPayBy.First().Value;
             }
+            if (!order.IsDeductNull() && order.Deduct != 0)
+            {
+                total -= order.Deduct;
+                labelDeduct.Text = "己优惠   " + order.Deduct.ToString();
+            }
+            else
+                labelDeduct.Text = "";
+            if (!order.IsIncomeNull())
+                labelIncome.Text=order.Income.ToString();
             if (total != order.Income)
             {
                 MessageBoxShow("計算金額<" + total.ToString() + ">不符 " + order.Income.ToString());
@@ -357,7 +364,7 @@ namespace BakeryOrder
             if (page != null) tc.SelectTab(page);
             ResetListView();
             lvItems.Focus();
-            labelTotal.Text = count.ToString()+"單　共 "+total.ToString() + "元";
+            labelStatics.Text = count.ToString()+"單　共 "+total.ToString() + "元";
         }
 
         void CreateRecordLabel(TabPage tabPage, int x, int y, BakeryOrderSet.DrawerRecordRow Row)
@@ -388,7 +395,9 @@ namespace BakeryOrder
             if (!Row.IsAssociateOrderIDNull())
             {
                 if (Row.AssociateOrderID > 0)
-                    b.Text +=  Row.AssociateOrderID.ToString();
+                {
+                    b.Text += Row.AssociateOrderID.ToString();
+                }
             }
             if (Row.IsCashierIDNull() || Row.CashierID < 0)
                 b.Text += "\r\n";
@@ -466,7 +475,7 @@ namespace BakeryOrder
             if (page != null) tc.SelectTab(page);
             lvItems.Items.Clear();
             lvItems.Focus();
-            labelTotal.Text = "錢箱共開 " + count.ToString() + "次";
+            labelStatics.Text = "錢箱共開 " + count.ToString() + "次";
         }
 
         private void btnSystemSetup_Click(object sender, EventArgs e)

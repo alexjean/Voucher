@@ -38,10 +38,11 @@
             this.btnDrawerOpenedList = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.label1 = new System.Windows.Forms.Label();
-            this.labelTotal = new System.Windows.Forms.Label();
+            this.labelDeduct = new System.Windows.Forms.Label();
+            this.labelIncome = new System.Windows.Forms.Label();
             this.btnSystemSetup = new System.Windows.Forms.Button();
             this.btnClass = new System.Windows.Forms.Button();
+            this.labelStatics = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -137,21 +138,21 @@
             this.tabControl1.TabIndex = 3;
             this.tabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
             // 
-            // label1
+            // labelDeduct
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 463);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(40, 16);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "總計";
+            this.labelDeduct.Location = new System.Drawing.Point(83, 465);
+            this.labelDeduct.Name = "labelDeduct";
+            this.labelDeduct.Size = new System.Drawing.Size(124, 25);
+            this.labelDeduct.TabIndex = 6;
+            this.labelDeduct.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // labelTotal
+            // labelIncome
             // 
-            this.labelTotal.Location = new System.Drawing.Point(59, 463);
-            this.labelTotal.Name = "labelTotal";
-            this.labelTotal.Size = new System.Drawing.Size(147, 16);
-            this.labelTotal.TabIndex = 7;
+            this.labelIncome.Location = new System.Drawing.Point(83, 408);
+            this.labelIncome.Name = "labelIncome";
+            this.labelIncome.Size = new System.Drawing.Size(124, 25);
+            this.labelIncome.TabIndex = 7;
+            this.labelIncome.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // btnSystemSetup
             // 
@@ -174,17 +175,26 @@
             this.btnClass.Text = "现金";
             this.btnClass.UseVisualStyleBackColor = false;
             // 
+            // labelStatics
+            // 
+            this.labelStatics.Location = new System.Drawing.Point(12, 508);
+            this.labelStatics.Name = "labelStatics";
+            this.labelStatics.Size = new System.Drawing.Size(195, 25);
+            this.labelStatics.TabIndex = 13;
+            this.labelStatics.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // FormStatics
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Azure;
             this.ClientSize = new System.Drawing.Size(1024, 768);
+            this.Controls.Add(this.labelStatics);
             this.Controls.Add(this.lvItems);
             this.Controls.Add(this.btnClass);
             this.Controls.Add(this.btnSystemSetup);
-            this.Controls.Add(this.labelTotal);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelIncome);
+            this.Controls.Add(this.labelDeduct);
             this.Controls.Add(this.btnDrawerOpenedList);
             this.Controls.Add(this.btnOrderList);
             this.Controls.Add(this.tabControl1);
@@ -197,7 +207,6 @@
             this.Load += new System.EventHandler(this.FormStatics_Load);
             this.tabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -213,9 +222,10 @@
         private System.Windows.Forms.Button btnDrawerOpenedList;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label labelTotal;
+        private System.Windows.Forms.Label labelDeduct;
+        private System.Windows.Forms.Label labelIncome;
         private System.Windows.Forms.Button btnSystemSetup;
         private System.Windows.Forms.Button btnClass;
+        private System.Windows.Forms.Label labelStatics;
     }
 }

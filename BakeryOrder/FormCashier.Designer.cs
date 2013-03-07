@@ -37,11 +37,10 @@
             this.btnPrint = new System.Windows.Forms.Button();
             this.btnStatics = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.labelTotal = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.checkBoxDiscount = new System.Windows.Forms.CheckBox();
+            this.labelClass = new System.Windows.Forms.Label();
             this.pictureBoxOrdered = new System.Windows.Forms.PictureBox();
             this.btnCashDrawer = new System.Windows.Forms.Button();
             this.btnNewOrder = new System.Windows.Forms.Button();
@@ -66,8 +65,10 @@
             this.productTableAdapter = new BakeryOrder.BakeryOrderSetTableAdapters.ProductTableAdapter();
             this.bakeryOrderSet = new BakeryOrder.BakeryOrderSet();
             this.cashierTableAdapter = new BakeryOrder.BakeryOrderSetTableAdapters.CashierTableAdapter();
-            this.btnClass = new System.Windows.Forms.Button();
             this.headerTableAdapter = new BakeryOrder.BakeryOrderSetTableAdapters.HeaderTableAdapter();
+            this.btnDoCashier = new System.Windows.Forms.Button();
+            this.labelDeductTitle = new System.Windows.Forms.Label();
+            this.labelDeduct = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrdered)).BeginInit();
             this.panelLogin.SuspendLayout();
@@ -135,8 +136,8 @@
             // tabControl1
             // 
             this.tabControl1.Alignment = System.Windows.Forms.TabAlignment.Bottom;
-            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Right;
             this.tabControl1.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.tabControl1.ItemSize = new System.Drawing.Size(72, 32);
@@ -148,16 +149,6 @@
             this.tabControl1.TabIndex = 3;
             this.tabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
             // 
-            // tabPage2
-            // 
-            this.tabPage2.BackColor = System.Drawing.Color.Azure;
-            this.tabPage2.Location = new System.Drawing.Point(4, 4);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(783, 728);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "饮料西点";
-            // 
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Azure;
@@ -168,6 +159,16 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "面包";
             // 
+            // tabPage2
+            // 
+            this.tabPage2.BackColor = System.Drawing.Color.Azure;
+            this.tabPage2.Location = new System.Drawing.Point(4, 4);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(783, 728);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "饮料西点";
+            // 
             // labelTotal
             // 
             this.labelTotal.Location = new System.Drawing.Point(152, 431);
@@ -177,27 +178,14 @@
             this.labelTotal.Text = "0";
             this.labelTotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label1
+            // labelClass
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(106, 433);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(40, 16);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "總計";
-            // 
-            // checkBoxDiscount
-            // 
-            this.checkBoxDiscount.AutoSize = true;
-            this.checkBoxDiscount.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.checkBoxDiscount.Location = new System.Drawing.Point(22, 486);
-            this.checkBoxDiscount.Name = "checkBoxDiscount";
-            this.checkBoxDiscount.Size = new System.Drawing.Size(71, 25);
-            this.checkBoxDiscount.TabIndex = 6;
-            this.checkBoxDiscount.Text = "九折";
-            this.checkBoxDiscount.UseVisualStyleBackColor = true;
-            this.checkBoxDiscount.Visible = false;
-            this.checkBoxDiscount.CheckedChanged += new System.EventHandler(this.checkBoxDiscount_CheckedChanged);
+            this.labelClass.AutoSize = true;
+            this.labelClass.Location = new System.Drawing.Point(106, 433);
+            this.labelClass.Name = "labelClass";
+            this.labelClass.Size = new System.Drawing.Size(40, 16);
+            this.labelClass.TabIndex = 5;
+            this.labelClass.Text = "現金";
             // 
             // pictureBoxOrdered
             // 
@@ -231,7 +219,7 @@
             // checkBoxTest
             // 
             this.checkBoxTest.AutoSize = true;
-            this.checkBoxTest.Location = new System.Drawing.Point(109, 404);
+            this.checkBoxTest.Location = new System.Drawing.Point(82, 640);
             this.checkBoxTest.Name = "checkBoxTest";
             this.checkBoxTest.Size = new System.Drawing.Size(59, 20);
             this.checkBoxTest.TabIndex = 10;
@@ -443,20 +431,40 @@
             // 
             this.cashierTableAdapter.ClearBeforeFill = true;
             // 
-            // btnClass
-            // 
-            this.btnClass.BackColor = System.Drawing.Color.SeaShell;
-            this.btnClass.Location = new System.Drawing.Point(1, 398);
-            this.btnClass.Name = "btnClass";
-            this.btnClass.Size = new System.Drawing.Size(75, 53);
-            this.btnClass.TabIndex = 11;
-            this.btnClass.Text = "现金";
-            this.btnClass.UseVisualStyleBackColor = false;
-            this.btnClass.Click += new System.EventHandler(this.btnClass_Click);
-            // 
             // headerTableAdapter
             // 
             this.headerTableAdapter.ClearBeforeFill = true;
+            // 
+            // btnDoCashier
+            // 
+            this.btnDoCashier.BackColor = System.Drawing.Color.SeaShell;
+            this.btnDoCashier.Location = new System.Drawing.Point(1, 404);
+            this.btnDoCashier.Name = "btnDoCashier";
+            this.btnDoCashier.Size = new System.Drawing.Size(75, 53);
+            this.btnDoCashier.TabIndex = 12;
+            this.btnDoCashier.Text = "結帳";
+            this.btnDoCashier.UseVisualStyleBackColor = false;
+            this.btnDoCashier.Click += new System.EventHandler(this.btnDoCashier_Click);
+            // 
+            // labelDeductTitle
+            // 
+            this.labelDeductTitle.AutoSize = true;
+            this.labelDeductTitle.Location = new System.Drawing.Point(106, 408);
+            this.labelDeductTitle.Name = "labelDeductTitle";
+            this.labelDeductTitle.Size = new System.Drawing.Size(40, 16);
+            this.labelDeductTitle.TabIndex = 13;
+            this.labelDeductTitle.Text = "优惠";
+            this.labelDeductTitle.Visible = false;
+            // 
+            // labelDeduct
+            // 
+            this.labelDeduct.Location = new System.Drawing.Point(152, 406);
+            this.labelDeduct.Name = "labelDeduct";
+            this.labelDeduct.Size = new System.Drawing.Size(55, 20);
+            this.labelDeduct.TabIndex = 14;
+            this.labelDeduct.Text = "0";
+            this.labelDeduct.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelDeduct.Visible = false;
             // 
             // FormCashier
             // 
@@ -464,13 +472,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(1024, 768);
-            this.Controls.Add(this.btnClass);
+            this.Controls.Add(this.labelDeduct);
+            this.Controls.Add(this.labelDeductTitle);
+            this.Controls.Add(this.btnCashDrawer);
+            this.Controls.Add(this.btnDoCashier);
             this.Controls.Add(this.lvItems);
             this.Controls.Add(this.checkBoxTest);
             this.Controls.Add(this.btnNewOrder);
-            this.Controls.Add(this.btnCashDrawer);
-            this.Controls.Add(this.checkBoxDiscount);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelClass);
             this.Controls.Add(this.labelTotal);
             this.Controls.Add(this.panelLogin);
             this.Controls.Add(this.btnStatics);
@@ -507,8 +516,7 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.ColumnHeader columnHeader代碼;
         private System.Windows.Forms.Label labelTotal;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.CheckBox checkBoxDiscount;
+        private System.Windows.Forms.Label labelClass;
         private System.Windows.Forms.PictureBox pictureBoxOrdered;
         private System.Windows.Forms.Button btnCashDrawer;
         private System.Windows.Forms.Button btnNewOrder;
@@ -533,8 +541,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxCashierID;
         private BakeryOrderSetTableAdapters.CashierTableAdapter cashierTableAdapter;
-        private System.Windows.Forms.Button btnClass;
         private BakeryOrderSetTableAdapters.HeaderTableAdapter headerTableAdapter;
+        private System.Windows.Forms.Button btnDoCashier;
+        private System.Windows.Forms.Label labelDeductTitle;
+        private System.Windows.Forms.Label labelDeduct;
     }
 }
 

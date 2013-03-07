@@ -151,9 +151,10 @@ namespace BakeryOrder
                     return;
                 }
                 labelDeduct.Text = deduct.ToString();
-                m_Income = m_Total - deduct;
-                labelIncome.Text = m_Income.ToString();
             }
+            m_Income = m_Total - deduct;
+            labelIncome.Text = m_Income.ToString();
+
             if (!decimal.TryParse(textBoxCashGot.Text, out cashGot) || cashGot == 0)
                 labelChange.Text=labelCashGot.Text = "";
             else

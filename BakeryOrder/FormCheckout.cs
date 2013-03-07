@@ -130,6 +130,7 @@ namespace BakeryOrder
             if (m_Current == null) return;
             Button btn = sender as Button;
             m_Current.Focus();
+            m_Current.SelectAll();
             SendKeys.Send("\b");
         }
 

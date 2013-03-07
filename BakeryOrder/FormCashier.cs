@@ -192,6 +192,11 @@ namespace BakeryOrder
 
         private void MenuDoubleClick(object sender, MouseEventArgs e)
         {
+            if (m_CurrentOrder != null && m_CurrentOrder.RowState != DataRowState.Detached)    // 打印過的單子先清,再加
+            {
+                MessageBox.Show("打印過的單子,無法刪除!");
+                return;
+            }
             Label l = (Label)sender;
             MenuItemForTag item = (MenuItemForTag)l.Tag;
             Item2List(item, MouseButtons.Right);
@@ -249,6 +254,11 @@ namespace BakeryOrder
 
         private void MenuClick(object sender, MouseEventArgs e)
         {
+            if (m_CurrentOrder!=null && m_CurrentOrder.RowState != DataRowState.Detached)    // 打印過的單子先清,再加
+            {
+                DoNewOrder();
+            }
+
             Label l = (Label)sender;
             MenuItemForTag item = (MenuItemForTag)l.Tag;
             Item2List(item, e.Button);
@@ -800,7 +810,11 @@ namespace BakeryOrder
             lvItems.Columns[1].Text = "序号 " + no.ToString();
             lvItems.Columns[2].Text = "量";
             lvItems.Columns[3].Text = "金额";
-//            btnClass.Text = DicPayBy.First().Value;
+
+            labelDeduct.Text = "";
+            labelDeduct.Visible = labelDeductTitle.Visible = false;
+            labelTotal.Text = "";
+            labelClass.Text = DicPayBy.First().Value;
         }
 
         private void btnNewOrder_Click(object sender, EventArgs e)

@@ -140,7 +140,7 @@
             // 
             // labelDeduct
             // 
-            this.labelDeduct.Location = new System.Drawing.Point(83, 465);
+            this.labelDeduct.Location = new System.Drawing.Point(83, 450);
             this.labelDeduct.Name = "labelDeduct";
             this.labelDeduct.Size = new System.Drawing.Size(124, 25);
             this.labelDeduct.TabIndex = 6;

@@ -333,6 +333,9 @@ namespace VoucherExpense
             {
                 if (d.IsWeightNull()) continue;
                 if (d.IsSourceIDNull()) continue;
+                decimal we;
+                if (d.IsWeightNull()) we = 0m;
+                else we = d.Weight;
                 if (d.SourceID < 10000)  // 是食材
                 {
                     var ingredients = from ing in vEDataSet.Ingredient where ing.IngredientID == d.SourceID select ing;
@@ -348,7 +351,7 @@ namespace VoucherExpense
                         MessageBox.Show(ingredient.Name + "沒有單位重量,無法計算每克成本!");
                         continue;  
                     }
-                    cost += (decimal)ingredient.Price * d.Weight / ingredient.UnitWeight;
+                    cost += (decimal)ingredient.Price * we / ingredient.UnitWeight;
                 }
                 else                   // 是配方
                 {
@@ -362,7 +365,17 @@ namespace VoucherExpense
                             usedRecipes.Add(recipeID);
                             var recipe = recipes.First();
                             var details1 = recipe.GetRecipeDetailRows();
-                            cost += CalcCost(details1, usedRecipes);
+                            decimal we1 = 0;
+                            foreach (VEDataSet.RecipeDetailRow r in details1)
+                            {
+                                if (r.IsWeightNull()) continue;
+                                we1 += r.Weight;
+                            }
+                            if (we1 != 0m)
+                            {
+                                decimal co = CalcCost(details1, usedRecipes) * we / we1;
+                                cost += co;
+                            }
                         }
                     }
                     else
@@ -370,7 +383,7 @@ namespace VoucherExpense
                         MessageBox.Show("配方:" + ids.First().ToString() + "重複使用,不計入!");
                     }
                 }
-                cost += d.Weight;
+                // cost += d.Weight; bug
             }
             return cost;
         }
@@ -378,6 +391,46 @@ namespace VoucherExpense
         private void btnUpdateEvaluatedCost_Click(object sender, EventArgs e)
         {
             // 更新估算成本時,要計算一張表給User看, 列出每一筆食材及價格 重量
+            var rowView = recipeBindingSource.Current as DataRowView;
+            if (rowView == null)
+            {
+                MessageBox.Show("沒有現有配方,無法更新!");
+                return;
+            }
+            var row = rowView.Row as VEDataSet.RecipeRow;
+            if (row.RowState == DataRowState.Detached || row.RowState == DataRowState.Deleted)
+            {
+                MessageBox.Show("配方表尚未儲存或己刪除!");
+                return;
+            }
+            var details = row.GetRecipeDetailRows();
+            Form form = new FormRecipePriceUpdate(details,vEDataSet);
+            if (form.ShowDialog()==DialogResult.OK)
+            {
+                if (row.IsFinalProductIDNull() || row.FinalProductID <= 0)
+                {
+                    MessageBox.Show("沒有最終產品,無可更新!");
+                    return;
+                }
+                var products = from pr in bakeryOrderSet.Product where pr.ProductID == row.FinalProductID select pr;
+                if (products.Count() == 0)
+                {
+                    MessageBox.Show("找不到產品号<" + row.FinalProductID.ToString() + ">,無法更新價格!");
+                    return;
+                }
+                var product = products.First();
+                if (form.Tag.GetType() == typeof(decimal))
+                {
+                    decimal co=(decimal)form.Tag;
+                    co=Math.Round(co,1);
+                    product.EvaluatedCost = co;
+                    productTableAdapter.Update(product);
+                    product.AcceptChanges();
+                    MessageBox.Show("產品<"+product.Name+">的估算成本己更新為 "+co.ToString());
+                }
+                else
+                    MessageBox.Show("計算之估算成本不是decimal 產品" + product.Name + " 未更新!");
+            }
         }
 
         private void bindingNavigatorDeleteItem_Click(object sender, EventArgs e)

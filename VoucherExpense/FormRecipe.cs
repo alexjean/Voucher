@@ -46,13 +46,12 @@ namespace VoucherExpense
             m_SourceList = new List<CNameIDForComboBox>();
             foreach (var ing in vEDataSet.Ingredient)
             {
-                if (ing.CanPurchase)
-                {
-                    string name;
-                    if (ing.IsNameNull()) name = "食材" + ing.IngredientID.ToString();
-                    else name = ing.Name;
-                    m_SourceList.Add(new CNameIDForComboBox(ing.IngredientID, name));
-                }
+                string name;
+                if (ing.IsNameNull()) name = "食材" + ing.IngredientID.ToString();
+                else name = ing.Name;
+                if (!ing.CanPurchase)
+                    name = "**" + name;
+                m_SourceList.Add(new CNameIDForComboBox(ing.IngredientID, name));
             }
             foreach (var recipe in vEDataSet.Recipe)
             {
@@ -207,7 +206,16 @@ namespace VoucherExpense
             if (rowIndex < 0) return;
             if (colIndex < 0) return;
             string name = dgv.Columns[colIndex].Name;
-            if (name == "ColumnSourceID") return;
+            if (name == "ColumnSourceID")
+            {
+                DataGridViewCell cell = dgv.Rows[rowIndex].Cells[colIndex];
+                if (cell.Value.GetType() == typeof(int))
+                {
+                    int id = (int)cell.Value;
+                    MessageBox.Show("食材或配方<"+id.ToString()+"> 找不到!");
+                }
+                return;
+            }
             MessageBox.Show("row" + rowIndex.ToString() + " column<" + name + "> ex:" + e.Exception.Message);
         }
 

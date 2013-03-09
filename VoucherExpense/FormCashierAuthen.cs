@@ -205,26 +205,76 @@ namespace VoucherExpense
                 this.cashierBindingSource.RemoveFilter();
         }
 
+        bool PathSameWarning(string path, string path1, string IDPath1)
+        {
+            if (path.ToLower() == path1.ToLower())
+            {
+                MessageBox.Show("不能和"+IDPath1+"的路徑相同!");
+                return true;
+            }
+            return false;
+        }
+
         private void btnBrowse1_Click(object sender, EventArgs e)
         {
             if (folderBrowserDialog.ShowDialog() != DialogResult.OK) return;
-            textBoxPOS1.Text = folderBrowserDialog.SelectedPath;
+            string path=folderBrowserDialog.SelectedPath.Trim();
+            if (path.Length == 0)
+            {
+                textBoxPOS1.Text = "";
+                return;
+            }
+            if (PathSameWarning(path, Application.StartupPath, "本程式")) return;
+            if (PathSameWarning(path, textBoxPOS2.Text, "收銀机2")) return;
+            if (PathSameWarning(path, textBoxPOS3.Text, "收銀机3")) return;
+            if (PathSameWarning(path, textBoxBackupDir.Text, "備份位置")) return;
+            textBoxPOS1.Text = path;
         }
         private void btnBrowse2_Click(object sender, EventArgs e)
         {
             if (folderBrowserDialog.ShowDialog() != DialogResult.OK) return;
-            textBoxPOS2.Text = folderBrowserDialog.SelectedPath;
+            string path = folderBrowserDialog.SelectedPath.Trim();
+            if (path.Length == 0)
+            {
+                textBoxPOS2.Text = "";
+                return;
+            }
+            if (PathSameWarning(path, Application.StartupPath, "本程式")) return;
+            if (PathSameWarning(path, textBoxPOS1.Text, "收銀机1")) return;
+            if (PathSameWarning(path, textBoxPOS3.Text, "收銀机3")) return;
+            if (PathSameWarning(path, textBoxBackupDir.Text, "備份位置")) return;
+            textBoxPOS2.Text = path;
         }
         private void btnBrowse3_Click(object sender, EventArgs e)
         {
             if (folderBrowserDialog.ShowDialog() != DialogResult.OK) return;
-            textBoxPOS3.Text = folderBrowserDialog.SelectedPath;
+            string path = folderBrowserDialog.SelectedPath.Trim();
+            if (path.Length == 0)
+            {
+                textBoxPOS3.Text = "";
+                return;
+            }
+            if (PathSameWarning(path, Application.StartupPath, "本程式")) return;
+            if (PathSameWarning(path, textBoxPOS1.Text, "收銀机1")) return;
+            if (PathSameWarning(path, textBoxPOS2.Text, "收銀机2")) return;
+            if (PathSameWarning(path, textBoxBackupDir.Text, "備份位置")) return;
+            textBoxPOS3.Text = path;
         }
 
         private void btnBackupDir_Click(object sender, EventArgs e)
         {
             if (folderBrowserDialog.ShowDialog() != DialogResult.OK) return;
-            textBoxBackupDir.Text = folderBrowserDialog.SelectedPath;
+            string path = folderBrowserDialog.SelectedPath.Trim();
+            if (path.Length == 0)
+            {
+                textBoxBackupDir.Text = "";
+                return;
+            }
+            if (PathSameWarning(path, Application.StartupPath, "本程式")) return;
+            if (PathSameWarning(path, textBoxPOS1.Text, "收銀机1")) return;
+            if (PathSameWarning(path, textBoxPOS2.Text, "收銀机2")) return;
+            if (PathSameWarning(path, textBoxPOS3.Text, "收銀机3")) return;
+            textBoxBackupDir.Text = path;
         }
 
         Config Cfg = new Config();
@@ -447,6 +497,8 @@ namespace VoucherExpense
             listBoxReadme.Items.Add(msg);
             if (showWarning)
                 MessageBox.Show(msg);
+            else
+                Application.DoEvents();
         }
 
         private void btnClosedBackup_Click(object sender, EventArgs e)

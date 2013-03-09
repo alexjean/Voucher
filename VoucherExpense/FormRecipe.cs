@@ -386,7 +386,7 @@ namespace VoucherExpense
                             }
                             if (we1 > 0m)
                             {
-                                decimal co = CalcCost(we / we1, details1, usedRecipes);
+                                decimal co = CalcCost(we / we1, details1, usedRecipes);   // 配方下的配方,只計算重量比, 忽視包裝單位
                                 cost += co;
                             }
                         }

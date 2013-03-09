@@ -291,9 +291,9 @@
             // btnPayCheck
             // 
             this.btnPayCheck.BackColor = System.Drawing.Color.SeaShell;
-            this.btnPayCheck.Location = new System.Drawing.Point(28, 470);
+            this.btnPayCheck.Location = new System.Drawing.Point(27, 449);
             this.btnPayCheck.Name = "btnPayCheck";
-            this.btnPayCheck.Size = new System.Drawing.Size(174, 53);
+            this.btnPayCheck.Size = new System.Drawing.Size(174, 80);
             this.btnPayCheck.TabIndex = 16;
             this.btnPayCheck.Text = "結帳打單";
             this.btnPayCheck.UseVisualStyleBackColor = true;
@@ -302,9 +302,9 @@
             // btnCancel
             // 
             this.btnCancel.BackColor = System.Drawing.Color.Azure;
-            this.btnCancel.Location = new System.Drawing.Point(237, 470);
+            this.btnCancel.Location = new System.Drawing.Point(256, 449);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 53);
+            this.btnCancel.Size = new System.Drawing.Size(87, 80);
             this.btnCancel.TabIndex = 17;
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -415,9 +415,9 @@
             // btnCalc
             // 
             this.btnCalc.BackColor = System.Drawing.Color.Azure;
-            this.btnCalc.Location = new System.Drawing.Point(268, 185);
+            this.btnCalc.Location = new System.Drawing.Point(256, 185);
             this.btnCalc.Name = "btnCalc";
-            this.btnCalc.Size = new System.Drawing.Size(75, 134);
+            this.btnCalc.Size = new System.Drawing.Size(87, 151);
             this.btnCalc.TabIndex = 28;
             this.btnCalc.Text = "<==";
             this.btnCalc.UseVisualStyleBackColor = true;

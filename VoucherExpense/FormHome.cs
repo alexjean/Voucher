@@ -11,8 +11,6 @@ namespace VoucherExpense
 {
     public partial class FormHome : Form
     {
-   
-
         VEDataSet.OperatorRow Operator;
         HardwareConfig m_Config;
         // 必需設好 Operator及m_Config才能呼叫SetFormTitle
@@ -48,7 +46,7 @@ namespace VoucherExpense
             basic.DropDownItems["操作員MenuItem"].Enabled   = Op.EditOperator;
             basic.DropDownItems["環境設定MenuItem"].Enabled = Op.IsManager;
             basic.DropDownItems["食材表MenuItem"].Enabled   = Op.EditIngredient;
-            basic.DropDownItems["配方表MenuItem"].Enabled   = Op.EditIngredient && Op.EditProduct;
+            basic.DropDownItems["配方表MenuItem"].Enabled   = Op.EditRecipe;
             basic.DropDownItems["產品表MenuItem"].Enabled   = Op.EditProduct;
             basic.DropDownItems["編修菜單MenuItem"].Enabled = Op.EditProduct;
             basic.DropDownItems["供應商MenuItem"].Enabled   = Op.EditVendor;

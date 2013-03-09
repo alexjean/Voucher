@@ -2190,6 +2190,8 @@ namespace VoucherExpense {
             
             private global::System.Data.DataColumn columnEditProduct;
             
+            private global::System.Data.DataColumn columnEditRecipe;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public OperatorDataTable() {
@@ -2409,6 +2411,14 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn EditRecipeColumn {
+                get {
+                    return this.columnEditRecipe;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2467,7 +2477,8 @@ namespace VoucherExpense {
                         bool EditOnDuty, 
                         bool EditSalary, 
                         bool LockHR, 
-                        bool EditProduct) {
+                        bool EditProduct, 
+                        bool EditRecipe) {
                 OperatorRow rowOperatorRow = ((OperatorRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         OperatorID,
@@ -2492,7 +2503,8 @@ namespace VoucherExpense {
                         EditOnDuty,
                         EditSalary,
                         LockHR,
-                        EditProduct};
+                        EditProduct,
+                        EditRecipe};
                 rowOperatorRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowOperatorRow);
                 return rowOperatorRow;
@@ -2545,6 +2557,7 @@ namespace VoucherExpense {
                 this.columnEditSalary = base.Columns["EditSalary"];
                 this.columnLockHR = base.Columns["LockHR"];
                 this.columnEditProduct = base.Columns["EditProduct"];
+                this.columnEditRecipe = base.Columns["EditRecipe"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2596,6 +2609,8 @@ namespace VoucherExpense {
                 base.Columns.Add(this.columnLockHR);
                 this.columnEditProduct = new global::System.Data.DataColumn("EditProduct", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnEditProduct);
+                this.columnEditRecipe = new global::System.Data.DataColumn("EditRecipe", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEditRecipe);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnOperatorID}, true));
                 this.columnOperatorID.AllowDBNull = false;
@@ -9902,6 +9917,22 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool EditRecipe {
+                get {
+                    try {
+                        return ((bool)(this[this.tableOperator.EditRecipeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("資料表 \'Operator\' 中資料行 \'EditRecipe\' 的值是 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tableOperator.EditRecipeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsStopAccountNull() {
                 return this.IsNull(this.tableOperator.StopAccountColumn);
             }
@@ -10162,6 +10193,18 @@ namespace VoucherExpense {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetEditProductNull() {
                 this[this.tableOperator.EditProductColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsEditRecipeNull() {
+                return this.IsNull(this.tableOperator.EditRecipeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetEditRecipeNull() {
+                this[this.tableOperator.EditRecipeColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -16457,10 +16500,11 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("EditSalary", "EditSalary");
             tableMapping.ColumnMappings.Add("LockHR", "LockHR");
             tableMapping.ColumnMappings.Add("EditProduct", "EditProduct");
+            tableMapping.ColumnMappings.Add("EditRecipe", "EditRecipe");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `Operator` WHERE ((`OperatorID` = ?) AND ((? = 1 AND `StopAccount` IS NULL) OR (`StopAccount` = ?)) AND ((? = 1 AND `LoginName` IS NULL) OR (`LoginName` = ?)) AND ((? = 1 AND `Password` IS NULL) OR (`Password` = ?)) AND ((? = 1 AND `Name` IS NULL) OR (`Name` = ?)) AND ((? = 1 AND `EditOperator` IS NULL) OR (`EditOperator` = ?)) AND ((? = 1 AND `EditVendor` IS NULL) OR (`EditVendor` = ?)) AND ((? = 1 AND `EditIngredient` IS NULL) OR (`EditIngredient` = ?)) AND ((? = 1 AND `EditEmployee` IS NULL) OR (`EditEmployee` = ?)) AND ((? = 1 AND `EditAccountingTitle` IS NULL) OR (`EditAccountingTitle` = ?)) AND ((? = 1 AND `EditVoucher` IS NULL) OR (`EditVoucher` = ?)) AND ((? = 1 AND `EditExpense` IS NULL) OR (`EditExpense` = ?)) AND ((? = 1 AND `LastUpdated` IS NULL) OR (`LastUpdated` = ?)) AND ((? = 1 AND `IsSuper` IS NULL) OR (`IsSuper` = ?)) AND ((? = 1 AND `IsManager` IS NULL) OR (`IsManager` = ?)) AND ((? = 1 AND `EditBank` IS NULL) OR (`EditBank` = ?)) AND ((? = 1 AND `LockExpense` IS NULL) OR (`LockExpense` = ?)) AND ((? = 1 AND `LockVoucher` IS NULL) OR (`LockVoucher` = ?)) AND ((? = 1 AND `EditOnDuty` IS NULL) OR (`EditOnDuty` = ?)) AND ((? = 1 AND `EditSalary` IS NULL) OR (`EditSalary` = ?)) AND ((? = 1 AND `LockAccVoucher` IS NULL) OR (`LockAccVoucher` = ?)) AND ((? = 1 AND `LockHR` IS NULL) OR (`LockHR` = ?)) AND ((? = 1 AND `EditProduct` IS NULL) OR (`EditProduct` = ?)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `Operator` WHERE ((`OperatorID` = ?) AND ((? = 1 AND `StopAccount` IS NULL) OR (`StopAccount` = ?)) AND ((? = 1 AND `LoginName` IS NULL) OR (`LoginName` = ?)) AND ((? = 1 AND `Password` IS NULL) OR (`Password` = ?)) AND ((? = 1 AND `Name` IS NULL) OR (`Name` = ?)) AND ((? = 1 AND `EditOperator` IS NULL) OR (`EditOperator` = ?)) AND ((? = 1 AND `EditVendor` IS NULL) OR (`EditVendor` = ?)) AND ((? = 1 AND `EditIngredient` IS NULL) OR (`EditIngredient` = ?)) AND ((? = 1 AND `EditEmployee` IS NULL) OR (`EditEmployee` = ?)) AND ((? = 1 AND `EditAccountingTitle` IS NULL) OR (`EditAccountingTitle` = ?)) AND ((? = 1 AND `EditVoucher` IS NULL) OR (`EditVoucher` = ?)) AND ((? = 1 AND `EditExpense` IS NULL) OR (`EditExpense` = ?)) AND ((? = 1 AND `LastUpdated` IS NULL) OR (`LastUpdated` = ?)) AND ((? = 1 AND `IsSuper` IS NULL) OR (`IsSuper` = ?)) AND ((? = 1 AND `IsManager` IS NULL) OR (`IsManager` = ?)) AND ((? = 1 AND `EditBank` IS NULL) OR (`EditBank` = ?)) AND ((? = 1 AND `LockExpense` IS NULL) OR (`LockExpense` = ?)) AND ((? = 1 AND `LockVoucher` IS NULL) OR (`LockVoucher` = ?)) AND ((? = 1 AND `EditOnDuty` IS NULL) OR (`EditOnDuty` = ?)) AND ((? = 1 AND `EditSalary` IS NULL) OR (`EditSalary` = ?)) AND ((? = 1 AND `LockAccVoucher` IS NULL) OR (`LockAccVoucher` = ?)) AND ((? = 1 AND `LockHR` IS NULL) OR (`LockHR` = ?)) AND ((? = 1 AND `EditProduct` IS NULL) OR (`EditProduct` = ?)) AND ((? = 1 AND `EditRecipe` IS NULL) OR (`EditRecipe` = ?)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_OperatorID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OperatorID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_StopAccount", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "StopAccount", global::System.Data.DataRowVersion.Original, true, null));
@@ -16507,9 +16551,11 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_LockHR", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LockHR", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_EditProduct", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EditProduct", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_EditProduct", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EditProduct", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_EditRecipe", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EditRecipe", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_EditRecipe", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EditRecipe", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO `Operator` (`OperatorID`, `StopAccount`, `LoginName`, `Password`, `Name`, `EditOperator`, `EditVendor`, `EditIngredient`, `EditEmployee`, `EditAccountingTitle`, `EditVoucher`, `EditExpense`, `LastUpdated`, `IsSuper`, `IsManager`, `EditBank`, `LockExpense`, `LockVoucher`, `EditOnDuty`, `EditSalary`, `LockAccVoucher`, `LockHR`, `EditProduct`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO `Operator` (`OperatorID`, `StopAccount`, `LoginName`, `Password`, `Name`, `EditOperator`, `EditVendor`, `EditIngredient`, `EditEmployee`, `EditAccountingTitle`, `EditVoucher`, `EditExpense`, `LastUpdated`, `IsSuper`, `IsManager`, `EditBank`, `LockExpense`, `LockVoucher`, `EditOnDuty`, `EditSalary`, `LockAccVoucher`, `LockHR`, `EditProduct`, `EditRecipe`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("OperatorID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OperatorID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("StopAccount", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "StopAccount", global::System.Data.DataRowVersion.Current, false, null));
@@ -16534,6 +16580,7 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("LockAccVoucher", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LockAccVoucher", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("LockHR", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LockHR", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("EditProduct", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EditProduct", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("EditRecipe", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EditRecipe", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
             this._adapter.UpdateCommand.CommandText = "UPDATE `Operator` SET `OperatorID` = ?, `StopAccount` = ?, `LoginName` = ?, `Pass" +
@@ -16541,24 +16588,25 @@ namespace VoucherExpense.VEDataSetTableAdapters {
                 "?, `EditEmployee` = ?, `EditAccountingTitle` = ?, `EditVoucher` = ?, `EditExpens" +
                 "e` = ?, `LastUpdated` = ?, `IsSuper` = ?, `IsManager` = ?, `EditBank` = ?, `Lock" +
                 "Expense` = ?, `LockVoucher` = ?, `EditOnDuty` = ?, `EditSalary` = ?, `LockAccVou" +
-                "cher` = ?, `LockHR` = ?, `EditProduct` = ? WHERE ((`OperatorID` = ?) AND ((? = 1" +
-                " AND `StopAccount` IS NULL) OR (`StopAccount` = ?)) AND ((? = 1 AND `LoginName` " +
-                "IS NULL) OR (`LoginName` = ?)) AND ((? = 1 AND `Password` IS NULL) OR (`Password" +
-                "` = ?)) AND ((? = 1 AND `Name` IS NULL) OR (`Name` = ?)) AND ((? = 1 AND `EditOp" +
-                "erator` IS NULL) OR (`EditOperator` = ?)) AND ((? = 1 AND `EditVendor` IS NULL) " +
-                "OR (`EditVendor` = ?)) AND ((? = 1 AND `EditIngredient` IS NULL) OR (`EditIngred" +
-                "ient` = ?)) AND ((? = 1 AND `EditEmployee` IS NULL) OR (`EditEmployee` = ?)) AND" +
-                " ((? = 1 AND `EditAccountingTitle` IS NULL) OR (`EditAccountingTitle` = ?)) AND " +
-                "((? = 1 AND `EditVoucher` IS NULL) OR (`EditVoucher` = ?)) AND ((? = 1 AND `Edit" +
-                "Expense` IS NULL) OR (`EditExpense` = ?)) AND ((? = 1 AND `LastUpdated` IS NULL)" +
-                " OR (`LastUpdated` = ?)) AND ((? = 1 AND `IsSuper` IS NULL) OR (`IsSuper` = ?)) " +
-                "AND ((? = 1 AND `IsManager` IS NULL) OR (`IsManager` = ?)) AND ((? = 1 AND `Edit" +
-                "Bank` IS NULL) OR (`EditBank` = ?)) AND ((? = 1 AND `LockExpense` IS NULL) OR (`" +
-                "LockExpense` = ?)) AND ((? = 1 AND `LockVoucher` IS NULL) OR (`LockVoucher` = ?)" +
-                ") AND ((? = 1 AND `EditOnDuty` IS NULL) OR (`EditOnDuty` = ?)) AND ((? = 1 AND `" +
-                "EditSalary` IS NULL) OR (`EditSalary` = ?)) AND ((? = 1 AND `LockAccVoucher` IS " +
-                "NULL) OR (`LockAccVoucher` = ?)) AND ((? = 1 AND `LockHR` IS NULL) OR (`LockHR` " +
-                "= ?)) AND ((? = 1 AND `EditProduct` IS NULL) OR (`EditProduct` = ?)))";
+                "cher` = ?, `LockHR` = ?, `EditProduct` = ?, `EditRecipe` = ? WHERE ((`OperatorID" +
+                "` = ?) AND ((? = 1 AND `StopAccount` IS NULL) OR (`StopAccount` = ?)) AND ((? = " +
+                "1 AND `LoginName` IS NULL) OR (`LoginName` = ?)) AND ((? = 1 AND `Password` IS N" +
+                "ULL) OR (`Password` = ?)) AND ((? = 1 AND `Name` IS NULL) OR (`Name` = ?)) AND (" +
+                "(? = 1 AND `EditOperator` IS NULL) OR (`EditOperator` = ?)) AND ((? = 1 AND `Edi" +
+                "tVendor` IS NULL) OR (`EditVendor` = ?)) AND ((? = 1 AND `EditIngredient` IS NUL" +
+                "L) OR (`EditIngredient` = ?)) AND ((? = 1 AND `EditEmployee` IS NULL) OR (`EditE" +
+                "mployee` = ?)) AND ((? = 1 AND `EditAccountingTitle` IS NULL) OR (`EditAccountin" +
+                "gTitle` = ?)) AND ((? = 1 AND `EditVoucher` IS NULL) OR (`EditVoucher` = ?)) AND" +
+                " ((? = 1 AND `EditExpense` IS NULL) OR (`EditExpense` = ?)) AND ((? = 1 AND `Las" +
+                "tUpdated` IS NULL) OR (`LastUpdated` = ?)) AND ((? = 1 AND `IsSuper` IS NULL) OR" +
+                " (`IsSuper` = ?)) AND ((? = 1 AND `IsManager` IS NULL) OR (`IsManager` = ?)) AND" +
+                " ((? = 1 AND `EditBank` IS NULL) OR (`EditBank` = ?)) AND ((? = 1 AND `LockExpen" +
+                "se` IS NULL) OR (`LockExpense` = ?)) AND ((? = 1 AND `LockVoucher` IS NULL) OR (" +
+                "`LockVoucher` = ?)) AND ((? = 1 AND `EditOnDuty` IS NULL) OR (`EditOnDuty` = ?))" +
+                " AND ((? = 1 AND `EditSalary` IS NULL) OR (`EditSalary` = ?)) AND ((? = 1 AND `L" +
+                "ockAccVoucher` IS NULL) OR (`LockAccVoucher` = ?)) AND ((? = 1 AND `LockHR` IS N" +
+                "ULL) OR (`LockHR` = ?)) AND ((? = 1 AND `EditProduct` IS NULL) OR (`EditProduct`" +
+                " = ?)) AND ((? = 1 AND `EditRecipe` IS NULL) OR (`EditRecipe` = ?)))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("OperatorID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OperatorID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("StopAccount", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "StopAccount", global::System.Data.DataRowVersion.Current, false, null));
@@ -16583,6 +16631,7 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("LockAccVoucher", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LockAccVoucher", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("LockHR", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LockHR", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("EditProduct", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EditProduct", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("EditRecipe", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EditRecipe", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_OperatorID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OperatorID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_StopAccount", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "StopAccount", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_StopAccount", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "StopAccount", global::System.Data.DataRowVersion.Original, false, null));
@@ -16628,6 +16677,8 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_LockHR", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LockHR", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_EditProduct", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EditProduct", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_EditProduct", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EditProduct", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_EditRecipe", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EditRecipe", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_EditRecipe", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EditRecipe", global::System.Data.DataRowVersion.Original, false, null));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -16643,7 +16694,7 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = @"SELECT OperatorID, StopAccount, LoginName, [Password], Name, EditOperator, EditVendor, EditIngredient, EditEmployee, EditAccountingTitle, EditVoucher, EditExpense, LastUpdated, IsSuper, IsManager, EditBank, LockExpense, LockVoucher, EditOnDuty, EditSalary, LockAccVoucher, LockHR, EditProduct FROM Operator";
+            this._commandCollection[0].CommandText = @"SELECT OperatorID, StopAccount, LoginName, [Password], Name, EditOperator, EditVendor, EditIngredient, EditEmployee, EditAccountingTitle, EditVoucher, EditExpense, LastUpdated, IsSuper, IsManager, EditBank, LockExpense, LockVoucher, EditOnDuty, EditSalary, LockAccVoucher, LockHR, EditProduct, EditRecipe FROM Operator";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -16727,7 +16778,8 @@ namespace VoucherExpense.VEDataSetTableAdapters {
                     bool Original_EditSalary, 
                     bool Original_LockAccVoucher, 
                     bool Original_LockHR, 
-                    bool Original_EditProduct) {
+                    bool Original_EditProduct, 
+                    bool Original_EditRecipe) {
             if ((Original_OperatorID.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_OperatorID.Value));
             }
@@ -16802,6 +16854,8 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this.Adapter.DeleteCommand.Parameters[42].Value = ((bool)(Original_LockHR));
             this.Adapter.DeleteCommand.Parameters[43].Value = ((object)(0));
             this.Adapter.DeleteCommand.Parameters[44].Value = ((bool)(Original_EditProduct));
+            this.Adapter.DeleteCommand.Parameters[45].Value = ((object)(0));
+            this.Adapter.DeleteCommand.Parameters[46].Value = ((bool)(Original_EditRecipe));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -16845,7 +16899,8 @@ namespace VoucherExpense.VEDataSetTableAdapters {
                     bool EditSalary, 
                     bool LockAccVoucher, 
                     bool LockHR, 
-                    bool EditProduct) {
+                    bool EditProduct, 
+                    bool EditRecipe) {
             if ((OperatorID.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[0].Value = ((int)(OperatorID.Value));
             }
@@ -16894,6 +16949,7 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this.Adapter.InsertCommand.Parameters[20].Value = ((bool)(LockAccVoucher));
             this.Adapter.InsertCommand.Parameters[21].Value = ((bool)(LockHR));
             this.Adapter.InsertCommand.Parameters[22].Value = ((bool)(EditProduct));
+            this.Adapter.InsertCommand.Parameters[23].Value = ((bool)(EditRecipe));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -16938,6 +16994,7 @@ namespace VoucherExpense.VEDataSetTableAdapters {
                     bool LockAccVoucher, 
                     bool LockHR, 
                     bool EditProduct, 
+                    bool EditRecipe, 
                     global::System.Nullable<int> Original_OperatorID, 
                     bool Original_StopAccount, 
                     string Original_LoginName, 
@@ -16960,7 +17017,8 @@ namespace VoucherExpense.VEDataSetTableAdapters {
                     bool Original_EditSalary, 
                     bool Original_LockAccVoucher, 
                     bool Original_LockHR, 
-                    bool Original_EditProduct) {
+                    bool Original_EditProduct, 
+                    bool Original_EditRecipe) {
             if ((OperatorID.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(OperatorID.Value));
             }
@@ -17009,80 +17067,83 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this.Adapter.UpdateCommand.Parameters[20].Value = ((bool)(LockAccVoucher));
             this.Adapter.UpdateCommand.Parameters[21].Value = ((bool)(LockHR));
             this.Adapter.UpdateCommand.Parameters[22].Value = ((bool)(EditProduct));
+            this.Adapter.UpdateCommand.Parameters[23].Value = ((bool)(EditRecipe));
             if ((Original_OperatorID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[23].Value = ((int)(Original_OperatorID.Value));
+                this.Adapter.UpdateCommand.Parameters[24].Value = ((int)(Original_OperatorID.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[23].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[24].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[24].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[25].Value = ((bool)(Original_StopAccount));
+            this.Adapter.UpdateCommand.Parameters[25].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[26].Value = ((bool)(Original_StopAccount));
             if ((Original_LoginName == null)) {
-                this.Adapter.UpdateCommand.Parameters[26].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[27].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[27].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[28].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[26].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[27].Value = ((string)(Original_LoginName));
+                this.Adapter.UpdateCommand.Parameters[27].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[28].Value = ((string)(Original_LoginName));
             }
             if ((Original_Password == null)) {
-                this.Adapter.UpdateCommand.Parameters[28].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[29].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[29].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[30].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[28].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[29].Value = ((string)(Original_Password));
+                this.Adapter.UpdateCommand.Parameters[29].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[30].Value = ((string)(Original_Password));
             }
             if ((Original_Name == null)) {
-                this.Adapter.UpdateCommand.Parameters[30].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[31].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[31].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[32].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[30].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[31].Value = ((string)(Original_Name));
+                this.Adapter.UpdateCommand.Parameters[31].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[32].Value = ((string)(Original_Name));
             }
-            this.Adapter.UpdateCommand.Parameters[32].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[33].Value = ((bool)(Original_EditOperator));
-            this.Adapter.UpdateCommand.Parameters[34].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[35].Value = ((bool)(Original_EditVendor));
-            this.Adapter.UpdateCommand.Parameters[36].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[37].Value = ((bool)(Original_EditIngredient));
-            this.Adapter.UpdateCommand.Parameters[38].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[39].Value = ((bool)(Original_EditEmployee));
-            this.Adapter.UpdateCommand.Parameters[40].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[41].Value = ((bool)(Original_EditAccountingTitle));
-            this.Adapter.UpdateCommand.Parameters[42].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[43].Value = ((bool)(Original_EditVoucher));
-            this.Adapter.UpdateCommand.Parameters[44].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[45].Value = ((bool)(Original_EditExpense));
+            this.Adapter.UpdateCommand.Parameters[33].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[34].Value = ((bool)(Original_EditOperator));
+            this.Adapter.UpdateCommand.Parameters[35].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[36].Value = ((bool)(Original_EditVendor));
+            this.Adapter.UpdateCommand.Parameters[37].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[38].Value = ((bool)(Original_EditIngredient));
+            this.Adapter.UpdateCommand.Parameters[39].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[40].Value = ((bool)(Original_EditEmployee));
+            this.Adapter.UpdateCommand.Parameters[41].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[42].Value = ((bool)(Original_EditAccountingTitle));
+            this.Adapter.UpdateCommand.Parameters[43].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[44].Value = ((bool)(Original_EditVoucher));
+            this.Adapter.UpdateCommand.Parameters[45].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[46].Value = ((bool)(Original_EditExpense));
             if ((Original_LastUpdated.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[46].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[47].Value = ((System.DateTime)(Original_LastUpdated.Value));
+                this.Adapter.UpdateCommand.Parameters[47].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[48].Value = ((System.DateTime)(Original_LastUpdated.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[46].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[47].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[47].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[48].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[48].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[49].Value = ((bool)(Original_IsSuper));
-            this.Adapter.UpdateCommand.Parameters[50].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[51].Value = ((bool)(Original_IsManager));
-            this.Adapter.UpdateCommand.Parameters[52].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[53].Value = ((bool)(Original_EditBank));
-            this.Adapter.UpdateCommand.Parameters[54].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[55].Value = ((bool)(Original_LockExpense));
-            this.Adapter.UpdateCommand.Parameters[56].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[57].Value = ((bool)(Original_LockVoucher));
-            this.Adapter.UpdateCommand.Parameters[58].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[59].Value = ((bool)(Original_EditOnDuty));
-            this.Adapter.UpdateCommand.Parameters[60].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[61].Value = ((bool)(Original_EditSalary));
-            this.Adapter.UpdateCommand.Parameters[62].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[63].Value = ((bool)(Original_LockAccVoucher));
-            this.Adapter.UpdateCommand.Parameters[64].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[65].Value = ((bool)(Original_LockHR));
-            this.Adapter.UpdateCommand.Parameters[66].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[67].Value = ((bool)(Original_EditProduct));
+            this.Adapter.UpdateCommand.Parameters[49].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[50].Value = ((bool)(Original_IsSuper));
+            this.Adapter.UpdateCommand.Parameters[51].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[52].Value = ((bool)(Original_IsManager));
+            this.Adapter.UpdateCommand.Parameters[53].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[54].Value = ((bool)(Original_EditBank));
+            this.Adapter.UpdateCommand.Parameters[55].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[56].Value = ((bool)(Original_LockExpense));
+            this.Adapter.UpdateCommand.Parameters[57].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[58].Value = ((bool)(Original_LockVoucher));
+            this.Adapter.UpdateCommand.Parameters[59].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[60].Value = ((bool)(Original_EditOnDuty));
+            this.Adapter.UpdateCommand.Parameters[61].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[62].Value = ((bool)(Original_EditSalary));
+            this.Adapter.UpdateCommand.Parameters[63].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[64].Value = ((bool)(Original_LockAccVoucher));
+            this.Adapter.UpdateCommand.Parameters[65].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[66].Value = ((bool)(Original_LockHR));
+            this.Adapter.UpdateCommand.Parameters[67].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[68].Value = ((bool)(Original_EditProduct));
+            this.Adapter.UpdateCommand.Parameters[69].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[70].Value = ((bool)(Original_EditRecipe));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -17126,6 +17187,7 @@ namespace VoucherExpense.VEDataSetTableAdapters {
                     bool LockAccVoucher, 
                     bool LockHR, 
                     bool EditProduct, 
+                    bool EditRecipe, 
                     global::System.Nullable<int> Original_OperatorID, 
                     bool Original_StopAccount, 
                     string Original_LoginName, 
@@ -17148,8 +17210,9 @@ namespace VoucherExpense.VEDataSetTableAdapters {
                     bool Original_EditSalary, 
                     bool Original_LockAccVoucher, 
                     bool Original_LockHR, 
-                    bool Original_EditProduct) {
-            return this.Update(Original_OperatorID, StopAccount, LoginName, Password, Name, EditOperator, EditVendor, EditIngredient, EditEmployee, EditAccountingTitle, EditVoucher, EditExpense, LastUpdated, IsSuper, IsManager, EditBank, LockExpense, LockVoucher, EditOnDuty, EditSalary, LockAccVoucher, LockHR, EditProduct, Original_OperatorID, Original_StopAccount, Original_LoginName, Original_Password, Original_Name, Original_EditOperator, Original_EditVendor, Original_EditIngredient, Original_EditEmployee, Original_EditAccountingTitle, Original_EditVoucher, Original_EditExpense, Original_LastUpdated, Original_IsSuper, Original_IsManager, Original_EditBank, Original_LockExpense, Original_LockVoucher, Original_EditOnDuty, Original_EditSalary, Original_LockAccVoucher, Original_LockHR, Original_EditProduct);
+                    bool Original_EditProduct, 
+                    bool Original_EditRecipe) {
+            return this.Update(Original_OperatorID, StopAccount, LoginName, Password, Name, EditOperator, EditVendor, EditIngredient, EditEmployee, EditAccountingTitle, EditVoucher, EditExpense, LastUpdated, IsSuper, IsManager, EditBank, LockExpense, LockVoucher, EditOnDuty, EditSalary, LockAccVoucher, LockHR, EditProduct, EditRecipe, Original_OperatorID, Original_StopAccount, Original_LoginName, Original_Password, Original_Name, Original_EditOperator, Original_EditVendor, Original_EditIngredient, Original_EditEmployee, Original_EditAccountingTitle, Original_EditVoucher, Original_EditExpense, Original_LastUpdated, Original_IsSuper, Original_IsManager, Original_EditBank, Original_LockExpense, Original_LockVoucher, Original_EditOnDuty, Original_EditSalary, Original_LockAccVoucher, Original_LockHR, Original_EditProduct, Original_EditRecipe);
         }
     }
     

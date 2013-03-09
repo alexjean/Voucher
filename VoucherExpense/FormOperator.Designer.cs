@@ -55,6 +55,7 @@
             this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewCheckBoxColumn2 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewCheckBoxColumn3 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.EditRecipe = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.EditProduct = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewCheckBoxColumn4 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewCheckBoxColumn5 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -220,6 +221,7 @@
             this.dataGridViewCheckBoxColumn1,
             this.dataGridViewCheckBoxColumn2,
             this.dataGridViewCheckBoxColumn3,
+            this.EditRecipe,
             this.EditProduct,
             this.dataGridViewCheckBoxColumn4,
             this.dataGridViewCheckBoxColumn5,
@@ -239,7 +241,7 @@
             this.operatorDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.operatorDataGridView.Location = new System.Drawing.Point(0, 27);
             this.operatorDataGridView.Name = "operatorDataGridView";
-            this.operatorDataGridView.RowHeadersWidth = 25;
+            this.operatorDataGridView.RowHeadersWidth = 20;
             this.operatorDataGridView.RowTemplate.Height = 24;
             this.operatorDataGridView.Size = new System.Drawing.Size(904, 483);
             this.operatorDataGridView.TabIndex = 1;
@@ -264,7 +266,7 @@
             this.StopAccount.DataPropertyName = "StopAccount";
             this.StopAccount.HeaderText = "停用";
             this.StopAccount.Name = "StopAccount";
-            this.StopAccount.Width = 50;
+            this.StopAccount.Width = 32;
             // 
             // LoginName
             // 
@@ -300,6 +302,13 @@
             this.dataGridViewCheckBoxColumn3.HeaderText = "食材表";
             this.dataGridViewCheckBoxColumn3.Name = "dataGridViewCheckBoxColumn3";
             this.dataGridViewCheckBoxColumn3.Width = 32;
+            // 
+            // EditRecipe
+            // 
+            this.EditRecipe.DataPropertyName = "EditRecipe";
+            this.EditRecipe.HeaderText = "配方表";
+            this.EditRecipe.Name = "EditRecipe";
+            this.EditRecipe.Width = 32;
             // 
             // EditProduct
             // 
@@ -458,6 +467,7 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn2;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn3;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn EditRecipe;
         private System.Windows.Forms.DataGridViewCheckBoxColumn EditProduct;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn4;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn5;

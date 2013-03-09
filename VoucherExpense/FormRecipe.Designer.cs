@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Label finalProductIDLabel;
             System.Windows.Forms.Label label1;
             System.Windows.Forms.Label recipeNameLabel;
@@ -41,27 +40,25 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.vEDataSet = new VoucherExpense.VEDataSet();
-            this.recipeBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.recipeBindingSource = new System.Windows.Forms.BindingSource();
             this.recipeTableAdapter = new VoucherExpense.VEDataSetTableAdapters.RecipeTableAdapter();
-            this.recipeBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
+            this.recipeBindingNavigator = new System.Windows.Forms.BindingNavigator();
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
             this.recipeBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.dgvRecipe = new System.Windows.Forms.DataGridView();
-            this.dgvColumnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.finalProductIDComboBox = new System.Windows.Forms.ComboBox();
-            this.cNameIDForProductBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.cNameIDForProductBindingSource = new System.Windows.Forms.BindingSource();
+            this.productBindingSource = new System.Windows.Forms.BindingSource();
             this.bakeryOrderSet = new VoucherExpense.BakeryOrderSet();
             this.dgvRecipeDetail = new System.Windows.Forms.DataGridView();
             this.ColumnDetailID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.recipeIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.displayCodeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnSourceID = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.sourceBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.sourceBindingSource = new System.Windows.Forms.BindingSource();
             this.ColumnWeight = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.recipeRecipeDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.recipeRecipeDetailBindingSource = new System.Windows.Forms.BindingSource();
             this.textBoxIngredientWeight = new System.Windows.Forms.TextBox();
             this.pictureBoxRecipe = new System.Windows.Forms.PictureBox();
             this.recipeNameTextBox = new System.Windows.Forms.TextBox();
@@ -78,6 +75,8 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.textBoxFloatCost = new System.Windows.Forms.TextBox();
             this.btnUpdateEvaluatedCost = new System.Windows.Forms.Button();
+            this.dgvColumnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             finalProductIDLabel = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
             recipeNameLabel = new System.Windows.Forms.Label();
@@ -103,7 +102,7 @@
             // finalProductIDLabel
             // 
             finalProductIDLabel.AutoSize = true;
-            finalProductIDLabel.Location = new System.Drawing.Point(334, 4);
+            finalProductIDLabel.Location = new System.Drawing.Point(379, 4);
             finalProductIDLabel.Name = "finalProductIDLabel";
             finalProductIDLabel.Size = new System.Drawing.Size(40, 16);
             finalProductIDLabel.TabIndex = 2;
@@ -257,24 +256,8 @@
             this.dgvRecipe.ReadOnly = true;
             this.dgvRecipe.RowHeadersVisible = false;
             this.dgvRecipe.RowTemplate.Height = 24;
-            this.dgvRecipe.Size = new System.Drawing.Size(152, 647);
+            this.dgvRecipe.Size = new System.Drawing.Size(156, 647);
             this.dgvRecipe.TabIndex = 1;
-            // 
-            // dgvColumnID
-            // 
-            this.dgvColumnID.DataPropertyName = "RecipeID";
-            this.dgvColumnID.HeaderText = "RecipeID";
-            this.dgvColumnID.Name = "dgvColumnID";
-            this.dgvColumnID.ReadOnly = true;
-            this.dgvColumnID.Visible = false;
-            // 
-            // dgvColumnName
-            // 
-            this.dgvColumnName.DataPropertyName = "RecipeName";
-            this.dgvColumnName.HeaderText = "配方名";
-            this.dgvColumnName.Name = "dgvColumnName";
-            this.dgvColumnName.ReadOnly = true;
-            this.dgvColumnName.Width = 120;
             // 
             // finalProductIDComboBox
             // 
@@ -283,7 +266,7 @@
             this.finalProductIDComboBox.DisplayMember = "Name";
             this.finalProductIDComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.finalProductIDComboBox.FormattingEnabled = true;
-            this.finalProductIDComboBox.Location = new System.Drawing.Point(399, 0);
+            this.finalProductIDComboBox.Location = new System.Drawing.Point(425, 0);
             this.finalProductIDComboBox.Name = "finalProductIDComboBox";
             this.finalProductIDComboBox.Size = new System.Drawing.Size(121, 24);
             this.finalProductIDComboBox.TabIndex = 3;
@@ -409,7 +392,7 @@
             this.recipeNameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.recipeBindingSource, "RecipeName", true));
             this.recipeNameTextBox.Location = new System.Drawing.Point(213, -1);
             this.recipeNameTextBox.Name = "recipeNameTextBox";
-            this.recipeNameTextBox.Size = new System.Drawing.Size(100, 27);
+            this.recipeNameTextBox.Size = new System.Drawing.Size(149, 27);
             this.recipeNameTextBox.TabIndex = 14;
             // 
             // packageNoTextBox
@@ -523,12 +506,29 @@
             this.btnUpdateEvaluatedCost.UseVisualStyleBackColor = true;
             this.btnUpdateEvaluatedCost.Click += new System.EventHandler(this.btnUpdateEvaluatedCost_Click);
             // 
+            // dgvColumnID
+            // 
+            this.dgvColumnID.DataPropertyName = "RecipeID";
+            this.dgvColumnID.HeaderText = "RecipeID";
+            this.dgvColumnID.Name = "dgvColumnID";
+            this.dgvColumnID.ReadOnly = true;
+            this.dgvColumnID.Visible = false;
+            // 
+            // dgvColumnName
+            // 
+            this.dgvColumnName.DataPropertyName = "RecipeName";
+            this.dgvColumnName.HeaderText = "配方名";
+            this.dgvColumnName.Name = "dgvColumnName";
+            this.dgvColumnName.ReadOnly = true;
+            this.dgvColumnName.Width = 130;
+            // 
             // FormRecipe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(963, 680);
+            this.Controls.Add(this.recipeNameTextBox);
             this.Controls.Add(this.btnUpdateEvaluatedCost);
             this.Controls.Add(label5);
             this.Controls.Add(label4);
@@ -545,7 +545,6 @@
             this.Controls.Add(this.btnExcel);
             this.Controls.Add(packageNoLabel);
             this.Controls.Add(recipeNameLabel);
-            this.Controls.Add(this.recipeNameTextBox);
             this.Controls.Add(this.pictureBoxRecipe);
             this.Controls.Add(label1);
             this.Controls.Add(this.dgvRecipeDetail);
@@ -611,12 +610,12 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.TextBox textBoxFloatCost;
         private System.Windows.Forms.Button btnUpdateEvaluatedCost;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvColumnID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvColumnName;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnDetailID;
         private System.Windows.Forms.DataGridViewTextBoxColumn recipeIDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn displayCodeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn ColumnSourceID;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnWeight;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvColumnID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvColumnName;
     }
 }

@@ -281,6 +281,7 @@
             this.finalProductIDComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.recipeBindingSource, "FinalProductID", true));
             this.finalProductIDComboBox.DataSource = this.cNameIDForProductBindingSource;
             this.finalProductIDComboBox.DisplayMember = "Name";
+            this.finalProductIDComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.finalProductIDComboBox.FormattingEnabled = true;
             this.finalProductIDComboBox.Location = new System.Drawing.Point(399, 0);
             this.finalProductIDComboBox.Name = "finalProductIDComboBox";
@@ -419,6 +420,7 @@
             this.packageNoTextBox.Size = new System.Drawing.Size(46, 27);
             this.packageNoTextBox.TabIndex = 15;
             this.packageNoTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.packageNoTextBox.Validated += new System.EventHandler(this.packageNoTextBox_Validated);
             // 
             // productTableAdapter
             // 

@@ -34,6 +34,7 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.dgvShow = new System.Windows.Forms.DataGridView();
             this.labelCost = new System.Windows.Forms.Label();
+            this.labelPackageNo = new System.Windows.Forms.Label();
             this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnWeight = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnCost = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -42,7 +43,7 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(58, 428);
+            this.btnUpdate.Location = new System.Drawing.Point(30, 428);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(116, 34);
             this.btnUpdate.TabIndex = 0;
@@ -52,7 +53,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(386, 428);
+            this.btnCancel.Location = new System.Drawing.Point(426, 428);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(116, 34);
             this.btnCancel.TabIndex = 1;
@@ -81,11 +82,19 @@
             // 
             // labelCost
             // 
-            this.labelCost.Location = new System.Drawing.Point(190, 428);
+            this.labelCost.Location = new System.Drawing.Point(162, 428);
             this.labelCost.Name = "labelCost";
             this.labelCost.Size = new System.Drawing.Size(89, 34);
             this.labelCost.TabIndex = 3;
             this.labelCost.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelPackageNo
+            // 
+            this.labelPackageNo.Location = new System.Drawing.Point(274, 428);
+            this.labelPackageNo.Name = "labelPackageNo";
+            this.labelPackageNo.Size = new System.Drawing.Size(114, 34);
+            this.labelPackageNo.TabIndex = 4;
+            this.labelPackageNo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // ColumnName
             // 
@@ -102,7 +111,7 @@
             this.ColumnWeight.HeaderText = "重量-克";
             this.ColumnWeight.Name = "ColumnWeight";
             this.ColumnWeight.ReadOnly = true;
-            this.ColumnWeight.Width = 140;
+            this.ColumnWeight.Width = 120;
             // 
             // ColumnCost
             // 
@@ -111,6 +120,7 @@
             this.ColumnCost.HeaderText = "成本";
             this.ColumnCost.Name = "ColumnCost";
             this.ColumnCost.ReadOnly = true;
+            this.ColumnCost.Width = 120;
             // 
             // FormRecipePriceUpdate
             // 
@@ -118,6 +128,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(554, 491);
+            this.Controls.Add(this.labelPackageNo);
             this.Controls.Add(this.labelCost);
             this.Controls.Add(this.dgvShow);
             this.Controls.Add(this.btnCancel);
@@ -142,6 +153,7 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.DataGridView dgvShow;
         private System.Windows.Forms.Label labelCost;
+        private System.Windows.Forms.Label labelPackageNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnName;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnWeight;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCost;

@@ -122,6 +122,7 @@ namespace VoucherExpense
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
             MyFunction.AddNewItem(dgvRecipe, "dgvColumnID", "RecipeID", vEDataSet.Recipe);
+            recipeBindingSource.ResetBindings(false);    // 不加這行Detail顯示不會改
         }
 
         private void btnRed_Click(object sender, EventArgs e)
@@ -180,6 +181,7 @@ namespace VoucherExpense
             ShowProductName();
             ShowCurrentPicture();
             CalcWeight();
+            
         }
 
         private void FormRecipe_Shown(object sender, EventArgs e)
@@ -316,7 +318,9 @@ namespace VoucherExpense
                 {
                     if (!d.IsWeightNull()) sum += d.Weight;
                 }
-                this.textBoxFloatCost.Text = CalcCost(details, usedRecipes: new List<int>()).ToString("N1");
+                decimal packageNo = 1;
+                if (!row.IsPackageNoNull() && row.PackageNo > 0) packageNo = row.PackageNo;
+                this.textBoxFloatCost.Text = CalcCost(packageNo,details, usedRecipes: new List<int>()).ToString("N1");
             }
             else
             {   // From DataGridViewCell , Event BindingSource.CurrentChanged時,DataGridView內容還沒改
@@ -333,9 +337,10 @@ namespace VoucherExpense
             textBoxIngredientWeight.Text = sum.ToString("N2");
         }
 
-        private decimal CalcCost(VEDataSet.RecipeDetailRow[] details, List<int> usedRecipes)  // usedRecipes填入己使用的配方,避免Recursive
+        private decimal CalcCost(decimal packageNo,VEDataSet.RecipeDetailRow[] details, List<int> usedRecipes)  // usedRecipes填入己使用的配方,避免Recursive
         {
             decimal cost = 0m;
+            if (packageNo <= 0) packageNo = 1;     // 包裝單位不正常時,以1計算
             // 去找DataTable,最後新增那行還是DataRowState.Detached, 會少加一行
             foreach (var d in details)
             {
@@ -379,9 +384,9 @@ namespace VoucherExpense
                                 if (r.IsWeightNull()) continue;
                                 we1 += r.Weight;
                             }
-                            if (we1 != 0m)
+                            if (we1 > 0m)
                             {
-                                decimal co = CalcCost(details1, usedRecipes) * we / we1;
+                                decimal co = CalcCost(we / we1, details1, usedRecipes);
                                 cost += co;
                             }
                         }
@@ -393,7 +398,7 @@ namespace VoucherExpense
                 }
                 // cost += d.Weight; bug
             }
-            return cost;
+            return packageNo*cost;
         }
 
         private void btnUpdateEvaluatedCost_Click(object sender, EventArgs e)
@@ -411,8 +416,10 @@ namespace VoucherExpense
                 MessageBox.Show("配方表尚未儲存或己刪除!");
                 return;
             }
+            decimal packageNo = 1;
+            if (!row.IsPackageNoNull() && row.PackageNo > 0) packageNo = row.PackageNo;
             var details = row.GetRecipeDetailRows();
-            Form form = new FormRecipePriceUpdate(details,vEDataSet);
+            Form form = new FormRecipePriceUpdate(packageNo,details,vEDataSet);
             if (form.ShowDialog()==DialogResult.OK)
             {
                 if (row.IsFinalProductIDNull() || row.FinalProductID <= 0)
@@ -463,6 +470,11 @@ namespace VoucherExpense
         {
             if (e.Button != MouseButtons.Right) return;
             SavePicture();
+        }
+
+        private void packageNoTextBox_Validated(object sender, EventArgs e)
+        {
+            CalcWeight(useDataTable: true);
         }
     }
 }

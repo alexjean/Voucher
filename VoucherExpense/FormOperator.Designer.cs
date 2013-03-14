@@ -57,13 +57,13 @@
             this.dataGridViewCheckBoxColumn3 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.EditRecipe = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.EditProduct = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dataGridViewCheckBoxColumn4 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewCheckBoxColumn5 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewCheckBoxColumn6 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewCheckBoxColumn8 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.LockVoucher = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.LockExpense = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.LockAccVoucher = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataGridViewCheckBoxColumn4 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.EditOnDuty = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.EditSalary = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.LockHR = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -223,13 +223,13 @@
             this.dataGridViewCheckBoxColumn3,
             this.EditRecipe,
             this.EditProduct,
-            this.dataGridViewCheckBoxColumn4,
             this.dataGridViewCheckBoxColumn5,
             this.dataGridViewCheckBoxColumn6,
             this.dataGridViewCheckBoxColumn8,
             this.LockVoucher,
             this.LockExpense,
             this.LockAccVoucher,
+            this.dataGridViewCheckBoxColumn4,
             this.EditOnDuty,
             this.EditSalary,
             this.LockHR,
@@ -317,13 +317,6 @@
             this.EditProduct.Name = "EditProduct";
             this.EditProduct.Width = 32;
             // 
-            // dataGridViewCheckBoxColumn4
-            // 
-            this.dataGridViewCheckBoxColumn4.DataPropertyName = "EditEmployee";
-            this.dataGridViewCheckBoxColumn4.HeaderText = "員工";
-            this.dataGridViewCheckBoxColumn4.Name = "dataGridViewCheckBoxColumn4";
-            this.dataGridViewCheckBoxColumn4.Width = 32;
-            // 
             // dataGridViewCheckBoxColumn5
             // 
             this.dataGridViewCheckBoxColumn5.DataPropertyName = "EditAccountingTitle";
@@ -366,6 +359,13 @@
             this.LockAccVoucher.Name = "LockAccVoucher";
             this.LockAccVoucher.Width = 32;
             // 
+            // dataGridViewCheckBoxColumn4
+            // 
+            this.dataGridViewCheckBoxColumn4.DataPropertyName = "EditEmployee";
+            this.dataGridViewCheckBoxColumn4.HeaderText = "員工";
+            this.dataGridViewCheckBoxColumn4.Name = "dataGridViewCheckBoxColumn4";
+            this.dataGridViewCheckBoxColumn4.Width = 32;
+            // 
             // EditOnDuty
             // 
             this.EditOnDuty.DataPropertyName = "EditOnDuty";
@@ -376,7 +376,7 @@
             // EditSalary
             // 
             this.EditSalary.DataPropertyName = "EditSalary";
-            this.EditSalary.HeaderText = "人事";
+            this.EditSalary.HeaderText = "薪資";
             this.EditSalary.Name = "EditSalary";
             this.EditSalary.Width = 32;
             // 
@@ -469,13 +469,13 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn3;
         private System.Windows.Forms.DataGridViewCheckBoxColumn EditRecipe;
         private System.Windows.Forms.DataGridViewCheckBoxColumn EditProduct;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn4;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn5;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn6;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn8;
         private System.Windows.Forms.DataGridViewCheckBoxColumn LockVoucher;
         private System.Windows.Forms.DataGridViewCheckBoxColumn LockExpense;
         private System.Windows.Forms.DataGridViewCheckBoxColumn LockAccVoucher;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn4;
         private System.Windows.Forms.DataGridViewCheckBoxColumn EditOnDuty;
         private System.Windows.Forms.DataGridViewCheckBoxColumn EditSalary;
         private System.Windows.Forms.DataGridViewCheckBoxColumn LockHR;

@@ -33,6 +33,7 @@
             this.基本資料MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.供應商MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.食材表MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.配方表MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.產品表MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.編修菜單MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.會計科目MenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,7 +78,10 @@
             this.盤點ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vEDataSet = new VoucherExpense.VEDataSet();
             this.headerTableAdapter = new VoucherExpense.VEDataSetTableAdapters.HeaderTableAdapter();
-            this.配方表MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.庫存MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.盤點單ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.產品報廢ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.產品試吃ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menu1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             this.SuspendLayout();
@@ -90,6 +94,7 @@
             this.基本資料MenuItem,
             this.費用MenuItem,
             this.進貨MenuItem,
+            this.庫存MenuItem,
             this.收入MenuItem,
             this.銀行MenuItem,
             this.會計MenuItem,
@@ -135,6 +140,13 @@
             this.食材表MenuItem.Size = new System.Drawing.Size(152, 22);
             this.食材表MenuItem.Text = "食材表";
             this.食材表MenuItem.Click += new System.EventHandler(this.食材表MenuItem_Click);
+            // 
+            // 配方表MenuItem
+            // 
+            this.配方表MenuItem.Name = "配方表MenuItem";
+            this.配方表MenuItem.Size = new System.Drawing.Size(152, 22);
+            this.配方表MenuItem.Text = "配方表";
+            this.配方表MenuItem.Click += new System.EventHandler(this.配方表MenuItem_Click);
             // 
             // 產品表MenuItem
             // 
@@ -227,21 +239,21 @@
             // 餐飲月報ToolStripMenuItem
             // 
             this.餐飲月報ToolStripMenuItem.Name = "餐飲月報ToolStripMenuItem";
-            this.餐飲月報ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.餐飲月報ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.餐飲月報ToolStripMenuItem.Text = "月報";
             this.餐飲月報ToolStripMenuItem.Click += new System.EventHandler(this.月報ToolStripMenuItem_Click);
             // 
             // 餐飲明細ToolStripMenuItem
             // 
             this.餐飲明細ToolStripMenuItem.Name = "餐飲明細ToolStripMenuItem";
-            this.餐飲明細ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.餐飲明細ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.餐飲明細ToolStripMenuItem.Text = "明細";
             this.餐飲明細ToolStripMenuItem.Click += new System.EventHandler(this.明細ToolStripMenuItem_Click);
             // 
             // 收銀授權ToolStripMenuItem
             // 
             this.收銀授權ToolStripMenuItem.Name = "收銀授權ToolStripMenuItem";
-            this.收銀授權ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.收銀授權ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.收銀授權ToolStripMenuItem.Text = "收銀授權";
             this.收銀授權ToolStripMenuItem.Click += new System.EventHandler(this.收銀授權ToolStripMenuItem_Click);
             // 
@@ -460,12 +472,33 @@
             // 
             this.headerTableAdapter.ClearBeforeFill = true;
             // 
-            // 配方表MenuItem
+            // 庫存MenuItem
             // 
-            this.配方表MenuItem.Name = "配方表MenuItem";
-            this.配方表MenuItem.Size = new System.Drawing.Size(152, 22);
-            this.配方表MenuItem.Text = "配方表";
-            this.配方表MenuItem.Click += new System.EventHandler(this.配方表MenuItem_Click);
+            this.庫存MenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.盤點單ToolStripMenuItem,
+            this.產品報廢ToolStripMenuItem,
+            this.產品試吃ToolStripMenuItem});
+            this.庫存MenuItem.Name = "庫存MenuItem";
+            this.庫存MenuItem.Size = new System.Drawing.Size(52, 20);
+            this.庫存MenuItem.Text = "庫存";
+            // 
+            // 盤點單ToolStripMenuItem
+            // 
+            this.盤點單ToolStripMenuItem.Name = "盤點單ToolStripMenuItem";
+            this.盤點單ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.盤點單ToolStripMenuItem.Text = "食材盤點";
+            // 
+            // 產品報廢ToolStripMenuItem
+            // 
+            this.產品報廢ToolStripMenuItem.Name = "產品報廢ToolStripMenuItem";
+            this.產品報廢ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.產品報廢ToolStripMenuItem.Text = "產品報廢";
+            // 
+            // 產品試吃ToolStripMenuItem
+            // 
+            this.產品試吃ToolStripMenuItem.Name = "產品試吃ToolStripMenuItem";
+            this.產品試吃ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.產品試吃ToolStripMenuItem.Text = "產品試吃";
             // 
             // FormHome
             // 
@@ -543,6 +576,10 @@
         private System.Windows.Forms.ToolStripMenuItem 收銀授權ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 分類MenuItem;
         private System.Windows.Forms.ToolStripMenuItem 配方表MenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 庫存MenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 盤點單ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 產品報廢ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 產品試吃ToolStripMenuItem;
 
     }
 }

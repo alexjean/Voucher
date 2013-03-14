@@ -59,6 +59,11 @@ namespace VoucherExpense
             會計MenuItem.Enabled = manager || Op.EditAccountingTitle;
             轉帳傳票MenuItem.Enabled = Op.EditAccountingTitle;                                    // 傳票和會計科目
 
+#if (DEBUG)
+            menu1.Items["庫存MenuItem"].Enabled=true;
+#else 
+            menu1.Items["庫存MenuItem"].Enabled = false;
+#endif 
             menu1.Items["費用MenuItem"].Enabled = Op.EditExpense;
             menu1.Items["進貨MenuItem"].Enabled = Op.EditVoucher;
             menu1.Items["收入MenuItem"].Enabled = manager;

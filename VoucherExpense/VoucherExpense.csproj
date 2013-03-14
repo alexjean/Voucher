@@ -243,6 +243,12 @@
     <Compile Include="FormImportBankExcel.Designer.cs">
       <DependentUpon>FormImportBankExcel.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormIngredientInventories.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormIngredientInventories.Designer.cs">
+      <DependentUpon>FormIngredientInventories.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormInitNewYear.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -444,6 +450,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormImportBankExcel.resx">
       <DependentUpon>FormImportBankExcel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormIngredientInventories.resx">
+      <DependentUpon>FormIngredientInventories.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormInitNewYear.resx">
       <DependentUpon>FormInitNewYear.cs</DependentUpon>

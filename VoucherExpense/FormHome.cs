@@ -13,12 +13,14 @@ namespace VoucherExpense
     {
         VEDataSet.OperatorRow Operator;
         HardwareConfig m_Config;
+        string m_BranchName;
         // 必需設好 Operator及m_Config才能呼叫SetFormTitle
         void SetFormTitle()
         {
             string str;
-            if (m_Config.IsServer)  str = "本地";
-            else                    str = "遠端";
+            //if (m_Config.IsServer)  str = "本地";
+            //else                    str = "遠端";
+            str = m_BranchName;
             string name;
             if (Operator.IsNameNull()) 
                  name = "操作員" + Operator.OperatorID.ToString();   
@@ -27,13 +29,14 @@ namespace VoucherExpense
             if (MyFunction.LockAll) this.Text += " 鎖定中";
         }
 
-        public FormHome(VEDataSet.OperatorRow Op,HardwareConfig cfg)
+        public FormHome(VEDataSet.OperatorRow Op,HardwareConfig cfg,string branchName)
         {
             InitializeComponent();
 
             Operator=Op;
             MyFunction.OperatorID=Op.OperatorID;
             m_Config = cfg;
+            m_BranchName = branchName;
             SetFormTitle();
 
             ToolStripMenuItem basic;

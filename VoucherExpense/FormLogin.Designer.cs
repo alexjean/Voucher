@@ -42,6 +42,7 @@
             this.veDataSet1 = new VoucherExpense.VEDataSet();
             this.headerTableAdapter1 = new VoucherExpense.VEDataSetTableAdapters.HeaderTableAdapter();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.apartmentTableAdapter1 = new VoucherExpense.VEDataSetTableAdapters.ApartmentTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.veDataSet1)).BeginInit();
@@ -145,8 +146,9 @@
             // 
             this.headerTableAdapter1.ClearBeforeFill = true;
             // 
-            // timer1
+            // apartmentTableAdapter1
             // 
+            this.apartmentTableAdapter1.ClearBeforeFill = true;
             // 
             // FormLogin
             // 
@@ -185,5 +187,6 @@
         private VoucherExpense.VEDataSetTableAdapters.HeaderTableAdapter headerTableAdapter1;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Timer timer1;
+        private VEDataSetTableAdapters.ApartmentTableAdapter apartmentTableAdapter1;
     }
 }

@@ -12,6 +12,7 @@ namespace VoucherExpense
     {
         HardwareConfig m_Cfg = new HardwareConfig();
         MapPath m_MapPath;
+        string m_BranchName="麥麥麥達人";
         public FormLogin()
         {
             InitializeComponent();
@@ -59,10 +60,12 @@ namespace VoucherExpense
             }
             operatorTableAdapter1.Connection =  MapPath.VEConnection;
             headerTableAdapter1.Connection =    MapPath.VEConnection;
+            apartmentTableAdapter1.Connection = MapPath.VEConnection;
             try
             {
                 operatorTableAdapter1.Fill(veDataSet1.Operator);
                 headerTableAdapter1.Fill(veDataSet1.Header);
+                apartmentTableAdapter1.Fill(veDataSet1.Apartment);
             }
             catch(Exception ex)
             {
@@ -73,6 +76,14 @@ namespace VoucherExpense
             {
                 MessageBox.Show("資料庫內沒有設定任何操作員,無法登入");
                 Close();
+            }
+            if (veDataSet1.Apartment.Rows.Count != 0)
+            {
+                var a = veDataSet1.Apartment[0];
+                if (a.IsApartmentNameNull())
+                    m_BranchName = "分店" + a.ApartmentID.ToString();
+                else
+                    m_BranchName = a.ApartmentName;
             }
         }
 
@@ -144,7 +155,7 @@ namespace VoucherExpense
             {
                 GetHeaderYear();                // 呼叫Home之前要設好
                 Visible = false;
-                Form Home = new FormHome(row,m_Cfg);
+                Form Home = new FormHome(row,m_Cfg,m_BranchName);
                 Home.ShowDialog();
                 Close();
             }
@@ -166,7 +177,7 @@ namespace VoucherExpense
             if (row != null)
             {
                 GetHeaderYear();
-                Form Home = new FormHome(row, m_Cfg);
+                Form Home = new FormHome(row, m_Cfg,m_BranchName);
                 Visible = false;
                 Home.ShowDialog();
                 Close();

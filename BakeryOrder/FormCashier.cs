@@ -406,6 +406,7 @@ namespace BakeryOrder
         const string m_SmallDir     = m_ProductDir + "\\Small";
         int          m_PosID        = 0;    // FormCashier的m_PosID己經不使用,由店長收取資料時填取
         int          m_CashierID    = -1;
+        string       m_CashierName = "";
         PrintInfo    m_Printer      =new PrintInfo();
         bool m_DataSealed = false;
         int m_MaxOrderID = 0;
@@ -506,7 +507,7 @@ namespace BakeryOrder
 #if DEBUG
             checkBoxTest.Visible = true;
             checkBoxTest.Checked = true;
-            m_CashierID = 1;
+            m_CashierID = 1;  m_CashierName="測試員";
 #endif
             for (int i = 0; i <= 9; i++)
             {
@@ -693,7 +694,7 @@ namespace BakeryOrder
             n = (CurrentOrder.ID % 1000);
             Buf.Append("序号:"+m_PosID.ToString()+"-" + n.ToString("d4") + "\r\n");
             Buf.AppendPadRight("时间:" + CurrentOrder.PrintTime.ToString("yy/MM/dd HH:mm"), 19);
-            Buf.Append("收银:   "+m_CashierID.ToString("d03") +  "\r\n\r\n");
+            Buf.Append("收银"+m_CashierID.ToString("d03") +m_CashierName+"\r\n\r\n");
 
             Buf.Append(BorderMode);                                      // 設定列印模式28
             Buf.Append("  品名        数量 单价   金额\r\n");
@@ -1003,8 +1004,10 @@ namespace BakeryOrder
                     }
                     if (cashier.CashierPassword.CompareTo(sPass) == 0)
                     {
-                        MessageBoxShow("歡迎 <" + cashier.CashierName + "> \r\n今天是"+DateTime.Now.ToShortDateString());
+                        if (cashier.IsCashierNameNull()) m_CashierName="收银"+cashier.CashierID.ToString();
+                        else                             m_CashierName=cashier.CashierName;
                         m_CashierID = cashier.CashierID;
+                        MessageBoxShow("歡迎 <" + m_CashierName + "> \r\n今天是" + DateTime.Now.ToShortDateString());
                         SetLoginStatus(true);
                         return;
                     }

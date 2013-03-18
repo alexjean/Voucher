@@ -60,6 +60,8 @@
             this.dataGridViewCheckBoxColumn5 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewCheckBoxColumn6 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewCheckBoxColumn8 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.EditInventory = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.RevenueOperate = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.LockVoucher = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.LockExpense = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.LockAccVoucher = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -104,7 +106,7 @@
             this.operatorBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.operatorBindingNavigator.Name = "operatorBindingNavigator";
             this.operatorBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.operatorBindingNavigator.Size = new System.Drawing.Size(904, 27);
+            this.operatorBindingNavigator.Size = new System.Drawing.Size(951, 27);
             this.operatorBindingNavigator.TabIndex = 0;
             this.operatorBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -226,6 +228,8 @@
             this.dataGridViewCheckBoxColumn5,
             this.dataGridViewCheckBoxColumn6,
             this.dataGridViewCheckBoxColumn8,
+            this.EditInventory,
+            this.RevenueOperate,
             this.LockVoucher,
             this.LockExpense,
             this.LockAccVoucher,
@@ -243,7 +247,7 @@
             this.operatorDataGridView.Name = "operatorDataGridView";
             this.operatorDataGridView.RowHeadersWidth = 20;
             this.operatorDataGridView.RowTemplate.Height = 24;
-            this.operatorDataGridView.Size = new System.Drawing.Size(904, 483);
+            this.operatorDataGridView.Size = new System.Drawing.Size(951, 483);
             this.operatorDataGridView.TabIndex = 1;
             this.operatorDataGridView.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.operatorDataGridView_CellValidating);
             this.operatorDataGridView.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.operatorDataGridView_RowValidating);
@@ -338,6 +342,20 @@
             this.dataGridViewCheckBoxColumn8.Name = "dataGridViewCheckBoxColumn8";
             this.dataGridViewCheckBoxColumn8.Width = 32;
             // 
+            // EditInventory
+            // 
+            this.EditInventory.DataPropertyName = "EditInventory";
+            this.EditInventory.HeaderText = "庫存";
+            this.EditInventory.Name = "EditInventory";
+            this.EditInventory.Width = 32;
+            // 
+            // RevenueOperate
+            // 
+            this.RevenueOperate.DataPropertyName = "RevenueOperate";
+            this.RevenueOperate.HeaderText = "營收";
+            this.RevenueOperate.Name = "RevenueOperate";
+            this.RevenueOperate.Width = 32;
+            // 
             // LockVoucher
             // 
             this.LockVoucher.DataPropertyName = "LockVoucher";
@@ -397,7 +415,7 @@
             // dataGridViewCheckBoxColumn9
             // 
             this.dataGridViewCheckBoxColumn9.DataPropertyName = "IsManager";
-            this.dataGridViewCheckBoxColumn9.HeaderText = "經理";
+            this.dataGridViewCheckBoxColumn9.HeaderText = "報表";
             this.dataGridViewCheckBoxColumn9.Name = "dataGridViewCheckBoxColumn9";
             this.dataGridViewCheckBoxColumn9.Width = 32;
             // 
@@ -412,18 +430,18 @@
             // dataGridViewTextBoxColumn6
             // 
             this.dataGridViewTextBoxColumn6.DataPropertyName = "LastUpdated";
-            dataGridViewCellStyle2.Format = "d";
+            dataGridViewCellStyle2.Format = "yy-MM-dd";
             this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridViewTextBoxColumn6.HeaderText = "更新日";
+            this.dataGridViewTextBoxColumn6.HeaderText = "更新";
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             this.dataGridViewTextBoxColumn6.ReadOnly = true;
-            this.dataGridViewTextBoxColumn6.Width = 88;
+            this.dataGridViewTextBoxColumn6.Width = 76;
             // 
             // FormOperator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(904, 510);
+            this.ClientSize = new System.Drawing.Size(951, 510);
             this.Controls.Add(this.operatorDataGridView);
             this.Controls.Add(this.operatorBindingNavigator);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
@@ -472,6 +490,8 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn5;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn6;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn8;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn EditInventory;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn RevenueOperate;
         private System.Windows.Forms.DataGridViewCheckBoxColumn LockVoucher;
         private System.Windows.Forms.DataGridViewCheckBoxColumn LockExpense;
         private System.Windows.Forms.DataGridViewCheckBoxColumn LockAccVoucher;

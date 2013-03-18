@@ -47,7 +47,7 @@ namespace VoucherExpense
             MyFunction.IsManager = manager;
             MyFunction.LockHR = Op.LockHR;
             basic.DropDownItems["操作員MenuItem"].Enabled   = Op.EditOperator;
-            basic.DropDownItems["環境設定MenuItem"].Enabled = Op.IsManager;
+            basic.DropDownItems["硬體環境MenuItem"].Enabled = Op.IsSuper;
             basic.DropDownItems["食材表MenuItem"].Enabled   = Op.EditIngredient;
             basic.DropDownItems["配方表MenuItem"].Enabled   = Op.EditRecipe;
             basic.DropDownItems["產品表MenuItem"].Enabled   = Op.EditProduct;
@@ -56,20 +56,16 @@ namespace VoucherExpense
             basic.DropDownItems["會計科目MenuItem"].Enabled = Op.EditAccountingTitle;
             basic.DropDownItems["銀行帳號MenuItem"].Enabled = Op.EditBank ;
             basic.DropDownItems["銀行帳號MenuItem"].Visible = Op.EditBank ;
-            basic.DropDownItems["傳票設定MenuItem"].Visible = manager && Op.EditAccountingTitle;  // 經理+編修科目
+            basic.DropDownItems["傳票設定MenuItem"].Visible = Op.LockAccVoucher && Op.EditAccountingTitle;  // 核傳票+編修科目
             basic.DropDownItems["年初開帳MenuItem"].Visible = Op.IsSuper;
             basic.DropDownItems["編修部門MenuItem"].Visible = Op.IsSuper;
-            會計MenuItem.Enabled = manager || Op.EditAccountingTitle;
-            轉帳傳票MenuItem.Enabled = Op.EditAccountingTitle;                                    // 傳票和會計科目
+            會計MenuItem.Enabled = Op.EditAccountingTitle;
+            轉帳傳票MenuItem.Enabled = Op.EditAccountingTitle;                                              // 傳票和會計科目
 
-#if (DEBUG)
-            menu1.Items["庫存MenuItem"].Enabled=true;
-#else 
-            menu1.Items["庫存MenuItem"].Enabled = false;
-#endif 
+            menu1.Items["庫存MenuItem"].Enabled=  Op.EditInventory;
             menu1.Items["費用MenuItem"].Enabled = Op.EditExpense;
             menu1.Items["進貨MenuItem"].Enabled = Op.EditVoucher;
-            menu1.Items["收入MenuItem"].Enabled = manager;
+            menu1.Items["收入MenuItem"].Enabled = Op.RevenueOperate;
             menu1.Items["銀行MenuItem"].Enabled = Op.EditBank;
             menu1.Items["報表MenuItem"].Enabled = manager;
             ToolStripMenuItem i = (ToolStripMenuItem)menu1.Items["查核MenuItem"];

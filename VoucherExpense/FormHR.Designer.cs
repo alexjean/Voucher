@@ -929,9 +929,9 @@
             this.checkBoxShowAll.AutoSize = true;
             this.checkBoxShowAll.Location = new System.Drawing.Point(390, 7);
             this.checkBoxShowAll.Name = "checkBoxShowAll";
-            this.checkBoxShowAll.Size = new System.Drawing.Size(59, 20);
+            this.checkBoxShowAll.Size = new System.Drawing.Size(123, 20);
             this.checkBoxShowAll.TabIndex = 51;
-            this.checkBoxShowAll.Text = "全部";
+            this.checkBoxShowAll.Text = "不在職也顯示";
             this.checkBoxShowAll.UseVisualStyleBackColor = true;
             this.checkBoxShowAll.CheckedChanged += new System.EventHandler(this.checkBoxShowAll_CheckedChanged);
             // 

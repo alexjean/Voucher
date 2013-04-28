@@ -66,24 +66,19 @@ namespace VoucherExpense
 
         private void FormHR_Load(object sender, EventArgs e)
         {
-            this.operatorTableAdapter.Fill(this.vEDataSet.Operator);
-            try { this.apartmentTableAdapter.Fill(this.vEDataSet.Apartment); }
-            catch (Exception ex)
-            { MessageBox.Show("ex:" + ex.Message); }
-            try { this.hRTableAdapter.Fill(this.vEDataSet.HR); }
-            catch (Exception ex)
-            { MessageBox.Show("ex:" + ex.Message); }
-            try { this.hRDetailTableAdapter.Fill(this.vEDataSet.HRDetail); }        
-            catch(Exception ex)
-            { MessageBox.Show("ex:" + ex.Message); }
+            operatorTableAdapter.Connection  = MapPath.VEConnection;
+            apartmentTableAdapter.Connection = MapPath.VEConnection;
+            hRTableAdapter.Connection        = MapPath.VEConnection;
+            hRDetailTableAdapter.Connection  = MapPath.VEConnection;
+
+            try { operatorTableAdapter.Fill(this.vEDataSet.Operator); }   catch(Exception ex) { MessageBox.Show("ex:" + ex.Message); }
+            try { apartmentTableAdapter.Fill(this.vEDataSet.Apartment); } catch(Exception ex) { MessageBox.Show("ex:" + ex.Message); }
+            try { hRTableAdapter.Fill(this.vEDataSet.HR); }               catch(Exception ex) { MessageBox.Show("ex:" + ex.Message); }
+            try { hRDetailTableAdapter.Fill(this.vEDataSet.HRDetail); }   catch(Exception ex) { MessageBox.Show("ex:" + ex.Message); }
             MyFunction.SetFieldLength(hRDataGridView, vEDataSet.HR);
             MyFunction.SetFieldLength(hRDetailDataGridView, vEDataSet.HRDetail);
             MyFunction.SetControlLengthFromDB(this,vEDataSet.HR);
-
             checkBoxShowAll.Checked = false;
-
-            
-
         }
 
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)

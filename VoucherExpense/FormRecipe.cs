@@ -21,6 +21,10 @@ namespace VoucherExpense
         List<CNameIDForComboBox> m_SourceList = null;
         private void FormRecipe_Load(object sender, EventArgs e)
         {
+            productTableAdapter.Connection = MapPath.BakeryConnection;
+            recipeTableAdapter.Connection = MapPath.VEConnection;
+            recipeDetailTableAdapter.Connection = MapPath.VEConnection;
+            ingredientTableAdapter.Connection = MapPath.VEConnection;
             try
             {
                 this.productTableAdapter.Fill(this.bakeryOrderSet.Product);

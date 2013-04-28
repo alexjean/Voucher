@@ -507,7 +507,8 @@ namespace BakeryOrder
 #if DEBUG
             checkBoxTest.Visible = true;
             checkBoxTest.Checked = true;
-            m_CashierID = 1;  m_CashierName="測試員";
+            btnTest.Visible = true;
+            m_CashierID = 1;  m_CashierName="测试员";
 #endif
             for (int i = 0; i <= 9; i++)
             {
@@ -666,6 +667,20 @@ namespace BakeryOrder
             }
             return record.DrawerRecordID;
         }
+
+
+//ESC　*　设置图形点阵
+//格式:   ASCII：　ESC　 *　 m　 n1　 n2　 D1，D2 … Dk
+//        十进制：　27 42 m　 n1　 n2　 D1，D2 … Dk
+//该命令用来设置点阵图形模式（m）和横向图形点阵。
+//m = 0，1： 表示打印密度。
+//0≤n1≤255，0≤n2≤1，0≤Dk≤255，k= n1+ n2×256。
+//n1，n2为两位十六进制数，n1这低字节，n2这高字节，k= n1+ n2×256，
+//表示该命令下载的要打印图形的横向点数，该值应小于打印机的最大行宽打印点数。
+//如果下送的点图数据超出一行的最大行宽打印点数时，超出的部分被忽略。
+//m 垂直方向点数 点密度 最大点数 图形打印模式
+//0 8 单密度 210 相邻点打印
+//1 8 双密度 420 相邻点不打印
 
 
         BakeryOrderSet.OrderRow m_CurrentOrder = null;
@@ -1172,6 +1187,38 @@ namespace BakeryOrder
                     RawPrint.SendManagedBytes(m_Printer.PrinterName, m_CashDrawer);   // 彈出錢箱
                 CreateUpdateDrawerRecord(ref m_MaxDrawerRecordID, m_CurrentOrder.ID % 10000);
             }
+        }
+
+        private void btnTest_Click(object sender, EventArgs e)
+        {
+            ByteBuilder Buf ;
+            byte[] Begin = new byte[] { 27, 51, 16 };
+            byte[] BitmapMode = new byte[] { 27, (byte)'*', 0 };
+            byte[] PrintAndScroll = new byte[] { 27, 74, 24 };   // 走24點
+            Bitmap bitmap = new Bitmap("maidaren.bmp");
+            int n = bitmap.Width;
+            for (int i = 0; i < bitmap.Height; i+=8)
+            {
+                Buf = new ByteBuilder(2048);
+                Buf.Append(BitmapMode);
+                Buf.Append((byte)(n % 256));
+                Buf.Append((byte)(n / 256));
+                for (int x = 0; x < n; x++)
+                {
+                    byte y0 = 0;
+                    for (int y = 0; y < 8; y++)
+                    {
+                        y0 *= 2;
+                        Color c = bitmap.GetPixel(x, y + i);
+                        if (c.GetBrightness() < 0.4) y0 += 1;
+                    }
+                    Buf.Append(y0);
+                }
+                Buf.Append("\n");
+                RawPrint.SendManagedBytes(m_Printer.PrinterName, Buf.ToBytes());
+            }
+            //RawPrint.SendManagedBytes(m_Printer.PrinterName, PrintAndScroll);
+
         }
     }
 }

@@ -69,6 +69,7 @@
             this.btnDoCashier = new System.Windows.Forms.Button();
             this.labelDeductTitle = new System.Windows.Forms.Label();
             this.labelDeduct = new System.Windows.Forms.Label();
+            this.btnTest = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrdered)).BeginInit();
             this.panelLogin.SuspendLayout();
@@ -466,12 +467,24 @@
             this.labelDeduct.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.labelDeduct.Visible = false;
             // 
+            // btnTest
+            // 
+            this.btnTest.Location = new System.Drawing.Point(82, 717);
+            this.btnTest.Name = "btnTest";
+            this.btnTest.Size = new System.Drawing.Size(44, 39);
+            this.btnTest.TabIndex = 15;
+            this.btnTest.Text = "Test";
+            this.btnTest.UseVisualStyleBackColor = true;
+            this.btnTest.Visible = false;
+            this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
+            // 
             // FormCashier
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(1024, 768);
+            this.Controls.Add(this.btnTest);
             this.Controls.Add(this.labelDeduct);
             this.Controls.Add(this.labelDeductTitle);
             this.Controls.Add(this.btnCashDrawer);
@@ -545,6 +558,7 @@
         private System.Windows.Forms.Button btnDoCashier;
         private System.Windows.Forms.Label labelDeductTitle;
         private System.Windows.Forms.Label labelDeduct;
+        private System.Windows.Forms.Button btnTest;
     }
 }
 

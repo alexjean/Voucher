@@ -51,6 +51,11 @@
             this.btnFolerBrowse = new System.Windows.Forms.Button();
             this.labelProgramVersion = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.headerTableAdapter1 = new VoucherExpense.VEDataSetTableAdapters.HeaderTableAdapter();
+            this.veDataSet1 = new VoucherExpense.VEDataSet();
+            this.labelRequiredVersion = new System.Windows.Forms.Label();
+            this.btnUpdateRequiedVersion = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.veDataSet1)).BeginInit();
             this.SuspendLayout();
             // 
             // listBox1
@@ -127,7 +132,6 @@
             this.label2.Size = new System.Drawing.Size(88, 16);
             this.label2.TabIndex = 3;
             this.label2.Text = "小票机名稱";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // textBoxPrinter
             // 
@@ -284,12 +288,42 @@
             this.label6.TabIndex = 21;
             this.label6.Text = "同一店內POS机編号不可相同";
             // 
+            // headerTableAdapter1
+            // 
+            this.headerTableAdapter1.ClearBeforeFill = true;
+            // 
+            // veDataSet1
+            // 
+            this.veDataSet1.DataSetName = "VEDataSet";
+            this.veDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // labelRequiredVersion
+            // 
+            this.labelRequiredVersion.AutoSize = true;
+            this.labelRequiredVersion.Location = new System.Drawing.Point(79, 548);
+            this.labelRequiredVersion.Name = "labelRequiredVersion";
+            this.labelRequiredVersion.Size = new System.Drawing.Size(118, 16);
+            this.labelRequiredVersion.TabIndex = 22;
+            this.labelRequiredVersion.Text = "Required Version";
+            // 
+            // btnUpdateRequiedVersion
+            // 
+            this.btnUpdateRequiedVersion.Location = new System.Drawing.Point(238, 541);
+            this.btnUpdateRequiedVersion.Name = "btnUpdateRequiedVersion";
+            this.btnUpdateRequiedVersion.Size = new System.Drawing.Size(124, 30);
+            this.btnUpdateRequiedVersion.TabIndex = 23;
+            this.btnUpdateRequiedVersion.Text = "更新要求版本";
+            this.btnUpdateRequiedVersion.UseVisualStyleBackColor = true;
+            this.btnUpdateRequiedVersion.Click += new System.EventHandler(this.btnUpdateRequiedVersion_Click);
+            // 
             // FormHardware
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(892, 565);
+            this.ClientSize = new System.Drawing.Size(892, 599);
+            this.Controls.Add(this.btnUpdateRequiedVersion);
+            this.Controls.Add(this.labelRequiredVersion);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.labelProgramVersion);
             this.Controls.Add(this.btnFolerBrowse);
@@ -316,6 +350,7 @@
             this.Name = "FormHardware";
             this.Text = "硬體環境設定";
             this.Load += new System.EventHandler(this.FormHardware_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.veDataSet1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -346,5 +381,9 @@
         private System.Windows.Forms.Button btnFolerBrowse;
         private System.Windows.Forms.Label labelProgramVersion;
         private System.Windows.Forms.Label label6;
+        private VEDataSetTableAdapters.HeaderTableAdapter headerTableAdapter1;
+        private VEDataSet veDataSet1;
+        private System.Windows.Forms.Label labelRequiredVersion;
+        private System.Windows.Forms.Button btnUpdateRequiedVersion;
     }
 }

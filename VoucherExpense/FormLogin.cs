@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
 
 namespace VoucherExpense
 {
@@ -85,8 +86,75 @@ namespace VoucherExpense
                 else
                     m_BranchName = a.ApartmentName;
             }
+
+            VEDataSet.HeaderRow header = null;
+            string version = "";
+            if (veDataSet1.Header.Count > 0)
+            {
+                header = veDataSet1.Header[0];
+                if (!header.IsVersionNull()) version = header.Version.Trim();
+            }
+            if (version!="" && Application.ProductVersion.Trim() != version)
+            {
+                if (MessageBox.Show("程式版本不符! 現有版本<" + Application.ProductVersion + ">,必需更版至<" + version + ">!", "", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
+                    if (DoUpdate()) Close();
+                }
+            }
         }
 
+
+        bool DoUpdate()
+        {
+            if (m_Cfg.IsServer)
+            {
+                MessageBox.Show("只有遠端登入能自動更版!");
+                return false;
+            }
+            this.Cursor = Cursors.WaitCursor;
+            string newExeName = "Manage.exe";
+            string SourceFile = m_Cfg.DataDir + "\\" + newExeName;
+            string fullSource = Path.GetFullPath(SourceFile).ToLower();
+            string fullDest   = Path.GetFullPath(Application.ExecutablePath).ToLower();
+            if (fullSource == fullDest)
+            {
+                MessageBox.Show("目的和來源檔案相同! 無法更新");
+                return false;
+            }
+            string OldDesktop = "ManageOld.exe";
+            string filePath = Path.GetDirectoryName(Application.ExecutablePath).ToLower();
+            string destPath = filePath + "\\" + newExeName;
+            try
+            {
+                if (!File.Exists(SourceFile))
+                {
+                    MessageBox.Show("新版程式不存在! 無法更版");
+                    return false;
+                }
+                File.Delete(OldDesktop);
+                File.Delete(filePath + "\\" + OldDesktop);                               // 將現在執行檔改名成 OldDesk
+                File.Move(Application.ExecutablePath, filePath + "\\" + OldDesktop);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("原程式備份失敗! 原因:" + ex.Message);
+                return false;
+            }
+            try
+            {
+                if (File.Exists(destPath))
+                    File.Delete(destPath);
+                File.Copy(SourceFile, destPath);
+                this.Cursor = Cursors.Arrow;
+                MessageBox.Show("更版完成! 請執行<" + newExeName + ">,舊版備份為<" + OldDesktop + ">");
+                return true;
+            }
+            catch
+            {
+                MessageBox.Show("新舊版更名過程失敗,請手動改名!新版<" + newExeName + ">");
+                return false;
+            }
+        }
 
 
         private VEDataSet.OperatorRow CheckLogin()
@@ -134,7 +202,7 @@ namespace VoucherExpense
         {
             if (veDataSet1.Header.Rows.Count > 0)   // Header內容在ReadFile 讀進來了
             {
-                VEDataSet.HeaderRow headerRow = (VEDataSet.HeaderRow)veDataSet1.Header.Rows[0];
+                VEDataSet.HeaderRow headerRow = veDataSet1.Header[0];
                 if (headerRow != null)
                 {
                     string str;

@@ -40,6 +40,15 @@ namespace VoucherExpense
         
         private void FormHardware_Load(object sender, EventArgs e)
         {
+            try
+            {
+                headerTableAdapter1.Connection =    MapPath.VEConnection;
+                headerTableAdapter1.Fill(veDataSet1.Header);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("程式錯誤!:" + ex.Message);
+            }
             Config.Load();
             cbBoxRS232.Text       = Config.ComPortName;
             textBoxPrinter.Text   = Config.PrinterName;
@@ -49,6 +58,14 @@ namespace VoucherExpense
             textBoxPassword.Text  = Config.Password;
             textBoxBackupDir.Text = Config.BackupDir;
             labelProgramVersion.Text = "程式版本 "+Application.ProductVersion.ToString();
+            string version="未註明";
+            if (veDataSet1.Header.Count>0)
+            {
+                var header=veDataSet1.Header[0];
+                if (!header.IsVersionNull())
+                    version=header.Version.Trim();
+            }
+            labelRequiredVersion.Text = "要求版本 " + version;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -81,9 +98,25 @@ namespace VoucherExpense
 
         }
 
-        private void label2_Click(object sender, EventArgs e)
+        private void btnUpdateRequiedVersion_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                if (veDataSet1.Header.Count<=0) return;
+                var header = veDataSet1.Header[0];
+                if (!header.IsVersionNull() && header.Version.Trim() == Application.ProductVersion.Trim())
+                {
+                    MessageBox.Show("版本号相同不需更換!");
+                    return;
+                }
+                header.Version = Application.ProductVersion.Trim();
+                headerTableAdapter1.Update(veDataSet1.Header);
+                labelRequiredVersion.Text = "要求版本 " + header.Version;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("錯誤:" + ex.Message);
+            }
         }
  
     }

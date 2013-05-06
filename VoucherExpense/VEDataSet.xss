@@ -8,7 +8,7 @@
   <Shapes>
     <Shape ID="DesignTable:AccountingTitle" ZOrder="32" X="376" Y="63" Height="177" Width="152" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="122" />
     <Shape ID="DesignTable:Expense" ZOrder="23" X="26" Y="12" Height="419" Width="188" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="23" SplitterPosition="364" />
-    <Shape ID="DesignTable:Header" ZOrder="5" X="1303" Y="302" Height="181" Width="167" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="23" OldDataTableHeight="0" SplitterPosition="122" />
+    <Shape ID="DesignTable:Header" ZOrder="5" X="1303" Y="302" Height="188" Width="197" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="23" OldDataTableHeight="0" SplitterPosition="133" />
     <Shape ID="DesignTable:Operator" ZOrder="10" X="72" Y="548" Height="335" Width="208" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="280" />
     <Shape ID="DesignTable:Vendor" ZOrder="22" X="1042" Y="321" Height="315" Width="155" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="260" />
     <Shape ID="DesignTable:Voucher" ZOrder="21" X="723" Y="445" Height="342" Width="211" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="283" />

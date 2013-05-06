@@ -159,7 +159,7 @@ namespace VoucherExpense
                 }
                 DateTime dt=new DateTime(m_Year,1,1);
                 veDataSet1.Header.Clear();
-                VEDataSet.HeaderRow row2 = veDataSet1.Header.AddHeaderRow(dt, false,dt,dt);
+                VEDataSet.HeaderRow row2 = veDataSet1.Header.AddHeaderRow(dt, false,dt,dt,Application.ProductVersion.Trim());
                 VEDataSetTableAdapters.HeaderTableAdapter adapterVE = new VEDataSetTableAdapters.HeaderTableAdapter();
                 adapterVE.Connection = voucherConn;
                 adapterVE.Update(row2);

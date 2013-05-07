@@ -88,17 +88,22 @@ namespace VoucherExpense
             }
 
             VEDataSet.HeaderRow header = null;
-            string version = "";
+            string sVersion = "";
             if (veDataSet1.Header.Count > 0)
             {
                 header = veDataSet1.Header[0];
-                if (!header.IsVersionNull()) version = header.Version.Trim();
+                if (!header.IsVersionNull()) sVersion = header.Version.Trim();
             }
-            if (version!="" && Application.ProductVersion.Trim() != version)
+            if (sVersion != "")
             {
-                if (MessageBox.Show("程式版本不符! 現有版本<" + Application.ProductVersion + ">,必需更版至<" + version + ">!", "", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                Version now = new Version(Application.ProductVersion);
+                Version required = new Version(sVersion);
+                if ( now<required)
                 {
-                    if (DoUpdate()) Close();
+                    if (MessageBox.Show("程式版本低於要求! 現有版本<" + now.ToString() + ">,必需更版至<" + sVersion + ">!", "", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                    {
+                        if (DoUpdate()) Close();
+                    }
                 }
             }
         }
@@ -149,9 +154,9 @@ namespace VoucherExpense
                 MessageBox.Show("更版完成! 請執行<" + newExeName + ">,舊版備份為<" + OldDesktop + ">");
                 return true;
             }
-            catch
+            catch(Exception ex)
             {
-                MessageBox.Show("新舊版更名過程失敗,請手動改名!新版<" + newExeName + ">");
+                MessageBox.Show("新版烤貝或舊版更名過程失敗,原因:"+ex.Message+" 請手動烤貝或更名!新版名<" + newExeName + ">");
                 return false;
             }
         }

@@ -1,5 +1,5 @@
 <HardwareConfig>
   <ComPort Name="COM1" />
   <ReceiptPrinter Name="Zonerich AB-58MK USB" />
-  <DataSource IsServer="NO" DataDir="EPRT+YCj5fNrqGtQkgdrFxd/qclQ1i9AhXMEwRJDklH7iHbAInLVE2xpwkLjE7ijyazr5K7FSL/1w9dtj8kMFEMOZZJVYLbFKE3YQxnM1SY=" UserName="sZM/bLSyqv0j4SXhyzDavsAD4bo1XBvu" Password="wS4zmgr+ahF21XXsgXwKYojsXvD/YYCZ" BackupDir="FdYkUPCPJ/0jxpsAbGAR0xKn+Xz2F7/VJAbM0Zf39EiG9S/L4plieg==" />
+  <DataSource IsServer="YES" DataDir="EPRT+YCj5fNrqGtQkgdrFxd/qclQ1i9AhXMEwRJDklH7iHbAInLVE2xpwkLjE7ijyazr5K7FSL/1w9dtj8kMFEMOZZJVYLbFKE3YQxnM1SY=" UserName="sZM/bLSyqv0j4SXhyzDavsAD4bo1XBvu" Password="wS4zmgr+ahF21XXsgXwKYojsXvD/YYCZ" BackupDir="FdYkUPCPJ/0jxpsAbGAR0xKn+Xz2F7/VJAbM0Zf39EiG9S/L4plieg==" />
 </HardwareConfig>

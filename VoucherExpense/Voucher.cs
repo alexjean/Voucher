@@ -399,9 +399,9 @@ namespace VoucherExpense
             this.voucherDataGridView.Focus();
         }
 
+        public bool m_PrintSelectedVouchers = false;     // true 表示要列印所選的單子
         public List<CSelectedVoucher> m_SelectedVoucher = null;
         public List<int> m_SelectedVenderID = new List<int>();
-        public const int m_PrintSelected=-2;
         public List<string> m_SelectedVenderName =new List<string>();
         private int CompareVoucherID(CSelectedVoucher v1, CSelectedVoucher v2)
         {
@@ -421,12 +421,19 @@ namespace VoucherExpense
             Comparison<CSelectedVoucher> comparer = new Comparison<CSelectedVoucher>(CompareVoucherID);
             foreach(DataGridViewRow row in voucherDataGridView.SelectedRows)
             {
-                CSelectedVoucher select = new CSelectedVoucher();
+//                CSelectedVoucher select = new CSelectedVoucher();
                 try
                 {
-                    select.ID   = Convert.ToInt32(row.Cells["columnID"].FormattedValue);
-                    select.Cost = Convert.ToDecimal(row.Cells["columnCost"].FormattedValue);
-                    m_SelectedVoucher.Add(select);
+                    //select.ID   = Convert.ToInt32(row.Cells["columnID"].FormattedValue);
+                    //select.Cost = Convert.ToDecimal(row.Cells["columnCost"].FormattedValue);
+                    DataRowView rowView = row.DataBoundItem as DataRowView;
+                    VEDataSet.VoucherRow dataRow = rowView.Row as VEDataSet.VoucherRow;
+                    if (dataRow.IsRemovedNull()) continue;  // 己移除的無法選入 
+                    if (dataRow.Removed)        continue;
+                    //if (dataRow.IsLockedNull()) continue;   // 未核可的
+                    //if (!dataRow.Locked)        continue;
+                    decimal cost = dataRow.IsCostNull()? 0m : dataRow.Cost;
+                    m_SelectedVoucher.Add(new CSelectedVoucher(dataRow.ID,cost));
                 }
                 catch(Exception ex)
                 {
@@ -434,9 +441,14 @@ namespace VoucherExpense
                 }
             }
             m_SelectedVoucher.Sort(comparer);
+            m_PrintSelectedVouchers = false;
             Form form = new FormPrintSelect(this);
-            form.ShowDialog();
-            if (m_SelectedVenderID.Count> 0)
+            if (form.ShowDialog() != DialogResult.OK) return;
+            if (m_PrintSelectedVouchers)   
+            {
+                MessageBox.Show("本功能施工中...");
+            }
+            else if (m_SelectedVenderID.Count> 0)
                   printDocument.Print();
         }
 
@@ -451,12 +463,13 @@ namespace VoucherExpense
 
         }
 
-        int printOneVender(int x, int y, int height, int month,int venderID,string venderName,ref int more)
+        int printOneVender(int x, int y, int height, int month,int venderID,string venderName,ref int more,int lastItemHeight)
         {
             
             string str = "       " + MyFunction.HeaderYear + "年 " + month.ToString() + "月           供應商: " + venderName;
             const int CostOffset = 600;
             const int IngredientOffset = 100;
+
             m_Graphics.DrawString(str, m_Font, m_Brush, x, y);
             y += height;
             str = "憑証號    日";
@@ -484,7 +497,7 @@ namespace VoucherExpense
                     continue;
                 }
                 lineCount++;
-                if (lineCount > 35)
+                if (y > lastItemHeight || lineCount > 35)
                 {
                     more += lineCount;
                     NeedMore = true;
@@ -517,7 +530,7 @@ namespace VoucherExpense
                         string name = r.IngredientRow.Name.ToString();
                         string vol = r.Volume.ToString();
                         string cost = r.Cost.ToString("f1");
-                        if (name.Length > 10) name = name.Substring(10);
+                        if (name.Length > 8) name = name.Substring(8);
                         str += ("  " + name + " " + vol + " (" + cost + ")");
                         if (str.Length < 20)
                             for (int k = str.Length; k < 20; k++)
@@ -561,7 +574,7 @@ namespace VoucherExpense
                 {
                     int venderID = m_SelectedVenderID[0];
                     int more=m_More;
-                    y=printOneVender(x, y, height, month, venderID, m_SelectedVenderName[0],ref more);
+                    y=printOneVender(x, y, height, month, venderID, m_SelectedVenderName[0],ref more,inner.Bottom-5*height);
                     if (more != -1)
                     {
                         e.HasMorePages = true;

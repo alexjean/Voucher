@@ -33,8 +33,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.供貨商ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.veDataSet1 = new VoucherExpense.VEDataSet();
             this.vendorBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.vendorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.VendorTableAdapter();
@@ -42,39 +40,22 @@
             this.columnVendorID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnVendorName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgViewUserSelected = new System.Windows.Forms.DataGridView();
+            this.labelCount = new System.Windows.Forms.Label();
+            this.labelSum = new System.Windows.Forms.Label();
+            this.btnPrintSelected = new System.Windows.Forms.Button();
+            this.labelSelectedSupplier = new System.Windows.Forms.Label();
+            this.btnSelectAll = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnPrintUserSelected = new System.Windows.Forms.Button();
             this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.costDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cSelectedVoucherBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.labelCount = new System.Windows.Forms.Label();
-            this.labelSum = new System.Windows.Forms.Label();
-            this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.veDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vendorBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vendorDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgViewUserSelected)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cSelectedVoucherBindingSource)).BeginInit();
             this.SuspendLayout();
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.AutoSize = false;
-            this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
-            this.menuStrip1.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.供貨商ToolStripMenuItem});
-            this.menuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
-            this.menuStrip1.Location = new System.Drawing.Point(1, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(160, 65);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // 供貨商ToolStripMenuItem
-            // 
-            this.供貨商ToolStripMenuItem.Name = "供貨商ToolStripMenuItem";
-            this.供貨商ToolStripMenuItem.Size = new System.Drawing.Size(153, 20);
-            this.供貨商ToolStripMenuItem.Text = "供貨商對帳";
-            this.供貨商ToolStripMenuItem.Click += new System.EventHandler(this.供貨商ToolStripMenuItem_Click);
             // 
             // veDataSet1
             // 
@@ -113,16 +94,16 @@
             this.columnVendorID,
             this.columnVendorName});
             this.vendorDataGridView.DataSource = this.vendorBindingSource;
-            this.vendorDataGridView.Dock = System.Windows.Forms.DockStyle.Right;
             this.vendorDataGridView.EnableHeadersVisualStyles = false;
-            this.vendorDataGridView.Location = new System.Drawing.Point(162, 0);
+            this.vendorDataGridView.Location = new System.Drawing.Point(1, 0);
             this.vendorDataGridView.Name = "vendorDataGridView";
             this.vendorDataGridView.ReadOnly = true;
             this.vendorDataGridView.RowHeadersVisible = false;
             this.vendorDataGridView.RowTemplate.Height = 24;
             this.vendorDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.vendorDataGridView.Size = new System.Drawing.Size(263, 497);
+            this.vendorDataGridView.Size = new System.Drawing.Size(263, 424);
             this.vendorDataGridView.TabIndex = 2;
+            this.vendorDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.vendorDataGridView_CellClick);
             // 
             // columnVendorID
             // 
@@ -147,7 +128,7 @@
             this.dgViewUserSelected.AllowUserToOrderColumns = true;
             this.dgViewUserSelected.AllowUserToResizeRows = false;
             this.dgViewUserSelected.AutoGenerateColumns = false;
-            this.dgViewUserSelected.BackgroundColor = System.Drawing.Color.PowderBlue;
+            this.dgViewUserSelected.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
@@ -162,13 +143,79 @@
             this.costDataGridViewTextBoxColumn});
             this.dgViewUserSelected.DataSource = this.cSelectedVoucherBindingSource;
             this.dgViewUserSelected.EnableHeadersVisualStyles = false;
-            this.dgViewUserSelected.Location = new System.Drawing.Point(1, 49);
+            this.dgViewUserSelected.Location = new System.Drawing.Point(536, 0);
             this.dgViewUserSelected.Name = "dgViewUserSelected";
             this.dgViewUserSelected.ReadOnly = true;
             this.dgViewUserSelected.RowHeadersVisible = false;
             this.dgViewUserSelected.RowTemplate.Height = 24;
-            this.dgViewUserSelected.Size = new System.Drawing.Size(160, 412);
+            this.dgViewUserSelected.Size = new System.Drawing.Size(166, 458);
             this.dgViewUserSelected.TabIndex = 3;
+            // 
+            // labelCount
+            // 
+            this.labelCount.Location = new System.Drawing.Point(587, 472);
+            this.labelCount.Name = "labelCount";
+            this.labelCount.Size = new System.Drawing.Size(74, 16);
+            this.labelCount.TabIndex = 4;
+            this.labelCount.Text = "小計";
+            this.labelCount.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelSum
+            // 
+            this.labelSum.Location = new System.Drawing.Point(587, 503);
+            this.labelSum.Name = "labelSum";
+            this.labelSum.Size = new System.Drawing.Size(74, 16);
+            this.labelSum.TabIndex = 5;
+            this.labelSum.Text = "0";
+            this.labelSum.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // btnPrintSelected
+            // 
+            this.btnPrintSelected.Location = new System.Drawing.Point(29, 530);
+            this.btnPrintSelected.Name = "btnPrintSelected";
+            this.btnPrintSelected.Size = new System.Drawing.Size(87, 31);
+            this.btnPrintSelected.TabIndex = 6;
+            this.btnPrintSelected.Text = "列印該月";
+            this.btnPrintSelected.UseVisualStyleBackColor = true;
+            this.btnPrintSelected.Click += new System.EventHandler(this.btnPrintSelected_Click);
+            // 
+            // labelSelectedSupplier
+            // 
+            this.labelSelectedSupplier.AutoSize = true;
+            this.labelSelectedSupplier.Location = new System.Drawing.Point(122, 537);
+            this.labelSelectedSupplier.Name = "labelSelectedSupplier";
+            this.labelSelectedSupplier.Size = new System.Drawing.Size(142, 16);
+            this.labelSelectedSupplier.TabIndex = 7;
+            this.labelSelectedSupplier.Text = "labelSelectedSupplier";
+            // 
+            // btnSelectAll
+            // 
+            this.btnSelectAll.Location = new System.Drawing.Point(29, 472);
+            this.btnSelectAll.Name = "btnSelectAll";
+            this.btnSelectAll.Size = new System.Drawing.Size(135, 31);
+            this.btnSelectAll.TabIndex = 8;
+            this.btnSelectAll.Text = "選擇全部供貨商";
+            this.btnSelectAll.UseVisualStyleBackColor = true;
+            this.btnSelectAll.Click += new System.EventHandler(this.btnSelectAll_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(29, 442);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(175, 16);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "按住Ctrl點可複選供貨商";
+            // 
+            // btnPrintUserSelected
+            // 
+            this.btnPrintUserSelected.Location = new System.Drawing.Point(544, 530);
+            this.btnPrintUserSelected.Name = "btnPrintUserSelected";
+            this.btnPrintUserSelected.Size = new System.Drawing.Size(158, 31);
+            this.btnPrintUserSelected.TabIndex = 10;
+            this.btnPrintUserSelected.Text = "列印所選進貨單";
+            this.btnPrintUserSelected.UseVisualStyleBackColor = true;
+            this.btnPrintUserSelected.Click += new System.EventHandler(this.btnPrintUserSelected_Click);
             // 
             // iDDataGridViewTextBoxColumn
             // 
@@ -192,44 +239,27 @@
             // 
             this.cSelectedVoucherBindingSource.DataSource = typeof(VoucherExpense.CSelectedVoucher);
             // 
-            // labelCount
-            // 
-            this.labelCount.AutoSize = true;
-            this.labelCount.Location = new System.Drawing.Point(1, 473);
-            this.labelCount.Name = "labelCount";
-            this.labelCount.Size = new System.Drawing.Size(40, 16);
-            this.labelCount.TabIndex = 4;
-            this.labelCount.Text = "小計";
-            // 
-            // labelSum
-            // 
-            this.labelSum.Location = new System.Drawing.Point(66, 473);
-            this.labelSum.Name = "labelSum";
-            this.labelSum.Size = new System.Drawing.Size(74, 16);
-            this.labelSum.TabIndex = 5;
-            this.labelSum.Text = "0";
-            this.labelSum.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // FormPrintSelect
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.PowderBlue;
-            this.ClientSize = new System.Drawing.Size(425, 497);
+            this.BackColor = System.Drawing.Color.Azure;
+            this.ClientSize = new System.Drawing.Size(704, 580);
+            this.Controls.Add(this.btnPrintUserSelected);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.btnSelectAll);
+            this.Controls.Add(this.labelSelectedSupplier);
+            this.Controls.Add(this.btnPrintSelected);
             this.Controls.Add(this.labelSum);
             this.Controls.Add(this.labelCount);
             this.Controls.Add(this.dgViewUserSelected);
             this.Controls.Add(this.vendorDataGridView);
-            this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormPrintSelect";
             this.ShowIcon = false;
             this.Text = "選擇列印方法";
             this.Load += new System.EventHandler(this.FormPrintSelect_Load);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.veDataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vendorBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vendorDataGridView)).EndInit();
@@ -242,8 +272,6 @@
 
         #endregion
 
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem 供貨商ToolStripMenuItem;
         private VEDataSet veDataSet1;
         private System.Windows.Forms.BindingSource vendorBindingSource;
         private VoucherExpense.VEDataSetTableAdapters.VendorTableAdapter vendorTableAdapter;
@@ -256,5 +284,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn costDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnVendorID;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnVendorName;
+        private System.Windows.Forms.Button btnPrintSelected;
+        private System.Windows.Forms.Label labelSelectedSupplier;
+        private System.Windows.Forms.Button btnSelectAll;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnPrintUserSelected;
     }
 }

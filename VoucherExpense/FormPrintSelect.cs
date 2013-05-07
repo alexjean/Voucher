@@ -27,53 +27,112 @@ namespace VoucherExpense
 
         private void FormPrintSelect_Load(object sender, EventArgs e)
         {
-            this.vendorTableAdapter.Fill(this.veDataSet1.Vendor);
+            try
+            {
+                this.vendorTableAdapter.Fill(this.veDataSet1.Vendor);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("讀取供貨商時出錯,原因:" + ex.Message);
+                Close();
+                return;
+            }
             dgViewUserSelected.DataSource = m_FormVoucher.m_SelectedVoucher;
             decimal sum = 0;
             foreach (CSelectedVoucher v in m_FormVoucher.m_SelectedVoucher)
                 sum += v.Cost;
             labelSum.Text = sum.ToString("f1");
-            labelCount.Text = "共 " + this.m_FormVoucher.m_SelectedVoucher.Count.ToString() + "單";
+            int count=this.m_FormVoucher.m_SelectedVoucher.Count;
+            labelCount.Text = "共 " + count.ToString() + "單";
+            if (count == 0) btnPrintUserSelected.Enabled = false;
+            ShowSelectedVenders();
         }
 
-        private void 供貨商ToolStripMenuItem_Click(object sender, EventArgs e)
+        void GetSelectedSupplier(ref List<int> ids, ref List<string> names)
         {
-            string venderName = "";
-            List<string> name = new List<string>();
-            List<int> id = new List<int>();
             foreach (DataGridViewRow row in vendorDataGridView.SelectedRows)
             {
-                //            DataGridViewRow row=vendorDataGridView.SelectedRows[0];
                 int vendorID = -1;
                 if (!int.TryParse(row.Cells["columnVendorID"].FormattedValue.ToString(), out vendorID))
                 {
                     MessageBox.Show("供貨商代碼不正確!");
-                    return;
+                    continue;
                 }
-                name.Add(row.Cells["columnVendorName"].FormattedValue.ToString());
-                id.Add(vendorID);
-                venderName += row.Cells["columnVendorName"].FormattedValue.ToString()+" ";
-            }
-            DialogResult result=MessageBox.Show("確定列出<"+venderName+">本月供貨明細?(無憑証號及未核可單不會印出)"
-                                                ,"",MessageBoxButtons.OKCancel);
-            if (result==DialogResult.OK)
-            {
-                m_FormVoucher.m_SelectedVenderID = id;
-                m_FormVoucher.m_SelectedVenderName = name;
-                Close();
+                names.Add(row.Cells["columnVendorName"].FormattedValue.ToString());
+                ids.Add(vendorID);
             }
         }
-        /*
-        private void 列印選擇的單子ToolStripMenuItem_Click(object sender, EventArgs e)
+
+
+        void PrintSelectedSupplier()
         {
-            DialogResult result=MessageBox.Show("確定印出選擇的"+labelCount.Text+"張供貨明細?"
-                                                ,"",MessageBoxButtons.OKCancel);
+            List<string> names = new List<string>();
+            List<int> ids = new List<int>();
+            GetSelectedSupplier(ref ids, ref names);
+            if (ids.Count <= 0)
+            {
+                MessageBox.Show("沒有選擇任何供貨商!");
+                return;
+            }
+            string msg="確定列出<";
+            foreach(string name in names)  msg+=(name+" ");
+            msg+= ">本月供貨明細?(無憑証號及未核可單不會印出)";
+            DialogResult result = MessageBox.Show(msg, "", MessageBoxButtons.OKCancel);
             if (result == DialogResult.OK)
             {
-                m_FormVoucher.m_SelectedVenderID = Voucher.m_PrintSelected;
+                m_FormVoucher.m_SelectedVenderID = ids;
+                m_FormVoucher.m_SelectedVenderName = names;
+                DialogResult = DialogResult.OK;
                 Close();
             }
         }
-        */
+
+        private void btnPrintSelected_Click(object sender, EventArgs e)
+        {
+            PrintSelectedSupplier();
+        }
+
+        void ShowSelectedVenders()
+        {
+            List<string> names = new List<string>();
+            List<int> ids = new List<int>();
+            GetSelectedSupplier(ref ids, ref names);
+            if (ids.Count <= 0)
+            {
+                labelSelectedSupplier.Text = "未選任何供貨商";
+                return;
+            }
+            string msg = "";
+            foreach (string name in names) msg += (name + " ");
+            labelSelectedSupplier.Text = msg;
+        }
+
+        private void vendorDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            ShowSelectedVenders();
+        }
+
+        //private void 列印選擇的單子()
+        //{
+        //    
+        //}
+
+        private void btnSelectAll_Click(object sender, EventArgs e)
+        {
+            this.vendorDataGridView.SelectAll();
+            ShowSelectedVenders();
+        }
+
+        private void btnPrintUserSelected_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("確定印出選擇的" + labelCount.Text + "張供貨明細?", "", MessageBoxButtons.OKCancel);
+            if (result == DialogResult.OK)
+            {
+                m_FormVoucher.m_PrintSelectedVouchers = true;
+                this.DialogResult = DialogResult.OK;
+                Close();
+            }
+        }
+
     }
 }

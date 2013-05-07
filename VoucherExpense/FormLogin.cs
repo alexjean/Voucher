@@ -96,9 +96,15 @@ namespace VoucherExpense
             }
             if (sVersion != "")
             {
+                bool requiredUpdate = false;
                 Version now = new Version(Application.ProductVersion);
-                Version required = new Version(sVersion);
-                if ( now<required)
+                try
+                {
+                    Version required = new Version(sVersion);
+                    if (now < required) requiredUpdate = true;
+                }
+                catch { return; }     // 要求格式有誤, 不管了
+                if ( requiredUpdate)
                 {
                     if (MessageBox.Show("程式版本低於要求! 現有版本<" + now.ToString() + ">,必需更版至<" + sVersion + ">!", "", MessageBoxButtons.OKCancel) == DialogResult.OK)
                     {

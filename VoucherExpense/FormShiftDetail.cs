@@ -445,6 +445,7 @@ namespace VoucherExpense
             try
             {
                 VEDataSet.ShiftDetailDataTable table = vEDataSet.ShiftDetail.GetChanges() as VEDataSet.ShiftDetailDataTable;
+                shiftDetailTableAdapter.Connection = MapPath.VEConnection;
                 shiftDetailTableAdapter.Update(table);
                 vEDataSet.ShiftDetail.Merge(table);
                 vEDataSet.ShiftDetail.AcceptChanges();

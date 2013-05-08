@@ -118,6 +118,7 @@
             this.salaryTextBox = new System.Windows.Forms.TextBox();
             this.checkBoxShowAll = new System.Windows.Forms.CheckBox();
             this.birthdayTextBox = new System.Windows.Forms.TextBox();
+            this.checkBoxIsApplier = new System.Windows.Forms.CheckBox();
             employeeIDLabel = new System.Windows.Forms.Label();
             employeeCodeLabel = new System.Windows.Forms.Label();
             employeeNameLabel = new System.Windows.Forms.Label();
@@ -943,12 +944,23 @@
             this.birthdayTextBox.Size = new System.Drawing.Size(131, 27);
             this.birthdayTextBox.TabIndex = 52;
             // 
+            // checkBoxIsApplier
+            // 
+            this.checkBoxIsApplier.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.hRBindingSource, "IsApplier", true));
+            this.checkBoxIsApplier.Location = new System.Drawing.Point(700, 160);
+            this.checkBoxIsApplier.Name = "checkBoxIsApplier";
+            this.checkBoxIsApplier.Size = new System.Drawing.Size(78, 24);
+            this.checkBoxIsApplier.TabIndex = 53;
+            this.checkBoxIsApplier.Text = "申請者";
+            this.checkBoxIsApplier.UseVisualStyleBackColor = true;
+            // 
             // FormHR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(226)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(972, 816);
+            this.Controls.Add(this.checkBoxIsApplier);
             this.Controls.Add(this.birthdayTextBox);
             this.Controls.Add(this.checkBoxShowAll);
             this.Controls.Add(salaryLabel);
@@ -1090,5 +1102,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
         private System.Windows.Forms.DataGridViewComboBoxColumn ApartmentID;
         private System.Windows.Forms.TextBox birthdayTextBox;
+        private System.Windows.Forms.CheckBox checkBoxIsApplier;
     }
 }

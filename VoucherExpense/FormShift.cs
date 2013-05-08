@@ -277,7 +277,7 @@ namespace VoucherExpense
             Cfg.Save(ShiftCodeConfigName,ShiftCodeTableName,str);
         }
 
-        Config Cfg = new Config();
+        Config Cfg=new Config();
         string ShiftCodeConfigName = "ShiftCodeConfig";
         string ShiftCodeTableName = "CodeTable";
         private string Config2Xml(string name)

@@ -56,8 +56,18 @@
             this.列印PToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.expenseDataGridView = new System.Windows.Forms.DataGridView();
+            this.columnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnRemoved = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.ApplyTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnApplier = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.employeeBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.InnerID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Note = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnMoney = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TitleCode = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.titleBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
+            this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.columnCheck = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.applierBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.authorizeBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.expenseIDTextBox = new System.Windows.Forms.TextBox();
@@ -95,16 +105,6 @@
             this.ckBoxAllowEdit = new System.Windows.Forms.CheckBox();
             this.hRTableAdapter = new VoucherExpense.VEDataSetTableAdapters.HRTableAdapter();
             this.btnExportExcel = new System.Windows.Forms.Button();
-            this.columnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnRemoved = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.ApplyTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnApplier = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.InnerID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Note = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnMoney = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TitleCode = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.columnCheck = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             expenseIDLabel = new System.Windows.Forms.Label();
             applierIDLabel = new System.Windows.Forms.Label();
             applyTimeLabel = new System.Windows.Forms.Label();
@@ -387,11 +387,97 @@
             this.expenseDataGridView.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.expenseDataGridView_RowPrePaint);
             this.expenseDataGridView.SelectionChanged += new System.EventHandler(this.expenseDataGridView_SelectionChanged);
             // 
+            // columnID
+            // 
+            this.columnID.DataPropertyName = "ID";
+            this.columnID.HeaderText = "順序";
+            this.columnID.MinimumWidth = 2;
+            this.columnID.Name = "columnID";
+            this.columnID.ReadOnly = true;
+            this.columnID.Width = 2;
+            // 
+            // columnRemoved
+            // 
+            this.columnRemoved.DataPropertyName = "Removed";
+            this.columnRemoved.HeaderText = "";
+            this.columnRemoved.MinimumWidth = 2;
+            this.columnRemoved.Name = "columnRemoved";
+            this.columnRemoved.ReadOnly = true;
+            this.columnRemoved.Width = 2;
+            // 
+            // ApplyTime
+            // 
+            this.ApplyTime.DataPropertyName = "ApplyTime";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.Format = "M/dd";
+            dataGridViewCellStyle3.NullValue = null;
+            this.ApplyTime.DefaultCellStyle = dataGridViewCellStyle3;
+            this.ApplyTime.HeaderText = "日期";
+            this.ApplyTime.Name = "ApplyTime";
+            this.ApplyTime.ReadOnly = true;
+            this.ApplyTime.Width = 48;
+            // 
+            // columnApplier
+            // 
+            this.columnApplier.DataPropertyName = "ApplierID";
+            this.columnApplier.DataSource = this.employeeBindingSource;
+            this.columnApplier.DisplayMember = "EmployeeName";
+            this.columnApplier.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.columnApplier.HeaderText = "申請者";
+            this.columnApplier.Name = "columnApplier";
+            this.columnApplier.ReadOnly = true;
+            this.columnApplier.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.columnApplier.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.columnApplier.ValueMember = "EmployeeID";
+            this.columnApplier.Width = 66;
+            // 
             // employeeBindingSource
             // 
             this.employeeBindingSource.DataMember = "HR";
             this.employeeBindingSource.DataSource = this.vEDataSet;
             this.employeeBindingSource.Filter = "";
+            // 
+            // InnerID
+            // 
+            this.InnerID.DataPropertyName = "InnerID";
+            this.InnerID.HeaderText = "編號";
+            this.InnerID.Name = "InnerID";
+            this.InnerID.ReadOnly = true;
+            this.InnerID.Width = 60;
+            // 
+            // Note
+            // 
+            this.Note.DataPropertyName = "Note";
+            this.Note.HeaderText = "摘要";
+            this.Note.Name = "Note";
+            this.Note.ReadOnly = true;
+            this.Note.Width = 204;
+            // 
+            // columnMoney
+            // 
+            this.columnMoney.DataPropertyName = "Money";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle4.Format = "N2";
+            dataGridViewCellStyle4.NullValue = null;
+            this.columnMoney.DefaultCellStyle = dataGridViewCellStyle4;
+            this.columnMoney.HeaderText = "金額";
+            this.columnMoney.Name = "columnMoney";
+            this.columnMoney.ReadOnly = true;
+            this.columnMoney.Width = 80;
+            // 
+            // TitleCode
+            // 
+            this.TitleCode.DataPropertyName = "TitleCode";
+            this.TitleCode.DataSource = this.titleBindingSource2;
+            this.TitleCode.DisplayMember = "Name";
+            this.TitleCode.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.TitleCode.HeaderText = "科目";
+            this.TitleCode.Name = "TitleCode";
+            this.TitleCode.ReadOnly = true;
+            this.TitleCode.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.TitleCode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.TitleCode.ValueMember = "TitleCode";
+            this.TitleCode.Width = 84;
             // 
             // titleBindingSource2
             // 
@@ -399,11 +485,27 @@
             this.titleBindingSource2.DataSource = this.vEDataSet;
             this.titleBindingSource2.Filter = "";
             // 
+            // dataGridViewCheckBoxColumn1
+            // 
+            this.dataGridViewCheckBoxColumn1.DataPropertyName = "Paid";
+            this.dataGridViewCheckBoxColumn1.HeaderText = "ok";
+            this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
+            this.dataGridViewCheckBoxColumn1.ReadOnly = true;
+            this.dataGridViewCheckBoxColumn1.Width = 25;
+            // 
+            // columnCheck
+            // 
+            this.columnCheck.DataPropertyName = "Locked";
+            this.columnCheck.HeaderText = "核";
+            this.columnCheck.Name = "columnCheck";
+            this.columnCheck.ReadOnly = true;
+            this.columnCheck.Width = 25;
+            // 
             // applierBindingSource
             // 
             this.applierBindingSource.DataMember = "HR";
             this.applierBindingSource.DataSource = this.vEDataSet;
-            this.applierBindingSource.Filter = "InPosition";
+            this.applierBindingSource.Filter = "IsApplier";
             // 
             // authorizeBindingSource
             // 
@@ -760,108 +862,6 @@
             this.btnExportExcel.Text = "轉Excel";
             this.btnExportExcel.UseVisualStyleBackColor = true;
             this.btnExportExcel.Click += new System.EventHandler(this.btnExportExcel_Click);
-            // 
-            // columnID
-            // 
-            this.columnID.DataPropertyName = "ID";
-            this.columnID.HeaderText = "順序";
-            this.columnID.MinimumWidth = 2;
-            this.columnID.Name = "columnID";
-            this.columnID.ReadOnly = true;
-            this.columnID.Width = 2;
-            // 
-            // columnRemoved
-            // 
-            this.columnRemoved.DataPropertyName = "Removed";
-            this.columnRemoved.HeaderText = "";
-            this.columnRemoved.MinimumWidth = 2;
-            this.columnRemoved.Name = "columnRemoved";
-            this.columnRemoved.ReadOnly = true;
-            this.columnRemoved.Width = 2;
-            // 
-            // ApplyTime
-            // 
-            this.ApplyTime.DataPropertyName = "ApplyTime";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "M/dd";
-            dataGridViewCellStyle3.NullValue = null;
-            this.ApplyTime.DefaultCellStyle = dataGridViewCellStyle3;
-            this.ApplyTime.HeaderText = "日期";
-            this.ApplyTime.Name = "ApplyTime";
-            this.ApplyTime.ReadOnly = true;
-            this.ApplyTime.Width = 48;
-            // 
-            // columnApplier
-            // 
-            this.columnApplier.DataPropertyName = "ApplierID";
-            this.columnApplier.DataSource = this.employeeBindingSource;
-            this.columnApplier.DisplayMember = "EmployeeName";
-            this.columnApplier.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.columnApplier.HeaderText = "申請者";
-            this.columnApplier.Name = "columnApplier";
-            this.columnApplier.ReadOnly = true;
-            this.columnApplier.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.columnApplier.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.columnApplier.ValueMember = "EmployeeID";
-            this.columnApplier.Width = 66;
-            // 
-            // InnerID
-            // 
-            this.InnerID.DataPropertyName = "InnerID";
-            this.InnerID.HeaderText = "編號";
-            this.InnerID.Name = "InnerID";
-            this.InnerID.ReadOnly = true;
-            this.InnerID.Width = 60;
-            // 
-            // Note
-            // 
-            this.Note.DataPropertyName = "Note";
-            this.Note.HeaderText = "摘要";
-            this.Note.Name = "Note";
-            this.Note.ReadOnly = true;
-            this.Note.Width = 204;
-            // 
-            // columnMoney
-            // 
-            this.columnMoney.DataPropertyName = "Money";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.Format = "N2";
-            dataGridViewCellStyle4.NullValue = null;
-            this.columnMoney.DefaultCellStyle = dataGridViewCellStyle4;
-            this.columnMoney.HeaderText = "金額";
-            this.columnMoney.Name = "columnMoney";
-            this.columnMoney.ReadOnly = true;
-            this.columnMoney.Width = 80;
-            // 
-            // TitleCode
-            // 
-            this.TitleCode.DataPropertyName = "TitleCode";
-            this.TitleCode.DataSource = this.titleBindingSource2;
-            this.TitleCode.DisplayMember = "Name";
-            this.TitleCode.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.TitleCode.HeaderText = "科目";
-            this.TitleCode.Name = "TitleCode";
-            this.TitleCode.ReadOnly = true;
-            this.TitleCode.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.TitleCode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.TitleCode.ValueMember = "TitleCode";
-            this.TitleCode.Width = 84;
-            // 
-            // dataGridViewCheckBoxColumn1
-            // 
-            this.dataGridViewCheckBoxColumn1.DataPropertyName = "Paid";
-            this.dataGridViewCheckBoxColumn1.HeaderText = "ok";
-            this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
-            this.dataGridViewCheckBoxColumn1.ReadOnly = true;
-            this.dataGridViewCheckBoxColumn1.Width = 25;
-            // 
-            // columnCheck
-            // 
-            this.columnCheck.DataPropertyName = "Locked";
-            this.columnCheck.HeaderText = "核";
-            this.columnCheck.Name = "columnCheck";
-            this.columnCheck.ReadOnly = true;
-            this.columnCheck.Width = 25;
             // 
             // Expense
             // 

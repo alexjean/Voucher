@@ -6659,6 +6659,8 @@ namespace VoucherExpense {
             
             private global::System.Data.DataColumn columnSalary;
             
+            private global::System.Data.DataColumn columnIsApplier;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public HRDataTable() {
@@ -6886,6 +6888,14 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn IsApplierColumn {
+                get {
+                    return this.columnIsApplier;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -6945,7 +6955,8 @@ namespace VoucherExpense {
                         string Education, 
                         string Marriage, 
                         string Mobile, 
-                        int Salary) {
+                        int Salary, 
+                        bool IsApplier) {
                 HRRow rowHRRow = ((HRRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         EmployeeID,
@@ -6971,7 +6982,8 @@ namespace VoucherExpense {
                         Education,
                         Marriage,
                         Mobile,
-                        Salary};
+                        Salary,
+                        IsApplier};
                 rowHRRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowHRRow);
                 return rowHRRow;
@@ -7025,6 +7037,7 @@ namespace VoucherExpense {
                 this.columnMarriage = base.Columns["Marriage"];
                 this.columnMobile = base.Columns["Mobile"];
                 this.columnSalary = base.Columns["Salary"];
+                this.columnIsApplier = base.Columns["IsApplier"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7078,6 +7091,8 @@ namespace VoucherExpense {
                 base.Columns.Add(this.columnMobile);
                 this.columnSalary = new global::System.Data.DataColumn("Salary", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSalary);
+                this.columnIsApplier = new global::System.Data.DataColumn("IsApplier", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIsApplier);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnEmployeeID}, true));
                 this.columnEmployeeID.AllowDBNull = false;
@@ -14132,6 +14147,22 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsApplier {
+                get {
+                    try {
+                        return ((bool)(this[this.tableHR.IsApplierColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("資料表 \'HR\' 中資料行 \'IsApplier\' 的值是 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tableHR.IsApplierColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsEmployeeCodeNull() {
                 return this.IsNull(this.tableHR.EmployeeCodeColumn);
             }
@@ -14404,6 +14435,18 @@ namespace VoucherExpense {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetSalaryNull() {
                 this[this.tableHR.SalaryColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsIsApplierNull() {
+                return this.IsNull(this.tableHR.IsApplierColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetIsApplierNull() {
+                this[this.tableHR.IsApplierColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -23151,10 +23194,11 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("Marriage", "Marriage");
             tableMapping.ColumnMappings.Add("Mobile", "Mobile");
             tableMapping.ColumnMappings.Add("Salary", "Salary");
+            tableMapping.ColumnMappings.Add("IsApplier", "IsApplier");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `HR` WHERE ((`EmployeeID` = ?) AND ((? = 1 AND `EmployeeCode` IS NULL) OR (`EmployeeCode` = ?)) AND ((? = 1 AND `EmployeeName` IS NULL) OR (`EmployeeName` = ?)) AND ((? = 1 AND `ApartmentID` IS NULL) OR (`ApartmentID` = ?)) AND ((? = 1 AND `IsManager` IS NULL) OR (`IsManager` = ?)) AND ((? = 1 AND `InPosition` IS NULL) OR (`InPosition` = ?)) AND ((? = 1 AND `IdNo` IS NULL) OR (`IdNo` = ?)) AND ((? = 1 AND `Birthday` IS NULL) OR (`Birthday` = ?)) AND ((? = 1 AND `BloodType` IS NULL) OR (`BloodType` = ?)) AND ((? = 1 AND `Telphone` IS NULL) OR (`Telphone` = ?)) AND ((? = 1 AND `Gender` IS NULL) OR (`Gender` = ?)) AND ((? = 1 AND `Address` IS NULL) OR (`Address` = ?)) AND ((? = 1 AND `Title` IS NULL) OR (`Title` = ?)) AND ((? = 1 AND `Contact` IS NULL) OR (`Contact` = ?)) AND ((? = 1 AND `EmergencyTel` IS NULL) OR (`EmergencyTel` = ?)) AND ((? = 1 AND `LastUpdated` IS NULL) OR (`LastUpdated` = ?)) AND ((? = 1 AND `KeyinID` IS NULL) OR (`KeyinID` = ?)) AND ((? = 1 AND `FingerPintNo` IS NULL) OR (`FingerPintNo` = ?)) AND ((? = 1 AND `BankAccout` IS NULL) OR (`BankAccout` = ?)) AND ((? = 1 AND `Education` IS NULL) OR (`Education` = ?)) AND ((? = 1 AND `Marriage` IS NULL) OR (`Marriage` = ?)) AND ((? = 1 AND `Mobile` IS NULL) OR (`Mobile` = ?)) AND ((? = 1 AND `Salary` IS NULL) OR (`Salary` = ?)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `HR` WHERE ((`EmployeeID` = ?) AND ((? = 1 AND `EmployeeCode` IS NULL) OR (`EmployeeCode` = ?)) AND ((? = 1 AND `EmployeeName` IS NULL) OR (`EmployeeName` = ?)) AND ((? = 1 AND `ApartmentID` IS NULL) OR (`ApartmentID` = ?)) AND ((? = 1 AND `IsManager` IS NULL) OR (`IsManager` = ?)) AND ((? = 1 AND `InPosition` IS NULL) OR (`InPosition` = ?)) AND ((? = 1 AND `IdNo` IS NULL) OR (`IdNo` = ?)) AND ((? = 1 AND `Birthday` IS NULL) OR (`Birthday` = ?)) AND ((? = 1 AND `BloodType` IS NULL) OR (`BloodType` = ?)) AND ((? = 1 AND `Telphone` IS NULL) OR (`Telphone` = ?)) AND ((? = 1 AND `Gender` IS NULL) OR (`Gender` = ?)) AND ((? = 1 AND `Address` IS NULL) OR (`Address` = ?)) AND ((? = 1 AND `Title` IS NULL) OR (`Title` = ?)) AND ((? = 1 AND `Contact` IS NULL) OR (`Contact` = ?)) AND ((? = 1 AND `EmergencyTel` IS NULL) OR (`EmergencyTel` = ?)) AND ((? = 1 AND `LastUpdated` IS NULL) OR (`LastUpdated` = ?)) AND ((? = 1 AND `KeyinID` IS NULL) OR (`KeyinID` = ?)) AND ((? = 1 AND `FingerPintNo` IS NULL) OR (`FingerPintNo` = ?)) AND ((? = 1 AND `BankAccout` IS NULL) OR (`BankAccout` = ?)) AND ((? = 1 AND `Education` IS NULL) OR (`Education` = ?)) AND ((? = 1 AND `Marriage` IS NULL) OR (`Marriage` = ?)) AND ((? = 1 AND `Mobile` IS NULL) OR (`Mobile` = ?)) AND ((? = 1 AND `Salary` IS NULL) OR (`Salary` = ?)) AND ((? = 1 AND `IsApplier` IS NULL) OR (`IsApplier` = ?)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_EmployeeID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmployeeID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_EmployeeCode", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmployeeCode", global::System.Data.DataRowVersion.Original, true, null));
@@ -23201,9 +23245,11 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Mobile", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Mobile", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Salary", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Salary", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Salary", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Salary", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_IsApplier", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IsApplier", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_IsApplier", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IsApplier", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO `HR` (`EmployeeID`, `EmployeeCode`, `EmployeeName`, `ApartmentID`, `IsManager`, `InPosition`, `IdNo`, `Birthday`, `BloodType`, `Telphone`, `Gender`, `Photo`, `Address`, `Title`, `Contact`, `EmergencyTel`, `LastUpdated`, `KeyinID`, `FingerPintNo`, `BankAccout`, `Education`, `Marriage`, `Mobile`, `Salary`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO `HR` (`EmployeeID`, `EmployeeCode`, `EmployeeName`, `ApartmentID`, `IsManager`, `InPosition`, `IdNo`, `Birthday`, `BloodType`, `Telphone`, `Gender`, `Photo`, `Address`, `Title`, `Contact`, `EmergencyTel`, `LastUpdated`, `KeyinID`, `FingerPintNo`, `BankAccout`, `Education`, `Marriage`, `Mobile`, `Salary`, `IsApplier`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("EmployeeID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmployeeID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("EmployeeCode", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmployeeCode", global::System.Data.DataRowVersion.Current, false, null));
@@ -23229,6 +23275,7 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Marriage", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Marriage", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Mobile", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Mobile", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Salary", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Salary", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsApplier", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IsApplier", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
             this._adapter.UpdateCommand.CommandText = "UPDATE `HR` SET `EmployeeID` = ?, `EmployeeCode` = ?, `EmployeeName` = ?, `Apartm" +
@@ -23236,23 +23283,24 @@ namespace VoucherExpense.VEDataSetTableAdapters {
                 "dType` = ?, `Telphone` = ?, `Gender` = ?, `Photo` = ?, `Address` = ?, `Title` = " +
                 "?, `Contact` = ?, `EmergencyTel` = ?, `LastUpdated` = ?, `KeyinID` = ?, `FingerP" +
                 "intNo` = ?, `BankAccout` = ?, `Education` = ?, `Marriage` = ?, `Mobile` = ?, `Sa" +
-                "lary` = ? WHERE ((`EmployeeID` = ?) AND ((? = 1 AND `EmployeeCode` IS NULL) OR (" +
-                "`EmployeeCode` = ?)) AND ((? = 1 AND `EmployeeName` IS NULL) OR (`EmployeeName` " +
-                "= ?)) AND ((? = 1 AND `ApartmentID` IS NULL) OR (`ApartmentID` = ?)) AND ((? = 1" +
-                " AND `IsManager` IS NULL) OR (`IsManager` = ?)) AND ((? = 1 AND `InPosition` IS " +
-                "NULL) OR (`InPosition` = ?)) AND ((? = 1 AND `IdNo` IS NULL) OR (`IdNo` = ?)) AN" +
-                "D ((? = 1 AND `Birthday` IS NULL) OR (`Birthday` = ?)) AND ((? = 1 AND `BloodTyp" +
-                "e` IS NULL) OR (`BloodType` = ?)) AND ((? = 1 AND `Telphone` IS NULL) OR (`Telph" +
-                "one` = ?)) AND ((? = 1 AND `Gender` IS NULL) OR (`Gender` = ?)) AND ((? = 1 AND " +
-                "`Address` IS NULL) OR (`Address` = ?)) AND ((? = 1 AND `Title` IS NULL) OR (`Tit" +
-                "le` = ?)) AND ((? = 1 AND `Contact` IS NULL) OR (`Contact` = ?)) AND ((? = 1 AND" +
-                " `EmergencyTel` IS NULL) OR (`EmergencyTel` = ?)) AND ((? = 1 AND `LastUpdated` " +
-                "IS NULL) OR (`LastUpdated` = ?)) AND ((? = 1 AND `KeyinID` IS NULL) OR (`KeyinID" +
-                "` = ?)) AND ((? = 1 AND `FingerPintNo` IS NULL) OR (`FingerPintNo` = ?)) AND ((?" +
-                " = 1 AND `BankAccout` IS NULL) OR (`BankAccout` = ?)) AND ((? = 1 AND `Education" +
-                "` IS NULL) OR (`Education` = ?)) AND ((? = 1 AND `Marriage` IS NULL) OR (`Marria" +
-                "ge` = ?)) AND ((? = 1 AND `Mobile` IS NULL) OR (`Mobile` = ?)) AND ((? = 1 AND `" +
-                "Salary` IS NULL) OR (`Salary` = ?)))";
+                "lary` = ?, `IsApplier` = ? WHERE ((`EmployeeID` = ?) AND ((? = 1 AND `EmployeeCo" +
+                "de` IS NULL) OR (`EmployeeCode` = ?)) AND ((? = 1 AND `EmployeeName` IS NULL) OR" +
+                " (`EmployeeName` = ?)) AND ((? = 1 AND `ApartmentID` IS NULL) OR (`ApartmentID` " +
+                "= ?)) AND ((? = 1 AND `IsManager` IS NULL) OR (`IsManager` = ?)) AND ((? = 1 AND" +
+                " `InPosition` IS NULL) OR (`InPosition` = ?)) AND ((? = 1 AND `IdNo` IS NULL) OR" +
+                " (`IdNo` = ?)) AND ((? = 1 AND `Birthday` IS NULL) OR (`Birthday` = ?)) AND ((? " +
+                "= 1 AND `BloodType` IS NULL) OR (`BloodType` = ?)) AND ((? = 1 AND `Telphone` IS" +
+                " NULL) OR (`Telphone` = ?)) AND ((? = 1 AND `Gender` IS NULL) OR (`Gender` = ?))" +
+                " AND ((? = 1 AND `Address` IS NULL) OR (`Address` = ?)) AND ((? = 1 AND `Title` " +
+                "IS NULL) OR (`Title` = ?)) AND ((? = 1 AND `Contact` IS NULL) OR (`Contact` = ?)" +
+                ") AND ((? = 1 AND `EmergencyTel` IS NULL) OR (`EmergencyTel` = ?)) AND ((? = 1 A" +
+                "ND `LastUpdated` IS NULL) OR (`LastUpdated` = ?)) AND ((? = 1 AND `KeyinID` IS N" +
+                "ULL) OR (`KeyinID` = ?)) AND ((? = 1 AND `FingerPintNo` IS NULL) OR (`FingerPint" +
+                "No` = ?)) AND ((? = 1 AND `BankAccout` IS NULL) OR (`BankAccout` = ?)) AND ((? =" +
+                " 1 AND `Education` IS NULL) OR (`Education` = ?)) AND ((? = 1 AND `Marriage` IS " +
+                "NULL) OR (`Marriage` = ?)) AND ((? = 1 AND `Mobile` IS NULL) OR (`Mobile` = ?)) " +
+                "AND ((? = 1 AND `Salary` IS NULL) OR (`Salary` = ?)) AND ((? = 1 AND `IsApplier`" +
+                " IS NULL) OR (`IsApplier` = ?)))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("EmployeeID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmployeeID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("EmployeeCode", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmployeeCode", global::System.Data.DataRowVersion.Current, false, null));
@@ -23278,6 +23326,7 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Marriage", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Marriage", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Mobile", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Mobile", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Salary", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Salary", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsApplier", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IsApplier", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_EmployeeID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmployeeID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_EmployeeCode", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmployeeCode", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_EmployeeCode", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmployeeCode", global::System.Data.DataRowVersion.Original, false, null));
@@ -23323,6 +23372,8 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Mobile", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Mobile", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Salary", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Salary", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Salary", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Salary", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_IsApplier", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IsApplier", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_IsApplier", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IsApplier", global::System.Data.DataRowVersion.Original, false, null));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -23338,7 +23389,7 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = @"SELECT EmployeeID, EmployeeCode, EmployeeName, ApartmentID, IsManager, InPosition, IdNo, Birthday, BloodType, Telphone, Gender, Photo, Address, Title, Contact, EmergencyTel, LastUpdated, KeyinID, FingerPintNo, BankAccout, Education, Marriage, Mobile, Salary FROM HR";
+            this._commandCollection[0].CommandText = @"SELECT EmployeeID, EmployeeCode, EmployeeName, ApartmentID, IsManager, InPosition, IdNo, Birthday, BloodType, Telphone, Gender, Photo, Address, Title, Contact, EmergencyTel, LastUpdated, KeyinID, FingerPintNo, BankAccout, Education, Marriage, Mobile, Salary, IsApplier FROM HR";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -23422,7 +23473,8 @@ namespace VoucherExpense.VEDataSetTableAdapters {
                     string Original_Education, 
                     string Original_Marriage, 
                     string Original_Mobile, 
-                    global::System.Nullable<int> Original_Salary) {
+                    global::System.Nullable<int> Original_Salary, 
+                    bool Original_IsApplier) {
             if ((Original_EmployeeID.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_EmployeeID.Value));
             }
@@ -23593,6 +23645,8 @@ namespace VoucherExpense.VEDataSetTableAdapters {
                 this.Adapter.DeleteCommand.Parameters[43].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[44].Value = global::System.DBNull.Value;
             }
+            this.Adapter.DeleteCommand.Parameters[45].Value = ((object)(0));
+            this.Adapter.DeleteCommand.Parameters[46].Value = ((bool)(Original_IsApplier));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -23637,7 +23691,8 @@ namespace VoucherExpense.VEDataSetTableAdapters {
                     string Education, 
                     string Marriage, 
                     string Mobile, 
-                    global::System.Nullable<int> Salary) {
+                    global::System.Nullable<int> Salary, 
+                    bool IsApplier) {
             if ((EmployeeID.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[0].Value = ((int)(EmployeeID.Value));
             }
@@ -23772,6 +23827,7 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             else {
                 this.Adapter.InsertCommand.Parameters[23].Value = global::System.DBNull.Value;
             }
+            this.Adapter.InsertCommand.Parameters[24].Value = ((bool)(IsApplier));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -23817,6 +23873,7 @@ namespace VoucherExpense.VEDataSetTableAdapters {
                     string Marriage, 
                     string Mobile, 
                     global::System.Nullable<int> Salary, 
+                    bool IsApplier, 
                     global::System.Nullable<int> Original_EmployeeID, 
                     string Original_EmployeeCode, 
                     string Original_EmployeeName, 
@@ -23839,7 +23896,8 @@ namespace VoucherExpense.VEDataSetTableAdapters {
                     string Original_Education, 
                     string Original_Marriage, 
                     string Original_Mobile, 
-                    global::System.Nullable<int> Original_Salary) {
+                    global::System.Nullable<int> Original_Salary, 
+                    bool Original_IsApplier) {
             if ((EmployeeID.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(EmployeeID.Value));
             }
@@ -23974,176 +24032,179 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             else {
                 this.Adapter.UpdateCommand.Parameters[23].Value = global::System.DBNull.Value;
             }
+            this.Adapter.UpdateCommand.Parameters[24].Value = ((bool)(IsApplier));
             if ((Original_EmployeeID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[24].Value = ((int)(Original_EmployeeID.Value));
+                this.Adapter.UpdateCommand.Parameters[25].Value = ((int)(Original_EmployeeID.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[24].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[25].Value = global::System.DBNull.Value;
             }
             if ((Original_EmployeeCode == null)) {
-                this.Adapter.UpdateCommand.Parameters[25].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[26].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[26].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[27].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[25].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[26].Value = ((string)(Original_EmployeeCode));
+                this.Adapter.UpdateCommand.Parameters[26].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[27].Value = ((string)(Original_EmployeeCode));
             }
             if ((Original_EmployeeName == null)) {
-                this.Adapter.UpdateCommand.Parameters[27].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[28].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[28].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[29].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[27].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[28].Value = ((string)(Original_EmployeeName));
+                this.Adapter.UpdateCommand.Parameters[28].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[29].Value = ((string)(Original_EmployeeName));
             }
             if ((Original_ApartmentID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[29].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[30].Value = ((int)(Original_ApartmentID.Value));
+                this.Adapter.UpdateCommand.Parameters[30].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[31].Value = ((int)(Original_ApartmentID.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[29].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[30].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[30].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[31].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[31].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[32].Value = ((bool)(Original_IsManager));
-            this.Adapter.UpdateCommand.Parameters[33].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[34].Value = ((bool)(Original_InPosition));
+            this.Adapter.UpdateCommand.Parameters[32].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[33].Value = ((bool)(Original_IsManager));
+            this.Adapter.UpdateCommand.Parameters[34].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[35].Value = ((bool)(Original_InPosition));
             if ((Original_IdNo == null)) {
-                this.Adapter.UpdateCommand.Parameters[35].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[36].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[36].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[37].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[35].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[36].Value = ((string)(Original_IdNo));
+                this.Adapter.UpdateCommand.Parameters[36].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[37].Value = ((string)(Original_IdNo));
             }
             if ((Original_Birthday.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[37].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[38].Value = ((System.DateTime)(Original_Birthday.Value));
+                this.Adapter.UpdateCommand.Parameters[38].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[39].Value = ((System.DateTime)(Original_Birthday.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[37].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[38].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[38].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[39].Value = global::System.DBNull.Value;
             }
             if ((Original_BloodType == null)) {
-                this.Adapter.UpdateCommand.Parameters[39].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[40].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[40].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[41].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[39].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[40].Value = ((string)(Original_BloodType));
+                this.Adapter.UpdateCommand.Parameters[40].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[41].Value = ((string)(Original_BloodType));
             }
             if ((Original_Telphone == null)) {
-                this.Adapter.UpdateCommand.Parameters[41].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[42].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[42].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[43].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[41].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[42].Value = ((string)(Original_Telphone));
+                this.Adapter.UpdateCommand.Parameters[42].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[43].Value = ((string)(Original_Telphone));
             }
             if ((Original_Gender == null)) {
-                this.Adapter.UpdateCommand.Parameters[43].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[44].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[44].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[45].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[43].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[44].Value = ((string)(Original_Gender));
+                this.Adapter.UpdateCommand.Parameters[44].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[45].Value = ((string)(Original_Gender));
             }
             if ((Original_Address == null)) {
-                this.Adapter.UpdateCommand.Parameters[45].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[46].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[46].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[47].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[45].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[46].Value = ((string)(Original_Address));
+                this.Adapter.UpdateCommand.Parameters[46].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[47].Value = ((string)(Original_Address));
             }
             if ((Original_Title == null)) {
-                this.Adapter.UpdateCommand.Parameters[47].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[48].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[48].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[49].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[47].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[48].Value = ((string)(Original_Title));
+                this.Adapter.UpdateCommand.Parameters[48].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[49].Value = ((string)(Original_Title));
             }
             if ((Original_Contact == null)) {
-                this.Adapter.UpdateCommand.Parameters[49].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[50].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[50].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[51].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[49].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[50].Value = ((string)(Original_Contact));
+                this.Adapter.UpdateCommand.Parameters[50].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[51].Value = ((string)(Original_Contact));
             }
             if ((Original_EmergencyTel == null)) {
-                this.Adapter.UpdateCommand.Parameters[51].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[52].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[52].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[53].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[51].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[52].Value = ((string)(Original_EmergencyTel));
+                this.Adapter.UpdateCommand.Parameters[52].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[53].Value = ((string)(Original_EmergencyTel));
             }
             if ((Original_LastUpdated.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[53].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[54].Value = ((System.DateTime)(Original_LastUpdated.Value));
+                this.Adapter.UpdateCommand.Parameters[54].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[55].Value = ((System.DateTime)(Original_LastUpdated.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[53].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[54].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[54].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[55].Value = global::System.DBNull.Value;
             }
             if ((Original_KeyinID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[55].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[56].Value = ((int)(Original_KeyinID.Value));
+                this.Adapter.UpdateCommand.Parameters[56].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[57].Value = ((int)(Original_KeyinID.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[55].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[56].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[56].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[57].Value = global::System.DBNull.Value;
             }
             if ((Original_FingerPintNo.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[57].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[58].Value = ((int)(Original_FingerPintNo.Value));
+                this.Adapter.UpdateCommand.Parameters[58].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[59].Value = ((int)(Original_FingerPintNo.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[57].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[58].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[58].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[59].Value = global::System.DBNull.Value;
             }
             if ((Original_BankAccout == null)) {
-                this.Adapter.UpdateCommand.Parameters[59].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[60].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[60].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[61].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[59].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[60].Value = ((string)(Original_BankAccout));
+                this.Adapter.UpdateCommand.Parameters[60].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[61].Value = ((string)(Original_BankAccout));
             }
             if ((Original_Education == null)) {
-                this.Adapter.UpdateCommand.Parameters[61].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[62].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[62].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[63].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[61].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[62].Value = ((string)(Original_Education));
+                this.Adapter.UpdateCommand.Parameters[62].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[63].Value = ((string)(Original_Education));
             }
             if ((Original_Marriage == null)) {
-                this.Adapter.UpdateCommand.Parameters[63].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[64].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[64].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[65].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[63].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[64].Value = ((string)(Original_Marriage));
+                this.Adapter.UpdateCommand.Parameters[64].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[65].Value = ((string)(Original_Marriage));
             }
             if ((Original_Mobile == null)) {
-                this.Adapter.UpdateCommand.Parameters[65].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[66].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[66].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[67].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[65].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[66].Value = ((string)(Original_Mobile));
+                this.Adapter.UpdateCommand.Parameters[66].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[67].Value = ((string)(Original_Mobile));
             }
             if ((Original_Salary.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[67].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[68].Value = ((int)(Original_Salary.Value));
+                this.Adapter.UpdateCommand.Parameters[68].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[69].Value = ((int)(Original_Salary.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[67].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[68].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[68].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[69].Value = global::System.DBNull.Value;
             }
+            this.Adapter.UpdateCommand.Parameters[70].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[71].Value = ((bool)(Original_IsApplier));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -24188,6 +24249,7 @@ namespace VoucherExpense.VEDataSetTableAdapters {
                     string Marriage, 
                     string Mobile, 
                     global::System.Nullable<int> Salary, 
+                    bool IsApplier, 
                     global::System.Nullable<int> Original_EmployeeID, 
                     string Original_EmployeeCode, 
                     string Original_EmployeeName, 
@@ -24210,8 +24272,9 @@ namespace VoucherExpense.VEDataSetTableAdapters {
                     string Original_Education, 
                     string Original_Marriage, 
                     string Original_Mobile, 
-                    global::System.Nullable<int> Original_Salary) {
-            return this.Update(Original_EmployeeID, EmployeeCode, EmployeeName, ApartmentID, IsManager, InPosition, IdNo, Birthday, BloodType, Telphone, Gender, Photo, Address, Title, Contact, EmergencyTel, LastUpdated, KeyinID, FingerPintNo, BankAccout, Education, Marriage, Mobile, Salary, Original_EmployeeID, Original_EmployeeCode, Original_EmployeeName, Original_ApartmentID, Original_IsManager, Original_InPosition, Original_IdNo, Original_Birthday, Original_BloodType, Original_Telphone, Original_Gender, Original_Address, Original_Title, Original_Contact, Original_EmergencyTel, Original_LastUpdated, Original_KeyinID, Original_FingerPintNo, Original_BankAccout, Original_Education, Original_Marriage, Original_Mobile, Original_Salary);
+                    global::System.Nullable<int> Original_Salary, 
+                    bool Original_IsApplier) {
+            return this.Update(Original_EmployeeID, EmployeeCode, EmployeeName, ApartmentID, IsManager, InPosition, IdNo, Birthday, BloodType, Telphone, Gender, Photo, Address, Title, Contact, EmergencyTel, LastUpdated, KeyinID, FingerPintNo, BankAccout, Education, Marriage, Mobile, Salary, IsApplier, Original_EmployeeID, Original_EmployeeCode, Original_EmployeeName, Original_ApartmentID, Original_IsManager, Original_InPosition, Original_IdNo, Original_Birthday, Original_BloodType, Original_Telphone, Original_Gender, Original_Address, Original_Title, Original_Contact, Original_EmergencyTel, Original_LastUpdated, Original_KeyinID, Original_FingerPintNo, Original_BankAccout, Original_Education, Original_Marriage, Original_Mobile, Original_Salary, Original_IsApplier);
         }
     }
     

@@ -339,6 +339,9 @@
     <Compile Include="FormTitleSetup.Designer.cs">
       <DependentUpon>FormTitleSetup.cs</DependentUpon>
     </Compile>
+    <Compile Include="Voucher_Print.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="LedgerTableGenerator.cs" />
     <Compile Include="ModifyPassword.cs">
       <SubType>Form</SubType>

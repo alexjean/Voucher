@@ -122,14 +122,6 @@ namespace VoucherExpense
  
     }
 
-    public class CSelectedVoucher
-    {
-        int id;
-        decimal cot;
-        public int     ID   { get { return id;  } set { id= value;   } }
-        public decimal Cost { get { return cot; } set { cot = value; } }
-        public CSelectedVoucher(int i, decimal d) { id = i; cot = d; }
-    }
 
     public class CMonthlyPay1
     {

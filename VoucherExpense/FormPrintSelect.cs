@@ -39,7 +39,7 @@ namespace VoucherExpense
             }
             dgViewUserSelected.DataSource = m_FormVoucher.m_SelectedVoucher;
             decimal sum = 0;
-            foreach (CSelectedVoucher v in m_FormVoucher.m_SelectedVoucher)
+            foreach (Voucher.CSelectedVoucher v in m_FormVoucher.m_SelectedVoucher)
                 sum += v.Cost;
             labelSum.Text = sum.ToString("f1");
             int count=this.m_FormVoucher.m_SelectedVoucher.Count;
@@ -76,7 +76,7 @@ namespace VoucherExpense
             }
             string msg="確定列出<";
             foreach(string name in names)  msg+=(name+" ");
-            msg+= ">本月供貨明細?(無憑証號及未核可單不會印出)";
+            msg+= ">本月供貨明細?(無憑証號單不會印出)";
             DialogResult result = MessageBox.Show(msg, "", MessageBoxButtons.OKCancel);
             if (result == DialogResult.OK)
             {
@@ -125,7 +125,7 @@ namespace VoucherExpense
 
         private void btnPrintUserSelected_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("確定印出選擇的" + labelCount.Text + "張供貨明細?", "", MessageBoxButtons.OKCancel);
+            DialogResult result = MessageBox.Show("確定印出選擇的" + labelCount.Text + "張供貨明細?(無憑証號單不會印出)", "", MessageBoxButtons.OKCancel);
             if (result == DialogResult.OK)
             {
                 m_FormVoucher.m_PrintSelectedVouchers = true;

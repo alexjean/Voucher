@@ -399,212 +399,7 @@ namespace VoucherExpense
             this.voucherDataGridView.Focus();
         }
 
-        public bool m_PrintSelectedVouchers = false;     // true 表示要列印所選的單子
-        public List<CSelectedVoucher> m_SelectedVoucher = null;
-        public List<int> m_SelectedVenderID = new List<int>();
-        public List<string> m_SelectedVenderName =new List<string>();
-        private int CompareVoucherID(CSelectedVoucher v1, CSelectedVoucher v2)
-        {
-            if (v1 == null)
-            {
-                if (v2 == null) return 0;
-                return -1;
-            }
-            if (v2 == null) return 1;
-            if (v1.ID > v2.ID) return 1;
-            if (v1.ID < v2.ID) return -1;
-            return 0;
-        }
-        private void 列印PToolStripButton_Click(object sender, EventArgs e)
-        {
-            m_SelectedVoucher = new List<CSelectedVoucher>();
-            Comparison<CSelectedVoucher> comparer = new Comparison<CSelectedVoucher>(CompareVoucherID);
-            foreach(DataGridViewRow row in voucherDataGridView.SelectedRows)
-            {
-//                CSelectedVoucher select = new CSelectedVoucher();
-                try
-                {
-                    //select.ID   = Convert.ToInt32(row.Cells["columnID"].FormattedValue);
-                    //select.Cost = Convert.ToDecimal(row.Cells["columnCost"].FormattedValue);
-                    DataRowView rowView = row.DataBoundItem as DataRowView;
-                    VEDataSet.VoucherRow dataRow = rowView.Row as VEDataSet.VoucherRow;
-                    if (dataRow.IsRemovedNull()) continue;  // 己移除的無法選入 
-                    if (dataRow.Removed)        continue;
-                    //if (dataRow.IsLockedNull()) continue;   // 未核可的
-                    //if (!dataRow.Locked)        continue;
-                    decimal cost = dataRow.IsCostNull()? 0m : dataRow.Cost;
-                    m_SelectedVoucher.Add(new CSelectedVoucher(dataRow.ID,cost));
-                }
-                catch(Exception ex)
-                {
-                    Trace.WriteLine("PrintVoucher:" + ex.Message);
-                }
-            }
-            m_SelectedVoucher.Sort(comparer);
-            m_PrintSelectedVouchers = false;
-            Form form = new FormPrintSelect(this);
-            if (form.ShowDialog() != DialogResult.OK) return;
-            if (m_PrintSelectedVouchers)   
-            {
-                MessageBox.Show("本功能施工中...");
-            }
-            else if (m_SelectedVenderID.Count> 0)
-                  printDocument.Print();
-        }
 
-//        int m_PrintIndex ;
-        Graphics m_Graphics = null;
-        Font m_Font = null;
-        Brush m_Brush = null;
-        private void printDocument_BeginPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
-        {
-//            m_PrintIndex = 1;
-            m_More = -1;
-
-        }
-
-        int printOneVender(int x, int y, int height, int month,int venderID,string venderName,ref int more,int lastItemHeight)
-        {
-            
-            string str = "       " + MyFunction.HeaderYear + "年 " + month.ToString() + "月           供應商: " + venderName;
-            const int CostOffset = 600;
-            const int IngredientOffset = 100;
-
-            m_Graphics.DrawString(str, m_Font, m_Brush, x, y);
-            y += height;
-            str = "憑証號    日";
-            m_Graphics.DrawString(str, m_Font, m_Brush, x, y);
-            str = "金額";
-            m_Graphics.DrawString(str, m_Font, m_Brush, x + CostOffset, y);
-            int count = 0;
-            decimal total = 0;
-            float w;
-            int lineCount = 0;
-            int mo=more;
-            bool NeedMore = false;
-            foreach (VEDataSet.VoucherRow row in vEDataSet.Voucher)
-            {
-                if (row.IsVendorIDNull()) continue;
-                if (row.VendorID != venderID) continue;
-                if (row.IsStockTimeNull()) continue;
-                if (row.StockTime.Month != month) continue;
-                if (row.StockTime.Year != MyFunction.IntHeaderYear) continue;
-                if (row.IsVoucherIDNull()) continue;
-                if (row.IsCostNull()) continue;
-                if (mo> 0)
-                {
-                    mo--;
-                    continue;
-                }
-                lineCount++;
-                if (y > lastItemHeight || lineCount > 35)
-                {
-                    more += lineCount;
-                    NeedMore = true;
-                    break;
-                }
-                y += height;
-                str = row.VoucherID.ToString();
-                m_Graphics.DrawString(str, m_Font, m_Brush, x, y);
-                str = row.StockTime.Day.ToString("d02");
-                m_Graphics.DrawString(str, m_Font, m_Brush, x + 88, y);
-                str = row.Cost.ToString("f1");
-                w = m_Graphics.MeasureString(str, m_Font).Width;
-                m_Graphics.DrawString(str, m_Font, m_Brush, x + CostOffset + 40 - w, y);
-                try
-                {
-                    VEDataSet.VoucherDetailRow[] dRows = row.GetVoucherDetailRows();
-                    str = "";
-                    count++;
-                    total += row.Cost;
-
-                    foreach (VEDataSet.VoucherDetailRow r in dRows)
-                    {
-
-                        if (r.IsVolumeNull()) continue;
-                        if (str.Length > 20)
-                        {
-                            str += "...";
-                            break;
-                        }
-                        string name = r.IngredientRow.Name.ToString();
-                        string vol = r.Volume.ToString();
-                        string cost = r.Cost.ToString("f1");
-                        if (name.Length > 8) name = name.Substring(8);
-                        str += ("  " + name + " " + vol + " (" + cost + ")");
-                        if (str.Length < 20)
-                            for (int k = str.Length; k < 20; k++)
-                                str += " ";
-                    }
-                }
-                catch { }
-                m_Graphics.DrawString(str, m_Font, m_Brush, x + IngredientOffset, y);
-
-            }
-            y += 2 * height;
-            str = "   共 " + count.ToString() + "張";
-            m_Graphics.DrawString(str, m_Font, m_Brush, x, y);
-            str = "小計 " + total.ToString("f1");
-            w = m_Graphics.MeasureString(str, m_Font).Width;
-            m_Graphics.DrawString(str, m_Font, m_Brush, x + CostOffset + 40 - w, y);
-            y += height;
-            m_Graphics.DrawLine(SystemPens.WindowText, x, y, x + CostOffset + 40, y);
-            if (!NeedMore) more = -1;
-            return y+height;
-        }
-
-        int m_More = -1;
-        private void printDocument_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
-        {
-            m_Graphics = e.Graphics;
-            m_Font = new Font("細明體", 12.0f);
-            m_Brush = SystemBrushes.WindowText; 
-            
-            PageSettings settings = e.PageSettings;
-            Rectangle inner = e.MarginBounds;
-            Rectangle outter = e.PageBounds;
-
-            e.HasMorePages = false;
-            int x = inner.Left;
-            int y = inner.Top;
-            int height = inner.Height / 40;
-            int month=comboBoxMonth.SelectedIndex;
-            if (m_SelectedVenderID.Count > 0)
-                while(m_SelectedVenderID.Count>0)
-                {
-                    int venderID = m_SelectedVenderID[0];
-                    int more=m_More;
-                    y=printOneVender(x, y, height, month, venderID, m_SelectedVenderName[0],ref more,inner.Bottom-5*height);
-                    if (more != -1)
-                    {
-                        e.HasMorePages = true;
-                        m_More = more;
-                        break;
-                    }
-                    m_SelectedVenderName.RemoveAt(0);
-                    m_SelectedVenderID.RemoveAt(0);
-                }
-            m_Graphics.DrawString("收到以上單據無誤    接收人:", m_Font, m_Brush, x, inner.Bottom - height);
-        }
-
-        private void voucherDataGridView_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
-        {
-            DataGridView view = (DataGridView)sender;
-            DataGridViewRow row = view.Rows[e.RowIndex];
-            DataGridViewCell cell = row.Cells["columnRemoved"];
-            if (cell.ValueType != typeof(bool)) return;    // 不應該
-            bool removed = false;
-            if (cell.Value != null && cell.Value != DBNull.Value)
-                removed = (bool)cell.Value;
-            Color color;
-            if (removed)
-                color = Color.DarkCyan;
-            else if ((e.RowIndex % 2) != 0)
-                color = Color.Azure;
-            else
-                color = Color.White;
-            row.DefaultCellStyle.BackColor = color;
-        }
 
         private void ckBoxAllowEdit_CheckedChanged(object sender, EventArgs e)
         {
@@ -854,7 +649,6 @@ namespace VoucherExpense
         Error:
             cell.Value = false;
             row.Selected = true;
-          
         }
 
         private void voucherDetailDataGridView_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
@@ -864,7 +658,24 @@ namespace VoucherExpense
             cellID.Value = Guid.NewGuid();
         }
 
-  
+        private void voucherDataGridView_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+            DataGridView view = (DataGridView)sender;
+            DataGridViewRow row = view.Rows[e.RowIndex];
+            DataGridViewCell cell = row.Cells["columnRemoved"];
+            if (cell.ValueType != typeof(bool)) return;    // 不應該
+            bool removed = false;
+            if (cell.Value != null && cell.Value != DBNull.Value)
+                removed = (bool)cell.Value;
+            Color color;
+            if (removed)
+                color = Color.DarkCyan;
+            else if ((e.RowIndex % 2) != 0)
+                color = Color.Azure;
+            else
+                color = Color.White;
+            row.DefaultCellStyle.BackColor = color;
+        }
   
     }
 }

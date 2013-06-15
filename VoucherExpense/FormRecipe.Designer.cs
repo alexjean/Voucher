@@ -37,6 +37,8 @@
             System.Windows.Forms.Label label3;
             System.Windows.Forms.Label label4;
             System.Windows.Forms.Label label5;
+            System.Windows.Forms.Label label6;
+            System.Windows.Forms.Label label7;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormRecipe));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -78,6 +80,7 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.textBoxFloatCost = new System.Windows.Forms.TextBox();
             this.btnUpdateEvaluatedCost = new System.Windows.Forms.Button();
+            this.bakedNoTextBox = new System.Windows.Forms.TextBox();
             finalProductIDLabel = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
             recipeNameLabel = new System.Windows.Forms.Label();
@@ -86,6 +89,8 @@
             label3 = new System.Windows.Forms.Label();
             label4 = new System.Windows.Forms.Label();
             label5 = new System.Windows.Forms.Label();
+            label6 = new System.Windows.Forms.Label();
+            label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.recipeBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.recipeBindingNavigator)).BeginInit();
@@ -112,7 +117,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(162, 325);
+            label1.Location = new System.Drawing.Point(788, 372);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(56, 16);
             label1.TabIndex = 11;
@@ -130,7 +135,7 @@
             // packageNoLabel
             // 
             packageNoLabel.AutoSize = true;
-            packageNoLabel.Location = new System.Drawing.Point(352, 325);
+            packageNoLabel.Location = new System.Drawing.Point(356, 372);
             packageNoLabel.Name = "packageNoLabel";
             packageNoLabel.Size = new System.Drawing.Size(72, 16);
             packageNoLabel.TabIndex = 14;
@@ -139,7 +144,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(478, 325);
+            label2.Location = new System.Drawing.Point(482, 372);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(24, 16);
             label2.TabIndex = 23;
@@ -148,7 +153,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(160, 294);
+            label3.Location = new System.Drawing.Point(161, 342);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(72, 16);
             label3.TabIndex = 24;
@@ -157,7 +162,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new System.Drawing.Point(310, 324);
+            label4.Location = new System.Drawing.Point(936, 371);
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(24, 16);
             label4.TabIndex = 26;
@@ -166,11 +171,29 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new System.Drawing.Point(310, 294);
+            label5.Location = new System.Drawing.Point(311, 342);
             label5.Name = "label5";
             label5.Size = new System.Drawing.Size(24, 16);
             label5.TabIndex = 27;
             label5.Text = "元";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new System.Drawing.Point(356, 342);
+            label6.Name = "label6";
+            label6.Size = new System.Drawing.Size(72, 16);
+            label6.TabIndex = 29;
+            label6.Text = "烘成數量";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new System.Drawing.Point(482, 342);
+            label7.Name = "label7";
+            label7.Size = new System.Drawing.Size(24, 16);
+            label7.TabIndex = 31;
+            label7.Text = "個";
             // 
             // vEDataSet
             // 
@@ -324,7 +347,7 @@
             this.dgvRecipeDetail.Name = "dgvRecipeDetail";
             this.dgvRecipeDetail.RowHeadersWidth = 25;
             this.dgvRecipeDetail.RowTemplate.Height = 24;
-            this.dgvRecipeDetail.Size = new System.Drawing.Size(405, 345);
+            this.dgvRecipeDetail.Size = new System.Drawing.Size(405, 360);
             this.dgvRecipeDetail.TabIndex = 10;
             this.dgvRecipeDetail.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRecipeDetail_CellValueChanged);
             this.dgvRecipeDetail.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvRecipeDetail_DataError);
@@ -387,7 +410,7 @@
             // textBoxIngredientWeight
             // 
             this.textBoxIngredientWeight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.textBoxIngredientWeight.Location = new System.Drawing.Point(229, 320);
+            this.textBoxIngredientWeight.Location = new System.Drawing.Point(855, 367);
             this.textBoxIngredientWeight.Name = "textBoxIngredientWeight";
             this.textBoxIngredientWeight.Size = new System.Drawing.Size(73, 27);
             this.textBoxIngredientWeight.TabIndex = 12;
@@ -396,7 +419,7 @@
             // pictureBoxRecipe
             // 
             this.pictureBoxRecipe.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBoxRecipe.Location = new System.Drawing.Point(161, 28);
+            this.pictureBoxRecipe.Location = new System.Drawing.Point(161, 69);
             this.pictureBoxRecipe.Name = "pictureBoxRecipe";
             this.pictureBoxRecipe.Size = new System.Drawing.Size(384, 256);
             this.pictureBoxRecipe.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -415,7 +438,7 @@
             // packageNoTextBox
             // 
             this.packageNoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.recipeBindingSource, "PackageNo", true));
-            this.packageNoTextBox.Location = new System.Drawing.Point(428, 320);
+            this.packageNoTextBox.Location = new System.Drawing.Point(432, 367);
             this.packageNoTextBox.Name = "packageNoTextBox";
             this.packageNoTextBox.Size = new System.Drawing.Size(46, 27);
             this.packageNoTextBox.TabIndex = 15;
@@ -442,17 +465,17 @@
             this.richTextBoxInstruction1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.richTextBoxInstruction1.DataBindings.Add(new System.Windows.Forms.Binding("Rtf", this.recipeBindingSource, "Instruction1", true));
-            this.richTextBoxInstruction1.Location = new System.Drawing.Point(161, 363);
+            this.richTextBoxInstruction1.Location = new System.Drawing.Point(161, 399);
             this.richTextBoxInstruction1.MaxLength = 32767;
             this.richTextBoxInstruction1.Name = "richTextBoxInstruction1";
-            this.richTextBoxInstruction1.Size = new System.Drawing.Size(388, 312);
+            this.richTextBoxInstruction1.Size = new System.Drawing.Size(388, 276);
             this.richTextBoxInstruction1.TabIndex = 17;
             this.richTextBoxInstruction1.Text = "";
             // 
             // btnRed
             // 
             this.btnRed.BackColor = System.Drawing.Color.Red;
-            this.btnRed.Location = new System.Drawing.Point(518, 291);
+            this.btnRed.Location = new System.Drawing.Point(623, 371);
             this.btnRed.Name = "btnRed";
             this.btnRed.Size = new System.Drawing.Size(28, 23);
             this.btnRed.TabIndex = 19;
@@ -462,7 +485,7 @@
             // btnBlue
             // 
             this.btnBlue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.btnBlue.Location = new System.Drawing.Point(484, 291);
+            this.btnBlue.Location = new System.Drawing.Point(589, 371);
             this.btnBlue.Name = "btnBlue";
             this.btnBlue.Size = new System.Drawing.Size(28, 23);
             this.btnBlue.TabIndex = 20;
@@ -475,17 +498,17 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBoxInstruction2.DataBindings.Add(new System.Windows.Forms.Binding("Rtf", this.recipeBindingSource, "Instruction2", true));
-            this.richTextBoxInstruction2.Location = new System.Drawing.Point(555, 363);
+            this.richTextBoxInstruction2.Location = new System.Drawing.Point(555, 399);
             this.richTextBoxInstruction2.MaxLength = 32767;
             this.richTextBoxInstruction2.Name = "richTextBoxInstruction2";
-            this.richTextBoxInstruction2.Size = new System.Drawing.Size(405, 312);
+            this.richTextBoxInstruction2.Size = new System.Drawing.Size(405, 276);
             this.richTextBoxInstruction2.TabIndex = 21;
             this.richTextBoxInstruction2.Text = "";
             // 
             // btnBlack
             // 
             this.btnBlack.BackColor = System.Drawing.Color.Black;
-            this.btnBlack.Location = new System.Drawing.Point(518, 324);
+            this.btnBlack.Location = new System.Drawing.Point(555, 371);
             this.btnBlack.Name = "btnBlack";
             this.btnBlack.Size = new System.Drawing.Size(28, 23);
             this.btnBlack.TabIndex = 22;
@@ -507,7 +530,7 @@
             // textBoxFloatCost
             // 
             this.textBoxFloatCost.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.textBoxFloatCost.Location = new System.Drawing.Point(229, 289);
+            this.textBoxFloatCost.Location = new System.Drawing.Point(230, 337);
             this.textBoxFloatCost.Name = "textBoxFloatCost";
             this.textBoxFloatCost.Size = new System.Drawing.Size(75, 27);
             this.textBoxFloatCost.TabIndex = 25;
@@ -515,13 +538,22 @@
             // 
             // btnUpdateEvaluatedCost
             // 
-            this.btnUpdateEvaluatedCost.Location = new System.Drawing.Point(355, 289);
+            this.btnUpdateEvaluatedCost.Location = new System.Drawing.Point(164, 369);
             this.btnUpdateEvaluatedCost.Name = "btnUpdateEvaluatedCost";
-            this.btnUpdateEvaluatedCost.Size = new System.Drawing.Size(119, 27);
+            this.btnUpdateEvaluatedCost.Size = new System.Drawing.Size(171, 27);
             this.btnUpdateEvaluatedCost.TabIndex = 28;
-            this.btnUpdateEvaluatedCost.Text = "估算成本";
+            this.btnUpdateEvaluatedCost.Text = "更新 產品 估算成本";
             this.btnUpdateEvaluatedCost.UseVisualStyleBackColor = true;
             this.btnUpdateEvaluatedCost.Click += new System.EventHandler(this.btnUpdateEvaluatedCost_Click);
+            // 
+            // bakedNoTextBox
+            // 
+            this.bakedNoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.recipeBindingSource, "BakedNo", true));
+            this.bakedNoTextBox.Location = new System.Drawing.Point(432, 337);
+            this.bakedNoTextBox.Name = "bakedNoTextBox";
+            this.bakedNoTextBox.Size = new System.Drawing.Size(46, 27);
+            this.bakedNoTextBox.TabIndex = 30;
+            this.bakedNoTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // FormRecipe
             // 
@@ -529,6 +561,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(963, 680);
+            this.Controls.Add(label7);
+            this.Controls.Add(this.bakedNoTextBox);
+            this.Controls.Add(label6);
             this.Controls.Add(this.recipeNameTextBox);
             this.Controls.Add(this.btnUpdateEvaluatedCost);
             this.Controls.Add(label5);
@@ -618,5 +653,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnWeight;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvColumnID;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvColumnName;
+        private System.Windows.Forms.TextBox bakedNoTextBox;
     }
 }

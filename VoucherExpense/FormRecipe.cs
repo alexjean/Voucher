@@ -280,7 +280,7 @@ namespace VoucherExpense
             {
                 Bitmap img = (Bitmap)(Bitmap.FromFile(openFileDialog1.FileName));
                 Bitmap thumbNail = MyFunction.GetThumbnail(img, 256);
-                thumbNail.Save(path);
+                thumbNail.Save(path,System.Drawing.Imaging.ImageFormat.Jpeg);
                 pictureBoxRecipe.ImageLocation = path;
             }
             catch (Exception ex)

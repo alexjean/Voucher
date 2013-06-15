@@ -272,8 +272,18 @@ namespace VoucherExpense
             }
             string path = CurrentPhotoPath();
             if (path == null) return;
-            File.Copy(openFileDialog1.FileName, path, true);
-            photoPictureBox.ImageLocation = path;
+//            File.Copy(openFileDialog1.FileName, path, true);
+            try
+            {
+                Bitmap img = (Bitmap)(Bitmap.FromFile(openFileDialog1.FileName));
+                Bitmap shrinked = MyFunction.ShrinkBitmap(img, 1280, 1024);    // 考量POS机螢幕,所以縮至1280*1024
+                shrinked.Save(path, System.Drawing.Imaging.ImageFormat.Jpeg);
+                photoPictureBox.ImageLocation = path;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("存圖形<" + path.ToString() + ">時出錯!原因:" + ex.Message);
+            }
         }
 
         private void photoPictureBox_MouseClick(object sender, MouseEventArgs e)

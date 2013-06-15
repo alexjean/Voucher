@@ -485,6 +485,29 @@ namespace VoucherExpense
             g.DrawImage(img, new Rectangle(0, 0, x1, y1), new Rectangle(0, 0, img.Width, img.Height), GraphicsUnit.Pixel);
             g.Dispose();
             return newbmp;
+        }
+
+        static public Bitmap ShrinkBitmap(Bitmap img, int newWidth,int newHeight)
+        {
+            int x = img.Size.Width;
+            int y = img.Size.Height;
+            if (y<=0 || x<=0) return img;
+            if (x <= newWidth && y <= newHeight) return img; // 原圖己經比較小了,不放大
+            int y1 = newHeight;    
+            int x1 = x * y1 / y;
+            if (x1 > newWidth)   // 太寬,縮高度
+            {
+                x1 = newWidth;
+                y1 = y * x1 / x;
+            }
+            Bitmap newbmp = new Bitmap(x1, y1);
+            Graphics g = Graphics.FromImage(newbmp);
+            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            g.SmoothingMode = SmoothingMode.HighQuality;
+            g.CompositingQuality = CompositingQuality.HighQuality;
+            g.DrawImage(img, new Rectangle(0, 0, x1, y1), new Rectangle(0, 0, img.Width, img.Height), GraphicsUnit.Pixel);
+            g.Dispose();
+            return newbmp;
 
         }
 

@@ -275,8 +275,18 @@ namespace VoucherExpense
                 MessageBox.Show("對不起!只接受jpg檔");
                 return;
             }
-            File.Copy(openFileDialog1.FileName, path, true);
-            pictureBoxRecipe.ImageLocation = path;
+            //            File.Copy(openFileDialog1.FileName, path, true);
+            try
+            {
+                Bitmap img = (Bitmap)(Bitmap.FromFile(openFileDialog1.FileName));
+                Bitmap thumbNail = MyFunction.GetThumbnail(img, 256);
+                thumbNail.Save(path);
+                pictureBoxRecipe.ImageLocation = path;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("存圖形<"+path.ToString()+">時出錯!原因:" + ex.Message);
+            }
         }
 
         private int m_ColumnWeightIndex = -1;

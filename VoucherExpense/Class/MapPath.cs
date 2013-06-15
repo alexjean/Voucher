@@ -19,6 +19,8 @@ namespace VoucherExpense
         static public string VoucherPass = "CalcVoucher";
         static public string BasicPass  = "love";
         static public string BakeryPass = "love";
+        static private string _dataDir = "";     // 有資料時尾巴帶 \
+        static public string DataDir { get { return _dataDir; } }
         static public string ConnectString(string path, string password)
         {
             return HeadStr + path + TailStr + password; 
@@ -112,12 +114,14 @@ namespace VoucherExpense
                 if (MessageBox.Show("無法連線 "+m_Cfg.MaskDataDir()+" 上的資料庫\r\n原因<" + SystemErrorMessage.Get((uint)result) + ">\r\n 無視錯誤使用本地資料繼續執行, 按Yes!", "", MessageBoxButtons.YesNo) != DialogResult.Yes)
                     Application.Exit();
                 m_Cfg.IsServer = true;
+                _dataDir = "";
             }
             else
             {
                 timer1.Stop();
                 progressBar1.Visible = false;
-                
+
+                _dataDir = m_Cfg.DataDir + "\\";
                 MapPath.SetVEConnectionString    (m_Cfg.DataDir + "\\" + "VoucherExpense.mdb", VoucherPass + "888");
                 MapPath.SetBasicConnectionString (m_Cfg.DataDir + "\\" + "BasicData.mdb"     , BasicPass   + "you");
                 MapPath.SetBakeryConnectionString(m_Cfg.DataDir + "\\" + "BakeryOrder.mdb"   , BasicPass   + "Bakery");

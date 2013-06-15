@@ -132,7 +132,7 @@ namespace VoucherExpense
                 MessageBox.Show("目的和來源檔案相同! 無法更新");
                 return false;
             }
-            string OldDesktop = "ManageOld.exe";
+            string OldDesktop = "Manage_exe.old";
             string filePath = Path.GetDirectoryName(Application.ExecutablePath).ToLower();
             string destPath = filePath + "\\" + newExeName;
             try

@@ -357,8 +357,8 @@ namespace VoucherExpense
             try
             {
                 Bitmap img = (Bitmap)(Bitmap.FromFile(openFileDialog1.FileName));
-                Bitmap shrinked = MyFunction.ShrinkBitmap(img, 1280,1024);    // 考量POS机螢幕,所以縮至1280*1024
-                shrinked.Save(path,System.Drawing.Imaging.ImageFormat.Jpeg);
+                Bitmap shrank = MyFunction.ShrinkBitmap(img, 1280,1024);    // 考量POS机螢幕,所以縮至1280*1024
+                shrank.Save(path,System.Drawing.Imaging.ImageFormat.Jpeg);
                 photoPictureBox.ImageLocation = path;
             }
             catch (Exception ex)

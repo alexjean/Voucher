@@ -228,7 +228,7 @@ namespace VoucherExpense
         bool m_DirChecked = false;
         string CurrentPhotoPath()
         {
-            string RecipePhotoPath = "Photos\\Recipes\\";
+            string RecipePhotoPath = MapPath.DataDir+"Photos\\Recipes\\";
             DataRowView rowView = this.recipeBindingSource.Current as DataRowView;
             if (rowView == null) return null;
             var row = rowView.Row as VEDataSet.RecipeRow;

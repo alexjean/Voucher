@@ -419,7 +419,7 @@
             // pictureBoxRecipe
             // 
             this.pictureBoxRecipe.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBoxRecipe.Location = new System.Drawing.Point(161, 69);
+            this.pictureBoxRecipe.Location = new System.Drawing.Point(162, 32);
             this.pictureBoxRecipe.Name = "pictureBoxRecipe";
             this.pictureBoxRecipe.Size = new System.Drawing.Size(384, 256);
             this.pictureBoxRecipe.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -532,6 +532,7 @@
             this.textBoxFloatCost.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.textBoxFloatCost.Location = new System.Drawing.Point(230, 337);
             this.textBoxFloatCost.Name = "textBoxFloatCost";
+            this.textBoxFloatCost.ReadOnly = true;
             this.textBoxFloatCost.Size = new System.Drawing.Size(75, 27);
             this.textBoxFloatCost.TabIndex = 25;
             this.textBoxFloatCost.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;

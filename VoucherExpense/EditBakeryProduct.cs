@@ -9,7 +9,6 @@ using System.IO;
 using System.Linq;
 
 namespace VoucherExpense
-
 {
     public partial class EditBakeryProduct : Form
     {
@@ -139,15 +138,59 @@ namespace VoucherExpense
         {
             TextBox box = (TextBox)sender;
             double price = 0;
+            try{
+                price = Convert.ToDouble(box.Text);
+            }
+            catch{
+                MessageBox.Show("價格必需是數字!");
+                e.Cancel = true;
+                return;
+            }
+            CalcGrossProfit(price, double.NaN);
+        }
+
+        private void CalcGrossProfit(double price, double cost)
+        {
+            if (double.NaN.Equals(cost))
+            {
+                try
+                {
+                    cost = Convert.ToDouble(evaluatedCostTextBox.Text);
+                }
+                catch { cost = 0; }
+            }
+            if (double.NaN.Equals(price))
+            {
+                try
+                {
+                    price = Convert.ToDouble(priceTextBox.Text);
+                }
+                catch { price = 0; }
+            }
+
+            double gross = price - cost;
+            grossTextBox.Text = gross.ToString("f2");
+            if (price != 0)
+                grossPercentTextBox.Text = ((gross / price) * 100).ToString("f1")+"%";
+            else
+                grossPercentTextBox.Text = "--.-%";
+        }
+
+        private void evaluatedCostTextBox_Validating(object sender, CancelEventArgs e)
+        {
+            TextBox box = (TextBox)sender;
+            double cost = 0;
             try
             {
-                price = Convert.ToDouble(box.Text);
+                cost = Convert.ToDouble(box.Text);
             }
             catch
             {
-                MessageBox.Show("價格必需是數字!");
+                MessageBox.Show("成本必需是數字!");
                 e.Cancel = true;
+                return;
             }
+            CalcGrossProfit(double.NaN, cost);
         }
 
         private void 儲存SToolStripButton_Click(object sender, EventArgs e)
@@ -277,6 +320,8 @@ namespace VoucherExpense
 
         private void productBindingSource_CurrentChanged(object sender, EventArgs e)
         {
+            CalcGrossProfit(double.NaN, double.NaN);
+
             if (!photoPictureBox.Visible) return;
             if (photoPictureBox.Location.X == 0)
             {
@@ -288,7 +333,6 @@ namespace VoucherExpense
                 photoPictureBox.ImageLocation = path;
             else
                 photoPictureBox.ImageLocation = null;
-
         }
 
         private void SavePicture()
@@ -312,5 +356,8 @@ namespace VoucherExpense
             File.Copy(openFileDialog1.FileName, path, true);
             photoPictureBox.ImageLocation = path;
         }
+
+
+  
     }
 }

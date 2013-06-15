@@ -37,11 +37,12 @@
             System.Windows.Forms.Label menuYLabel;
             System.Windows.Forms.Label unitLabel;
             System.Windows.Forms.Label evaluatedCostLabel;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.Label label1;
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditBakeryProduct));
             this.productIDTextBox = new System.Windows.Forms.TextBox();
             this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -84,6 +85,8 @@
             this.evaluatedCostTextBox = new System.Windows.Forms.TextBox();
             this.photoPictureBox = new System.Windows.Forms.PictureBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.grossTextBox = new System.Windows.Forms.TextBox();
+            this.grossPercentTextBox = new System.Windows.Forms.TextBox();
             codeLabel = new System.Windows.Forms.Label();
             classLabel = new System.Windows.Forms.Label();
             nameLabel = new System.Windows.Forms.Label();
@@ -92,6 +95,7 @@
             menuYLabel = new System.Windows.Forms.Label();
             unitLabel = new System.Windows.Forms.Label();
             evaluatedCostLabel = new System.Windows.Forms.Label();
+            label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -178,6 +182,16 @@
             evaluatedCostLabel.TabIndex = 20;
             evaluatedCostLabel.Text = "估算成本";
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(854, 191);
+            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(40, 16);
+            label1.TabIndex = 23;
+            label1.Text = "毛利";
+            // 
             // productIDTextBox
             // 
             this.productIDTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
@@ -225,8 +239,9 @@
             this.priceTextBox.Location = new System.Drawing.Point(728, 185);
             this.priceTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.priceTextBox.Name = "priceTextBox";
-            this.priceTextBox.Size = new System.Drawing.Size(148, 27);
+            this.priceTextBox.Size = new System.Drawing.Size(80, 27);
             this.priceTextBox.TabIndex = 10;
+            this.priceTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.priceTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.priceTextBox_Validating);
             // 
             // menuXTextBox
@@ -263,8 +278,8 @@
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle26.BackColor = System.Drawing.Color.Azure;
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle26;
             this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.SeaShell;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -325,8 +340,8 @@
             // priceDataGridViewTextBoxColumn
             // 
             this.priceDataGridViewTextBoxColumn.DataPropertyName = "Price";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.priceDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.priceDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle27;
             this.priceDataGridViewTextBoxColumn.HeaderText = "價格";
             this.priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
             this.priceDataGridViewTextBoxColumn.ReadOnly = true;
@@ -343,10 +358,10 @@
             // EvaluatedCost
             // 
             this.EvaluatedCost.DataPropertyName = "EvaluatedCost";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "N2";
-            dataGridViewCellStyle3.NullValue = null;
-            this.EvaluatedCost.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle28.Format = "N2";
+            dataGridViewCellStyle28.NullValue = null;
+            this.EvaluatedCost.DefaultCellStyle = dataGridViewCellStyle28;
             this.EvaluatedCost.HeaderText = "成本";
             this.EvaluatedCost.Name = "EvaluatedCost";
             this.EvaluatedCost.ReadOnly = true;
@@ -355,8 +370,8 @@
             // menuXDataGridViewTextBoxColumn
             // 
             this.menuXDataGridViewTextBoxColumn.DataPropertyName = "MenuX";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.menuXDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.menuXDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle29;
             this.menuXDataGridViewTextBoxColumn.HeaderText = "X";
             this.menuXDataGridViewTextBoxColumn.Name = "menuXDataGridViewTextBoxColumn";
             this.menuXDataGridViewTextBoxColumn.ReadOnly = true;
@@ -365,8 +380,8 @@
             // menuYDataGridViewTextBoxColumn
             // 
             this.menuYDataGridViewTextBoxColumn.DataPropertyName = "MenuY";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.menuYDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.menuYDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle30;
             this.menuYDataGridViewTextBoxColumn.HeaderText = "Y";
             this.menuYDataGridViewTextBoxColumn.Name = "menuYDataGridViewTextBoxColumn";
             this.menuYDataGridViewTextBoxColumn.ReadOnly = true;
@@ -523,7 +538,7 @@
             this.unitTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productBindingSource, "Unit", true));
             this.unitTextBox.Location = new System.Drawing.Point(728, 257);
             this.unitTextBox.Name = "unitTextBox";
-            this.unitTextBox.Size = new System.Drawing.Size(148, 27);
+            this.unitTextBox.Size = new System.Drawing.Size(80, 27);
             this.unitTextBox.TabIndex = 20;
             // 
             // orderItemTableAdapter
@@ -551,8 +566,10 @@
             this.evaluatedCostTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productBindingSource, "EvaluatedCost", true));
             this.evaluatedCostTextBox.Location = new System.Drawing.Point(728, 221);
             this.evaluatedCostTextBox.Name = "evaluatedCostTextBox";
-            this.evaluatedCostTextBox.Size = new System.Drawing.Size(148, 27);
+            this.evaluatedCostTextBox.Size = new System.Drawing.Size(80, 27);
             this.evaluatedCostTextBox.TabIndex = 21;
+            this.evaluatedCostTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.evaluatedCostTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.evaluatedCostTextBox_Validating);
             // 
             // photoPictureBox
             // 
@@ -570,6 +587,24 @@
             // 
             this.openFileDialog1.DefaultExt = "jpg";
             // 
+            // grossTextBox
+            // 
+            this.grossTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.grossTextBox.Location = new System.Drawing.Point(814, 221);
+            this.grossTextBox.Name = "grossTextBox";
+            this.grossTextBox.Size = new System.Drawing.Size(80, 27);
+            this.grossTextBox.TabIndex = 24;
+            this.grossTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // grossPercentTextBox
+            // 
+            this.grossPercentTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.grossPercentTextBox.Location = new System.Drawing.Point(814, 256);
+            this.grossPercentTextBox.Name = "grossPercentTextBox";
+            this.grossPercentTextBox.Size = new System.Drawing.Size(80, 27);
+            this.grossPercentTextBox.TabIndex = 25;
+            this.grossPercentTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // EditBakeryProduct
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -577,6 +612,9 @@
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(943, 629);
+            this.Controls.Add(this.grossPercentTextBox);
+            this.Controls.Add(this.grossTextBox);
+            this.Controls.Add(label1);
             this.Controls.Add(this.photoPictureBox);
             this.Controls.Add(evaluatedCostLabel);
             this.Controls.Add(this.evaluatedCostTextBox);
@@ -658,5 +696,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn EvaluatedCost;
         private System.Windows.Forms.DataGridViewTextBoxColumn menuXDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn menuYDataGridViewTextBoxColumn;
+        private System.Windows.Forms.TextBox grossTextBox;
+        private System.Windows.Forms.TextBox grossPercentTextBox;
     }
 }

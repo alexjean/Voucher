@@ -12,11 +12,13 @@ namespace VoucherExpense
     public partial class FormRecipePriceUpdate : Form
     {
         decimal m_PackageNo = 1;
+        decimal m_BakedNo = 1;
         VEDataSet.RecipeDetailRow[] m_Details;
         VEDataSet m_vEDataSet;
-        public FormRecipePriceUpdate(decimal packageNo,VEDataSet.RecipeDetailRow[] details, VEDataSet vEDataSet)
+        public FormRecipePriceUpdate(decimal packageNo,decimal bakedNo,VEDataSet.RecipeDetailRow[] details, VEDataSet vEDataSet)
         {
             m_PackageNo = packageNo;
+            m_BakedNo = bakedNo;
             m_Details = details;
             m_vEDataSet=vEDataSet;
             InitializeComponent();
@@ -44,10 +46,10 @@ namespace VoucherExpense
             dgvShow.Rows.Add(row);
         }
 
-        private decimal CalcCost(decimal packageNo,VEDataSet.RecipeDetailRow[] details, List<int> usedRecipes,bool show)  // usedRecipes填入己使用的配方,避免Recursive
+        private decimal CalcCost(decimal ratio,VEDataSet.RecipeDetailRow[] details, List<int> usedRecipes,bool show)  // usedRecipes填入己使用的配方,避免Recursive
         {
             decimal cost = 0m;
-            if (packageNo <= 0) packageNo = 1;
+            if (ratio <= 0) ratio = 1;
             // 去找DataTable,最後新增那行還是DataRowState.Detached, 會少加一行
             decimal totalWeight = 0m;
             foreach (var d in details)
@@ -123,15 +125,15 @@ namespace VoucherExpense
             }
             dgvShow.Columns["ColumnWeight"].HeaderText = "總重 "+totalWeight.ToString()+"克";
             dgvShow.Columns["ColumnCost"].HeaderText = "成本 " + cost.ToString("N2") + "元";
-            return cost*packageNo;
+            return cost*ratio;
         }
 
 
         private void FormRecipePriceUpdate_Shown(object sender, EventArgs e)
         {
-            decimal cost=CalcCost(m_PackageNo,m_Details, usedRecipes: new List<int>(),show:true);
+            decimal cost=CalcCost(m_PackageNo/m_BakedNo,m_Details, usedRecipes: new List<int>(),show:true);
             labelCost.Text = cost.ToString("N2");
-            labelPackageNo.Text = "包裝 " + m_PackageNo.ToString()+"个";
+            labelPackageNo.Text = "烘成 "+m_BakedNo.ToString()+"个,每袋 " + m_PackageNo.ToString()+"个";
             Tag = cost;
         }
 

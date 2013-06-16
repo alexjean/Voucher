@@ -396,11 +396,12 @@
             // 
             this.ColumnWeight.DataPropertyName = "Weight";
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "N2";
+            dataGridViewCellStyle2.Format = "N1";
             dataGridViewCellStyle2.NullValue = null;
             this.ColumnWeight.DefaultCellStyle = dataGridViewCellStyle2;
             this.ColumnWeight.HeaderText = "重量-克";
             this.ColumnWeight.Name = "ColumnWeight";
+            this.ColumnWeight.Width = 92;
             // 
             // recipeRecipeDetailBindingSource
             // 
@@ -475,7 +476,7 @@
             // btnRed
             // 
             this.btnRed.BackColor = System.Drawing.Color.Red;
-            this.btnRed.Location = new System.Drawing.Point(623, 371);
+            this.btnRed.Location = new System.Drawing.Point(623, 370);
             this.btnRed.Name = "btnRed";
             this.btnRed.Size = new System.Drawing.Size(28, 23);
             this.btnRed.TabIndex = 19;
@@ -485,7 +486,7 @@
             // btnBlue
             // 
             this.btnBlue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.btnBlue.Location = new System.Drawing.Point(589, 371);
+            this.btnBlue.Location = new System.Drawing.Point(589, 370);
             this.btnBlue.Name = "btnBlue";
             this.btnBlue.Size = new System.Drawing.Size(28, 23);
             this.btnBlue.TabIndex = 20;
@@ -508,7 +509,7 @@
             // btnBlack
             // 
             this.btnBlack.BackColor = System.Drawing.Color.Black;
-            this.btnBlack.Location = new System.Drawing.Point(555, 371);
+            this.btnBlack.Location = new System.Drawing.Point(555, 370);
             this.btnBlack.Name = "btnBlack";
             this.btnBlack.Size = new System.Drawing.Size(28, 23);
             this.btnBlack.TabIndex = 22;
@@ -647,13 +648,13 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.TextBox textBoxFloatCost;
         private System.Windows.Forms.Button btnUpdateEvaluatedCost;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvColumnID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvColumnName;
+        private System.Windows.Forms.TextBox bakedNoTextBox;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnDetailID;
         private System.Windows.Forms.DataGridViewTextBoxColumn recipeIDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn displayCodeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn ColumnSourceID;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnWeight;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvColumnID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvColumnName;
-        private System.Windows.Forms.TextBox bakedNoTextBox;
     }
 }

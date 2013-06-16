@@ -28,16 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.dgvShow = new System.Windows.Forms.DataGridView();
-            this.labelCost = new System.Windows.Forms.Label();
-            this.labelPackageNo = new System.Windows.Forms.Label();
             this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnWeight = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnCost = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.labelCost = new System.Windows.Forms.Label();
+            this.labelPackageNo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvShow)).BeginInit();
             this.SuspendLayout();
             // 
@@ -80,22 +80,6 @@
             this.dgvShow.Size = new System.Drawing.Size(554, 406);
             this.dgvShow.TabIndex = 2;
             // 
-            // labelCost
-            // 
-            this.labelCost.Location = new System.Drawing.Point(162, 428);
-            this.labelCost.Name = "labelCost";
-            this.labelCost.Size = new System.Drawing.Size(89, 34);
-            this.labelCost.TabIndex = 3;
-            this.labelCost.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // labelPackageNo
-            // 
-            this.labelPackageNo.Location = new System.Drawing.Point(274, 428);
-            this.labelPackageNo.Name = "labelPackageNo";
-            this.labelPackageNo.Size = new System.Drawing.Size(114, 34);
-            this.labelPackageNo.TabIndex = 4;
-            this.labelPackageNo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // ColumnName
             // 
             this.ColumnName.HeaderText = "食材或配方";
@@ -105,9 +89,9 @@
             // 
             // ColumnWeight
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle1.Format = "N1";
-            this.ColumnWeight.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.Format = "N1";
+            this.ColumnWeight.DefaultCellStyle = dataGridViewCellStyle3;
             this.ColumnWeight.HeaderText = "重量-克";
             this.ColumnWeight.Name = "ColumnWeight";
             this.ColumnWeight.ReadOnly = true;
@@ -115,12 +99,28 @@
             // 
             // ColumnCost
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.ColumnCost.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.ColumnCost.DefaultCellStyle = dataGridViewCellStyle4;
             this.ColumnCost.HeaderText = "成本";
             this.ColumnCost.Name = "ColumnCost";
             this.ColumnCost.ReadOnly = true;
             this.ColumnCost.Width = 120;
+            // 
+            // labelCost
+            // 
+            this.labelCost.Location = new System.Drawing.Point(162, 428);
+            this.labelCost.Name = "labelCost";
+            this.labelCost.Size = new System.Drawing.Size(72, 34);
+            this.labelCost.TabIndex = 3;
+            this.labelCost.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelPackageNo
+            // 
+            this.labelPackageNo.Location = new System.Drawing.Point(256, 428);
+            this.labelPackageNo.Name = "labelPackageNo";
+            this.labelPackageNo.Size = new System.Drawing.Size(164, 34);
+            this.labelPackageNo.TabIndex = 4;
+            this.labelPackageNo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FormRecipePriceUpdate
             // 

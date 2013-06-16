@@ -334,7 +334,9 @@ namespace VoucherExpense
                 }
                 decimal packageNo = 1;
                 if (!row.IsPackageNoNull() && row.PackageNo > 0) packageNo = row.PackageNo;
-                this.textBoxFloatCost.Text = CalcCost(packageNo,details, usedRecipes: new List<int>()).ToString("N1");
+                decimal bakedNo = 1;
+                if (!row.IsBakedNoNull() && row.BakedNo > 0) bakedNo = row.BakedNo;
+                this.textBoxFloatCost.Text = CalcCost(packageNo/bakedNo, details, usedRecipes: new List<int>()).ToString("N1");
             }
             else
             {   // From DataGridViewCell , Event BindingSource.CurrentChanged時,DataGridView內容還沒改
@@ -348,13 +350,13 @@ namespace VoucherExpense
                     }
                 }
             }
-            textBoxIngredientWeight.Text = sum.ToString("N2");
+            textBoxIngredientWeight.Text = sum.ToString("N1");
         }
 
-        private decimal CalcCost(decimal packageNo,VEDataSet.RecipeDetailRow[] details, List<int> usedRecipes)  // usedRecipes填入己使用的配方,避免Recursive
+        private decimal CalcCost(decimal ratio,VEDataSet.RecipeDetailRow[] details, List<int> usedRecipes)  // usedRecipes填入己使用的配方,避免Recursive
         {
             decimal cost = 0m;
-            if (packageNo <= 0) packageNo = 1;     // 包裝單位不正常時,以1計算
+            if (ratio <= 0) ratio = 1;     // 包裝單位不正常時,以1計算
             // 去找DataTable,最後新增那行還是DataRowState.Detached, 會少加一行
             foreach (var d in details)
             {
@@ -412,7 +414,7 @@ namespace VoucherExpense
                 }
                 // cost += d.Weight; bug
             }
-            return packageNo*cost;
+            return ratio*cost;
         }
 
         private void btnUpdateEvaluatedCost_Click(object sender, EventArgs e)
@@ -432,8 +434,10 @@ namespace VoucherExpense
             }
             decimal packageNo = 1;
             if (!row.IsPackageNoNull() && row.PackageNo > 0) packageNo = row.PackageNo;
+            decimal bakedNo = 1;
+            if (!row.IsBakedNoNull() && row.BakedNo > 0) bakedNo = row.BakedNo;
             var details = row.GetRecipeDetailRows();
-            Form form = new FormRecipePriceUpdate(packageNo,details,vEDataSet);
+            Form form = new FormRecipePriceUpdate(packageNo,bakedNo,details,vEDataSet);
             if (form.ShowDialog()==DialogResult.OK)
             {
                 if (row.IsFinalProductIDNull() || row.FinalProductID <= 0)

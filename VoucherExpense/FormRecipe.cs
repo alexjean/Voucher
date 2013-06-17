@@ -68,7 +68,7 @@ namespace VoucherExpense
                 }
             }
             sourceBindingSource.DataSource = m_SourceList;
-
+            ShowProductColumn(false);
         }
 
         private void recipeBindingNavigatorSaveItem_Click(object sender, EventArgs e)
@@ -91,14 +91,14 @@ namespace VoucherExpense
                 MessageBox.Show("沒有更改,不需存檔!");
                 return;
             }
+            int n=0;
             if (table != null)
             {
                 try
                 {
-                    int n = recipeTableAdapter.Update(table);
+                    n = recipeTableAdapter.Update(table);
                     vEDataSet.Recipe.Merge(table);
                     vEDataSet.Recipe.AcceptChanges();
-                    MessageBox.Show(n.ToString() + "筆更改己存檔!");
                 }
                 catch (Exception ex)
                 {
@@ -110,7 +110,7 @@ namespace VoucherExpense
             {
                 try
                 {
-                    int n = recipeDetailTableAdapter.Update(detail);
+                    int n1 = recipeDetailTableAdapter.Update(detail);
                     vEDataSet.RecipeDetail.Merge(detail);
                     vEDataSet.RecipeDetail.AcceptChanges();
                 }
@@ -120,6 +120,7 @@ namespace VoucherExpense
                     return;
                 }
             }
+            MessageBox.Show(n.ToString() + "筆更改己存檔!");
 
         }
 
@@ -129,29 +130,35 @@ namespace VoucherExpense
             recipeBindingSource.ResetBindings(false);    // 不加這行Detail顯示不會改
         }
 
+        void SetRichTextColor(Button btn,Color color)
+        {
+            richTextBoxInstruction1.SelectionColor = color;
+            richTextBoxInstruction2.SelectionColor = color;
+            btnYellow.FlatStyle=btnGreen.FlatStyle=btnRed.FlatStyle=btnBlue.FlatStyle = btnBlack.FlatStyle = FlatStyle.Standard;
+            btn.FlatStyle = FlatStyle.Popup;
+        }
+
+        private void btnGreen_Click(object sender, EventArgs e)
+        {
+            SetRichTextColor(btnGreen, Color.Green);
+        }
         private void btnRed_Click(object sender, EventArgs e)
         {
-            richTextBoxInstruction1.SelectionColor = Color.Red;
-            richTextBoxInstruction2.SelectionColor = Color.Red;
-            btnRed.FlatStyle = FlatStyle.Popup;
-            btnBlue.FlatStyle = btnBlack.FlatStyle = FlatStyle.Standard;
+            SetRichTextColor(btnRed  , Color.Red);
         }
-
         private void btnBlack_Click(object sender, EventArgs e)
         {
-            richTextBoxInstruction1.SelectionColor = Color.Black;
-            richTextBoxInstruction2.SelectionColor = Color.Black;
-            btnBlack.FlatStyle = FlatStyle.Popup;
-            btnBlue.FlatStyle = btnRed.FlatStyle = FlatStyle.Standard;
+            SetRichTextColor(btnBlack, Color.Black);
         }
-
         private void btnBlue_Click(object sender, EventArgs e)
         {
-            richTextBoxInstruction1.SelectionColor = Color.FromArgb(0, 0, 192);
-            richTextBoxInstruction2.SelectionColor = Color.FromArgb(0, 0, 192);
-            btnBlue.FlatStyle = FlatStyle.Popup;
-            btnRed.FlatStyle = btnBlack.FlatStyle = FlatStyle.Standard;
+            SetRichTextColor(btnBlue , Color.FromArgb(0, 0, 192));
         }
+        private void btnYellow_Click(object sender, EventArgs e)
+        {
+            SetRichTextColor(btnYellow, Color.Yellow);
+        }
+
 
         private void btnExcel_Click(object sender, EventArgs e)
         {
@@ -459,6 +466,7 @@ namespace VoucherExpense
                     product.EvaluatedCost = co;
                     productTableAdapter.Update(product);
                     product.AcceptChanges();
+                    productBindingSource.ResetBindings(false);    // 刷新Product螢幕顯示
                     MessageBox.Show("產品<"+product.Name+">的估算成本己更新為 "+co.ToString());
                 }
                 else
@@ -494,5 +502,127 @@ namespace VoucherExpense
         {
             CalcWeight(useDataTable: true);
         }
+
+        void ShowProductColumn(bool b)
+        {
+            btnUpdatePrice.Visible = b; 
+            textBoxCode.Visible = b;
+            textBoxEvaluatedCost.Visible = b;
+            textBoxPrice.Visible = b;
+            textBoxGross.Visible = b;
+            textBoxGrossPercent.Visible = b;
+            labelPrice.Visible = b;
+            labelEvaluatedCost.Visible = b;
+            labelGross.Visible = b;
+        }
+
+        private void CalcGrossProfit()
+        {
+            double price, cost;
+            try
+            {
+                cost = Convert.ToDouble(textBoxEvaluatedCost.Text);
+            }
+            catch { cost = 0; }
+            try
+            {
+                price = Convert.ToDouble(textBoxPrice.Text);
+            }
+            catch { price = 0; }
+
+            double gross = price - cost;
+            textBoxGross.Text = gross.ToString("f2");
+            if (price != 0)
+                textBoxGrossPercent.Text = ((gross / price) * 100).ToString("f1") + "%";
+            else
+                textBoxGrossPercent.Text = "--.-%";
+        }
+
+        TextBox textBoxPriceForEdit = null;
+        enum PriceEditMode { Invisible=0,Editing}
+        private void ConfigPriceForEdit()
+        {
+            btnUpdatePrice.Text = "編修 價格";
+            if (textBoxPriceForEdit == null)
+            {
+                textBoxPriceForEdit = new TextBox();
+                textBoxPriceForEdit.Location = textBoxPrice.Location;
+                textBoxPriceForEdit.Size = textBoxPrice.Size;
+                this.groupBoxProduct.Controls.Add(textBoxPriceForEdit);
+            }
+            textBoxPriceForEdit.Visible = false;
+            textBoxPriceForEdit.Tag = PriceEditMode.Invisible;
+        }
+
+        private void finalProductIDComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ConfigPriceForEdit();
+            if (finalProductIDComboBox.SelectedIndex <= 0)
+                ShowProductColumn(false);
+            else
+            {
+                ShowProductColumn(true);
+                try
+                {
+                    ComboBox box = sender as ComboBox;
+                    int index = productBindingSource.Find("ProductID", box.SelectedValue);
+                    if (index < 0)
+                        ShowProductColumn(false);
+                    else productBindingSource.Position = index;
+                    CalcGrossProfit();
+                }
+                catch
+                {
+                    ShowProductColumn(false);
+                }
+            }
+
+        }
+
+        private void btnUpdatePrice_Click(object sender, EventArgs e)
+        {
+            switch((PriceEditMode)textBoxPriceForEdit.Tag)
+            {
+                case PriceEditMode.Invisible:
+                    textBoxPriceForEdit.Text = textBoxPrice.Text;
+                    textBoxPriceForEdit.Visible = true;
+                    textBoxPriceForEdit.Tag = PriceEditMode.Editing;
+                    textBoxPriceForEdit.BringToFront();
+                    btnUpdatePrice.Text = "更新 價格";
+                    break;
+                case PriceEditMode.Editing:
+                    try
+                    {
+                        if (Convert.ToDouble(textBoxPriceForEdit.Text) < 0)
+                        {
+                            MessageBox.Show("價格不能小於 0!");
+                            return;
+                        }
+                    }
+                    catch 
+                    {
+                        MessageBox.Show("價格必需是數字!");
+                        return;
+                    }
+                    textBoxPrice.Text = textBoxPriceForEdit.Text;
+                    productBindingSource.EndEdit();
+                    productTableAdapter.Update(bakeryOrderSet.Product);
+                    bakeryOrderSet.Product.AcceptChanges();
+                    textBoxPriceForEdit.Tag = PriceEditMode.Invisible;
+                    textBoxPriceForEdit.Visible = false;
+                    btnUpdatePrice.Text = "編修 價格";
+                    MessageBox.Show("價格己更新!");
+                    break;
+                default:
+                    textBoxPriceForEdit.Tag = PriceEditMode.Invisible;
+                    textBoxPriceForEdit.Visible = false;
+                    btnUpdatePrice.Text = "編修 價格";
+                    break;
+            }
+
+        }
+
+
+ 
     }
 }

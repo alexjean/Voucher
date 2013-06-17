@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.Label finalProductIDLabel;
             System.Windows.Forms.Label label1;
             System.Windows.Forms.Label recipeNameLabel;
             System.Windows.Forms.Label packageNoLabel;
@@ -40,8 +39,11 @@
             System.Windows.Forms.Label label6;
             System.Windows.Forms.Label label7;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormRecipe));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.labelGross = new System.Windows.Forms.Label();
+            this.labelEvaluatedCost = new System.Windows.Forms.Label();
+            this.labelPrice = new System.Windows.Forms.Label();
             this.vEDataSet = new VoucherExpense.VEDataSet();
             this.recipeBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.recipeTableAdapter = new VoucherExpense.VEDataSetTableAdapters.RecipeTableAdapter();
@@ -81,7 +83,16 @@
             this.textBoxFloatCost = new System.Windows.Forms.TextBox();
             this.btnUpdateEvaluatedCost = new System.Windows.Forms.Button();
             this.bakedNoTextBox = new System.Windows.Forms.TextBox();
-            finalProductIDLabel = new System.Windows.Forms.Label();
+            this.groupBoxProduct = new System.Windows.Forms.GroupBox();
+            this.btnUpdatePrice = new System.Windows.Forms.Button();
+            this.textBoxGrossPercent = new System.Windows.Forms.TextBox();
+            this.textBoxGross = new System.Windows.Forms.TextBox();
+            this.textBoxEvaluatedCost = new System.Windows.Forms.TextBox();
+            this.textBoxPrice = new System.Windows.Forms.TextBox();
+            this.textBoxCode = new System.Windows.Forms.TextBox();
+            this.btnGreen = new System.Windows.Forms.Button();
+            this.tableAdapterManager = new VoucherExpense.BakeryOrderSetTableAdapters.TableAdapterManager();
+            this.btnYellow = new System.Windows.Forms.Button();
             label1 = new System.Windows.Forms.Label();
             recipeNameLabel = new System.Windows.Forms.Label();
             packageNoLabel = new System.Windows.Forms.Label();
@@ -103,21 +114,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.sourceBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.recipeRecipeDetailBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRecipe)).BeginInit();
+            this.groupBoxProduct.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // finalProductIDLabel
-            // 
-            finalProductIDLabel.AutoSize = true;
-            finalProductIDLabel.Location = new System.Drawing.Point(379, 4);
-            finalProductIDLabel.Name = "finalProductIDLabel";
-            finalProductIDLabel.Size = new System.Drawing.Size(40, 16);
-            finalProductIDLabel.TabIndex = 2;
-            finalProductIDLabel.Text = "產品";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(788, 372);
+            label1.Location = new System.Drawing.Point(788, 376);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(56, 16);
             label1.TabIndex = 11;
@@ -126,7 +129,7 @@
             // recipeNameLabel
             // 
             recipeNameLabel.AutoSize = true;
-            recipeNameLabel.Location = new System.Drawing.Point(158, 4);
+            recipeNameLabel.Location = new System.Drawing.Point(159, 7);
             recipeNameLabel.Name = "recipeNameLabel";
             recipeNameLabel.Size = new System.Drawing.Size(56, 16);
             recipeNameLabel.TabIndex = 13;
@@ -135,7 +138,7 @@
             // packageNoLabel
             // 
             packageNoLabel.AutoSize = true;
-            packageNoLabel.Location = new System.Drawing.Point(356, 372);
+            packageNoLabel.Location = new System.Drawing.Point(788, 442);
             packageNoLabel.Name = "packageNoLabel";
             packageNoLabel.Size = new System.Drawing.Size(72, 16);
             packageNoLabel.TabIndex = 14;
@@ -144,7 +147,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(482, 372);
+            label2.Location = new System.Drawing.Point(914, 442);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(24, 16);
             label2.TabIndex = 23;
@@ -153,16 +156,16 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(161, 342);
+            label3.Location = new System.Drawing.Point(568, 376);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(72, 16);
             label3.TabIndex = 24;
-            label3.Text = "浮動成本";
+            label3.Text = "成本試算";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new System.Drawing.Point(936, 371);
+            label4.Location = new System.Drawing.Point(936, 376);
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(24, 16);
             label4.TabIndex = 26;
@@ -171,7 +174,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new System.Drawing.Point(311, 342);
+            label5.Location = new System.Drawing.Point(718, 376);
             label5.Name = "label5";
             label5.Size = new System.Drawing.Size(24, 16);
             label5.TabIndex = 27;
@@ -180,7 +183,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new System.Drawing.Point(356, 342);
+            label6.Location = new System.Drawing.Point(788, 409);
             label6.Name = "label6";
             label6.Size = new System.Drawing.Size(72, 16);
             label6.TabIndex = 29;
@@ -189,11 +192,40 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new System.Drawing.Point(482, 342);
+            label7.Location = new System.Drawing.Point(914, 409);
             label7.Name = "label7";
             label7.Size = new System.Drawing.Size(24, 16);
             label7.TabIndex = 31;
             label7.Text = "個";
+            // 
+            // labelGross
+            // 
+            this.labelGross.AutoSize = true;
+            this.labelGross.Location = new System.Drawing.Point(47, 122);
+            this.labelGross.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelGross.Name = "labelGross";
+            this.labelGross.Size = new System.Drawing.Size(40, 16);
+            this.labelGross.TabIndex = 32;
+            this.labelGross.Text = "毛利";
+            // 
+            // labelEvaluatedCost
+            // 
+            this.labelEvaluatedCost.AutoSize = true;
+            this.labelEvaluatedCost.Location = new System.Drawing.Point(47, 85);
+            this.labelEvaluatedCost.Name = "labelEvaluatedCost";
+            this.labelEvaluatedCost.Size = new System.Drawing.Size(72, 16);
+            this.labelEvaluatedCost.TabIndex = 30;
+            this.labelEvaluatedCost.Text = "估算成本";
+            // 
+            // labelPrice
+            // 
+            this.labelPrice.AutoSize = true;
+            this.labelPrice.Location = new System.Drawing.Point(47, 48);
+            this.labelPrice.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelPrice.Name = "labelPrice";
+            this.labelPrice.Size = new System.Drawing.Size(44, 16);
+            this.labelPrice.TabIndex = 26;
+            this.labelPrice.Text = "價格:";
             // 
             // vEDataSet
             // 
@@ -306,11 +338,12 @@
             this.finalProductIDComboBox.DisplayMember = "Name";
             this.finalProductIDComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.finalProductIDComboBox.FormattingEnabled = true;
-            this.finalProductIDComboBox.Location = new System.Drawing.Point(425, 0);
+            this.finalProductIDComboBox.Location = new System.Drawing.Point(52, 0);
             this.finalProductIDComboBox.Name = "finalProductIDComboBox";
-            this.finalProductIDComboBox.Size = new System.Drawing.Size(121, 24);
+            this.finalProductIDComboBox.Size = new System.Drawing.Size(149, 24);
             this.finalProductIDComboBox.TabIndex = 3;
             this.finalProductIDComboBox.ValueMember = "ID";
+            this.finalProductIDComboBox.SelectedIndexChanged += new System.EventHandler(this.finalProductIDComboBox_SelectedIndexChanged);
             // 
             // cNameIDForProductBindingSource
             // 
@@ -329,8 +362,8 @@
             // dgvRecipeDetail
             // 
             this.dgvRecipeDetail.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
-            this.dgvRecipeDetail.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Azure;
+            this.dgvRecipeDetail.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvRecipeDetail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvRecipeDetail.AutoGenerateColumns = false;
@@ -395,10 +428,10 @@
             // ColumnWeight
             // 
             this.ColumnWeight.DataPropertyName = "Weight";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "N1";
-            dataGridViewCellStyle2.NullValue = null;
-            this.ColumnWeight.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle4.Format = "N1";
+            dataGridViewCellStyle4.NullValue = null;
+            this.ColumnWeight.DefaultCellStyle = dataGridViewCellStyle4;
             this.ColumnWeight.HeaderText = "重量-克";
             this.ColumnWeight.Name = "ColumnWeight";
             this.ColumnWeight.Width = 92;
@@ -411,7 +444,7 @@
             // textBoxIngredientWeight
             // 
             this.textBoxIngredientWeight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.textBoxIngredientWeight.Location = new System.Drawing.Point(855, 367);
+            this.textBoxIngredientWeight.Location = new System.Drawing.Point(855, 371);
             this.textBoxIngredientWeight.Name = "textBoxIngredientWeight";
             this.textBoxIngredientWeight.Size = new System.Drawing.Size(73, 27);
             this.textBoxIngredientWeight.TabIndex = 12;
@@ -431,7 +464,7 @@
             // recipeNameTextBox
             // 
             this.recipeNameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.recipeBindingSource, "RecipeName", true));
-            this.recipeNameTextBox.Location = new System.Drawing.Point(213, -1);
+            this.recipeNameTextBox.Location = new System.Drawing.Point(213, 4);
             this.recipeNameTextBox.Name = "recipeNameTextBox";
             this.recipeNameTextBox.Size = new System.Drawing.Size(149, 27);
             this.recipeNameTextBox.TabIndex = 14;
@@ -439,7 +472,7 @@
             // packageNoTextBox
             // 
             this.packageNoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.recipeBindingSource, "PackageNo", true));
-            this.packageNoTextBox.Location = new System.Drawing.Point(432, 367);
+            this.packageNoTextBox.Location = new System.Drawing.Point(864, 437);
             this.packageNoTextBox.Name = "packageNoTextBox";
             this.packageNoTextBox.Size = new System.Drawing.Size(46, 27);
             this.packageNoTextBox.TabIndex = 15;
@@ -466,17 +499,17 @@
             this.richTextBoxInstruction1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.richTextBoxInstruction1.DataBindings.Add(new System.Windows.Forms.Binding("Rtf", this.recipeBindingSource, "Instruction1", true));
-            this.richTextBoxInstruction1.Location = new System.Drawing.Point(161, 399);
+            this.richTextBoxInstruction1.Location = new System.Drawing.Point(161, 472);
             this.richTextBoxInstruction1.MaxLength = 32767;
             this.richTextBoxInstruction1.Name = "richTextBoxInstruction1";
-            this.richTextBoxInstruction1.Size = new System.Drawing.Size(388, 276);
+            this.richTextBoxInstruction1.Size = new System.Drawing.Size(388, 203);
             this.richTextBoxInstruction1.TabIndex = 17;
             this.richTextBoxInstruction1.Text = "";
             // 
             // btnRed
             // 
             this.btnRed.BackColor = System.Drawing.Color.Red;
-            this.btnRed.Location = new System.Drawing.Point(623, 370);
+            this.btnRed.Location = new System.Drawing.Point(642, 439);
             this.btnRed.Name = "btnRed";
             this.btnRed.Size = new System.Drawing.Size(28, 23);
             this.btnRed.TabIndex = 19;
@@ -486,7 +519,7 @@
             // btnBlue
             // 
             this.btnBlue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.btnBlue.Location = new System.Drawing.Point(589, 370);
+            this.btnBlue.Location = new System.Drawing.Point(606, 439);
             this.btnBlue.Name = "btnBlue";
             this.btnBlue.Size = new System.Drawing.Size(28, 23);
             this.btnBlue.TabIndex = 20;
@@ -499,17 +532,17 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBoxInstruction2.DataBindings.Add(new System.Windows.Forms.Binding("Rtf", this.recipeBindingSource, "Instruction2", true));
-            this.richTextBoxInstruction2.Location = new System.Drawing.Point(555, 399);
+            this.richTextBoxInstruction2.Location = new System.Drawing.Point(555, 472);
             this.richTextBoxInstruction2.MaxLength = 32767;
             this.richTextBoxInstruction2.Name = "richTextBoxInstruction2";
-            this.richTextBoxInstruction2.Size = new System.Drawing.Size(405, 276);
+            this.richTextBoxInstruction2.Size = new System.Drawing.Size(405, 203);
             this.richTextBoxInstruction2.TabIndex = 21;
             this.richTextBoxInstruction2.Text = "";
             // 
             // btnBlack
             // 
             this.btnBlack.BackColor = System.Drawing.Color.Black;
-            this.btnBlack.Location = new System.Drawing.Point(555, 370);
+            this.btnBlack.Location = new System.Drawing.Point(570, 439);
             this.btnBlack.Name = "btnBlack";
             this.btnBlack.Size = new System.Drawing.Size(28, 23);
             this.btnBlack.TabIndex = 22;
@@ -531,7 +564,7 @@
             // textBoxFloatCost
             // 
             this.textBoxFloatCost.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.textBoxFloatCost.Location = new System.Drawing.Point(230, 337);
+            this.textBoxFloatCost.Location = new System.Drawing.Point(637, 371);
             this.textBoxFloatCost.Name = "textBoxFloatCost";
             this.textBoxFloatCost.ReadOnly = true;
             this.textBoxFloatCost.Size = new System.Drawing.Size(75, 27);
@@ -540,22 +573,136 @@
             // 
             // btnUpdateEvaluatedCost
             // 
-            this.btnUpdateEvaluatedCost.Location = new System.Drawing.Point(164, 369);
+            this.btnUpdateEvaluatedCost.Location = new System.Drawing.Point(573, 404);
             this.btnUpdateEvaluatedCost.Name = "btnUpdateEvaluatedCost";
-            this.btnUpdateEvaluatedCost.Size = new System.Drawing.Size(171, 27);
+            this.btnUpdateEvaluatedCost.Size = new System.Drawing.Size(139, 27);
             this.btnUpdateEvaluatedCost.TabIndex = 28;
-            this.btnUpdateEvaluatedCost.Text = "更新 產品 估算成本";
+            this.btnUpdateEvaluatedCost.Text = "更新 估算成本";
             this.btnUpdateEvaluatedCost.UseVisualStyleBackColor = true;
             this.btnUpdateEvaluatedCost.Click += new System.EventHandler(this.btnUpdateEvaluatedCost_Click);
             // 
             // bakedNoTextBox
             // 
             this.bakedNoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.recipeBindingSource, "BakedNo", true));
-            this.bakedNoTextBox.Location = new System.Drawing.Point(432, 337);
+            this.bakedNoTextBox.Location = new System.Drawing.Point(864, 404);
             this.bakedNoTextBox.Name = "bakedNoTextBox";
             this.bakedNoTextBox.Size = new System.Drawing.Size(46, 27);
             this.bakedNoTextBox.TabIndex = 30;
             this.bakedNoTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // groupBoxProduct
+            // 
+            this.groupBoxProduct.Controls.Add(this.btnUpdatePrice);
+            this.groupBoxProduct.Controls.Add(this.textBoxGrossPercent);
+            this.groupBoxProduct.Controls.Add(this.textBoxGross);
+            this.groupBoxProduct.Controls.Add(this.labelGross);
+            this.groupBoxProduct.Controls.Add(this.labelEvaluatedCost);
+            this.groupBoxProduct.Controls.Add(this.textBoxEvaluatedCost);
+            this.groupBoxProduct.Controls.Add(this.labelPrice);
+            this.groupBoxProduct.Controls.Add(this.textBoxPrice);
+            this.groupBoxProduct.Controls.Add(this.textBoxCode);
+            this.groupBoxProduct.Controls.Add(this.finalProductIDComboBox);
+            this.groupBoxProduct.Location = new System.Drawing.Point(161, 294);
+            this.groupBoxProduct.Name = "groupBoxProduct";
+            this.groupBoxProduct.Size = new System.Drawing.Size(385, 168);
+            this.groupBoxProduct.TabIndex = 32;
+            this.groupBoxProduct.TabStop = false;
+            this.groupBoxProduct.Text = "產品";
+            // 
+            // btnUpdatePrice
+            // 
+            this.btnUpdatePrice.Location = new System.Drawing.Point(217, 43);
+            this.btnUpdatePrice.Name = "btnUpdatePrice";
+            this.btnUpdatePrice.Size = new System.Drawing.Size(139, 27);
+            this.btnUpdatePrice.TabIndex = 35;
+            this.btnUpdatePrice.Text = "編修 價格";
+            this.btnUpdatePrice.UseVisualStyleBackColor = true;
+            this.btnUpdatePrice.Click += new System.EventHandler(this.btnUpdatePrice_Click);
+            // 
+            // textBoxGrossPercent
+            // 
+            this.textBoxGrossPercent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.textBoxGrossPercent.Location = new System.Drawing.Point(217, 117);
+            this.textBoxGrossPercent.Name = "textBoxGrossPercent";
+            this.textBoxGrossPercent.ReadOnly = true;
+            this.textBoxGrossPercent.Size = new System.Drawing.Size(80, 27);
+            this.textBoxGrossPercent.TabIndex = 34;
+            this.textBoxGrossPercent.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // textBoxGross
+            // 
+            this.textBoxGross.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.textBoxGross.Location = new System.Drawing.Point(121, 117);
+            this.textBoxGross.Name = "textBoxGross";
+            this.textBoxGross.ReadOnly = true;
+            this.textBoxGross.Size = new System.Drawing.Size(80, 27);
+            this.textBoxGross.TabIndex = 33;
+            this.textBoxGross.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // textBoxEvaluatedCost
+            // 
+            this.textBoxEvaluatedCost.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.textBoxEvaluatedCost.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productBindingSource, "EvaluatedCost", true));
+            this.textBoxEvaluatedCost.Location = new System.Drawing.Point(121, 80);
+            this.textBoxEvaluatedCost.Name = "textBoxEvaluatedCost";
+            this.textBoxEvaluatedCost.ReadOnly = true;
+            this.textBoxEvaluatedCost.Size = new System.Drawing.Size(80, 27);
+            this.textBoxEvaluatedCost.TabIndex = 31;
+            this.textBoxEvaluatedCost.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // textBoxPrice
+            // 
+            this.textBoxPrice.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.textBoxPrice.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productBindingSource, "Price", true));
+            this.textBoxPrice.Location = new System.Drawing.Point(121, 43);
+            this.textBoxPrice.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxPrice.Name = "textBoxPrice";
+            this.textBoxPrice.ReadOnly = true;
+            this.textBoxPrice.Size = new System.Drawing.Size(80, 27);
+            this.textBoxPrice.TabIndex = 27;
+            this.textBoxPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // textBoxCode
+            // 
+            this.textBoxCode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.textBoxCode.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productBindingSource, "Code", true));
+            this.textBoxCode.Location = new System.Drawing.Point(220, 0);
+            this.textBoxCode.Name = "textBoxCode";
+            this.textBoxCode.ReadOnly = true;
+            this.textBoxCode.Size = new System.Drawing.Size(136, 27);
+            this.textBoxCode.TabIndex = 4;
+            // 
+            // btnGreen
+            // 
+            this.btnGreen.BackColor = System.Drawing.Color.Green;
+            this.btnGreen.Location = new System.Drawing.Point(714, 439);
+            this.btnGreen.Name = "btnGreen";
+            this.btnGreen.Size = new System.Drawing.Size(28, 23);
+            this.btnGreen.TabIndex = 33;
+            this.btnGreen.UseVisualStyleBackColor = false;
+            this.btnGreen.Click += new System.EventHandler(this.btnGreen_Click);
+            // 
+            // tableAdapterManager
+            // 
+            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.BakeryConfigTableAdapter = null;
+            this.tableAdapterManager.CashierTableAdapter = null;
+            this.tableAdapterManager.DrawerRecordTableAdapter = null;
+            this.tableAdapterManager.HeaderTableAdapter = null;
+            this.tableAdapterManager.OrderItemTableAdapter = null;
+            this.tableAdapterManager.OrderTableAdapter = null;
+            this.tableAdapterManager.ProductTableAdapter = this.productTableAdapter;
+            this.tableAdapterManager.UpdateOrder = VoucherExpense.BakeryOrderSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            // 
+            // btnYellow
+            // 
+            this.btnYellow.BackColor = System.Drawing.Color.Yellow;
+            this.btnYellow.Location = new System.Drawing.Point(680, 439);
+            this.btnYellow.Name = "btnYellow";
+            this.btnYellow.Size = new System.Drawing.Size(28, 23);
+            this.btnYellow.TabIndex = 34;
+            this.btnYellow.UseVisualStyleBackColor = false;
+            this.btnYellow.Click += new System.EventHandler(this.btnYellow_Click);
             // 
             // FormRecipe
             // 
@@ -563,6 +710,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(963, 680);
+            this.Controls.Add(this.btnYellow);
+            this.Controls.Add(this.btnGreen);
+            this.Controls.Add(this.groupBoxProduct);
             this.Controls.Add(label7);
             this.Controls.Add(this.bakedNoTextBox);
             this.Controls.Add(label6);
@@ -586,8 +736,6 @@
             this.Controls.Add(this.pictureBoxRecipe);
             this.Controls.Add(label1);
             this.Controls.Add(this.dgvRecipeDetail);
-            this.Controls.Add(finalProductIDLabel);
-            this.Controls.Add(this.finalProductIDComboBox);
             this.Controls.Add(this.dgvRecipe);
             this.Controls.Add(this.recipeBindingNavigator);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
@@ -610,6 +758,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.sourceBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.recipeRecipeDetailBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRecipe)).EndInit();
+            this.groupBoxProduct.ResumeLayout(false);
+            this.groupBoxProduct.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -656,5 +806,18 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn displayCodeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn ColumnSourceID;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnWeight;
+        private System.Windows.Forms.GroupBox groupBoxProduct;
+        private System.Windows.Forms.Button btnGreen;
+        private System.Windows.Forms.TextBox textBoxCode;
+        private BakeryOrderSetTableAdapters.TableAdapterManager tableAdapterManager;
+        private System.Windows.Forms.TextBox textBoxGrossPercent;
+        private System.Windows.Forms.TextBox textBoxGross;
+        private System.Windows.Forms.TextBox textBoxEvaluatedCost;
+        private System.Windows.Forms.TextBox textBoxPrice;
+        private System.Windows.Forms.Label labelPrice;
+        private System.Windows.Forms.Label labelGross;
+        private System.Windows.Forms.Label labelEvaluatedCost;
+        private System.Windows.Forms.Button btnUpdatePrice;
+        private System.Windows.Forms.Button btnYellow;
     }
 }

@@ -78,6 +78,7 @@ namespace VoucherExpense
                 Validate();
                 recipeBindingSource.EndEdit();
                 recipeRecipeDetailBindingSource.EndEdit();
+                UpdateRtf();
             }
             catch (Exception ex)
             {
@@ -186,15 +187,64 @@ namespace VoucherExpense
             this.finalProductIDComboBox.SelectedItem = product;
         }
 
+
+        #region ====== RTF手動Binding , 第一次在Form_Shown , 以後在 BindingSource_CurrentChanged. 存檔呼叫了UpdateRtf ======
+        //因為RTF的Binding 總是 Changed ,變成每次都Save,所以自己Binding
+        bool m_Instruction1Modified = false;
+        bool m_Instruction2Modified = false;
+        VEDataSet.RecipeRow m_OldRow=null;
+        private void BindingRtf()
+        {
+            if (recipeBindingSource.Current == null) return;
+            DataRowView rowView = recipeBindingSource.Current as DataRowView;
+            VEDataSet.RecipeRow row = rowView.Row as VEDataSet.RecipeRow;
+            if (row == null) return;
+            richTextBoxInstruction1.Rtf = row.Instruction1;  // 這裏Rtf的TextChanged會被呼叫, 但後面 m_Instruction1Modified=false又會蓋回來
+            richTextBoxInstruction2.Rtf = row.Instruction2;
+            m_OldRow=row;
+            m_Instruction1Modified = m_Instruction2Modified = false;
+        }
+
+        private void UpdateRtf()
+        {
+            if (m_OldRow == null)
+            {
+                m_Instruction1Modified = m_Instruction2Modified = false;
+                return;
+            }
+            if (m_Instruction1Modified)
+            {
+                m_OldRow.Instruction1 = richTextBoxInstruction1.Rtf;
+                m_Instruction1Modified = false;
+            }
+            if (m_Instruction2Modified)
+            {
+                m_OldRow.Instruction2 = richTextBoxInstruction2.Rtf;
+                m_Instruction2Modified = false;
+            }
+        }
+
+        private void richTextBoxInstruction1_TextChanged(object sender, EventArgs e)
+        {
+            m_Instruction1Modified = true;
+        }
+        private void richTextBoxInstruction2_TextChanged(object sender, EventArgs e)
+        {
+            m_Instruction2Modified = true;
+        }
+        #endregion
+
         private void recipeBindingSource_CurrentChanged(object sender, EventArgs e)
         {
             if (m_ProductList == null || m_ProductList.Count <= 0) return;
             ShowProductName();
             ShowCurrentPicture();
             CalcWeight();
-            
+            UpdateRtf();
+            BindingRtf();
         }
 
+        // BindingSource.BindingComplete 有幾個Control Bind就會呼叫幾次,不能用,第一次只好放在Form_Show內顯示
         private void FormRecipe_Shown(object sender, EventArgs e)
         {
             if (m_ProductList == null || m_ProductList.Count <= 0) return;
@@ -202,6 +252,8 @@ namespace VoucherExpense
             ShowProductName();     // 第一次Shown時, finalProductIDComboBox.SelectedValue會被改成0, 先在這Shown就可以搶蓋回來, @@"
             ShowCurrentPicture();
             CalcWeight();
+            BindingRtf();
+            vEDataSet.Recipe.AcceptChanges();  // 不知為何第一次進來,第一筆就被當做有改過,所以加了這行.可能用rtf的副作用
         }
 
         private void dgvRecipeDetail_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
@@ -621,6 +673,8 @@ namespace VoucherExpense
             }
 
         }
+
+
 
 
  

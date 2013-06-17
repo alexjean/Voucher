@@ -498,13 +498,13 @@
             // 
             this.richTextBoxInstruction1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.richTextBoxInstruction1.DataBindings.Add(new System.Windows.Forms.Binding("Rtf", this.recipeBindingSource, "Instruction1", true));
             this.richTextBoxInstruction1.Location = new System.Drawing.Point(161, 472);
             this.richTextBoxInstruction1.MaxLength = 32767;
             this.richTextBoxInstruction1.Name = "richTextBoxInstruction1";
             this.richTextBoxInstruction1.Size = new System.Drawing.Size(388, 203);
             this.richTextBoxInstruction1.TabIndex = 17;
             this.richTextBoxInstruction1.Text = "";
+            this.richTextBoxInstruction1.TextChanged += new System.EventHandler(this.richTextBoxInstruction1_TextChanged);
             // 
             // btnRed
             // 
@@ -531,13 +531,13 @@
             this.richTextBoxInstruction2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextBoxInstruction2.DataBindings.Add(new System.Windows.Forms.Binding("Rtf", this.recipeBindingSource, "Instruction2", true));
             this.richTextBoxInstruction2.Location = new System.Drawing.Point(555, 472);
             this.richTextBoxInstruction2.MaxLength = 32767;
             this.richTextBoxInstruction2.Name = "richTextBoxInstruction2";
             this.richTextBoxInstruction2.Size = new System.Drawing.Size(405, 203);
             this.richTextBoxInstruction2.TabIndex = 21;
             this.richTextBoxInstruction2.Text = "";
+            this.richTextBoxInstruction2.TextChanged += new System.EventHandler(this.richTextBoxInstruction2_TextChanged);
             // 
             // btnBlack
             // 

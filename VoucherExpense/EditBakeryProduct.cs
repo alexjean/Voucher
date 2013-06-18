@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Linq;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace VoucherExpense
 {
@@ -365,6 +366,127 @@ namespace VoucherExpense
             {
                 MessageBox.Show("存圖形<" + path.ToString() + ">時出錯!原因:" + ex.Message);
             }
+        }
+
+        private void btnExcel_Click(object sender, EventArgs e)
+        {
+            Excel.Application excel;
+            Excel.Worksheet sheet;
+            Excel.Workbook book;
+            try
+            {
+                excel = new Excel.Application();
+                book = excel.Application.Workbooks.Add(true);
+                sheet = book.Worksheets[1];
+                sheet.Name = MyFunction.HeaderYear + "產品表";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("開啟Excel出錯,原因:" + ex.Message);
+                return;
+            }
+            excel.Visible = true;
+            DataGridView view = this.dataGridView1;
+            int i = 1;
+            // 插入Logo圖片
+            int imgHeight = 48;
+            Excel.Range range;
+            range = sheet.Rows[1];
+            range.RowHeight = imgHeight + 2;
+            Bitmap img = MyFunction.GetThumbnail(global::VoucherExpense.Properties.Resources.LogoVI, imgHeight * 4 / 3);   // 一般圖是96DPI,換算就是4pixels=3單位
+            range = sheet.Cells[1, 1];
+            Clipboard.SetDataObject(img, true);
+            sheet.Paste(range, "LogoVI");
+
+
+
+            //欄位表頭
+            i++;
+
+            sheet.Cells[i, 1] = "代碼";
+            range = sheet.Columns[1];
+            range.HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+            range.ColumnWidth = 10;
+
+            sheet.Cells[i, 2] = "品名";
+            range = sheet.Columns[2];
+            range.ColumnWidth = 25;
+
+            sheet.Cells[i, 3] = "價格";
+            range = sheet.Columns[3];
+            range.HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+            range.ColumnWidth = 15;
+            range.NumberFormat = "#,##0.0";
+
+            sheet.Cells[i, 4] = "成本";
+            range = sheet.Columns[4];
+            range.HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+            range.ColumnWidth = 10;
+            range.NumberFormat = "#,##0.00";    // "0.00";
+
+            sheet.Cells[i, 5] = "毛利";
+            range = sheet.Columns[5];
+            range.HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+            range.ColumnWidth = 10;
+            range.NumberFormat = "#,##0.00";
+
+            sheet.Cells[i, 6] = "毛利率";
+            range = sheet.Columns[6];
+            range.HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+            range.ColumnWidth = 10;
+            range.NumberFormat = "#00.0%";
+
+
+            range = sheet.Cells[1, 6];                                 // 放在 sheet.Columns[6] 後面再設
+            sheet.Cells[1, 6] = DateTime.Now.ToShortDateString();
+            range.NumberFormat = "yyyy/mm/dd";
+
+            range = sheet.Cells[1, 3];                                 // 放在sheet.Columns[3] 後面再設,要不然會被蓋 
+            sheet.Cells[1, 3] = sheet.Name;
+            range.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            range.Select();
+
+
+
+            i++;
+            string strRange = "F" + i.ToString() + ":F";
+            foreach (DataGridViewRow vr in view.Rows)
+            {
+                DataRowView rowView = vr.DataBoundItem as DataRowView;
+                BakeryOrderSet.ProductRow row =  rowView.Row as BakeryOrderSet.ProductRow;
+                if (row.Code <= 0) continue;   // 系統內用的不轉Excel
+                string strI = i.ToString();
+                sheet.Cells[i, 1] = vr.Cells[1].FormattedValue;         // 代碼
+                sheet.Cells[i, 2] = "'" + vr.Cells[3].FormattedValue;   // 品名
+                sheet.Cells[i, 3] = vr.Cells[4].FormattedValue;         // 價格
+                sheet.Cells[i, 4] = vr.Cells[6].FormattedValue;         // 成本
+                sheet.Cells[i, 5] = "=C"+strI+"-D"+strI;                // 毛利
+                sheet.Cells[i, 6] = "=E"+strI+"/C"+strI;                // 毛利率
+
+                //DataRowView rowView = vr.DataBoundItem as DataRowView;
+                //VEDataSet.ExpenseRow row =  rowView.Row as VEDataSet.ExpenseRow;
+                //if (!row.IsInnerIDNull())   sheet.Cells[i, 1] = row.InnerID;
+                //                            sheet.Cells[i, 2] = row.ApplyTime;
+                //if (!row.IsNoteNull())      sheet.Cells[i, 3] = row.Note;
+                //if (!row.IsTitleCodeNull()) sheet.Cells[i, 4] = "'"+row.TitleCode.ToString();
+                //if (!row.IsMoneyNull())     sheet.Cells[i, 5] = row.Money;
+                //if (!row.IsApplierIDNull())
+                //{
+                //    sheet.Cells[i, 6] = row.ApplierID;
+                //}
+                i++;
+            }
+            sheet.Cells[i, 5] = "品項計";
+            sheet.Cells[i, 6] = "平均毛利";
+            sheet.Cells[i++, 2] = "'===================================================";
+            
+            strRange+=(i-2).ToString();
+            Excel.Range rangeCount = sheet.Cells[i, 5];
+            rangeCount.NumberFormat = "###0";
+            sheet.Cells[i  , 5] = "=Count("+strRange+")";
+            sheet.Cells[i  , 6] = "=Sum(" + strRange + ")/E"+i.ToString();
+            excel.Quit();
+
         }
 
 

@@ -395,7 +395,7 @@ namespace VoucherExpense
                 if (!row.IsPackageNoNull() && row.PackageNo > 0) packageNo = row.PackageNo;
                 decimal bakedNo = 1;
                 if (!row.IsBakedNoNull() && row.BakedNo > 0) bakedNo = row.BakedNo;
-                this.textBoxFloatCost.Text = CalcCost(packageNo/bakedNo, details, usedRecipes: new List<int>()).ToString("N1");
+                this.textBoxFloatCost.Text = CalcCost(packageNo/bakedNo, details, usedRecipes: new List<int>()).ToString("N2");
             }
             else
             {   // From DataGridViewCell , Event BindingSource.CurrentChanged時,DataGridView內容還沒改

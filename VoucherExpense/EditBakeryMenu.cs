@@ -336,12 +336,11 @@ namespace VoucherExpense
                                    select row;
                         foreach (var row in rows) row.MenuX = -1;
                     }
-                    else
-                    {
+                    else  // 一般產品改成 ProductID比對 2313.06.09
+                    {  
                         var ro = l.Tag as BakeryOrderSet.ProductRow;
-                        if (ro.IsCodeNull()) continue;
                         var rows = from row in bakeryOrderSet.Product
-                                   where row.Code == ro.Code
+                                   where row.ProductID == ro.ProductID    
                                    select row;
                         foreach (var row in rows)
                         {
@@ -358,6 +357,7 @@ namespace VoucherExpense
         {
             if (m_Modified)
                 UpdateDataSet(tabControl1.SelectedIndex,tabControl1.SelectedTab.Tag as Label[,]);
+            // <0的程式內用的,以Code比對
             var rows = from row in bakeryOrderSet.Product
                        where row.Code == SpeicalRowCodeForMenu
                        select row;
@@ -373,12 +373,10 @@ namespace VoucherExpense
             }
             else
             {
-                foreach (BakeryOrderSet.ProductRow row in rows)
-                {
-                    row.Name = reserved;
-                    row.MenuX = (short)-MyLayout.NoX;
-                    row.MenuY = (short)-MyLayout.NoY;
-                }
+                BakeryOrderSet.ProductRow row=rows.First();
+                row.Name = reserved;
+                row.MenuX = (short)-MyLayout.NoX;
+                row.MenuY = (short)-MyLayout.NoY;
             }
             try
             {

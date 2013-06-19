@@ -489,11 +489,9 @@ namespace BakeryOrder
             var rows = from row in bakeryOrderSet.Product
                        where row.Code == SpeicalRowCodeForMenu
                        select row;
-            foreach (BakeryOrderSet.ProductRow row in rows)
-            {
-                MyLayout.NoX = -row.MenuX;
-                MyLayout.NoY = -row.MenuY;
-            }
+            BakeryOrderSet.ProductRow rowSpecial = rows.First();
+            MyLayout.NoX = -rowSpecial.MenuX;
+            MyLayout.NoY = -rowSpecial.MenuY;
             LoadTabControlItem();
             tabControl1.DrawMode = TabDrawMode.OwnerDrawFixed;
             UpdateAllFoodMenu();

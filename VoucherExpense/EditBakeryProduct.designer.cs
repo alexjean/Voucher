@@ -206,6 +206,7 @@
             // 
             this.productBindingSource.DataMember = "Product";
             this.productBindingSource.DataSource = this.bakeryOrderSet;
+            this.productBindingSource.Filter = "Code>0";
             this.productBindingSource.CurrentChanged += new System.EventHandler(this.productBindingSource_CurrentChanged);
             // 
             // bakeryOrderSet

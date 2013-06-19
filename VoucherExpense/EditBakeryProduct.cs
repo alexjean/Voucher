@@ -123,13 +123,19 @@ namespace VoucherExpense
                 e.Cancel = true;
                 return;
             }
+            if (code <= 0)  // 內部用的才能小於0
+            {
+                MessageBox.Show("產品代碼必需大於0!");
+                e.Cancel = true;
+                return;
+            }
             BakeryOrderSet.ProductDataTable table = bakeryOrderSet.Product;
             foreach (BakeryOrderSet.ProductRow row in table.Rows)
             {
                 if (row.Code == code)
                 {
                     if (row.ProductID == innerCode) continue; // 同一個產品
-                    MessageBox.Show("代碼<" + code.ToString() + ">和 " + row.ProductID.ToString() + "行的重複");
+                    MessageBox.Show("代碼<" + code.ToString() + ">和 內碼" + row.ProductID.ToString() + "的產品重複");
                     e.Cancel = true;
                 }
             }

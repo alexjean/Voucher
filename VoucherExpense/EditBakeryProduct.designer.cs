@@ -556,9 +556,9 @@
             // 
             this.photoPictureBox.BackColor = System.Drawing.Color.Azure;
             this.photoPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.photoPictureBox.Location = new System.Drawing.Point(657, 311);
+            this.photoPictureBox.Location = new System.Drawing.Point(657, 307);
             this.photoPictureBox.Name = "photoPictureBox";
-            this.photoPictureBox.Size = new System.Drawing.Size(219, 189);
+            this.photoPictureBox.Size = new System.Drawing.Size(240, 160);
             this.photoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.photoPictureBox.TabIndex = 22;
             this.photoPictureBox.TabStop = false;
@@ -632,7 +632,8 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "EditBakeryProduct";
             this.Text = "產品表";
-            this.Load += new System.EventHandler(this.AddProduct_Load);
+            this.Load += new System.EventHandler(this.EditBakeryProduct_Load);
+            this.Shown += new System.EventHandler(this.EditBakeryProduct_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

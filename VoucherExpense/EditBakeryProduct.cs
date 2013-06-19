@@ -18,15 +18,32 @@ namespace VoucherExpense
             InitializeComponent();
         }
 
-        private string m_PhotoPath = "Photos\\Products\\";
-        private void AddProduct_Load(object sender, EventArgs e)
+        private const string m_LocalPhotoPath="Photos\\Products\\";
+        private string m_PhotoPath;
+        private void EditBakeryProduct_Load(object sender, EventArgs e)
         {
             productTableAdapter.Connection  = MapPath.BakeryConnection;
             orderItemTableAdapter.Connection= MapPath.BakeryConnection;
             orderTableAdapter.Connection    = MapPath.BakeryConnection;
             this.productTableAdapter.Fill(this.bakeryOrderSet.Product);
             SetControlLengthFromDB(this, bakeryOrderSet.Product);
-            photoPictureBox.Visible = Directory.Exists(m_PhotoPath);
+            m_PhotoPath = MapPath.DataDir + m_LocalPhotoPath;
+            photoPictureBox.Visible = Directory.Exists(m_LocalPhotoPath);
+        }
+
+        private void EditBakeryProduct_Shown(object sender, EventArgs e)
+        {
+            ShowCurrentPhoto();
+        }
+
+        private void ShowCurrentPhoto()
+        {
+            if (!photoPictureBox.Visible) return;
+            string path = CurrentPhotoPath();
+            if (File.Exists(path))
+                photoPictureBox.ImageLocation = path;
+            else
+                photoPictureBox.ImageLocation = null;
         }
 
         static public void SetControlLengthFromDB(Form form, DataTable table)
@@ -335,11 +352,7 @@ namespace VoucherExpense
                 photoPictureBox.Location = LocationSave;
                 photoPictureBox.Size = SizeSave;
             }
-            string path = CurrentPhotoPath();
-            if (File.Exists(path))
-                photoPictureBox.ImageLocation = path;
-            else
-                photoPictureBox.ImageLocation = null;
+            ShowCurrentPhoto();
         }
 
         private void SavePicture()
@@ -494,6 +507,7 @@ namespace VoucherExpense
             excel.Quit();
 
         }
+
 
 
   

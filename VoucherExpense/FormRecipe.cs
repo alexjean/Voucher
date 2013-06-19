@@ -520,6 +520,7 @@ namespace VoucherExpense
                     product.AcceptChanges();
                     productBindingSource.ResetBindings(false);    // 刷新Product螢幕顯示
                     MessageBox.Show("產品<"+product.Name+">的估算成本己更新為 "+co.ToString());
+                    CalcGrossProfit();
                 }
                 else
                     MessageBox.Show("計算之估算成本不是decimal 產品" + product.Name + " 未更新!");
@@ -663,7 +664,8 @@ namespace VoucherExpense
                     textBoxPriceForEdit.Tag = PriceEditMode.Invisible;
                     textBoxPriceForEdit.Visible = false;
                     btnUpdatePrice.Text = "編修 價格";
-                    MessageBox.Show("價格己更新!");
+                    MessageBox.Show("產品<"+finalProductIDComboBox.Text.Trim()+"> 價格己更新為　"+textBoxPrice.Text.Trim()+"");
+                    CalcGrossProfit();
                     break;
                 default:
                     textBoxPriceForEdit.Tag = PriceEditMode.Invisible;

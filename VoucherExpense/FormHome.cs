@@ -425,6 +425,11 @@ namespace VoucherExpense
             PopupOrRun("FormRecipe", typeof(FormRecipe));
         }
 
+        private void 盤點單ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PopupOrRun("FormIngredientInventories", typeof(FormIngredientInventories));
+        }
+
            
         //private void 盤點ToolStripMenuItem_Click(object sender, EventArgs e)
         //{

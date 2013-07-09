@@ -264,7 +264,6 @@
             // 
             this.IngredientBindingSource.DataMember = "Ingredient";
             this.IngredientBindingSource.DataSource = this.vEDataSet;
-            this.IngredientBindingSource.BindingComplete += new System.Windows.Forms.BindingCompleteEventHandler(this.IngredientBindingSource_BindingComplete);
             this.IngredientBindingSource.CurrentChanged += new System.EventHandler(this.IngredientBindingSource_CurrentChanged);
             // 
             // vEDataSet

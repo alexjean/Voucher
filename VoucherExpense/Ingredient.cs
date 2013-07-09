@@ -174,7 +174,7 @@ namespace VoucherExpense
                 }
                 vendorIDComboBox.SelectedItem = vendor;
             }
-//            CalcCostPerGram();
+            CalcCostPerGram();
             if (!photoPictureBox.Visible) return;
             if (photoPictureBox.Location.X == 0)
             {
@@ -328,6 +328,7 @@ namespace VoucherExpense
 
         private void Ingredient_Shown(object sender, EventArgs e)
         {
+            CalcCostPerGram();
             vendorIDComboBox.SelectedIndexChanged += this.vendorIDComboBox_SelectedIndexChanged;    // 這裏才加,避免第一個Record VendorID被清0
         }
 
@@ -355,9 +356,5 @@ namespace VoucherExpense
             CalcCostPerGram();
         }
 
-        private void IngredientBindingSource_BindingComplete(object sender, BindingCompleteEventArgs e)
-        {
-            CalcCostPerGram();
-        }
     }
 }

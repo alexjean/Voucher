@@ -33,6 +33,7 @@ namespace VoucherExpense
 
         private void EditBakeryProduct_Shown(object sender, EventArgs e)
         {
+            CalcGrossProfit(double.NaN,double.NaN);
             ShowCurrentPhoto();
         }
 

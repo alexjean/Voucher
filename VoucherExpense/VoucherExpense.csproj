@@ -606,7 +606,6 @@
     <None Include="Properties\DataSources\CNameIDForComboBox.datasource" />
     <None Include="Properties\DataSources\CProduct.datasource" />
     <None Include="Properties\DataSources\CSaleItem.datasource" />
-    <None Include="Properties\DataSources\CSelectedVoucher.datasource" />
     <None Include="Properties\DataSources\CVendor.datasource" />
     <None Include="Properties\DataSources\FormMonthlyPay.CMonthlyPay.datasource" />
     <None Include="Properties\DataSources\TitleSetup.datasource" />

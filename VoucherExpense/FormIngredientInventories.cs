@@ -343,7 +343,7 @@ namespace VoucherExpense
                     dRow.StockMoney = 0;
                     dRow.LostMoney = 0;
                     dRow.CurrentIn = 0;
-                    dRow.PrevStockVolume = 0;
+//                    dRow.PrevStockVolume = 0;
                 }
                 VEDataSet.InventoryRow prev = null;
                 foreach (VEDataSet.InventoryRow r in vEDataSet.Inventory)   // 找到前一張單子
@@ -399,7 +399,7 @@ namespace VoucherExpense
                 //inventoryBindingSource.SuspendBinding();
                 //inventoryDetailBindingSource.SuspendBinding();     // DataGridView是複雜Binding ,使用無效
 
-                // 算先進先出,暫存未計算成本的庫存量
+                // 算先進先出成本,暫存未計算成本的庫存量
                 Dictionary<int, double> dicRemainStock = new Dictionary<int, double>();
 
                 foreach (VEDataSet.InventoryDetailRow d in details)
@@ -450,6 +450,7 @@ namespace VoucherExpense
                 {
                     foreach (VEDataSet.InventoryDetailRow d in details) 
                     {
+                        d.PrevStockVolume = 0;
                         double remainStock = dicRemainStock[d.IngredientID];
                         if (remainStock > 0)
                             RemainStockWarning(d.IngredientID, remainStock);
@@ -460,8 +461,8 @@ namespace VoucherExpense
                     var prevDetails = prev.GetInventoryDetailRows();
                     foreach (VEDataSet.InventoryDetailRow d in details)
                     {
+                        d.PrevStockVolume = 0;
                         double remainStock = dicRemainStock[d.IngredientID];
-                        d.PrevStockVolume=0;
                         var ds = from r in prevDetails where r.IngredientID == d.IngredientID select r;
                         if (ds.Count() <= 0)
                         {

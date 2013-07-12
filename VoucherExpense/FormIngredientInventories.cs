@@ -453,7 +453,11 @@ namespace VoucherExpense
                         double remainStock=d.PrevStockVolume; // 借用PrevStockVolume計算先進先出
                         d.PrevStockVolume=0;
                         var ds = from r in prevDetails where r.IngredientID == d.IngredientID select r;
-                        if (ds.Count() <= 0) continue;
+                        if (ds.Count() <= 0)
+                        {
+                            if (remainStock > 0) RemainStockWarning(d.IngredientID, remainStock);
+                            continue;
+                        }
                         var p = ds.First();
                         if (!p.IsAreaCodeNull())   
                         {
@@ -467,7 +471,17 @@ namespace VoucherExpense
                             {
                                 if (p.StockVolume > 0) 
                                 {
-                                    d.StockMoney += p.StockMoney / (decimal)p.StockVolume*(decimal)remainStock;
+                                    if (remainStock > p.StockVolume)
+                                    {
+                                        d.StockMoney += p.StockMoney;
+                                        var ings = from r in vEDataSet.Ingredient where r.IngredientID == p.IngredientID select r;
+                                        if (ings.Count() > 0)
+                                        {
+                                            VEDataSet.IngredientRow ing = ings.First();
+                                            MessageBox.Show("產品<" + ing.Name + "> ,庫存量大於(本期進貨+前期庫存) " + (remainStock-p.StockVolume).ToString() + ing.Unit + ",多餘部分 估值為 0 !!!");
+                                        }
+                                    }
+                                    else d.StockMoney += p.StockMoney / (decimal)p.StockVolume * (decimal)remainStock;
                                 }
                                 else
                                     RemainStockWarning(p.IngredientID,remainStock);
@@ -493,6 +507,7 @@ namespace VoucherExpense
                 MessageBox.Show("計算估值時發生錯誤,原因:" + ex.Message);
             }
         }
+
 
         void RemainStockWarning(int ingredientID,double remainStock)
         {

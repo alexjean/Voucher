@@ -30,16 +30,16 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormIngredientInventories));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label3 = new System.Windows.Forms.Label();
             this.vEDataSet = new VoucherExpense.VEDataSet();
             this.inventoryBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -53,14 +53,6 @@
             this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
             this.inventoryBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.dgvInventories = new System.Windows.Forms.DataGridView();
-            this.ColumnInventoryID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EvaluatedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnLocked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnKeyID = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.operatorBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.inventoryDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -85,6 +77,15 @@
             this.checkDayDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.labelIngredientsCount = new System.Windows.Forms.Label();
             this.operatorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
+            this.ColumnInventoryID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EvaluatedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnLocked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnKeyID = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.totalStockMoneyTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.inventoryBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.inventoryBindingNavigator)).BeginInit();
@@ -204,8 +205,8 @@
             // 
             this.dgvInventories.AllowUserToAddRows = false;
             this.dgvInventories.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
-            this.dgvInventories.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.Azure;
+            this.dgvInventories.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle11;
             this.dgvInventories.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvInventories.AutoGenerateColumns = false;
@@ -227,84 +228,10 @@
             this.dgvInventories.Name = "dgvInventories";
             this.dgvInventories.RowHeadersWidth = 24;
             this.dgvInventories.RowTemplate.Height = 24;
-            this.dgvInventories.Size = new System.Drawing.Size(357, 741);
+            this.dgvInventories.Size = new System.Drawing.Size(357, 779);
             this.dgvInventories.TabIndex = 68;
             this.dgvInventories.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvInventories_CellValueChanged);
             this.dgvInventories.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvInventories_RowEnter);
-            // 
-            // ColumnInventoryID
-            // 
-            this.ColumnInventoryID.DataPropertyName = "InventoryID";
-            this.ColumnInventoryID.HeaderText = "InventoryID";
-            this.ColumnInventoryID.Name = "ColumnInventoryID";
-            this.ColumnInventoryID.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "CheckDay";
-            dataGridViewCellStyle2.Format = "yy-MM-dd";
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridViewTextBoxColumn2.HeaderText = "盤點日";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.Width = 80;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "TotalStockMoney";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dataGridViewTextBoxColumn4.HeaderText = "庫存";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.Width = 64;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "TotalLostMoney";
-            this.dataGridViewTextBoxColumn5.HeaderText = "損失";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            this.dataGridViewTextBoxColumn5.Width = 64;
-            // 
-            // EvaluatedDate
-            // 
-            this.EvaluatedDate.DataPropertyName = "EvaluatedDate";
-            dataGridViewCellStyle4.Format = "MM-dd";
-            this.EvaluatedDate.DefaultCellStyle = dataGridViewCellStyle4;
-            this.EvaluatedDate.HeaderText = "估值日";
-            this.EvaluatedDate.Name = "EvaluatedDate";
-            this.EvaluatedDate.ReadOnly = true;
-            this.EvaluatedDate.Width = 64;
-            // 
-            // ColumnLocked
-            // 
-            this.ColumnLocked.DataPropertyName = "Locked";
-            this.ColumnLocked.HeaderText = "核";
-            this.ColumnLocked.Name = "ColumnLocked";
-            this.ColumnLocked.Width = 32;
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "LastUpdated";
-            dataGridViewCellStyle5.Format = "MM-dd";
-            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle5;
-            this.dataGridViewTextBoxColumn6.HeaderText = "更新日";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.ReadOnly = true;
-            this.dataGridViewTextBoxColumn6.Width = 64;
-            // 
-            // ColumnKeyID
-            // 
-            this.ColumnKeyID.DataPropertyName = "KeyinID";
-            this.ColumnKeyID.DataSource = this.operatorBindingSource;
-            this.ColumnKeyID.DisplayMember = "Name";
-            this.ColumnKeyID.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.ColumnKeyID.HeaderText = "輸入者";
-            this.ColumnKeyID.Name = "ColumnKeyID";
-            this.ColumnKeyID.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ColumnKeyID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.ColumnKeyID.ValueMember = "OperatorID";
-            this.ColumnKeyID.Width = 80;
             // 
             // operatorBindingSource
             // 
@@ -356,7 +283,7 @@
             this.dgvInventoryDetail.Name = "dgvInventoryDetail";
             this.dgvInventoryDetail.RowHeadersWidth = 25;
             this.dgvInventoryDetail.RowTemplate.Height = 24;
-            this.dgvInventoryDetail.Size = new System.Drawing.Size(586, 698);
+            this.dgvInventoryDetail.Size = new System.Drawing.Size(620, 736);
             this.dgvInventoryDetail.TabIndex = 69;
             this.dgvInventoryDetail.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvInventoryDetail_DataBindingComplete);
             this.dgvInventoryDetail.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvInventoryDetail_DataError);
@@ -364,9 +291,9 @@
             // dataGridViewTextBoxColumn3
             // 
             this.dataGridViewTextBoxColumn3.DataPropertyName = "ID";
-            dataGridViewCellStyle6.Format = "N1";
-            dataGridViewCellStyle6.NullValue = null;
-            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle16.Format = "N1";
+            dataGridViewCellStyle16.NullValue = null;
+            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle16;
             this.dataGridViewTextBoxColumn3.HeaderText = "ID";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.Visible = false;
@@ -422,8 +349,8 @@
             // dataGridViewTextBoxColumn15
             // 
             this.dataGridViewTextBoxColumn15.DataPropertyName = "PrevStockVolume";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewTextBoxColumn15.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn15.DefaultCellStyle = dataGridViewCellStyle17;
             this.dataGridViewTextBoxColumn15.HeaderText = "前期";
             this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
             this.dataGridViewTextBoxColumn15.ReadOnly = true;
@@ -432,8 +359,8 @@
             // dataGridViewTextBoxColumn11
             // 
             this.dataGridViewTextBoxColumn11.DataPropertyName = "CurrentIn";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewTextBoxColumn11.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn11.DefaultCellStyle = dataGridViewCellStyle18;
             this.dataGridViewTextBoxColumn11.HeaderText = "進貨";
             this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
             this.dataGridViewTextBoxColumn11.ReadOnly = true;
@@ -456,8 +383,8 @@
             // ColumnStockChecked
             // 
             this.ColumnStockChecked.DataPropertyName = "StockVolume";
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.ColumnStockChecked.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.ColumnStockChecked.DefaultCellStyle = dataGridViewCellStyle19;
             this.ColumnStockChecked.FillWeight = 64F;
             this.ColumnStockChecked.HeaderText = "盤點";
             this.ColumnStockChecked.Name = "ColumnStockChecked";
@@ -466,10 +393,10 @@
             // dataGridViewTextBoxColumn13
             // 
             this.dataGridViewTextBoxColumn13.DataPropertyName = "StockMoney";
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle10.Format = "N1";
-            dataGridViewCellStyle10.NullValue = null;
-            this.dataGridViewTextBoxColumn13.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle20.Format = "N1";
+            dataGridViewCellStyle20.NullValue = null;
+            this.dataGridViewTextBoxColumn13.DefaultCellStyle = dataGridViewCellStyle20;
             this.dataGridViewTextBoxColumn13.HeaderText = "金額";
             this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
             this.dataGridViewTextBoxColumn13.ReadOnly = true;
@@ -488,7 +415,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(589, 39);
+            this.label2.Location = new System.Drawing.Point(759, 41);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(72, 16);
             this.label2.TabIndex = 71;
@@ -497,11 +424,12 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(758, 39);
+            this.label4.Location = new System.Drawing.Point(594, 41);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(72, 16);
             this.label4.TabIndex = 72;
             this.label4.Text = "損失金額";
+            this.label4.Visible = false;
             // 
             // ingredientTableAdapter
             // 
@@ -542,12 +470,98 @@
             // 
             this.operatorTableAdapter.ClearBeforeFill = true;
             // 
+            // ColumnInventoryID
+            // 
+            this.ColumnInventoryID.DataPropertyName = "InventoryID";
+            this.ColumnInventoryID.HeaderText = "InventoryID";
+            this.ColumnInventoryID.Name = "ColumnInventoryID";
+            this.ColumnInventoryID.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "CheckDay";
+            dataGridViewCellStyle12.Format = "yy-MM-dd";
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle12;
+            this.dataGridViewTextBoxColumn2.HeaderText = "盤點日";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.Width = 80;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "TotalStockMoney";
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle13;
+            this.dataGridViewTextBoxColumn4.HeaderText = "庫存";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.Width = 64;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "TotalLostMoney";
+            this.dataGridViewTextBoxColumn5.HeaderText = "損失";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            this.dataGridViewTextBoxColumn5.Visible = false;
+            this.dataGridViewTextBoxColumn5.Width = 64;
+            // 
+            // EvaluatedDate
+            // 
+            this.EvaluatedDate.DataPropertyName = "EvaluatedDate";
+            dataGridViewCellStyle14.Format = "MM-dd";
+            this.EvaluatedDate.DefaultCellStyle = dataGridViewCellStyle14;
+            this.EvaluatedDate.HeaderText = "估值日";
+            this.EvaluatedDate.Name = "EvaluatedDate";
+            this.EvaluatedDate.ReadOnly = true;
+            this.EvaluatedDate.Width = 64;
+            // 
+            // ColumnLocked
+            // 
+            this.ColumnLocked.DataPropertyName = "Locked";
+            this.ColumnLocked.HeaderText = "核";
+            this.ColumnLocked.Name = "ColumnLocked";
+            this.ColumnLocked.Width = 32;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "LastUpdated";
+            dataGridViewCellStyle15.Format = "MM-dd";
+            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle15;
+            this.dataGridViewTextBoxColumn6.HeaderText = "更新日";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.ReadOnly = true;
+            this.dataGridViewTextBoxColumn6.Width = 64;
+            // 
+            // ColumnKeyID
+            // 
+            this.ColumnKeyID.DataPropertyName = "KeyinID";
+            this.ColumnKeyID.DataSource = this.operatorBindingSource;
+            this.ColumnKeyID.DisplayMember = "Name";
+            this.ColumnKeyID.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.ColumnKeyID.HeaderText = "輸入者";
+            this.ColumnKeyID.Name = "ColumnKeyID";
+            this.ColumnKeyID.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ColumnKeyID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.ColumnKeyID.ValueMember = "OperatorID";
+            this.ColumnKeyID.Width = 80;
+            // 
+            // totalStockMoneyTextBox
+            // 
+            this.totalStockMoneyTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.totalStockMoneyTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.inventoryBindingSource, "TotalStockMoney", true));
+            this.totalStockMoneyTextBox.Location = new System.Drawing.Point(837, 38);
+            this.totalStockMoneyTextBox.Name = "totalStockMoneyTextBox";
+            this.totalStockMoneyTextBox.Size = new System.Drawing.Size(90, 27);
+            this.totalStockMoneyTextBox.TabIndex = 76;
+            this.totalStockMoneyTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // FormIngredientInventories
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(952, 770);
+            this.ClientSize = new System.Drawing.Size(986, 808);
+            this.Controls.Add(this.totalStockMoneyTextBox);
             this.Controls.Add(this.labelIngredientsCount);
             this.Controls.Add(this.checkDayDateTimePicker);
             this.Controls.Add(this.chBoxHide);
@@ -626,5 +640,6 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnLocked;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.DataGridViewComboBoxColumn ColumnKeyID;
+        private System.Windows.Forms.TextBox totalStockMoneyTextBox;
     }
 }

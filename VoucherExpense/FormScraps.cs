@@ -18,10 +18,66 @@ namespace VoucherExpense
 
         private void productScrappedBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
-            this.Validate();
-            this.productScrappedBindingSource.EndEdit();
             this.productScrappedTableAdapter.Update(this.vEDataSet.ProductScrapped);
 
+
+            this.Validate();
+            this.productScrappedBindingSource.EndEdit();
+            this.productScrappedDetailBindingSource.EndEdit();
+
+            DateTime now = DateTime.Now;
+            var detailTable = vEDataSet.ProductScrappedDetail.GetChanges() as VEDataSet.ProductScrappedDetailDataTable;
+            if (detailTable != null)   // 把有更改的InventoryDetail填 Inventory.Lastupdated的值
+            {
+                var IDs = (from r in detailTable
+                           where (r.RowState != DataRowState.Deleted) && (!r.IsProdcutScrappedIDNull())
+                           select r.ProdcutScrappedID).Distinct();
+                foreach (int id in IDs)
+                {
+                    var rows = from r in vEDataSet.ProductScrapped where id == r.ProductScrappedID select r;
+                    if (rows.Count() != 0)
+                        rows.First().LastUpdated = now;
+                }
+            }
+
+            var table = vEDataSet.ProductScrapped.GetChanges() as VEDataSet.ProductScrappedDataTable;
+            if (table == null && detailTable == null)
+            {
+                MessageBox.Show("沒有更改,不用存檔!");
+                return;
+            }
+            try
+            {
+                int deleted = 0, updated = 0;
+                if (detailTable != null) this.productScrappedDetailTableAdapter.Update(vEDataSet.ProductScrappedDetail);
+                if (table != null)
+                {
+                    foreach (var r in table)
+                    {
+                        if (r.RowState == DataRowState.Deleted)
+                        {
+                            deleted++;
+                            continue;
+                        }
+                        r.LastUpdated = now;
+                        r.KeyinID = MyFunction.OperatorID;
+                        updated++;
+                    }
+                    productScrappedTableAdapter.Update(table);
+                    vEDataSet.ProductScrapped.Merge(table);
+                    vEDataSet.ProductScrapped.AcceptChanges();
+                }
+                string msg = "共 ";
+                if (updated > 0) msg += updated.ToString() + "筆更改,";
+                if (deleted > 0) msg += deleted.ToString() + "筆刪除,";
+                MessageBox.Show(msg + " 己存檔!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("存檔錯誤! 錯誤<" + ex.Message + ">");
+                return;
+            }
+            bindingNavigatorAddNewItem.Enabled = true;
         }
 
         List<CNameIDForComboBox> m_TableTypeList = new List<CNameIDForComboBox>();
@@ -37,8 +93,10 @@ namespace VoucherExpense
             productScrappedDetailTableAdapter.Fill  (vEDataSet.ProductScrappedDetail);
             productScrappedTableAdapter.Fill        (vEDataSet.ProductScrapped);
 
-            m_TableTypeList.Add(new CNameIDForComboBox(1, "报废"));
-            m_TableTypeList.Add(new CNameIDForComboBox(2, "试吃"));
+            m_TableTypeList.Add(new CNameIDForComboBox(0, " "));
+            m_TableTypeList.Add(new CNameIDForComboBox(1, "日報癈"));
+            m_TableTypeList.Add(new CNameIDForComboBox(2, "試吃"));
+            m_TableTypeList.Add(new CNameIDForComboBox(3, "其他"));
             cNameIDForComboBoxBindingSource.DataSource = m_TableTypeList;
             
         }
@@ -122,9 +180,118 @@ namespace VoucherExpense
             int iRow = e.RowIndex;
             DataGridViewColumn column = view.Columns[iCol];
             {
+                DataGridViewCell cell = view.Rows[iRow].Cells[iCol];
                 MessageBox.Show("第" + iRow.ToString() + "行["+column.HeaderText+"]資料錯誤,原因:" + e.Exception.Message);
                 e.Cancel = true;
             }
+        }
+
+        private void btnEvaluate_Click(object sender, EventArgs e)
+        {
+            // 先回存螢幕
+            this.productScrappedBindingSource.EndEdit();
+            this.productScrappedDetailBindingSource.EndEdit();
+            try
+            {
+                DataRowView rowView = productScrappedBindingSource.Current as DataRowView;
+                var curr = rowView.Row as VEDataSet.ProductScrappedRow;
+                var details = curr.GetProductScrappedDetailRows();
+                decimal value = 0, cost = 0;
+                foreach (var d in details)
+                {
+                    if (d.IsVolumeNull()) continue;
+                    if (d.IsProductIDNull()) continue;
+                    var rows=from r in bakeryOrderSet.Product where r.ProductID==d.ProductID select r;
+                    if (rows.Count() > 0)  // 有找到此產品,重新帶入Price及EvaluatedCost
+                    {
+                        var r1 = rows.First();
+                        if (!r1.IsPriceNull())         d.Price = (decimal)r1.Price;
+                        if (!r1.IsEvaluatedCostNull()) d.EvaluatedCost = r1.EvaluatedCost;
+                    }
+                    if (!d.IsPriceNull())
+                        value += d.Price * d.Volume;
+                    if (!d.IsEvaluatedCostNull())
+                        cost += d.EvaluatedCost * d.Volume;
+                }
+                DateTime now = DateTime.Now;
+                curr.SoldValue = value;
+                curr.IngredientsCost = cost;
+                curr.EvaluatedDate = now;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("計算估值時發生錯誤,原因:" + ex.Message);
+            }
+
+          
+
+        }
+
+        private void bindingNavigatorDeleteItem_Click(object sender, EventArgs e)
+        {
+            DataGridViewRow row = this.dgvProductScrapped.CurrentRow;
+            if (row == null)
+            {
+                MessageBox.Show("無單可刪!");
+                return;
+            }
+            DataGridViewCell cell = row.Cells["ColumnLocked"];
+            if (cell == null)
+            {
+                MessageBox.Show("程式或資料庫版本錯誤, <dgvProdcutScrapped>沒有<ColumnLocked>!");
+                return;
+            }
+            object obj = cell.Value;
+            if (!Convert.IsDBNull(obj))
+            {
+                if (typeof(bool) == obj.GetType())
+                {
+                    if (((bool)obj) == true)
+                    {
+                        MessageBox.Show("己核可的報癈單無法刪除!");
+                        return;
+                    }
+                }
+            }
+            // Delete Detail資料庫
+            DataRowView rowView = row.DataBoundItem as DataRowView;
+            var productScrapped = rowView.Row as VEDataSet.ProductScrappedRow;
+            int id = productScrapped.ProductScrappedID;
+            var rows = from r in vEDataSet.ProductScrappedDetail where r.ProdcutScrappedID == id select r;
+            foreach (var r in rows)     // 用RemoveProductScrappedDetailRow() 會只是Remove, 不是留下要Delete的tag
+                r.Delete();
+            productScrappedBindingSource.RemoveCurrent();              // 要放在後面,因為還要取出 Current的prodcutScrappedID
+            bindingNavigatorDeleteItem.Enabled = false;
+
+        }
+
+        void SetDetailLocked(bool locked)
+        {
+            scrappedDateDateTimePicker.Enabled = !locked;
+            btnEvaluate.Enabled = !locked;
+            ColumnVolume.ReadOnly = locked;
+        }
+
+        private void dgvProductScrapped_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                DataGridView view = sender as DataGridView;
+                DataGridViewRow dgvRow = view.Rows[e.RowIndex];
+                DataRowView rowView = dgvRow.DataBoundItem as DataRowView;
+                var dataRow = rowView.Row as VEDataSet.ProductScrappedRow;
+                if (dataRow.IsLockedNull())
+                    SetDetailLocked(false);
+                else SetDetailLocked(dataRow.Locked);
+            }
+            catch { };
+            chBoxHide_CheckedChanged(null, null);
+            productScrappedDetailBindingSource.ResetBindings(false);
+        }
+
+        private void dgvScrappedDetail_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            // 值一變動,要清除估值日
         }
     }
 }

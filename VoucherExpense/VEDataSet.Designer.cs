@@ -9781,13 +9781,13 @@ namespace VoucherExpense {
             
             private global::System.Data.DataColumn columnIngredientsCost;
             
-            private global::System.Data.DataColumn columnReason;
-            
             private global::System.Data.DataColumn columnLocked;
             
             private global::System.Data.DataColumn columnLastUpdated;
             
             private global::System.Data.DataColumn columnEvaluatedDate;
+            
+            private global::System.Data.DataColumn columnReason;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -9864,14 +9864,6 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn ReasonColumn {
-                get {
-                    return this.columnReason;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn LockedColumn {
                 get {
                     return this.columnLocked;
@@ -9891,6 +9883,14 @@ namespace VoucherExpense {
             public global::System.Data.DataColumn EvaluatedDateColumn {
                 get {
                     return this.columnEvaluatedDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ReasonColumn {
+                get {
+                    return this.columnReason;
                 }
             }
             
@@ -9931,7 +9931,7 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ProductScrappedRow AddProductScrappedRow(int ProductScrappedID, System.DateTime ScrappedDate, int KeyinID, decimal SoldValue, decimal IngredientsCost, string Reason, bool Locked, System.DateTime LastUpdated, System.DateTime EvaluatedDate) {
+            public ProductScrappedRow AddProductScrappedRow(int ProductScrappedID, System.DateTime ScrappedDate, int KeyinID, decimal SoldValue, decimal IngredientsCost, bool Locked, System.DateTime LastUpdated, System.DateTime EvaluatedDate, short Reason) {
                 ProductScrappedRow rowProductScrappedRow = ((ProductScrappedRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ProductScrappedID,
@@ -9939,10 +9939,10 @@ namespace VoucherExpense {
                         KeyinID,
                         SoldValue,
                         IngredientsCost,
-                        Reason,
                         Locked,
                         LastUpdated,
-                        EvaluatedDate};
+                        EvaluatedDate,
+                        Reason};
                 rowProductScrappedRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowProductScrappedRow);
                 return rowProductScrappedRow;
@@ -9977,10 +9977,10 @@ namespace VoucherExpense {
                 this.columnKeyinID = base.Columns["KeyinID"];
                 this.columnSoldValue = base.Columns["SoldValue"];
                 this.columnIngredientsCost = base.Columns["IngredientsCost"];
-                this.columnReason = base.Columns["Reason"];
                 this.columnLocked = base.Columns["Locked"];
                 this.columnLastUpdated = base.Columns["LastUpdated"];
                 this.columnEvaluatedDate = base.Columns["EvaluatedDate"];
+                this.columnReason = base.Columns["Reason"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -9996,19 +9996,18 @@ namespace VoucherExpense {
                 base.Columns.Add(this.columnSoldValue);
                 this.columnIngredientsCost = new global::System.Data.DataColumn("IngredientsCost", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIngredientsCost);
-                this.columnReason = new global::System.Data.DataColumn("Reason", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnReason);
                 this.columnLocked = new global::System.Data.DataColumn("Locked", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnLocked);
                 this.columnLastUpdated = new global::System.Data.DataColumn("LastUpdated", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnLastUpdated);
                 this.columnEvaluatedDate = new global::System.Data.DataColumn("EvaluatedDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnEvaluatedDate);
+                this.columnReason = new global::System.Data.DataColumn("Reason", typeof(short), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnReason);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnProductScrappedID}, true));
                 this.columnProductScrappedID.AllowDBNull = false;
                 this.columnProductScrappedID.Unique = true;
-                this.columnReason.MaxLength = 1;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -16857,22 +16856,6 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string Reason {
-                get {
-                    try {
-                        return ((string)(this[this.tableProductScrapped.ReasonColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("資料表 \'ProductScrapped\' 中資料行 \'Reason\' 的值是 DBNull。", e);
-                    }
-                }
-                set {
-                    this[this.tableProductScrapped.ReasonColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Locked {
                 get {
                     try {
@@ -16916,6 +16899,22 @@ namespace VoucherExpense {
                 }
                 set {
                     this[this.tableProductScrapped.EvaluatedDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public short Reason {
+                get {
+                    try {
+                        return ((short)(this[this.tableProductScrapped.ReasonColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("資料表 \'ProductScrapped\' 中資料行 \'Reason\' 的值是 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tableProductScrapped.ReasonColumn] = value;
                 }
             }
             
@@ -16969,18 +16968,6 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsReasonNull() {
-                return this.IsNull(this.tableProductScrapped.ReasonColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetReasonNull() {
-                this[this.tableProductScrapped.ReasonColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsLockedNull() {
                 return this.IsNull(this.tableProductScrapped.LockedColumn);
             }
@@ -17013,6 +17000,18 @@ namespace VoucherExpense {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetEvaluatedDateNull() {
                 this[this.tableProductScrapped.EvaluatedDateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsReasonNull() {
+                return this.IsNull(this.tableProductScrapped.ReasonColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetReasonNull() {
+                this[this.tableProductScrapped.ReasonColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -28721,14 +28720,14 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("KeyinID", "KeyinID");
             tableMapping.ColumnMappings.Add("SoldValue", "SoldValue");
             tableMapping.ColumnMappings.Add("IngredientsCost", "IngredientsCost");
-            tableMapping.ColumnMappings.Add("Reason", "Reason");
             tableMapping.ColumnMappings.Add("Locked", "Locked");
             tableMapping.ColumnMappings.Add("LastUpdated", "LastUpdated");
             tableMapping.ColumnMappings.Add("EvaluatedDate", "EvaluatedDate");
+            tableMapping.ColumnMappings.Add("Reason", "Reason");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `ProductScrapped` WHERE ((`ProductScrappedID` = ?) AND ((? = 1 AND `ScrappedDate` IS NULL) OR (`ScrappedDate` = ?)) AND ((? = 1 AND `KeyinID` IS NULL) OR (`KeyinID` = ?)) AND ((? = 1 AND `SoldValue` IS NULL) OR (`SoldValue` = ?)) AND ((? = 1 AND `IngredientsCost` IS NULL) OR (`IngredientsCost` = ?)) AND ((? = 1 AND `Reason` IS NULL) OR (`Reason` = ?)) AND ((? = 1 AND `Locked` IS NULL) OR (`Locked` = ?)) AND ((? = 1 AND `LastUpdated` IS NULL) OR (`LastUpdated` = ?)) AND ((? = 1 AND `EvaluatedDate` IS NULL) OR (`EvaluatedDate` = ?)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `ProductScrapped` WHERE ((`ProductScrappedID` = ?) AND ((? = 1 AND `ScrappedDate` IS NULL) OR (`ScrappedDate` = ?)) AND ((? = 1 AND `KeyinID` IS NULL) OR (`KeyinID` = ?)) AND ((? = 1 AND `SoldValue` IS NULL) OR (`SoldValue` = ?)) AND ((? = 1 AND `IngredientsCost` IS NULL) OR (`IngredientsCost` = ?)) AND ((? = 1 AND `Locked` IS NULL) OR (`Locked` = ?)) AND ((? = 1 AND `LastUpdated` IS NULL) OR (`LastUpdated` = ?)) AND ((? = 1 AND `EvaluatedDate` IS NULL) OR (`EvaluatedDate` = ?)) AND ((? = 1 AND `Reason` IS NULL) OR (`Reason` = ?)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ProductScrappedID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ProductScrappedID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ScrappedDate", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ScrappedDate", global::System.Data.DataRowVersion.Original, true, null));
@@ -28739,18 +28738,18 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_SoldValue", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "SoldValue", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_IngredientsCost", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IngredientsCost", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_IngredientsCost", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IngredientsCost", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Reason", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Reason", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Reason", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Reason", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Locked", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Locked", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Locked", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Locked", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_LastUpdated", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LastUpdated", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_LastUpdated", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LastUpdated", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_EvaluatedDate", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EvaluatedDate", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_EvaluatedDate", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EvaluatedDate", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Reason", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Reason", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Reason", global::System.Data.OleDb.OleDbType.SmallInt, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Reason", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
             this._adapter.InsertCommand.CommandText = "INSERT INTO `ProductScrapped` (`ProductScrappedID`, `ScrappedDate`, `KeyinID`, `S" +
-                "oldValue`, `IngredientsCost`, `Reason`, `Locked`, `LastUpdated`, `EvaluatedDate`" +
+                "oldValue`, `IngredientsCost`, `Locked`, `LastUpdated`, `EvaluatedDate`, `Reason`" +
                 ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ProductScrappedID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ProductScrappedID", global::System.Data.DataRowVersion.Current, false, null));
@@ -28758,23 +28757,23 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("KeyinID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "KeyinID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("SoldValue", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "SoldValue", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IngredientsCost", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IngredientsCost", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Reason", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Reason", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Locked", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Locked", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("LastUpdated", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LastUpdated", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("EvaluatedDate", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EvaluatedDate", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Reason", global::System.Data.OleDb.OleDbType.SmallInt, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Reason", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE `ProductScrapped` SET `ProductScrappedID` = ?, `ScrappedDate` = ?, `KeyinID` = ?, `SoldValue` = ?, `IngredientsCost` = ?, `Reason` = ?, `Locked` = ?, `LastUpdated` = ?, `EvaluatedDate` = ? WHERE ((`ProductScrappedID` = ?) AND ((? = 1 AND `ScrappedDate` IS NULL) OR (`ScrappedDate` = ?)) AND ((? = 1 AND `KeyinID` IS NULL) OR (`KeyinID` = ?)) AND ((? = 1 AND `SoldValue` IS NULL) OR (`SoldValue` = ?)) AND ((? = 1 AND `IngredientsCost` IS NULL) OR (`IngredientsCost` = ?)) AND ((? = 1 AND `Reason` IS NULL) OR (`Reason` = ?)) AND ((? = 1 AND `Locked` IS NULL) OR (`Locked` = ?)) AND ((? = 1 AND `LastUpdated` IS NULL) OR (`LastUpdated` = ?)) AND ((? = 1 AND `EvaluatedDate` IS NULL) OR (`EvaluatedDate` = ?)))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE `ProductScrapped` SET `ProductScrappedID` = ?, `ScrappedDate` = ?, `KeyinID` = ?, `SoldValue` = ?, `IngredientsCost` = ?, `Locked` = ?, `LastUpdated` = ?, `EvaluatedDate` = ?, `Reason` = ? WHERE ((`ProductScrappedID` = ?) AND ((? = 1 AND `ScrappedDate` IS NULL) OR (`ScrappedDate` = ?)) AND ((? = 1 AND `KeyinID` IS NULL) OR (`KeyinID` = ?)) AND ((? = 1 AND `SoldValue` IS NULL) OR (`SoldValue` = ?)) AND ((? = 1 AND `IngredientsCost` IS NULL) OR (`IngredientsCost` = ?)) AND ((? = 1 AND `Locked` IS NULL) OR (`Locked` = ?)) AND ((? = 1 AND `LastUpdated` IS NULL) OR (`LastUpdated` = ?)) AND ((? = 1 AND `EvaluatedDate` IS NULL) OR (`EvaluatedDate` = ?)) AND ((? = 1 AND `Reason` IS NULL) OR (`Reason` = ?)))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ProductScrappedID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ProductScrappedID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ScrappedDate", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ScrappedDate", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("KeyinID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "KeyinID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("SoldValue", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "SoldValue", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IngredientsCost", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IngredientsCost", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Reason", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Reason", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Locked", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Locked", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("LastUpdated", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LastUpdated", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("EvaluatedDate", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EvaluatedDate", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Reason", global::System.Data.OleDb.OleDbType.SmallInt, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Reason", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ProductScrappedID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ProductScrappedID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ScrappedDate", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ScrappedDate", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ScrappedDate", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ScrappedDate", global::System.Data.DataRowVersion.Original, false, null));
@@ -28784,14 +28783,14 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_SoldValue", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "SoldValue", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_IngredientsCost", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IngredientsCost", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_IngredientsCost", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IngredientsCost", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Reason", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Reason", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Reason", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Reason", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Locked", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Locked", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Locked", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Locked", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_LastUpdated", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LastUpdated", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_LastUpdated", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "LastUpdated", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_EvaluatedDate", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EvaluatedDate", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_EvaluatedDate", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EvaluatedDate", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Reason", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Reason", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Reason", global::System.Data.OleDb.OleDbType.SmallInt, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Reason", global::System.Data.DataRowVersion.Original, false, null));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -28807,8 +28806,8 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ProductScrappedID, ScrappedDate, KeyinID, SoldValue, IngredientsCost, Reas" +
-                "on, Locked, LastUpdated, EvaluatedDate FROM ProductScrapped";
+            this._commandCollection[0].CommandText = "SELECT ProductScrappedID, ScrappedDate, KeyinID, SoldValue, IngredientsCost, Lock" +
+                "ed, LastUpdated, EvaluatedDate, Reason FROM ProductScrapped";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -28869,7 +28868,7 @@ namespace VoucherExpense.VEDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(global::System.Nullable<int> Original_ProductScrappedID, global::System.Nullable<global::System.DateTime> Original_ScrappedDate, global::System.Nullable<int> Original_KeyinID, global::System.Nullable<decimal> Original_SoldValue, global::System.Nullable<decimal> Original_IngredientsCost, string Original_Reason, bool Original_Locked, global::System.Nullable<global::System.DateTime> Original_LastUpdated, global::System.Nullable<global::System.DateTime> Original_EvaluatedDate) {
+        public virtual int Delete(global::System.Nullable<int> Original_ProductScrappedID, global::System.Nullable<global::System.DateTime> Original_ScrappedDate, global::System.Nullable<int> Original_KeyinID, global::System.Nullable<decimal> Original_SoldValue, global::System.Nullable<decimal> Original_IngredientsCost, bool Original_Locked, global::System.Nullable<global::System.DateTime> Original_LastUpdated, global::System.Nullable<global::System.DateTime> Original_EvaluatedDate, global::System.Nullable<short> Original_Reason) {
             if ((Original_ProductScrappedID.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ProductScrappedID.Value));
             }
@@ -28908,27 +28907,27 @@ namespace VoucherExpense.VEDataSetTableAdapters {
                 this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[8].Value = global::System.DBNull.Value;
             }
-            if ((Original_Reason == null)) {
-                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[10].Value = global::System.DBNull.Value;
+            this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(0));
+            this.Adapter.DeleteCommand.Parameters[10].Value = ((bool)(Original_Locked));
+            if ((Original_LastUpdated.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[12].Value = ((System.DateTime)(Original_LastUpdated.Value));
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[10].Value = ((string)(Original_Reason));
+                this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[12].Value = global::System.DBNull.Value;
             }
-            this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(0));
-            this.Adapter.DeleteCommand.Parameters[12].Value = ((bool)(Original_Locked));
-            if ((Original_LastUpdated.HasValue == true)) {
+            if ((Original_EvaluatedDate.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[13].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[14].Value = ((System.DateTime)(Original_LastUpdated.Value));
+                this.Adapter.DeleteCommand.Parameters[14].Value = ((System.DateTime)(Original_EvaluatedDate.Value));
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[13].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[14].Value = global::System.DBNull.Value;
             }
-            if ((Original_EvaluatedDate.HasValue == true)) {
+            if ((Original_Reason.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[15].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[16].Value = ((System.DateTime)(Original_EvaluatedDate.Value));
+                this.Adapter.DeleteCommand.Parameters[16].Value = ((short)(Original_Reason.Value));
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[15].Value = ((object)(1));
@@ -28954,7 +28953,7 @@ namespace VoucherExpense.VEDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(global::System.Nullable<int> ProductScrappedID, global::System.Nullable<global::System.DateTime> ScrappedDate, global::System.Nullable<int> KeyinID, global::System.Nullable<decimal> SoldValue, global::System.Nullable<decimal> IngredientsCost, string Reason, bool Locked, global::System.Nullable<global::System.DateTime> LastUpdated, global::System.Nullable<global::System.DateTime> EvaluatedDate) {
+        public virtual int Insert(global::System.Nullable<int> ProductScrappedID, global::System.Nullable<global::System.DateTime> ScrappedDate, global::System.Nullable<int> KeyinID, global::System.Nullable<decimal> SoldValue, global::System.Nullable<decimal> IngredientsCost, bool Locked, global::System.Nullable<global::System.DateTime> LastUpdated, global::System.Nullable<global::System.DateTime> EvaluatedDate, global::System.Nullable<short> Reason) {
             if ((ProductScrappedID.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[0].Value = ((int)(ProductScrappedID.Value));
             }
@@ -28985,21 +28984,21 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             else {
                 this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
-            if ((Reason == null)) {
-                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
+            this.Adapter.InsertCommand.Parameters[5].Value = ((bool)(Locked));
+            if ((LastUpdated.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[6].Value = ((System.DateTime)(LastUpdated.Value));
             }
             else {
-                this.Adapter.InsertCommand.Parameters[5].Value = ((string)(Reason));
+                this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
-            this.Adapter.InsertCommand.Parameters[6].Value = ((bool)(Locked));
-            if ((LastUpdated.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[7].Value = ((System.DateTime)(LastUpdated.Value));
+            if ((EvaluatedDate.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[7].Value = ((System.DateTime)(EvaluatedDate.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
-            if ((EvaluatedDate.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[8].Value = ((System.DateTime)(EvaluatedDate.Value));
+            if ((Reason.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[8].Value = ((short)(Reason.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[8].Value = global::System.DBNull.Value;
@@ -29030,19 +29029,19 @@ namespace VoucherExpense.VEDataSetTableAdapters {
                     global::System.Nullable<int> KeyinID, 
                     global::System.Nullable<decimal> SoldValue, 
                     global::System.Nullable<decimal> IngredientsCost, 
-                    string Reason, 
                     bool Locked, 
                     global::System.Nullable<global::System.DateTime> LastUpdated, 
                     global::System.Nullable<global::System.DateTime> EvaluatedDate, 
+                    global::System.Nullable<short> Reason, 
                     global::System.Nullable<int> Original_ProductScrappedID, 
                     global::System.Nullable<global::System.DateTime> Original_ScrappedDate, 
                     global::System.Nullable<int> Original_KeyinID, 
                     global::System.Nullable<decimal> Original_SoldValue, 
                     global::System.Nullable<decimal> Original_IngredientsCost, 
-                    string Original_Reason, 
                     bool Original_Locked, 
                     global::System.Nullable<global::System.DateTime> Original_LastUpdated, 
-                    global::System.Nullable<global::System.DateTime> Original_EvaluatedDate) {
+                    global::System.Nullable<global::System.DateTime> Original_EvaluatedDate, 
+                    global::System.Nullable<short> Original_Reason) {
             if ((ProductScrappedID.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(ProductScrappedID.Value));
             }
@@ -29073,21 +29072,21 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             else {
                 this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
-            if ((Reason == null)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((bool)(Locked));
+            if ((LastUpdated.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((System.DateTime)(LastUpdated.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(Reason));
+                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((bool)(Locked));
-            if ((LastUpdated.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((System.DateTime)(LastUpdated.Value));
+            if ((EvaluatedDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((System.DateTime)(EvaluatedDate.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
-            if ((EvaluatedDate.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((System.DateTime)(EvaluatedDate.Value));
+            if ((Reason.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((short)(Reason.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
@@ -29130,27 +29129,27 @@ namespace VoucherExpense.VEDataSetTableAdapters {
                 this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[17].Value = global::System.DBNull.Value;
             }
-            if ((Original_Reason == null)) {
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[19].Value = global::System.DBNull.Value;
+            this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[19].Value = ((bool)(Original_Locked));
+            if ((Original_LastUpdated.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[20].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[21].Value = ((System.DateTime)(Original_LastUpdated.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[19].Value = ((string)(Original_Reason));
+                this.Adapter.UpdateCommand.Parameters[20].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[21].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[20].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[21].Value = ((bool)(Original_Locked));
-            if ((Original_LastUpdated.HasValue == true)) {
+            if ((Original_EvaluatedDate.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[22].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[23].Value = ((System.DateTime)(Original_LastUpdated.Value));
+                this.Adapter.UpdateCommand.Parameters[23].Value = ((System.DateTime)(Original_EvaluatedDate.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[22].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[23].Value = global::System.DBNull.Value;
             }
-            if ((Original_EvaluatedDate.HasValue == true)) {
+            if ((Original_Reason.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[24].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[25].Value = ((System.DateTime)(Original_EvaluatedDate.Value));
+                this.Adapter.UpdateCommand.Parameters[25].Value = ((short)(Original_Reason.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[24].Value = ((object)(1));
@@ -29181,20 +29180,20 @@ namespace VoucherExpense.VEDataSetTableAdapters {
                     global::System.Nullable<int> KeyinID, 
                     global::System.Nullable<decimal> SoldValue, 
                     global::System.Nullable<decimal> IngredientsCost, 
-                    string Reason, 
                     bool Locked, 
                     global::System.Nullable<global::System.DateTime> LastUpdated, 
                     global::System.Nullable<global::System.DateTime> EvaluatedDate, 
+                    global::System.Nullable<short> Reason, 
                     global::System.Nullable<int> Original_ProductScrappedID, 
                     global::System.Nullable<global::System.DateTime> Original_ScrappedDate, 
                     global::System.Nullable<int> Original_KeyinID, 
                     global::System.Nullable<decimal> Original_SoldValue, 
                     global::System.Nullable<decimal> Original_IngredientsCost, 
-                    string Original_Reason, 
                     bool Original_Locked, 
                     global::System.Nullable<global::System.DateTime> Original_LastUpdated, 
-                    global::System.Nullable<global::System.DateTime> Original_EvaluatedDate) {
-            return this.Update(Original_ProductScrappedID, ScrappedDate, KeyinID, SoldValue, IngredientsCost, Reason, Locked, LastUpdated, EvaluatedDate, Original_ProductScrappedID, Original_ScrappedDate, Original_KeyinID, Original_SoldValue, Original_IngredientsCost, Original_Reason, Original_Locked, Original_LastUpdated, Original_EvaluatedDate);
+                    global::System.Nullable<global::System.DateTime> Original_EvaluatedDate, 
+                    global::System.Nullable<short> Original_Reason) {
+            return this.Update(Original_ProductScrappedID, ScrappedDate, KeyinID, SoldValue, IngredientsCost, Locked, LastUpdated, EvaluatedDate, Reason, Original_ProductScrappedID, Original_ScrappedDate, Original_KeyinID, Original_SoldValue, Original_IngredientsCost, Original_Locked, Original_LastUpdated, Original_EvaluatedDate, Original_Reason);
         }
     }
     

@@ -18,9 +18,6 @@ namespace VoucherExpense
 
         private void productScrappedBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
-            this.productScrappedTableAdapter.Update(this.vEDataSet.ProductScrapped);
-
-
             this.Validate();
             this.productScrappedBindingSource.EndEdit();
             this.productScrappedDetailBindingSource.EndEdit();

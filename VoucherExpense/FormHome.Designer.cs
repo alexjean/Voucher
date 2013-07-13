@@ -48,7 +48,6 @@
             this.庫存MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.盤點單ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.產品報廢ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.產品試吃ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.收入MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.餐飲月報ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.餐飲明細ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -230,8 +229,7 @@
             // 
             this.庫存MenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.盤點單ToolStripMenuItem,
-            this.產品報廢ToolStripMenuItem,
-            this.產品試吃ToolStripMenuItem});
+            this.產品報廢ToolStripMenuItem});
             this.庫存MenuItem.Name = "庫存MenuItem";
             this.庫存MenuItem.Size = new System.Drawing.Size(52, 20);
             this.庫存MenuItem.Text = "庫存";
@@ -247,13 +245,8 @@
             // 
             this.產品報廢ToolStripMenuItem.Name = "產品報廢ToolStripMenuItem";
             this.產品報廢ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.產品報廢ToolStripMenuItem.Text = "產品報廢";
-            // 
-            // 產品試吃ToolStripMenuItem
-            // 
-            this.產品試吃ToolStripMenuItem.Name = "產品試吃ToolStripMenuItem";
-            this.產品試吃ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.產品試吃ToolStripMenuItem.Text = "產品試吃";
+            this.產品報廢ToolStripMenuItem.Text = "報廢試吃";
+            this.產品報廢ToolStripMenuItem.Click += new System.EventHandler(this.產品報廢ToolStripMenuItem_Click);
             // 
             // 收入MenuItem
             // 
@@ -268,21 +261,21 @@
             // 餐飲月報ToolStripMenuItem
             // 
             this.餐飲月報ToolStripMenuItem.Name = "餐飲月報ToolStripMenuItem";
-            this.餐飲月報ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.餐飲月報ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.餐飲月報ToolStripMenuItem.Text = "月報";
             this.餐飲月報ToolStripMenuItem.Click += new System.EventHandler(this.月報ToolStripMenuItem_Click);
             // 
             // 餐飲明細ToolStripMenuItem
             // 
             this.餐飲明細ToolStripMenuItem.Name = "餐飲明細ToolStripMenuItem";
-            this.餐飲明細ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.餐飲明細ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.餐飲明細ToolStripMenuItem.Text = "明細";
             this.餐飲明細ToolStripMenuItem.Click += new System.EventHandler(this.明細ToolStripMenuItem_Click);
             // 
             // 收銀授權ToolStripMenuItem
             // 
             this.收銀授權ToolStripMenuItem.Name = "收銀授權ToolStripMenuItem";
-            this.收銀授權ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.收銀授權ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.收銀授權ToolStripMenuItem.Text = "收銀授權";
             this.收銀授權ToolStripMenuItem.Click += new System.EventHandler(this.收銀授權ToolStripMenuItem_Click);
             // 
@@ -301,21 +294,21 @@
             // 細目編修ToolStripMenuItem
             // 
             this.細目編修ToolStripMenuItem.Name = "細目編修ToolStripMenuItem";
-            this.細目編修ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.細目編修ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.細目編修ToolStripMenuItem.Text = "細目編修";
             this.細目編修ToolStripMenuItem.Click += new System.EventHandler(this.細目編修ToolStripMenuItem_Click);
             // 
             // 匯入XLSToolStripMenuItem
             // 
             this.匯入XLSToolStripMenuItem.Name = "匯入XLSToolStripMenuItem";
-            this.匯入XLSToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.匯入XLSToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.匯入XLSToolStripMenuItem.Text = "匯入 xls";
             this.匯入XLSToolStripMenuItem.Click += new System.EventHandler(this.匯入XLSToolStripMenuItem_Click);
             // 
             // 合併銀行細目MdbMenuItem
             // 
             this.合併銀行細目MdbMenuItem.Name = "合併銀行細目MdbMenuItem";
-            this.合併銀行細目MdbMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.合併銀行細目MdbMenuItem.Size = new System.Drawing.Size(148, 22);
             this.合併銀行細目MdbMenuItem.Text = "合併 mdb";
             this.合併銀行細目MdbMenuItem.Click += new System.EventHandler(this.合併銀行細目MdbMenuItem_Click);
             // 
@@ -580,7 +573,6 @@
         private System.Windows.Forms.ToolStripMenuItem 庫存MenuItem;
         private System.Windows.Forms.ToolStripMenuItem 盤點單ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 產品報廢ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 產品試吃ToolStripMenuItem;
 
     }
 }

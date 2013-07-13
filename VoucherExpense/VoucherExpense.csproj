@@ -309,6 +309,12 @@
     <Compile Include="FormRecipePriceUpdate.Designer.cs">
       <DependentUpon>FormRecipePriceUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormScraps.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormScraps.Designer.cs">
+      <DependentUpon>FormScraps.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormShift.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -490,6 +496,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormRecipePriceUpdate.resx">
       <DependentUpon>FormRecipePriceUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormScraps.resx">
+      <DependentUpon>FormScraps.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormShift.resx">
       <DependentUpon>FormShift.cs</DependentUpon>

@@ -138,6 +138,7 @@ namespace VoucherExpense
 
         private void FormCashierAuthen_Load(object sender, EventArgs e)
         {
+            operatorTableAdapter.Connection = MapPath.VEConnection;
             headerTableAdapter.Connection    = MapPath.BakeryConnection;
             orderTableAdapter.Connection     = MapPath.BakeryConnection;
             orderItemTableAdapter.Connection = MapPath.BakeryConnection;
@@ -155,6 +156,7 @@ namespace VoucherExpense
                 else if (now.Date > todayPicker.MaxDate) todayPicker.Value = todayPicker.MaxDate;
                 else                                     todayPicker.Value = now.Date;
                 LoadCfg();
+                BakeryConfig = new BakeryConfig(MapPath.DataDir);
                 LoadBakeryConfig();
             }
             catch (Exception ex)
@@ -702,7 +704,7 @@ namespace VoucherExpense
         }
         
         // 這個存在每個POS机, [BakeryOrder.BakeryConfig]
-        BakeryConfig BakeryConfig = new BakeryConfig(".");
+        BakeryConfig BakeryConfig = null;
         string BakeryConfigName = "FormCashier";
         string BakeryTableName  = "PrintTitle";
         string PrintConfig2Xml(string configName,string tableName,int posNo=0)

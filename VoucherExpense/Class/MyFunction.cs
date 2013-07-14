@@ -403,7 +403,7 @@ namespace VoucherExpense
         static public int OperatorID { get; set; }
         static public bool IsManager { get; set; }
         static public bool LockHR    { get; set; }
-
+        static public bool LockInventory { get; set; } // 偷懶還是這樣寫,應該把權限全讀入 
         static public string HeaderYear="2008";
         static public int IntHeaderYear = 2008;
         static public int IntHeaderMonth = 1;

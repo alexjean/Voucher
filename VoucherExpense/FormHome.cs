@@ -46,6 +46,8 @@ namespace VoucherExpense
             bool manager = Op.IsManager;
             MyFunction.IsManager = manager;
             MyFunction.LockHR = Op.LockHR;
+            if (!Op.IsLockInventoryNull()) MyFunction.LockInventory = Op.LockInventory;
+            else                           MyFunction.LockInventory = false;
             basic.DropDownItems["操作員MenuItem"].Enabled   = Op.EditOperator;
             basic.DropDownItems["硬體環境MenuItem"].Enabled = Op.IsSuper;
             basic.DropDownItems["食材表MenuItem"].Enabled   = Op.EditIngredient;

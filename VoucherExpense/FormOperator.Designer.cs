@@ -65,6 +65,7 @@
             this.LockVoucher = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.LockExpense = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.LockAccVoucher = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.LockInventory = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewCheckBoxColumn4 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.EditOnDuty = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.EditSalary = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -233,6 +234,7 @@
             this.LockVoucher,
             this.LockExpense,
             this.LockAccVoucher,
+            this.LockInventory,
             this.dataGridViewCheckBoxColumn4,
             this.EditOnDuty,
             this.EditSalary,
@@ -377,6 +379,13 @@
             this.LockAccVoucher.Name = "LockAccVoucher";
             this.LockAccVoucher.Width = 32;
             // 
+            // LockInventory
+            // 
+            this.LockInventory.DataPropertyName = "LockInventory";
+            this.LockInventory.HeaderText = "核庫存";
+            this.LockInventory.Name = "LockInventory";
+            this.LockInventory.Width = 32;
+            // 
             // dataGridViewCheckBoxColumn4
             // 
             this.dataGridViewCheckBoxColumn4.DataPropertyName = "EditEmployee";
@@ -495,6 +504,7 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn LockVoucher;
         private System.Windows.Forms.DataGridViewCheckBoxColumn LockExpense;
         private System.Windows.Forms.DataGridViewCheckBoxColumn LockAccVoucher;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn LockInventory;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn4;
         private System.Windows.Forms.DataGridViewCheckBoxColumn EditOnDuty;
         private System.Windows.Forms.DataGridViewCheckBoxColumn EditSalary;

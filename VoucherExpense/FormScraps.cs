@@ -95,7 +95,8 @@ namespace VoucherExpense
             m_TableTypeList.Add(new CNameIDForComboBox(2, "試吃"));
             m_TableTypeList.Add(new CNameIDForComboBox(3, "其他"));
             cNameIDForComboBoxBindingSource.DataSource = m_TableTypeList;
-            
+
+            ColumnLocked.ReadOnly = !MyFunction.LockInventory;
         }
 
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
@@ -211,8 +212,8 @@ namespace VoucherExpense
                         cost += d.EvaluatedCost * d.Volume;
                 }
                 DateTime now = DateTime.Now;
-                curr.SoldValue = value;
-                curr.IngredientsCost = cost;
+                curr.SoldValue = Math.Round(value,2);
+                curr.IngredientsCost = Math.Round(cost,2);
                 curr.EvaluatedDate = now;
             }
             catch (Exception ex)
@@ -255,9 +256,10 @@ namespace VoucherExpense
             var productScrapped = rowView.Row as VEDataSet.ProductScrappedRow;
             int id = productScrapped.ProductScrappedID;
             var rows = from r in vEDataSet.ProductScrappedDetail where r.ProdcutScrappedID == id select r;
-            foreach (var r in rows)     // 用RemoveProductScrappedDetailRow() 會只是Remove, 不是留下要Delete的tag
+            var list = rows.ToList<VEDataSet.ProductScrappedDetailRow>(); // 用Collection,delete 會影響枚舉
+            foreach (var r in list)                                     // 用RemoveProductScrappedDetailRow() 會只是Remove, 不是留下要Delete的tag
                 r.Delete();
-            productScrappedBindingSource.RemoveCurrent();              // 要放在後面,因為還要取出 Current的prodcutScrappedID
+            productScrappedBindingSource.RemoveCurrent();               // 要放在後面,因為還要取出 Current的prodcutScrappedID
             bindingNavigatorDeleteItem.Enabled = false;
 
         }

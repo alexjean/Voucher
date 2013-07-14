@@ -30,16 +30,18 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormIngredientInventories));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label3 = new System.Windows.Forms.Label();
             this.vEDataSet = new VoucherExpense.VEDataSet();
             this.inventoryBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -58,17 +60,7 @@
             this.inventoryDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.inventoryDetailTableAdapter = new VoucherExpense.VEDataSetTableAdapters.InventoryDetailTableAdapter();
             this.dgvInventoryDetail = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnPosition = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IngredientID = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.ingredientBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dataGridViewComboBoxColumn1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IngredientUnit = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.ColumnStockChecked = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnEvaluate = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -77,6 +69,19 @@
             this.checkDayDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.labelIngredientsCount = new System.Windows.Forms.Label();
             this.operatorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
+            this.totalStockMoneyTextBox = new System.Windows.Forms.TextBox();
+            this.totalLostMoneyTextBox = new System.Windows.Forms.TextBox();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnPosition = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IngredientID = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.dataGridViewComboBoxColumn1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IngredientUnit = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.ColumnStockChecked = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LostMoney = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnInventoryID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -85,7 +90,6 @@
             this.ColumnLocked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnKeyID = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.totalStockMoneyTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.inventoryBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.inventoryBindingNavigator)).BeginInit();
@@ -205,8 +209,8 @@
             // 
             this.dgvInventories.AllowUserToAddRows = false;
             this.dgvInventories.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle11.BackColor = System.Drawing.Color.Azure;
-            this.dgvInventories.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.Azure;
+            this.dgvInventories.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
             this.dgvInventories.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvInventories.AutoGenerateColumns = false;
@@ -241,7 +245,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(412, 39);
+            this.label1.Location = new System.Drawing.Point(415, 42);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(56, 16);
             this.label1.TabIndex = 69;
@@ -277,7 +281,8 @@
             this.dataGridViewTextBoxColumn11,
             this.IngredientUnit,
             this.ColumnStockChecked,
-            this.dataGridViewTextBoxColumn13});
+            this.dataGridViewTextBoxColumn13,
+            this.LostMoney});
             this.dgvInventoryDetail.DataSource = this.inventoryDetailBindingSource;
             this.dgvInventoryDetail.Location = new System.Drawing.Point(363, 71);
             this.dgvInventoryDetail.Name = "dgvInventoryDetail";
@@ -288,12 +293,104 @@
             this.dgvInventoryDetail.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvInventoryDetail_DataBindingComplete);
             this.dgvInventoryDetail.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvInventoryDetail_DataError);
             // 
+            // ingredientBindingSource
+            // 
+            this.ingredientBindingSource.DataMember = "Ingredient";
+            this.ingredientBindingSource.DataSource = this.vEDataSet;
+            // 
+            // btnEvaluate
+            // 
+            this.btnEvaluate.Location = new System.Drawing.Point(649, 3);
+            this.btnEvaluate.Name = "btnEvaluate";
+            this.btnEvaluate.Size = new System.Drawing.Size(92, 29);
+            this.btnEvaluate.TabIndex = 70;
+            this.btnEvaluate.Text = "重估此單";
+            this.btnEvaluate.UseVisualStyleBackColor = true;
+            this.btnEvaluate.Click += new System.EventHandler(this.btnEvaluate_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(762, 42);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(72, 16);
+            this.label2.TabIndex = 71;
+            this.label2.Text = "庫存金額";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(558, 42);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(72, 16);
+            this.label4.TabIndex = 72;
+            this.label4.Text = "損失金額";
+            // 
+            // ingredientTableAdapter
+            // 
+            this.ingredientTableAdapter.ClearBeforeFill = true;
+            // 
+            // chBoxHide
+            // 
+            this.chBoxHide.AutoSize = true;
+            this.chBoxHide.Checked = true;
+            this.chBoxHide.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chBoxHide.Location = new System.Drawing.Point(761, 7);
+            this.chBoxHide.Name = "chBoxHide";
+            this.chBoxHide.Size = new System.Drawing.Size(139, 20);
+            this.chBoxHide.TabIndex = 73;
+            this.chBoxHide.Text = "隱藏無資料食材";
+            this.chBoxHide.UseVisualStyleBackColor = true;
+            this.chBoxHide.CheckedChanged += new System.EventHandler(this.chBoxHide_CheckedChanged);
+            // 
+            // checkDayDateTimePicker
+            // 
+            this.checkDayDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.inventoryBindingSource, "CheckDay", true));
+            this.checkDayDateTimePicker.Location = new System.Drawing.Point(493, 4);
+            this.checkDayDateTimePicker.MaxDate = new System.DateTime(2020, 12, 31, 0, 0, 0, 0);
+            this.checkDayDateTimePicker.MinDate = new System.DateTime(2013, 1, 1, 0, 0, 0, 0);
+            this.checkDayDateTimePicker.Name = "checkDayDateTimePicker";
+            this.checkDayDateTimePicker.Size = new System.Drawing.Size(134, 27);
+            this.checkDayDateTimePicker.TabIndex = 74;
+            this.checkDayDateTimePicker.Validating += new System.ComponentModel.CancelEventHandler(this.checkDayDateTimePicker_Validating);
+            // 
+            // labelIngredientsCount
+            // 
+            this.labelIngredientsCount.Location = new System.Drawing.Point(493, 42);
+            this.labelIngredientsCount.Name = "labelIngredientsCount";
+            this.labelIngredientsCount.Size = new System.Drawing.Size(47, 16);
+            this.labelIngredientsCount.TabIndex = 75;
+            // 
+            // operatorTableAdapter
+            // 
+            this.operatorTableAdapter.ClearBeforeFill = true;
+            // 
+            // totalStockMoneyTextBox
+            // 
+            this.totalStockMoneyTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.totalStockMoneyTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.inventoryBindingSource, "TotalStockMoney", true));
+            this.totalStockMoneyTextBox.Location = new System.Drawing.Point(840, 37);
+            this.totalStockMoneyTextBox.Name = "totalStockMoneyTextBox";
+            this.totalStockMoneyTextBox.Size = new System.Drawing.Size(90, 27);
+            this.totalStockMoneyTextBox.TabIndex = 76;
+            this.totalStockMoneyTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // totalLostMoneyTextBox
+            // 
+            this.totalLostMoneyTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.totalLostMoneyTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.inventoryBindingSource, "TotalLostMoney", true));
+            this.totalLostMoneyTextBox.Location = new System.Drawing.Point(649, 37);
+            this.totalLostMoneyTextBox.Name = "totalLostMoneyTextBox";
+            this.totalLostMoneyTextBox.Size = new System.Drawing.Size(90, 27);
+            this.totalLostMoneyTextBox.TabIndex = 77;
+            this.totalLostMoneyTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // dataGridViewTextBoxColumn3
             // 
             this.dataGridViewTextBoxColumn3.DataPropertyName = "ID";
-            dataGridViewCellStyle16.Format = "N1";
-            dataGridViewCellStyle16.NullValue = null;
-            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle19.Format = "N1";
+            dataGridViewCellStyle19.NullValue = null;
+            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle19;
             this.dataGridViewTextBoxColumn3.HeaderText = "ID";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.Visible = false;
@@ -327,11 +424,6 @@
             this.IngredientID.ValueMember = "IngredientID";
             this.IngredientID.Width = 64;
             // 
-            // ingredientBindingSource
-            // 
-            this.ingredientBindingSource.DataMember = "Ingredient";
-            this.ingredientBindingSource.DataSource = this.vEDataSet;
-            // 
             // dataGridViewComboBoxColumn1
             // 
             this.dataGridViewComboBoxColumn1.DataPropertyName = "IngredientID";
@@ -349,8 +441,8 @@
             // dataGridViewTextBoxColumn15
             // 
             this.dataGridViewTextBoxColumn15.DataPropertyName = "PrevStockVolume";
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewTextBoxColumn15.DefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn15.DefaultCellStyle = dataGridViewCellStyle20;
             this.dataGridViewTextBoxColumn15.HeaderText = "前期";
             this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
             this.dataGridViewTextBoxColumn15.ReadOnly = true;
@@ -359,8 +451,8 @@
             // dataGridViewTextBoxColumn11
             // 
             this.dataGridViewTextBoxColumn11.DataPropertyName = "CurrentIn";
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewTextBoxColumn11.DefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn11.DefaultCellStyle = dataGridViewCellStyle21;
             this.dataGridViewTextBoxColumn11.HeaderText = "進貨";
             this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
             this.dataGridViewTextBoxColumn11.ReadOnly = true;
@@ -383,8 +475,8 @@
             // ColumnStockChecked
             // 
             this.ColumnStockChecked.DataPropertyName = "StockVolume";
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.ColumnStockChecked.DefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.ColumnStockChecked.DefaultCellStyle = dataGridViewCellStyle22;
             this.ColumnStockChecked.FillWeight = 64F;
             this.ColumnStockChecked.HeaderText = "盤點";
             this.ColumnStockChecked.Name = "ColumnStockChecked";
@@ -393,82 +485,25 @@
             // dataGridViewTextBoxColumn13
             // 
             this.dataGridViewTextBoxColumn13.DataPropertyName = "StockMoney";
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle20.Format = "N1";
-            dataGridViewCellStyle20.NullValue = null;
-            this.dataGridViewTextBoxColumn13.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle23.Format = "N1";
+            dataGridViewCellStyle23.NullValue = null;
+            this.dataGridViewTextBoxColumn13.DefaultCellStyle = dataGridViewCellStyle23;
             this.dataGridViewTextBoxColumn13.HeaderText = "金額";
             this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
             this.dataGridViewTextBoxColumn13.ReadOnly = true;
             this.dataGridViewTextBoxColumn13.Width = 80;
             // 
-            // btnEvaluate
+            // LostMoney
             // 
-            this.btnEvaluate.Location = new System.Drawing.Point(644, 3);
-            this.btnEvaluate.Name = "btnEvaluate";
-            this.btnEvaluate.Size = new System.Drawing.Size(92, 29);
-            this.btnEvaluate.TabIndex = 70;
-            this.btnEvaluate.Text = "重估此單";
-            this.btnEvaluate.UseVisualStyleBackColor = true;
-            this.btnEvaluate.Click += new System.EventHandler(this.btnEvaluate_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(759, 41);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(72, 16);
-            this.label2.TabIndex = 71;
-            this.label2.Text = "庫存金額";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(594, 41);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(72, 16);
-            this.label4.TabIndex = 72;
-            this.label4.Text = "損失金額";
-            this.label4.Visible = false;
-            // 
-            // ingredientTableAdapter
-            // 
-            this.ingredientTableAdapter.ClearBeforeFill = true;
-            // 
-            // chBoxHide
-            // 
-            this.chBoxHide.AutoSize = true;
-            this.chBoxHide.Checked = true;
-            this.chBoxHide.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chBoxHide.Location = new System.Drawing.Point(761, 7);
-            this.chBoxHide.Name = "chBoxHide";
-            this.chBoxHide.Size = new System.Drawing.Size(139, 20);
-            this.chBoxHide.TabIndex = 73;
-            this.chBoxHide.Text = "隱藏無資料食材";
-            this.chBoxHide.UseVisualStyleBackColor = true;
-            this.chBoxHide.CheckedChanged += new System.EventHandler(this.chBoxHide_CheckedChanged);
-            // 
-            // checkDayDateTimePicker
-            // 
-            this.checkDayDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.inventoryBindingSource, "CheckDay", true));
-            this.checkDayDateTimePicker.Location = new System.Drawing.Point(493, 4);
-            this.checkDayDateTimePicker.MaxDate = new System.DateTime(2020, 12, 31, 0, 0, 0, 0);
-            this.checkDayDateTimePicker.MinDate = new System.DateTime(2013, 1, 1, 0, 0, 0, 0);
-            this.checkDayDateTimePicker.Name = "checkDayDateTimePicker";
-            this.checkDayDateTimePicker.Size = new System.Drawing.Size(134, 27);
-            this.checkDayDateTimePicker.TabIndex = 74;
-            this.checkDayDateTimePicker.Validating += new System.ComponentModel.CancelEventHandler(this.checkDayDateTimePicker_Validating);
-            // 
-            // labelIngredientsCount
-            // 
-            this.labelIngredientsCount.Location = new System.Drawing.Point(490, 39);
-            this.labelIngredientsCount.Name = "labelIngredientsCount";
-            this.labelIngredientsCount.Size = new System.Drawing.Size(47, 16);
-            this.labelIngredientsCount.TabIndex = 75;
-            // 
-            // operatorTableAdapter
-            // 
-            this.operatorTableAdapter.ClearBeforeFill = true;
+            this.LostMoney.DataPropertyName = "LostMoney";
+            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle24.Format = "N1";
+            dataGridViewCellStyle24.NullValue = null;
+            this.LostMoney.DefaultCellStyle = dataGridViewCellStyle24;
+            this.LostMoney.HeaderText = "盤損金";
+            this.LostMoney.Name = "LostMoney";
+            this.LostMoney.Width = 80;
             // 
             // ColumnInventoryID
             // 
@@ -480,8 +515,8 @@
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.DataPropertyName = "CheckDay";
-            dataGridViewCellStyle12.Format = "yy-MM-dd";
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle14.Format = "yy-MM-dd";
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle14;
             this.dataGridViewTextBoxColumn2.HeaderText = "盤點日";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.Width = 80;
@@ -489,27 +524,32 @@
             // dataGridViewTextBoxColumn4
             // 
             this.dataGridViewTextBoxColumn4.DataPropertyName = "TotalStockMoney";
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle15.Format = "N2";
+            dataGridViewCellStyle15.NullValue = null;
+            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle15;
             this.dataGridViewTextBoxColumn4.HeaderText = "庫存";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.Width = 64;
+            this.dataGridViewTextBoxColumn4.Width = 80;
             // 
             // dataGridViewTextBoxColumn5
             // 
             this.dataGridViewTextBoxColumn5.DataPropertyName = "TotalLostMoney";
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle16.Format = "N2";
+            dataGridViewCellStyle16.NullValue = null;
+            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle16;
             this.dataGridViewTextBoxColumn5.HeaderText = "損失";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            this.dataGridViewTextBoxColumn5.Visible = false;
-            this.dataGridViewTextBoxColumn5.Width = 64;
+            this.dataGridViewTextBoxColumn5.Width = 80;
             // 
             // EvaluatedDate
             // 
             this.EvaluatedDate.DataPropertyName = "EvaluatedDate";
-            dataGridViewCellStyle14.Format = "MM-dd";
-            this.EvaluatedDate.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle17.Format = "MM-dd";
+            this.EvaluatedDate.DefaultCellStyle = dataGridViewCellStyle17;
             this.EvaluatedDate.HeaderText = "估值日";
             this.EvaluatedDate.Name = "EvaluatedDate";
             this.EvaluatedDate.ReadOnly = true;
@@ -525,8 +565,8 @@
             // dataGridViewTextBoxColumn6
             // 
             this.dataGridViewTextBoxColumn6.DataPropertyName = "LastUpdated";
-            dataGridViewCellStyle15.Format = "MM-dd";
-            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle18.Format = "MM-dd";
+            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle18;
             this.dataGridViewTextBoxColumn6.HeaderText = "更新日";
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             this.dataGridViewTextBoxColumn6.ReadOnly = true;
@@ -545,22 +585,13 @@
             this.ColumnKeyID.ValueMember = "OperatorID";
             this.ColumnKeyID.Width = 80;
             // 
-            // totalStockMoneyTextBox
-            // 
-            this.totalStockMoneyTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.totalStockMoneyTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.inventoryBindingSource, "TotalStockMoney", true));
-            this.totalStockMoneyTextBox.Location = new System.Drawing.Point(837, 38);
-            this.totalStockMoneyTextBox.Name = "totalStockMoneyTextBox";
-            this.totalStockMoneyTextBox.Size = new System.Drawing.Size(90, 27);
-            this.totalStockMoneyTextBox.TabIndex = 76;
-            this.totalStockMoneyTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
             // FormIngredientInventories
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(986, 808);
+            this.Controls.Add(this.totalLostMoneyTextBox);
             this.Controls.Add(this.totalStockMoneyTextBox);
             this.Controls.Add(this.labelIngredientsCount);
             this.Controls.Add(this.checkDayDateTimePicker);
@@ -622,6 +653,8 @@
         private System.Windows.Forms.Label labelIngredientsCount;
         private System.Windows.Forms.BindingSource operatorBindingSource;
         private VEDataSetTableAdapters.OperatorTableAdapter operatorTableAdapter;
+        private System.Windows.Forms.TextBox totalStockMoneyTextBox;
+        private System.Windows.Forms.TextBox totalLostMoneyTextBox;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPosition;
@@ -632,6 +665,7 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn IngredientUnit;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnStockChecked;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
+        private System.Windows.Forms.DataGridViewTextBoxColumn LostMoney;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnInventoryID;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
@@ -640,6 +674,5 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnLocked;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.DataGridViewComboBoxColumn ColumnKeyID;
-        private System.Windows.Forms.TextBox totalStockMoneyTextBox;
     }
 }

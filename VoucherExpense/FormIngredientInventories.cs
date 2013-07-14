@@ -88,6 +88,7 @@ namespace VoucherExpense
             ingredientTableAdapter.Fill     (vEDataSet.Ingredient);
             inventoryTableAdapter.Fill      (vEDataSet.Inventory);
             inventoryDetailTableAdapter.Fill(vEDataSet.InventoryDetail);
+            ColumnLocked.ReadOnly = !MyFunction.LockInventory;
         }
 
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
@@ -325,6 +326,12 @@ namespace VoucherExpense
 
         }
 
+
+        class CalcInventory
+        {
+            public double StockVolume=0;
+            public decimal CurrInMoney=0;
+        }
         VEDataSetTableAdapters.VoucherDetailTableAdapter m_VoucherDetailAdapter = null;
         VEDataSetTableAdapters.VoucherTableAdapter m_VoucherAdapter = null;
         private void btnEvaluate_Click(object sender, EventArgs e)
@@ -343,7 +350,6 @@ namespace VoucherExpense
                     dRow.StockMoney = 0;
                     dRow.LostMoney = 0;
                     dRow.CurrentIn = 0;
-//                    dRow.PrevStockVolume = 0;
                 }
                 VEDataSet.InventoryRow prev = null;
                 foreach (VEDataSet.InventoryRow r in vEDataSet.Inventory)   // 找到前一張單子
@@ -400,14 +406,18 @@ namespace VoucherExpense
                 //inventoryDetailBindingSource.SuspendBinding();     // DataGridView是複雜Binding ,使用無效
 
                 // 算先進先出成本,暫存未計算成本的庫存量
-                Dictionary<int, double> dicRemainStock = new Dictionary<int, double>();
+                Dictionary<int, CalcInventory> dicCalcStock = new Dictionary<int, CalcInventory>();
 
+                // 填CalcInventory 內容
                 foreach (VEDataSet.InventoryDetailRow d in details)
                 {
+                    CalcInventory inv = new CalcInventory();
+                    int id=d.IngredientID;
                     if (d.IsStockVolumeNull())
-                        dicRemainStock.Add(d.IngredientID, 0);
+                        inv.StockVolume = 0;
                     else
-                        dicRemainStock.Add(d.IngredientID, d.StockVolume);
+                        inv.StockVolume=d.StockVolume;
+                    dicCalcStock.Add(id,inv);
                 }
                 // 找出期間的進貨單
                 DateTime prevDate=new DateTime(MyFunction.IntHeaderYear-1,12,31);
@@ -431,17 +441,18 @@ namespace VoucherExpense
                         var de1 = des.First();
                         double vol=(double)d.Volume;
                         de1.CurrentIn+=vol;
+                        CalcInventory inv = dicCalcStock[de1.IngredientID];
+                        inv.CurrInMoney += d.Cost;
                         // 算出相對應庫存的成本
-                        double remain=dicRemainStock[de1.IngredientID];
-                        if (remain >= vol)
+                        if (inv.StockVolume >= vol)
                         {
                             de1.StockMoney += d.Cost;
-                            dicRemainStock[de1.IngredientID]= remain-vol;
+                            inv.StockVolume-= vol;
                         }
-                        else if (remain>0)
+                        else if (inv.StockVolume>0)
                         {
-                            de1.StockMoney += (d.Cost / (decimal)vol * (decimal)remain);   // 小於
-                            dicRemainStock[de1.IngredientID] = 0;
+                            de1.StockMoney += (d.Cost / (decimal)vol * (decimal)inv.StockVolume);   // 小於
+                            inv.StockVolume = 0;
                         }
                     }
                 }
@@ -451,9 +462,10 @@ namespace VoucherExpense
                     foreach (VEDataSet.InventoryDetailRow d in details) 
                     {
                         d.PrevStockVolume = 0;
-                        double remainStock = dicRemainStock[d.IngredientID];
-                        if (remainStock > 0)
-                            RemainStockWarning(d.IngredientID, remainStock);
+                        CalcInventory inv = dicCalcStock[d.IngredientID];
+                        if (inv.StockVolume > 0)
+                            RemainStockWarning(d.IngredientID, inv.StockVolume);
+                        d.LostMoney = inv.CurrInMoney - d.StockMoney;     // 沒有前期
                     }
                 }
                 else
@@ -462,7 +474,8 @@ namespace VoucherExpense
                     foreach (VEDataSet.InventoryDetailRow d in details)
                     {
                         d.PrevStockVolume = 0;
-                        double remainStock = dicRemainStock[d.IngredientID];
+                        CalcInventory inv = dicCalcStock[d.IngredientID];
+                        double remainStock = inv.StockVolume;
                         var ds = from r in prevDetails where r.IngredientID == d.IngredientID select r;
                         if (ds.Count() <= 0)
                         {
@@ -470,6 +483,10 @@ namespace VoucherExpense
                             continue;
                         }
                         var p = ds.First();
+                        if (!p.IsStockMoneyNull())
+                            d.LostMoney = inv.CurrInMoney + p.StockMoney-d.StockMoney ;
+                        else
+                            d.LostMoney = inv.CurrInMoney- d.StockMoney;
                         if (!p.IsAreaCodeNull())   
                         {
                             if (d.IsAreaCodeNull() || d.AreaCode.Trim().Count() == 0) // 沒有位置資料才從前期代入
@@ -505,19 +522,21 @@ namespace VoucherExpense
                         }
                     }
                 }
-                decimal totalStockMoney = 0;
+
+                decimal totalStockMoney = 0,totalLostMoney=0;
                 foreach (var d in details)
                 {
                     if (!d.IsStockMoneyNull())
                         totalStockMoney += d.StockMoney;
+                    if (!d.IsLostMoneyNull())
+                        totalLostMoney += d.LostMoney;
                 }
-                curr.TotalStockMoney = totalStockMoney;
-                // Table資料反映至DataGridView
-                //inventoryBindingSource.ResumeBinding();
-                //inventoryDetailBindingSource.ResumeBinding();   
+                curr.TotalStockMoney = Math.Round(totalStockMoney,2);
+                curr.TotalLostMoney  = Math.Round(totalLostMoney,2);
+                curr.EvaluatedDate = DateTime.Now;
+
                 inventoryBindingSource.ResetBindings(false);
                 inventoryDetailBindingSource.ResetBindings(false);
-                curr.EvaluatedDate = DateTime.Now;
 
             }
             catch (Exception ex)

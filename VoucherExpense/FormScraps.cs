@@ -31,7 +31,7 @@ namespace VoucherExpense
                            select r.ProdcutScrappedID).Distinct();
                 foreach (int id in IDs)
                 {
-                    var rows = from r in vEDataSet.ProductScrapped where id == r.ProductScrappedID select r;
+                    var rows = from r in vEDataSet.ProductScrapped where (r.RowState != DataRowState.Deleted) && (id == r.ProductScrappedID) select r;
                     if (rows.Count() != 0)
                         rows.First().LastUpdated = now;
                 }
@@ -290,7 +290,46 @@ namespace VoucherExpense
 
         private void dgvScrappedDetail_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            // 值一變動,要清除估值日
+            var view = sender as DataGridView;
+            int iCol = e.ColumnIndex;
+            DataGridViewColumn column = view.Columns[iCol];
+            if (column == null) return;
+            if (column.Name == "ColumnVolume")   // 一改 量,EvaluatedDate就DBNull
+            {
+                DataRowView rowView = productScrappedBindingSource.Current as DataRowView;
+                var curr = rowView.Row as VEDataSet.ProductScrappedRow;
+                curr.SetEvaluatedDateNull();
+            }
+        }
+
+        private void dgvProductScrapped_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView view = sender as DataGridView;
+            DataGridViewColumn column = view.Columns[e.ColumnIndex];
+            if (column == null) return;
+            if (column.Name != "ColumnLocked") return;  // 只檢查 '核可' 這個欄位
+            try
+            {
+                DataGridViewRow dgvRow = view.Rows[e.RowIndex];
+                DataGridViewCell cell = dgvRow.Cells[e.ColumnIndex];
+                if (cell.ValueType != typeof(bool))
+                {
+                    MessageBox.Show("ColumnLocked的資料不是bool ,程式有錯誤!");
+                    return;
+                }
+                DataRowView rowView = view.Rows[e.RowIndex].DataBoundItem as DataRowView;
+                bool locked = (bool)cell.Value;
+                var current = rowView.Row as VEDataSet.ProductScrappedRow;
+                if (locked)    // 檢查 核可 打勾情況
+                {
+                    if (current.IsEvaluatedDateNull() || current.EvaluatedDate.Year < 2000)
+                    {
+                        MessageBox.Show("此盤點單未曾估值!");
+                        cell.Value = false;
+                    }
+                }
+            }
+            catch { }
         }
     }
 }

@@ -246,6 +246,7 @@
             this.dgvProductScrapped.RowTemplate.Height = 24;
             this.dgvProductScrapped.Size = new System.Drawing.Size(450, 691);
             this.dgvProductScrapped.TabIndex = 3;
+            this.dgvProductScrapped.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductScrapped_CellValueChanged);
             this.dgvProductScrapped.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvProductScrapped_DataError);
             this.dgvProductScrapped.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductScrapped_RowEnter);
             // 

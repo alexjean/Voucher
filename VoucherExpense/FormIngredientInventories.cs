@@ -31,7 +31,7 @@ namespace VoucherExpense
                            select r.InventoryID).Distinct();
                 foreach (int id in IDs)
                 {
-                    var rows = from r in vEDataSet.Inventory where id==r.InventoryID select r;
+                    var rows = from r in vEDataSet.Inventory where (r.RowState != DataRowState.Deleted) && (id == r.InventoryID) select r;
                     if (rows.Count() != 0)
                         rows.First().LastUpdated=now;
                 }
@@ -553,6 +553,20 @@ namespace VoucherExpense
             {
                 VEDataSet.IngredientRow ing=ings.First();
                 MessageBox.Show("產品<" + ing.Name + "> 前期盤點無庫存,庫存量大於本期進貨 "+remainStock.ToString()+ing.Unit+",多餘部分 估值為 0 !!!");
+            }
+        }
+
+        private void dgvInventoryDetail_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            var view = sender as DataGridView;
+            int iCol = e.ColumnIndex;
+            DataGridViewColumn column = view.Columns[iCol];
+            if (column == null) return;
+            if (column.Name == "ColumnStockChecked")   // 一改庫存,EvaluatedDate就DBNull
+            {
+                DataRowView rowView = inventoryBindingSource.Current as DataRowView;
+                VEDataSet.InventoryRow curr = rowView.Row as VEDataSet.InventoryRow;
+                curr.SetEvaluatedDateNull();
             }
         }
     }

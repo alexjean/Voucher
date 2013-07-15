@@ -122,7 +122,7 @@ namespace VoucherExpense
             foreach (CIngredient p in list)
                 sum+=p.TotalCost;
             textBox1.Text = sum.ToString("N1");
-            labelCount.Text = "共 " + checkedCount.ToString() + "單("+count.ToString()+")";
+            labelCount.Text = "己核可 " + checkedCount.ToString() + "單(共"+count.ToString()+"單)";
             this.dataGridView1.DataSource = list;
             this.voucherDGView.DataSource = voucher;
             if (list.Count == 0)
@@ -138,6 +138,7 @@ namespace VoucherExpense
         }
 
         int PageIndex = -1;
+        decimal m_TotalMoney = 0;
         private void printDocument_BeginPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
         {
             PageIndex = 1;
@@ -164,7 +165,7 @@ namespace VoucherExpense
 
         private void printDocument_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
-            const int LinePerPage = 40;
+            const int LinePerPage = 38;
             m_Graphics = e.Graphics;
             PageSettings settings   = e.PageSettings;
             Rectangle    inner      = e.MarginBounds;
@@ -180,19 +181,22 @@ namespace VoucherExpense
             DataGridView view=this.dataGridView1;
             if (end > view.Rows.Count)
             {
-                end = view.Rows.Count ;
+                end = view.Rows.Count;
                 e.HasMorePages = false;
             }
             else
+            {
                 e.HasMorePages = true;
+                PageIndex++;
+            }
             m_Font = new Font("細明體", 12.0f);
             m_Brush= SystemBrushes.WindowText;
             int x = inner.Left;
             int y = inner.Top ;
-            string str="       "+cbBoxMonth.Text+"           供應商:"+vendorIDComboBox.Text;
+            string str="       "+cbBoxMonth.Text+cbBoxFrom.Text+"-"+cbBoxMonthTo.Text+cbBoxTo.Text+"        供應商:"+vendorIDComboBox.Text;
             DataGridViewColumnCollection columns = view.Columns;
             m_Graphics.DrawString(str, m_Font, m_Brush, new PointF(x, y));
-            int height = inner.Height / LinePerPage;
+            int height = inner.Height / (LinePerPage+2);      // 保留二行做頁底
             y += 2*height;
             for (int j = 0; j < columns.Count; j++)
             {
@@ -213,7 +217,19 @@ namespace VoucherExpense
                     PrintColumn(str, x, y, columns[j]);
                     x += columns[j].Width;
                 }
-                
+            }
+            if (e.HasMorePages == false)    // 最後一頁,印出總金額
+            {
+                int y1=y+height/2+height;
+                int x1=x;
+                x = inner.Left;
+                m_Graphics.DrawLine(SystemPens.WindowText, x, y1, x1, y1);
+                y += 2 * height;
+                x+=columns[0].Width;
+                PrintColumn("總金額", x, y, columns[1]);
+                x += columns[1].Width + columns[2].Width;
+                m_TotalMoney = Math.Round(m_TotalMoney, 1);
+                PrintColumn(m_TotalMoney.ToString(), x, y, columns[3]);    // 第三欄是總價
             }
         }
 
@@ -225,6 +241,13 @@ namespace VoucherExpense
         private void btnPrint_Click(object sender, EventArgs e)
         {
             printDocument.PrinterSettings.PrintToFile = false;
+            m_TotalMoney = 0;
+            foreach (DataGridViewRow dgvRow in voucherDGView.Rows)
+            {
+                var rowView = dgvRow.DataBoundItem as DataRowView;
+                var dataRow = rowView.Row as VEDataSet.VoucherRow;
+                if (!dataRow.IsCostNull()) m_TotalMoney += dataRow.Cost;
+            }
             printDocument.Print();
         }
 

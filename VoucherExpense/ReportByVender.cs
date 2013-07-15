@@ -286,6 +286,7 @@ namespace VoucherExpense
                 return;
             }
             Calculate(monthFrom,dayFrom,monthTo,dayTo, id, vendorIDComboBox.Text);
+            btnPrint.Enabled = true;
         }
 
         private void cbBoxMonth_SelectedIndexChanged(object sender, EventArgs e)
@@ -300,6 +301,7 @@ namespace VoucherExpense
             cbBoxFrom.SelectedIndex = 0;
             if (month > cbBoxMonthTo.SelectedIndex )
                 cbBoxMonthTo.SelectedIndex = month ;
+            btnPrint.Enabled = false;
         }
 
         private void cbBoxMonthTo_SelectedIndexChanged(object sender, EventArgs e)
@@ -314,10 +316,22 @@ namespace VoucherExpense
             cbBoxTo.SelectedIndex = count - 1;
             if (month < cbBoxMonth.SelectedIndex)
                 cbBoxMonth.SelectedIndex = month;
+            btnPrint.Enabled = false;
         }
 
-    
-      
+        private void vendorIDComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnPrint.Enabled = false;
+        }
 
+        private void cbBoxFrom_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnPrint.Enabled = false;
+        }
+
+        private void cbBoxTo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnPrint.Enabled = false;
+        }
     }
 }

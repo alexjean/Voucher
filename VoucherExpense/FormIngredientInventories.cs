@@ -569,5 +569,12 @@ namespace VoucherExpense
                 curr.SetEvaluatedDateNull();
             }
         }
+
+        private void checkDayDateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            DataRowView rowView = inventoryBindingSource.Current as DataRowView;
+            VEDataSet.InventoryRow curr = rowView.Row as VEDataSet.InventoryRow;
+            curr.SetEvaluatedDateNull();
+        }
     }
 }

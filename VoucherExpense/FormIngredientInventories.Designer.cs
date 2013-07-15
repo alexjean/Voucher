@@ -553,6 +553,7 @@
             this.checkDayDateTimePicker.Name = "checkDayDateTimePicker";
             this.checkDayDateTimePicker.Size = new System.Drawing.Size(134, 27);
             this.checkDayDateTimePicker.TabIndex = 74;
+            this.checkDayDateTimePicker.ValueChanged += new System.EventHandler(this.checkDayDateTimePicker_ValueChanged);
             this.checkDayDateTimePicker.Validating += new System.ComponentModel.CancelEventHandler(this.checkDayDateTimePicker_Validating);
             // 
             // labelIngredientsCount

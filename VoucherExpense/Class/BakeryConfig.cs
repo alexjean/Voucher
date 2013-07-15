@@ -16,6 +16,7 @@ namespace VoucherExpense
         BakeryOrderSetTableAdapters.BakeryConfigTableAdapter configAdapter = new BakeryOrderSetTableAdapters.BakeryConfigTableAdapter();
         public BakeryConfig(string MdbDir)
         {
+            if (MdbDir.Trim().Length == 0) MdbDir = ".";
             string connStr = MapPath.ConnectString(MdbDir + "\\BakeryOrder.mdb", MapPath.BakeryPass + "Bakery");
             OleDbConnection dbConnection = new OleDbConnection(connStr);
             configAdapter.Connection = dbConnection;

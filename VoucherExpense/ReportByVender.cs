@@ -16,7 +16,7 @@ namespace VoucherExpense
             InitializeComponent();
         }
 
-        CVendor vendor = new CVendor();
+        List<CNameIDForComboBox> vendors = new List<CNameIDForComboBox>();
    
         private void ReportByVender_Load(object sender, EventArgs e)
         {
@@ -24,12 +24,23 @@ namespace VoucherExpense
             voucherTableAdapter.Connection       = MapPath.VEConnection;
             voucherDetailTableAdapter.Connection = MapPath.VEConnection;
             IngredientTableAdapter.Connection    = MapPath.VEConnection;
-            this.vendorTableAdapter.Fill(this.vEDataSet.Vendor);
-            this.voucherTableAdapter.Fill(this.vEDataSet.Voucher);
-            this.voucherDetailTableAdapter.Fill(this.vEDataSet.VoucherDetail);
-            this.IngredientTableAdapter.Fill(this.vEDataSet.Ingredient);
-            cVendorBindingSource.DataSource = vendor;
-            comboBoxMonth.SelectedIndex=DateTime.Now.Month;
+            try
+            {
+                this.vendorTableAdapter.Fill(this.vEDataSet.Vendor);
+                this.voucherTableAdapter.Fill(this.vEDataSet.Voucher);
+                this.voucherDetailTableAdapter.Fill(this.vEDataSet.VoucherDetail);
+                this.IngredientTableAdapter.Fill(this.vEDataSet.Ingredient);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("載入資料庫發生錯誤! 原因:" + ex.Message);
+            }
+            vendors.Add(new CNameIDForComboBox(0, " "));
+            foreach (var v in vEDataSet.Vendor)
+                vendors.Add(new CNameIDForComboBox(v.VendorID, v.Name));
+            vendors.Add(new CNameIDForComboBox(int.MaxValue, "全部"));
+            vendorIDComboBox.DataSource = vendors;
+            cbBoxMonth.SelectedIndex=DateTime.Now.Month;
             this.voucherDGView.DataSource = null;  // 原本先用了 vEDataSet.Voucher做格式
         }
 
@@ -56,21 +67,33 @@ namespace VoucherExpense
             list.Add(p1);
         }
 
-        void Calculate(int month,int id)
+        // id= int.MaxValue 統計全部供貨商
+        void Calculate(int monthFrom,int dayFrom,int monthTo,int dayTo,int id,string name)
         {
+            if (id <= 0) return;  // 沒有選擇供貨商
             SortableBindingList<CIngredient> list = new SortableBindingList<CIngredient>();
             VEDataSet.VoucherDataTable voucher = new VEDataSet.VoucherDataTable();
             int count = 0,checkedCount=0;
             foreach (VEDataSet.VoucherRow vr in vEDataSet.Voucher)
             {
-                if (month != 0)   
-                {
-                    if (vr.IsStockTimeNull()) continue;
-                    if (vr.StockTime.Month != month) continue;
-                }
+                if (vr.IsStockTimeNull()) continue;
                 if (vr.StockTime.Year != MyFunction.IntHeaderYear) continue;
-                if (vr.IsVendorIDNull()) continue;
-                if (vr.VendorID != id) continue;
+                if (id != int.MaxValue)
+                {
+                    if (vr.IsVendorIDNull()) continue;
+                    if (vr.VendorID != id) continue;
+                }
+                int month=vr.StockTime.Month;
+                if (month < monthFrom) continue;
+                else if (month == monthFrom)
+                {
+                    if (vr.StockTime.Day<dayFrom) continue;
+                }
+                if (month > monthTo)   continue;
+                else if (month == monthTo)
+                {
+                    if (vr.StockTime.Day>dayTo) continue;
+                }
                 if (!vr.IsRemovedNull())
                     if (vr.Removed) continue;
                 VEDataSet.VoucherRow row = voucher.NewVoucherRow();
@@ -102,25 +125,12 @@ namespace VoucherExpense
             labelCount.Text = "共 " + checkedCount.ToString() + "單("+count.ToString()+")";
             this.dataGridView1.DataSource = list;
             this.voucherDGView.DataSource = voucher;
+            if (list.Count == 0)
+            {
+                MessageBox.Show(monthFrom.ToString() + "至"+monthTo.ToString()+"月份 供貨商<" + name + ">無進貨!");
+            }
         }
 
-        private void vendorIDComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            cVendorBindingSource.EndEdit();
-            if (vendor.ID == 0) return;  // _Load時設的,不處理
-            int month=this.comboBoxMonth.SelectedIndex;
-            if (month<1 || month>12) month=0;
-            Calculate(month,vendor.ID);
-        }
-
-        private void comboBoxMonth_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            cVendorBindingSource.EndEdit();
-            if (vendor.ID == 0) return;  // 沒有供貨商時,不用處理
-            int month = this.comboBoxMonth.SelectedIndex;
-            if (month < 1 || month > 12) month = 0;
-            Calculate(month, vendor.ID);
-         }
 
         private void ReportByVender_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -179,7 +189,7 @@ namespace VoucherExpense
             m_Brush= SystemBrushes.WindowText;
             int x = inner.Left;
             int y = inner.Top ;
-            string str="       "+comboBoxMonth.Text+"           供應商:"+vendorIDComboBox.Text;
+            string str="       "+cbBoxMonth.Text+"           供應商:"+vendorIDComboBox.Text;
             DataGridViewColumnCollection columns = view.Columns;
             m_Graphics.DrawString(str, m_Font, m_Brush, new PointF(x, y));
             int height = inner.Height / LinePerPage;
@@ -225,10 +235,65 @@ namespace VoucherExpense
 
         private void ReportByVender_SizeChanged(object sender, EventArgs e)
         {
-            voucherDGView.Height = dataGridView1.Height = 
-                    ClientRectangle.Height - comboBoxMonth.Bottom  - 30;
+            // 改用Anchor了
+            // voucherDGView.Height = dataGridView1.Height = 
+            //        ClientRectangle.Height - comboBoxMonth.Bottom  - 30;
         }
 
+        private void btnCalc_Click(object sender, EventArgs e)
+        {
+            int monthFrom = this.cbBoxMonth.SelectedIndex;
+            int monthTo = this.cbBoxMonthTo.SelectedIndex;
+            if (monthFrom < 1 || monthFrom > 12 || monthTo < 1 || monthTo > 12)
+            {
+                MessageBox.Show("請選擇起迄月份!");
+                return;
+            }
+            int dayFrom = this.cbBoxFrom.SelectedIndex+1;
+            int dayTo = this.cbBoxTo.SelectedIndex+1;
+            if (dayFrom <= 0 || dayFrom > 31 || dayTo <= 0 || dayTo > 31)
+            {
+                MessageBox.Show("起迄日期有問題!");
+                return;
+            }
+            int id = (int)vendorIDComboBox.SelectedValue;
+            if (id <= 0)
+            {
+                MessageBox.Show("請選擇供貨商!");
+                return;
+            }
+            Calculate(monthFrom,dayFrom,monthTo,dayTo, id, vendorIDComboBox.Text);
+        }
+
+        private void cbBoxMonth_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox box = (ComboBox)sender;
+            int month = box.SelectedIndex;
+            if (month < 1 || month > 12) return;
+            int count = MyFunction.DayCountOfMonth(month);
+            cbBoxFrom.Items.Clear();
+            for (int i = 1; i <= count; i++)
+                cbBoxFrom.Items.Add(i.ToString() + "日");
+            cbBoxFrom.SelectedIndex = 0;
+            if (month > cbBoxMonthTo.SelectedIndex )
+                cbBoxMonthTo.SelectedIndex = month ;
+        }
+
+        private void cbBoxMonthTo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox box = (ComboBox)sender;
+            int month = box.SelectedIndex;
+            if (month < 1 || month > 12) return;
+            int count = MyFunction.DayCountOfMonth(month);
+            cbBoxTo.Items.Clear();
+            for (int i = 1; i <= count; i++)
+                cbBoxTo.Items.Add(i.ToString() + "日");
+            cbBoxTo.SelectedIndex = count - 1;
+            if (month < cbBoxMonth.SelectedIndex)
+                cbBoxMonth.SelectedIndex = month;
+        }
+
+    
       
 
     }

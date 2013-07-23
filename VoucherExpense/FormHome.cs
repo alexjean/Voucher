@@ -429,7 +429,7 @@ namespace VoucherExpense
 
         private void 盤點單ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PopupOrRun("FormIngredientInventories", typeof(FormIngredientInventories));
+            PopupOrRun("FormIngredientInventories", typeof(FormInventories));
         }
 
         private void 產品報廢ToolStripMenuItem_Click(object sender, EventArgs e)

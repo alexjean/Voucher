@@ -238,7 +238,7 @@
             // 
             this.盤點單ToolStripMenuItem.Name = "盤點單ToolStripMenuItem";
             this.盤點單ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.盤點單ToolStripMenuItem.Text = "食材盤點";
+            this.盤點單ToolStripMenuItem.Text = "盤點表";
             this.盤點單ToolStripMenuItem.Click += new System.EventHandler(this.盤點單ToolStripMenuItem_Click);
             // 
             // 產品報廢ToolStripMenuItem

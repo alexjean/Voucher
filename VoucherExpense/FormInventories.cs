@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace VoucherExpense
 {
-    public partial class FormIngredientInventories : Form
+    public partial class FormInventories : Form
     {
-        public FormIngredientInventories()
+        public FormInventories()
         {
             InitializeComponent();
         }
@@ -89,6 +89,7 @@ namespace VoucherExpense
             inventoryTableAdapter.Fill      (vEDataSet.Inventory);
             inventoryDetailTableAdapter.Fill(vEDataSet.InventoryDetail);
             ColumnLocked.ReadOnly = !MyFunction.LockInventory;
+//            tabControl1.DrawMode = TabDrawMode.OwnerDrawFixed;
         }
 
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
@@ -186,6 +187,7 @@ namespace VoucherExpense
                 r.Delete();
             inventoryBindingSource.RemoveCurrent();              // 要放在後面,因為還要取出 Current的IventoryID
             bindingNavigatorDeleteItem.Enabled = false;
+            bindingNavigatorAddNewItem.Enabled = false;          // 刪完不准新增,以免有己刪除的被操作
         }
 
         void SetDetailLocked(bool locked)
@@ -207,6 +209,11 @@ namespace VoucherExpense
                 if (dataRow.IsLockedNull())
                      SetDetailLocked(false);
                 else SetDetailLocked(dataRow.Locked);
+
+                checkDayDateTimePicker.ValueChanged -= this.checkDayDateTimePicker_ValueChanged;
+                checkDayDateTimePicker.Value = dataRow.CheckDay;
+                checkDayDateTimePicker.ValueChanged += this.checkDayDateTimePicker_ValueChanged;
+
             }
             catch{};
             chBoxHide_CheckedChanged(null, null);
@@ -239,33 +246,7 @@ namespace VoucherExpense
             }
         }
 
-        // 檢查盤點單日期為一路向上
-        private void checkDayDateTimePicker_Validating(object sender, CancelEventArgs e)
-        {
-            DateTimePicker picker = sender as DateTimePicker;
-            DateTime date = picker.Value.Date;
-            if (date.Year != MyFunction.IntHeaderYear)
-            {
-                MessageBox.Show("只能選" + MyFunction.HeaderYear + "年");
-                e.Cancel = true;
-                return;
-            }
-            var rowView = inventoryBindingSource.Current as DataRowView;
-            var dataRow = rowView.Row as VEDataSet.InventoryRow;
-            foreach (var row in vEDataSet.Inventory)
-            {
-                if (row.InventoryID == dataRow.InventoryID) continue; // 自己跳過
-                if (row.IsCheckDayNull()) continue;
-                if (row.CheckDay.Date >= date)
-                {
-                    MessageBox.Show("己有盤點單日期為<"+row.CheckDay.Date.ToShortDateString()+"> 不可小於等於該日期!");
-                    e.Cancel = true;
-                    return;
-                }
-
-            }
-        }
-
+ 
         private void dgvInventoryDetail_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             labelIngredientsCount.Text = dgvInventoryDetail.Rows.Count.ToString();
@@ -302,30 +283,31 @@ namespace VoucherExpense
             return true;
         }
 
-        private void dgvInventories_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void dgvInventories_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
             DataGridView view = sender as DataGridView;
             DataGridViewColumn column = view.Columns[e.ColumnIndex];
-            if (column==null) return;
+            if (column == null) return;
             if (column.Name != "ColumnLocked") return;  // 只檢查 '核可' 這個欄位
             try
             {
-                DataGridViewRow dgvRow=view.Rows[e.RowIndex];
-                DataGridViewCell cell=dgvRow.Cells[e.ColumnIndex];
-                if (cell.ValueType!=typeof(bool))
+                DataGridViewRow dgvRow = view.Rows[e.RowIndex];
+                DataGridViewCell cell = dgvRow.Cells[e.ColumnIndex];
+                if (cell.ValueType != typeof(bool))
                 {
                     MessageBox.Show("ColumnLocked的資料不是bool ,程式有錯誤!");
                     return;
                 }
                 DataRowView rowView = view.Rows[e.RowIndex].DataBoundItem as DataRowView;
-                bool locked = (bool)cell.Value;
+                bool locked=(bool)e.FormattedValue;
                 if (!ValidateLocked(locked, rowView.Row as VEDataSet.InventoryRow))
+                {
+                    e.Cancel = true;
                     cell.Value = !locked;
+                }
             }
             catch { }
-
         }
-
 
         class CalcInventory
         {
@@ -342,6 +324,11 @@ namespace VoucherExpense
             try
             {
                 DataRowView rowView = inventoryBindingSource.Current as DataRowView;
+                if (rowView == null)
+                {
+                    MessageBox.Show("沒有記錄,請先新增一筆!");
+                    return;
+                }
                 VEDataSet.InventoryRow curr = rowView.Row as VEDataSet.InventoryRow;
                 var details = curr.GetInventoryDetailRows();
                 // 清除本單的進貨及金額
@@ -570,11 +557,37 @@ namespace VoucherExpense
             }
         }
 
+        // 剛Binding時賦值,EnterRow,都會呼叫, 所以...只好取消Binding, 自己綁
         private void checkDayDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
+            DateTimePicker picker = sender as DateTimePicker;
             DataRowView rowView = inventoryBindingSource.Current as DataRowView;
+            if (rowView == null) return;    // 還沒有任何記錄
             VEDataSet.InventoryRow curr = rowView.Row as VEDataSet.InventoryRow;
-            curr.SetEvaluatedDateNull();
+            DateTime date = picker.Value.Date;
+            if (date.Year != MyFunction.IntHeaderYear)
+            {
+                MessageBox.Show("只能選" + MyFunction.HeaderYear + "年");
+                picker.Value = curr.CheckDay;     // 從DataGridView 抓值回來
+                return;
+            }
+            var dataRow = rowView.Row as VEDataSet.InventoryRow;
+            foreach (var row in vEDataSet.Inventory)
+            {
+                if (row.InventoryID == dataRow.InventoryID) continue; // 自己跳過
+                if (row.IsCheckDayNull()) continue;
+                if (row.CheckDay.Date >= date)
+                {
+                    MessageBox.Show("己有盤點單日期為<" + row.CheckDay.Date.ToShortDateString() + "> 不可小於等於該日期!");
+                    picker.Value = curr.CheckDay;
+                    return;
+                }
+            }
+            // 主動去更改DataGridView ,要不然要手動去那格使用者體驗不佳,有時又改不動
+            curr.CheckDay = picker.Value; ;
+            curr.SetEvaluatedDateNull();         // 若有Binding ,此行一設 DateTimePicker值又會被重設,所以要放 curr.CheckDay=picker.Value後面
+            inventoryBindingSource.ResetBindings(false);
         }
-    }
+
+     }
 }

@@ -22,6 +22,8 @@ namespace VoucherExpense
             this.Validate();
             this.inventoryBindingSource.EndEdit();
             inventoryDetailBindingSource.EndEdit();
+            inventoryProductsBindingSource.EndEdit();
+
             DateTime now = DateTime.Now;
             var detailTable = vEDataSet.InventoryDetail.GetChanges() as VEDataSet.InventoryDetailDataTable;
             if (detailTable != null)   // 把有更改的InventoryDetail填 Inventory.Lastupdated的值
@@ -36,6 +38,19 @@ namespace VoucherExpense
                         rows.First().LastUpdated=now;
                 }
             }
+            var productDetailTable = vEDataSet.InventoryProducts.GetChanges() as VEDataSet.InventoryProductsDataTable;
+            if (productDetailTable != null)  // 把有更改的InventoryProducts填 Inventory.Lastupdated的值
+            {
+                var IDs = (from r in productDetailTable
+                           where (r.RowState != DataRowState.Deleted) && (!r.IsInventoryIDNull())
+                           select r.InventoryID).Distinct();
+                foreach (int id in IDs)
+                {
+                    var rows = from r in vEDataSet.Inventory where (r.RowState != DataRowState.Deleted) && (id == r.InventoryID) select r;
+                    if (rows.Count() != 0)
+                        rows.First().LastUpdated = now;
+                }
+            }
 
             var table = vEDataSet.Inventory.GetChanges() as VEDataSet.InventoryDataTable;
             if (table == null && detailTable == null)
@@ -47,6 +62,7 @@ namespace VoucherExpense
             {
                 int deleted = 0, updated = 0;
                 if (detailTable != null) inventoryDetailTableAdapter.Update(vEDataSet.InventoryDetail);
+                if (productDetailTable != null) inventoryProductsTableAdapter.Update(vEDataSet.InventoryProducts);
                 if (table != null)
                 {
                     foreach (var r in table)
@@ -79,15 +95,20 @@ namespace VoucherExpense
 
         private void FormIngredientInventories_Load(object sender, EventArgs e)
         {
+            productTableAdapter.Connection          = MapPath.BakeryConnection;
             operatorTableAdapter.Connection         = MapPath.VEConnection;
             ingredientTableAdapter.Connection       = MapPath.VEConnection;
             inventoryTableAdapter.Connection        = MapPath.VEConnection;
             inventoryDetailTableAdapter.Connection  = MapPath.VEConnection;
+            inventoryProductsTableAdapter.Connection= MapPath.VEConnection;
 
+            productTableAdapter.Fill        (bakeryOrderSet.Product);
             operatorTableAdapter.Fill       (vEDataSet.Operator);
             ingredientTableAdapter.Fill     (vEDataSet.Ingredient);
             inventoryTableAdapter.Fill      (vEDataSet.Inventory);
-            inventoryDetailTableAdapter.Fill(vEDataSet.InventoryDetail);
+            inventoryDetailTableAdapter.Fill  (vEDataSet.InventoryDetail);
+            inventoryProductsTableAdapter.Fill(vEDataSet.InventoryProducts);
+
             ColumnLocked.ReadOnly = !MyFunction.LockInventory;
 //            tabControl1.DrawMode = TabDrawMode.OwnerDrawFixed;
         }
@@ -140,6 +161,17 @@ namespace VoucherExpense
                         detail.InventoryID  = inventoryID;
                         vEDataSet.InventoryDetail.AddInventoryDetailRow(detail);
                     }
+                    // 產品表中有Code的,加入vEDataSet.InventoryProducts
+                    foreach (BakeryOrderSet.ProductRow product in bakeryOrderSet.Product)
+                    {
+                        if (product.IsClassNull()) continue;
+                        if (product.Code <= 0) continue;
+                        VEDataSet.InventoryProductsRow inventoryProducts = vEDataSet.InventoryProducts.NewInventoryProductsRow();
+                        inventoryProducts.ID = Guid.NewGuid();
+                        inventoryProducts.ProductID = product.ProductID;
+                        inventoryProducts.InventoryID = inventoryID;
+                        vEDataSet.InventoryProducts.AddInventoryProductsRow(inventoryProducts);
+                    }
 
                     inventoryBindingSource.ResetBindings(false);  // inventoryDetailBindingSource 會連動,不用自己呼叫
                     chBoxHide.Checked = false;                    // 初創立,要看到所有有產品碼的
@@ -181,9 +213,15 @@ namespace VoucherExpense
             DataRowView rowView = row.DataBoundItem as DataRowView;
             VEDataSet.InventoryRow inventory = rowView.Row as VEDataSet.InventoryRow;
             int id = inventory.InventoryID;
+            // 刪除本盤點單 食材
             var rows = from r in vEDataSet.InventoryDetail where r.InventoryID == id select r;
             List<VEDataSet.InventoryDetailRow> list = rows.ToList<VEDataSet.InventoryDetailRow>();    // 直接用linq的Collection會說枚舉己經改變
             foreach (VEDataSet.InventoryDetailRow r in list)     // 用RemoveInventoryDetailRow() 會只是Remove, 不是留下要Delete的tag
+                r.Delete();
+            // 刪除本盤點單 產品
+            var rows1 = from r in vEDataSet.InventoryProducts where r.InventoryID == id select r;
+            List<VEDataSet.InventoryProductsRow> list1 = rows1.ToList<VEDataSet.InventoryProductsRow>();    // 直接用linq的Collection會說枚舉己經改變
+            foreach (VEDataSet.InventoryProductsRow r in list1)     // 用RemoveInventoryDetailRow() 會只是Remove, 不是留下要Delete的tag
                 r.Delete();
             inventoryBindingSource.RemoveCurrent();              // 要放在後面,因為還要取出 Current的IventoryID
             bindingNavigatorDeleteItem.Enabled = false;
@@ -196,6 +234,8 @@ namespace VoucherExpense
             btnEvaluate.Enabled = !locked;
             ColumnStockChecked.ReadOnly = locked;
             ColumnPosition.ReadOnly = locked;
+
+            ColumnProductVolume.ReadOnly = locked;
         }
 
         private void dgvInventories_RowEnter(object sender, DataGridViewCellEventArgs e)
@@ -211,11 +251,14 @@ namespace VoucherExpense
                 else SetDetailLocked(dataRow.Locked);
 
                 checkDayDateTimePicker.ValueChanged -= this.checkDayDateTimePicker_ValueChanged;
-                checkDayDateTimePicker.Value = dataRow.CheckDay;
+                if (!dataRow.IsCheckDayNull())
+                    checkDayDateTimePicker.Value = dataRow.CheckDay;
                 checkDayDateTimePicker.ValueChanged += this.checkDayDateTimePicker_ValueChanged;
-
             }
-            catch{};
+            catch(Exception ex)
+            {
+                MessageBox.Show("dgvInventories Row_Enter產生錯誤, 原因:" + ex.Message);
+            }
             chBoxHide_CheckedChanged(null, null);
             inventoryDetailBindingSource.ResetBindings(false);
         }
@@ -223,9 +266,15 @@ namespace VoucherExpense
         private void chBoxHide_CheckedChanged(object sender, EventArgs e)
         {
             if (chBoxHide.Checked)
+            {
                 inventoryDetailBindingSource.Filter = "StockVolume>0 OR PrevStockVolume>0 OR CurrentIn>0";
+                inventoryProductsBindingSource.Filter = "PrevVolume>0 OR Volume>0";
+            }
             else
+            {
                 inventoryDetailBindingSource.RemoveFilter();
+                inventoryProductsBindingSource.RemoveFilter();
+            }
         }
 
         private void dgvInventoryDetail_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -250,6 +299,11 @@ namespace VoucherExpense
         private void dgvInventoryDetail_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             labelIngredientsCount.Text = dgvInventoryDetail.Rows.Count.ToString();
+        }
+
+        private void dgvProducts_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            labelProductsCount.Text = dgvProducts.Rows.Count.ToString();
         }
 
         // 檢查Locked 狀況
@@ -321,6 +375,7 @@ namespace VoucherExpense
             // 先把螢幕內容存回
             inventoryBindingSource.EndEdit();
             inventoryDetailBindingSource.EndEdit();
+            inventoryProductsBindingSource.EndEdit();
             try
             {
                 DataRowView rowView = inventoryBindingSource.Current as DataRowView;
@@ -331,6 +386,7 @@ namespace VoucherExpense
                 }
                 VEDataSet.InventoryRow curr = rowView.Row as VEDataSet.InventoryRow;
                 var details = curr.GetInventoryDetailRows();
+                var productDetails=curr.GetInventoryProductsRows();
                 // 清除本單的進貨及金額
                 foreach (var dRow in details)
                 {
@@ -451,12 +507,15 @@ namespace VoucherExpense
                         d.PrevStockVolume = 0;
                         CalcInventory inv = dicCalcStock[d.IngredientID];
                         if (inv.StockVolume > 0)
-                            RemainStockWarning(d.IngredientID, inv.StockVolume);
+                            RemainStockWarning(d, inv.StockVolume);
                         d.LostMoney = inv.CurrInMoney - d.StockMoney;     // 沒有前期
                     }
+                    foreach (var p in productDetails)
+                        p.PrevVolume = 0;
                 }
                 else
                 {
+                    // 找出食材前期值代入
                     var prevDetails = prev.GetInventoryDetailRows();
                     foreach (VEDataSet.InventoryDetailRow d in details)
                     {
@@ -466,7 +525,8 @@ namespace VoucherExpense
                         var ds = from r in prevDetails where r.IngredientID == d.IngredientID select r;
                         if (ds.Count() <= 0)
                         {
-                            if (remainStock > 0) RemainStockWarning(d.IngredientID, remainStock);
+                            if (remainStock > 0)
+                                RemainStockWarning(d, remainStock);
                             continue;
                         }
                         var p = ds.First();
@@ -494,37 +554,72 @@ namespace VoucherExpense
                                         {
                                             VEDataSet.IngredientRow ing = ings.First();
                                             MessageBox.Show("產品<" + ing.Name + "> ,庫存量大於(本期進貨+前期庫存) " + (remainStock - p.StockVolume).ToString() + ing.Unit + ",多餘部分 估值為 0 !!!");
+                                            d.AreaCode = "???";
                                         }
                                     }
                                     else d.StockMoney += p.StockMoney / (decimal)p.StockVolume * (decimal)remainStock;
                                 }
                                 else
-                                    RemainStockWarning(p.IngredientID, remainStock);
+                                    RemainStockWarning(d, remainStock);
                             }
                         }
                         else
                         {
                             if (remainStock > 0)
-                                RemainStockWarning(p.IngredientID, remainStock);
+                                RemainStockWarning(d, remainStock);
+                        }
+                    }
+                    // 找出前期產品庫存值代入 
+                    var prevProducts = prev.GetInventoryProductsRows();
+                    foreach (VEDataSet.InventoryProductsRow pd in productDetails)
+                    {
+                        var ds = from r in prevProducts where r.ProductID == pd.ProductID select r;
+                        if (ds.Count() > 0)
+                        {
+                            var d = ds.First();
+                            if (!d.IsVolumeNull())
+                                pd.PrevVolume = d.Volume;
+                        }
+                        else
+                            pd.PrevVolume = 0;
+                    }
+                }
+                // 找出產品表.EvaluatedCost 計算產品Cost
+                decimal productCost = 0;
+                foreach (VEDataSet.InventoryProductsRow pd in productDetails)
+                {
+                    pd.Cost = 0m;
+                    if ((!pd.IsVolumeNull()) && pd.Volume > 0)
+                    {
+                        var ps = from r in bakeryOrderSet.Product where r.ProductID == pd.ProductID select r;
+                        if (ps.Count() > 0)
+                        {
+                            var p = ps.First();
+                            if (!p.IsEvaluatedCostNull())
+                            {
+                                pd.Cost = p.EvaluatedCost * (decimal)pd.Volume;
+                                productCost += pd.Cost;
+                            }
                         }
                     }
                 }
-
-                decimal totalStockMoney = 0,totalLostMoney=0;
+                // 計算總食材庫材及損失
+                decimal ingredientsCost = 0,ingredientsLost=0;
                 foreach (var d in details)
                 {
                     if (!d.IsStockMoneyNull())
-                        totalStockMoney += d.StockMoney;
+                        ingredientsCost += d.StockMoney;
                     if (!d.IsLostMoneyNull())
-                        totalLostMoney += d.LostMoney;
+                        ingredientsLost += d.LostMoney;
                 }
-                curr.TotalStockMoney = Math.Round(totalStockMoney,2);
-                curr.TotalLostMoney  = Math.Round(totalLostMoney,2);
-                curr.EvaluatedDate = DateTime.Now;
+                curr.IngredientsCost  = Math.Round(ingredientsCost,1);
+                curr.IngredientsLost  = Math.Round(ingredientsLost,1);
+                curr.ProductsCost     = Math.Round(productCost    ,1);
+                curr.EvaluatedDate    = DateTime.Now;
 
                 inventoryBindingSource.ResetBindings(false);
                 inventoryDetailBindingSource.ResetBindings(false);
-
+                inventoryProductsBindingSource.ResetBindings(false);
             }
             catch (Exception ex)
             {
@@ -533,8 +628,10 @@ namespace VoucherExpense
         }
 
 
-        void RemainStockWarning(int ingredientID,double remainStock)
+        void RemainStockWarning(VEDataSet.InventoryDetailRow detail,double remainStock)
         {
+            int ingredientID = detail.IngredientID;
+            detail.AreaCode = "???";
             var ings=from r in vEDataSet.Ingredient where r.IngredientID==ingredientID select r;
             if (ings.Count()>0)
             {
@@ -553,9 +650,25 @@ namespace VoucherExpense
             {
                 DataRowView rowView = inventoryBindingSource.Current as DataRowView;
                 VEDataSet.InventoryRow curr = rowView.Row as VEDataSet.InventoryRow;
-                curr.SetEvaluatedDateNull();
+                if (!curr.IsEvaluatedDateNull()) curr.SetEvaluatedDateNull();
             }
         }
+
+        private void dgvProducts_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            var view = sender as DataGridView;
+            int iCol = e.ColumnIndex;
+            DataGridViewColumn column = view.Columns[iCol];
+            if (column == null) return;
+            if (column.Name == "ColumnProductVolume")   // 一改庫存,EvaluatedDate就DBNull
+            {
+                DataRowView rowView = inventoryBindingSource.Current as DataRowView;
+                VEDataSet.InventoryRow curr = rowView.Row as VEDataSet.InventoryRow;
+                if (!curr.IsEvaluatedDateNull()) curr.SetEvaluatedDateNull();
+            }
+
+        }
+
 
         // 剛Binding時賦值,EnterRow,都會呼叫, 所以...只好取消Binding, 自己綁
         private void checkDayDateTimePicker_ValueChanged(object sender, EventArgs e)
@@ -583,11 +696,18 @@ namespace VoucherExpense
                     return;
                 }
             }
-            // 主動去更改DataGridView ,要不然要手動去那格使用者體驗不佳,有時又改不動
+            // 主動去更改DataGridView ,要不然要手動去那格使用者體驗不佳,有時又因為主表倒覆蓋回來,改不動
             curr.CheckDay = picker.Value; ;
             curr.SetEvaluatedDateNull();         // 若有Binding ,此行一設 DateTimePicker值又會被重設,所以要放 curr.CheckDay=picker.Value後面
             inventoryBindingSource.ResetBindings(false);
         }
+
+        private void dgvProducts_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+
+        }
+
+
 
      }
 }

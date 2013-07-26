@@ -101,8 +101,15 @@
             this.labelProductsCount = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.dgvProducts = new System.Windows.Forms.DataGridView();
+            this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.inventoryIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductID = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bakeryOrderSet = new VoucherExpense.BakeryOrderSet();
+            this.productIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.prevVolumeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnProductVolume = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.costDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.inventoryProductsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.productTableAdapter = new VoucherExpense.BakeryOrderSetTableAdapters.ProductTableAdapter();
             this.inventoryTableAdapter = new VoucherExpense.VEDataSetTableAdapters.InventoryTableAdapter();
@@ -110,13 +117,6 @@
             this.ingredientTableAdapter = new VoucherExpense.VEDataSetTableAdapters.IngredientTableAdapter();
             this.operatorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
             this.inventoryProductsTableAdapter = new VoucherExpense.VEDataSetTableAdapters.InventoryProductsTableAdapter();
-            this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.inventoryIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProductID = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.productIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.prevVolumeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnProductVolume = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.costDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.inventoryBindingNavigator)).BeginInit();
             this.inventoryBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.inventoryBindingSource)).BeginInit();
@@ -738,45 +738,6 @@
             this.dgvProducts.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvProducts_DataBindingComplete);
             this.dgvProducts.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvProducts_DataError);
             // 
-            // productBindingSource
-            // 
-            this.productBindingSource.DataMember = "Product";
-            this.productBindingSource.DataSource = this.bakeryOrderSet;
-            // 
-            // bakeryOrderSet
-            // 
-            this.bakeryOrderSet.DataSetName = "BakeryOrderSet";
-            this.bakeryOrderSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // inventoryProductsBindingSource
-            // 
-            this.inventoryProductsBindingSource.DataMember = "InventoryInventoryProducts";
-            this.inventoryProductsBindingSource.DataSource = this.inventoryBindingSource;
-            // 
-            // productTableAdapter
-            // 
-            this.productTableAdapter.ClearBeforeFill = true;
-            // 
-            // inventoryTableAdapter
-            // 
-            this.inventoryTableAdapter.ClearBeforeFill = true;
-            // 
-            // inventoryDetailTableAdapter
-            // 
-            this.inventoryDetailTableAdapter.ClearBeforeFill = true;
-            // 
-            // ingredientTableAdapter
-            // 
-            this.ingredientTableAdapter.ClearBeforeFill = true;
-            // 
-            // operatorTableAdapter
-            // 
-            this.operatorTableAdapter.ClearBeforeFill = true;
-            // 
-            // inventoryProductsTableAdapter
-            // 
-            this.inventoryProductsTableAdapter.ClearBeforeFill = true;
-            // 
             // iDDataGridViewTextBoxColumn
             // 
             this.iDDataGridViewTextBoxColumn.DataPropertyName = "ID";
@@ -804,6 +765,16 @@
             this.ProductID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.ProductID.ValueMember = "ProductID";
             this.ProductID.Width = 64;
+            // 
+            // productBindingSource
+            // 
+            this.productBindingSource.DataMember = "Product";
+            this.productBindingSource.DataSource = this.bakeryOrderSet;
+            // 
+            // bakeryOrderSet
+            // 
+            this.bakeryOrderSet.DataSetName = "BakeryOrderSet";
+            this.bakeryOrderSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // productIDDataGridViewTextBoxColumn
             // 
@@ -847,6 +818,35 @@
             this.costDataGridViewTextBoxColumn.Name = "costDataGridViewTextBoxColumn";
             this.costDataGridViewTextBoxColumn.ReadOnly = true;
             // 
+            // inventoryProductsBindingSource
+            // 
+            this.inventoryProductsBindingSource.DataMember = "InventoryInventoryProducts";
+            this.inventoryProductsBindingSource.DataSource = this.inventoryBindingSource;
+            // 
+            // productTableAdapter
+            // 
+            this.productTableAdapter.ClearBeforeFill = true;
+            // 
+            // inventoryTableAdapter
+            // 
+            this.inventoryTableAdapter.ClearBeforeFill = true;
+            // 
+            // inventoryDetailTableAdapter
+            // 
+            this.inventoryDetailTableAdapter.ClearBeforeFill = true;
+            // 
+            // ingredientTableAdapter
+            // 
+            this.ingredientTableAdapter.ClearBeforeFill = true;
+            // 
+            // operatorTableAdapter
+            // 
+            this.operatorTableAdapter.ClearBeforeFill = true;
+            // 
+            // inventoryProductsTableAdapter
+            // 
+            this.inventoryProductsTableAdapter.ClearBeforeFill = true;
+            // 
             // FormInventories
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -863,7 +863,7 @@
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormInventories";
-            this.Text = "食材盤點表輸入";
+            this.Text = "盤點表輸入";
             this.Load += new System.EventHandler(this.FormIngredientInventories_Load);
             ((System.ComponentModel.ISupportInitialize)(this.inventoryBindingNavigator)).EndInit();
             this.inventoryBindingNavigator.ResumeLayout(false);

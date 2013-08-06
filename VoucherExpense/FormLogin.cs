@@ -110,6 +110,8 @@ namespace VoucherExpense
                     {
                         if (DoUpdate()) Close();
                     }
+                    else
+                        MessageBox.Show("不更版可能產生錯誤, 請儘可能更版!");
                 }
             }
         }

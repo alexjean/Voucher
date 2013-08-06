@@ -339,6 +339,12 @@
     <Compile Include="FormShiftDetail.Designer.cs">
       <DependentUpon>FormShiftDetail.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormShrink.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormShrink.Designer.cs">
+      <DependentUpon>FormShrink.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormTitleSetup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -462,6 +468,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormInventories.resx">
       <DependentUpon>FormInventories.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FormInitNewYear.resx">
       <DependentUpon>FormInitNewYear.cs</DependentUpon>
@@ -514,6 +521,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormShiftDetail.resx">
       <DependentUpon>FormShiftDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormShrink.resx">
+      <DependentUpon>FormShrink.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormTitleSetup.resx">
       <DependentUpon>FormTitleSetup.cs</DependentUpon>

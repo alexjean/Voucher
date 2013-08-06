@@ -81,6 +81,7 @@
             this.盤點ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vEDataSet = new VoucherExpense.VEDataSet();
             this.headerTableAdapter = new VoucherExpense.VEDataSetTableAdapters.HeaderTableAdapter();
+            this.未知損耗ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menu1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             this.SuspendLayout();
@@ -229,7 +230,8 @@
             // 
             this.庫存MenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.盤點單ToolStripMenuItem,
-            this.產品報廢ToolStripMenuItem});
+            this.產品報廢ToolStripMenuItem,
+            this.未知損耗ToolStripMenuItem});
             this.庫存MenuItem.Name = "庫存MenuItem";
             this.庫存MenuItem.Size = new System.Drawing.Size(52, 20);
             this.庫存MenuItem.Text = "庫存";
@@ -494,6 +496,13 @@
             // 
             this.headerTableAdapter.ClearBeforeFill = true;
             // 
+            // 未知損耗ToolStripMenuItem
+            // 
+            this.未知損耗ToolStripMenuItem.Name = "未知損耗ToolStripMenuItem";
+            this.未知損耗ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.未知損耗ToolStripMenuItem.Text = "未知損耗";
+            this.未知損耗ToolStripMenuItem.Click += new System.EventHandler(this.未知損耗ToolStripMenuItem_Click);
+            // 
             // FormHome
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -573,6 +582,7 @@
         private System.Windows.Forms.ToolStripMenuItem 庫存MenuItem;
         private System.Windows.Forms.ToolStripMenuItem 盤點單ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 產品報廢ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 未知損耗ToolStripMenuItem;
 
     }
 }

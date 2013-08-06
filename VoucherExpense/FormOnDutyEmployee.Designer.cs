@@ -54,6 +54,7 @@
             this.apartmentTableAdapter = new VoucherExpense.VEDataSetTableAdapters.ApartmentTableAdapter();
             this.comboBoxApartment = new System.Windows.Forms.ComboBox();
             this.cNameIDForComboBoxBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.btnExcel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOnDutyEmployee)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.apartmentBindingSource)).BeginInit();
@@ -287,11 +288,22 @@
             // 
             this.cNameIDForComboBoxBindingSource.DataSource = typeof(VoucherExpense.CNameIDForComboBox);
             // 
+            // btnExcel
+            // 
+            this.btnExcel.Location = new System.Drawing.Point(277, 2);
+            this.btnExcel.Name = "btnExcel";
+            this.btnExcel.Size = new System.Drawing.Size(75, 26);
+            this.btnExcel.TabIndex = 63;
+            this.btnExcel.Text = "Excel";
+            this.btnExcel.UseVisualStyleBackColor = true;
+            this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
+            // 
             // FormOnDutyEmployee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(904, 652);
+            this.Controls.Add(this.btnExcel);
             this.Controls.Add(this.comboBoxApartment);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.dgvOnDutyEmployee);
@@ -343,5 +355,6 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn InPosition;
         private System.Windows.Forms.DataGridViewComboBoxColumn ColumnApartmentID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Title;
+        private System.Windows.Forms.Button btnExcel;
     }
 }

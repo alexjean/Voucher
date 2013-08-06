@@ -321,7 +321,15 @@ namespace VoucherExpense
             {
                 newOrder = mainOrders.First();
                 newOrder.BeginEdit();
-                newOrder.ItemArray = order.ItemArray;   // ID應該是相同的
+//                newOrder.ItemArray = order.ItemArray;   // ID應該是相同的
+                if (!order.IsBranchIDNull())    newOrder.BranchID   = order.BranchID;
+                if (!order.IsCashierIDNull())   newOrder.CashierID  = order.CashierID;
+                if (!order.IsDeductNull())      newOrder.Deduct     = order.Deduct;
+                if (!order.IsDeletedNull())     newOrder.Deleted    = order.Deleted;
+                if (!order.IsDiscountRateNull()) newOrder.DiscountRate = order.DiscountRate;
+                if (!order.IsIncomeNull())      newOrder.Income     = order.Income;
+                if (!order.IsPayByNull())       newOrder.PayBy      = order.PayBy;
+                if (!order.IsPrintTimeNull())   newOrder.PrintTime  = order.PrintTime;
                 newOrder.EndEdit();
             }
             else
@@ -349,7 +357,12 @@ namespace VoucherExpense
                 {
                     BakeryOrderSet.OrderItemRow oldItem = mainItems[index];
                     oldItem.BeginEdit();
-                    oldItem.ItemArray = item.ItemArray;
+                    //                    oldItem.ItemArray = item.ItemArray;
+                    if (!item.IsDiscountNull())  oldItem.Discount  = item.Discount;
+                    if (!item.IsNoNull())        oldItem.No        = item.No;
+                    if (!item.IsPriceNull())     oldItem.Price     = item.Price;
+                    if (!item.IsProductIDNull()) oldItem.ProductID = item.ProductID;
+
                     oldItem.SetParentRow(newOrder);
                     oldItem.EndEdit();
                 }
@@ -416,8 +429,10 @@ namespace VoucherExpense
                     {
                         BakeryOrderSet.DrawerRecordRow oldDrawer = mainDrawers.First();
                         oldDrawer.BeginEdit();
-                        oldDrawer.ItemArray = drawer.ItemArray;
+//                        oldDrawer.ItemArray = drawer.ItemArray;  // 同一ID不能再指定一次
                         oldDrawer.AssociateOrderID = OrderIDWithPOS(drawer.AssociateOrderID, posID);
+                        if (!drawer.IsCashierIDNull()) oldDrawer.CashierID = drawer.CashierID;
+                        if (!drawer.IsOpenTimeNull())  oldDrawer.OpenTime  = drawer.OpenTime;
                         oldDrawer.EndEdit();
                     }
                     else

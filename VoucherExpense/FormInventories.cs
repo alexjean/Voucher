@@ -110,6 +110,18 @@ namespace VoucherExpense
             inventoryProductsTableAdapter.Fill(vEDataSet.InventoryProducts);
 
             ColumnLocked.ReadOnly = !MyFunction.LockInventory;
+            if (MyFunction.LockInventory)
+            {
+                dgvColumnCurrentIn.Visible = true;
+                dgvColumnLostMoney.Visible = true;
+                dgvColumnPrevStockVolume.Visible = true;
+            }
+            else
+            {
+                dgvColumnCurrentIn.Visible = false;
+                dgvColumnLostMoney.Visible = false;
+                dgvColumnPrevStockVolume.Visible = false;
+            }
 //            tabControl1.DrawMode = TabDrawMode.OwnerDrawFixed;
         }
 

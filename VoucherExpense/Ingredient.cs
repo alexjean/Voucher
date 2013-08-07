@@ -359,7 +359,7 @@ namespace VoucherExpense
         private void Ingredient_FormClosing(object sender, FormClosingEventArgs e)
         {
 //          搶先在BindingSource被Dispose前,把DataGridView Dispose,否則Win8下先Dispose BindingSource會DataError 
-            dgvIngredient.Dispose();
+            dgvIngredient.Visible=false;
         }
 
         private void IngredientDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)

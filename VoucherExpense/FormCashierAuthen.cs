@@ -982,7 +982,7 @@ namespace VoucherExpense
         private void FormCashierAuthen_FormClosing(object sender, FormClosingEventArgs e)
         {
             //搶先在BindingSource被Dispose前,把DataGridView Dispose,否則Win8下先Dispose BindingSource會DataError 
-            dgvCashier.Dispose();
+            dgvCashier.Visible=false;
         }
 
         private void cashierDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)

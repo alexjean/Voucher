@@ -44,7 +44,7 @@
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.bankAccountBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
-            this.bankAccountDataGridView = new System.Windows.Forms.DataGridView();
+            this.dgvBankAccount = new System.Windows.Forms.DataGridView();
             this.columnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AccountTitleCode = new System.Windows.Forms.DataGridViewComboBoxColumn();
@@ -62,7 +62,7 @@
             this.bankAccountBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bankAccountBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bankAccountDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvBankAccount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -119,8 +119,8 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 22);
-            this.bindingNavigatorCountItem.Text = "/{0}";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(38, 22);
+            this.bindingNavigatorCountItem.Text = "of {0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
             // bindingNavigatorMoveFirstItem
@@ -192,13 +192,13 @@
             this.bankAccountBindingNavigatorSaveItem.Text = "儲存資料";
             this.bankAccountBindingNavigatorSaveItem.Click += new System.EventHandler(this.bankAccountBindingNavigatorSaveItem_Click);
             // 
-            // bankAccountDataGridView
+            // dgvBankAccount
             // 
-            this.bankAccountDataGridView.AllowUserToAddRows = false;
-            this.bankAccountDataGridView.AutoGenerateColumns = false;
-            this.bankAccountDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
-            this.bankAccountDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.bankAccountDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvBankAccount.AllowUserToAddRows = false;
+            this.dgvBankAccount.AutoGenerateColumns = false;
+            this.dgvBankAccount.BackgroundColor = System.Drawing.Color.SeaShell;
+            this.dgvBankAccount.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvBankAccount.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.columnID,
             this.dataGridViewTextBoxColumn2,
             this.AccountTitleCode,
@@ -206,16 +206,16 @@
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn5,
             this.dataGridViewTextBoxColumn4});
-            this.bankAccountDataGridView.DataSource = this.bankAccountBindingSource;
-            this.bankAccountDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.bankAccountDataGridView.Location = new System.Drawing.Point(0, 25);
-            this.bankAccountDataGridView.Name = "bankAccountDataGridView";
-            this.bankAccountDataGridView.RowHeadersWidth = 25;
-            this.bankAccountDataGridView.RowTemplate.Height = 23;
-            this.bankAccountDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.bankAccountDataGridView.Size = new System.Drawing.Size(1012, 400);
-            this.bankAccountDataGridView.TabIndex = 1;
-            this.bankAccountDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.bankAccountDataGridView_DataError);
+            this.dgvBankAccount.DataSource = this.bankAccountBindingSource;
+            this.dgvBankAccount.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvBankAccount.Location = new System.Drawing.Point(0, 25);
+            this.dgvBankAccount.Name = "dgvBankAccount";
+            this.dgvBankAccount.RowHeadersWidth = 25;
+            this.dgvBankAccount.RowTemplate.Height = 23;
+            this.dgvBankAccount.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dgvBankAccount.Size = new System.Drawing.Size(1012, 400);
+            this.dgvBankAccount.TabIndex = 1;
+            this.dgvBankAccount.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.bankAccountDataGridView_DataError);
             // 
             // columnID
             // 
@@ -322,19 +322,20 @@
             this.ClientSize = new System.Drawing.Size(1012, 425);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.bankAccountDataGridView);
+            this.Controls.Add(this.dgvBankAccount);
             this.Controls.Add(this.bankAccountBindingNavigator);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormBank";
             this.Text = "銀行帳號";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormBank_FormClosing);
             this.Load += new System.EventHandler(this.FormBank_Load);
             ((System.ComponentModel.ISupportInitialize)(this.bankAccountBindingNavigator)).EndInit();
             this.bankAccountBindingNavigator.ResumeLayout(false);
             this.bankAccountBindingNavigator.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bankAccountBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bankAccountDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvBankAccount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).EndInit();
             this.ResumeLayout(false);
@@ -359,7 +360,7 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.ToolStripButton bankAccountBindingNavigatorSaveItem;
-        private System.Windows.Forms.DataGridView bankAccountDataGridView;
+        private System.Windows.Forms.DataGridView dgvBankAccount;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.BindingSource accountingTitleBindingSource;
         private VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter accountingTitleTableAdapter;

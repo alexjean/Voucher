@@ -116,7 +116,7 @@ namespace VoucherExpense
             {
                 this.Text = "查核進貨";
                 blockEdit();
-                voucherDataGridView.Columns["columnCheck"].ReadOnly = false;
+                dgvVoucher.Columns["columnCheck"].ReadOnly = false;
                 ckBoxAllowEdit.Visible = true;
             }
             if (MyFunction.LockAll)
@@ -168,11 +168,11 @@ namespace VoucherExpense
         {
             if (alphapanel == null)
             {
-                int x=voucherDataGridView.Right;
+                int x=dgvVoucher.Right;
                 int y=voucherBindingNavigator.Bottom;
                 int width;
                 if (checkMode) width=this.costTextBox.Right-x;     // scroll 和會計科目都可以動
-                else           width = voucherDetailDataGridView.Right - x - 20; // scroll用的到
+                else           width = dgvVoucherDetail.Right - x - 20; // scroll用的到
                 int height=this.Bottom-y;
                 alphapanel = new AlphaPanel();
                 alphapanel.Location = new Point(x,y);
@@ -212,7 +212,7 @@ namespace VoucherExpense
             
 //            int count=this.voucherBindingNavigator.PositionItem.
             int ma = MyFunction.MaxNoInDB("ID", vEDataSet.Voucher);
-            int i=MyFunction.SetCellMaxNo("columnID", voucherDataGridView,ma);
+            int i=MyFunction.SetCellMaxNo("columnID", dgvVoucher,ma);
             if (i > 0)
             {
                 this.iDTextBox.Text = i.ToString();
@@ -297,7 +297,7 @@ namespace VoucherExpense
 
         private decimal CostTotal()
         {
-            DataGridView view = this.voucherDetailDataGridView;
+            DataGridView view = this.dgvVoucherDetail;
             int columnIndex = view.Columns["dgCostColumn"].Index;
             decimal cost = 0;
             foreach (DataGridViewRow row in view.Rows)
@@ -396,7 +396,7 @@ namespace VoucherExpense
                 m2 = y + "12/31#";
                 voucherBindingSource.Filter = "(StockTime>=" + m1 +") AND (StockTime<=" + m2 + ")";
             }
-            this.voucherDataGridView.Focus();
+            this.dgvVoucher.Focus();
         }
 
 
@@ -412,7 +412,7 @@ namespace VoucherExpense
 
         private void ModifyIngredientFilterForSafe(string Select)
         {   // 避免出現ComboBox沒有的
-            foreach (DataGridViewRow row in voucherDetailDataGridView.Rows)
+            foreach (DataGridViewRow row in dgvVoucherDetail.Rows)
             {
                 DataGridViewCell cell = row.Cells["dgIngredientIDColumn"];
                 if (cell == null) continue;
@@ -544,8 +544,14 @@ namespace VoucherExpense
         private void voucherDetailDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             DataGridView view = (DataGridView)sender;
+            if (e.RowIndex < 0) return;
+            if (e.ColumnIndex<0)
+            {
+                MessageBox.Show("Deail第" + e.RowIndex.ToString() + "行錯誤:" + e.Exception.Message);
+                return;
+            }
             DataGridViewCell cell=view.Rows[e.RowIndex].Cells[e.ColumnIndex];
-//           MessageBox.Show(string.Format("Detail on Row{0} Col[{1}]:{2}", e.RowIndex, view.Columns[e.ColumnIndex].Name,e.Exception.Message));
+            MessageBox.Show(string.Format("Detail on Row{0} Col[{1}]:{2}", e.RowIndex, view.Columns[e.ColumnIndex].Name,e.Exception.Message));
         }
 
         private void voucherDetailDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
@@ -595,7 +601,7 @@ namespace VoucherExpense
             DataGridViewCell cell = row.Cells[e.ColumnIndex];
             if (cell.FormattedValueType != typeof(bool)) return;
             if ((bool)cell.FormattedValue != true) return;
-            foreach (DataGridViewRow r in voucherDetailDataGridView.Rows)
+            foreach (DataGridViewRow r in dgvVoucherDetail.Rows)
             {
                 DataGridViewCell costCell = r.Cells["dgCostColumn"];
                 if (IsDataWrong(typeof(decimal),costCell.Value))
@@ -675,6 +681,13 @@ namespace VoucherExpense
             else
                 color = Color.White;
             row.DefaultCellStyle.BackColor = color;
+        }
+
+        private void Voucher_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // 搶先Dispose DataGridView
+            dgvVoucherDetail.Visible = false;
+            dgvVoucher.Visible=false;
         }
   
     }

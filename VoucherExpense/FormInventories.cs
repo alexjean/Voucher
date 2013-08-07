@@ -719,6 +719,13 @@ namespace VoucherExpense
 
         }
 
+        private void FormInventories_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            dgvProducts.Visible = false;
+            dgvInventoryDetail.Visible = false;
+            dgvInventories.Visible = false;
+        }
+
 
 
      }

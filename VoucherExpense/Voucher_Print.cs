@@ -43,7 +43,7 @@ namespace VoucherExpense
         {
             m_SelectedVoucher = new List<CSelectedVoucher>();
             Comparison<CSelectedVoucher> comparer = new Comparison<CSelectedVoucher>(CompareVoucherID);
-            foreach (DataGridViewRow row in voucherDataGridView.SelectedRows)
+            foreach (DataGridViewRow row in dgvVoucher.SelectedRows)
             {
                 try
                 {

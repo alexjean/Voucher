@@ -331,5 +331,11 @@ namespace VoucherExpense
             }
             catch { }
         }
+
+        private void FormScraps_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            dgvScrappedDetail.Visible = false;
+            dgvProductScrapped.Visible = false;
+        }
     }
 }

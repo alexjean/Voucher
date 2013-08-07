@@ -80,7 +80,7 @@
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.voucherVoucherDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.voucherDetailTableAdapter = new VoucherExpense.VEDataSetTableAdapters.VoucherDetailTableAdapter();
-            this.voucherDetailDataGridView = new System.Windows.Forms.DataGridView();
+            this.dgvVoucherDetail = new System.Windows.Forms.DataGridView();
             this.detailColumnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnVoID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgIngredientIDColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
@@ -91,7 +91,7 @@
             this.costTextBox = new System.Windows.Forms.TextBox();
             this.comboBoxMonth = new System.Windows.Forms.ComboBox();
             this.printDocument = new System.Drawing.Printing.PrintDocument();
-            this.voucherDataGridView = new System.Windows.Forms.DataGridView();
+            this.dgvVoucher = new System.Windows.Forms.DataGridView();
             this.columnRemoved = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.columnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.VoucherID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -128,8 +128,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.venderFilterSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.voucherVoucherDetailBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.voucherDetailDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.voucherDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvVoucherDetail)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvVoucher)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.titleCodeBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -282,7 +282,7 @@
             this.voucherBindingNavigator.Name = "voucherBindingNavigator";
             this.voucherBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
             this.voucherBindingNavigator.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.voucherBindingNavigator.Size = new System.Drawing.Size(272, 27);
+            this.voucherBindingNavigator.Size = new System.Drawing.Size(281, 27);
             this.voucherBindingNavigator.TabIndex = 0;
             this.voucherBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -299,8 +299,8 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 24);
-            this.bindingNavigatorCountItem.Text = "/{0}";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(38, 24);
+            this.bindingNavigatorCountItem.Text = "of {0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
             // bindingNavigatorMoveFirstItem
@@ -489,18 +489,18 @@
             // 
             this.voucherDetailTableAdapter.ClearBeforeFill = true;
             // 
-            // voucherDetailDataGridView
+            // dgvVoucherDetail
             // 
-            this.voucherDetailDataGridView.AllowUserToResizeRows = false;
+            this.dgvVoucherDetail.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
-            this.voucherDetailDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.voucherDetailDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dgvVoucherDetail.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvVoucherDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.voucherDetailDataGridView.AutoGenerateColumns = false;
-            this.voucherDetailDataGridView.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.voucherDetailDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.voucherDetailDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvVoucherDetail.AutoGenerateColumns = false;
+            this.dgvVoucherDetail.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.dgvVoucherDetail.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvVoucherDetail.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.detailColumnID,
             this.columnVoID,
             this.dgIngredientIDColumn,
@@ -508,21 +508,21 @@
             this.dgUnitComlumn,
             this.dgCostColumn,
             this.columnTitleCode});
-            this.voucherDetailDataGridView.DataSource = this.voucherVoucherDetailBindingSource;
-            this.voucherDetailDataGridView.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.voucherDetailDataGridView.Location = new System.Drawing.Point(409, 149);
-            this.voucherDetailDataGridView.Name = "voucherDetailDataGridView";
-            this.voucherDetailDataGridView.RowHeadersWidth = 25;
-            this.voucherDetailDataGridView.RowTemplate.Height = 24;
-            this.voucherDetailDataGridView.Size = new System.Drawing.Size(530, 394);
-            this.voucherDetailDataGridView.TabIndex = 50;
-            this.voucherDetailDataGridView.CellValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.voucherDetailDataGridView_CellValidated);
-            this.voucherDetailDataGridView.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.voucherDetailDataGridView_CellValidating);
-            this.voucherDetailDataGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.voucherDetailDataGridView_CellValueChanged);
-            this.voucherDetailDataGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.voucherDetailDataGridView_DataBindingComplete);
-            this.voucherDetailDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.voucherDetailDataGridView_DataError);
-            this.voucherDetailDataGridView.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.voucherDetailDataGridView_DefaultValuesNeeded);
-            this.voucherDetailDataGridView.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.voucherDetailDataGridView_UserDeletedRow);
+            this.dgvVoucherDetail.DataSource = this.voucherVoucherDetailBindingSource;
+            this.dgvVoucherDetail.ImeMode = System.Windows.Forms.ImeMode.Disable;
+            this.dgvVoucherDetail.Location = new System.Drawing.Point(409, 149);
+            this.dgvVoucherDetail.Name = "dgvVoucherDetail";
+            this.dgvVoucherDetail.RowHeadersWidth = 25;
+            this.dgvVoucherDetail.RowTemplate.Height = 24;
+            this.dgvVoucherDetail.Size = new System.Drawing.Size(530, 394);
+            this.dgvVoucherDetail.TabIndex = 50;
+            this.dgvVoucherDetail.CellValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.voucherDetailDataGridView_CellValidated);
+            this.dgvVoucherDetail.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.voucherDetailDataGridView_CellValidating);
+            this.dgvVoucherDetail.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.voucherDetailDataGridView_CellValueChanged);
+            this.dgvVoucherDetail.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.voucherDetailDataGridView_DataBindingComplete);
+            this.dgvVoucherDetail.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.voucherDetailDataGridView_DataError);
+            this.dgvVoucherDetail.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.voucherDetailDataGridView_DefaultValuesNeeded);
+            this.dgvVoucherDetail.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.voucherDetailDataGridView_UserDeletedRow);
             // 
             // detailColumnID
             // 
@@ -642,16 +642,16 @@
             this.printDocument.BeginPrint += new System.Drawing.Printing.PrintEventHandler(this.printDocument_BeginPrint);
             this.printDocument.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument_PrintPage);
             // 
-            // voucherDataGridView
+            // dgvVoucher
             // 
-            this.voucherDataGridView.AllowUserToAddRows = false;
-            this.voucherDataGridView.AllowUserToDeleteRows = false;
-            this.voucherDataGridView.AllowUserToOrderColumns = true;
-            this.voucherDataGridView.AllowUserToResizeRows = false;
+            this.dgvVoucher.AllowUserToAddRows = false;
+            this.dgvVoucher.AllowUserToDeleteRows = false;
+            this.dgvVoucher.AllowUserToOrderColumns = true;
+            this.dgvVoucher.AllowUserToResizeRows = false;
             dataGridViewCellStyle4.BackColor = System.Drawing.Color.Azure;
-            this.voucherDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.voucherDataGridView.AutoGenerateColumns = false;
-            this.voucherDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
+            this.dgvVoucher.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            this.dgvVoucher.AutoGenerateColumns = false;
+            this.dgvVoucher.BackgroundColor = System.Drawing.Color.SeaShell;
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             dataGridViewCellStyle5.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
@@ -659,9 +659,9 @@
             dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.voucherDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
-            this.voucherDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.voucherDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvVoucher.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            this.dgvVoucher.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvVoucher.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.columnRemoved,
             this.columnID,
             this.VoucherID,
@@ -669,21 +669,21 @@
             this.dataGridViewTextBoxColumn4,
             this.columnCost,
             this.columnCheck});
-            this.voucherDataGridView.DataSource = this.voucherBindingSource;
-            this.voucherDataGridView.Dock = System.Windows.Forms.DockStyle.Left;
-            this.voucherDataGridView.EnableHeadersVisualStyles = false;
-            this.voucherDataGridView.Location = new System.Drawing.Point(0, 0);
-            this.voucherDataGridView.Name = "voucherDataGridView";
-            this.voucherDataGridView.RowHeadersVisible = false;
-            this.voucherDataGridView.RowHeadersWidth = 25;
-            this.voucherDataGridView.RowTemplate.Height = 24;
-            this.voucherDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.voucherDataGridView.Size = new System.Drawing.Size(403, 670);
-            this.voucherDataGridView.TabIndex = 1;
-            this.voucherDataGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.voucherDataGridView_CellValueChanged);
-            this.voucherDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.voucherDataGridView_DataError);
-            this.voucherDataGridView.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.voucherDataGridView_RowPrePaint);
-            this.voucherDataGridView.SelectionChanged += new System.EventHandler(this.voucherDataGridView_SelectionChanged);
+            this.dgvVoucher.DataSource = this.voucherBindingSource;
+            this.dgvVoucher.Dock = System.Windows.Forms.DockStyle.Left;
+            this.dgvVoucher.EnableHeadersVisualStyles = false;
+            this.dgvVoucher.Location = new System.Drawing.Point(0, 0);
+            this.dgvVoucher.Name = "dgvVoucher";
+            this.dgvVoucher.RowHeadersVisible = false;
+            this.dgvVoucher.RowHeadersWidth = 25;
+            this.dgvVoucher.RowTemplate.Height = 24;
+            this.dgvVoucher.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvVoucher.Size = new System.Drawing.Size(403, 670);
+            this.dgvVoucher.TabIndex = 1;
+            this.dgvVoucher.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.voucherDataGridView_CellValueChanged);
+            this.dgvVoucher.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.voucherDataGridView_DataError);
+            this.dgvVoucher.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.voucherDataGridView_RowPrePaint);
+            this.dgvVoucher.SelectionChanged += new System.EventHandler(this.voucherDataGridView_SelectionChanged);
             // 
             // columnRemoved
             // 
@@ -878,13 +878,14 @@
             this.Controls.Add(voucherIDLabel);
             this.Controls.Add(vendorIDLabel);
             this.Controls.Add(stockTimeLabel);
-            this.Controls.Add(this.voucherDataGridView);
+            this.Controls.Add(this.dgvVoucher);
             this.Controls.Add(this.voucherBindingNavigator);
-            this.Controls.Add(this.voucherDetailDataGridView);
+            this.Controls.Add(this.dgvVoucherDetail);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Voucher";
             this.Text = "進貨";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Voucher_FormClosing);
             this.Load += new System.EventHandler(this.Voucher_Load);
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.voucherBindingSource)).EndInit();
@@ -897,8 +898,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.venderFilterSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.voucherVoucherDetailBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.voucherDetailDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.voucherDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvVoucherDetail)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvVoucher)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.titleCodeBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -936,14 +937,14 @@
         private System.Windows.Forms.TextBox stockTimeTextBox;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private VoucherExpense.VEDataSetTableAdapters.VoucherDetailTableAdapter voucherDetailTableAdapter;
-        private System.Windows.Forms.DataGridView voucherDetailDataGridView;
+        private System.Windows.Forms.DataGridView dgvVoucherDetail;
         private System.Windows.Forms.BindingSource voucherVoucherDetailBindingSource;
         private System.Windows.Forms.TextBox costTextBox;
         private System.Windows.Forms.ComboBox comboBoxMonth;
         private System.Windows.Forms.ToolStripButton 列印PToolStripButton;
         private System.Drawing.Printing.PrintDocument printDocument;
         private System.Windows.Forms.BindingSource venderFilterSource;
-        private System.Windows.Forms.DataGridView voucherDataGridView;
+        private System.Windows.Forms.DataGridView dgvVoucher;
         private System.Windows.Forms.CheckBox ckBoxAllowEdit;
         private System.Windows.Forms.ComboBox cbBoxIngredientSelector;
         private System.Windows.Forms.BindingSource titleCodeBindingSource;

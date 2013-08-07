@@ -27,17 +27,22 @@ namespace VoucherExpense
             bankAccountTableAdapter.Connection      = MapPath.VEConnection; 
             this.accountingTitleTableAdapter.Fill(this.vEDataSet.AccountingTitle);
             this.bankAccountTableAdapter.Fill(this.vEDataSet.BankAccount);
-            MyFunction.SetFieldLength(bankAccountDataGridView, vEDataSet.BankAccount);
+            MyFunction.SetFieldLength(dgvBankAccount, vEDataSet.BankAccount);
         }
 
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
-            MyFunction.AddNewItem(bankAccountDataGridView, "columnID", "ID", vEDataSet.BankAccount);
+            MyFunction.AddNewItem(dgvBankAccount, "columnID", "ID", vEDataSet.BankAccount);
         }
 
         private void bankAccountDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
 
+        }
+
+        private void FormBank_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            dgvBankAccount.Visible = false;
         }
 
      

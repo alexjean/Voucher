@@ -114,9 +114,9 @@ namespace VoucherExpense
                 decimal vrCost=0;
                 if (!vr.IsCostNull()) vrCost = vr.Cost;
                 if (checkSum != vrCost)
-                    MessageBox.Show("警告!<" + vr.VoucherID.ToString() +
+                    MessageBox.Show("警告!<序号" + vr.ID.ToString() +
                         ">號細項和"+checkSum.ToString("f1")+
-                        "和總和"   +vr.Cost.ToString("f1")+"不符!");
+                        "和總和"   +vrCost.ToString("f1")+"不符!");
             }
             decimal sum=0;
             foreach (CIngredient p in list)

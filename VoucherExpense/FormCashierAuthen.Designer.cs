@@ -56,7 +56,7 @@
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.cashierBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
-            this.cashierDataGridView = new System.Windows.Forms.DataGridView();
+            this.dgvCashier = new System.Windows.Forms.DataGridView();
             this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.CashierIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnCashierName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -107,7 +107,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.cashierBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cashierBindingNavigator)).BeginInit();
             this.cashierBindingNavigator.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cashierDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCashier)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -229,7 +229,7 @@
             this.cashierBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.cashierBindingNavigator.Name = "cashierBindingNavigator";
             this.cashierBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.cashierBindingNavigator.Size = new System.Drawing.Size(249, 25);
+            this.cashierBindingNavigator.Size = new System.Drawing.Size(258, 25);
             this.cashierBindingNavigator.TabIndex = 0;
             this.cashierBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -246,8 +246,8 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 22);
-            this.bindingNavigatorCountItem.Text = "/{0}";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(38, 22);
+            this.bindingNavigatorCountItem.Text = "of {0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
             // bindingNavigatorMoveFirstItem
@@ -319,31 +319,32 @@
             this.cashierBindingNavigatorSaveItem.Text = "儲存資料";
             this.cashierBindingNavigatorSaveItem.Click += new System.EventHandler(this.cashierBindingNavigatorSaveItem_Click);
             // 
-            // cashierDataGridView
+            // dgvCashier
             // 
-            this.cashierDataGridView.AllowUserToAddRows = false;
-            this.cashierDataGridView.AllowUserToDeleteRows = false;
-            this.cashierDataGridView.AllowUserToResizeRows = false;
-            this.cashierDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dgvCashier.AllowUserToAddRows = false;
+            this.dgvCashier.AllowUserToDeleteRows = false;
+            this.dgvCashier.AllowUserToResizeRows = false;
+            this.dgvCashier.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.cashierDataGridView.AutoGenerateColumns = false;
-            this.cashierDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
-            this.cashierDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.cashierDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvCashier.AutoGenerateColumns = false;
+            this.dgvCashier.BackgroundColor = System.Drawing.Color.SeaShell;
+            this.dgvCashier.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCashier.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewCheckBoxColumn1,
             this.CashierIDColumn,
             this.ColumnCashierName,
             this.PasswordColumn,
             this.dataGridViewTextBoxColumn4,
             this.dataGridViewTextBoxColumn5});
-            this.cashierDataGridView.DataSource = this.cashierBindingSource;
-            this.cashierDataGridView.Location = new System.Drawing.Point(0, 28);
-            this.cashierDataGridView.Name = "cashierDataGridView";
-            this.cashierDataGridView.RowHeadersVisible = false;
-            this.cashierDataGridView.RowTemplate.Height = 24;
-            this.cashierDataGridView.Size = new System.Drawing.Size(474, 644);
-            this.cashierDataGridView.TabIndex = 1;
-            this.cashierDataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.cashierDataGridView_CellFormatting);
+            this.dgvCashier.DataSource = this.cashierBindingSource;
+            this.dgvCashier.Location = new System.Drawing.Point(0, 28);
+            this.dgvCashier.Name = "dgvCashier";
+            this.dgvCashier.RowHeadersVisible = false;
+            this.dgvCashier.RowTemplate.Height = 24;
+            this.dgvCashier.Size = new System.Drawing.Size(474, 644);
+            this.dgvCashier.TabIndex = 1;
+            this.dgvCashier.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.cashierDataGridView_CellFormatting);
+            this.dgvCashier.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.cashierDataGridView_DataError);
             // 
             // dataGridViewCheckBoxColumn1
             // 
@@ -742,19 +743,20 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.listBoxReadme);
             this.Controls.Add(this.chBoxOnlyInPosition);
-            this.Controls.Add(this.cashierDataGridView);
+            this.Controls.Add(this.dgvCashier);
             this.Controls.Add(this.cashierBindingNavigator);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormCashierAuthen";
             this.Text = "收銀授權";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormCashierAuthen_FormClosing);
             this.Load += new System.EventHandler(this.FormCashierAuthen_Load);
             ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cashierBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cashierBindingNavigator)).EndInit();
             this.cashierBindingNavigator.ResumeLayout(false);
             this.cashierBindingNavigator.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cashierDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCashier)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
             this.tabControl1.ResumeLayout(false);
@@ -785,7 +787,7 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.ToolStripButton cashierBindingNavigatorSaveItem;
-        private System.Windows.Forms.DataGridView cashierDataGridView;
+        private System.Windows.Forms.DataGridView dgvCashier;
         private VEDataSet vEDataSet;
         private System.Windows.Forms.BindingSource operatorBindingSource;
         private VEDataSetTableAdapters.OperatorTableAdapter operatorTableAdapter;

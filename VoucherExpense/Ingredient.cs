@@ -80,7 +80,7 @@ namespace VoucherExpense
                 MessageBox.Show("錯誤:" + ex.Message);
             }
            
-            MyFunction.SetFieldLength(IngredientDataGridView, vEDataSet.Ingredient);
+            MyFunction.SetFieldLength(dgvIngredient, vEDataSet.Ingredient);
             MyFunction.SetControlLengthFromDB(this, vEDataSet.Ingredient);
             photoPictureBox.Visible = Directory.Exists(m_PhotoPath);
         }
@@ -89,7 +89,7 @@ namespace VoucherExpense
         {
 //            MyFunction.AddNewItem(IngredientDataGridView, "columnIngredientID","IngredientID", vEDataSet.Ingredient);
             int max = (from ro in vEDataSet.Ingredient select ro.IngredientID).Max();
-            int ingredientID = MyFunction.SetCellMaxNo("columnIngredientID", IngredientDataGridView, max);
+            int ingredientID = MyFunction.SetCellMaxNo("columnIngredientID", dgvIngredient, max);
             // 因為供應商資料沒有ValueMember啟始值,只Binding了SelectedValue
             // 所以後來 BindingSource.EndEdit時,無法成功==> RowState還是Detached,永遠無法改
 
@@ -354,6 +354,19 @@ namespace VoucherExpense
         private void priceTextBox_Validated(object sender, EventArgs e)
         {
             CalcCostPerGram();
+        }
+
+        private void Ingredient_FormClosing(object sender, FormClosingEventArgs e)
+        {
+//          搶先在BindingSource被Dispose前,把DataGridView Dispose,否則Win8下先Dispose BindingSource會DataError 
+            dgvIngredient.Dispose();
+        }
+
+        private void IngredientDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+
+            MessageBox.Show("IngredientDataGridView 第" + e.RowIndex.ToString() + "行" +
+                  e.ColumnIndex.ToString() + "列,錯誤:" + e.Exception.Message);
         }
 
     }

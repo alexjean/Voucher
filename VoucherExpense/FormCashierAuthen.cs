@@ -170,8 +170,8 @@ namespace VoucherExpense
 
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
-            MyFunction.AddNewItem(cashierDataGridView, "CashierIDColumn", "CashierID", bakeryOrderSet.Cashier);
-            DataGridViewRow row = cashierDataGridView.CurrentRow;
+            MyFunction.AddNewItem(dgvCashier, "CashierIDColumn", "CashierID", bakeryOrderSet.Cashier);
+            DataGridViewRow row = dgvCashier.CurrentRow;
             DataRowView rowView = row.DataBoundItem as DataRowView;
             BakeryOrderSet.CashierRow cashier = rowView.Row as BakeryOrderSet.CashierRow;
             cashier.InPosition = true;
@@ -179,7 +179,7 @@ namespace VoucherExpense
             try
             {
                 DataGridViewCell cell = row.Cells["ColumnCashierName"];
-                cashierDataGridView.CurrentCell = cell;
+                dgvCashier.CurrentCell = cell;
             }
             catch (Exception ex)
             {
@@ -189,7 +189,7 @@ namespace VoucherExpense
 
         private void cashierDataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex != -1 && this.cashierDataGridView.Columns[e.ColumnIndex].Name ==  "PasswordColumn")
+            if (e.ColumnIndex != -1 && this.dgvCashier.Columns[e.ColumnIndex].Name ==  "PasswordColumn")
             {
                 if (e.Value != null)
                 {
@@ -978,8 +978,18 @@ namespace VoucherExpense
                 Message("印表出錯:" + ex.Message,true);
             }
         }
+                
+        private void FormCashierAuthen_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //搶先在BindingSource被Dispose前,把DataGridView Dispose,否則Win8下先Dispose BindingSource會DataError 
+            dgvCashier.Dispose();
+        }
 
+        private void cashierDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            MessageBox.Show("dgvCashier資料 第" + e.RowIndex.ToString() + "行" +
+                  e.ColumnIndex.ToString() + "列錯誤!原因:" + e.Exception.Message);
+        }
 
- 
     }
 }

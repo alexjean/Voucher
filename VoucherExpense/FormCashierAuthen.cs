@@ -796,7 +796,7 @@ namespace VoucherExpense
         Graphics m_Graphics = null;
         Font m_Font = null;
         Brush m_Brush = null;
-        void PrintMoney(string str,decimal money, int x, int y, int width,string format="f1")
+        void PrintMoney(string str,decimal money, int x, int y, int width,string format="f2")
         {
             m_Graphics.DrawString(str, m_Font, m_Brush, new PointF(x, y));
             string sMoney=money.ToString(format);

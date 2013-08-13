@@ -288,7 +288,7 @@ namespace VoucherExpense
                 if (row.IsMoneyNull()) continue;
                 total += row.Money;
             }
-            columnMoney.HeaderText = total.ToString("f1");
+            columnMoney.HeaderText = total.ToString("f2");
         }
 
 
@@ -400,7 +400,7 @@ namespace VoucherExpense
                 decimal money = 0m;
                 if (!row.IsMoneyNull())   // 避免IsMoneyNull
                     money = row.Money;
-                str = money.ToString("f1");
+                str = money.ToString("f2");
                 w = m_Graphics.MeasureString(str, m_Font).Width;
                 m_Graphics.DrawString(str, m_Font, m_Brush, x + CostOffset + 40 - w, y);
                 total += money;
@@ -409,7 +409,7 @@ namespace VoucherExpense
             y += (int)(1.5 * height);
             str = "共 " + count.ToString() + "張";
             m_Graphics.DrawString(str, m_Font, m_Brush, x, y);
-            str = "小計 " + total.ToString("f1");
+            str = "小計 " + total.ToString("f2");
             w = m_Graphics.MeasureString(str, m_Font).Width;
             m_Graphics.DrawString(str, m_Font, m_Brush, x + CostOffset + 40 - w, y);
 

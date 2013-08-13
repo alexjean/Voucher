@@ -370,7 +370,7 @@ namespace VoucherExpense
                 if (row.IsApplyTimeNull()) continue;
                 if (row.ApplyTime.Month != month) continue;
 //                if (row.IsExpenseIDNull()) continue;
-                if (!row.Locked) continue;
+//                if (!row.Locked) continue;   // 未核可也放行
                 if (!row.IsRemovedNull())
                     if (row.Removed) continue;
                 if (row.IsInnerIDNull()) continue;
@@ -461,7 +461,7 @@ namespace VoucherExpense
         
         private void 列印PToolStripButton_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("未核可 無申請者 申請日期或內部編號的單子,均不會被列印.繼續嗎?", "", MessageBoxButtons.YesNo) != DialogResult.Yes)
+            if (MessageBox.Show("無申請者 申請日期或內部編號的單子,均不會被列印.繼續嗎?", "", MessageBoxButtons.YesNo) != DialogResult.Yes)
                 return;
             m_FromDate =m_ToDate= 0;
            

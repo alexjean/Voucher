@@ -199,8 +199,10 @@ namespace VoucherExpense
             DataRowView rowView = recipeBindingSource.Current as DataRowView;
             VEDataSet.RecipeRow row = rowView.Row as VEDataSet.RecipeRow;
             if (row == null) return;
-            richTextBoxInstruction1.Rtf = row.Instruction1;  // 這裏Rtf的TextChanged會被呼叫, 但後面 m_Instruction1Modified=false又會蓋回來
-            richTextBoxInstruction2.Rtf = row.Instruction2;
+            if (row.IsInstruction1Null()) richTextBoxInstruction1.Rtf = "";
+            else richTextBoxInstruction1.Rtf = row.Instruction1;  // 這裏Rtf的TextChanged會被呼叫, 但後面 m_Instruction1Modified=false又會蓋回來
+            if (row.IsInstruction2Null()) richTextBoxInstruction2.Rtf = "";
+            else richTextBoxInstruction2.Rtf = row.Instruction2;
             m_OldRow=row;
             m_Instruction1Modified = m_Instruction2Modified = false;
         }

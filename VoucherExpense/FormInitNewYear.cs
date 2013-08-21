@@ -96,7 +96,9 @@ namespace VoucherExpense
                         "Config"        ,
                         "Apartment"     ,
                         "HR"            ,
-                        "HRDetail"
+                        "HRDetail"      ,
+                        "Recipe"        ,
+                        "RecipeDetail"
                     };
 
         private void Message(string s) 

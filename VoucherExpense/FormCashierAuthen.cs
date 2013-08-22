@@ -113,7 +113,8 @@ namespace VoucherExpense
                     // 加入POS裏面沒有的
                     foreach (BakeryOrderSet.CashierRow cashier in bakeryOrderSet.Cashier)
                     {
-                        var rows = from row in posBakerySet.Cashier where (row.CashierID == cashier.CashierID) select row;
+                        if (cashier.RowState == DataRowState.Deleted) continue;
+                        var rows = from row in posBakerySet.Cashier where (row.RowState!=DataRowState.Deleted) && (row.CashierID == cashier.CashierID) select row;
                         if (rows.Count() > 0) continue;   // 己經存在了
                         var pos=posBakerySet.Cashier.NewCashierRow();  // 沒有關聯,所以沒必要BeginEdit EndEdit
                         pos.ItemArray = cashier.ItemArray;

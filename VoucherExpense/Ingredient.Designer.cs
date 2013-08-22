@@ -219,7 +219,7 @@
             // 
             // IngredientBindingNavigator
             // 
-            this.IngredientBindingNavigator.AddNewItem = this.bindingNavigatorAddNewItem;
+            this.IngredientBindingNavigator.AddNewItem = null;
             this.IngredientBindingNavigator.BackgroundImage = global::VoucherExpense.Properties.Resources.NavBar_Back;
             this.IngredientBindingNavigator.BindingSource = this.IngredientBindingSource;
             this.IngredientBindingNavigator.CountItem = this.bindingNavigatorCountItem;
@@ -246,7 +246,7 @@
             this.IngredientBindingNavigator.Name = "IngredientBindingNavigator";
             this.IngredientBindingNavigator.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.IngredientBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.IngredientBindingNavigator.Size = new System.Drawing.Size(296, 27);
+            this.IngredientBindingNavigator.Size = new System.Drawing.Size(318, 27);
             this.IngredientBindingNavigator.TabIndex = 3;
             this.IngredientBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -274,8 +274,8 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(38, 24);
-            this.bindingNavigatorCountItem.Text = "of {0}";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 24);
+            this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
             // bindingNavigatorMoveFirstItem

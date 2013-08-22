@@ -315,10 +315,17 @@ namespace VoucherExpense
         static public int SetCellMaxNo(string cellName, DataGridView view,int maxInDB)
         {
             DataGridViewRow row = view.CurrentRow;
-            if (Convert.IsDBNull(row.Cells[cellName].Value))
+            object obj;
+            int intValue=0;
+            obj=row.Cells[cellName].Value;
+            if (!Convert.IsDBNull(obj))
+            {
+                if (obj.GetType()==typeof(int))
+                    intValue=(int)obj;
+            }
+            if ( intValue<=0)  // if CuurrentRow己經有值就不加,否則給maxInDB+1
             {
                 int m = maxInDB, n = 0;
-                object obj;
                 foreach (DataGridViewRow r in view.Rows)
                 {
                     obj = r.Cells[cellName].Value;

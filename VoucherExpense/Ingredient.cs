@@ -39,14 +39,25 @@ namespace VoucherExpense
                 if (r.RowState != DataRowState.Deleted)
                 {
                     r.BeginEdit();
+                    //if (r.IsTitleCodeNull()) r.TitleCode = "";
+                    //if (r.IsVendorIDNull()) r.VendorID = 0;
+                    //if (r.IsCanPurchaseNull()) r.CanPurchase = true;
+                    //if (r.IsClassNull()) r.Class = 0;
+                    //if (r.IsCodeNull()) r.Code = 0;
+                    //if (r.IsMinOrderNull()) r.MinOrder = "";
+                    //if (r.IsNameNull()) r.Name = "";
+                    //if (r.IsPriceNull()) r.Price = 0;
+                    //if (r.IsSpecsNull()) r.Specs = "";
+                    //if (r.IsUnitNull()) r.Unit = "";
+                    //if (r.IsUnitWeightNull()) r.UnitWeight = 0;
                     r.LastUpdated = DateTime.Now;
                     r.EndEdit();
                 }
             }
             try
             {
-//                VEDataSet.IngredientRow ing = table[0];
-                vEDataSet.Ingredient.Merge(table);
+//                this.IngredientTableAdapter.Update(table);
+                vEDataSet.Ingredient.Merge(table); 
                 this.IngredientTableAdapter.Update(this.vEDataSet.Ingredient);
                 vEDataSet.Ingredient.AcceptChanges();
             }
@@ -87,9 +98,11 @@ namespace VoucherExpense
 
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
-//            MyFunction.AddNewItem(IngredientDataGridView, "columnIngredientID","IngredientID", vEDataSet.Ingredient);
+//            MyFunction.AddNewItem(dgvIngredient, "columnIngredientID","IngredientID", vEDataSet.Ingredient);
+            IngredientBindingSource.AddNew();
             int max = (from ro in vEDataSet.Ingredient select ro.IngredientID).Max();
             int ingredientID = MyFunction.SetCellMaxNo("columnIngredientID", dgvIngredient, max);
+            
             // 因為供應商資料沒有ValueMember啟始值,只Binding了SelectedValue
             // 所以後來 BindingSource.EndEdit時,無法成功==> RowState還是Detached,永遠無法改
 

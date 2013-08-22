@@ -94,8 +94,6 @@ namespace VoucherExpense {
         
         private global::System.Data.DataRelation relationHR_OnDutyData;
         
-        private global::System.Data.DataRelation relationIngredient_VoucherDetail;
-        
         private global::System.Data.DataRelation relationVoucherVoucherDetail;
         
         private global::System.Data.DataRelation relationShiftTableShiftDetail;
@@ -109,6 +107,8 @@ namespace VoucherExpense {
         private global::System.Data.DataRelation relationProductScrappedProductScrappedDetail;
         
         private global::System.Data.DataRelation relationInventoryInventoryProducts;
+        
+        private global::System.Data.DataRelation relationIngredientVoucherDetail;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -816,7 +816,6 @@ namespace VoucherExpense {
             this.relationBankAccountBankDetail = this.Relations["BankAccountBankDetail"];
             this.relationHR_HRDetail = this.Relations["HR_HRDetail"];
             this.relationHR_OnDutyData = this.Relations["HR_OnDutyData"];
-            this.relationIngredient_VoucherDetail = this.Relations["Ingredient_VoucherDetail"];
             this.relationVoucherVoucherDetail = this.Relations["VoucherVoucherDetail"];
             this.relationShiftTableShiftDetail = this.Relations["ShiftTableShiftDetail"];
             this.relationVendorIngredient = this.Relations["VendorIngredient"];
@@ -824,6 +823,7 @@ namespace VoucherExpense {
             this.relationInventoryInventoryDetail = this.Relations["InventoryInventoryDetail"];
             this.relationProductScrappedProductScrappedDetail = this.Relations["ProductScrappedProductScrappedDetail"];
             this.relationInventoryInventoryProducts = this.Relations["InventoryInventoryProducts"];
+            this.relationIngredientVoucherDetail = this.Relations["IngredientVoucherDetail"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -924,10 +924,6 @@ namespace VoucherExpense {
                         this.tableHR.FingerPintNoColumn}, new global::System.Data.DataColumn[] {
                         this.tableOnDutyData.OnDutyCodeColumn}, false);
             this.Relations.Add(this.relationHR_OnDutyData);
-            this.relationIngredient_VoucherDetail = new global::System.Data.DataRelation("Ingredient_VoucherDetail", new global::System.Data.DataColumn[] {
-                        this.tableIngredient.IngredientIDColumn}, new global::System.Data.DataColumn[] {
-                        this.tableVoucherDetail.IngredientIDColumn}, false);
-            this.Relations.Add(this.relationIngredient_VoucherDetail);
             this.relationVoucherVoucherDetail = new global::System.Data.DataRelation("VoucherVoucherDetail", new global::System.Data.DataColumn[] {
                         this.tableVoucher.IDColumn}, new global::System.Data.DataColumn[] {
                         this.tableVoucherDetail.VoIDColumn}, false);
@@ -956,6 +952,10 @@ namespace VoucherExpense {
                         this.tableInventory.InventoryIDColumn}, new global::System.Data.DataColumn[] {
                         this.tableInventoryProducts.InventoryIDColumn}, false);
             this.Relations.Add(this.relationInventoryInventoryProducts);
+            this.relationIngredientVoucherDetail = new global::System.Data.DataRelation("IngredientVoucherDetail", new global::System.Data.DataColumn[] {
+                        this.tableIngredient.IngredientIDColumn}, new global::System.Data.DataColumn[] {
+                        this.tableVoucherDetail.IngredientIDColumn}, false);
+            this.Relations.Add(this.relationIngredientVoucherDetail);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3932,7 +3932,7 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public VoucherDetailRow AddVoucherDetailRow(VoucherRow parentVoucherRowByVoucherVoucherDetail, decimal Cost, decimal Volume, AccountingTitleRow parentAccountingTitleRowByAccountingTitle_VoucherDetail, System.Guid ID, IngredientRow parentIngredientRowByIngredient_VoucherDetail) {
+            public VoucherDetailRow AddVoucherDetailRow(VoucherRow parentVoucherRowByVoucherVoucherDetail, decimal Cost, decimal Volume, AccountingTitleRow parentAccountingTitleRowByAccountingTitle_VoucherDetail, System.Guid ID, IngredientRow parentIngredientRowByIngredientVoucherDetail) {
                 VoucherDetailRow rowVoucherDetailRow = ((VoucherDetailRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -3947,8 +3947,8 @@ namespace VoucherExpense {
                 if ((parentAccountingTitleRowByAccountingTitle_VoucherDetail != null)) {
                     columnValuesArray[3] = parentAccountingTitleRowByAccountingTitle_VoucherDetail[0];
                 }
-                if ((parentIngredientRowByIngredient_VoucherDetail != null)) {
-                    columnValuesArray[5] = parentIngredientRowByIngredient_VoucherDetail[0];
+                if ((parentIngredientRowByIngredientVoucherDetail != null)) {
+                    columnValuesArray[5] = parentIngredientRowByIngredientVoucherDetail[12];
                 }
                 rowVoucherDetailRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowVoucherDetailRow);
@@ -4140,8 +4140,6 @@ namespace VoucherExpense {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class IngredientDataTable : global::System.Data.TypedTableBase<IngredientRow> {
             
-            private global::System.Data.DataColumn columnIngredientID;
-            
             private global::System.Data.DataColumn columnCode;
             
             private global::System.Data.DataColumn columnClass;
@@ -4165,6 +4163,8 @@ namespace VoucherExpense {
             private global::System.Data.DataColumn columnSpecs;
             
             private global::System.Data.DataColumn columnMinOrder;
+            
+            private global::System.Data.DataColumn columnIngredientID;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -4197,14 +4197,6 @@ namespace VoucherExpense {
             protected IngredientDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn IngredientIDColumn {
-                get {
-                    return this.columnIngredientID;
-                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4305,6 +4297,14 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn IngredientIDColumn {
+                get {
+                    return this.columnIngredientID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -4340,10 +4340,9 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public IngredientRow AddIngredientRow(int Code, short Class, string Name, double Price, string Unit, bool CanPurchase, System.DateTime LastUpdated, AccountingTitleRow parentAccountingTitleRowByAccountingTitle_Ingredient, decimal UnitWeight, VendorRow parentVendorRowByVendorIngredient, string Specs, string MinOrder) {
+            public IngredientRow AddIngredientRow(int Code, short Class, string Name, double Price, string Unit, bool CanPurchase, System.DateTime LastUpdated, AccountingTitleRow parentAccountingTitleRowByAccountingTitle_Ingredient, decimal UnitWeight, VendorRow parentVendorRowByVendorIngredient, string Specs, string MinOrder, int IngredientID) {
                 IngredientRow rowIngredientRow = ((IngredientRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        null,
                         Code,
                         Class,
                         Name,
@@ -4355,12 +4354,13 @@ namespace VoucherExpense {
                         UnitWeight,
                         null,
                         Specs,
-                        MinOrder};
+                        MinOrder,
+                        IngredientID};
                 if ((parentAccountingTitleRowByAccountingTitle_Ingredient != null)) {
-                    columnValuesArray[8] = parentAccountingTitleRowByAccountingTitle_Ingredient[0];
+                    columnValuesArray[7] = parentAccountingTitleRowByAccountingTitle_Ingredient[0];
                 }
                 if ((parentVendorRowByVendorIngredient != null)) {
-                    columnValuesArray[10] = parentVendorRowByVendorIngredient[0];
+                    columnValuesArray[9] = parentVendorRowByVendorIngredient[0];
                 }
                 rowIngredientRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowIngredientRow);
@@ -4391,7 +4391,6 @@ namespace VoucherExpense {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
-                this.columnIngredientID = base.Columns["IngredientID"];
                 this.columnCode = base.Columns["Code"];
                 this.columnClass = base.Columns["Class"];
                 this.columnName = base.Columns["Name"];
@@ -4404,13 +4403,12 @@ namespace VoucherExpense {
                 this.columnVendorID = base.Columns["VendorID"];
                 this.columnSpecs = base.Columns["Specs"];
                 this.columnMinOrder = base.Columns["MinOrder"];
+                this.columnIngredientID = base.Columns["IngredientID"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             private void InitClass() {
-                this.columnIngredientID = new global::System.Data.DataColumn("IngredientID", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnIngredientID);
                 this.columnCode = new global::System.Data.DataColumn("Code", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCode);
                 this.columnClass = new global::System.Data.DataColumn("Class", typeof(short), null, global::System.Data.MappingType.Element);
@@ -4435,16 +4433,17 @@ namespace VoucherExpense {
                 base.Columns.Add(this.columnSpecs);
                 this.columnMinOrder = new global::System.Data.DataColumn("MinOrder", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnMinOrder);
+                this.columnIngredientID = new global::System.Data.DataColumn("IngredientID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIngredientID);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnIngredientID}, true));
-                this.columnIngredientID.AutoIncrement = true;
-                this.columnIngredientID.AllowDBNull = false;
-                this.columnIngredientID.Unique = true;
                 this.columnName.MaxLength = 50;
                 this.columnUnit.MaxLength = 5;
                 this.columnTitleCode.MaxLength = 10;
                 this.columnSpecs.MaxLength = 20;
                 this.columnMinOrder.MaxLength = 20;
+                this.columnIngredientID.AllowDBNull = false;
+                this.columnIngredientID.Unique = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -13160,23 +13159,23 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public IngredientRow IngredientRow {
-                get {
-                    return ((IngredientRow)(this.GetParentRow(this.Table.ParentRelations["Ingredient_VoucherDetail"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["Ingredient_VoucherDetail"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public VoucherRow VoucherRow {
                 get {
                     return ((VoucherRow)(this.GetParentRow(this.Table.ParentRelations["VoucherVoucherDetail"])));
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["VoucherVoucherDetail"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public IngredientRow IngredientRow {
+                get {
+                    return ((IngredientRow)(this.GetParentRow(this.Table.ParentRelations["IngredientVoucherDetail"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["IngredientVoucherDetail"]);
                 }
             }
             
@@ -13253,17 +13252,6 @@ namespace VoucherExpense {
             internal IngredientRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
                 this.tableIngredient = ((IngredientDataTable)(this.Table));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int IngredientID {
-                get {
-                    return ((int)(this[this.tableIngredient.IngredientIDColumn]));
-                }
-                set {
-                    this[this.tableIngredient.IngredientIDColumn] = value;
-                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -13460,6 +13448,17 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int IngredientID {
+                get {
+                    return ((int)(this[this.tableIngredient.IngredientIDColumn]));
+                }
+                set {
+                    this[this.tableIngredient.IngredientIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public AccountingTitleRow AccountingTitleRow {
                 get {
                     return ((AccountingTitleRow)(this.GetParentRow(this.Table.ParentRelations["AccountingTitle_Ingredient"])));
@@ -13627,11 +13626,11 @@ namespace VoucherExpense {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public VoucherDetailRow[] GetVoucherDetailRows() {
-                if ((this.Table.ChildRelations["Ingredient_VoucherDetail"] == null)) {
+                if ((this.Table.ChildRelations["IngredientVoucherDetail"] == null)) {
                     return new VoucherDetailRow[0];
                 }
                 else {
-                    return ((VoucherDetailRow[])(base.GetChildRows(this.Table.ChildRelations["Ingredient_VoucherDetail"])));
+                    return ((VoucherDetailRow[])(base.GetChildRows(this.Table.ChildRelations["IngredientVoucherDetail"])));
                 }
             }
         }
@@ -22297,7 +22296,6 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "Ingredient";
-            tableMapping.ColumnMappings.Add("IngredientID", "IngredientID");
             tableMapping.ColumnMappings.Add("Code", "Code");
             tableMapping.ColumnMappings.Add("Class", "Class");
             tableMapping.ColumnMappings.Add("Name", "Name");
@@ -22310,6 +22308,7 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("VendorID", "VendorID");
             tableMapping.ColumnMappings.Add("Specs", "Specs");
             tableMapping.ColumnMappings.Add("MinOrder", "MinOrder");
+            tableMapping.ColumnMappings.Add("IngredientID", "IngredientID");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
@@ -22319,8 +22318,8 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
             this._adapter.InsertCommand.CommandText = "INSERT INTO `Ingredient` (`Code`, `Class`, `Name`, `Price`, `Unit`, `CanPurchase`" +
-                ", `LastUpdated`, `TitleCode`, `MinOrder`, `Specs`, `UnitWeight`, `VendorID`) VAL" +
-                "UES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                ", `LastUpdated`, `TitleCode`, `MinOrder`, `Specs`, `UnitWeight`, `VendorID`, `In" +
+                "gredientID`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Code", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Code", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Class", global::System.Data.OleDb.OleDbType.SmallInt, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Class", global::System.Data.DataRowVersion.Current, false, null));
@@ -22334,11 +22333,13 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Specs", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Specs", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("UnitWeight", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "UnitWeight", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("VendorID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "VendorID", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IngredientID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IngredientID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
             this._adapter.UpdateCommand.CommandText = "UPDATE `Ingredient` SET `Code` = ?, `Class` = ?, `Name` = ?, `Price` = ?, `Unit` " +
                 "= ?, `CanPurchase` = ?, `LastUpdated` = ?, `TitleCode` = ?, `MinOrder` = ?, `Spe" +
-                "cs` = ?, `UnitWeight` = ?, `VendorID` = ? WHERE ((`IngredientID` = ?))";
+                "cs` = ?, `UnitWeight` = ?, `VendorID` = ?, `IngredientID` = ? WHERE ((`Ingredien" +
+                "tID` = ?))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Code", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Code", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Class", global::System.Data.OleDb.OleDbType.SmallInt, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Class", global::System.Data.DataRowVersion.Current, false, null));
@@ -22352,6 +22353,7 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Specs", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Specs", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("UnitWeight", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "UnitWeight", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("VendorID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "VendorID", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IngredientID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IngredientID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_IngredientID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IngredientID", global::System.Data.DataRowVersion.Original, false, null));
         }
         
@@ -22368,8 +22370,8 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT IngredientID, Code, Class, Name, Price, Unit, CanPurchase, LastUpdated, Ti" +
-                "tleCode, MinOrder, Specs, UnitWeight, VendorID FROM Ingredient";
+            this._commandCollection[0].CommandText = "SELECT Code, Class, Name, Price, Unit, CanPurchase, LastUpdated, TitleCode, MinOr" +
+                "der, Specs, UnitWeight, VendorID, IngredientID FROM Ingredient";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -22430,8 +22432,13 @@ namespace VoucherExpense.VEDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_IngredientID) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_IngredientID));
+        public virtual int Delete(global::System.Nullable<int> Original_IngredientID) {
+            if ((Original_IngredientID.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_IngredientID.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -22452,7 +22459,7 @@ namespace VoucherExpense.VEDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(global::System.Nullable<int> Code, global::System.Nullable<short> Class, string Name, global::System.Nullable<double> Price, string Unit, bool CanPurchase, global::System.Nullable<global::System.DateTime> LastUpdated, string TitleCode, string MinOrder, string Specs, global::System.Nullable<decimal> UnitWeight, global::System.Nullable<int> VendorID) {
+        public virtual int Insert(global::System.Nullable<int> Code, global::System.Nullable<short> Class, string Name, global::System.Nullable<double> Price, string Unit, bool CanPurchase, global::System.Nullable<global::System.DateTime> LastUpdated, string TitleCode, string MinOrder, string Specs, global::System.Nullable<decimal> UnitWeight, global::System.Nullable<int> VendorID, global::System.Nullable<int> IngredientID) {
             if ((Code.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[0].Value = ((int)(Code.Value));
             }
@@ -22520,6 +22527,12 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             else {
                 this.Adapter.InsertCommand.Parameters[11].Value = global::System.DBNull.Value;
             }
+            if ((IngredientID.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[12].Value = ((int)(IngredientID.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[12].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -22540,7 +22553,7 @@ namespace VoucherExpense.VEDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(global::System.Nullable<int> Code, global::System.Nullable<short> Class, string Name, global::System.Nullable<double> Price, string Unit, bool CanPurchase, global::System.Nullable<global::System.DateTime> LastUpdated, string TitleCode, string MinOrder, string Specs, global::System.Nullable<decimal> UnitWeight, global::System.Nullable<int> VendorID, int Original_IngredientID) {
+        public virtual int Update(global::System.Nullable<int> Code, global::System.Nullable<short> Class, string Name, global::System.Nullable<double> Price, string Unit, bool CanPurchase, global::System.Nullable<global::System.DateTime> LastUpdated, string TitleCode, string MinOrder, string Specs, global::System.Nullable<decimal> UnitWeight, global::System.Nullable<int> VendorID, global::System.Nullable<int> IngredientID, global::System.Nullable<int> Original_IngredientID) {
             if ((Code.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(Code.Value));
             }
@@ -22608,7 +22621,18 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             else {
                 this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[12].Value = ((int)(Original_IngredientID));
+            if ((IngredientID.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((int)(IngredientID.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
+            }
+            if ((Original_IngredientID.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((int)(Original_IngredientID.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[13].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -22623,6 +22647,14 @@ namespace VoucherExpense.VEDataSetTableAdapters {
                     this.Adapter.UpdateCommand.Connection.Close();
                 }
             }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(global::System.Nullable<int> Code, global::System.Nullable<short> Class, string Name, global::System.Nullable<double> Price, string Unit, bool CanPurchase, global::System.Nullable<global::System.DateTime> LastUpdated, string TitleCode, string MinOrder, string Specs, global::System.Nullable<decimal> UnitWeight, global::System.Nullable<int> VendorID, global::System.Nullable<int> Original_IngredientID) {
+            return this.Update(Code, Class, Name, Price, Unit, CanPurchase, LastUpdated, TitleCode, MinOrder, Specs, UnitWeight, VendorID, Original_IngredientID, Original_IngredientID);
         }
     }
     

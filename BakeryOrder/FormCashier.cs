@@ -823,6 +823,17 @@ namespace BakeryOrder
                 Show();
         }
 
+        void ClearOrderInfoOnScreen()
+        {
+            lvItems.Columns[2].Text = "量";
+            lvItems.Columns[3].Text = "金额";
+
+            labelDeduct.Text = "";
+            labelDeduct.Visible = labelDeductTitle.Visible = false;
+            labelTotal.Text = "";
+            labelClass.Text = DicPayBy.First().Value;
+        }
+
         private void DoNewOrder()
         {
             int no = CreateOrder(out m_CurrentOrder, m_MaxOrderID) % 10000;
@@ -836,13 +847,7 @@ namespace BakeryOrder
                 l.Text = item.name;
             }
             lvItems.Columns[1].Text = "序号 " + no.ToString();
-            lvItems.Columns[2].Text = "量";
-            lvItems.Columns[3].Text = "金额";
-
-            labelDeduct.Text = "";
-            labelDeduct.Visible = labelDeductTitle.Visible = false;
-            labelTotal.Text = "";
-            labelClass.Text = DicPayBy.First().Value;
+            ClearOrderInfoOnScreen();
         }
 
         private void btnNewOrder_Click(object sender, EventArgs e)
@@ -1041,6 +1046,8 @@ namespace BakeryOrder
                         m_CashierID = cashier.CashierID;
                         MessageBoxShow("歡迎 <" + m_CashierName + "> \r\n今天是" + DateTime.Now.ToShortDateString());
                         SetLoginStatus(true);
+                        ClearOrderInfoOnScreen();
+                        lvItems.Items.Clear();
                         return;
                     }
                     else

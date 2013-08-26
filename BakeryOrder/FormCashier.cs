@@ -495,6 +495,7 @@ namespace BakeryOrder
             LoadTabControlItem();
             tabControl1.DrawMode = TabDrawMode.OwnerDrawFixed;
             UpdateAllFoodMenu();
+            m_CurrentOrder = null;
         }
 
         private void FormCashier_Load(object sender, EventArgs e)
@@ -558,7 +559,7 @@ namespace BakeryOrder
             catch (Exception ex)
             {
                 string str = ex.Message;
-                MessageBoxShow("BakeryOrder.Order OrderItem讀取錯誤!" + str);
+                MessageBoxShow("BakeryOrder.Order OrderItem讀取錯誤:" + str);
                 return -1;
             }
         }
@@ -625,21 +626,30 @@ namespace BakeryOrder
         // m_MaxOrderID在SaveOrder時才去更新
         int CreateOrder(out BakeryOrderSet.OrderRow order,int maxID)
         {
-            order = bakeryOrderSet.Order.NewOrderRow();
-            DateTime now = DateTime.Now;
-            int id;
-            id = (m_PosID % 10) + now.Month * 1000 + now.Day * 10;
-            order.ID = id*100000+maxID + 1;
-            order.DiscountRate = 0.9m;
-            order.Income = (decimal)CalcTotal();
-            order.CashierID = m_CashierID;
-            order.Deleted = false;
-            // PrintTime在後面會設,NewRecord 如果有任一個Field沒設定是IsNull,再次Upate就會 並行違例.
-            // 舊的Record因為從Database讀出來時,就會有預設資料所以不會有問題
-            order.BranchID = 0;
-            order.Deduct = 0;
-            order.PayBy = DicPayBy.First().Key.ToString();
-            return order.ID;
+            try
+            {
+                order = bakeryOrderSet.Order.NewOrderRow();
+                DateTime now = DateTime.Now;
+                int id;
+                id = (m_PosID % 10) + now.Month * 1000 + now.Day * 10;
+                order.ID = id * 100000 + maxID + 1;
+                order.DiscountRate = 0.9m;
+                order.Income = (decimal)CalcTotal();
+                order.CashierID = m_CashierID;
+                order.Deleted = false;
+                // PrintTime在後面會設,NewRecord 如果有任一個Field沒設定是IsNull,再次Upate就會 並行違例.
+                // 舊的Record因為從Database讀出來時,就會有預設資料所以不會有問題
+                order.BranchID = 0;
+                order.Deduct = 0;
+                order.PayBy = DicPayBy.First().Key.ToString();
+                return order.ID;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("CreateOrder錯誤,原因:" + ex.Message);
+                order = null;
+                return 0;
+            }
         }
 
         int CreateUpdateDrawerRecord(ref int maxID,int associateOrderID)
@@ -766,7 +776,10 @@ namespace BakeryOrder
             }
             if (lvItems.Items.Count == 0) return;
             if (m_CurrentOrder == null)
-                CreateOrder(out m_CurrentOrder,m_MaxOrderID);
+            {
+                CreateOrder(out m_CurrentOrder, m_MaxOrderID);
+                if (m_CurrentOrder==null) return; // 產生錯誤
+            }
             if (m_CurrentOrder.RowState != DataRowState.Detached)
             {
                 MessageBoxShow("己經打印過的單子,無法再印! 請按<新單>");
@@ -813,6 +826,7 @@ namespace BakeryOrder
         private void DoNewOrder()
         {
             int no = CreateOrder(out m_CurrentOrder, m_MaxOrderID) % 10000;
+            if (m_CurrentOrder==null) return;    // 錯誤產生
             foreach (ListViewItem lv in lvItems.Items)
             {
                 MenuItemForTag item = lv.Tag as MenuItemForTag;
@@ -871,6 +885,11 @@ namespace BakeryOrder
 
         private bool SaveOrder(BakeryOrderSet.OrderRow CurrentOrder)
         {
+            if (CurrentOrder == null)
+            {
+                MessageBox.Show("Error on SaveOrder ,CurrentOrder not allow null!");
+                return false;
+            }
             bool IsNewRecord = (CurrentOrder.RowState == DataRowState.Detached);
             if (IsNewRecord)
             {
@@ -1154,7 +1173,10 @@ namespace BakeryOrder
             if (lvItems.Items.Count == 0)
                 return;
             if (m_CurrentOrder == null)
+            {
                 CreateOrder(out m_CurrentOrder, m_MaxOrderID);
+                if (m_CurrentOrder == null) return;
+            }
             if (m_CurrentOrder.RowState != DataRowState.Detached)
             {
                 MessageBoxShow("己經打印過的單子,無法再印! 請按<新單>");

@@ -160,15 +160,15 @@
             this.productScrappedBindingNavigator.MovePreviousItem = null;
             this.productScrappedBindingNavigator.Name = "productScrappedBindingNavigator";
             this.productScrappedBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.productScrappedBindingNavigator.Size = new System.Drawing.Size(183, 25);
+            this.productScrappedBindingNavigator.Size = new System.Drawing.Size(173, 25);
             this.productScrappedBindingNavigator.TabIndex = 2;
             this.productScrappedBindingNavigator.Text = "bindingNavigator1";
             // 
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(38, 22);
-            this.bindingNavigatorCountItem.Text = "of {0}";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(28, 22);
+            this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
             // bindingNavigatorSeparator

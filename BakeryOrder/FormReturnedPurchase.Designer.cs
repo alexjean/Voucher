@@ -1,16 +1,16 @@
 ﻿namespace BakeryOrder
 {
-    partial class FormCashier
+    partial class FormReturnedPurchase
     {
         /// <summary>
-        /// 設計工具所需的變數。
+        /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        /// 清除任何使用中的資源。
+        /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing">如果應該處置 Managed 資源則為 true，否則為 false。</param>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,31 +20,18 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form 設計工具產生的程式碼
+        #region Windows Form Designer generated code
 
         /// <summary>
-        /// 此為設計工具支援所需的方法 - 請勿使用程式碼編輯器
-        /// 修改這個方法的內容。
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCashier));
-            this.lvItems = new System.Windows.Forms.ListView();
-            this.columnHeader代碼 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader品名 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader量 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader金額 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.btnPrint = new System.Windows.Forms.Button();
-            this.btnStatics = new System.Windows.Forms.Button();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormReturnedPurchase));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.labelTotal = new System.Windows.Forms.Label();
-            this.labelClass = new System.Windows.Forms.Label();
-            this.pictureBoxOrdered = new System.Windows.Forms.PictureBox();
-            this.btnCashDrawer = new System.Windows.Forms.Button();
-            this.btnNewOrder = new System.Windows.Forms.Button();
-            this.checkBoxTest = new System.Windows.Forms.CheckBox();
             this.panelLogin = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxPassword = new System.Windows.Forms.TextBox();
@@ -62,78 +49,34 @@
             this.btnNumber2 = new System.Windows.Forms.Button();
             this.btnNumber1 = new System.Windows.Forms.Button();
             this.btnNumber0 = new System.Windows.Forms.Button();
-            this.productTableAdapter = new BakeryOrder.BakeryOrderSetTableAdapters.ProductTableAdapter();
-            this.bakeryOrderSet = new BakeryOrder.BakeryOrderSet();
-            this.cashierTableAdapter = new BakeryOrder.BakeryOrderSetTableAdapters.CashierTableAdapter();
-            this.headerTableAdapter = new BakeryOrder.BakeryOrderSetTableAdapters.HeaderTableAdapter();
+            this.labelDeduct = new System.Windows.Forms.Label();
             this.btnDoCashier = new System.Windows.Forms.Button();
             this.labelDeductTitle = new System.Windows.Forms.Label();
-            this.labelDeduct = new System.Windows.Forms.Label();
+            this.checkBoxTest = new System.Windows.Forms.CheckBox();
+            this.btnNewOrder = new System.Windows.Forms.Button();
+            this.btnCashDrawer = new System.Windows.Forms.Button();
+            this.btnPrint = new System.Windows.Forms.Button();
+            this.columnHeader金額 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader量 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader品名 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lvItems = new System.Windows.Forms.ListView();
+            this.columnHeader代碼 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnStatics = new System.Windows.Forms.Button();
+            this.labelClass = new System.Windows.Forms.Label();
+            this.labelTotal = new System.Windows.Forms.Label();
+            this.pictureBoxOrdered = new System.Windows.Forms.PictureBox();
             this.btnTest = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.productTableAdapter = new BakeryOrder.BakeryOrderSetTableAdapters.ProductTableAdapter();
+            this.bakeryOrderSet = new BakeryOrder.BakeryOrderSet();
+            this.headerTableAdapter = new BakeryOrder.BakeryOrderSetTableAdapters.HeaderTableAdapter();
+            this.cashierTableAdapter = new BakeryOrder.BakeryOrderSetTableAdapters.CashierTableAdapter();
             this.tabControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrdered)).BeginInit();
             this.panelLogin.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrdered)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).BeginInit();
             this.SuspendLayout();
-            // 
-            // lvItems
-            // 
-            this.lvItems.BackColor = System.Drawing.Color.SeaShell;
-            this.lvItems.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader代碼,
-            this.columnHeader品名,
-            this.columnHeader量,
-            this.columnHeader金額});
-            this.lvItems.FullRowSelect = true;
-            this.lvItems.HideSelection = false;
-            this.lvItems.Location = new System.Drawing.Point(1, 0);
-            this.lvItems.Name = "lvItems";
-            this.lvItems.Size = new System.Drawing.Size(226, 398);
-            this.lvItems.TabIndex = 0;
-            this.lvItems.UseCompatibleStateImageBehavior = false;
-            this.lvItems.View = System.Windows.Forms.View.Details;
-            this.lvItems.DoubleClick += new System.EventHandler(this.lvItems_DoubleClick);
-            // 
-            // columnHeader代碼
-            // 
-            this.columnHeader代碼.Width = 2;
-            // 
-            // columnHeader品名
-            // 
-            this.columnHeader品名.Text = "品名";
-            this.columnHeader品名.Width = 124;
-            // 
-            // columnHeader量
-            // 
-            this.columnHeader量.Text = "量";
-            this.columnHeader量.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader量.Width = 30;
-            // 
-            // columnHeader金額
-            // 
-            this.columnHeader金額.Text = "金額";
-            this.columnHeader金額.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader金額.Width = 52;
-            // 
-            // btnPrint
-            // 
-            this.btnPrint.Location = new System.Drawing.Point(132, 717);
-            this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(75, 51);
-            this.btnPrint.TabIndex = 1;
-            this.btnPrint.Text = "打单";
-            this.btnPrint.UseVisualStyleBackColor = true;
-            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
-            // 
-            // btnStatics
-            // 
-            this.btnStatics.Location = new System.Drawing.Point(1, 717);
-            this.btnStatics.Name = "btnStatics";
-            this.btnStatics.Size = new System.Drawing.Size(75, 51);
-            this.btnStatics.TabIndex = 2;
-            this.btnStatics.Text = "统计";
-            this.btnStatics.UseVisualStyleBackColor = true;
-            this.btnStatics.Click += new System.EventHandler(this.btnStatics_Click);
             // 
             // tabControl1
             // 
@@ -148,7 +91,7 @@
             this.tabControl1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(791, 768);
-            this.tabControl1.TabIndex = 3;
+            this.tabControl1.TabIndex = 20;
             this.tabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
             // 
             // tabPage1
@@ -172,68 +115,10 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "饮料西点";
             // 
-            // labelTotal
-            // 
-            this.labelTotal.Location = new System.Drawing.Point(152, 431);
-            this.labelTotal.Name = "labelTotal";
-            this.labelTotal.Size = new System.Drawing.Size(55, 20);
-            this.labelTotal.TabIndex = 4;
-            this.labelTotal.Text = "0";
-            this.labelTotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // labelClass
-            // 
-            this.labelClass.AutoSize = true;
-            this.labelClass.Location = new System.Drawing.Point(106, 433);
-            this.labelClass.Name = "labelClass";
-            this.labelClass.Size = new System.Drawing.Size(40, 16);
-            this.labelClass.TabIndex = 5;
-            this.labelClass.Text = "現金";
-            // 
-            // pictureBoxOrdered
-            // 
-            this.pictureBoxOrdered.Location = new System.Drawing.Point(1, 465);
-            this.pictureBoxOrdered.Name = "pictureBoxOrdered";
-            this.pictureBoxOrdered.Size = new System.Drawing.Size(226, 169);
-            this.pictureBoxOrdered.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBoxOrdered.TabIndex = 7;
-            this.pictureBoxOrdered.TabStop = false;
-            // 
-            // btnCashDrawer
-            // 
-            this.btnCashDrawer.Location = new System.Drawing.Point(132, 649);
-            this.btnCashDrawer.Name = "btnCashDrawer";
-            this.btnCashDrawer.Size = new System.Drawing.Size(75, 51);
-            this.btnCashDrawer.TabIndex = 8;
-            this.btnCashDrawer.Text = "钱箱";
-            this.btnCashDrawer.UseVisualStyleBackColor = true;
-            this.btnCashDrawer.Click += new System.EventHandler(this.btnCashDrawer_Click);
-            // 
-            // btnNewOrder
-            // 
-            this.btnNewOrder.Location = new System.Drawing.Point(1, 649);
-            this.btnNewOrder.Name = "btnNewOrder";
-            this.btnNewOrder.Size = new System.Drawing.Size(75, 51);
-            this.btnNewOrder.TabIndex = 9;
-            this.btnNewOrder.Text = "新單";
-            this.btnNewOrder.UseVisualStyleBackColor = true;
-            this.btnNewOrder.Click += new System.EventHandler(this.btnNewOrder_Click);
-            // 
-            // checkBoxTest
-            // 
-            this.checkBoxTest.AutoSize = true;
-            this.checkBoxTest.Location = new System.Drawing.Point(82, 640);
-            this.checkBoxTest.Name = "checkBoxTest";
-            this.checkBoxTest.Size = new System.Drawing.Size(59, 20);
-            this.checkBoxTest.TabIndex = 10;
-            this.checkBoxTest.Text = "不印";
-            this.checkBoxTest.UseVisualStyleBackColor = true;
-            this.checkBoxTest.Visible = false;
-            // 
             // panelLogin
             // 
             this.panelLogin.BackColor = System.Drawing.Color.SeaShell;
-            this.panelLogin.BackgroundImage = global::BakeryOrder.Properties.Resources.Powder;
+            this.panelLogin.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panelLogin.BackgroundImage")));
             this.panelLogin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelLogin.Controls.Add(this.label3);
             this.panelLogin.Controls.Add(this.textBoxPassword);
@@ -253,8 +138,8 @@
             this.panelLogin.Controls.Add(this.btnNumber0);
             this.panelLogin.Location = new System.Drawing.Point(432, 22);
             this.panelLogin.Name = "panelLogin";
-            this.panelLogin.Size = new System.Drawing.Size(327, 529);
-            this.panelLogin.TabIndex = 0;
+            this.panelLogin.Size = new System.Drawing.Size(327, 524);
+            this.panelLogin.TabIndex = 16;
             // 
             // label3
             // 
@@ -287,7 +172,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(76, 21);
             this.label2.TabIndex = 13;
-            this.label2.Text = "收銀員";
+            this.label2.Text = "授权者";
             // 
             // textBoxCashierID
             // 
@@ -421,6 +306,189 @@
             this.btnNumber0.Text = "0";
             this.btnNumber0.UseVisualStyleBackColor = true;
             // 
+            // labelDeduct
+            // 
+            this.labelDeduct.Location = new System.Drawing.Point(151, 436);
+            this.labelDeduct.Name = "labelDeduct";
+            this.labelDeduct.Size = new System.Drawing.Size(55, 20);
+            this.labelDeduct.TabIndex = 29;
+            this.labelDeduct.Text = ". ";
+            this.labelDeduct.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelDeduct.Visible = false;
+            // 
+            // btnDoCashier
+            // 
+            this.btnDoCashier.BackColor = System.Drawing.Color.SeaShell;
+            this.btnDoCashier.Location = new System.Drawing.Point(0, 431);
+            this.btnDoCashier.Name = "btnDoCashier";
+            this.btnDoCashier.Size = new System.Drawing.Size(75, 53);
+            this.btnDoCashier.TabIndex = 27;
+            this.btnDoCashier.Text = "結帳";
+            this.btnDoCashier.UseVisualStyleBackColor = false;
+            this.btnDoCashier.Click += new System.EventHandler(this.btnDoCashier_Click);
+            // 
+            // labelDeductTitle
+            // 
+            this.labelDeductTitle.AutoSize = true;
+            this.labelDeductTitle.Location = new System.Drawing.Point(105, 438);
+            this.labelDeductTitle.Name = "labelDeductTitle";
+            this.labelDeductTitle.Size = new System.Drawing.Size(29, 12);
+            this.labelDeductTitle.TabIndex = 28;
+            this.labelDeductTitle.Text = "优惠";
+            this.labelDeductTitle.Visible = false;
+            // 
+            // checkBoxTest
+            // 
+            this.checkBoxTest.AutoSize = true;
+            this.checkBoxTest.Location = new System.Drawing.Point(81, 661);
+            this.checkBoxTest.Name = "checkBoxTest";
+            this.checkBoxTest.Size = new System.Drawing.Size(48, 16);
+            this.checkBoxTest.TabIndex = 26;
+            this.checkBoxTest.Text = "不印";
+            this.checkBoxTest.UseVisualStyleBackColor = true;
+            this.checkBoxTest.Visible = false;
+            // 
+            // btnNewOrder
+            // 
+            this.btnNewOrder.Location = new System.Drawing.Point(0, 659);
+            this.btnNewOrder.Name = "btnNewOrder";
+            this.btnNewOrder.Size = new System.Drawing.Size(75, 51);
+            this.btnNewOrder.TabIndex = 25;
+            this.btnNewOrder.Text = "新單";
+            this.btnNewOrder.UseVisualStyleBackColor = true;
+            this.btnNewOrder.Click += new System.EventHandler(this.btnNewOrder_Click);
+            // 
+            // btnCashDrawer
+            // 
+            this.btnCashDrawer.Location = new System.Drawing.Point(131, 659);
+            this.btnCashDrawer.Name = "btnCashDrawer";
+            this.btnCashDrawer.Size = new System.Drawing.Size(75, 51);
+            this.btnCashDrawer.TabIndex = 24;
+            this.btnCashDrawer.Text = "钱箱";
+            this.btnCashDrawer.UseVisualStyleBackColor = true;
+            this.btnCashDrawer.Click += new System.EventHandler(this.btnCashDrawer_Click);
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.Enabled = false;
+            this.btnPrint.Location = new System.Drawing.Point(131, 718);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(0, 0);
+            this.btnPrint.TabIndex = 18;
+            this.btnPrint.Text = "打单";
+            this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnPrint.Visible = false;
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
+            // 
+            // columnHeader金額
+            // 
+            this.columnHeader金額.Text = "金額";
+            this.columnHeader金額.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeader金額.Width = 52;
+            // 
+            // columnHeader量
+            // 
+            this.columnHeader量.Text = "量";
+            this.columnHeader量.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeader量.Width = 30;
+            // 
+            // columnHeader品名
+            // 
+            this.columnHeader品名.Text = "品名";
+            this.columnHeader品名.Width = 124;
+            // 
+            // lvItems
+            // 
+            this.lvItems.BackColor = System.Drawing.Color.SeaShell;
+            this.lvItems.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader代碼,
+            this.columnHeader品名,
+            this.columnHeader量,
+            this.columnHeader金額});
+            this.lvItems.Font = new System.Drawing.Font("新細明體", 12F);
+            this.lvItems.FullRowSelect = true;
+            this.lvItems.HideSelection = false;
+            this.lvItems.Location = new System.Drawing.Point(2, 31);
+            this.lvItems.Name = "lvItems";
+            this.lvItems.Size = new System.Drawing.Size(226, 398);
+            this.lvItems.TabIndex = 17;
+            this.lvItems.UseCompatibleStateImageBehavior = false;
+            this.lvItems.View = System.Windows.Forms.View.Details;
+            this.lvItems.DoubleClick += new System.EventHandler(this.lvItems_DoubleClick);
+            // 
+            // columnHeader代碼
+            // 
+            this.columnHeader代碼.Width = 2;
+            // 
+            // btnStatics
+            // 
+            this.btnStatics.Location = new System.Drawing.Point(0, 718);
+            this.btnStatics.Name = "btnStatics";
+            this.btnStatics.Size = new System.Drawing.Size(75, 51);
+            this.btnStatics.TabIndex = 19;
+            this.btnStatics.Text = "统计";
+            this.btnStatics.UseVisualStyleBackColor = true;
+            this.btnStatics.Click += new System.EventHandler(this.btnStatics_Click);
+            // 
+            // labelClass
+            // 
+            this.labelClass.AutoSize = true;
+            this.labelClass.Location = new System.Drawing.Point(105, 463);
+            this.labelClass.Name = "labelClass";
+            this.labelClass.Size = new System.Drawing.Size(29, 12);
+            this.labelClass.TabIndex = 22;
+            this.labelClass.Text = "現金";
+            // 
+            // labelTotal
+            // 
+            this.labelTotal.Location = new System.Drawing.Point(151, 461);
+            this.labelTotal.Name = "labelTotal";
+            this.labelTotal.Size = new System.Drawing.Size(55, 20);
+            this.labelTotal.TabIndex = 21;
+            this.labelTotal.Text = "0";
+            this.labelTotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // pictureBoxOrdered
+            // 
+            this.pictureBoxOrdered.Location = new System.Drawing.Point(0, 485);
+            this.pictureBoxOrdered.Name = "pictureBoxOrdered";
+            this.pictureBoxOrdered.Size = new System.Drawing.Size(226, 169);
+            this.pictureBoxOrdered.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBoxOrdered.TabIndex = 23;
+            this.pictureBoxOrdered.TabStop = false;
+            // 
+            // btnTest
+            // 
+            this.btnTest.Location = new System.Drawing.Point(81, 718);
+            this.btnTest.Name = "btnTest";
+            this.btnTest.Size = new System.Drawing.Size(44, 39);
+            this.btnTest.TabIndex = 30;
+            this.btnTest.Text = "Test";
+            this.btnTest.UseVisualStyleBackColor = true;
+            this.btnTest.Visible = false;
+            this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label5.ForeColor = System.Drawing.Color.Maroon;
+            this.label5.Location = new System.Drawing.Point(78, 4);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(51, 20);
+            this.label5.TabIndex = 31;
+            this.label5.Text = "退货";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(131, 718);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 51);
+            this.button1.TabIndex = 32;
+            this.button1.Text = "返回";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // productTableAdapter
             // 
             this.productTableAdapter.ClearBeforeFill = true;
@@ -430,88 +498,46 @@
             this.bakeryOrderSet.DataSetName = "BakeryOrderSet";
             this.bakeryOrderSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // cashierTableAdapter
-            // 
-            this.cashierTableAdapter.ClearBeforeFill = true;
-            // 
             // headerTableAdapter
             // 
             this.headerTableAdapter.ClearBeforeFill = true;
             // 
-            // btnDoCashier
+            // cashierTableAdapter
             // 
-            this.btnDoCashier.BackColor = System.Drawing.Color.SeaShell;
-            this.btnDoCashier.Location = new System.Drawing.Point(1, 404);
-            this.btnDoCashier.Name = "btnDoCashier";
-            this.btnDoCashier.Size = new System.Drawing.Size(75, 53);
-            this.btnDoCashier.TabIndex = 12;
-            this.btnDoCashier.Text = "結帳";
-            this.btnDoCashier.UseVisualStyleBackColor = false;
-            this.btnDoCashier.Click += new System.EventHandler(this.btnDoCashier_Click);
+            this.cashierTableAdapter.ClearBeforeFill = true;
             // 
-            // labelDeductTitle
+            // FormReturnedPurchase
             // 
-            this.labelDeductTitle.AutoSize = true;
-            this.labelDeductTitle.Location = new System.Drawing.Point(106, 408);
-            this.labelDeductTitle.Name = "labelDeductTitle";
-            this.labelDeductTitle.Size = new System.Drawing.Size(40, 16);
-            this.labelDeductTitle.TabIndex = 13;
-            this.labelDeductTitle.Text = "优惠";
-            this.labelDeductTitle.Visible = false;
-            // 
-            // labelDeduct
-            // 
-            this.labelDeduct.Location = new System.Drawing.Point(152, 406);
-            this.labelDeduct.Name = "labelDeduct";
-            this.labelDeduct.Size = new System.Drawing.Size(55, 20);
-            this.labelDeduct.TabIndex = 14;
-            this.labelDeduct.Text = "0";
-            this.labelDeduct.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.labelDeduct.Visible = false;
-            // 
-            // btnTest
-            // 
-            this.btnTest.Location = new System.Drawing.Point(82, 717);
-            this.btnTest.Name = "btnTest";
-            this.btnTest.Size = new System.Drawing.Size(44, 39);
-            this.btnTest.TabIndex = 15;
-            this.btnTest.Text = "Test";
-            this.btnTest.UseVisualStyleBackColor = true;
-            this.btnTest.Visible = false;
-            this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
-            // 
-            // FormCashier
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(1024, 768);
-            this.Controls.Add(this.btnTest);
+            this.Controls.Add(this.panelLogin);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.labelDeduct);
-            this.Controls.Add(this.labelDeductTitle);
-            this.Controls.Add(this.btnCashDrawer);
             this.Controls.Add(this.btnDoCashier);
-            this.Controls.Add(this.lvItems);
+            this.Controls.Add(this.labelDeductTitle);
             this.Controls.Add(this.checkBoxTest);
             this.Controls.Add(this.btnNewOrder);
+            this.Controls.Add(this.btnCashDrawer);
+            this.Controls.Add(this.btnPrint);
+            this.Controls.Add(this.lvItems);
+            this.Controls.Add(this.btnStatics);
             this.Controls.Add(this.labelClass);
             this.Controls.Add(this.labelTotal);
-            this.Controls.Add(this.panelLogin);
-            this.Controls.Add(this.btnStatics);
-            this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.pictureBoxOrdered);
-            this.Controls.Add(this.tabControl1);
-            this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Controls.Add(this.btnTest);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "FormCashier";
-            this.Text = "烘焙收銀";
-            this.Load += new System.EventHandler(this.FormCashier_Load);
+            this.Name = "FormReturnedPurchase";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.Text = "退货操作";
+            this.TopMost = true;
+            this.Load += new System.EventHandler(this.FormReturnedPurchase_Load);
             this.tabControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrdered)).EndInit();
             this.panelLogin.ResumeLayout(false);
             this.panelLogin.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrdered)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -520,47 +546,48 @@
 
         #endregion
 
-        private System.Windows.Forms.ListView lvItems;
-        private System.Windows.Forms.ColumnHeader columnHeader品名;
-        private System.Windows.Forms.ColumnHeader columnHeader量;
-        private System.Windows.Forms.ColumnHeader columnHeader金額;
-        private System.Windows.Forms.Button btnPrint;
-        private System.Windows.Forms.Button btnStatics;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.ColumnHeader columnHeader代碼;
-        private System.Windows.Forms.Label labelTotal;
-        private System.Windows.Forms.Label labelClass;
-        private System.Windows.Forms.PictureBox pictureBoxOrdered;
-        private System.Windows.Forms.Button btnCashDrawer;
-        private System.Windows.Forms.Button btnNewOrder;
         private BakeryOrderSetTableAdapters.ProductTableAdapter productTableAdapter;
-        private BakeryOrderSet bakeryOrderSet;
-        private System.Windows.Forms.CheckBox checkBoxTest;
-        private System.Windows.Forms.Panel panelLogin;
-        private System.Windows.Forms.Button btnLogin;
-        private System.Windows.Forms.Button btnClear;
-        private System.Windows.Forms.Button btnNumber9;
-        private System.Windows.Forms.Button btnNumber8;
-        private System.Windows.Forms.Button btnNumber7;
-        private System.Windows.Forms.Button btnNumber6;
-        private System.Windows.Forms.Button btnNumber5;
-        private System.Windows.Forms.Button btnNumber4;
-        private System.Windows.Forms.Button btnNumber3;
-        private System.Windows.Forms.Button btnNumber2;
-        private System.Windows.Forms.Button btnNumber1;
-        private System.Windows.Forms.Button btnNumber0;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBoxPassword;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBoxCashierID;
-        private BakeryOrderSetTableAdapters.CashierTableAdapter cashierTableAdapter;
-        private BakeryOrderSetTableAdapters.HeaderTableAdapter headerTableAdapter;
+        private System.Windows.Forms.Label labelDeduct;
         private System.Windows.Forms.Button btnDoCashier;
         private System.Windows.Forms.Label labelDeductTitle;
-        private System.Windows.Forms.Label labelDeduct;
+        private BakeryOrderSet bakeryOrderSet;
+        private System.Windows.Forms.CheckBox checkBoxTest;
+        private BakeryOrderSetTableAdapters.HeaderTableAdapter headerTableAdapter;
+        private BakeryOrderSetTableAdapters.CashierTableAdapter cashierTableAdapter;
+        private System.Windows.Forms.Button btnNewOrder;
+        private System.Windows.Forms.Button btnCashDrawer;
+        private System.Windows.Forms.Button btnPrint;
+        private System.Windows.Forms.ColumnHeader columnHeader金額;
+        private System.Windows.Forms.ColumnHeader columnHeader量;
+        private System.Windows.Forms.ColumnHeader columnHeader品名;
+        private System.Windows.Forms.ListView lvItems;
+        private System.Windows.Forms.ColumnHeader columnHeader代碼;
+        private System.Windows.Forms.Button btnStatics;
+        private System.Windows.Forms.Label labelClass;
+        private System.Windows.Forms.Label labelTotal;
+        private System.Windows.Forms.PictureBox pictureBoxOrdered;
         private System.Windows.Forms.Button btnTest;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnNumber0;
+        private System.Windows.Forms.Button btnNumber1;
+        private System.Windows.Forms.Button btnNumber2;
+        private System.Windows.Forms.Button btnNumber3;
+        private System.Windows.Forms.Button btnNumber4;
+        private System.Windows.Forms.Button btnNumber5;
+        private System.Windows.Forms.Button btnNumber6;
+        private System.Windows.Forms.Button btnNumber7;
+        private System.Windows.Forms.Button btnNumber8;
+        private System.Windows.Forms.Button btnNumber9;
+        private System.Windows.Forms.Button btnClear;
+        private System.Windows.Forms.Button btnLogin;
+        private System.Windows.Forms.TextBox textBoxCashierID;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox textBoxPassword;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Panel panelLogin;
     }
 }
-

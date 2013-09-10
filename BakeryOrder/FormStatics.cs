@@ -27,7 +27,8 @@ namespace BakeryOrder
         int m_PosID = 0;
         PrintInfo m_Printer;
         bool m_DataSealed = false;
-        public FormStatics(BakeryOrderSet bakeryOrderSet,BakeryOrderSetTableAdapters.OrderTableAdapter adapter,int cashierID,PrintInfo printer,bool dataSealed,int posID)
+        string m_CasherierName = "";
+        public FormStatics(BakeryOrderSet bakeryOrderSet,BakeryOrderSetTableAdapters.OrderTableAdapter adapter,int cashierID,PrintInfo printer,bool dataSealed,int posID,string cashierName)
         {
             m_BakeryOrderSet    = bakeryOrderSet;
             m_OrderTableAdapter = adapter;
@@ -35,9 +36,21 @@ namespace BakeryOrder
             m_Printer           = printer;
             m_DataSealed        = dataSealed;
             m_PosID             = posID;
+            m_CasherierName = cashierName;
             InitializeComponent();
         }
-
+        bool isReturn;//是否有退货窗体调用
+        public FormStatics(BakeryOrderSet bakeryOrderSet, BakeryOrderSetTableAdapters.OrderTableAdapter adapter, int cashierID, PrintInfo printer, bool dataSealed, int posID,bool IsReturn)
+        {
+            m_BakeryOrderSet = bakeryOrderSet;
+            m_OrderTableAdapter = adapter;
+            m_CashierID = cashierID;
+            m_Printer = printer;
+            m_DataSealed = dataSealed;
+            m_PosID = posID;
+            isReturn = IsReturn;
+            InitializeComponent();
+        }
         private void btnReturn_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
@@ -61,6 +74,10 @@ namespace BakeryOrder
             m_ListViewItemBackup=new string[lvItems.Columns.Count]; // 備份給ResetListView用
             for(int i=1;i<lvItems.Columns.Count;i++) 
                 m_ListViewItemBackup[i]=lvItems.Columns[i].Text;
+            if (isReturn)
+            {
+                btnSystemSetup.Enabled = false;
+            }
         }
 
         DialogResult MessageBoxShow(string msg,bool returnResult=false)
@@ -141,7 +158,8 @@ namespace BakeryOrder
                 else if (Row.PayBy == "C") b.Text += "券";
             }
             b.Text += "\r\n" + Row.Income.ToString()+"元";
-            if (!Row.IsDeletedNull() &&　Row.Deleted) b.BackColor = Color.Green;
+            if (!Row.IsOldIDNull() && Row.OldID > 0) b.BackColor = Color.Red;
+            if (!Row.IsDeletedNull() && Row.Deleted) b.BackColor = Color.Green;
             b.Tag = Row;
             b.TextAlign = HorizontalAlignment.Center;
             b.BorderStyle = BorderStyle.Fixed3D;
@@ -179,7 +197,14 @@ namespace BakeryOrder
             if (!order.IsDeletedNull() && order.Deleted)
             {
                 order.Deleted = false;
-                t.BackColor = tabControl1.TabPages[0].BackColor;
+                if (order.OldID > 0)
+                {
+                    t.BackColor = Color.Red;
+                }
+                else
+                {
+                    t.BackColor = tabControl1.TabPages[0].BackColor;
+                }
             }
             else
             {
@@ -237,7 +262,7 @@ namespace BakeryOrder
                 total += money;
                 count++;
             }
-            lvItems.Columns[1].Text = "ID " + (order.ID % 10000).ToString() + (order.Deleted ? " deleted" : "");
+            lvItems.Columns[1].Text = "ID " + (order.ID % 10000).ToString() + (order.Deleted ? " deleted" : "")+(order.RCashierID>0 ? " 退货" : "");
             lvItems.Columns[2].Text = count.ToString();
             lvItems.Columns[3].Text = total.ToString();
             if (!order.IsPayByNull() && order.PayBy.Length>0)
@@ -250,8 +275,16 @@ namespace BakeryOrder
             }
             if (!order.IsDeductNull() && order.Deduct != 0)
             {
-                total -= order.Deduct;
-                labelDeduct.Text = "己优惠   " + order.Deduct.ToString();
+                if (order.OldID > 0)
+                {
+                    total += order.Deduct;
+                }
+                else
+                {
+                    total -= order.Deduct;
+                }
+               
+                labelDeduct.Text = "己优惠   " +Math.Abs( order.Deduct).ToString();
             }
             else
                 labelDeduct.Text = "";
@@ -259,8 +292,24 @@ namespace BakeryOrder
                 labelIncome.Text=order.Income.ToString();
             if (total != order.Income)
             {
-                MessageBoxShow("計算金額<" + total.ToString() + ">不符 " + order.Income.ToString());
-                return false;
+                if (total == -order.Income)
+                {
+                    if (order.OldID > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBoxShow("計算金額<" + total.ToString() + ">不符 " + order.Income.ToString());
+                        return false;
+                    }
+                }
+                else
+                {
+                    MessageBoxShow("計算金額<" + total.ToString() + ">不符 " + order.Income.ToString());
+                    return false;
+                }
+
             }
             return true;
         }
@@ -300,7 +349,10 @@ namespace BakeryOrder
             TabPage page=null;
             decimal total = 0;
             int count = 0;
-
+            int count1 = 0;
+            int count2 = 0;
+            decimal total1 = 0;
+            decimal total2 = 0;
             foreach (var gr in groups)
             {
                 SuspendLayout();
@@ -313,6 +365,16 @@ namespace BakeryOrder
                         CreateLabel(page, x, y, order);
                         if (!order.Deleted)
                         {
+                            if (order.OldID>0)//退货
+                            {
+                                count1++;
+                                total1 += order.Income;
+                            }
+                            else//出售
+                            {
+                                count2++;
+                                total2 += order.Income;
+                            }
                             count++;
                             total += order.Income;
                         }
@@ -364,7 +426,25 @@ namespace BakeryOrder
             if (page != null) tc.SelectTab(page);
             ResetListView();
             lvItems.Focus();
-            labelStatics.Text = count.ToString()+"單　共 "+total.ToString() + "元";
+            //labelStatics.Text = count.ToString()+"單　共 "+total.ToString() + "元";
+            //labelStatics2.Text ="出售：" +count2.ToString() + "單　共 " + total2.ToString() + "元";
+            //labelStatics1.Text ="退货："+ count1.ToString() + "單　共 " + total1.ToString() + "元";
+            labelStatics.Text = count.ToString();
+            labelStatics2.Text =  count2.ToString();
+            labelStatics1.Text =  count1.ToString();
+            label4.Text="元";
+            label5.Text = "元";
+            label6.Text = "元";
+            label1.Text = "单 共";
+            label2.Text = "单 共";
+            label3.Text = "单 共";
+            label10.Text = "退货";
+            label11.Text = "售货";
+            label12.Text = "总";
+            label7.Text = total1.ToString();
+            label8.Text = total2.ToString();
+            label9.Text = total.ToString();
+            panel1.Visible = true;
         }
 
         void CreateRecordLabel(TabPage tabPage, int x, int y, BakeryOrderSet.DrawerRecordRow Row)
@@ -410,6 +490,7 @@ namespace BakeryOrder
         }
         private void btnDrawerOpenedList_Click(object sender, EventArgs e)
         {
+            panel1.Visible = false;
             TabControl tc = tabControl1;
             // worry about IsPrintTimeNull()
             var groups = from row in m_BakeryOrderSet.DrawerRecord
@@ -475,18 +556,23 @@ namespace BakeryOrder
             if (page != null) tc.SelectTab(page);
             lvItems.Items.Clear();
             lvItems.Focus();
-            labelStatics.Text = "錢箱共開 " + count.ToString() + "次";
+            label13.Text = "錢箱共開 " + count.ToString() + "次";
         }
 
         private void btnSystemSetup_Click(object sender, EventArgs e)
         {
-            Form form = new FormSystemSetup(m_BakeryOrderSet, m_CashierID,m_Printer,m_PosID);
+            Form form = new FormSystemSetup(m_BakeryOrderSet, m_CashierID,m_Printer,m_PosID,m_CasherierName);
             DialogResult result=form.ShowDialog();
             if ((result == DialogResult.Abort) || (result==DialogResult.Cancel))
             {
                 this.DialogResult = result;
                 Close();
                 return;
+            }
+            else
+            {
+                this.DialogResult = DialogResult.OK;
+                Close();
             }
         }
 

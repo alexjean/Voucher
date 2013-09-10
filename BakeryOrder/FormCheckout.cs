@@ -43,6 +43,8 @@ namespace BakeryOrder
             m_Order.Deduct = m_Debuct;
             m_Order.Income = m_Income;
             m_Order.PayBy = m_PayBy.ToString();
+            m_Order.OldID = 0;
+            m_Order.RCashierID = 0;
             Close();
         }
 

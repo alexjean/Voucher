@@ -16,12 +16,15 @@ namespace BakeryOrder
         int m_CashierID;
         PrintInfo m_Printer;
         int m_PosID = 0;
-        public FormSystemSetup(BakeryOrderSet bakeryOrderSet,int id,PrintInfo printer,int posID)
+        string m_CashierName="";
+        public bool isReturn=false;//是否有退货员使用
+        public FormSystemSetup(BakeryOrderSet bakeryOrderSet,int id,PrintInfo printer,int posID,string cashierName)
         {
             m_CashierID = id;
             m_BakeryOrderSet = bakeryOrderSet;
             m_Printer   = printer;
             m_PosID     = posID;
+            m_CashierName=cashierName;
             InitializeComponent();
         }
 
@@ -33,6 +36,10 @@ namespace BakeryOrder
 
         private void FormSystemSetup_Load(object sender, EventArgs e)
         {
+            if (isReturn)
+            {
+                btnLoginReturn.Text = "退出退货";
+            }
             this.TopMost = true;
             Config.Load();
             textBoxPrinter.Text = Config.PrinterName;
@@ -156,6 +163,16 @@ namespace BakeryOrder
                 listBoxInfo.Items.Add("店長尚未指定本机机号");
             else
                 listBoxInfo.Items.Add("店長指定本机為 <收銀机" + m_PosID + ">");
+        }
+
+        private void btnLoginReturns_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.OK;
+            Close();
+            Form formreturnpurchase = new FormReturnedPurchase(m_CashierID,m_Printer,m_PosID,m_CashierName);
+            this.Hide();
+            formreturnpurchase.ShowDialog();
+            
         }
     }
 }

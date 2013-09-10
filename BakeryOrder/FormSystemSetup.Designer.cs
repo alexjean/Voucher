@@ -39,6 +39,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnSetupPrinter = new System.Windows.Forms.Button();
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
+            this.btnLoginReturn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -95,6 +96,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.Controls.Add(this.btnLoginReturn);
             this.panel1.Controls.Add(this.listBoxInfo);
             this.panel1.Controls.Add(this.textBoxPrinter);
             this.panel1.Controls.Add(this.label2);
@@ -151,6 +153,16 @@
             // 
             this.printDialog1.UseEXDialog = true;
             // 
+            // btnLoginReturn
+            // 
+            this.btnLoginReturn.Location = new System.Drawing.Point(162, 258);
+            this.btnLoginReturn.Name = "btnLoginReturn";
+            this.btnLoginReturn.Size = new System.Drawing.Size(88, 56);
+            this.btnLoginReturn.TabIndex = 20;
+            this.btnLoginReturn.Text = "退货";
+            this.btnLoginReturn.UseVisualStyleBackColor = true;
+            this.btnLoginReturn.Click += new System.EventHandler(this.btnLoginReturns_Click);
+            // 
             // FormSystemSetup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -185,5 +197,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PrintDialog printDialog1;
         private System.Windows.Forms.ListBox listBoxInfo;
+        private System.Windows.Forms.Button btnLoginReturn;
     }
 }

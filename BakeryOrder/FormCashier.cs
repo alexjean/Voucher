@@ -14,7 +14,7 @@ namespace BakeryOrder
 {
     public partial class FormCashier : Form
     {
-        
+
         #region ======== Shared function with EditBakeryMenu.cs ======
         private static class MyLayout
         {
@@ -108,10 +108,10 @@ namespace BakeryOrder
             }
             else
             {
-               if (AtFirst)
-                   lvItem = lvItems.Items.Insert(0, item.ProductID.ToString());
-               else
-                   lvItem = lvItems.Items.Add(item.ProductID.ToString());
+                if (AtFirst)
+                    lvItem = lvItems.Items.Insert(0, item.ProductID.ToString());
+                else
+                    lvItem = lvItems.Items.Add(item.ProductID.ToString());
                 lvItem.SubItems.Add(item.name);
                 lvItem.SubItems.Add(no.ToString());
                 lvItem.SubItems.Add(money.ToString());
@@ -151,7 +151,7 @@ namespace BakeryOrder
                 Add2List(item, false);
             }
             CalcTotal();
-            if (m_FormCustomer!=null)
+            if (m_FormCustomer != null)
                 m_FormCustomer.Item2List(item.ProductID, item.name, item.No, item.Money());
             return;
         }
@@ -170,13 +170,13 @@ namespace BakeryOrder
             lvItems.Columns[2].Text = no.ToString();
             lvItems.Columns[3].Text = sum.ToString();
             total = sum;
-/*
-            if (mtbDeduct.Text != "")
-            {
-                int deduct = Int32.Parse(mtbDeduct.Text);
-                total -= deduct;
-            }
-*/
+            /*
+                        if (mtbDeduct.Text != "")
+                        {
+                            int deduct = Int32.Parse(mtbDeduct.Text);
+                            total -= deduct;
+                        }
+            */
             total = Math.Round(total, 0, MidpointRounding.AwayFromZero);
             labelTotal.Text = total.ToString();
             if (m_FormCustomer != null)
@@ -202,10 +202,10 @@ namespace BakeryOrder
             Item2List(item, MouseButtons.Right);
             l.BorderStyle = BorderStyle.Fixed3D;
             item.LabelNo.Text = item.name;
-            int count=lvItems.Items.Count;
-            if ( count> 0)                      // 取消產品, 顯示ListView上最後一個品項
+            int count = lvItems.Items.Count;
+            if (count > 0)                      // 取消產品, 顯示ListView上最後一個品項
             {
-                MenuItemForTag  tag= lvItems.Items[count - 1].Tag as MenuItemForTag;
+                MenuItemForTag tag = lvItems.Items[count - 1].Tag as MenuItemForTag;
                 string idStr = tag.id.ToString();
                 string small = m_SmallDir + "\\" + idStr + ".jpg";
                 if (!File.Exists(small))
@@ -220,11 +220,11 @@ namespace BakeryOrder
             }
         }
 
-        void CreateSmallImage(string sourceFile, int w, int h,string destFile)
+        void CreateSmallImage(string sourceFile, int w, int h, string destFile)
         {
             if (!File.Exists(sourceFile))
             {
-                Bitmap img1=new Bitmap(1, 1);
+                Bitmap img1 = new Bitmap(1, 1);
                 img1.Save(destFile);
                 return;
             }
@@ -247,14 +247,14 @@ namespace BakeryOrder
                     g.DrawImage(img, new Rectangle(0, 0, x1, y1), new Rectangle(0, 0, img.Width, img.Height), GraphicsUnit.Pixel);
                     g.Dispose();
                 }
-                newbmp.Save(destFile,System.Drawing.Imaging.ImageFormat.Jpeg);
+                newbmp.Save(destFile, System.Drawing.Imaging.ImageFormat.Jpeg);
             }
             GC.Collect();
         }
 
         private void MenuClick(object sender, MouseEventArgs e)
         {
-            if (m_CurrentOrder!=null && m_CurrentOrder.RowState != DataRowState.Detached)    // 打印過的單子先清,再加
+            if (m_CurrentOrder != null && m_CurrentOrder.RowState != DataRowState.Detached)    // 打印過的單子先清,再加
             {
                 DoNewOrder();
             }
@@ -263,20 +263,20 @@ namespace BakeryOrder
             MenuItemForTag item = (MenuItemForTag)l.Tag;
             Item2List(item, e.Button);
             if (item.No > 0)
-                 l.BorderStyle = BorderStyle.FixedSingle;
+                l.BorderStyle = BorderStyle.FixedSingle;
             else l.BorderStyle = BorderStyle.Fixed3D;
             if (item.No == 1 || item.No == 0)
                 item.LabelNo.Text = item.name;
             else
-                item.LabelNo.Text = item.name+"  "+item.NoToString();
+                item.LabelNo.Text = item.name + "  " + item.NoToString();
             string idStr = item.id.ToString();
-            string small=m_SmallDir+"\\" + idStr + ".jpg";
+            string small = m_SmallDir + "\\" + idStr + ".jpg";
             if (!File.Exists(small))
             {
                 string big = m_ProductDir + "\\" + idStr + ".jpg";
                 CreateSmallImage(big, pictureBoxOrdered.Width, pictureBoxOrdered.Height, small);
             }
-            Image img=Bitmap.FromFile(small);
+            Image img = Bitmap.FromFile(small);
             pictureBoxOrdered.Image = img;
             Application.DoEvents();           // 先把前面做的顯示出來
             if (m_FormCustomer != null)
@@ -321,27 +321,27 @@ namespace BakeryOrder
                         content.Price = Row.Price;
                         content.ProductID = Row.ProductID;
                         content.classcode = Row.Class;
-                        content.LabelNo = l;  
+                        content.LabelNo = l;
                         content.name = Row.Name.ToString();
                         l.Tag = content;
                         l.Text = content.name;
                         l.MouseClick += new MouseEventHandler(this.MenuClick);
-                       // l.MouseDoubleClick+=new MouseEventHandler(this.MenuDoubleClick);
+                        // l.MouseDoubleClick+=new MouseEventHandler(this.MenuDoubleClick);
                     }
                     else
                     {
                         l.Tag = null;
                         l.Text = "";
                     }
-/*                  FormCashier不需要
-                    l.DragEnter += new DragEventHandler(this.LabelDragEnter);
-                    l.DragLeave += new EventHandler(this.LabelDragLeave);
-                    l.DragDrop += new DragEventHandler(LabelDragDrop);
-                    l.MouseDown += new MouseEventHandler(LabelMouseDown);
-*/
+                    /*                  FormCashier不需要
+                                        l.DragEnter += new DragEventHandler(this.LabelDragEnter);
+                                        l.DragLeave += new EventHandler(this.LabelDragLeave);
+                                        l.DragDrop += new DragEventHandler(LabelDragDrop);
+                                        l.MouseDown += new MouseEventHandler(LabelMouseDown);
+                    */
                     l.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
                     l.BorderStyle = BorderStyle.Fixed3D;
-//                    l.AllowDrop = true;
+                    //                    l.AllowDrop = true;
                     tabPage.Controls.Add(l);
                 }
 
@@ -360,18 +360,18 @@ namespace BakeryOrder
             if (rows.Count() == 0)   // 都沒有的話留下預設的
             {
                 tabControl1.TabPages.Add("面包");
-/*              FormCasiher不需要
-                int maxID = (from ro in bakeryOrderSet.Product
-                             select ro.ProductID).Max();
-                BasicDataSet.ProductRow row = bakeryOrderSet.Product.NewProductRow();
-                row.ProductID = ++maxID;
-                row.Name = SystemMenuName("面包", 1);
-                row.Code = -1;
-                row.MenuX = -1;
-                row.MenuY = -1;
-                bakeryOrderSet.Product.AddProductRow(row);
-                SaveProduct();
-*/
+                /*              FormCasiher不需要
+                                int maxID = (from ro in bakeryOrderSet.Product
+                                             select ro.ProductID).Max();
+                                BasicDataSet.ProductRow row = bakeryOrderSet.Product.NewProductRow();
+                                row.ProductID = ++maxID;
+                                row.Name = SystemMenuName("面包", 1);
+                                row.Code = -1;
+                                row.MenuX = -1;
+                                row.MenuY = -1;
+                                bakeryOrderSet.Product.AddProductRow(row);
+                                SaveProduct();
+                */
             }
             else
             {
@@ -397,29 +397,29 @@ namespace BakeryOrder
         {
             InitializeComponent();
         }
- 
 
 
-        FormCustomer m_FormCustomer =null;
-        FormStatics  m_FormStatics  = null;
-        const string m_ProductDir   = "Photos\\Products";
-        const string m_SmallDir     = m_ProductDir + "\\Small";
-        int          m_PosID        = 0;    // FormCashier的m_PosID己經不使用,由店長收取資料時填取
-        int          m_CashierID    = -1;
-        string       m_CashierName = "";
-        PrintInfo    m_Printer      =new PrintInfo();
+
+        FormCustomer m_FormCustomer = null;
+        FormStatics m_FormStatics = null;
+        const string m_ProductDir = "Photos\\Products";
+        const string m_SmallDir = m_ProductDir + "\\Small";
+        int m_PosID = 0;    // FormCashier的m_PosID己經不使用,由店長收取資料時填取
+        int m_CashierID = -1;
+        string m_CashierName = "";
+        PrintInfo m_Printer = new PrintInfo();
         bool m_DataSealed = false;
         int m_MaxOrderID = 0;
         int m_MaxDrawerRecordID = 0;
-        HardwareConfig m_Cfg        = new HardwareConfig();
-        OrderAdapter     m_OrderTableAdapter     = new OrderAdapter();
+        HardwareConfig m_Cfg = new HardwareConfig();
+        OrderAdapter m_OrderTableAdapter = new OrderAdapter();
         OrderItemAdapter m_OrderItemTableAdapter = new OrderItemAdapter();
-        DrawerRecordAdapter m_DrawerReocrdAdapter= new DrawerRecordAdapter();
+        DrawerRecordAdapter m_DrawerReocrdAdapter = new DrawerRecordAdapter();
         DateTime m_Today = DateTime.Now;
 
         BakeryConfig m_BakeryConfig = new BakeryConfig(".");
         string BakeryConfigName = "FormCashier";
-        string BakeryTableName  = "PrintTitle";
+        string BakeryTableName = "PrintTitle";
 
         void LoadBakeryConfig()
         {
@@ -431,13 +431,13 @@ namespace BakeryOrder
             {
                 XmlAttribute attr;
                 attr = node.Attributes["Title"];
-                if (attr != null) m_Printer.Title    = attr.Value;
+                if (attr != null) m_Printer.Title = attr.Value;
                 attr = node.Attributes["Addr"];
-                if (attr != null) m_Printer.Address  = attr.Value;
+                if (attr != null) m_Printer.Address = attr.Value;
                 attr = node.Attributes["Tel"];
-                if (attr != null) m_Printer.Tel      = attr.Value;
+                if (attr != null) m_Printer.Tel = attr.Value;
                 attr = node.Attributes["PosNo"];
-                if (attr != null && attr.Value!=null) int.TryParse(attr.Value,out m_PosID);
+                if (attr != null && attr.Value != null) int.TryParse(attr.Value, out m_PosID);
             }
         }
 
@@ -522,7 +522,7 @@ namespace BakeryOrder
 
 
             ReLoadAllData();
-            if (Screen.AllScreens.Count()>1)
+            if (Screen.AllScreens.Count() > 1)
             {
                 m_FormCustomer = new FormCustomer();
                 m_FormCustomer.Show();
@@ -547,7 +547,7 @@ namespace BakeryOrder
             int MaxID = 0;
             try
             {
-                m_OrderTableAdapter.FillBySelectStr    (bakeryOrderSet.Order    , "Select * From [Order] "     + sql + " Order by ID");
+                m_OrderTableAdapter.FillBySelectStr(bakeryOrderSet.Order, "Select * From [Order] " + sql + " Order by ID");
                 m_OrderItemTableAdapter.FillBySelectStr(bakeryOrderSet.OrderItem, "Select * From [OrderItem] " + sql);
                 foreach (BakeryOrderSet.OrderRow R in bakeryOrderSet.Order.Rows)
                 {
@@ -564,7 +564,7 @@ namespace BakeryOrder
             }
         }
 
-        int LoadDrawerRecordData(int m,int d)
+        int LoadDrawerRecordData(int m, int d)
         {
             string sql = "Where INT(DrawerRecordID/1000000)=" + m.ToString("d2") + d.ToString("d2");
             int MaxID = 0;
@@ -589,7 +589,7 @@ namespace BakeryOrder
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            if (m_FormCustomer!=null)
+            if (m_FormCustomer != null)
                 m_FormCustomer.Close();
             Close();
         }
@@ -624,7 +624,7 @@ namespace BakeryOrder
         }
 
         // m_MaxOrderID在SaveOrder時才去更新
-        int CreateOrder(out BakeryOrderSet.OrderRow order,int maxID)
+        int CreateOrder(out BakeryOrderSet.OrderRow order, int maxID)
         {
             try
             {
@@ -654,7 +654,7 @@ namespace BakeryOrder
             }
         }
 
-        int CreateUpdateDrawerRecord(ref int maxID,int associateOrderID)
+        int CreateUpdateDrawerRecord(ref int maxID, int associateOrderID)
         {
             BakeryOrderSet.DrawerRecordRow record = bakeryOrderSet.DrawerRecord.NewDrawerRecordRow();
             DateTime now = DateTime.Now;
@@ -662,13 +662,13 @@ namespace BakeryOrder
             id = (m_PosID % 10) + now.Month * 1000 + now.Day * 10;
             record.DrawerRecordID = id * 100000 + maxID + 1;
             record.CashierID = m_CashierID;
-            record.OpenTime=now;
+            record.OpenTime = now;
             record.AssociateOrderID = associateOrderID;
             try
             {
                 bakeryOrderSet.DrawerRecord.AddDrawerRecordRow(record);
                 m_DrawerReocrdAdapter.Update(bakeryOrderSet.DrawerRecord);
-                maxID ++;  // 存成功了才去更新maxID
+                maxID++;  // 存成功了才去更新maxID
             }
             catch (Exception ex)
             {
@@ -679,47 +679,47 @@ namespace BakeryOrder
         }
 
 
-//ESC　*　设置图形点阵
-//格式:   ASCII：　ESC　 *　 m　 n1　 n2　 D1，D2 … Dk
-//        十进制：　27 42 m　 n1　 n2　 D1，D2 … Dk
-//该命令用来设置点阵图形模式（m）和横向图形点阵。
-//m = 0，1： 表示打印密度。
-//0≤n1≤255，0≤n2≤1，0≤Dk≤255，k= n1+ n2×256。
-//n1，n2为两位十六进制数，n1这低字节，n2这高字节，k= n1+ n2×256，
-//表示该命令下载的要打印图形的横向点数，该值应小于打印机的最大行宽打印点数。
-//如果下送的点图数据超出一行的最大行宽打印点数时，超出的部分被忽略。
-//m 垂直方向点数 点密度 最大点数 图形打印模式
-//0 8 单密度 210 相邻点打印
-//1 8 双密度 420 相邻点不打印
+        //ESC　*　设置图形点阵
+        //格式:   ASCII：　ESC　 *　 m　 n1　 n2　 D1，D2 … Dk
+        //        十进制：　27 42 m　 n1　 n2　 D1，D2 … Dk
+        //该命令用来设置点阵图形模式（m）和横向图形点阵。
+        //m = 0，1： 表示打印密度。
+        //0≤n1≤255，0≤n2≤1，0≤Dk≤255，k= n1+ n2×256。
+        //n1，n2为两位十六进制数，n1这低字节，n2这高字节，k= n1+ n2×256，
+        //表示该命令下载的要打印图形的横向点数，该值应小于打印机的最大行宽打印点数。
+        //如果下送的点图数据超出一行的最大行宽打印点数时，超出的部分被忽略。
+        //m 垂直方向点数 点密度 最大点数 图形打印模式
+        //0 8 单密度 210 相邻点打印
+        //1 8 双密度 420 相邻点不打印
 
 
         BakeryOrderSet.OrderRow m_CurrentOrder = null;
 
-        void Print(BakeryOrderSet.OrderRow CurrentOrder,double moneyGot)      
+        void Print(BakeryOrderSet.OrderRow CurrentOrder, double moneyGot)
         {
             //byte[] PrintChinese = new byte[] { };
             byte[] BorderMode = new byte[] { 0x1c, 0x21, 0x28 };
-            byte[] NormalMode = new byte[] { 0x1c, 0x21, 0    };
-            byte[] CutPaper   = new byte[] { 0x1B, (byte)'i'  };
+            byte[] NormalMode = new byte[] { 0x1c, 0x21, 0 };
+            byte[] CutPaper = new byte[] { 0x1B, (byte)'i' };
             int n;
 
             ByteBuilder Buf = new ByteBuilder(2048);
-            Buf.DefaultEncoding=Encoding.GetEncoding("GB2312");
+            Buf.DefaultEncoding = Encoding.GetEncoding("GB2312");
 
             CurrentOrder.PrintTime = DateTime.Now;
             if (!SaveOrder(CurrentOrder)) return;
 
             Buf.Append(BorderMode);                                      // 設定列印模式28
-            Buf.Append(m_Printer.Title+"\r\n");
+            Buf.Append(m_Printer.Title + "\r\n");
             Buf.Append(NormalMode);                                      // 設定列印模式正常 
 
             Buf.Append("\r\n");
-            Buf.Append(m_Printer.Address+"\r\n");
+            Buf.Append(m_Printer.Address + "\r\n");
             Buf.AppendPadRight(m_Printer.Tel, 19);
             n = (CurrentOrder.ID % 1000);
-            Buf.Append("序号:"+m_PosID.ToString()+"-" + n.ToString("d4") + "\r\n");
+            Buf.Append("序号:" + m_PosID.ToString() + "-" + n.ToString("d4") + "\r\n");
             Buf.AppendPadRight("时间:" + CurrentOrder.PrintTime.ToString("yy/MM/dd HH:mm"), 19);
-            Buf.Append("收银"+m_CashierID.ToString("d03") +m_CashierName+"\r\n\r\n");
+            Buf.Append("收银" + m_CashierID.ToString("d03") + m_CashierName + "\r\n\r\n");
 
             Buf.Append(BorderMode);                                      // 設定列印模式28
             Buf.Append("  品名        数量 单价   金额\r\n");
@@ -745,14 +745,14 @@ namespace BakeryOrder
                 Buf.Append(d2str((double)CurrentOrder.Income, 13) + "\r\n");
             }
 
-            
+
             if (moneyGot > 0)
             {
                 Buf.Append("        实收             "); Buf.Append(d2str(moneyGot, 7) + "\r\n");
-                Buf.Append("        找零             "); Buf.Append(d2str(moneyGot - (double)CurrentOrder.Income , 7) + "\r\n");
+                Buf.Append("        找零             "); Buf.Append(d2str(moneyGot - (double)CurrentOrder.Income, 7) + "\r\n");
             }
             else
-            Buf.Append(PayByChinese(CurrentOrder.PayBy[0])+":              " + d2str((double)CurrentOrder.Income, 13) + "\r\n");
+                Buf.Append(PayByChinese(CurrentOrder.PayBy[0]) + ":              " + d2str((double)CurrentOrder.Income, 13) + "\r\n");
             Buf.Append(NormalMode);
             Buf.Append("* * * * * * * * * * * * * * * *\r\n\r\n\r\n\r\n\r\n\r\n");
             Buf.Append("\f");
@@ -764,9 +764,9 @@ namespace BakeryOrder
             else
             {
                 string str = Buf.ToString();
-                File.WriteAllBytes("Test.txt",Encoding.UTF8.GetBytes(str));
+                File.WriteAllBytes("Test.txt", Encoding.UTF8.GetBytes(str));
             }
-       }
+        }
 
         byte[] m_CashDrawer = new byte[] { 0x1B, (byte)'p', 0, 150, 100 };
         private void btnPrint_Click(object sender, EventArgs e)
@@ -780,7 +780,7 @@ namespace BakeryOrder
             if (m_CurrentOrder == null)
             {
                 CreateOrder(out m_CurrentOrder, m_MaxOrderID);
-                if (m_CurrentOrder==null) return; // 產生錯誤
+                if (m_CurrentOrder == null) return; // 產生錯誤
             }
             if (m_CurrentOrder.RowState != DataRowState.Detached)
             {
@@ -788,26 +788,26 @@ namespace BakeryOrder
                 return;
             }
             m_CurrentOrder.Income = (decimal)CalcTotal();
-//            m_CurrentOrder.PayBy = PayByFromBtn().ToString();
-            Print(m_CurrentOrder,0);
+            //            m_CurrentOrder.PayBy = PayByFromBtn().ToString();
+            Print(m_CurrentOrder, 0);
             if (!this.checkBoxTest.Checked)
                 RawPrint.SendManagedBytes(m_Printer.PrinterName, m_CashDrawer);
             CreateUpdateDrawerRecord(ref m_MaxDrawerRecordID, m_CurrentOrder.ID % 10000);
-//            DoNewOrder();
+            //            DoNewOrder();
         }
 
         private void btnCashDrawer_Click(object sender, EventArgs e)
         {
             if (!this.checkBoxTest.Checked)
-                RawPrint.SendManagedBytes(m_Printer.PrinterName,m_CashDrawer);
+                RawPrint.SendManagedBytes(m_Printer.PrinterName, m_CashDrawer);
             CreateUpdateDrawerRecord(ref m_MaxDrawerRecordID, -1);  // 沒有相應的訂單
         }
 
         private void btnStatics_Click(object sender, EventArgs e)
         {
             if (m_FormStatics == null)
-                m_FormStatics = new FormStatics(bakeryOrderSet,m_OrderTableAdapter,m_CashierID,m_Printer,m_DataSealed,m_PosID,m_CashierName);
-            DialogResult result=m_FormStatics.ShowDialog();
+                m_FormStatics = new FormStatics(bakeryOrderSet, m_OrderTableAdapter, m_CashierID, m_Printer, m_DataSealed, m_PosID, m_CashierName);
+            DialogResult result = m_FormStatics.ShowDialog();
             if (result == DialogResult.Abort)
             {
                 Close();
@@ -842,7 +842,7 @@ namespace BakeryOrder
         private void DoNewOrder()
         {
             int no = CreateOrder(out m_CurrentOrder, m_MaxOrderID) % 10000;
-            if (m_CurrentOrder==null) return;    // 錯誤產生
+            if (m_CurrentOrder == null) return;    // 錯誤產生
             foreach (ListViewItem lv in lvItems.Items)
             {
                 MenuItemForTag item = lv.Tag as MenuItemForTag;
@@ -864,12 +864,12 @@ namespace BakeryOrder
         {   // Row.ID由ParentRow決定不用填
             MenuItemForTag item = (MenuItemForTag)lvItem.Tag;
             Row.Index = (short)i;
-            Row.ProductID  = item.ProductID;
-            Row.No    = (decimal)item.No;
+            Row.ProductID = item.ProductID;
+            Row.No = (decimal)item.No;
             Row.Price = (decimal)item.Price;
             Row.Discount = false;    // 目前不使用打折
         }
-        void Update_OrderItemRows(BakeryOrderSet.OrderRow CurrentOrder,BakeryOrderSet.OrderItemRow[] ItemRows, int i, ListViewItem lvItem)
+        void Update_OrderItemRows(BakeryOrderSet.OrderRow CurrentOrder, BakeryOrderSet.OrderItemRow[] ItemRows, int i, ListViewItem lvItem)
         {
             if (ItemRows[i] == null)
             {
@@ -935,11 +935,11 @@ namespace BakeryOrder
                 }
                 return false;
             }
-            int maxID=CurrentOrder.ID%10000;
+            int maxID = CurrentOrder.ID % 10000;
             if (maxID > m_MaxOrderID) m_MaxOrderID = maxID;
 
             List<BakeryOrderSet.OrderItemRow> ItemDeleted = new List<BakeryOrderSet.OrderItemRow>();
-            BakeryOrderSet.OrderItemRow[]     OrderDetail = CurrentOrder.GetOrderItemRows();
+            BakeryOrderSet.OrderItemRow[] OrderDetail = CurrentOrder.GetOrderItemRows();
             try
             {
                 int count = lvItems.Items.Count;
@@ -958,7 +958,7 @@ namespace BakeryOrder
                 foreach (ListViewItem lvItem in lvItems.Items)
                 {
                     if (i >= count) break;  // 不應發生,以防萬一
-                    Update_OrderItemRows(CurrentOrder,ItemRows, i, lvItem);
+                    Update_OrderItemRows(CurrentOrder, ItemRows, i, lvItem);
                     i++;
                 }
                 OrderDetail = ItemRows;
@@ -1003,10 +1003,10 @@ namespace BakeryOrder
         {
             panelLogin.Visible = !isLogin;
             tabControl1.Visible = isLogin;
-            btnCashDrawer.Enabled   = isLogin;
-            btnStatics.Enabled      = isLogin;
-            btnPrint.Enabled        = isLogin;
-            btnNewOrder.Enabled     = isLogin;
+            btnCashDrawer.Enabled = isLogin;
+            btnStatics.Enabled = isLogin;
+            btnPrint.Enabled = isLogin;
+            btnNewOrder.Enabled = isLogin;
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -1017,8 +1017,8 @@ namespace BakeryOrder
                 m_FormStatics.Close();
                 m_FormStatics = null;
             }
-            string sID=textBoxCashierID.Text.Trim();
-            string sPass=textBoxPassword.Text.Trim();
+            string sID = textBoxCashierID.Text.Trim();
+            string sPass = textBoxPassword.Text.Trim();
             if (sPass.Length < 2)
             {
                 MessageBoxShow("密碼太短!");
@@ -1030,7 +1030,7 @@ namespace BakeryOrder
                 return;
             }
             int id;
-            if (!int.TryParse(sID,out id))
+            if (!int.TryParse(sID, out id))
             {
                 MessageBoxShow("ID只能是數字!");
                 return;
@@ -1046,8 +1046,8 @@ namespace BakeryOrder
                     }
                     if (cashier.CashierPassword.CompareTo(sPass) == 0)
                     {
-                        if (cashier.IsCashierNameNull()) m_CashierName="收银"+cashier.CashierID.ToString();
-                        else                             m_CashierName=cashier.CashierName;
+                        if (cashier.IsCashierNameNull()) m_CashierName = "收银" + cashier.CashierID.ToString();
+                        else m_CashierName = cashier.CashierName;
                         m_CashierID = cashier.CashierID;
                         MessageBoxShow("歡迎 <" + m_CashierName + "> \r\n今天是" + DateTime.Now.ToShortDateString());
                         SetLoginStatus(true);
@@ -1084,12 +1084,12 @@ namespace BakeryOrder
                 current = textBoxPassword;
             Button btn = sender as Button;
             string str = btn.Text;
-            if (current.Text.Length<6)
-                current.Text = current.Text+str;
+            if (current.Text.Length < 6)
+                current.Text = current.Text + str;
             current.Focus();
             current.SelectionStart = current.Text.Length;
-            current.SelectionLength=0;
-            
+            current.SelectionLength = 0;
+
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -1099,7 +1099,7 @@ namespace BakeryOrder
                 current = textBoxCashierID;
             else
                 current = textBoxPassword;
-            int len=current.Text.Length;
+            int len = current.Text.Length;
             if (len > 0)
             {
                 current.Text = current.Text.Substring(0, len - 1);
@@ -1120,7 +1120,7 @@ namespace BakeryOrder
             if (btn.Checked)
             {
                 btn.BackColor = Color.SeaShell;
-                
+
             }
             else
                 btn.BackColor = Color.FromArgb(216, 228, 248);
@@ -1194,8 +1194,8 @@ namespace BakeryOrder
                 MessageBoxShow("己經打印過的單子,無法再印! 請按<新單>");
                 return;
             }
-            decimal moneyGot=0;
-            Form form = new FormCheckout(tabControl1.Left+8, 8,m_CurrentOrder,(decimal)CalcTotal());
+            decimal moneyGot = 0;
+            Form form = new FormCheckout(tabControl1.Left + 8, 8, m_CurrentOrder, (decimal)CalcTotal());
             if (form.ShowDialog(this) == DialogResult.OK)
             {
                 if (form.Tag.GetType() == typeof(decimal))
@@ -1213,9 +1213,9 @@ namespace BakeryOrder
                     labelDeduct.Visible = labelDeductTitle.Visible = true;
                     labelTotal.Text = m_CurrentOrder.Income.ToString();
                 }
-                labelClass.Text=PayByChinese(m_CurrentOrder.PayBy[0]);
-                Print(m_CurrentOrder,(double)moneyGot);
-                if (!this.checkBoxTest.Checked)   
+                labelClass.Text = PayByChinese(m_CurrentOrder.PayBy[0]);
+                Print(m_CurrentOrder, (double)moneyGot);
+                if (!this.checkBoxTest.Checked)
                     RawPrint.SendManagedBytes(m_Printer.PrinterName, m_CashDrawer);   // 彈出錢箱
                 CreateUpdateDrawerRecord(ref m_MaxDrawerRecordID, m_CurrentOrder.ID % 10000);
             }
@@ -1223,13 +1223,13 @@ namespace BakeryOrder
 
         private void btnTest_Click(object sender, EventArgs e)
         {
-            ByteBuilder Buf ;
+            ByteBuilder Buf;
             byte[] Begin = new byte[] { 27, 51, 16 };
             byte[] BitmapMode = new byte[] { 27, (byte)'*', 0 };
             byte[] PrintAndScroll = new byte[] { 27, 74, 24 };   // 走24點
             Bitmap bitmap = new Bitmap("maidaren.bmp");
             int n = bitmap.Width;
-            for (int i = 0; i < bitmap.Height; i+=8)
+            for (int i = 0; i < bitmap.Height; i += 8)
             {
                 Buf = new ByteBuilder(2048);
                 Buf.Append(BitmapMode);
@@ -1261,26 +1261,29 @@ namespace BakeryOrder
                 return;
             }
             ListView lv = sender as ListView;
-            //lv.SelectedIndices;
-            MenuItemForTag lvItemTag = lv.Items[lv.SelectedIndices[0]].Tag as MenuItemForTag;
-            lvItemTag.LabelNo.BorderStyle = BorderStyle.Fixed3D;
-            lvItemTag.No=0;
-            lv.Items.RemoveAt(lv.SelectedIndices[0]);
-            CalcTotal();
-            if (lv.Items.Count > 0)
+            if (lv.SelectedIndices.Count > 0)
             {
-                MenuItemForTag tag = lv.Items[lv.Items.Count - 1].Tag as MenuItemForTag;
-                string idStr = tag.id.ToString();
-                string small = m_SmallDir + "\\" + idStr + ".jpg";
-                if (!File.Exists(small))
+                MenuItemForTag lvItemTag = lv.Items[lv.SelectedIndices[0]].Tag as MenuItemForTag;
+                Item2List(lvItemTag, MouseButtons.Right);
+                lvItemTag.LabelNo.BorderStyle = BorderStyle.Fixed3D;
+                lvItemTag.LabelNo.Text = lvItemTag.name;
+                //lv.Items.RemoveAt(lv.SelectedIndices[0]);
+                CalcTotal();
+                if (lv.Items.Count > 0)
                 {
-                    string big = m_ProductDir + "\\" + idStr + ".jpg";
-                    CreateSmallImage(big, pictureBoxOrdered.Width, pictureBoxOrdered.Height, small);
+                    MenuItemForTag tag = lv.Items[lv.Items.Count - 1].Tag as MenuItemForTag;
+                    string idStr = tag.id.ToString();
+                    string small = m_SmallDir + "\\" + idStr + ".jpg";
+                    if (!File.Exists(small))
+                    {
+                        string big = m_ProductDir + "\\" + idStr + ".jpg";
+                        CreateSmallImage(big, pictureBoxOrdered.Width, pictureBoxOrdered.Height, small);
+                    }
+                    Image img = Bitmap.FromFile(small);
+                    pictureBoxOrdered.Image = img;
+                    if (m_FormCustomer != null)
+                        m_FormCustomer.SetPicture(img);
                 }
-                Image img = Bitmap.FromFile(small);
-                pictureBoxOrdered.Image = img;
-                if (m_FormCustomer != null)
-                    m_FormCustomer.SetPicture(img);
             }
         }
     }

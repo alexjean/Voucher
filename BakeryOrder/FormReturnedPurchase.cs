@@ -408,7 +408,7 @@ namespace BakeryOrder
                         l.Tag = content;
                         l.Text = content.name;
                         l.MouseClick += new MouseEventHandler(this.MenuClick);
-                       // l.MouseDoubleClick += new MouseEventHandler(this.MenuDoubleClick);
+                       //l.MouseDoubleClick += new MouseEventHandler(this.MenuDoubleClick);
                     }
                     else
                     {
@@ -525,6 +525,7 @@ namespace BakeryOrder
 
         void ReLoadAllData()
         {
+
             m_Cfg.Load();
            // if (m_Cfg.PrinterName != null) m_Printer.PrinterName = m_Cfg.PrinterName;
            // LoadBakeryConfig();
@@ -1359,26 +1360,30 @@ namespace BakeryOrder
                 return;
             }
             ListView lv = sender as ListView;
-            //lv.SelectedIndices;
-            MenuItemForTag lvItemTag = lv.Items[lv.SelectedIndices[0]].Tag as MenuItemForTag;
-            lvItemTag.LabelNo.BorderStyle = BorderStyle.Fixed3D;
-            lvItemTag.No = 0;
-            lv.Items.RemoveAt(lv.SelectedIndices[0]);
-            CalcTotal();
-            if (lv.Items.Count > 0)
+            if (lv.SelectedIndices.Count >0)
             {
-                MenuItemForTag tag = lv.Items[lv.Items.Count - 1].Tag as MenuItemForTag;
-                string idStr = tag.id.ToString();
-                string small = m_SmallDir + "\\" + idStr + ".jpg";
-                if (!File.Exists(small))
+                MenuItemForTag lvItemTag = lv.Items[lv.SelectedIndices[0]].Tag as MenuItemForTag;
+                Item2List(lvItemTag, MouseButtons.Right);
+                lvItemTag.LabelNo.BorderStyle = BorderStyle.Fixed3D;
+                lvItemTag.LabelNo.Text = lvItemTag.name;
+                //v.Items.RemoveAt(SelectedIndex);
+                // CalcTotal();
+                if (lv.Items.Count > 0)
                 {
-                    string big = m_ProductDir + "\\" + idStr + ".jpg";
-                    CreateSmallImage(big, pictureBoxOrdered.Width, pictureBoxOrdered.Height, small);
+                    MenuItemForTag tag = lv.Items[lv.Items.Count - 1].Tag as MenuItemForTag;
+                    string idStr = tag.id.ToString();
+                    string small = m_SmallDir + "\\" + idStr + ".jpg";
+                    if (!File.Exists(small))
+                    {
+                        string big = m_ProductDir + "\\" + idStr + ".jpg";
+                        CreateSmallImage(big, pictureBoxOrdered.Width, pictureBoxOrdered.Height, small);
+                    }
+                    Image img = Bitmap.FromFile(small);
+                    pictureBoxOrdered.Image = img;
+                    if (m_FormCustomer != null)
+                        m_FormCustomer.SetPicture(img);
                 }
-                Image img = Bitmap.FromFile(small);
-                pictureBoxOrdered.Image = img;
-                if (m_FormCustomer != null)
-                    m_FormCustomer.SetPicture(img);
+
             }
         }
 

@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormReturnedPurchase));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panelLogin = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxPassword = new System.Windows.Forms.TextBox();
@@ -49,6 +48,7 @@
             this.btnNumber2 = new System.Windows.Forms.Button();
             this.btnNumber1 = new System.Windows.Forms.Button();
             this.btnNumber0 = new System.Windows.Forms.Button();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.labelDeduct = new System.Windows.Forms.Label();
             this.btnDoCashier = new System.Windows.Forms.Button();
             this.labelDeductTitle = new System.Windows.Forms.Label();
@@ -65,13 +65,13 @@
             this.labelClass = new System.Windows.Forms.Label();
             this.labelTotal = new System.Windows.Forms.Label();
             this.pictureBoxOrdered = new System.Windows.Forms.PictureBox();
-            this.btnTest = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.productTableAdapter = new BakeryOrder.BakeryOrderSetTableAdapters.ProductTableAdapter();
             this.bakeryOrderSet = new BakeryOrder.BakeryOrderSet();
             this.headerTableAdapter = new BakeryOrder.BakeryOrderSetTableAdapters.HeaderTableAdapter();
             this.cashierTableAdapter = new BakeryOrder.BakeryOrderSetTableAdapters.CashierTableAdapter();
+            this.btnTest = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.panelLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrdered)).BeginInit();
@@ -87,6 +87,7 @@
             this.tabControl1.Font = new System.Drawing.Font("標楷體", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.tabControl1.ItemSize = new System.Drawing.Size(88, 55);
             this.tabControl1.Location = new System.Drawing.Point(233, 0);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tabControl1.SelectedIndex = 0;
@@ -99,21 +100,12 @@
             this.tabPage1.BackColor = System.Drawing.Color.Azure;
             this.tabPage1.Font = new System.Drawing.Font("標楷體", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.tabPage1.Location = new System.Drawing.Point(4, 4);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
             this.tabPage1.Size = new System.Drawing.Size(783, 705);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "面包";
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.BackColor = System.Drawing.Color.Azure;
-            this.tabPage2.Location = new System.Drawing.Point(4, 4);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(783, 705);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "饮料西点";
             // 
             // panelLogin
             // 
@@ -136,9 +128,10 @@
             this.panelLogin.Controls.Add(this.btnNumber2);
             this.panelLogin.Controls.Add(this.btnNumber1);
             this.panelLogin.Controls.Add(this.btnNumber0);
-            this.panelLogin.Location = new System.Drawing.Point(432, 22);
+            this.panelLogin.Location = new System.Drawing.Point(455, 40);
+            this.panelLogin.Margin = new System.Windows.Forms.Padding(4);
             this.panelLogin.Name = "panelLogin";
-            this.panelLogin.Size = new System.Drawing.Size(327, 524);
+            this.panelLogin.Size = new System.Drawing.Size(327, 529);
             this.panelLogin.TabIndex = 16;
             // 
             // label3
@@ -146,7 +139,8 @@
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label3.Location = new System.Drawing.Point(32, 98);
+            this.label3.Location = new System.Drawing.Point(43, 124);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(54, 21);
             this.label3.TabIndex = 15;
@@ -155,7 +149,8 @@
             // textBoxPassword
             // 
             this.textBoxPassword.Font = new System.Drawing.Font("微軟正黑體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBoxPassword.Location = new System.Drawing.Point(117, 90);
+            this.textBoxPassword.Location = new System.Drawing.Point(127, 117);
+            this.textBoxPassword.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxPassword.MaxLength = 6;
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.Size = new System.Drawing.Size(135, 35);
@@ -168,7 +163,8 @@
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label2.Location = new System.Drawing.Point(32, 33);
+            this.label2.Location = new System.Drawing.Point(43, 51);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(76, 21);
             this.label2.TabIndex = 13;
@@ -177,7 +173,8 @@
             // textBoxCashierID
             // 
             this.textBoxCashierID.Font = new System.Drawing.Font("微軟正黑體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxCashierID.Location = new System.Drawing.Point(117, 25);
+            this.textBoxCashierID.Location = new System.Drawing.Point(127, 44);
+            this.textBoxCashierID.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxCashierID.MaxLength = 6;
             this.textBoxCashierID.Name = "textBoxCashierID";
             this.textBoxCashierID.Size = new System.Drawing.Size(135, 35);
@@ -188,6 +185,7 @@
             // 
             this.btnLogin.Font = new System.Drawing.Font("標楷體", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.btnLogin.Location = new System.Drawing.Point(223, 442);
+            this.btnLogin.Margin = new System.Windows.Forms.Padding(4);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(90, 74);
             this.btnLogin.TabIndex = 13;
@@ -198,7 +196,8 @@
             // btnClear
             // 
             this.btnClear.Font = new System.Drawing.Font("標楷體", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnClear.Location = new System.Drawing.Point(117, 442);
+            this.btnClear.Location = new System.Drawing.Point(116, 442);
+            this.btnClear.Margin = new System.Windows.Forms.Padding(4);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(90, 74);
             this.btnClear.TabIndex = 12;
@@ -209,7 +208,8 @@
             // btnNumber9
             // 
             this.btnNumber9.Font = new System.Drawing.Font("標楷體", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnNumber9.Location = new System.Drawing.Point(223, 352);
+            this.btnNumber9.Location = new System.Drawing.Point(223, 360);
+            this.btnNumber9.Margin = new System.Windows.Forms.Padding(4);
             this.btnNumber9.Name = "btnNumber9";
             this.btnNumber9.Size = new System.Drawing.Size(90, 74);
             this.btnNumber9.TabIndex = 10;
@@ -219,7 +219,8 @@
             // btnNumber8
             // 
             this.btnNumber8.Font = new System.Drawing.Font("標楷體", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnNumber8.Location = new System.Drawing.Point(117, 352);
+            this.btnNumber8.Location = new System.Drawing.Point(116, 360);
+            this.btnNumber8.Margin = new System.Windows.Forms.Padding(4);
             this.btnNumber8.Name = "btnNumber8";
             this.btnNumber8.Size = new System.Drawing.Size(90, 74);
             this.btnNumber8.TabIndex = 9;
@@ -229,7 +230,8 @@
             // btnNumber7
             // 
             this.btnNumber7.Font = new System.Drawing.Font("標楷體", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnNumber7.Location = new System.Drawing.Point(11, 352);
+            this.btnNumber7.Location = new System.Drawing.Point(9, 360);
+            this.btnNumber7.Margin = new System.Windows.Forms.Padding(4);
             this.btnNumber7.Name = "btnNumber7";
             this.btnNumber7.Size = new System.Drawing.Size(90, 74);
             this.btnNumber7.TabIndex = 8;
@@ -239,7 +241,8 @@
             // btnNumber6
             // 
             this.btnNumber6.Font = new System.Drawing.Font("標楷體", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnNumber6.Location = new System.Drawing.Point(223, 262);
+            this.btnNumber6.Location = new System.Drawing.Point(223, 278);
+            this.btnNumber6.Margin = new System.Windows.Forms.Padding(4);
             this.btnNumber6.Name = "btnNumber6";
             this.btnNumber6.Size = new System.Drawing.Size(90, 74);
             this.btnNumber6.TabIndex = 7;
@@ -249,7 +252,8 @@
             // btnNumber5
             // 
             this.btnNumber5.Font = new System.Drawing.Font("標楷體", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnNumber5.Location = new System.Drawing.Point(117, 262);
+            this.btnNumber5.Location = new System.Drawing.Point(116, 278);
+            this.btnNumber5.Margin = new System.Windows.Forms.Padding(4);
             this.btnNumber5.Name = "btnNumber5";
             this.btnNumber5.Size = new System.Drawing.Size(90, 74);
             this.btnNumber5.TabIndex = 6;
@@ -259,7 +263,8 @@
             // btnNumber4
             // 
             this.btnNumber4.Font = new System.Drawing.Font("標楷體", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnNumber4.Location = new System.Drawing.Point(11, 262);
+            this.btnNumber4.Location = new System.Drawing.Point(9, 278);
+            this.btnNumber4.Margin = new System.Windows.Forms.Padding(4);
             this.btnNumber4.Name = "btnNumber4";
             this.btnNumber4.Size = new System.Drawing.Size(90, 74);
             this.btnNumber4.TabIndex = 5;
@@ -269,7 +274,8 @@
             // btnNumber3
             // 
             this.btnNumber3.Font = new System.Drawing.Font("標楷體", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnNumber3.Location = new System.Drawing.Point(223, 172);
+            this.btnNumber3.Location = new System.Drawing.Point(223, 196);
+            this.btnNumber3.Margin = new System.Windows.Forms.Padding(4);
             this.btnNumber3.Name = "btnNumber3";
             this.btnNumber3.Size = new System.Drawing.Size(90, 74);
             this.btnNumber3.TabIndex = 4;
@@ -279,7 +285,8 @@
             // btnNumber2
             // 
             this.btnNumber2.Font = new System.Drawing.Font("標楷體", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnNumber2.Location = new System.Drawing.Point(117, 172);
+            this.btnNumber2.Location = new System.Drawing.Point(116, 196);
+            this.btnNumber2.Margin = new System.Windows.Forms.Padding(4);
             this.btnNumber2.Name = "btnNumber2";
             this.btnNumber2.Size = new System.Drawing.Size(90, 74);
             this.btnNumber2.TabIndex = 3;
@@ -289,7 +296,8 @@
             // btnNumber1
             // 
             this.btnNumber1.Font = new System.Drawing.Font("標楷體", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnNumber1.Location = new System.Drawing.Point(11, 172);
+            this.btnNumber1.Location = new System.Drawing.Point(9, 196);
+            this.btnNumber1.Margin = new System.Windows.Forms.Padding(4);
             this.btnNumber1.Name = "btnNumber1";
             this.btnNumber1.Size = new System.Drawing.Size(90, 74);
             this.btnNumber1.TabIndex = 2;
@@ -299,27 +307,40 @@
             // btnNumber0
             // 
             this.btnNumber0.Font = new System.Drawing.Font("標楷體", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnNumber0.Location = new System.Drawing.Point(11, 442);
+            this.btnNumber0.Location = new System.Drawing.Point(7, 442);
+            this.btnNumber0.Margin = new System.Windows.Forms.Padding(4);
             this.btnNumber0.Name = "btnNumber0";
             this.btnNumber0.Size = new System.Drawing.Size(90, 74);
             this.btnNumber0.TabIndex = 11;
             this.btnNumber0.Text = "0";
             this.btnNumber0.UseVisualStyleBackColor = true;
             // 
+            // tabPage2
+            // 
+            this.tabPage2.BackColor = System.Drawing.Color.Azure;
+            this.tabPage2.Location = new System.Drawing.Point(4, 4);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPage2.Size = new System.Drawing.Size(783, 705);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "饮料西点";
+            // 
             // labelDeduct
             // 
-            this.labelDeduct.Location = new System.Drawing.Point(151, 436);
+            this.labelDeduct.Location = new System.Drawing.Point(149, 403);
+            this.labelDeduct.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelDeduct.Name = "labelDeduct";
-            this.labelDeduct.Size = new System.Drawing.Size(55, 20);
+            this.labelDeduct.Size = new System.Drawing.Size(73, 27);
             this.labelDeduct.TabIndex = 29;
-            this.labelDeduct.Text = ". ";
             this.labelDeduct.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.labelDeduct.Visible = false;
             // 
             // btnDoCashier
             // 
             this.btnDoCashier.BackColor = System.Drawing.Color.SeaShell;
-            this.btnDoCashier.Location = new System.Drawing.Point(0, 431);
+            this.btnDoCashier.Location = new System.Drawing.Point(4, 404);
+            this.btnDoCashier.Margin = new System.Windows.Forms.Padding(4);
             this.btnDoCashier.Name = "btnDoCashier";
             this.btnDoCashier.Size = new System.Drawing.Size(75, 53);
             this.btnDoCashier.TabIndex = 27;
@@ -330,9 +351,10 @@
             // labelDeductTitle
             // 
             this.labelDeductTitle.AutoSize = true;
-            this.labelDeductTitle.Location = new System.Drawing.Point(105, 438);
+            this.labelDeductTitle.Location = new System.Drawing.Point(87, 406);
+            this.labelDeductTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelDeductTitle.Name = "labelDeductTitle";
-            this.labelDeductTitle.Size = new System.Drawing.Size(29, 12);
+            this.labelDeductTitle.Size = new System.Drawing.Size(40, 16);
             this.labelDeductTitle.TabIndex = 28;
             this.labelDeductTitle.Text = "优惠";
             this.labelDeductTitle.Visible = false;
@@ -340,9 +362,10 @@
             // checkBoxTest
             // 
             this.checkBoxTest.AutoSize = true;
-            this.checkBoxTest.Location = new System.Drawing.Point(81, 661);
+            this.checkBoxTest.Location = new System.Drawing.Point(87, 640);
+            this.checkBoxTest.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxTest.Name = "checkBoxTest";
-            this.checkBoxTest.Size = new System.Drawing.Size(48, 16);
+            this.checkBoxTest.Size = new System.Drawing.Size(59, 20);
             this.checkBoxTest.TabIndex = 26;
             this.checkBoxTest.Text = "不印";
             this.checkBoxTest.UseVisualStyleBackColor = true;
@@ -350,7 +373,8 @@
             // 
             // btnNewOrder
             // 
-            this.btnNewOrder.Location = new System.Drawing.Point(0, 659);
+            this.btnNewOrder.Location = new System.Drawing.Point(6, 645);
+            this.btnNewOrder.Margin = new System.Windows.Forms.Padding(4);
             this.btnNewOrder.Name = "btnNewOrder";
             this.btnNewOrder.Size = new System.Drawing.Size(75, 51);
             this.btnNewOrder.TabIndex = 25;
@@ -360,7 +384,8 @@
             // 
             // btnCashDrawer
             // 
-            this.btnCashDrawer.Location = new System.Drawing.Point(131, 659);
+            this.btnCashDrawer.Location = new System.Drawing.Point(146, 646);
+            this.btnCashDrawer.Margin = new System.Windows.Forms.Padding(4);
             this.btnCashDrawer.Name = "btnCashDrawer";
             this.btnCashDrawer.Size = new System.Drawing.Size(75, 51);
             this.btnCashDrawer.TabIndex = 24;
@@ -371,7 +396,8 @@
             // btnPrint
             // 
             this.btnPrint.Enabled = false;
-            this.btnPrint.Location = new System.Drawing.Point(131, 718);
+            this.btnPrint.Location = new System.Drawing.Point(160, 718);
+            this.btnPrint.Margin = new System.Windows.Forms.Padding(4);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(0, 0);
             this.btnPrint.TabIndex = 18;
@@ -408,9 +434,10 @@
             this.lvItems.Font = new System.Drawing.Font("新細明體", 12F);
             this.lvItems.FullRowSelect = true;
             this.lvItems.HideSelection = false;
-            this.lvItems.Location = new System.Drawing.Point(2, 31);
+            this.lvItems.Location = new System.Drawing.Point(3, 26);
+            this.lvItems.Margin = new System.Windows.Forms.Padding(4);
             this.lvItems.Name = "lvItems";
-            this.lvItems.Size = new System.Drawing.Size(226, 398);
+            this.lvItems.Size = new System.Drawing.Size(226, 370);
             this.lvItems.TabIndex = 17;
             this.lvItems.UseCompatibleStateImageBehavior = false;
             this.lvItems.View = System.Windows.Forms.View.Details;
@@ -422,7 +449,9 @@
             // 
             // btnStatics
             // 
-            this.btnStatics.Location = new System.Drawing.Point(0, 718);
+            this.btnStatics.Enabled = false;
+            this.btnStatics.Location = new System.Drawing.Point(7, 716);
+            this.btnStatics.Margin = new System.Windows.Forms.Padding(4);
             this.btnStatics.Name = "btnStatics";
             this.btnStatics.Size = new System.Drawing.Size(75, 51);
             this.btnStatics.TabIndex = 19;
@@ -433,47 +462,40 @@
             // labelClass
             // 
             this.labelClass.AutoSize = true;
-            this.labelClass.Location = new System.Drawing.Point(105, 463);
+            this.labelClass.Location = new System.Drawing.Point(87, 439);
+            this.labelClass.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelClass.Name = "labelClass";
-            this.labelClass.Size = new System.Drawing.Size(29, 12);
+            this.labelClass.Size = new System.Drawing.Size(40, 16);
             this.labelClass.TabIndex = 22;
             this.labelClass.Text = "現金";
             // 
             // labelTotal
             // 
-            this.labelTotal.Location = new System.Drawing.Point(151, 461);
+            this.labelTotal.Location = new System.Drawing.Point(149, 436);
+            this.labelTotal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelTotal.Name = "labelTotal";
-            this.labelTotal.Size = new System.Drawing.Size(55, 20);
+            this.labelTotal.Size = new System.Drawing.Size(73, 27);
             this.labelTotal.TabIndex = 21;
             this.labelTotal.Text = "0";
             this.labelTotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // pictureBoxOrdered
             // 
-            this.pictureBoxOrdered.Location = new System.Drawing.Point(0, 485);
+            this.pictureBoxOrdered.Location = new System.Drawing.Point(2, 463);
+            this.pictureBoxOrdered.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBoxOrdered.Name = "pictureBoxOrdered";
             this.pictureBoxOrdered.Size = new System.Drawing.Size(226, 169);
             this.pictureBoxOrdered.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBoxOrdered.TabIndex = 23;
             this.pictureBoxOrdered.TabStop = false;
             // 
-            // btnTest
-            // 
-            this.btnTest.Location = new System.Drawing.Point(81, 718);
-            this.btnTest.Name = "btnTest";
-            this.btnTest.Size = new System.Drawing.Size(44, 39);
-            this.btnTest.TabIndex = 30;
-            this.btnTest.Text = "Test";
-            this.btnTest.UseVisualStyleBackColor = true;
-            this.btnTest.Visible = false;
-            this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label5.ForeColor = System.Drawing.Color.Maroon;
-            this.label5.Location = new System.Drawing.Point(78, 4);
+            this.label5.Location = new System.Drawing.Point(74, 3);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(51, 20);
             this.label5.TabIndex = 31;
@@ -481,7 +503,8 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(131, 718);
+            this.button1.Location = new System.Drawing.Point(147, 716);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 51);
             this.button1.TabIndex = 32;
@@ -506,9 +529,22 @@
             // 
             this.cashierTableAdapter.ClearBeforeFill = true;
             // 
+            // btnTest
+            // 
+            this.btnTest.Font = new System.Drawing.Font("新細明體", 12F);
+            this.btnTest.Location = new System.Drawing.Point(91, 716);
+            this.btnTest.Margin = new System.Windows.Forms.Padding(4);
+            this.btnTest.Name = "btnTest";
+            this.btnTest.Size = new System.Drawing.Size(44, 39);
+            this.btnTest.TabIndex = 30;
+            this.btnTest.Text = "Test";
+            this.btnTest.UseVisualStyleBackColor = true;
+            this.btnTest.Visible = false;
+            this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
+            // 
             // FormReturnedPurchase
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1024, 768);
             this.Controls.Add(this.panelLogin);
@@ -528,9 +564,10 @@
             this.Controls.Add(this.labelTotal);
             this.Controls.Add(this.pictureBoxOrdered);
             this.Controls.Add(this.btnTest);
+            this.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormReturnedPurchase";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "退货操作";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.FormReturnedPurchase_Load);
@@ -569,7 +606,6 @@
         private System.Windows.Forms.Label labelClass;
         private System.Windows.Forms.Label labelTotal;
         private System.Windows.Forms.PictureBox pictureBoxOrdered;
-        private System.Windows.Forms.Button btnTest;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnNumber0;
@@ -589,5 +625,6 @@
         private System.Windows.Forms.TextBox textBoxPassword;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panelLogin;
+        private System.Windows.Forms.Button btnTest;
     }
 }

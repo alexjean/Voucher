@@ -123,7 +123,7 @@
             // 
             // btnDrawerOpenedList
             // 
-            this.btnDrawerOpenedList.Location = new System.Drawing.Point(108, 643);
+            this.btnDrawerOpenedList.Location = new System.Drawing.Point(121, 643);
             this.btnDrawerOpenedList.Name = "btnDrawerOpenedList";
             this.btnDrawerOpenedList.Size = new System.Drawing.Size(88, 56);
             this.btnDrawerOpenedList.TabIndex = 5;
@@ -173,7 +173,7 @@
             // 
             // btnSystemSetup
             // 
-            this.btnSystemSetup.Location = new System.Drawing.Point(108, 712);
+            this.btnSystemSetup.Location = new System.Drawing.Point(121, 712);
             this.btnSystemSetup.Name = "btnSystemSetup";
             this.btnSystemSetup.Size = new System.Drawing.Size(88, 56);
             this.btnSystemSetup.TabIndex = 11;
@@ -195,7 +195,7 @@
             // labelStatics
             // 
             this.labelStatics.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.labelStatics.Location = new System.Drawing.Point(59, 10);
+            this.labelStatics.Location = new System.Drawing.Point(78, 13);
             this.labelStatics.Name = "labelStatics";
             this.labelStatics.Size = new System.Drawing.Size(36, 25);
             this.labelStatics.TabIndex = 13;
@@ -205,7 +205,7 @@
             // 
             this.labelStatics2.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.labelStatics2.ForeColor = System.Drawing.Color.LawnGreen;
-            this.labelStatics2.Location = new System.Drawing.Point(59, 45);
+            this.labelStatics2.Location = new System.Drawing.Point(78, 47);
             this.labelStatics2.Name = "labelStatics2";
             this.labelStatics2.Size = new System.Drawing.Size(36, 25);
             this.labelStatics2.TabIndex = 14;
@@ -215,7 +215,7 @@
             // 
             this.labelStatics1.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.labelStatics1.ForeColor = System.Drawing.Color.Crimson;
-            this.labelStatics1.Location = new System.Drawing.Point(59, 82);
+            this.labelStatics1.Location = new System.Drawing.Point(78, 84);
             this.labelStatics1.Name = "labelStatics1";
             this.labelStatics1.Size = new System.Drawing.Size(36, 25);
             this.labelStatics1.TabIndex = 15;
@@ -225,9 +225,9 @@
             // 
             this.label1.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label1.ForeColor = System.Drawing.Color.Crimson;
-            this.label1.Location = new System.Drawing.Point(92, 82);
+            this.label1.Location = new System.Drawing.Point(112, 84);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(37, 25);
+            this.label1.Size = new System.Drawing.Size(53, 25);
             this.label1.TabIndex = 18;
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -235,26 +235,26 @@
             // 
             this.label2.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label2.ForeColor = System.Drawing.Color.LawnGreen;
-            this.label2.Location = new System.Drawing.Point(92, 45);
+            this.label2.Location = new System.Drawing.Point(112, 47);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(37, 25);
+            this.label2.Size = new System.Drawing.Size(53, 25);
             this.label2.TabIndex = 17;
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label3
             // 
             this.label3.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label3.Location = new System.Drawing.Point(92, 10);
+            this.label3.Location = new System.Drawing.Point(112, 13);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(37, 25);
+            this.label3.Size = new System.Drawing.Size(53, 25);
             this.label3.TabIndex = 16;
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label4
             // 
-            this.label4.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label4.Font = new System.Drawing.Font("新細明體", 9F);
             this.label4.ForeColor = System.Drawing.Color.Crimson;
-            this.label4.Location = new System.Drawing.Point(167, 82);
+            this.label4.Location = new System.Drawing.Point(192, 84);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(26, 25);
             this.label4.TabIndex = 21;
@@ -262,9 +262,9 @@
             // 
             // label5
             // 
-            this.label5.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label5.Font = new System.Drawing.Font("新細明體", 9F);
             this.label5.ForeColor = System.Drawing.Color.LawnGreen;
-            this.label5.Location = new System.Drawing.Point(167, 45);
+            this.label5.Location = new System.Drawing.Point(192, 47);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(26, 25);
             this.label5.TabIndex = 20;
@@ -272,8 +272,8 @@
             // 
             // label6
             // 
-            this.label6.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label6.Location = new System.Drawing.Point(167, 10);
+            this.label6.Font = new System.Drawing.Font("新細明體", 9F);
+            this.label6.Location = new System.Drawing.Point(192, 13);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(26, 25);
             this.label6.TabIndex = 19;
@@ -283,38 +283,38 @@
             // 
             this.label7.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label7.ForeColor = System.Drawing.Color.Crimson;
-            this.label7.Location = new System.Drawing.Point(125, 83);
+            this.label7.Location = new System.Drawing.Point(161, 84);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(46, 25);
+            this.label7.Size = new System.Drawing.Size(37, 25);
             this.label7.TabIndex = 24;
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label8
             // 
             this.label8.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label8.ForeColor = System.Drawing.Color.LawnGreen;
-            this.label8.Location = new System.Drawing.Point(125, 46);
+            this.label8.Location = new System.Drawing.Point(161, 47);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(46, 25);
+            this.label8.Size = new System.Drawing.Size(37, 25);
             this.label8.TabIndex = 23;
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label9
             // 
             this.label9.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label9.Location = new System.Drawing.Point(125, 11);
+            this.label9.Location = new System.Drawing.Point(161, 13);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(46, 25);
+            this.label9.Size = new System.Drawing.Size(37, 25);
             this.label9.TabIndex = 22;
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label10
             // 
             this.label10.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label10.ForeColor = System.Drawing.Color.Crimson;
-            this.label10.Location = new System.Drawing.Point(3, 82);
+            this.label10.Location = new System.Drawing.Point(32, 84);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(50, 25);
+            this.label10.Size = new System.Drawing.Size(42, 25);
             this.label10.TabIndex = 27;
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -322,18 +322,18 @@
             // 
             this.label11.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label11.ForeColor = System.Drawing.Color.LawnGreen;
-            this.label11.Location = new System.Drawing.Point(3, 45);
+            this.label11.Location = new System.Drawing.Point(32, 47);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(50, 25);
+            this.label11.Size = new System.Drawing.Size(42, 25);
             this.label11.TabIndex = 26;
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label12
             // 
             this.label12.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label12.Location = new System.Drawing.Point(3, 10);
+            this.label12.Location = new System.Drawing.Point(32, 13);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(50, 25);
+            this.label12.Size = new System.Drawing.Size(42, 25);
             this.label12.TabIndex = 25;
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 

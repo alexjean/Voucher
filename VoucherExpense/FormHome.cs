@@ -441,5 +441,11 @@ namespace VoucherExpense
         {
             PopupOrRun("FormShrink", typeof(FormShrink));
         }
+
+
+        private void 请款单ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PopupOrRun("FormBillList", typeof(FormBillList));
+        }
     }
 }

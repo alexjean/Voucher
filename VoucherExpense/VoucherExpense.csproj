@@ -135,6 +135,11 @@
       <DependentUpon>BakeryOrderSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="AccTitleList.cs" />
+    <Compile Include="BillDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BillDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Class\BakeryConfig.cs" />
     <Compile Include="EditBakeryMenu.cs">
       <SubType>Form</SubType>
@@ -194,6 +199,18 @@
     </Compile>
     <Compile Include="FormBankDetail.Designer.cs">
       <DependentUpon>FormBankDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormBillList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBillList.Designer.cs">
+      <DependentUpon>FormBillList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormBillPrint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBillPrint.Designer.cs">
+      <DependentUpon>FormBillPrint.cs</DependentUpon>
     </Compile>
     <Compile Include="FormBrowse.cs">
       <SubType>Form</SubType>
@@ -439,6 +456,12 @@
     <EmbeddedResource Include="FormBankDetail.resx">
       <DependentUpon>FormBankDetail.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormBillList.resx">
+      <DependentUpon>FormBillList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBillPrint.resx">
+      <DependentUpon>FormBillPrint.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormBrowse.resx">
       <DependentUpon>FormBrowse.cs</DependentUpon>
     </EmbeddedResource>
@@ -612,6 +635,17 @@
     <None Include="BasicDataSet.xss">
       <DependentUpon>BasicDataSet.xsd</DependentUpon>
     </None>
+    <None Include="BillDataSet.xsc">
+      <DependentUpon>BillDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="BillDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>BillDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="BillDataSet.xss">
+      <DependentUpon>BillDataSet.xsd</DependentUpon>
+    </None>
     <None Include="EmptyBasic.gz" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\DataSources\CLedgerRow.datasource" />
@@ -696,11 +730,15 @@
     <Content Include="BakeryOrder.mdb" />
     <Content Include="BasicData.mdb">
     </Content>
+    <Content Include="Bill.mdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Class\Microsoft.Office.Interop.Excel.dll" />
     <Content Include="iconHeart.ico" />
     <None Include="NavBar_Back.png" />
     <None Include="Resources\LogoVI.jpg" />
     <None Include="Resources\Company_Back.jpg" />
+    <None Include="Resources\请款单.PNG" />
     <Content Include="VoucherExpense.mdb" />
   </ItemGroup>
   <ItemGroup>

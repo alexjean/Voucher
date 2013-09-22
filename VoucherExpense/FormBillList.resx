@@ -117,23 +117,51 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="BakeryOrder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\BakeryOrder.gz;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <metadata name="vEDataSet.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="requestsBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>128, 17</value>
+  </metadata>
+  <metadata name="requestsTableAdapter.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>316, 17</value>
+  </metadata>
+  <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>579, 17</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="toolAdd.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGFSURBVDhPlZK/SwJhGMcPJBpcsi0asylHtxqbixoaGhtq
+        6Q+oJUJIh0DCRQrPwKHFmxxqCYTcKkgOf9ApFUVJJNSdpJnaJ+/M07Moe+DL8bw8z+ee9/0+gvAV6HFz
+        A0qOcu2N9nnfXwPgcsGgneO78/4BRmM7JidhaJjbZr6ZOmDrdJ/xnWkGPBMIG2MsiKs0tHej2pyMTAZm
+        ZlpyOMBmg7l5WFyCswxT0grC+ijC2gize8t8lGrm/wwIJyc67mft7nH7+sRl8bqpKy4UmcL9A/V63ZRA
+        owGVSktuN9jtUK1abtZO1GeVZDJJOp021bmKXuV0GpO8lEocHh1RKBR+BHUfWgGhEGxv81gsEgwGyefz
+        /QMs+/BnW6fg25709kYiETweDz6fz5TX66VcLlvt7J1AVVUURWm6nCGVSn2T7oRlH3oBsizj9/sJh8OI
+        omhKzwOBwN8T6PRsNks0GiUWi5mSJKnpcsfmX98gl8sRj8dJJBKm9FzTNOs2dlP+YcDvb9Av6BNyQKCK
+        7qzdXgAAAABJRU5ErkJggg==
+</value>
   </data>
-  <data name="NavBar_Back" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\NavBar_Back.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="toolAmend.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACJSURBVDhPzVNbDsAgCPPw3psJ0qw+QJP9jIT4gtqClvIn
+        k0Ym8iNPESnN1dbRgUOQNBmgGYjRvmCgcVuz5EQ/n0cAe+1cE0iotQocaBP9LocDee6VtkH3FWSpvh5E
+        NjEAwAuC5IiB34qamYqBga6zZGZHEhgk78hOgrO4fonc8qGtn/7C8bNEAQ8yBolSCnBA+QAAAABJRU5E
+        rkJggg==
+</value>
   </data>
-  <data name="VoucherExpense" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\VoucherExpense.gz;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="LogoVI" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\LogoVI.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="EmptyBasic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\EmptyBasic.gz;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="请款单" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\请款单.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="toolExit.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFQSURBVFhHvZeLDoMwCEX36f65GxUqRV6VdiZOsyj3CBTo
+        5zN3nL/HK+ecmvL0eRxH+gRYOOAX7uHdKsE78Uv4fwDDl4N4EYBiDt4LPaCKlwHQQARgipcBIImYES0R
+        XfElAAFEW56U8RR3fi0k4W3YgagAxIWlrWZczwZEDYAbd+49iCUA+KHhZYj1HdvXOTDGOOmNtirG7C4A
+        aFnL/5NQQhxrfAEg6nAyAZWa8MgBsrmkFMv1rZTkAYC6IEAsA1DcziuiBOhhWQIQiKs5sDQEiWZUqQPR
+        kJJqx7sBCNKcB3YCcA/5fWNTNxwBrEq5sR1vB4jbMa+UBQ8YewrYaMDc7pxtrqf53ro6E1H7AM1+2+QE
+        ACnxa+OhjmSu/QggK447nwdA9HFXaA0PTIkrHgjF8R0VYFZceiAlbgG8Eu/GcEUFSd0TsoegtOWeW8Zi
+        +PkCHVUUCUV2KrYAAAAASUVORK5CYII=
+</value>
   </data>
 </root>

@@ -135,11 +135,6 @@
       <DependentUpon>BakeryOrderSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="AccTitleList.cs" />
-    <Compile Include="BillDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BillDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Class\BakeryConfig.cs" />
     <Compile Include="EditBakeryMenu.cs">
       <SubType>Form</SubType>
@@ -635,17 +630,6 @@
     <None Include="BasicDataSet.xss">
       <DependentUpon>BasicDataSet.xsd</DependentUpon>
     </None>
-    <None Include="BillDataSet.xsc">
-      <DependentUpon>BillDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="BillDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>BillDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="BillDataSet.xss">
-      <DependentUpon>BillDataSet.xsd</DependentUpon>
-    </None>
     <None Include="EmptyBasic.gz" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\DataSources\CLedgerRow.datasource" />
@@ -729,9 +713,6 @@
   <ItemGroup>
     <Content Include="BakeryOrder.mdb" />
     <Content Include="BasicData.mdb">
-    </Content>
-    <Content Include="Bill.mdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Class\Microsoft.Office.Interop.Excel.dll" />
     <Content Include="iconHeart.ico" />

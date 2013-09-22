@@ -129,6 +129,9 @@ namespace VoucherExpense
             foreach (VEDataSet.BankAccountRow r in vEDataSet.BankAccount)
                 cbSelectBank.Items.Add(r.ShowName);
 
+            // 資料準備好,再加上EventHandler
+            this.cbSelectBank.SelectedIndexChanged += new System.EventHandler(this.cbSelectBank_SelectedIndexChanged);
+
             if (cbSelectBank.Items.Count > 1)
                 cbSelectBank.SelectedIndex = 1;
 
@@ -581,8 +584,16 @@ namespace VoucherExpense
             try                                         // 把資料抓出來, 重設AccTitleFilter
             {                                           // 因為若TitleCodeComboBox.items沒有相對應資料,SelectedValue會是null 
                 DataRowView rv = (DataRowView)expenseBindingSource.Current;
+                if (rv == null || rv.Row == null)
+                {
+                    checkBoxAllAccTitle.Enabled = false;
+                    return;
+                }
+                else
+                    checkBoxAllAccTitle.Enabled = true;
                 VEDataSet.ExpenseRow row = (VEDataSet.ExpenseRow)rv.Row;
-                string code = row.TitleCode;
+                string code=null;
+                if (!row.IsTitleCodeNull())  code = row.TitleCode;
                 if (checkBoxAllAccTitle.Checked)
                     m_OldFilter =m_OldCode = null;
                 else

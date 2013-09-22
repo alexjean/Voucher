@@ -739,6 +739,7 @@
     <None Include="Resources\LogoVI.jpg" />
     <None Include="Resources\Company_Back.jpg" />
     <None Include="Resources\请款单.PNG" />
+    <None Include="Resources\Requests.PNG" />
     <Content Include="VoucherExpense.mdb" />
   </ItemGroup>
   <ItemGroup>

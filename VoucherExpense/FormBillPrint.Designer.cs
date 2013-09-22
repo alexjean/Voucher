@@ -56,9 +56,6 @@
             // 
             // toolStrip1
             // 
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButtonPrint,
-            this.toolStripButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
@@ -90,7 +87,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackgroundImage = global::VoucherExpense.Properties.Resources.请款单;
+            this.panel1.BackgroundImage = global::VoucherExpense.Properties.Resources.Requests;
             this.panel1.Controls.Add(this.dateTimePicker2);
             this.panel1.Controls.Add(this.dateTimePicker1);
             this.panel1.Controls.Add(this.txbListNum);

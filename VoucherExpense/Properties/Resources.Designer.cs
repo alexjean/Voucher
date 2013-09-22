@@ -88,17 +88,17 @@ namespace VoucherExpense.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Requests {
+            get {
+                object obj = ResourceManager.GetObject("Requests", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static byte[] VoucherExpense {
             get {
                 object obj = ResourceManager.GetObject("VoucherExpense", resourceCulture);
                 return ((byte[])(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap 请款单 {
-            get {
-                object obj = ResourceManager.GetObject("请款单", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

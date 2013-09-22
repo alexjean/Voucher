@@ -151,7 +151,7 @@ namespace VoucherExpense
             bool modified = MyFunction.GetThenResetGlobalFlag(GlobalFlag.employeeModified);
             if (modified) CloseOpenedMenu("Expense");
             if (!PopupMenu("Expense"))
-                 Run("Expense", new Expense(false,true));
+                 Run("Expense", new Expense(false,false));   
         }
 
         private void 進貨MenuItem_Click(object sender, EventArgs e)

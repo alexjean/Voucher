@@ -497,16 +497,18 @@ namespace VoucherExpense
                         double vol=(double)d.Volume;
                         de1.CurrentIn+=vol;
                         CalcInventory inv = dicCalcStock[de1.IngredientID];
-                        inv.CurrInMoney += d.Cost;
+                        decimal dCost = 0;
+                        if (!d.IsCostNull()) dCost = d.Cost;
+                        inv.CurrInMoney += dCost;
                         // 算出相對應庫存的成本
                         if (inv.StockVolume >= vol)
                         {
-                            de1.StockMoney += d.Cost;
+                            de1.StockMoney += dCost;
                             inv.StockVolume-= vol;
                         }
                         else if (inv.StockVolume>0)
                         {
-                            de1.StockMoney += (d.Cost / (decimal)vol * (decimal)inv.StockVolume);   // 小於
+                            de1.StockMoney += (dCost / (decimal)vol * (decimal)inv.StockVolume);   // 小於
                             inv.StockVolume = 0;
                         }
                     }
@@ -532,9 +534,10 @@ namespace VoucherExpense
                     foreach (VEDataSet.InventoryDetailRow d in details)
                     {
                         d.PrevStockVolume = 0;
-                        CalcInventory inv = dicCalcStock[d.IngredientID];
+                        int dIngredientID = d.IngredientID;
+                        CalcInventory inv = dicCalcStock[dIngredientID];
                         double remainStock = inv.StockVolume;
-                        var ds = from r in prevDetails where r.IngredientID == d.IngredientID select r;
+                        var ds = from r in prevDetails where r.IngredientID == dIngredientID select r;
                         if (ds.Count() <= 0)
                         {
                             if (remainStock > 0)
@@ -542,10 +545,6 @@ namespace VoucherExpense
                             continue;
                         }
                         var p = ds.First();
-                        if (!p.IsStockMoneyNull())
-                            d.LostMoney = inv.CurrInMoney + p.StockMoney-d.StockMoney ;
-                        else
-                            d.LostMoney = inv.CurrInMoney- d.StockMoney;
                         if (!p.IsAreaCodeNull())   
                         {
                             if (d.IsAreaCodeNull() || d.AreaCode.Trim().Count() == 0) // 沒有位置資料才從前期代入
@@ -561,7 +560,7 @@ namespace VoucherExpense
                                     if (remainStock > p.StockVolume)
                                     {
                                         d.StockMoney += p.StockMoney;
-                                        var ings = from r in vEDataSet.Ingredient where r.IngredientID == p.IngredientID select r;
+                                        var ings = from r in vEDataSet.Ingredient where r.IngredientID == dIngredientID select r;
                                         if (ings.Count() > 0)
                                         {
                                             VEDataSet.IngredientRow ing = ings.First();
@@ -580,6 +579,12 @@ namespace VoucherExpense
                             if (remainStock > 0)
                                 RemainStockWarning(d, remainStock);
                         }
+                        // 計算損失金額, 必需在RemainStock計算完之後d.StockMoney才有值
+                        if (!p.IsStockMoneyNull())
+                            d.LostMoney = inv.CurrInMoney + p.StockMoney - d.StockMoney;
+                        else
+                            d.LostMoney = inv.CurrInMoney - d.StockMoney;
+
                     }
                     // 找出前期產品庫存值代入 
                     var prevProducts = prev.GetInventoryProductsRows();

@@ -42,10 +42,10 @@
             System.Windows.Forms.Label label1;
             System.Windows.Forms.Label label2;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Expense));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
             this.idLabel = new System.Windows.Forms.Label();
             this.labelCredit = new System.Windows.Forms.Label();
             this.expenseBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
@@ -347,18 +347,18 @@
             this.expenseDataGridView.AllowUserToAddRows = false;
             this.expenseDataGridView.AllowUserToDeleteRows = false;
             this.expenseDataGridView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
-            this.expenseDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle17.BackColor = System.Drawing.Color.Azure;
+            this.expenseDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle17;
             this.expenseDataGridView.AutoGenerateColumns = false;
             this.expenseDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.expenseDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.expenseDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle18;
             this.expenseDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.expenseDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.columnID,
@@ -408,10 +408,10 @@
             // ApplyTime
             // 
             this.ApplyTime.DataPropertyName = "ApplyTime";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "M/dd";
-            dataGridViewCellStyle3.NullValue = null;
-            this.ApplyTime.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle19.Format = "M/dd";
+            dataGridViewCellStyle19.NullValue = null;
+            this.ApplyTime.DefaultCellStyle = dataGridViewCellStyle19;
             this.ApplyTime.HeaderText = "日期";
             this.ApplyTime.Name = "ApplyTime";
             this.ApplyTime.ReadOnly = true;
@@ -456,10 +456,10 @@
             // columnMoney
             // 
             this.columnMoney.DataPropertyName = "Money";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.Format = "N2";
-            dataGridViewCellStyle4.NullValue = null;
-            this.columnMoney.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle20.Format = "N2";
+            dataGridViewCellStyle20.NullValue = null;
+            this.columnMoney.DefaultCellStyle = dataGridViewCellStyle20;
             this.columnMoney.HeaderText = "金額";
             this.columnMoney.Name = "columnMoney";
             this.columnMoney.ReadOnly = true;
@@ -796,14 +796,12 @@
             // 
             // cbSelectBank
             // 
-            this.cbSelectBank.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
             this.cbSelectBank.Enabled = false;
             this.cbSelectBank.FormattingEnabled = true;
             this.cbSelectBank.Location = new System.Drawing.Point(631, 3);
             this.cbSelectBank.Name = "cbSelectBank";
             this.cbSelectBank.Size = new System.Drawing.Size(72, 24);
             this.cbSelectBank.TabIndex = 61;
-            this.cbSelectBank.SelectedIndexChanged += new System.EventHandler(this.cbSelectBank_SelectedIndexChanged);
             // 
             // comboBoxCredit
             // 
@@ -829,11 +827,11 @@
             // checkBoxAllAccTitle
             // 
             this.checkBoxAllAccTitle.AutoSize = true;
-            this.checkBoxAllAccTitle.Location = new System.Drawing.Point(727, 384);
+            this.checkBoxAllAccTitle.Location = new System.Drawing.Point(871, 356);
             this.checkBoxAllAccTitle.Name = "checkBoxAllAccTitle";
-            this.checkBoxAllAccTitle.Size = new System.Drawing.Size(91, 20);
+            this.checkBoxAllAccTitle.Size = new System.Drawing.Size(75, 20);
             this.checkBoxAllAccTitle.TabIndex = 64;
-            this.checkBoxAllAccTitle.Text = "全部科目";
+            this.checkBoxAllAccTitle.Text = "全科目";
             this.checkBoxAllAccTitle.UseVisualStyleBackColor = true;
             this.checkBoxAllAccTitle.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 

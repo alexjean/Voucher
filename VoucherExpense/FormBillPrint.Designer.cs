@@ -104,8 +104,7 @@
             this.panel1.Controls.Add(this.txbRequestsUse);
             this.panel1.Controls.Add(this.txbApplicant);
             this.panel1.Controls.Add(this.txbDepartment);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 25);
+            this.panel1.Location = new System.Drawing.Point(0, 29);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(795, 425);

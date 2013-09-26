@@ -68,7 +68,7 @@
             this.defaultAssetComboBox = new System.Windows.Forms.ComboBox();
             this.asset2BindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.ownersEquityComboBox = new System.Windows.Forms.ComboBox();
-            this.liability1BindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.ownersEquityBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.voucherShouldPayComboBox = new System.Windows.Forms.ComboBox();
             this.liabilityTitleBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -97,7 +97,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.income2BindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.liability2BindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.asset2BindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.liability1BindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ownersEquityBindingSource)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.liabilityTitleBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -190,7 +190,7 @@
             ownersEquityLabel.Name = "ownersEquityLabel";
             ownersEquityLabel.Size = new System.Drawing.Size(76, 16);
             ownersEquityLabel.TabIndex = 19;
-            ownersEquityLabel.Text = "股東往來:";
+            ownersEquityLabel.Text = "股東權益:";
             // 
             // voucherShouldPayLabel
             // 
@@ -224,8 +224,6 @@
             "",
             "　本設定為計算損益表及資產負債表時使用之會計科目",
             "",
-            "　股東往來本系統列為負債",
-            "",
             "　為避免銀行帳目消失在某月虛科目上,",
             "　<銀行存款X>傳票二方均規定為實科目.  ",
             "　借貸一方必為銀行存款,另一方只能是資產或負債",
@@ -254,7 +252,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(172, 546);
+            this.btnSave.Location = new System.Drawing.Point(172, 547);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 24;
@@ -355,7 +353,7 @@
             this.groupBox1.Controls.Add(this.cashReceivableComboBox);
             this.groupBox1.Controls.Add(cashIncomeLabel);
             this.groupBox1.Controls.Add(creditIncomeLabel);
-            this.groupBox1.Location = new System.Drawing.Point(43, 252);
+            this.groupBox1.Location = new System.Drawing.Point(43, 253);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(327, 202);
             this.groupBox1.TabIndex = 29;
@@ -483,8 +481,8 @@
             // 
             // ownersEquityComboBox
             // 
-            this.ownersEquityComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.titleSetupBindingSource, "OwnersEquity", true));
-            this.ownersEquityComboBox.DataSource = this.liability1BindingSource;
+            this.ownersEquityComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.titleSetupBindingSource, "DefaultOwnersEquity", true));
+            this.ownersEquityComboBox.DataSource = this.ownersEquityBindingSource;
             this.ownersEquityComboBox.DisplayMember = "Name";
             this.ownersEquityComboBox.FormattingEnabled = true;
             this.ownersEquityComboBox.Location = new System.Drawing.Point(179, 195);
@@ -493,17 +491,17 @@
             this.ownersEquityComboBox.TabIndex = 20;
             this.ownersEquityComboBox.ValueMember = "TitleCode";
             // 
-            // liability1BindingSource
+            // ownersEquityBindingSource
             // 
-            this.liability1BindingSource.DataMember = "AccountingTitle";
-            this.liability1BindingSource.DataSource = this.vEDataSet;
-            this.liability1BindingSource.Filter = "TitleCode like \'2*\'";
+            this.ownersEquityBindingSource.DataMember = "AccountingTitle";
+            this.ownersEquityBindingSource.DataSource = this.vEDataSet;
+            this.ownersEquityBindingSource.Filter = "TitleCode like \'3*\'";
             // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.voucherShouldPayComboBox);
             this.groupBox3.Controls.Add(voucherShouldPayLabel);
-            this.groupBox3.Location = new System.Drawing.Point(43, 470);
+            this.groupBox3.Location = new System.Drawing.Point(43, 471);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(327, 70);
             this.groupBox3.TabIndex = 31;
@@ -533,7 +531,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(831, 604);
+            this.ClientSize = new System.Drawing.Size(831, 635);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.groupBox1);
@@ -559,7 +557,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.income2BindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.liability2BindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.asset2BindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.liability1BindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ownersEquityBindingSource)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.liabilityTitleBindingSource)).EndInit();
@@ -588,7 +586,7 @@
         private System.Windows.Forms.ComboBox voucherShouldPayComboBox;
         private System.Windows.Forms.BindingSource liabilityTitleBindingSource;
         private System.Windows.Forms.ComboBox ownersEquityComboBox;
-        private System.Windows.Forms.BindingSource liability1BindingSource;
+        private System.Windows.Forms.BindingSource ownersEquityBindingSource;
         private System.Windows.Forms.ComboBox defaultIncomeComboBox;
         private System.Windows.Forms.ComboBox defualtLiabilityComboBox;
         private System.Windows.Forms.BindingSource liability2BindingSource;

@@ -35,6 +35,12 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cLedgerTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cLedgerTableDataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnDebt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCredit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Sum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.OthersideAccTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.comboBoxMonth = new System.Windows.Forms.ComboBox();
             this.vEDataSet = new VoucherExpense.VEDataSet();
             this.accountingTitleBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -51,12 +57,6 @@
             this.vendorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.VendorTableAdapter();
             this.ingredientTableAdapter = new VoucherExpense.VEDataSetTableAdapters.IngredientTableAdapter();
             this.btnExport2Excel = new System.Windows.Forms.Button();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnDebt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCredit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Sum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.OthersideAccTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.cLedgerTableBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cLedgerTableDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
@@ -95,121 +95,6 @@
             this.cLedgerTableDataGridView.Size = new System.Drawing.Size(950, 610);
             this.cLedgerTableDataGridView.TabIndex = 1;
             this.cLedgerTableDataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.cLedgerTableDataGridView_CellFormatting);
-            // 
-            // comboBoxMonth
-            // 
-            this.comboBoxMonth.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.comboBoxMonth.DropDownHeight = 216;
-            this.comboBoxMonth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxMonth.FormattingEnabled = true;
-            this.comboBoxMonth.IntegralHeight = false;
-            this.comboBoxMonth.Items.AddRange(new object[] {
-            "全年",
-            "一月",
-            "二月",
-            "三月",
-            "四月",
-            "五月",
-            "六月",
-            "七月",
-            "八月",
-            "九月",
-            "十月",
-            "十一月",
-            "十二月"});
-            this.comboBoxMonth.Location = new System.Drawing.Point(26, 1);
-            this.comboBoxMonth.Name = "comboBoxMonth";
-            this.comboBoxMonth.Size = new System.Drawing.Size(71, 24);
-            this.comboBoxMonth.TabIndex = 55;
-            this.comboBoxMonth.SelectedIndexChanged += new System.EventHandler(this.comboBoxMonth_SelectedIndexChanged);
-            // 
-            // vEDataSet
-            // 
-            this.vEDataSet.DataSetName = "VEDataSet";
-            this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // accountingTitleBindingSource
-            // 
-            this.accountingTitleBindingSource.DataMember = "AccountingTitle";
-            this.accountingTitleBindingSource.DataSource = this.vEDataSet;
-            // 
-            // accountingTitleTableAdapter
-            // 
-            this.accountingTitleTableAdapter.ClearBeforeFill = true;
-            // 
-            // comboBoxAccTitle
-            // 
-            this.comboBoxAccTitle.DataSource = this.accountingTitleBindingSource;
-            this.comboBoxAccTitle.DisplayMember = "Name";
-            this.comboBoxAccTitle.FormattingEnabled = true;
-            this.comboBoxAccTitle.Location = new System.Drawing.Point(115, 1);
-            this.comboBoxAccTitle.Name = "comboBoxAccTitle";
-            this.comboBoxAccTitle.Size = new System.Drawing.Size(109, 24);
-            this.comboBoxAccTitle.TabIndex = 56;
-            this.comboBoxAccTitle.ValueMember = "TitleCode";
-            this.comboBoxAccTitle.SelectedIndexChanged += new System.EventHandler(this.comboBoxAccTitle_SelectedIndexChanged);
-            // 
-            // bankAccountTableAdapter
-            // 
-            this.bankAccountTableAdapter.ClearBeforeFill = true;
-            // 
-            // labelMessage
-            // 
-            this.labelMessage.Location = new System.Drawing.Point(230, 0);
-            this.labelMessage.Name = "labelMessage";
-            this.labelMessage.Size = new System.Drawing.Size(195, 24);
-            this.labelMessage.TabIndex = 81;
-            this.labelMessage.Text = "請選擇 月份 科目";
-            this.labelMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // expenseTableAdapter
-            // 
-            this.expenseTableAdapter.ClearBeforeFill = true;
-            // 
-            // voucherTableAdapter
-            // 
-            this.voucherTableAdapter.ClearBeforeFill = true;
-            // 
-            // voucherDetailTableAdapter
-            // 
-            this.voucherDetailTableAdapter.ClearBeforeFill = true;
-            // 
-            // bankDetailTableAdapter
-            // 
-            this.bankDetailTableAdapter.ClearBeforeFill = true;
-            // 
-            // accVoucherTableAdapter
-            // 
-            this.accVoucherTableAdapter.ClearBeforeFill = true;
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar1.Location = new System.Drawing.Point(0, 605);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(950, 23);
-            this.progressBar1.TabIndex = 82;
-            this.progressBar1.Visible = false;
-            // 
-            // vendorTableAdapter
-            // 
-            this.vendorTableAdapter.ClearBeforeFill = true;
-            // 
-            // ingredientTableAdapter
-            // 
-            this.ingredientTableAdapter.ClearBeforeFill = true;
-            // 
-            // btnExport2Excel
-            // 
-            this.btnExport2Excel.BackgroundImage = global::VoucherExpense.Properties.Resources.NavBar_Back;
-            this.btnExport2Excel.Location = new System.Drawing.Point(850, 1);
-            this.btnExport2Excel.Name = "btnExport2Excel";
-            this.btnExport2Excel.Size = new System.Drawing.Size(75, 24);
-            this.btnExport2Excel.TabIndex = 83;
-            this.btnExport2Excel.Text = "轉Excel";
-            this.btnExport2Excel.UseVisualStyleBackColor = true;
-            this.btnExport2Excel.Click += new System.EventHandler(this.btnExport2Excel_Click);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -265,6 +150,121 @@
             this.OthersideAccTitle.Name = "OthersideAccTitle";
             this.OthersideAccTitle.ReadOnly = true;
             this.OthersideAccTitle.Width = 200;
+            // 
+            // comboBoxMonth
+            // 
+            this.comboBoxMonth.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.comboBoxMonth.DropDownHeight = 216;
+            this.comboBoxMonth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxMonth.FormattingEnabled = true;
+            this.comboBoxMonth.IntegralHeight = false;
+            this.comboBoxMonth.Items.AddRange(new object[] {
+            "全年",
+            "一月",
+            "二月",
+            "三月",
+            "四月",
+            "五月",
+            "六月",
+            "七月",
+            "八月",
+            "九月",
+            "十月",
+            "十一月",
+            "十二月"});
+            this.comboBoxMonth.Location = new System.Drawing.Point(26, 1);
+            this.comboBoxMonth.Name = "comboBoxMonth";
+            this.comboBoxMonth.Size = new System.Drawing.Size(71, 24);
+            this.comboBoxMonth.TabIndex = 55;
+            this.comboBoxMonth.SelectedIndexChanged += new System.EventHandler(this.comboBoxMonth_SelectedIndexChanged);
+            // 
+            // vEDataSet
+            // 
+            this.vEDataSet.DataSetName = "VEDataSet";
+            this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // accountingTitleBindingSource
+            // 
+            this.accountingTitleBindingSource.DataMember = "AccountingTitle";
+            this.accountingTitleBindingSource.DataSource = this.vEDataSet;
+            // 
+            // accountingTitleTableAdapter
+            // 
+            this.accountingTitleTableAdapter.ClearBeforeFill = true;
+            // 
+            // comboBoxAccTitle
+            // 
+            this.comboBoxAccTitle.DataSource = this.accountingTitleBindingSource;
+            this.comboBoxAccTitle.DisplayMember = "Name";
+            this.comboBoxAccTitle.FormattingEnabled = true;
+            this.comboBoxAccTitle.Location = new System.Drawing.Point(115, 1);
+            this.comboBoxAccTitle.Name = "comboBoxAccTitle";
+            this.comboBoxAccTitle.Size = new System.Drawing.Size(138, 24);
+            this.comboBoxAccTitle.TabIndex = 56;
+            this.comboBoxAccTitle.ValueMember = "TitleCode";
+            this.comboBoxAccTitle.SelectedIndexChanged += new System.EventHandler(this.comboBoxAccTitle_SelectedIndexChanged);
+            // 
+            // bankAccountTableAdapter
+            // 
+            this.bankAccountTableAdapter.ClearBeforeFill = true;
+            // 
+            // labelMessage
+            // 
+            this.labelMessage.Location = new System.Drawing.Point(259, 1);
+            this.labelMessage.Name = "labelMessage";
+            this.labelMessage.Size = new System.Drawing.Size(195, 24);
+            this.labelMessage.TabIndex = 81;
+            this.labelMessage.Text = "請選擇 月份 科目";
+            this.labelMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // expenseTableAdapter
+            // 
+            this.expenseTableAdapter.ClearBeforeFill = true;
+            // 
+            // voucherTableAdapter
+            // 
+            this.voucherTableAdapter.ClearBeforeFill = true;
+            // 
+            // voucherDetailTableAdapter
+            // 
+            this.voucherDetailTableAdapter.ClearBeforeFill = true;
+            // 
+            // bankDetailTableAdapter
+            // 
+            this.bankDetailTableAdapter.ClearBeforeFill = true;
+            // 
+            // accVoucherTableAdapter
+            // 
+            this.accVoucherTableAdapter.ClearBeforeFill = true;
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBar1.Location = new System.Drawing.Point(0, 605);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(950, 23);
+            this.progressBar1.TabIndex = 82;
+            this.progressBar1.Visible = false;
+            // 
+            // vendorTableAdapter
+            // 
+            this.vendorTableAdapter.ClearBeforeFill = true;
+            // 
+            // ingredientTableAdapter
+            // 
+            this.ingredientTableAdapter.ClearBeforeFill = true;
+            // 
+            // btnExport2Excel
+            // 
+            this.btnExport2Excel.BackgroundImage = global::VoucherExpense.Properties.Resources.NavBar_Back;
+            this.btnExport2Excel.Location = new System.Drawing.Point(850, 1);
+            this.btnExport2Excel.Name = "btnExport2Excel";
+            this.btnExport2Excel.Size = new System.Drawing.Size(75, 24);
+            this.btnExport2Excel.TabIndex = 83;
+            this.btnExport2Excel.Text = "轉Excel";
+            this.btnExport2Excel.UseVisualStyleBackColor = true;
+            this.btnExport2Excel.Click += new System.EventHandler(this.btnExport2Excel_Click);
             // 
             // FormLedger
             // 

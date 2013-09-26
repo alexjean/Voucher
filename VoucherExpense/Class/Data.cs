@@ -137,6 +137,7 @@ namespace VoucherExpense
     {
         public string DefaultAsset      { get; set; }
         public string DefualtLiability  { get; set; }
+        public string DefaultOwnersEquity { get; set; }
         public string DefaultIncome     { get; set; }
         public string DefaultCost       { get; set; }
         public string DefaultExpense    { get; set; }
@@ -145,7 +146,7 @@ namespace VoucherExpense
         public string CreditIncome      { get; set; }
         public string CashReceivable    { get; set; }
         public string CreditReceivable  { get; set; }
-        public string OwnersEquity      { get; set; }
+//        public string OwnersEquity      { get; set; }
         private decimal feeRate;
         public decimal FeeRate() { return feeRate; }
         public string CreditFeeRate     
@@ -167,6 +168,7 @@ namespace VoucherExpense
         {
             DefaultAsset    ="100";
             DefualtLiability="200";
+            DefaultOwnersEquity = "300";
             DefaultIncome   ="400";
             DefaultCost     ="500";
             DefaultExpense  ="600";
@@ -175,7 +177,7 @@ namespace VoucherExpense
             CreditIncome    ="404";
             CashReceivable  ="1030";
             CreditReceivable="1040";
-            OwnersEquity    ="210";
+//            OwnersEquity    ="210";
             CreditFeeRate   = "1.8";
         }
 
@@ -198,6 +200,7 @@ namespace VoucherExpense
             string str = "";
             if (DoSetup(root, "DefaultAsset"    , ref str)) DefaultAsset = str;
             if (DoSetup(root, "DefaultLiability", ref str)) DefualtLiability = str;
+            if (DoSetup(root, "DefaultOwnersEquity", ref str)) DefaultOwnersEquity = str;
             if (DoSetup(root, "DefaultIncome"   , ref str)) DefaultIncome = str;
             if (DoSetup(root, "DefaultCost"     , ref str)) DefaultCost = str;
             if (DoSetup(root, "DefaultExpense"  , ref str)) DefaultExpense = str;
@@ -206,7 +209,7 @@ namespace VoucherExpense
             if (DoSetup(root, "CreditIncome"    , ref str)) CreditIncome = str;
             if (DoSetup(root, "CreditReceivable", ref str)) CreditReceivable = str;
             if (DoSetup(root, "VoucherShouldPay", ref str)) VoucherShouldPay = str;
-            if (DoSetup(root, "OwnersEquity"    , ref str)) OwnersEquity = str;
+//            if (DoSetup(root, "OwnersEquity"    , ref str)) OwnersEquity = str;
             if (DoSetup(root, "CreditFeeRate"   , ref str)) CreditFeeRate = str;
             
         }
@@ -221,6 +224,7 @@ namespace VoucherExpense
             string content="<"+ConfigName+" Name=\""+TableName+"\">";
             content += AddSetup("DefaultAsset"      , DefaultAsset        );
             content += AddSetup("DefaultLiability"  , DefualtLiability    );
+            content += AddSetup("DefaultOwnersEquity", DefaultOwnersEquity);
             content += AddSetup("DefaultIncome"     , DefaultIncome       );
             content += AddSetup("DefaultCost"       , DefaultCost         );
             content += AddSetup("DefaultExpense"    , DefaultExpense      );
@@ -229,7 +233,7 @@ namespace VoucherExpense
             content += AddSetup("CreditIncome"      , CreditIncome        );
             content += AddSetup("CreditReceivable"  , CreditReceivable    );
             content += AddSetup("VoucherShouldPay"  , VoucherShouldPay    );
-            content += AddSetup("OwnersEquity"      , OwnersEquity        );
+//            content += AddSetup("OwnersEquity"      , OwnersEquity        );
             content += AddSetup("CreditFeeRate"     , CreditFeeRate       );
             content += "</" + ConfigName + ">";
             if (Cfg.Save(ConfigName, TableName, content)) return true;

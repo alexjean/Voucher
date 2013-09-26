@@ -37,7 +37,7 @@ namespace VoucherExpense
         {
             NewList = new AccTitleList();
             NewList.CopyTableFrom(AccList1);
-            NewList.SetDefaultTitle(Setup.DefaultAsset, Setup.DefualtLiability, Setup.DefaultIncome, Setup.DefaultCost, Setup.DefaultExpense);
+            NewList.SetDefaultTitle(Setup.DefaultAsset, Setup.DefualtLiability, Setup.DefaultIncome, Setup.DefaultCost, Setup.DefaultExpense,Setup.DefaultOwnersEquity);
             foreach (KeyValuePair<int,BankDefault> pair in BankDictionary)
             {
                 BankDefault bank=pair.Value;
@@ -278,6 +278,7 @@ namespace VoucherExpense
             decimal sumRevenue   = SumMarkPercentAndSort(NewList.Revenues);
             decimal sumAsset     = SumMarkPercentAndSort(NewList.Assets);
             decimal sumLiability = SumMarkPercentAndSort(NewList.Liabilitys);
+            decimal sumOwnersEquity = SumMarkPercentAndSort(NewList.OwnersEquity);
 
             labelExpenseSum.Text = sumExpense.ToString("N1");
             labelCostSum.Text    = sumCost.ToString("N1");
@@ -286,13 +287,14 @@ namespace VoucherExpense
             labelAsset.Text      = sumAsset.ToString("N1");
             labelLiability.Text  = sumLiability.ToString("N1");
             labelEquity.Text     = (sumAsset - sumLiability).ToString("N1");
+            labelOwnersEquity.Text = sumOwnersEquity.ToString("N1");
 
-            AccTitle ownersEquity = AccTitleList.Find(Setup.OwnersEquity, NewList.Liabilitys, null);
-            if (ownersEquity != null)
-            {
-                labelLiability1.Text = (sumLiability - ownersEquity.Money).ToString("N1");
-                labelEquity1.Text = (sumAsset - sumLiability + ownersEquity.Money).ToString("N1");
-            }
+            //AccTitle ownersEquity = AccTitleList.Find(Setup.OwnersEquity, NewList.Liabilitys, null);
+            //if (ownersEquity != null)
+            //{
+            //    labelLiability1.Text = (sumLiability - ownersEquity.Money).ToString("N1");
+            //    labelOwnersEquity.Text = (sumAsset - sumLiability + ownersEquity.Money).ToString("N1");
+//            }
 
             // 設定月對照表
             if (mon!=0)
@@ -376,7 +378,7 @@ namespace VoucherExpense
             }
             MonthBalances[12].Month = 0;   // 第13月統計用
             cMonthBalanceBindingSource.DataSource = MonthBalances;
-            string[] Name = new string[5] { "資產", "負債", "收入", "成本", "費用" };
+            string[] Name = new string[6] { "資產", "負債", "收入", "成本", "費用" ,"股東權益"};
             comboBox1.Items.Clear();
             comboBox2.Items.Clear();
             foreach (string str in Name)
@@ -614,8 +616,8 @@ namespace VoucherExpense
             PrintOneTable("        負債總計    " + labelLiability.Text, this.dataGridView2, height, x, y, 10);
 
             y = inner.Top+height*38;
-            m_Graphics.DrawString("不計股東往來負債總計    " + labelLiability1.Text, m_Font, m_Brush, new PointF(x, y));
-            m_Graphics.DrawString("      股東權益          " + labelEquity1.Text, m_Font, m_Brush, new PointF(inner.Left, y));
+//            m_Graphics.DrawString("不計股東往來負債總計    " + labelLiability1.Text, m_Font, m_Brush, new PointF(x, y));
+            m_Graphics.DrawString("      股東權益          " + labelOwnersEquity.Text, m_Font, m_Brush, new PointF(inner.Left, y));
             m_Graphics.DrawString("      當期損益          " + labelBalance.Text, m_Font, m_Brush, new PointF(x, inner.Top+height*2));
 
             dataGridView2.DataSource = save;
@@ -696,5 +698,7 @@ namespace VoucherExpense
                 dataGridView3.Visible = false;
             }
         }
+
+  
     }
 }

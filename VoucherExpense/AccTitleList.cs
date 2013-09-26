@@ -7,18 +7,21 @@ namespace VoucherExpense
 {
     class AccTitleList
     {
-        public List<AccTitle> Assets;       // 會計科目1字頭 資產
-        public List<AccTitle> Liabilitys;   // 會計科目2字頭 負債
-        public List<AccTitle> Revenues;     // 會計科目4字頭 營收
-        public List<AccTitle> Costs;        // 會計科目5字頭 成本
-        public List<AccTitle> Expenses;     // 會計科目6字頭 費用
+        public List<AccTitle> Assets;        // 會計科目1字頭 資產
+        public List<AccTitle> Liabilitys;    // 會計科目2字頭 負債
+        public List<AccTitle> OwnersEquity;  // 會計科目3字頭 股東權益
+        public List<AccTitle> Revenues;      // 會計科目4字頭 營收
+        public List<AccTitle> Costs;         // 會計科目5字頭 成本
+        public List<AccTitle> Expenses;      // 會計科目6字頭 費用
         public AccTitle defaultCost;
         public AccTitle defaultExpense;
         public AccTitle defaultIncome;
         public AccTitle defaultAsset;
         public AccTitle defaultLiability;
+        public AccTitle defaultOwnersEquity;
 
-        const int ListCount = 5;
+        const int ListCount = 6;
+        public enum AccClass { Assests = 0, Liabilitys = 1, Revenues = 2, Costs = 3, Expenses = 4, OwnersEquity = 5 }
         public List<AccTitle> this[int i]
         { 
             get 
@@ -30,6 +33,7 @@ namespace VoucherExpense
                     case 2: return Revenues;
                     case 3: return Costs;
                     case 4: return Expenses;
+                    case 5: return OwnersEquity;
                     default: return null;
                 }
             }
@@ -42,10 +46,11 @@ namespace VoucherExpense
                     case 2: Revenues    = value; break;
                     case 3: Costs       = value; break;
                     case 4: Expenses    = value; break;
+                    case 5: OwnersEquity = value; break;
                 }
             }
         }
-        string[] tableName = new string[5] { "資產", "負債", "收入", "成本", "費用" };
+        string[] tableName = new string[ListCount] { "資產", "負債", "收入", "成本", "費用","股東權益" };
         public string TableName(int i)
         {
             if (i < 0 || i >= ListCount) return "";
@@ -91,13 +96,14 @@ namespace VoucherExpense
                 this[i] = CleanList(source[i]);
         }
 
-        public void SetDefaultTitle(string asset,string liability,string income,string cost,string expense)
+        public void SetDefaultTitle(string asset,string liability,string income,string cost,string expense,string ownersEquity)
         {
             defaultAsset      = Find(asset      , Assets    , null);
             defaultLiability  = Find(liability  , Liabilitys, null);
             defaultIncome     = Find(income     , Revenues  , null);
             defaultCost       = Find(cost       , Costs     , null);
             defaultExpense    = Find(expense    , Expenses  , null);
+            defaultOwnersEquity = Find(ownersEquity, OwnersEquity, null);
         }
 
         public void Add(AccTitle item)
@@ -108,11 +114,12 @@ namespace VoucherExpense
             char c = item.Code[0];
             switch (c)
             {
-                case '1': Assets.Add(item); break;
-                case '2': Liabilitys.Add(item); break;
-                case '4': Revenues.Add(item); break;
-                case '5': Costs.Add(item); break;
-                case '6': Expenses.Add(item); break;
+                case '1': Assets.Add(item);         break;
+                case '2': Liabilitys.Add(item);     break;
+                case '3': OwnersEquity.Add(item);   break;
+                case '4': Revenues.Add(item);       break;
+                case '5': Costs.Add(item);          break;
+                case '6': Expenses.Add(item);       break;
             }
         }
 
@@ -131,11 +138,12 @@ namespace VoucherExpense
             AccTitle r;
             switch (code[0])
             {
-                case '1': r = Find(code, Assets     , defaultAsset);    credit = -1; break;
-                case '2': r = Find(code, Liabilitys , defaultLiability); credit = 1; break;
-                case '4': r = Find(code, Revenues   , defaultIncome);   credit = 1; break;
-                case '5': r = Find(code, Costs      , defaultCost);     credit = -1; break;
-                case '6': r = Find(code, Expenses   , defaultExpense);  credit = -1; break;
+                case '1': r = Find(code, Assets     , defaultAsset);         credit = -1; break;
+                case '2': r = Find(code, Liabilitys , defaultLiability);     credit =  1; break;
+                case '3': r = Find(code, OwnersEquity, defaultOwnersEquity); credit =  1; break;
+                case '4': r = Find(code, Revenues   , defaultIncome);        credit =  1; break;
+                case '5': r = Find(code, Costs      , defaultCost);          credit = -1; break;
+                case '6': r = Find(code, Expenses   , defaultExpense);       credit = -1; break;
                 default: credit = 1; return null;
             }
             return r;
@@ -146,21 +154,23 @@ namespace VoucherExpense
             AccTitle r;
             switch (code[0])
             {
-                case '1': r = Find(code, Assets     , defaultTitle); break;
-                case '2': r = Find(code, Liabilitys , defaultTitle); break;
-                case '4': r = Find(code, Revenues   , defaultTitle); break;
-                case '5': r = Find(code, Costs      , defaultTitle); break;
-                case '6': r = Find(code, Expenses   , defaultTitle); break;
+                case '1': r = Find(code, Assets      , defaultTitle); break;
+                case '2': r = Find(code, Liabilitys  , defaultTitle); break;
+                case '3': r = Find(code, OwnersEquity, defaultOwnersEquity); break;
+                case '4': r = Find(code, Revenues    , defaultTitle); break;
+                case '5': r = Find(code, Costs       , defaultTitle); break;
+                case '6': r = Find(code, Expenses    , defaultTitle); break;
                 default: credit = 0; return null;
             }
             switch (r.Code[0])
             {
                 case '1': credit = -1; break;
-                case '2': credit = 1; break;
-                case '4': credit = 1; break;
+                case '2': credit =  1; break;
+                case '3': credit =  1; break; 
+                case '4': credit =  1; break;
                 case '5': credit = -1; break;
                 case '6': credit = -1; break;
-                default: credit = 0; break;
+                default: credit = 0;   break;
             }
             return r;
         }

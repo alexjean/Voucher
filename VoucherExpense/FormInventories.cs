@@ -472,7 +472,9 @@ namespace VoucherExpense
                         inv.StockVolume = 0;
                     else
                         inv.StockVolume=d.StockVolume;
-                    dicCalcStock.Add(id,inv);
+                    if (dicCalcStock.Keys.Contains(id))   // 表不正常, 重覆了
+                         d.Delete();    // 刪除重的這筆
+                    else dicCalcStock.Add(id,inv);
                 }
                 // 找出期間的進貨單
                 DateTime prevDate=new DateTime(MyFunction.IntHeaderYear-1,12,31);

@@ -78,8 +78,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.labelMessage = new System.Windows.Forms.Label();
-            this.labelEquity1 = new System.Windows.Forms.Label();
-            this.labelLiability1 = new System.Windows.Forms.Label();
+            this.labelOwnersEquity = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.veDataSet1 = new VoucherExpense.VEDataSet();
             this.expenseTableAdapter1 = new VoucherExpense.VEDataSetTableAdapters.ExpenseTableAdapter();
@@ -316,7 +315,7 @@
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(154, 15);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(66, 24);
+            this.comboBox1.Size = new System.Drawing.Size(91, 24);
             this.comboBox1.TabIndex = 63;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -325,7 +324,7 @@
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Location = new System.Drawing.Point(581, 15);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(66, 24);
+            this.comboBox2.Size = new System.Drawing.Size(91, 24);
             this.comboBox2.TabIndex = 64;
             this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
@@ -487,30 +486,22 @@
             this.labelMessage.Text = "雙擊 \"金額\" 改變小數位數";
             this.labelMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // labelEquity1
+            // labelOwnersEquity
             // 
-            this.labelEquity1.Location = new System.Drawing.Point(773, 81);
-            this.labelEquity1.Name = "labelEquity1";
-            this.labelEquity1.Size = new System.Drawing.Size(80, 16);
-            this.labelEquity1.TabIndex = 82;
-            this.labelEquity1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // labelLiability1
-            // 
-            this.labelLiability1.Location = new System.Drawing.Point(665, 81);
-            this.labelLiability1.Name = "labelLiability1";
-            this.labelLiability1.Size = new System.Drawing.Size(80, 16);
-            this.labelLiability1.TabIndex = 81;
-            this.labelLiability1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelOwnersEquity.Location = new System.Drawing.Point(773, 81);
+            this.labelOwnersEquity.Name = "labelOwnersEquity";
+            this.labelOwnersEquity.Size = new System.Drawing.Size(80, 16);
+            this.labelOwnersEquity.TabIndex = 82;
+            this.labelOwnersEquity.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(474, 81);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(104, 16);
+            this.label10.Size = new System.Drawing.Size(72, 16);
             this.label10.TabIndex = 83;
-            this.label10.Text = "不計股東往來";
+            this.label10.Text = "業主權益";
             // 
             // veDataSet1
             // 
@@ -561,9 +552,8 @@
             this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.label10);
             this.panel1.Controls.Add(this.labelExpenseSum);
-            this.panel1.Controls.Add(this.labelEquity1);
+            this.panel1.Controls.Add(this.labelOwnersEquity);
             this.panel1.Controls.Add(this.labelCostSum);
-            this.panel1.Controls.Add(this.labelLiability1);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.labelRevenue);
@@ -773,8 +763,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnMoney2;
         private System.Windows.Forms.DataGridViewTextBoxColumn percentageDataGridViewTextBoxColumn;
-        private System.Windows.Forms.Label labelEquity1;
-        private System.Windows.Forms.Label labelLiability1;
+        private System.Windows.Forms.Label labelOwnersEquity;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label6;
         private VoucherExpense.VEDataSetTableAdapters.AccVoucherTableAdapter accVoucherTableAdapter1;

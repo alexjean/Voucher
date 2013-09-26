@@ -144,17 +144,17 @@ namespace VoucherExpense
             TitleSum = selected.Money;  // 年度初值
             bool inDuration;
             bool isCurrent;
-            #region ====== 股東權益======
-            AccTitle ownersEquity = AccTitleList.Find(Setup.OwnersEquity, NewList.Liabilitys, null);
-            if (ownersEquity != null)
-            {
-                if (ownersEquity.Code == selectedTitleCode)
-                {
-                    MessageBox.Show("什麼都和股東權益有關,沒有分類帳! 請看損益表");
-                    return null;
-                }
-            }
-            #endregion
+            //#region ====== 股東權益======
+            //AccTitle ownersEquity = AccTitleList.Find(Setup.DefaultOwnersEquity, NewList.Liabilitys, null);
+            //if (ownersEquity != null)
+            //{
+            //    if (ownersEquity.Code == selectedTitleCode)
+            //    {
+            //        MessageBox.Show("什麼都和股東權益有關,沒有分類帳! 請看損益表");
+            //        return null;
+            //    }
+            //}
+            //#endregion
 
             #region  ======= 計算費用 =======
             Message("計算費用");

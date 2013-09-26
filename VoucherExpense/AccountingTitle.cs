@@ -161,7 +161,7 @@ namespace VoucherExpense
             if (Setup.DefaultExpense == code)   return true;
             if (Setup.DefaultIncome == code)    return true;
             if (Setup.DefualtLiability == code) return true;
-            if (Setup.OwnersEquity == code)     return true;
+//            if (Setup.OwnersEquity == code)     return true;
             if (Setup.VoucherShouldPay == code) return true;
             return false;
         }

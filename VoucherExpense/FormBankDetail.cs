@@ -83,8 +83,8 @@ namespace VoucherExpense
             this.bankAccountTableAdapter.Fill(this.vEDataSet.BankAccount);
             this.accountingTitleTableAdapter.Fill(this.vEDataSet.AccountingTitle);
             this.bankDetailTableAdapter.Fill(this.vEDataSet.BankDetail);
-            accountingTitleBindingSource.Filter = 
-                "(TitleCode like '1*' or TitleCode like '2*')";
+            //accountingTitleBindingSource.Filter = 
+            //    "(TitleCode like '1*' or TitleCode like '2*')";
 
 
             int btm = bankDetailBindingNavigator.Bottom + 5;

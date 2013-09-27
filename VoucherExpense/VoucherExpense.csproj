@@ -201,12 +201,6 @@
     <Compile Include="FormBillList.Designer.cs">
       <DependentUpon>FormBillList.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormBillPrint.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormBillPrint.Designer.cs">
-      <DependentUpon>FormBillPrint.cs</DependentUpon>
-    </Compile>
     <Compile Include="FormBrowse.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -453,9 +447,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormBillList.resx">
       <DependentUpon>FormBillList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormBillPrint.resx">
-      <DependentUpon>FormBillPrint.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormBrowse.resx">
       <DependentUpon>FormBrowse.cs</DependentUpon>
@@ -719,8 +710,7 @@
     <None Include="NavBar_Back.png" />
     <None Include="Resources\LogoVI.jpg" />
     <None Include="Resources\Company_Back.jpg" />
-    <None Include="Resources\请款单.PNG" />
-    <None Include="Resources\Requests.PNG" />
+    <None Include="Resources\Requests.png" />
     <Content Include="VoucherExpense.mdb" />
   </ItemGroup>
   <ItemGroup>

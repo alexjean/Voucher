@@ -112,6 +112,8 @@ namespace VoucherExpense {
         
         private global::System.Data.DataRelation relationIngredientVoucherDetail;
         
+        private global::System.Data.DataRelation relationOperatorRequests;
+        
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -848,6 +850,7 @@ namespace VoucherExpense {
             this.relationProductScrappedProductScrappedDetail = this.Relations["ProductScrappedProductScrappedDetail"];
             this.relationInventoryInventoryProducts = this.Relations["InventoryInventoryProducts"];
             this.relationIngredientVoucherDetail = this.Relations["IngredientVoucherDetail"];
+            this.relationOperatorRequests = this.Relations["OperatorRequests"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -982,6 +985,10 @@ namespace VoucherExpense {
                         this.tableIngredient.IngredientIDColumn}, new global::System.Data.DataColumn[] {
                         this.tableVoucherDetail.IngredientIDColumn}, false);
             this.Relations.Add(this.relationIngredientVoucherDetail);
+            this.relationOperatorRequests = new global::System.Data.DataRelation("OperatorRequests", new global::System.Data.DataColumn[] {
+                        this.tableOperator.OperatorIDColumn}, new global::System.Data.DataColumn[] {
+                        this.tableRequests.OperatorIDColumn}, false);
+            this.Relations.Add(this.relationOperatorRequests);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -10942,6 +10949,8 @@ namespace VoucherExpense {
             
             private global::System.Data.DataColumn columnIsCancel;
             
+            private global::System.Data.DataColumn columnCreateTime;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public RequestsDataTable() {
@@ -11113,6 +11122,14 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn CreateTimeColumn {
+                get {
+                    return this.columnCreateTime;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -11150,27 +11167,28 @@ namespace VoucherExpense {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public RequestsRow AddRequestsRow(
                         int RequestsID, 
-                        int ListNumber, 
-                        int OperatorID, 
+                        string ListNumber, 
+                        OperatorRow parentOperatorRowByOperatorRequests, 
                         string Department, 
                         string Applicant, 
                         string RequestsUse, 
                         string UintName, 
                         string BankOfDeposit, 
                         string Account, 
-                        decimal MoneyA, 
+                        string MoneyA, 
                         decimal MoneyAa, 
                         string PaymenMethods, 
                         string HandoverPoeple, 
                         System.DateTime BillingDate, 
                         System.DateTime DateOfPayment, 
                         bool IsLock, 
-                        bool IsCancel) {
+                        bool IsCancel, 
+                        System.DateTime CreateTime) {
                 RequestsRow rowRequestsRow = ((RequestsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         RequestsID,
                         ListNumber,
-                        OperatorID,
+                        null,
                         Department,
                         Applicant,
                         RequestsUse,
@@ -11184,7 +11202,11 @@ namespace VoucherExpense {
                         BillingDate,
                         DateOfPayment,
                         IsLock,
-                        IsCancel};
+                        IsCancel,
+                        CreateTime};
+                if ((parentOperatorRowByOperatorRequests != null)) {
+                    columnValuesArray[2] = parentOperatorRowByOperatorRequests[0];
+                }
                 rowRequestsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowRequestsRow);
                 return rowRequestsRow;
@@ -11231,6 +11253,7 @@ namespace VoucherExpense {
                 this.columnDateOfPayment = base.Columns["DateOfPayment"];
                 this.columnIsLock = base.Columns["IsLock"];
                 this.columnIsCancel = base.Columns["IsCancel"];
+                this.columnCreateTime = base.Columns["CreateTime"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -11238,7 +11261,7 @@ namespace VoucherExpense {
             private void InitClass() {
                 this.columnRequestsID = new global::System.Data.DataColumn("RequestsID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRequestsID);
-                this.columnListNumber = new global::System.Data.DataColumn("ListNumber", typeof(int), null, global::System.Data.MappingType.Element);
+                this.columnListNumber = new global::System.Data.DataColumn("ListNumber", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnListNumber);
                 this.columnOperatorID = new global::System.Data.DataColumn("OperatorID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnOperatorID);
@@ -11254,7 +11277,7 @@ namespace VoucherExpense {
                 base.Columns.Add(this.columnBankOfDeposit);
                 this.columnAccount = new global::System.Data.DataColumn("Account", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAccount);
-                this.columnMoneyA = new global::System.Data.DataColumn("MoneyA", typeof(decimal), null, global::System.Data.MappingType.Element);
+                this.columnMoneyA = new global::System.Data.DataColumn("MoneyA", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnMoneyA);
                 this.columnMoneyAa = new global::System.Data.DataColumn("MoneyAa", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnMoneyAa);
@@ -11270,18 +11293,22 @@ namespace VoucherExpense {
                 base.Columns.Add(this.columnIsLock);
                 this.columnIsCancel = new global::System.Data.DataColumn("IsCancel", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIsCancel);
+                this.columnCreateTime = new global::System.Data.DataColumn("CreateTime", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCreateTime);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnRequestsID}, true));
                 this.columnRequestsID.AllowDBNull = false;
                 this.columnRequestsID.Unique = true;
-                this.columnDepartment.MaxLength = 255;
-                this.columnApplicant.MaxLength = 255;
+                this.columnListNumber.MaxLength = 18;
+                this.columnDepartment.MaxLength = 50;
+                this.columnApplicant.MaxLength = 30;
                 this.columnRequestsUse.MaxLength = 255;
-                this.columnUintName.MaxLength = 255;
-                this.columnBankOfDeposit.MaxLength = 255;
-                this.columnAccount.MaxLength = 255;
-                this.columnPaymenMethods.MaxLength = 255;
-                this.columnHandoverPoeple.MaxLength = 255;
+                this.columnUintName.MaxLength = 50;
+                this.columnBankOfDeposit.MaxLength = 80;
+                this.columnAccount.MaxLength = 50;
+                this.columnMoneyA.MaxLength = 50;
+                this.columnPaymenMethods.MaxLength = 20;
+                this.columnHandoverPoeple.MaxLength = 30;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -12940,6 +12967,17 @@ namespace VoucherExpense {
                 }
                 else {
                     return ((VoucherRow[])(base.GetChildRows(this.Table.ChildRelations["OperatorVoucher"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public RequestsRow[] GetRequestsRows() {
+                if ((this.Table.ChildRelations["OperatorRequests"] == null)) {
+                    return new RequestsRow[0];
+                }
+                else {
+                    return ((RequestsRow[])(base.GetChildRows(this.Table.ChildRelations["OperatorRequests"])));
                 }
             }
         }
@@ -18417,10 +18455,10 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int ListNumber {
+            public string ListNumber {
                 get {
                     try {
-                        return ((int)(this[this.tableRequests.ListNumberColumn]));
+                        return ((string)(this[this.tableRequests.ListNumberColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("資料表 \'Requests\' 中資料行 \'ListNumber\' 的值是 DBNull。", e);
@@ -18545,10 +18583,10 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public decimal MoneyA {
+            public string MoneyA {
                 get {
                     try {
-                        return ((decimal)(this[this.tableRequests.MoneyAColumn]));
+                        return ((string)(this[this.tableRequests.MoneyAColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("資料表 \'Requests\' 中資料行 \'MoneyA\' 的值是 DBNull。", e);
@@ -18668,6 +18706,33 @@ namespace VoucherExpense {
                 }
                 set {
                     this[this.tableRequests.IsCancelColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public System.DateTime CreateTime {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableRequests.CreateTimeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("資料表 \'Requests\' 中資料行 \'CreateTime\' 的值是 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tableRequests.CreateTimeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public OperatorRow OperatorRow {
+                get {
+                    return ((OperatorRow)(this.GetParentRow(this.Table.ParentRelations["OperatorRequests"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["OperatorRequests"]);
                 }
             }
             
@@ -18861,6 +18926,18 @@ namespace VoucherExpense {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetIsCancelNull() {
                 this[this.tableRequests.IsCancelColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsCreateTimeNull() {
+                return this.IsNull(this.tableRequests.CreateTimeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetCreateTimeNull() {
+                this[this.tableRequests.CreateTimeColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -31637,14 +31714,15 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("DateOfPayment", "DateOfPayment");
             tableMapping.ColumnMappings.Add("IsLock", "IsLock");
             tableMapping.ColumnMappings.Add("IsCancel", "IsCancel");
+            tableMapping.ColumnMappings.Add("CreateTime", "CreateTime");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `Requests` WHERE ((`RequestsID` = ?) AND ((? = 1 AND `ListNumber` IS NULL) OR (`ListNumber` = ?)) AND ((? = 1 AND `OperatorID` IS NULL) OR (`OperatorID` = ?)) AND ((? = 1 AND `Department` IS NULL) OR (`Department` = ?)) AND ((? = 1 AND `Applicant` IS NULL) OR (`Applicant` = ?)) AND ((? = 1 AND `RequestsUse` IS NULL) OR (`RequestsUse` = ?)) AND ((? = 1 AND `UintName` IS NULL) OR (`UintName` = ?)) AND ((? = 1 AND `BankOfDeposit` IS NULL) OR (`BankOfDeposit` = ?)) AND ((? = 1 AND `Account` IS NULL) OR (`Account` = ?)) AND ((? = 1 AND `MoneyA` IS NULL) OR (`MoneyA` = ?)) AND ((? = 1 AND `MoneyAa` IS NULL) OR (`MoneyAa` = ?)) AND ((? = 1 AND `PaymenMethods` IS NULL) OR (`PaymenMethods` = ?)) AND ((? = 1 AND `HandoverPoeple` IS NULL) OR (`HandoverPoeple` = ?)) AND ((? = 1 AND `BillingDate` IS NULL) OR (`BillingDate` = ?)) AND ((? = 1 AND `DateOfPayment` IS NULL) OR (`DateOfPayment` = ?)) AND ((? = 1 AND `IsLock` IS NULL) OR (`IsLock` = ?)) AND ((? = 1 AND `IsCancel` IS NULL) OR (`IsCancel` = ?)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `Requests` WHERE ((`RequestsID` = ?) AND ((? = 1 AND `ListNumber` IS NULL) OR (`ListNumber` = ?)) AND ((? = 1 AND `OperatorID` IS NULL) OR (`OperatorID` = ?)) AND ((? = 1 AND `Department` IS NULL) OR (`Department` = ?)) AND ((? = 1 AND `Applicant` IS NULL) OR (`Applicant` = ?)) AND ((? = 1 AND `RequestsUse` IS NULL) OR (`RequestsUse` = ?)) AND ((? = 1 AND `UintName` IS NULL) OR (`UintName` = ?)) AND ((? = 1 AND `BankOfDeposit` IS NULL) OR (`BankOfDeposit` = ?)) AND ((? = 1 AND `Account` IS NULL) OR (`Account` = ?)) AND ((? = 1 AND `MoneyA` IS NULL) OR (`MoneyA` = ?)) AND ((? = 1 AND `MoneyAa` IS NULL) OR (`MoneyAa` = ?)) AND ((? = 1 AND `PaymenMethods` IS NULL) OR (`PaymenMethods` = ?)) AND ((? = 1 AND `HandoverPoeple` IS NULL) OR (`HandoverPoeple` = ?)) AND ((? = 1 AND `BillingDate` IS NULL) OR (`BillingDate` = ?)) AND ((? = 1 AND `DateOfPayment` IS NULL) OR (`DateOfPayment` = ?)) AND ((? = 1 AND `IsLock` IS NULL) OR (`IsLock` = ?)) AND ((? = 1 AND `IsCancel` IS NULL) OR (`IsCancel` = ?)) AND ((? = 1 AND `CreateTime` IS NULL) OR (`CreateTime` = ?)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_RequestsID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "RequestsID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ListNumber", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ListNumber", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ListNumber", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ListNumber", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ListNumber", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ListNumber", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_OperatorID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OperatorID", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_OperatorID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OperatorID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Department", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Department", global::System.Data.DataRowVersion.Original, true, null));
@@ -31660,7 +31738,7 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Account", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Account", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Account", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Account", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_MoneyA", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MoneyA", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_MoneyA", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MoneyA", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_MoneyA", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MoneyA", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_MoneyAa", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MoneyAa", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_MoneyAa", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MoneyAa", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_PaymenMethods", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "PaymenMethods", global::System.Data.DataRowVersion.Original, true, null));
@@ -31675,12 +31753,14 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_IsLock", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IsLock", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_IsCancel", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IsCancel", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_IsCancel", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IsCancel", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_CreateTime", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CreateTime", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_CreateTime", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CreateTime", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO `Requests` (`RequestsID`, `ListNumber`, `OperatorID`, `Department`, `Applicant`, `RequestsUse`, `UintName`, `BankOfDeposit`, `Account`, `MoneyA`, `MoneyAa`, `PaymenMethods`, `HandoverPoeple`, `BillingDate`, `DateOfPayment`, `IsLock`, `IsCancel`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO `Requests` (`RequestsID`, `ListNumber`, `OperatorID`, `Department`, `Applicant`, `RequestsUse`, `UintName`, `BankOfDeposit`, `Account`, `MoneyA`, `MoneyAa`, `PaymenMethods`, `HandoverPoeple`, `BillingDate`, `DateOfPayment`, `IsLock`, `IsCancel`, `CreateTime`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("RequestsID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "RequestsID", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ListNumber", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ListNumber", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ListNumber", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ListNumber", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("OperatorID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OperatorID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Department", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Department", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Applicant", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Applicant", global::System.Data.DataRowVersion.Current, false, null));
@@ -31688,7 +31768,7 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("UintName", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "UintName", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("BankOfDeposit", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "BankOfDeposit", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Account", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Account", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("MoneyA", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MoneyA", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("MoneyA", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MoneyA", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("MoneyAa", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MoneyAa", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("PaymenMethods", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "PaymenMethods", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("HandoverPoeple", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "HandoverPoeple", global::System.Data.DataRowVersion.Current, false, null));
@@ -31696,12 +31776,13 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("DateOfPayment", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DateOfPayment", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsLock", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IsLock", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsCancel", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IsCancel", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("CreateTime", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CreateTime", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE `Requests` SET `RequestsID` = ?, `ListNumber` = ?, `OperatorID` = ?, `Department` = ?, `Applicant` = ?, `RequestsUse` = ?, `UintName` = ?, `BankOfDeposit` = ?, `Account` = ?, `MoneyA` = ?, `MoneyAa` = ?, `PaymenMethods` = ?, `HandoverPoeple` = ?, `BillingDate` = ?, `DateOfPayment` = ?, `IsLock` = ?, `IsCancel` = ? WHERE ((`RequestsID` = ?) AND ((? = 1 AND `ListNumber` IS NULL) OR (`ListNumber` = ?)) AND ((? = 1 AND `OperatorID` IS NULL) OR (`OperatorID` = ?)) AND ((? = 1 AND `Department` IS NULL) OR (`Department` = ?)) AND ((? = 1 AND `Applicant` IS NULL) OR (`Applicant` = ?)) AND ((? = 1 AND `RequestsUse` IS NULL) OR (`RequestsUse` = ?)) AND ((? = 1 AND `UintName` IS NULL) OR (`UintName` = ?)) AND ((? = 1 AND `BankOfDeposit` IS NULL) OR (`BankOfDeposit` = ?)) AND ((? = 1 AND `Account` IS NULL) OR (`Account` = ?)) AND ((? = 1 AND `MoneyA` IS NULL) OR (`MoneyA` = ?)) AND ((? = 1 AND `MoneyAa` IS NULL) OR (`MoneyAa` = ?)) AND ((? = 1 AND `PaymenMethods` IS NULL) OR (`PaymenMethods` = ?)) AND ((? = 1 AND `HandoverPoeple` IS NULL) OR (`HandoverPoeple` = ?)) AND ((? = 1 AND `BillingDate` IS NULL) OR (`BillingDate` = ?)) AND ((? = 1 AND `DateOfPayment` IS NULL) OR (`DateOfPayment` = ?)) AND ((? = 1 AND `IsLock` IS NULL) OR (`IsLock` = ?)) AND ((? = 1 AND `IsCancel` IS NULL) OR (`IsCancel` = ?)))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE `Requests` SET `RequestsID` = ?, `ListNumber` = ?, `OperatorID` = ?, `Department` = ?, `Applicant` = ?, `RequestsUse` = ?, `UintName` = ?, `BankOfDeposit` = ?, `Account` = ?, `MoneyA` = ?, `MoneyAa` = ?, `PaymenMethods` = ?, `HandoverPoeple` = ?, `BillingDate` = ?, `DateOfPayment` = ?, `IsLock` = ?, `IsCancel` = ?, `CreateTime` = ? WHERE ((`RequestsID` = ?) AND ((? = 1 AND `ListNumber` IS NULL) OR (`ListNumber` = ?)) AND ((? = 1 AND `OperatorID` IS NULL) OR (`OperatorID` = ?)) AND ((? = 1 AND `Department` IS NULL) OR (`Department` = ?)) AND ((? = 1 AND `Applicant` IS NULL) OR (`Applicant` = ?)) AND ((? = 1 AND `RequestsUse` IS NULL) OR (`RequestsUse` = ?)) AND ((? = 1 AND `UintName` IS NULL) OR (`UintName` = ?)) AND ((? = 1 AND `BankOfDeposit` IS NULL) OR (`BankOfDeposit` = ?)) AND ((? = 1 AND `Account` IS NULL) OR (`Account` = ?)) AND ((? = 1 AND `MoneyA` IS NULL) OR (`MoneyA` = ?)) AND ((? = 1 AND `MoneyAa` IS NULL) OR (`MoneyAa` = ?)) AND ((? = 1 AND `PaymenMethods` IS NULL) OR (`PaymenMethods` = ?)) AND ((? = 1 AND `HandoverPoeple` IS NULL) OR (`HandoverPoeple` = ?)) AND ((? = 1 AND `BillingDate` IS NULL) OR (`BillingDate` = ?)) AND ((? = 1 AND `DateOfPayment` IS NULL) OR (`DateOfPayment` = ?)) AND ((? = 1 AND `IsLock` IS NULL) OR (`IsLock` = ?)) AND ((? = 1 AND `IsCancel` IS NULL) OR (`IsCancel` = ?)) AND ((? = 1 AND `CreateTime` IS NULL) OR (`CreateTime` = ?)))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("RequestsID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "RequestsID", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ListNumber", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ListNumber", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ListNumber", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ListNumber", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("OperatorID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OperatorID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Department", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Department", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Applicant", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Applicant", global::System.Data.DataRowVersion.Current, false, null));
@@ -31709,7 +31790,7 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("UintName", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "UintName", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("BankOfDeposit", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "BankOfDeposit", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Account", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Account", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("MoneyA", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MoneyA", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("MoneyA", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MoneyA", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("MoneyAa", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MoneyAa", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("PaymenMethods", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "PaymenMethods", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("HandoverPoeple", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "HandoverPoeple", global::System.Data.DataRowVersion.Current, false, null));
@@ -31717,9 +31798,10 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("DateOfPayment", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DateOfPayment", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsLock", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IsLock", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsCancel", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IsCancel", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("CreateTime", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CreateTime", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_RequestsID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "RequestsID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ListNumber", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ListNumber", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ListNumber", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ListNumber", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ListNumber", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ListNumber", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_OperatorID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OperatorID", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_OperatorID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OperatorID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Department", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Department", global::System.Data.DataRowVersion.Original, true, null));
@@ -31735,7 +31817,7 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Account", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Account", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Account", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Account", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_MoneyA", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MoneyA", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_MoneyA", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MoneyA", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_MoneyA", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MoneyA", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_MoneyAa", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MoneyAa", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_MoneyAa", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MoneyAa", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_PaymenMethods", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "PaymenMethods", global::System.Data.DataRowVersion.Original, true, null));
@@ -31750,6 +31832,8 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_IsLock", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IsLock", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_IsCancel", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IsCancel", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_IsCancel", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IsCancel", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_CreateTime", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CreateTime", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_CreateTime", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CreateTime", global::System.Data.DataRowVersion.Original, false, null));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -31767,7 +31851,7 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT RequestsID, ListNumber, OperatorID, Department, Applicant, RequestsUse, Ui" +
                 "ntName, BankOfDeposit, Account, MoneyA, MoneyAa, PaymenMethods, HandoverPoeple, " +
-                "BillingDate, DateOfPayment, IsLock, IsCancel FROM Requests";
+                "BillingDate, DateOfPayment, IsLock, IsCancel, CreateTime FROM Requests";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -31830,7 +31914,7 @@ namespace VoucherExpense.VEDataSetTableAdapters {
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
         public virtual int Delete(
                     global::System.Nullable<int> Original_RequestsID, 
-                    global::System.Nullable<int> Original_ListNumber, 
+                    string Original_ListNumber, 
                     global::System.Nullable<int> Original_OperatorID, 
                     string Original_Department, 
                     string Original_Applicant, 
@@ -31838,27 +31922,28 @@ namespace VoucherExpense.VEDataSetTableAdapters {
                     string Original_UintName, 
                     string Original_BankOfDeposit, 
                     string Original_Account, 
-                    global::System.Nullable<decimal> Original_MoneyA, 
+                    string Original_MoneyA, 
                     global::System.Nullable<decimal> Original_MoneyAa, 
                     string Original_PaymenMethods, 
                     string Original_HandoverPoeple, 
                     global::System.Nullable<global::System.DateTime> Original_BillingDate, 
                     global::System.Nullable<global::System.DateTime> Original_DateOfPayment, 
                     bool Original_IsLock, 
-                    bool Original_IsCancel) {
+                    bool Original_IsCancel, 
+                    global::System.Nullable<global::System.DateTime> Original_CreateTime) {
             if ((Original_RequestsID.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_RequestsID.Value));
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
-            if ((Original_ListNumber.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((int)(Original_ListNumber.Value));
-            }
-            else {
+            if ((Original_ListNumber == null)) {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[2].Value = ((string)(Original_ListNumber));
             }
             if ((Original_OperatorID.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
@@ -31916,13 +32001,13 @@ namespace VoucherExpense.VEDataSetTableAdapters {
                 this.Adapter.DeleteCommand.Parameters[15].Value = ((object)(0));
                 this.Adapter.DeleteCommand.Parameters[16].Value = ((string)(Original_Account));
             }
-            if ((Original_MoneyA.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[17].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[18].Value = ((decimal)(Original_MoneyA.Value));
-            }
-            else {
+            if ((Original_MoneyA == null)) {
                 this.Adapter.DeleteCommand.Parameters[17].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[18].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[17].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[18].Value = ((string)(Original_MoneyA));
             }
             if ((Original_MoneyAa.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[19].Value = ((object)(0));
@@ -31968,6 +32053,14 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             this.Adapter.DeleteCommand.Parameters[30].Value = ((bool)(Original_IsLock));
             this.Adapter.DeleteCommand.Parameters[31].Value = ((object)(0));
             this.Adapter.DeleteCommand.Parameters[32].Value = ((bool)(Original_IsCancel));
+            if ((Original_CreateTime.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[33].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[34].Value = ((System.DateTime)(Original_CreateTime.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[33].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[34].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -31990,7 +32083,7 @@ namespace VoucherExpense.VEDataSetTableAdapters {
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
         public virtual int Insert(
                     global::System.Nullable<int> RequestsID, 
-                    global::System.Nullable<int> ListNumber, 
+                    string ListNumber, 
                     global::System.Nullable<int> OperatorID, 
                     string Department, 
                     string Applicant, 
@@ -31998,25 +32091,26 @@ namespace VoucherExpense.VEDataSetTableAdapters {
                     string UintName, 
                     string BankOfDeposit, 
                     string Account, 
-                    global::System.Nullable<decimal> MoneyA, 
+                    string MoneyA, 
                     global::System.Nullable<decimal> MoneyAa, 
                     string PaymenMethods, 
                     string HandoverPoeple, 
                     global::System.Nullable<global::System.DateTime> BillingDate, 
                     global::System.Nullable<global::System.DateTime> DateOfPayment, 
                     bool IsLock, 
-                    bool IsCancel) {
+                    bool IsCancel, 
+                    global::System.Nullable<global::System.DateTime> CreateTime) {
             if ((RequestsID.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[0].Value = ((int)(RequestsID.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
-            if ((ListNumber.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((int)(ListNumber.Value));
+            if ((ListNumber == null)) {
+                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
+                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(ListNumber));
             }
             if ((OperatorID.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[2].Value = ((int)(OperatorID.Value));
@@ -32060,11 +32154,11 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             else {
                 this.Adapter.InsertCommand.Parameters[8].Value = ((string)(Account));
             }
-            if ((MoneyA.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[9].Value = ((decimal)(MoneyA.Value));
+            if ((MoneyA == null)) {
+                this.Adapter.InsertCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[9].Value = global::System.DBNull.Value;
+                this.Adapter.InsertCommand.Parameters[9].Value = ((string)(MoneyA));
             }
             if ((MoneyAa.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[10].Value = ((decimal)(MoneyAa.Value));
@@ -32098,6 +32192,12 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             }
             this.Adapter.InsertCommand.Parameters[15].Value = ((bool)(IsLock));
             this.Adapter.InsertCommand.Parameters[16].Value = ((bool)(IsCancel));
+            if ((CreateTime.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[17].Value = ((System.DateTime)(CreateTime.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[17].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -32120,7 +32220,7 @@ namespace VoucherExpense.VEDataSetTableAdapters {
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(
                     global::System.Nullable<int> RequestsID, 
-                    global::System.Nullable<int> ListNumber, 
+                    string ListNumber, 
                     global::System.Nullable<int> OperatorID, 
                     string Department, 
                     string Applicant, 
@@ -32128,7 +32228,7 @@ namespace VoucherExpense.VEDataSetTableAdapters {
                     string UintName, 
                     string BankOfDeposit, 
                     string Account, 
-                    global::System.Nullable<decimal> MoneyA, 
+                    string MoneyA, 
                     global::System.Nullable<decimal> MoneyAa, 
                     string PaymenMethods, 
                     string HandoverPoeple, 
@@ -32136,8 +32236,9 @@ namespace VoucherExpense.VEDataSetTableAdapters {
                     global::System.Nullable<global::System.DateTime> DateOfPayment, 
                     bool IsLock, 
                     bool IsCancel, 
+                    global::System.Nullable<global::System.DateTime> CreateTime, 
                     global::System.Nullable<int> Original_RequestsID, 
-                    global::System.Nullable<int> Original_ListNumber, 
+                    string Original_ListNumber, 
                     global::System.Nullable<int> Original_OperatorID, 
                     string Original_Department, 
                     string Original_Applicant, 
@@ -32145,25 +32246,26 @@ namespace VoucherExpense.VEDataSetTableAdapters {
                     string Original_UintName, 
                     string Original_BankOfDeposit, 
                     string Original_Account, 
-                    global::System.Nullable<decimal> Original_MoneyA, 
+                    string Original_MoneyA, 
                     global::System.Nullable<decimal> Original_MoneyAa, 
                     string Original_PaymenMethods, 
                     string Original_HandoverPoeple, 
                     global::System.Nullable<global::System.DateTime> Original_BillingDate, 
                     global::System.Nullable<global::System.DateTime> Original_DateOfPayment, 
                     bool Original_IsLock, 
-                    bool Original_IsCancel) {
+                    bool Original_IsCancel, 
+                    global::System.Nullable<global::System.DateTime> Original_CreateTime) {
             if ((RequestsID.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(RequestsID.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
-            if ((ListNumber.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(ListNumber.Value));
+            if ((ListNumber == null)) {
+                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(ListNumber));
             }
             if ((OperatorID.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(OperatorID.Value));
@@ -32207,11 +32309,11 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             else {
                 this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(Account));
             }
-            if ((MoneyA.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((decimal)(MoneyA.Value));
+            if ((MoneyA == null)) {
+                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((string)(MoneyA));
             }
             if ((MoneyAa.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[10].Value = ((decimal)(MoneyAa.Value));
@@ -32245,128 +32347,142 @@ namespace VoucherExpense.VEDataSetTableAdapters {
             }
             this.Adapter.UpdateCommand.Parameters[15].Value = ((bool)(IsLock));
             this.Adapter.UpdateCommand.Parameters[16].Value = ((bool)(IsCancel));
-            if ((Original_RequestsID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[17].Value = ((int)(Original_RequestsID.Value));
+            if ((CreateTime.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[17].Value = ((System.DateTime)(CreateTime.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[17].Value = global::System.DBNull.Value;
             }
-            if ((Original_ListNumber.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[19].Value = ((int)(Original_ListNumber.Value));
+            if ((Original_RequestsID.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[18].Value = ((int)(Original_RequestsID.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[19].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[18].Value = global::System.DBNull.Value;
+            }
+            if ((Original_ListNumber == null)) {
+                this.Adapter.UpdateCommand.Parameters[19].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[20].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[19].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[20].Value = ((string)(Original_ListNumber));
             }
             if ((Original_OperatorID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[20].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[21].Value = ((int)(Original_OperatorID.Value));
+                this.Adapter.UpdateCommand.Parameters[21].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[22].Value = ((int)(Original_OperatorID.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[20].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[21].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[21].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[22].Value = global::System.DBNull.Value;
             }
             if ((Original_Department == null)) {
-                this.Adapter.UpdateCommand.Parameters[22].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[23].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[23].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[24].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[22].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[23].Value = ((string)(Original_Department));
+                this.Adapter.UpdateCommand.Parameters[23].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[24].Value = ((string)(Original_Department));
             }
             if ((Original_Applicant == null)) {
-                this.Adapter.UpdateCommand.Parameters[24].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[25].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[25].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[26].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[24].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[25].Value = ((string)(Original_Applicant));
+                this.Adapter.UpdateCommand.Parameters[25].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[26].Value = ((string)(Original_Applicant));
             }
             if ((Original_RequestsUse == null)) {
-                this.Adapter.UpdateCommand.Parameters[26].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[27].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[27].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[28].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[26].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[27].Value = ((string)(Original_RequestsUse));
+                this.Adapter.UpdateCommand.Parameters[27].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[28].Value = ((string)(Original_RequestsUse));
             }
             if ((Original_UintName == null)) {
-                this.Adapter.UpdateCommand.Parameters[28].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[29].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[29].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[30].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[28].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[29].Value = ((string)(Original_UintName));
+                this.Adapter.UpdateCommand.Parameters[29].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[30].Value = ((string)(Original_UintName));
             }
             if ((Original_BankOfDeposit == null)) {
-                this.Adapter.UpdateCommand.Parameters[30].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[31].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[31].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[32].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[30].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[31].Value = ((string)(Original_BankOfDeposit));
+                this.Adapter.UpdateCommand.Parameters[31].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[32].Value = ((string)(Original_BankOfDeposit));
             }
             if ((Original_Account == null)) {
-                this.Adapter.UpdateCommand.Parameters[32].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[33].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[33].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[34].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[32].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[33].Value = ((string)(Original_Account));
+                this.Adapter.UpdateCommand.Parameters[33].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[34].Value = ((string)(Original_Account));
             }
-            if ((Original_MoneyA.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[34].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[35].Value = ((decimal)(Original_MoneyA.Value));
+            if ((Original_MoneyA == null)) {
+                this.Adapter.UpdateCommand.Parameters[35].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[36].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[34].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[35].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[35].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[36].Value = ((string)(Original_MoneyA));
             }
             if ((Original_MoneyAa.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[36].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[37].Value = ((decimal)(Original_MoneyAa.Value));
+                this.Adapter.UpdateCommand.Parameters[37].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[38].Value = ((decimal)(Original_MoneyAa.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[36].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[37].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[37].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[38].Value = global::System.DBNull.Value;
             }
             if ((Original_PaymenMethods == null)) {
-                this.Adapter.UpdateCommand.Parameters[38].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[39].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[39].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[40].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[38].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[39].Value = ((string)(Original_PaymenMethods));
+                this.Adapter.UpdateCommand.Parameters[39].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[40].Value = ((string)(Original_PaymenMethods));
             }
             if ((Original_HandoverPoeple == null)) {
-                this.Adapter.UpdateCommand.Parameters[40].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[41].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[41].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[42].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[40].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[41].Value = ((string)(Original_HandoverPoeple));
+                this.Adapter.UpdateCommand.Parameters[41].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[42].Value = ((string)(Original_HandoverPoeple));
             }
             if ((Original_BillingDate.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[42].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[43].Value = ((System.DateTime)(Original_BillingDate.Value));
+                this.Adapter.UpdateCommand.Parameters[43].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[44].Value = ((System.DateTime)(Original_BillingDate.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[42].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[43].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[43].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[44].Value = global::System.DBNull.Value;
             }
             if ((Original_DateOfPayment.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[44].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[45].Value = ((System.DateTime)(Original_DateOfPayment.Value));
+                this.Adapter.UpdateCommand.Parameters[45].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[46].Value = ((System.DateTime)(Original_DateOfPayment.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[44].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[45].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[45].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[46].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[46].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[47].Value = ((bool)(Original_IsLock));
-            this.Adapter.UpdateCommand.Parameters[48].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[49].Value = ((bool)(Original_IsCancel));
+            this.Adapter.UpdateCommand.Parameters[47].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[48].Value = ((bool)(Original_IsLock));
+            this.Adapter.UpdateCommand.Parameters[49].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[50].Value = ((bool)(Original_IsCancel));
+            if ((Original_CreateTime.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[51].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[52].Value = ((System.DateTime)(Original_CreateTime.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[51].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[52].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -32388,7 +32504,7 @@ namespace VoucherExpense.VEDataSetTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(
-                    global::System.Nullable<int> ListNumber, 
+                    string ListNumber, 
                     global::System.Nullable<int> OperatorID, 
                     string Department, 
                     string Applicant, 
@@ -32396,7 +32512,7 @@ namespace VoucherExpense.VEDataSetTableAdapters {
                     string UintName, 
                     string BankOfDeposit, 
                     string Account, 
-                    global::System.Nullable<decimal> MoneyA, 
+                    string MoneyA, 
                     global::System.Nullable<decimal> MoneyAa, 
                     string PaymenMethods, 
                     string HandoverPoeple, 
@@ -32404,8 +32520,9 @@ namespace VoucherExpense.VEDataSetTableAdapters {
                     global::System.Nullable<global::System.DateTime> DateOfPayment, 
                     bool IsLock, 
                     bool IsCancel, 
+                    global::System.Nullable<global::System.DateTime> CreateTime, 
                     global::System.Nullable<int> Original_RequestsID, 
-                    global::System.Nullable<int> Original_ListNumber, 
+                    string Original_ListNumber, 
                     global::System.Nullable<int> Original_OperatorID, 
                     string Original_Department, 
                     string Original_Applicant, 
@@ -32413,15 +32530,16 @@ namespace VoucherExpense.VEDataSetTableAdapters {
                     string Original_UintName, 
                     string Original_BankOfDeposit, 
                     string Original_Account, 
-                    global::System.Nullable<decimal> Original_MoneyA, 
+                    string Original_MoneyA, 
                     global::System.Nullable<decimal> Original_MoneyAa, 
                     string Original_PaymenMethods, 
                     string Original_HandoverPoeple, 
                     global::System.Nullable<global::System.DateTime> Original_BillingDate, 
                     global::System.Nullable<global::System.DateTime> Original_DateOfPayment, 
                     bool Original_IsLock, 
-                    bool Original_IsCancel) {
-            return this.Update(Original_RequestsID, ListNumber, OperatorID, Department, Applicant, RequestsUse, UintName, BankOfDeposit, Account, MoneyA, MoneyAa, PaymenMethods, HandoverPoeple, BillingDate, DateOfPayment, IsLock, IsCancel, Original_RequestsID, Original_ListNumber, Original_OperatorID, Original_Department, Original_Applicant, Original_RequestsUse, Original_UintName, Original_BankOfDeposit, Original_Account, Original_MoneyA, Original_MoneyAa, Original_PaymenMethods, Original_HandoverPoeple, Original_BillingDate, Original_DateOfPayment, Original_IsLock, Original_IsCancel);
+                    bool Original_IsCancel, 
+                    global::System.Nullable<global::System.DateTime> Original_CreateTime) {
+            return this.Update(Original_RequestsID, ListNumber, OperatorID, Department, Applicant, RequestsUse, UintName, BankOfDeposit, Account, MoneyA, MoneyAa, PaymenMethods, HandoverPoeple, BillingDate, DateOfPayment, IsLock, IsCancel, CreateTime, Original_RequestsID, Original_ListNumber, Original_OperatorID, Original_Department, Original_Applicant, Original_RequestsUse, Original_UintName, Original_BankOfDeposit, Original_Account, Original_MoneyA, Original_MoneyAa, Original_PaymenMethods, Original_HandoverPoeple, Original_BillingDate, Original_DateOfPayment, Original_IsLock, Original_IsCancel, Original_CreateTime);
         }
     }
 }

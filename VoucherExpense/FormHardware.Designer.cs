@@ -55,6 +55,9 @@
             this.veDataSet1 = new VoucherExpense.VEDataSet();
             this.labelRequiredVersion = new System.Windows.Forms.Label();
             this.btnUpdateRequiedVersion = new System.Windows.Forms.Button();
+            this.btnFindDotPrinter = new System.Windows.Forms.Button();
+            this.textBoxDotPrinter = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.veDataSet1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -143,7 +146,7 @@
             // 
             // btnFindPrinter
             // 
-            this.btnFindPrinter.Location = new System.Drawing.Point(147, 150);
+            this.btnFindPrinter.Location = new System.Drawing.Point(197, 150);
             this.btnFindPrinter.Name = "btnFindPrinter";
             this.btnFindPrinter.Size = new System.Drawing.Size(111, 26);
             this.btnFindPrinter.TabIndex = 5;
@@ -176,7 +179,7 @@
             // ckBoxIsServer
             // 
             this.ckBoxIsServer.AutoSize = true;
-            this.ckBoxIsServer.Location = new System.Drawing.Point(36, 273);
+            this.ckBoxIsServer.Location = new System.Drawing.Point(31, 305);
             this.ckBoxIsServer.Name = "ckBoxIsServer";
             this.ckBoxIsServer.Size = new System.Drawing.Size(221, 20);
             this.ckBoxIsServer.TabIndex = 0;
@@ -186,7 +189,7 @@
             // 
             // textBoxDataDir
             // 
-            this.textBoxDataDir.Location = new System.Drawing.Point(36, 329);
+            this.textBoxDataDir.Location = new System.Drawing.Point(31, 361);
             this.textBoxDataDir.Name = "textBoxDataDir";
             this.textBoxDataDir.Size = new System.Drawing.Size(277, 27);
             this.textBoxDataDir.TabIndex = 1;
@@ -194,7 +197,7 @@
             // labelShareName
             // 
             this.labelShareName.AutoSize = true;
-            this.labelShareName.Location = new System.Drawing.Point(36, 310);
+            this.labelShareName.Location = new System.Drawing.Point(31, 342);
             this.labelShareName.Name = "labelShareName";
             this.labelShareName.Size = new System.Drawing.Size(216, 16);
             this.labelShareName.TabIndex = 7;
@@ -203,7 +206,7 @@
             // labelUser
             // 
             this.labelUser.AutoSize = true;
-            this.labelUser.Location = new System.Drawing.Point(36, 380);
+            this.labelUser.Location = new System.Drawing.Point(31, 412);
             this.labelUser.Name = "labelUser";
             this.labelUser.Size = new System.Drawing.Size(40, 16);
             this.labelUser.TabIndex = 12;
@@ -212,7 +215,7 @@
             // labelPass
             // 
             this.labelPass.AutoSize = true;
-            this.labelPass.Location = new System.Drawing.Point(36, 413);
+            this.labelPass.Location = new System.Drawing.Point(31, 445);
             this.labelPass.Name = "labelPass";
             this.labelPass.Size = new System.Drawing.Size(40, 16);
             this.labelPass.TabIndex = 13;
@@ -220,21 +223,21 @@
             // 
             // textBoxUserName
             // 
-            this.textBoxUserName.Location = new System.Drawing.Point(82, 375);
+            this.textBoxUserName.Location = new System.Drawing.Point(77, 407);
             this.textBoxUserName.Name = "textBoxUserName";
             this.textBoxUserName.Size = new System.Drawing.Size(231, 27);
             this.textBoxUserName.TabIndex = 2;
             // 
             // textBoxPassword
             // 
-            this.textBoxPassword.Location = new System.Drawing.Point(82, 408);
+            this.textBoxPassword.Location = new System.Drawing.Point(77, 440);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.Size = new System.Drawing.Size(231, 27);
             this.textBoxPassword.TabIndex = 3;
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(147, 462);
+            this.btnSave.Location = new System.Drawing.Point(142, 494);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 5;
@@ -273,7 +276,7 @@
             // labelProgramVersion
             // 
             this.labelProgramVersion.AutoSize = true;
-            this.labelProgramVersion.Location = new System.Drawing.Point(79, 518);
+            this.labelProgramVersion.Location = new System.Drawing.Point(74, 550);
             this.labelProgramVersion.Name = "labelProgramVersion";
             this.labelProgramVersion.Size = new System.Drawing.Size(114, 16);
             this.labelProgramVersion.TabIndex = 18;
@@ -300,7 +303,7 @@
             // labelRequiredVersion
             // 
             this.labelRequiredVersion.AutoSize = true;
-            this.labelRequiredVersion.Location = new System.Drawing.Point(79, 548);
+            this.labelRequiredVersion.Location = new System.Drawing.Point(74, 580);
             this.labelRequiredVersion.Name = "labelRequiredVersion";
             this.labelRequiredVersion.Size = new System.Drawing.Size(118, 16);
             this.labelRequiredVersion.TabIndex = 22;
@@ -308,7 +311,7 @@
             // 
             // btnUpdateRequiedVersion
             // 
-            this.btnUpdateRequiedVersion.Location = new System.Drawing.Point(238, 541);
+            this.btnUpdateRequiedVersion.Location = new System.Drawing.Point(233, 573);
             this.btnUpdateRequiedVersion.Name = "btnUpdateRequiedVersion";
             this.btnUpdateRequiedVersion.Size = new System.Drawing.Size(124, 30);
             this.btnUpdateRequiedVersion.TabIndex = 23;
@@ -316,12 +319,41 @@
             this.btnUpdateRequiedVersion.UseVisualStyleBackColor = true;
             this.btnUpdateRequiedVersion.Click += new System.EventHandler(this.btnUpdateRequiedVersion_Click);
             // 
+            // btnFindDotPrinter
+            // 
+            this.btnFindDotPrinter.Location = new System.Drawing.Point(197, 222);
+            this.btnFindDotPrinter.Name = "btnFindDotPrinter";
+            this.btnFindDotPrinter.Size = new System.Drawing.Size(111, 26);
+            this.btnFindDotPrinter.TabIndex = 25;
+            this.btnFindDotPrinter.Text = "找印表机";
+            this.btnFindDotPrinter.UseVisualStyleBackColor = true;
+            this.btnFindDotPrinter.Click += new System.EventHandler(this.btnFindDotPrinter_Click);
+            // 
+            // textBoxDotPrinter
+            // 
+            this.textBoxDotPrinter.Location = new System.Drawing.Point(33, 249);
+            this.textBoxDotPrinter.Name = "textBoxDotPrinter";
+            this.textBoxDotPrinter.Size = new System.Drawing.Size(277, 27);
+            this.textBoxDotPrinter.TabIndex = 26;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(33, 227);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(120, 16);
+            this.label5.TabIndex = 24;
+            this.label5.Text = "點陣印表机名稱";
+            // 
             // FormHardware
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(892, 599);
+            this.ClientSize = new System.Drawing.Size(892, 638);
+            this.Controls.Add(this.btnFindDotPrinter);
+            this.Controls.Add(this.textBoxDotPrinter);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.btnUpdateRequiedVersion);
             this.Controls.Add(this.labelRequiredVersion);
             this.Controls.Add(this.label6);
@@ -385,5 +417,8 @@
         private VEDataSet veDataSet1;
         private System.Windows.Forms.Label labelRequiredVersion;
         private System.Windows.Forms.Button btnUpdateRequiedVersion;
+        private System.Windows.Forms.Button btnFindDotPrinter;
+        private System.Windows.Forms.TextBox textBoxDotPrinter;
+        private System.Windows.Forms.Label label5;
     }
 }

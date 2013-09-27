@@ -16,6 +16,7 @@ namespace VoucherExpense
         public string Password;
         public bool   IsServer;
         public string BackupDir;
+        public string DotPrinterName;
 
 
         public string MaskDataDir()
@@ -87,6 +88,8 @@ namespace VoucherExpense
                 XmlNode root = doc.DocumentElement;
                 GetAttrib(root.SelectSingleNode("ComPort")       ,"Name", ref ComPortName);
                 GetAttrib(root.SelectSingleNode("ReceiptPrinter"),"Name", ref PrinterName);
+                GetAttrib(root.SelectSingleNode("DotPrinter")    ,"Name", ref DotPrinterName);
+
 
                 XmlNode Server = root.SelectSingleNode("DataSource");
                 if (Server != null)
@@ -111,7 +114,8 @@ namespace VoucherExpense
             XmlNode root = doc.FirstChild;
             UpdateXmlAttrib(doc, root, "ComPort"       , "Name" , ComPortName);
             UpdateXmlAttrib(doc, root, "ReceiptPrinter", "Name" , PrinterName);
-            UpdateXmlAttrib(doc, root, "DataSource", "IsServer" , (IsServer ? "YES" : "NO"));
+            UpdateXmlAttrib(doc, root, "DotPrinter"    , "Name" , DotPrinterName);
+            UpdateXmlAttrib(doc, root, "DataSource", "IsServer", (IsServer ? "YES" : "NO"));
             UpdateXmlAttribEncrypted(doc, root, "DataSource", "DataDir", DataDir);
             UpdateXmlAttribEncrypted(doc, root, "DataSource", "UserName", UserName);
             UpdateXmlAttribEncrypted(doc, root, "DataSource", "Password", Password);

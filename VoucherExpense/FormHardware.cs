@@ -22,6 +22,13 @@ namespace VoucherExpense
                 textBoxPrinter.Text=printDialog1.PrinterSettings.PrinterName;
         }
 
+        private void btnFindDotPrinter_Click(object sender, EventArgs e)
+        {
+            if (printDialog1.ShowDialog() == DialogResult.OK)
+                textBoxDotPrinter.Text = printDialog1.PrinterSettings.PrinterName;
+        }
+
+
         void SetIsServer(bool notServer)
         {
             textBoxDataDir.Enabled = notServer;
@@ -52,6 +59,7 @@ namespace VoucherExpense
             Config.Load();
             cbBoxRS232.Text       = Config.ComPortName;
             textBoxPrinter.Text   = Config.PrinterName;
+            textBoxDotPrinter.Text = Config.DotPrinterName;
             ckBoxIsServer.Checked = Config.IsServer;
             textBoxDataDir.Text = Config.DataDir;
             textBoxUserName.Text  = Config.UserName;
@@ -72,7 +80,8 @@ namespace VoucherExpense
         {
             Config.ComPortName= cbBoxRS232.Text;
             Config.PrinterName= textBoxPrinter.Text;
-            Config.IsServer   = ckBoxIsServer.Checked;
+            Config.DotPrinterName = textBoxDotPrinter.Text;
+            Config.IsServer = ckBoxIsServer.Checked;
             Config.DataDir    = textBoxDataDir.Text.Trim();
             Config.UserName   = textBoxUserName.Text.Trim();
             Config.Password   = textBoxPassword.Text.Trim();
@@ -118,6 +127,7 @@ namespace VoucherExpense
                 MessageBox.Show("錯誤:" + ex.Message);
             }
         }
+
  
     }
 }

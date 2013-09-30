@@ -1,5 +1,6 @@
 <HardwareConfig>
   <ComPort Name="COM1" />
   <ReceiptPrinter Name="Zonerich AB-58MK USB" />
+  <DotPrinter Name="EPSON LQ-730K ESC/P 2" />
   <DataSource IsServer="YES" DataDir="EPRT+YCj5fNrqGtQkgdrFxd/qclQ1i9AIGGO3PrxJw7O0j/wt/ai9WQ00/4AOhzu/6JgQw8gCtM=" UserName="sZM/bLSyqv0j4SXhyzDavo1sJn8QGahl" Password="wS4zmgr+ahF21XXsgXwKYhRDYDrg0cz9" BackupDir="Pkce2PnPHlY=" />
 </HardwareConfig>

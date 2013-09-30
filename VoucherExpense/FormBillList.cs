@@ -22,15 +22,16 @@ namespace VoucherExpense
         private void FormBillList_Load(object sender, EventArgs e)
         {
 
-            
             // TODO: 這行程式碼會將資料載入 'vEDataSet.Requests' 資料表。您可以視需要進行移動或移除。
             this.requestsTableAdapter.Fill(this.vEDataSet.Requests);
+            this.requestsBindingSource.Sort = "requestsid desc";
             //设定打印机
             Config.Load();
             PrinterSettings ps = new PrinterSettings();
             ps.PrinterName = Config.DotPrinterName;
             pD.PrinterSettings = ps;
             //
+            
           
         }
         VEDataSet.RequestsRow Addrow;
@@ -98,6 +99,42 @@ namespace VoucherExpense
 
         private void requestsBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
+            int maxID = 0;
+            int maxCode = 0;
+            this.requestsTableAdapter.Fill(this.vEDataSet.Requests);
+            foreach (VEDataSet.RequestsRow item in vEDataSet.Requests)
+            {
+                if (item.RequestsID > maxID)
+                {
+                    maxID = item.RequestsID;
+                }
+                if (Convert.ToInt32(item.ListNumber) > maxCode)
+                {
+                    maxCode = Convert.ToInt32(item.ListNumber);
+                }
+            }
+            Addrow = vEDataSet.Requests.NewRequestsRow();
+            //Addrow.RequestsID = CurrentId;
+            //Addrow.ListNumber = CurrentList;
+            //Addrow.EndEdit();
+            if (CurrentId <=maxID)//和数据库数据比较确认id是否大于数据库id最大值，如果小于数据库最大id重新获取id和编号在存储
+            {
+                string datetime = DateTime.Now.ToString("yyMM");
+                string maxcode = "0";
+                if (maxCode > 0)
+                    maxcode = maxCode.ToString().Remove(4);
+                if (Convert.ToInt32(datetime) > Convert.ToInt32(maxcode))
+                {
+                    maxCode = Convert.ToInt32(datetime + "000");
+                }
+                Addrow.RequestsID = maxID + 1;
+                Addrow.ListNumber = (maxCode+1).ToString();
+            }
+            else
+            {
+                Addrow.RequestsID = CurrentId;
+                Addrow.ListNumber = CurrentList;
+            }
             Addrow.OperatorID = MyFunction.OperatorID;
             Addrow.Department = departmentTextBox.Text;
             Addrow.Applicant = applicantTextBox.Text;
@@ -105,24 +142,36 @@ namespace VoucherExpense
             Addrow.UintName = uintNameTextBox.Text;
             Addrow.BankOfDeposit = bankOfDepositTextBox.Text;
             Addrow.Account = accountTextBox.Text;
-            if (moneyATextBox.Text!="")
             Addrow.MoneyA = moneyATextBox.Text;
             if (moneyAaTextBox.Text != "")
             Addrow.MoneyAa = Convert.ToDecimal(moneyAaTextBox.Text);
+            else
+            {
+                Addrow.MoneyAa = 0;
+            }
             Addrow.PaymenMethods = paymenMethodsTextBox.Text;
             Addrow.HandoverPoeple = handoverPoepleTextBox.Text;
             Addrow.DateOfPayment = dateOfPaymentDateTimePicker.Value.Date;
             Addrow.BillingDate = billingDateDateTimePicker.Value.Date;
+            Addrow.CreateTime = DateTime.Now;
+            Addrow.IsCancel = false;
+            Addrow.IsLock = false;
             Addrow.EndEdit();
             vEDataSet.Requests.Rows.Add(Addrow);
+            //this.requestsTableAdapter.Insert(Addrow.RequestsID, Addrow.ListNumber, Addrow.OperatorID, Addrow.Department, Addrow.Applicant,
+            //    Addrow.RequestsUse, Addrow.UintName, Addrow.BankOfDeposit, Addrow.Account, Addrow.MoneyA, Addrow.MoneyAa, Addrow.PaymenMethods,
+            //    Addrow.HandoverPoeple, Addrow.BillingDate, Addrow.DateOfPayment, Addrow.IsLock, Addrow.IsCancel, Addrow.CreateTime);
             this.requestsTableAdapter.Update(vEDataSet.Requests);
             this.bindingNavigatorAddNewItem.Enabled = true; 
             this.requestsBindingNavigatorSaveItem.Enabled = false;
+            this.bindingNavigatorDeleteItem.Enabled = false;
             this.requestsTableAdapter.Fill(this.vEDataSet.Requests);
             this.requestsDataGridView.Enabled = true;
+            this.isCancelCheckBox.Enabled = true;
         }
         private void bindingNavigatorAddNewItem_Click_1(object sender, EventArgs e)
         {
+            this.isCancelCheckBox.Enabled = false;
             this.bindingNavigatorAddNewItem.Enabled = false; 
             this.bindingNavigatorDeleteItem.Enabled = true;
             this.requestsBindingNavigatorSaveItem.Enabled = true;
@@ -133,6 +182,8 @@ namespace VoucherExpense
             departmentTextBox.Focus();
             newRequests();
         }
+        int CurrentId=0;
+        string CurrentList;
         void newRequests()//创建新单数据
         {
             int maxID = 0;
@@ -148,9 +199,20 @@ namespace VoucherExpense
                     maxCode = Convert.ToInt32(item.ListNumber);
                 }
             }
+            string datetime = DateTime.Now.ToString("yyMM");
+             string maxcode ="0";
+            if(maxCode>0)
+            maxcode = maxCode.ToString().Remove(4);
+            if (Convert.ToInt32(datetime)>Convert.ToInt32(maxcode))
+            {
+                maxCode = Convert.ToInt32(datetime + "000");
+            }
             Addrow = vEDataSet.Requests.NewRequestsRow();
             Addrow.RequestsID = maxID + 1;
-            Addrow.ListNumber = intToint6((maxCode + 1), 6).ToString();
+            CurrentId = maxID + 1;
+            Addrow.ListNumber = (maxCode + 1).ToString();
+            CurrentList = (maxCode + 1).ToString();
+            listNumberTextBox.Text = (maxCode + 1).ToString();
             listNumberTextBox.Text = Addrow.ListNumber;
             Addrow.SetAccountNull();
             Addrow.SetOperatorIDNull();
@@ -165,16 +227,18 @@ namespace VoucherExpense
             Addrow.SetHandoverPoepleNull();
             Addrow.SetBillingDateNull();
             Addrow.SetDateOfPaymentNull();
-            Addrow.SetIsCancelNull();
-            Addrow.SetIsCancelNull();
+            Addrow.IsLock = false;
+            Addrow.IsCancel = false;
             Addrow.CreateTime = DateTime.Now;
             Addrow.EndEdit();
+
+            
         }
         bool isEmpty=false;
         private void pd_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
-
-            image = Image.FromFile(Application.StartupPath+"\\BillBackground\\Requests.png");//D:\VoucherExpense10\VoucherExpense\
+           image =  global::VoucherExpense.Properties.Resources.Requests;
+            //image = Image.FromFile(Application.StartupPath+"\\BillBackground\\Requests.png");//D:\VoucherExpense10\VoucherExpense\
             // 获取Graphics
             Graphics g = e.Graphics;
             //DrawImage(g);
@@ -265,6 +329,68 @@ namespace VoucherExpense
             {
 
                 pD.Print();
+                int maxID = 0;
+                int maxCode = 0;
+                this.requestsTableAdapter.Fill(this.vEDataSet.Requests);
+                foreach (VEDataSet.RequestsRow item in vEDataSet.Requests)
+                {
+                    if (item.RequestsID > maxID)
+                    {
+                        maxID = item.RequestsID;
+                    }
+                    if (Convert.ToInt32(item.ListNumber) > maxCode)
+                    {
+                        maxCode = Convert.ToInt32(item.ListNumber);
+                    }
+                }
+                Addrow = vEDataSet.Requests.NewRequestsRow();
+                //Addrow.RequestsID = CurrentId;
+                //Addrow.ListNumber = CurrentList;
+                //Addrow.EndEdit();
+                if (CurrentId <= maxID)//和数据库数据比较确认id是否大于数据库id最大值，如果小于数据库最大id重新获取id和编号在存储
+                {
+                    string datetime = DateTime.Now.ToString("yyMM");
+                    string maxcode = "0";
+                    if (maxCode > 0)
+                        maxcode = maxCode.ToString().Remove(4);
+                    if (Convert.ToInt32(datetime) > Convert.ToInt32(maxcode))
+                    {
+                        maxCode = Convert.ToInt32(datetime + "000");
+                    }
+                    Addrow.RequestsID = maxID + 1;
+                    Addrow.ListNumber = (maxCode + 1).ToString();
+                }
+                else
+                {
+                    Addrow.RequestsID = CurrentId;
+                    Addrow.ListNumber = CurrentList;
+                }
+                Addrow.OperatorID = MyFunction.OperatorID;
+                //Addrow.Department = departmentTextBox.Text;
+                //Addrow.Applicant = applicantTextBox.Text;
+                //Addrow.RequestsUse = requestsUseTextBox.Text;
+                //Addrow.UintName = uintNameTextBox.Text;
+                //Addrow.BankOfDeposit = bankOfDepositTextBox.Text;
+                //Addrow.Account = accountTextBox.Text;
+                //Addrow.MoneyA = moneyATextBox.Text;
+                //if (moneyAaTextBox.Text != "")
+                //    Addrow.MoneyAa = Convert.ToDecimal(moneyAaTextBox.Text);
+                //else
+                //{
+                //    Addrow.MoneyAa = 0;
+                //}
+                //Addrow.PaymenMethods = paymenMethodsTextBox.Text;
+                //Addrow.HandoverPoeple = handoverPoepleTextBox.Text;
+                //Addrow.DateOfPayment = dateOfPaymentDateTimePicker.Value.Date;
+                //Addrow.BillingDate = billingDateDateTimePicker.Value.Date;
+                Addrow.CreateTime = DateTime.Now;
+                Addrow.IsCancel = false;
+                Addrow.IsLock = false;
+                Addrow.EndEdit();
+                //保存数据并重新加载
+                vEDataSet.Requests.Rows.Add(Addrow);
+                this.requestsTableAdapter.Update(vEDataSet.Requests);
+                this.requestsTableAdapter.Fill(this.vEDataSet.Requests);
                 isEmpty = false;//空单打印后isEmpty重置为false
             }
             catch (Exception ex)
@@ -273,10 +399,7 @@ namespace VoucherExpense
                 MessageBox.Show(ex.ToString());
                 return;
             }
-            //保存数据并重新加载
-            vEDataSet.Requests.Rows.Add(Addrow);
-            this.requestsTableAdapter.Update(vEDataSet.Requests);
-            this.requestsTableAdapter.Fill(this.vEDataSet.Requests);//
+//
         }
 
         private void dateTimetoolStripCbB_SelectedIndexChanged(object sender, EventArgs e)
@@ -311,6 +434,52 @@ namespace VoucherExpense
                 }
             this.requestsDataGridView.Focus();
         }
+
+        private void isCancelCheckBox_Click(object sender, EventArgs e)
+        {
+            this.requestsBindingSource.EndEdit();
+            this.requestsTableAdapter.Update(vEDataSet.Requests);
+            // this.requestsTableAdapter.Fill(this.vEDataSet.Requests);
+
+        }
+        private void requestsDataGridView_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+            //DataGridView view = (DataGridView)sender;
+            //DataGridViewRow row = view.Rows[e.RowIndex];
+            //DataGridViewCell cell = row.Cells["IsCancel"];
+            //if (cell.ValueType != typeof(bool)) return;    // 不應該
+            //bool removed = false;
+            //if (cell.Value != null && cell.Value != DBNull.Value)
+            //    removed = (bool)cell.Value;
+            //Color color;
+            //if (removed)
+            //    color = Color.DarkCyan;
+            //else if ((e.RowIndex % 2) != 0)
+            //    color = Color.Azure;
+            //else
+            //    color = Color.White;
+            //row.DefaultCellStyle.BackColor = color;
+        }
+
+        private void requestsDataGridView_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            DataGridView view = (DataGridView)sender;
+            DataGridViewRow row = view.Rows[e.RowIndex];
+            DataGridViewCell cell = row.Cells["IsCancel"];
+            if (cell.ValueType != typeof(bool)) return;    // 不應該
+            bool removed = false;
+            if (cell.Value != null && cell.Value != DBNull.Value)
+                removed = (bool)cell.Value;
+            Color color;
+            if (removed)
+                color = Color.LightSteelBlue;
+            else if ((e.RowIndex % 2) != 0)
+                color = Color.OldLace;
+            else
+                color = Color.FloralWhite;
+            row.DefaultCellStyle.BackColor = color;
+        }
+
 
 
     }

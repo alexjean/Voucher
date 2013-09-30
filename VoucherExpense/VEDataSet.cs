@@ -6,6 +6,9 @@
 }
 
 namespace VoucherExpense.VEDataSetTableAdapters {
+    partial class RequestsTableAdapter
+    {
+    }
     
     
     public partial class IngredientTableAdapter {

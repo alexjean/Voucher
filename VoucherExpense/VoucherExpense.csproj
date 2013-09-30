@@ -710,7 +710,7 @@
     <None Include="NavBar_Back.png" />
     <None Include="Resources\LogoVI.jpg" />
     <None Include="Resources\Company_Back.jpg" />
-    <None Include="Resources\Requests.png" />
+    <Content Include="Resources\Requests.png" />
     <Content Include="VoucherExpense.mdb" />
   </ItemGroup>
   <ItemGroup>

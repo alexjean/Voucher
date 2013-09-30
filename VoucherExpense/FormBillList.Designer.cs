@@ -34,9 +34,10 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.listNumberTextBox = new System.Windows.Forms.TextBox();
+            this.isCancelCheckBox = new System.Windows.Forms.CheckBox();
             this.requestsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.vEDataSet = new VoucherExpense.VEDataSet();
+            this.listNumberTextBox = new System.Windows.Forms.TextBox();
             this.billingDateDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.dateOfPaymentDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.requestsBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
@@ -70,13 +71,11 @@
             this.applicantTextBox = new System.Windows.Forms.TextBox();
             this.departmentTextBox = new System.Windows.Forms.TextBox();
             this.requestsDataGridView = new System.Windows.Forms.DataGridView();
-            this.requestsTableAdapter = new VoucherExpense.VEDataSetTableAdapters.RequestsTableAdapter();
-            this.pD = new System.Drawing.Printing.PrintDocument();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnApplier = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -88,7 +87,9 @@
             this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dataGridViewCheckBoxColumn2 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.IsCancel = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.requestsTableAdapter = new VoucherExpense.VEDataSetTableAdapters.RequestsTableAdapter();
+            this.pD = new System.Drawing.Printing.PrintDocument();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -129,8 +130,9 @@
             // panel1
             // 
             this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel1.BackgroundImage")));
+            this.panel1.BackgroundImage = global::VoucherExpense.Properties.Resources.Requests;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel1.Controls.Add(this.isCancelCheckBox);
             this.panel1.Controls.Add(this.listNumberTextBox);
             this.panel1.Controls.Add(this.billingDateDateTimePicker);
             this.panel1.Controls.Add(this.dateOfPaymentDateTimePicker);
@@ -151,16 +153,17 @@
             this.panel1.Size = new System.Drawing.Size(774, 425);
             this.panel1.TabIndex = 11;
             // 
-            // listNumberTextBox
+            // isCancelCheckBox
             // 
-            this.listNumberTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listNumberTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.requestsBindingSource, "ListNumber", true));
-            this.listNumberTextBox.Enabled = false;
-            this.listNumberTextBox.Font = new System.Drawing.Font("新細明體", 9F);
-            this.listNumberTextBox.Location = new System.Drawing.Point(561, 88);
-            this.listNumberTextBox.Name = "listNumberTextBox";
-            this.listNumberTextBox.Size = new System.Drawing.Size(60, 15);
-            this.listNumberTextBox.TabIndex = 28;
+            this.isCancelCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.requestsBindingSource, "IsCancel", true));
+            this.isCancelCheckBox.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.isCancelCheckBox.Location = new System.Drawing.Point(525, 8);
+            this.isCancelCheckBox.Name = "isCancelCheckBox";
+            this.isCancelCheckBox.Size = new System.Drawing.Size(53, 24);
+            this.isCancelCheckBox.TabIndex = 12;
+            this.isCancelCheckBox.Text = "作废";
+            this.isCancelCheckBox.UseVisualStyleBackColor = true;
+            this.isCancelCheckBox.Click += new System.EventHandler(this.isCancelCheckBox_Click);
             // 
             // requestsBindingSource
             // 
@@ -172,6 +175,17 @@
             // 
             this.vEDataSet.DataSetName = "VEDataSet";
             this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // listNumberTextBox
+            // 
+            this.listNumberTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.listNumberTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.requestsBindingSource, "ListNumber", true));
+            this.listNumberTextBox.Enabled = false;
+            this.listNumberTextBox.Font = new System.Drawing.Font("新細明體", 9F);
+            this.listNumberTextBox.Location = new System.Drawing.Point(561, 88);
+            this.listNumberTextBox.Name = "listNumberTextBox";
+            this.listNumberTextBox.Size = new System.Drawing.Size(60, 15);
+            this.listNumberTextBox.TabIndex = 28;
             // 
             // billingDateDateTimePicker
             // 
@@ -192,7 +206,7 @@
             this.dateOfPaymentDateTimePicker.Name = "dateOfPaymentDateTimePicker";
             this.dateOfPaymentDateTimePicker.Size = new System.Drawing.Size(167, 23);
             this.dateOfPaymentDateTimePicker.TabIndex = 25;
-            this.dateOfPaymentDateTimePicker.Value = new System.DateTime(2013, 9, 26, 11, 23, 16, 0);
+            this.dateOfPaymentDateTimePicker.Value = new System.DateTime(2013, 9, 29, 0, 0, 0, 0);
             // 
             // requestsBindingNavigator
             // 
@@ -228,7 +242,7 @@
             this.requestsBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.requestsBindingNavigator.Name = "requestsBindingNavigator";
             this.requestsBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.requestsBindingNavigator.Size = new System.Drawing.Size(493, 25);
+            this.requestsBindingNavigator.Size = new System.Drawing.Size(526, 29);
             this.requestsBindingNavigator.TabIndex = 10;
             this.requestsBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -238,14 +252,14 @@
             this.bindingNavigatorAddNewItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem.Image")));
             this.bindingNavigatorAddNewItem.Name = "bindingNavigatorAddNewItem";
             this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 26);
             this.bindingNavigatorAddNewItem.Text = "加入新的";
             this.bindingNavigatorAddNewItem.Click += new System.EventHandler(this.bindingNavigatorAddNewItem_Click_1);
             // 
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(28, 22);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(28, 26);
             this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
@@ -255,7 +269,7 @@
             this.bindingNavigatorMoveFirstItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveFirstItem.Image")));
             this.bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
             this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(23, 26);
             this.bindingNavigatorMoveFirstItem.Text = "移到最前面";
             // 
             // bindingNavigatorMovePreviousItem
@@ -264,13 +278,13 @@
             this.bindingNavigatorMovePreviousItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMovePreviousItem.Image")));
             this.bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
             this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(23, 26);
             this.bindingNavigatorMovePreviousItem.Text = "移到上一個";
             // 
             // bindingNavigatorSeparator
             // 
             this.bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
-            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 25);
+            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 29);
             // 
             // bindingNavigatorPositionItem
             // 
@@ -284,7 +298,7 @@
             // bindingNavigatorSeparator1
             // 
             this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
-            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 29);
             // 
             // bindingNavigatorMoveNextItem
             // 
@@ -292,7 +306,7 @@
             this.bindingNavigatorMoveNextItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveNextItem.Image")));
             this.bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
             this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(23, 26);
             this.bindingNavigatorMoveNextItem.Text = "移到下一個";
             // 
             // bindingNavigatorMoveLastItem
@@ -301,13 +315,13 @@
             this.bindingNavigatorMoveLastItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveLastItem.Image")));
             this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
             this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 26);
             this.bindingNavigatorMoveLastItem.Text = "移到最後面";
             // 
             // bindingNavigatorSeparator2
             // 
             this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
-            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
+            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 29);
             // 
             // requestsBindingNavigatorSaveItem
             // 
@@ -315,7 +329,7 @@
             this.requestsBindingNavigatorSaveItem.Enabled = false;
             this.requestsBindingNavigatorSaveItem.Image = ((System.Drawing.Image)(resources.GetObject("requestsBindingNavigatorSaveItem.Image")));
             this.requestsBindingNavigatorSaveItem.Name = "requestsBindingNavigatorSaveItem";
-            this.requestsBindingNavigatorSaveItem.Size = new System.Drawing.Size(23, 22);
+            this.requestsBindingNavigatorSaveItem.Size = new System.Drawing.Size(23, 26);
             this.requestsBindingNavigatorSaveItem.Text = "儲存資料";
             this.requestsBindingNavigatorSaveItem.Click += new System.EventHandler(this.requestsBindingNavigatorSaveItem_Click);
             // 
@@ -325,7 +339,7 @@
             this.列印PToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("列印PToolStripButton.Image")));
             this.列印PToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.列印PToolStripButton.Name = "列印PToolStripButton";
-            this.列印PToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.列印PToolStripButton.Size = new System.Drawing.Size(23, 26);
             this.列印PToolStripButton.Text = "列印(&P)";
             this.列印PToolStripButton.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
@@ -336,14 +350,14 @@
             this.bindingNavigatorDeleteItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorDeleteItem.Image")));
             this.bindingNavigatorDeleteItem.Name = "bindingNavigatorDeleteItem";
             this.bindingNavigatorDeleteItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(23, 26);
             this.bindingNavigatorDeleteItem.Text = "刪除";
             this.bindingNavigatorDeleteItem.Click += new System.EventHandler(this.bindingNavigatorDeleteItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 29);
             // 
             // toolStripButton1
             // 
@@ -351,24 +365,24 @@
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(60, 22);
+            this.toolStripButton1.Size = new System.Drawing.Size(60, 26);
             this.toolStripButton1.Text = "打印空单";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click_1);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 29);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 29);
             // 
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(44, 22);
+            this.toolStripLabel1.Size = new System.Drawing.Size(44, 26);
             this.toolStripLabel1.Text = "日期：";
             // 
             // dateTimetoolStripCbB
@@ -388,16 +402,16 @@
             "十一",
             "十二"});
             this.dateTimetoolStripCbB.Name = "dateTimetoolStripCbB";
-            this.dateTimetoolStripCbB.Size = new System.Drawing.Size(75, 25);
+            this.dateTimetoolStripCbB.Size = new System.Drawing.Size(75, 29);
             this.dateTimetoolStripCbB.SelectedIndexChanged += new System.EventHandler(this.dateTimetoolStripCbB_SelectedIndexChanged);
             // 
             // handoverPoepleTextBox
             // 
             this.handoverPoepleTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.handoverPoepleTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.requestsBindingSource, "HandoverPoeple", true));
-            this.handoverPoepleTextBox.Location = new System.Drawing.Point(525, 368);
+            this.handoverPoepleTextBox.Location = new System.Drawing.Point(292, 371);
             this.handoverPoepleTextBox.Name = "handoverPoepleTextBox";
-            this.handoverPoepleTextBox.Size = new System.Drawing.Size(175, 20);
+            this.handoverPoepleTextBox.Size = new System.Drawing.Size(421, 20);
             this.handoverPoepleTextBox.TabIndex = 24;
             // 
             // paymenMethodsTextBox
@@ -508,7 +522,7 @@
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn4,
-            this.dataGridViewTextBoxColumn5,
+            this.ColumnApplier,
             this.dataGridViewTextBoxColumn6,
             this.dataGridViewTextBoxColumn14,
             this.dataGridViewTextBoxColumn7,
@@ -520,7 +534,7 @@
             this.dataGridViewTextBoxColumn13,
             this.dataGridViewTextBoxColumn15,
             this.dataGridViewCheckBoxColumn1,
-            this.dataGridViewCheckBoxColumn2});
+            this.IsCancel});
             this.requestsDataGridView.DataSource = this.requestsBindingSource;
             this.requestsDataGridView.Location = new System.Drawing.Point(0, 0);
             this.requestsDataGridView.Name = "requestsDataGridView";
@@ -528,16 +542,10 @@
             this.requestsDataGridView.RowHeadersVisible = false;
             this.requestsDataGridView.RowTemplate.Height = 23;
             this.requestsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.requestsDataGridView.Size = new System.Drawing.Size(1165, 275);
+            this.requestsDataGridView.Size = new System.Drawing.Size(1165, 263);
             this.requestsDataGridView.TabIndex = 0;
-            // 
-            // requestsTableAdapter
-            // 
-            this.requestsTableAdapter.ClearBeforeFill = true;
-            // 
-            // pD
-            // 
-            this.pD.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.pd_PrintPage);
+            this.requestsDataGridView.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.requestsDataGridView_RowPostPaint);
+            this.requestsDataGridView.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.requestsDataGridView_RowPrePaint);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -575,14 +583,14 @@
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
             this.dataGridViewTextBoxColumn4.Width = 65;
             // 
-            // dataGridViewTextBoxColumn5
+            // ColumnApplier
             // 
-            this.dataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "Applicant";
-            this.dataGridViewTextBoxColumn5.HeaderText = "申请人";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            this.dataGridViewTextBoxColumn5.Width = 81;
+            this.ColumnApplier.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.ColumnApplier.DataPropertyName = "Applicant";
+            this.ColumnApplier.HeaderText = "申请人";
+            this.ColumnApplier.Name = "ColumnApplier";
+            this.ColumnApplier.ReadOnly = true;
+            this.ColumnApplier.Width = 81;
             // 
             // dataGridViewTextBoxColumn6
             // 
@@ -680,13 +688,22 @@
             this.dataGridViewCheckBoxColumn1.ReadOnly = true;
             this.dataGridViewCheckBoxColumn1.Visible = false;
             // 
-            // dataGridViewCheckBoxColumn2
+            // IsCancel
             // 
-            this.dataGridViewCheckBoxColumn2.DataPropertyName = "IsCancel";
-            this.dataGridViewCheckBoxColumn2.HeaderText = "IsCancel";
-            this.dataGridViewCheckBoxColumn2.Name = "dataGridViewCheckBoxColumn2";
-            this.dataGridViewCheckBoxColumn2.ReadOnly = true;
-            this.dataGridViewCheckBoxColumn2.Visible = false;
+            this.IsCancel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.IsCancel.DataPropertyName = "IsCancel";
+            this.IsCancel.HeaderText = "作废";
+            this.IsCancel.Name = "IsCancel";
+            this.IsCancel.ReadOnly = true;
+            this.IsCancel.Width = 46;
+            // 
+            // requestsTableAdapter
+            // 
+            this.requestsTableAdapter.ClearBeforeFill = true;
+            // 
+            // pD
+            // 
+            this.pD.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.pd_PrintPage);
             // 
             // FormBillList
             // 
@@ -757,11 +774,12 @@
         private System.Windows.Forms.ToolStripComboBox dateTimetoolStripCbB;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.CheckBox isCancelCheckBox;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnApplier;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
@@ -773,7 +791,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn2;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn IsCancel;
 
 
 

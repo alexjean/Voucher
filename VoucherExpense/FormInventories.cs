@@ -472,6 +472,10 @@ namespace VoucherExpense
                         inv.StockVolume = 0;
                     else
                         inv.StockVolume=d.StockVolume;
+                    if (!d.IsAreaCodeNull())
+                    {
+                        if (d.AreaCode == "???") d.AreaCode = "";     // 清除??? ,後面再設上去
+                    }
                     if (dicCalcStock.Keys.Contains(id))   // 表不正常, 重覆了
                          d.Delete();    // 刪除重的這筆
                     else dicCalcStock.Add(id,inv);

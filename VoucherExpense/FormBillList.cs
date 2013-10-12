@@ -26,12 +26,12 @@ namespace VoucherExpense
             // TODO: 這行程式碼會將資料載入 'vEDataSet.Requests' 資料表。您可以視需要進行移動或移除。
             this.requestsTableAdapter.Fill(this.vEDataSet.Requests);
             this.requestsBindingSource.Sort = "requestsid desc";
-            //设定打印机
-            //Config.Load();
-            //PrinterSettings ps = new PrinterSettings();
-            //ps.PrinterName = Config.DotPrinterName;
-            //pD.PrinterSettings = ps;
-            //      
+           // 设定打印机
+            Config.Load();
+            PrinterSettings ps = new PrinterSettings();
+            ps.PrinterName = Config.DotPrinterName;
+            pD.PrinterSettings = ps;
+                  
         }
         VEDataSet.RequestsRow Addrow;
         string intToint6(int num, int numlength)
@@ -544,6 +544,17 @@ namespace VoucherExpense
         private void dateOfPaymentDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
             this.dateOfPaymentTextBox.Text = dateOfPaymentDateTimePicker.Text;
+        }
+
+
+        private void requestsDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            DataGridView view = (DataGridView)sender;
+            int col = e.ColumnIndex;
+            int row = e.RowIndex;
+            MessageBox.Show("第" + row.ToString() + "行,第" + col.ToString() + "欄資料" + e.Exception.Message);
+            e.Cancel = true;
+
         }
 
 

@@ -11,17 +11,31 @@ namespace VoucherExpense
 {
     public partial class FormLogin : Form
     {
-        HardwareConfig m_Cfg = new HardwareConfig();
+        HardwareConfig m_Cfg;
         MapPath m_MapPath;
         string m_BranchName="麥麥麥達人";
         public FormLogin()
         {
+            string EncryptedPasword = "mpwfCblfsz";   // loveBakery
+            string password = "";
+            foreach (char c in EncryptedPasword) password += (char)(c - 1);
+            global::VoucherExpense.Properties.Settings.Default.BakeryOrderConnectionString += password;
+
+            HardwareConfig cfg = new HardwareConfig();
+            cfg.Load();
+            global::VoucherExpense.Properties.Settings.Default.SqlVeConnectionString =
+                   "Data Source=" + cfg.SqlServerIP
+                  + ";Initial Catalog=" + cfg.SqlDatabase
+                  + ";Persist Security Info=True;User ID=" + cfg.SqlUserID
+                  + ";Password=" + cfg.SqlPassword;
+
+            m_Cfg = cfg;
             InitializeComponent();
             ShowLogin(false);
-            m_Cfg.Load();
-            if (!m_Cfg.IsServer)
+
+            if (!cfg.IsServer)
                 MapPath.DeleteAllMapDriver();  // 因為一台機器,你只能用一個UserName login,ShareDocs可能用guest己經login
-            m_MapPath = new MapPath(timer1, progressBar1,m_Cfg);
+            m_MapPath = new MapPath(timer1, progressBar1,cfg);
         }
 
         private void ShowLogin(bool Yes)

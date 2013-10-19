@@ -16,6 +16,8 @@ namespace VoucherExpense
         static public OleDbConnection BakeryConnection = new OleDbConnection(global::VoucherExpense.Properties.Settings.Default.BakeryOrderConnectionString);    // 己在Program.cs設定
         const string HeadStr = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=";
         const string TailStr = ";Persist Security Info=True;Jet OLEDB:Database Password=";
+        const string SQLConnStr = "Data Source=192.168.88.201;Initial Catalog=Mai2013;Persist Security Info=True;User ID=VoucherExpense;Password=CalcVoucher888";
+
         static public string VoucherPass = "CalcVoucher";
         static public string BasicPass  = "love";
         static public string BakeryPass = "love";

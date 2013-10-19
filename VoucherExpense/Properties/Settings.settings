@@ -26,13 +26,13 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Provider=Microsoft.Jet.OLEDB.4.0;Data Source=|DataDirectory|\BakeryOrder.mdb;Persist Security Info=True;Jet OLEDB:Database Password=</Value>
     </Setting>
-    <Setting Name="BillConnectionString" Type="(Connection string)" Scope="Application">
+    <Setting Name="SqlVeConnectionString" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Provider=Microsoft.Jet.OLEDB.4.0;Data Source=|DataDirectory|\Bill.mdb;Jet OLEDB:Database Password=Bill000&lt;/ConnectionString&gt;
-  &lt;ProviderName&gt;System.Data.OleDb&lt;/ProviderName&gt;
+  &lt;ConnectionString&gt;Data Source=192.168.88.201;Initial Catalog=Mai2013;Persist Security Info=True;User ID=VoucherExpense;Password=CalcVoucher888&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Provider=Microsoft.Jet.OLEDB.4.0;Data Source=|DataDirectory|\Bill.mdb;Jet OLEDB:Database Password=Bill000</Value>
+      <Value Profile="(Default)">Data Source=192.168.88.201;Initial Catalog=Mai2013;Persist Security Info=True;User ID=VoucherExpense;Password=CalcVoucher888</Value>
     </Setting>
   </Settings>
 </SettingsFile>

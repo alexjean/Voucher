@@ -58,7 +58,26 @@
             this.btnFindDotPrinter = new System.Windows.Forms.Button();
             this.textBoxDotPrinter = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.textBoxSqlServerIP = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBoxSqlDatabase = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textBoxSqlUserID = new System.Windows.Forms.TextBox();
+            this.textBoxSqlPassword = new System.Windows.Forms.TextBox();
+            this.btnSaveSql = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.veDataSet1)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // listBox1
@@ -97,14 +116,14 @@
             "9 Win7 遠端因為要Map Network Driver, 必需以系統管理員執行."});
             this.listBox1.Location = new System.Drawing.Point(344, 12);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(536, 468);
+            this.listBox1.Size = new System.Drawing.Size(536, 276);
             this.listBox1.TabIndex = 0;
             this.listBox1.TabStop = false;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(36, 114);
+            this.label1.Location = new System.Drawing.Point(23, 29);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(88, 16);
             this.label1.TabIndex = 4;
@@ -122,7 +141,7 @@
             "COM6",
             "COM7",
             "COM8"});
-            this.cbBoxRS232.Location = new System.Drawing.Point(147, 111);
+            this.cbBoxRS232.Location = new System.Drawing.Point(184, 26);
             this.cbBoxRS232.Name = "cbBoxRS232";
             this.cbBoxRS232.Size = new System.Drawing.Size(111, 24);
             this.cbBoxRS232.TabIndex = 5;
@@ -130,7 +149,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(36, 155);
+            this.label2.Location = new System.Drawing.Point(23, 69);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(88, 16);
             this.label2.TabIndex = 3;
@@ -138,7 +157,7 @@
             // 
             // textBoxPrinter
             // 
-            this.textBoxPrinter.Location = new System.Drawing.Point(36, 177);
+            this.textBoxPrinter.Location = new System.Drawing.Point(23, 91);
             this.textBoxPrinter.Name = "textBoxPrinter";
             this.textBoxPrinter.Size = new System.Drawing.Size(277, 27);
             this.textBoxPrinter.TabIndex = 6;
@@ -146,7 +165,7 @@
             // 
             // btnFindPrinter
             // 
-            this.btnFindPrinter.Location = new System.Drawing.Point(197, 150);
+            this.btnFindPrinter.Location = new System.Drawing.Point(184, 64);
             this.btnFindPrinter.Name = "btnFindPrinter";
             this.btnFindPrinter.Size = new System.Drawing.Size(111, 26);
             this.btnFindPrinter.TabIndex = 5;
@@ -178,8 +197,7 @@
             // 
             // ckBoxIsServer
             // 
-            this.ckBoxIsServer.AutoSize = true;
-            this.ckBoxIsServer.Location = new System.Drawing.Point(31, 305);
+            this.ckBoxIsServer.Location = new System.Drawing.Point(18, 26);
             this.ckBoxIsServer.Name = "ckBoxIsServer";
             this.ckBoxIsServer.Size = new System.Drawing.Size(221, 20);
             this.ckBoxIsServer.TabIndex = 0;
@@ -189,7 +207,7 @@
             // 
             // textBoxDataDir
             // 
-            this.textBoxDataDir.Location = new System.Drawing.Point(31, 361);
+            this.textBoxDataDir.Location = new System.Drawing.Point(18, 85);
             this.textBoxDataDir.Name = "textBoxDataDir";
             this.textBoxDataDir.Size = new System.Drawing.Size(277, 27);
             this.textBoxDataDir.TabIndex = 1;
@@ -197,7 +215,7 @@
             // labelShareName
             // 
             this.labelShareName.AutoSize = true;
-            this.labelShareName.Location = new System.Drawing.Point(31, 342);
+            this.labelShareName.Location = new System.Drawing.Point(18, 66);
             this.labelShareName.Name = "labelShareName";
             this.labelShareName.Size = new System.Drawing.Size(216, 16);
             this.labelShareName.TabIndex = 7;
@@ -206,7 +224,7 @@
             // labelUser
             // 
             this.labelUser.AutoSize = true;
-            this.labelUser.Location = new System.Drawing.Point(31, 412);
+            this.labelUser.Location = new System.Drawing.Point(18, 136);
             this.labelUser.Name = "labelUser";
             this.labelUser.Size = new System.Drawing.Size(40, 16);
             this.labelUser.TabIndex = 12;
@@ -215,7 +233,7 @@
             // labelPass
             // 
             this.labelPass.AutoSize = true;
-            this.labelPass.Location = new System.Drawing.Point(31, 445);
+            this.labelPass.Location = new System.Drawing.Point(18, 169);
             this.labelPass.Name = "labelPass";
             this.labelPass.Size = new System.Drawing.Size(40, 16);
             this.labelPass.TabIndex = 13;
@@ -223,23 +241,23 @@
             // 
             // textBoxUserName
             // 
-            this.textBoxUserName.Location = new System.Drawing.Point(77, 407);
+            this.textBoxUserName.Location = new System.Drawing.Point(64, 131);
             this.textBoxUserName.Name = "textBoxUserName";
             this.textBoxUserName.Size = new System.Drawing.Size(231, 27);
             this.textBoxUserName.TabIndex = 2;
             // 
             // textBoxPassword
             // 
-            this.textBoxPassword.Location = new System.Drawing.Point(77, 440);
+            this.textBoxPassword.Location = new System.Drawing.Point(64, 164);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.Size = new System.Drawing.Size(231, 27);
             this.textBoxPassword.TabIndex = 3;
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(142, 494);
+            this.btnSave.Location = new System.Drawing.Point(119, 203);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.Size = new System.Drawing.Size(75, 30);
             this.btnSave.TabIndex = 5;
             this.btnSave.Text = "存檔";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -247,7 +265,7 @@
             // 
             // textBoxBackupDir
             // 
-            this.textBoxBackupDir.Location = new System.Drawing.Point(445, 490);
+            this.textBoxBackupDir.Location = new System.Drawing.Point(6, 21);
             this.textBoxBackupDir.Name = "textBoxBackupDir";
             this.textBoxBackupDir.Size = new System.Drawing.Size(425, 27);
             this.textBoxBackupDir.TabIndex = 14;
@@ -255,28 +273,28 @@
             // btnBackup
             // 
             this.btnBackup.AutoSize = true;
-            this.btnBackup.Location = new System.Drawing.Point(566, 523);
+            this.btnBackup.Location = new System.Drawing.Point(180, 57);
             this.btnBackup.Name = "btnBackup";
-            this.btnBackup.Size = new System.Drawing.Size(98, 26);
+            this.btnBackup.Size = new System.Drawing.Size(98, 30);
             this.btnBackup.TabIndex = 16;
-            this.btnBackup.Text = "備份資料庫";
+            this.btnBackup.Text = "進行備份";
             this.btnBackup.UseVisualStyleBackColor = true;
             this.btnBackup.Click += new System.EventHandler(this.btnBackup_Click);
             // 
             // btnFolerBrowse
             // 
-            this.btnFolerBrowse.Location = new System.Drawing.Point(343, 490);
+            this.btnFolerBrowse.Location = new System.Drawing.Point(437, 21);
             this.btnFolerBrowse.Name = "btnFolerBrowse";
-            this.btnFolerBrowse.Size = new System.Drawing.Size(93, 23);
+            this.btnFolerBrowse.Size = new System.Drawing.Size(93, 30);
             this.btnFolerBrowse.TabIndex = 17;
-            this.btnFolerBrowse.Text = "備份位置";
+            this.btnFolerBrowse.Text = "瀏覽位置";
             this.btnFolerBrowse.UseVisualStyleBackColor = true;
             this.btnFolerBrowse.Click += new System.EventHandler(this.btnFolerBrowse_Click);
             // 
             // labelProgramVersion
             // 
             this.labelProgramVersion.AutoSize = true;
-            this.labelProgramVersion.Location = new System.Drawing.Point(74, 550);
+            this.labelProgramVersion.Location = new System.Drawing.Point(25, 32);
             this.labelProgramVersion.Name = "labelProgramVersion";
             this.labelProgramVersion.Size = new System.Drawing.Size(114, 16);
             this.labelProgramVersion.TabIndex = 18;
@@ -303,7 +321,7 @@
             // labelRequiredVersion
             // 
             this.labelRequiredVersion.AutoSize = true;
-            this.labelRequiredVersion.Location = new System.Drawing.Point(74, 580);
+            this.labelRequiredVersion.Location = new System.Drawing.Point(25, 62);
             this.labelRequiredVersion.Name = "labelRequiredVersion";
             this.labelRequiredVersion.Size = new System.Drawing.Size(118, 16);
             this.labelRequiredVersion.TabIndex = 22;
@@ -311,7 +329,7 @@
             // 
             // btnUpdateRequiedVersion
             // 
-            this.btnUpdateRequiedVersion.Location = new System.Drawing.Point(233, 573);
+            this.btnUpdateRequiedVersion.Location = new System.Drawing.Point(184, 55);
             this.btnUpdateRequiedVersion.Name = "btnUpdateRequiedVersion";
             this.btnUpdateRequiedVersion.Size = new System.Drawing.Size(124, 30);
             this.btnUpdateRequiedVersion.TabIndex = 23;
@@ -321,7 +339,7 @@
             // 
             // btnFindDotPrinter
             // 
-            this.btnFindDotPrinter.Location = new System.Drawing.Point(197, 222);
+            this.btnFindDotPrinter.Location = new System.Drawing.Point(184, 126);
             this.btnFindDotPrinter.Name = "btnFindDotPrinter";
             this.btnFindDotPrinter.Size = new System.Drawing.Size(111, 26);
             this.btnFindDotPrinter.TabIndex = 25;
@@ -331,7 +349,7 @@
             // 
             // textBoxDotPrinter
             // 
-            this.textBoxDotPrinter.Location = new System.Drawing.Point(33, 249);
+            this.textBoxDotPrinter.Location = new System.Drawing.Point(20, 153);
             this.textBoxDotPrinter.Name = "textBoxDotPrinter";
             this.textBoxDotPrinter.Size = new System.Drawing.Size(277, 27);
             this.textBoxDotPrinter.TabIndex = 26;
@@ -339,11 +357,160 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(33, 227);
+            this.label5.Location = new System.Drawing.Point(20, 131);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(120, 16);
             this.label5.TabIndex = 24;
             this.label5.Text = "點陣印表机名稱";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.textBoxDataDir);
+            this.groupBox1.Controls.Add(this.labelShareName);
+            this.groupBox1.Controls.Add(this.labelUser);
+            this.groupBox1.Controls.Add(this.labelPass);
+            this.groupBox1.Controls.Add(this.textBoxUserName);
+            this.groupBox1.Controls.Add(this.textBoxPassword);
+            this.groupBox1.Controls.Add(this.btnSave);
+            this.groupBox1.Controls.Add(this.ckBoxIsServer);
+            this.groupBox1.Location = new System.Drawing.Point(13, 295);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(313, 239);
+            this.groupBox1.TabIndex = 27;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Mdb 設定";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.btnUpdateRequiedVersion);
+            this.groupBox2.Controls.Add(this.labelProgramVersion);
+            this.groupBox2.Controls.Add(this.labelRequiredVersion);
+            this.groupBox2.Location = new System.Drawing.Point(567, 541);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(313, 97);
+            this.groupBox2.TabIndex = 28;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "版本要求";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.textBoxBackupDir);
+            this.groupBox3.Controls.Add(this.btnBackup);
+            this.groupBox3.Controls.Add(this.btnFolerBrowse);
+            this.groupBox3.Location = new System.Drawing.Point(13, 540);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(536, 97);
+            this.groupBox3.TabIndex = 29;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Mdb備份設定";
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.cbBoxRS232);
+            this.groupBox5.Controls.Add(this.label1);
+            this.groupBox5.Controls.Add(this.btnFindDotPrinter);
+            this.groupBox5.Controls.Add(this.label5);
+            this.groupBox5.Controls.Add(this.textBoxDotPrinter);
+            this.groupBox5.Controls.Add(this.btnFindPrinter);
+            this.groupBox5.Controls.Add(this.label2);
+            this.groupBox5.Controls.Add(this.textBoxPrinter);
+            this.groupBox5.Location = new System.Drawing.Point(13, 100);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(313, 189);
+            this.groupBox5.TabIndex = 31;
+            this.groupBox5.TabStop = false;
+            // 
+            // textBoxSqlServerIP
+            // 
+            this.textBoxSqlServerIP.Location = new System.Drawing.Point(106, 29);
+            this.textBoxSqlServerIP.Name = "textBoxSqlServerIP";
+            this.textBoxSqlServerIP.Size = new System.Drawing.Size(277, 27);
+            this.textBoxSqlServerIP.TabIndex = 2;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(30, 34);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(65, 16);
+            this.label7.TabIndex = 8;
+            this.label7.Text = "Server IP";
+            // 
+            // textBoxSqlDatabase
+            // 
+            this.textBoxSqlDatabase.Location = new System.Drawing.Point(106, 85);
+            this.textBoxSqlDatabase.Name = "textBoxSqlDatabase";
+            this.textBoxSqlDatabase.Size = new System.Drawing.Size(277, 27);
+            this.textBoxSqlDatabase.TabIndex = 9;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(30, 88);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(56, 16);
+            this.label8.TabIndex = 10;
+            this.label8.Text = "資料庫";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.label9);
+            this.groupBox4.Controls.Add(this.label10);
+            this.groupBox4.Controls.Add(this.textBoxSqlUserID);
+            this.groupBox4.Controls.Add(this.textBoxSqlPassword);
+            this.groupBox4.Controls.Add(this.btnSaveSql);
+            this.groupBox4.Controls.Add(this.label8);
+            this.groupBox4.Controls.Add(this.textBoxSqlDatabase);
+            this.groupBox4.Controls.Add(this.label7);
+            this.groupBox4.Controls.Add(this.textBoxSqlServerIP);
+            this.groupBox4.Location = new System.Drawing.Point(344, 295);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(536, 240);
+            this.groupBox4.TabIndex = 30;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "SQL設定";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(36, 136);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(40, 16);
+            this.label9.TabIndex = 17;
+            this.label9.Text = "帳號";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(36, 169);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(40, 16);
+            this.label10.TabIndex = 18;
+            this.label10.Text = "密碼";
+            // 
+            // textBoxSqlUserID
+            // 
+            this.textBoxSqlUserID.Location = new System.Drawing.Point(106, 131);
+            this.textBoxSqlUserID.Name = "textBoxSqlUserID";
+            this.textBoxSqlUserID.Size = new System.Drawing.Size(231, 27);
+            this.textBoxSqlUserID.TabIndex = 14;
+            // 
+            // textBoxSqlPassword
+            // 
+            this.textBoxSqlPassword.Location = new System.Drawing.Point(106, 164);
+            this.textBoxSqlPassword.Name = "textBoxSqlPassword";
+            this.textBoxSqlPassword.Size = new System.Drawing.Size(231, 27);
+            this.textBoxSqlPassword.TabIndex = 15;
+            // 
+            // btnSaveSql
+            // 
+            this.btnSaveSql.Location = new System.Drawing.Point(180, 203);
+            this.btnSaveSql.Name = "btnSaveSql";
+            this.btnSaveSql.Size = new System.Drawing.Size(75, 30);
+            this.btnSaveSql.TabIndex = 16;
+            this.btnSaveSql.Text = "存檔";
+            this.btnSaveSql.UseVisualStyleBackColor = true;
+            this.btnSaveSql.Click += new System.EventHandler(this.btnSaveSql_Click);
             // 
             // FormHardware
             // 
@@ -351,38 +518,31 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(892, 638);
-            this.Controls.Add(this.btnFindDotPrinter);
-            this.Controls.Add(this.textBoxDotPrinter);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.btnUpdateRequiedVersion);
-            this.Controls.Add(this.labelRequiredVersion);
+            this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.labelProgramVersion);
-            this.Controls.Add(this.btnFolerBrowse);
-            this.Controls.Add(this.btnBackup);
-            this.Controls.Add(this.textBoxBackupDir);
-            this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.textBoxPassword);
-            this.Controls.Add(this.textBoxUserName);
-            this.Controls.Add(this.labelPass);
-            this.Controls.Add(this.labelUser);
-            this.Controls.Add(this.labelShareName);
-            this.Controls.Add(this.textBoxDataDir);
-            this.Controls.Add(this.ckBoxIsServer);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.btnFindPrinter);
-            this.Controls.Add(this.textBoxPrinter);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.cbBoxRS232);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBox5);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormHardware";
             this.Text = "硬體環境設定";
             this.Load += new System.EventHandler(this.FormHardware_Load);
             ((System.ComponentModel.ISupportInitialize)(this.veDataSet1)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -420,5 +580,19 @@
         private System.Windows.Forms.Button btnFindDotPrinter;
         private System.Windows.Forms.TextBox textBoxDotPrinter;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.TextBox textBoxSqlServerIP;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBoxSqlDatabase;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox textBoxSqlUserID;
+        private System.Windows.Forms.TextBox textBoxSqlPassword;
+        private System.Windows.Forms.Button btnSaveSql;
     }
 }

@@ -18,6 +18,11 @@ namespace VoucherExpense
         public string BackupDir;
         public string DotPrinterName;
 
+        public string SqlServerIP;
+        public string SqlDatabase;
+        public string SqlUserID;
+        public string SqlPassword;
+
 
         public string MaskDataDir()
         {
@@ -102,6 +107,11 @@ namespace VoucherExpense
                     GetEncryptedAttrib(Server, "UserName", ref UserName);
                     GetEncryptedAttrib(Server, "Password", ref Password);
                     GetEncryptedAttrib(Server, "BackupDir", ref BackupDir);
+
+                    GetEncryptedAttrib(Server, "SqlServerIP", ref SqlServerIP);
+                    GetEncryptedAttrib(Server, "SqlUserID"  , ref SqlUserID  );
+                    GetEncryptedAttrib(Server, "SqlPassword", ref SqlPassword);
+                    GetEncryptedAttrib(Server, "SqlDatabase", ref SqlDatabase);
                 }
             }
             catch { }
@@ -120,6 +130,13 @@ namespace VoucherExpense
             UpdateXmlAttribEncrypted(doc, root, "DataSource", "UserName", UserName);
             UpdateXmlAttribEncrypted(doc, root, "DataSource", "Password", Password);
             UpdateXmlAttribEncrypted(doc, root, "DataSource", "BackupDir", BackupDir);
+
+            UpdateXmlAttribEncrypted(doc, root, "DataSource", "SqlServerIP" , SqlServerIP);
+            UpdateXmlAttribEncrypted(doc, root, "DataSource", "SqlUserID"   , SqlUserID  );
+            UpdateXmlAttribEncrypted(doc, root, "DataSource", "SqlPassword" , SqlPassword);
+            UpdateXmlAttribEncrypted(doc, root, "DataSource", "SqlDatabase" , SqlDatabase);
+
+            
             doc.Save(CfgFileName);
         }
 

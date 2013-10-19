@@ -65,6 +65,12 @@ namespace VoucherExpense
             textBoxUserName.Text  = Config.UserName;
             textBoxPassword.Text  = Config.Password;
             textBoxBackupDir.Text = Config.BackupDir;
+
+            textBoxSqlServerIP.Text = Config.SqlServerIP;
+            textBoxSqlDatabase.Text = Config.SqlDatabase;
+            textBoxSqlUserID.Text   = Config.SqlUserID;
+            textBoxSqlPassword.Text = Config.SqlPassword;
+
             labelProgramVersion.Text = "程式版本 "+Application.ProductVersion.ToString();
             string version="未註明";
             if (veDataSet1.Header.Count>0)
@@ -87,8 +93,20 @@ namespace VoucherExpense
             Config.Password   = textBoxPassword.Text.Trim();
             Config.BackupDir  = textBoxBackupDir.Text.Trim();
             Config.Save();
-            MessageBox.Show("存檔完成! 重新啟動程式後, 設定方生效.");
+            MessageBox.Show("Mdb及備份設定 存檔完成! 重新啟動程式後, 設定方生效.");
         }
+
+
+        private void btnSaveSql_Click(object sender, EventArgs e)
+        {
+            Config.SqlServerIP = textBoxSqlServerIP.Text.Trim();
+            Config.SqlDatabase = textBoxSqlDatabase.Text.Trim();
+            Config.SqlUserID   = textBoxSqlUserID.Text.Trim();
+            Config.SqlPassword = textBoxSqlPassword.Text.Trim();
+            Config.Save();
+            MessageBox.Show("SQL設定存檔完成! 重新啟動程式後, 設定方生效.");
+        }
+
 
 
         private void btnFolerBrowse_Click(object sender, EventArgs e)
@@ -127,6 +145,7 @@ namespace VoucherExpense
                 MessageBox.Show("錯誤:" + ex.Message);
             }
         }
+
 
  
     }

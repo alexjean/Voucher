@@ -263,13 +263,13 @@ namespace VoucherExpense
         private void LabelDragLeave(object sender, EventArgs e)
         {
             Label label = sender as Label;
-            label.BorderStyle = BorderStyle.None;
+            label.BorderStyle = BorderStyle.Fixed3D;
         }
 
         private void LabelDragDrop(object sender, DragEventArgs e)
         {
             Label label = sender as Label;
-            label.BorderStyle = BorderStyle.None;
+            label.BorderStyle = BorderStyle.Fixed3D;
             DragItem item = e.Data.GetData(typeof(DragItem)) as DragItem;
             BakeryOrderSet.ProductRow row = item.row;
             if (label.Tag == row) return;
@@ -329,21 +329,21 @@ namespace VoucherExpense
                 {
                     Label l = FoodName[x, y];
                     if (l.BackColor != Color.SeaShell) continue;  // nochange
-                    if (l.Tag == null)
-                    {
-                        var rows = from row in bakeryOrderSet.Product
-                                   where row.MenuX == x1 && row.MenuY == y
-                                   select row;
-                        foreach (var row in rows) row.MenuX = -1;
-                    }
-                    else  // 一般產品改成 ProductID比對 2313.06.09
+                    // Mark SeaShell的先清掉
+                    var ros = from row in bakeryOrderSet.Product
+                                where row.MenuX == x1 && row.MenuY == y
+                                select row;
+                    foreach (var row in ros) row.MenuX = -1;
+                    if (l.Tag != null)  // 改成 ProductID比對 2313.06.09
                     {  
                         var ro = l.Tag as BakeryOrderSet.ProductRow;
+                        int productID = ro.ProductID;
                         var rows = from row in bakeryOrderSet.Product
-                                   where row.ProductID == ro.ProductID    
+                                   where row.ProductID == productID    
                                    select row;
-                        foreach (var row in rows)
+                        if (rows.Count() > 0)
                         {
+                            var row = rows.First();
                             row.MenuX = (short)x1;
                             row.MenuY = (short)y;
                         }
@@ -374,14 +374,19 @@ namespace VoucherExpense
             else
             {
                 BakeryOrderSet.ProductRow row=rows.First();
-                row.Name = reserved;
-                row.MenuX = (short)-MyLayout.NoX;
-                row.MenuY = (short)-MyLayout.NoY;
+                short x = (short)-MyLayout.NoX; 
+                short y = (short)-MyLayout.NoY;
+                if ((x != row.MenuX) || (y != row.MenuY))
+                {
+                    row.Name = reserved;
+                    row.MenuX = x;
+                    row.MenuY = y;
+                }
             }
             try
             {
-                productTableAdapter1.Update(bakeryOrderSet.Product);
-                MessageBox.Show("存檔成功!");
+                int i=productTableAdapter1.Update(bakeryOrderSet.Product);
+                MessageBox.Show("存檔成功! 共更新 "+i.ToString()+"筆");
                 UpdateAllFoodMenu();
             }
             catch (Exception ex)
@@ -395,8 +400,6 @@ namespace VoucherExpense
             try
             {
                 productTableAdapter1.Update(bakeryOrderSet.Product);
-                LoadTabControlItem();
-                UpdateAllFoodMenu();
             }
             catch (Exception ex)
             {
@@ -409,31 +412,32 @@ namespace VoucherExpense
             return name + "_菜單名" + index.ToString() + "_勿動";
         }
 
-        private void tabControl1_KeyPress(object sender, KeyPressEventArgs e)
+        void RenewMenuSaveInProduct()
         {
-            char c = char.ToUpper(e.KeyChar);
-            int i = tabControl1.SelectedIndex;
-            if (i < 0 || i >= tabControl1.TabCount) return;
-            if (c == 'I')
+            var rows = from row in bakeryOrderSet.Product
+                       where (row.RowState!=DataRowState.Deleted) && (row.Code < SpeicalRowCodeForMenu)
+                       select row;
+            int i = 0;
+            foreach (BakeryOrderSet.ProductRow row in rows)
             {
-                tabControl1.TabPages.Insert(i,"菜單" + i.ToString());
-                var rows = from row in bakeryOrderSet.Product
-                           where row.Code < SpeicalRowCodeForMenu
-                           select row;
-                i = 0;
-                foreach (BakeryOrderSet.ProductRow row in rows)
+                if (i >= tabControl1.TabCount)
                 {
-                    if (i >= tabControl1.TabCount) break; // 不應該發生
-                    TabPage page = tabControl1.TabPages[i];
-                    i++;
-                    row.Name = SystemMenuName(page.Text,i);
-                    row.Code = -i;
-                    row.MenuX = -1;
-                    row.MenuY = -1;
+                    row.Delete();
+                    continue;
                 }
+                TabPage page = tabControl1.TabPages[i];
+                i++;
+                row.Name = SystemMenuName(page.Text, i);
+                row.Code = -i;
+                row.MenuX = -1;
+                row.MenuY = -1;
+            }
+            if (i < tabControl1.TabCount)
+            {
                 int maxID = (from row in bakeryOrderSet.Product
+                             where row.RowState != DataRowState.Deleted
                              select row.ProductID).Max();
-                for (; i < tabControl1.TabCount;)
+                for (; i < tabControl1.TabCount; )
                 {
                     BakeryOrderSet.ProductRow row = bakeryOrderSet.Product.NewProductRow();
                     TabPage page = tabControl1.TabPages[i];
@@ -445,67 +449,72 @@ namespace VoucherExpense
                     row.MenuY = -1;
                     bakeryOrderSet.Product.AddProductRow(row);
                 }
-                SaveProduct();
             }
-            else if (c == 'R')
+            SaveProduct();
+            LoadTabControlItem();
+            UpdateAllFoodMenu();
+        }
+
+        private void tabControl1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
             {
-                textBoxRename.Text = tabControl1.TabPages[i].Text;
-                textBoxRename.Visible = true;
-                btnRename.Visible = true;
-                labelHelp.Visible = false;
-                textBoxRename.BringToFront();
-                btnRename.BringToFront();
-                textBoxRename.Focus();
-            }
-            else if (c == 'D')
-            {
-                if (tabControl1.TabCount == 1)
+                for (int i = 0; i < this.tabControl1.TabPages.Count; i++)
                 {
-                    MessageBox.Show("不能再刪了!");
-                    return;
-                }
-                string name = tabControl1.TabPages[i].Text;
-                if (MessageBox.Show("刪除標簽頁<" + name + ">?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-  //                  tabControl1.TabPages.RemoveAt(i);    // 後面會重Load
-                    var rows = from row in bakeryOrderSet.Product
-                               where (row.Code < SpeicalRowCodeForMenu) && (row.Name.Substring(0, name.Length).CompareTo(name) == 0)
-                               select row;
-                    foreach (BakeryOrderSet.ProductRow row in rows)
+                    TabPage tp = this.tabControl1.TabPages[i];
+                    if (this.tabControl1.GetTabRect(i).Contains(new Point(e.X, e.Y)))
                     {
-                        row.Delete();
+                        this.tabControl1.SelectedTab = tp;
+                        tabControl1.ContextMenuStrip = this.contextMenuStripForTabControl;
                         break;
                     }
                 }
-                SaveProduct();
             }
-
         }
 
-        private void btnRename_Click(object sender, EventArgs e)
+        private void tabControl1_MouseLeave(object sender, EventArgs e)
         {
-            labelHelp.Visible = true;
-            labelHelp.BringToFront();
-            string str = textBoxRename.Text.Trim();
-            if (str.Length > 0)
+            tabControl1.ContextMenuStrip = null;
+        }
+
+        private void 插入toolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int i = tabControl1.SelectedIndex;
+            tabControl1.TabPages.Insert(i, "菜單" + i.ToString());
+            RenewMenuSaveInProduct();
+        }
+
+        private void 刪除ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int i = tabControl1.SelectedIndex;
+            string name = tabControl1.TabPages[i].Text;
+            if (MessageBox.Show("刪除第"+(i+1).ToString()+" 標簽頁<" + name + ">?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                int i = tabControl1.SelectedIndex;
-                if (i < 0 || i >= tabControl1.TabCount) return;
-                string name = tabControl1.TabPages[i].Text;
-//                tabControl1.TabPages[i].Text = str;    // 在SaveProduct會重Load
-                textBoxRename.Visible = false;
-                btnRename.Visible = false;
-                var rows = from row in bakeryOrderSet.Product
-                           where (row.Code < SpeicalRowCodeForMenu) && (row.Name.Length>=name.Length) &&
-                                 (row.Name.Substring(0, name.Length).CompareTo(name) == 0)
-                           select row;
-                foreach (BakeryOrderSet.ProductRow row in rows)
-                {
-                    row.Name = SystemMenuName(str,i+1);
-                    break;
-                }
-                SaveProduct();
+                tabControl1.TabPages.RemoveAt(i);
+                RenewMenuSaveInProduct();
             }
+        }
+
+        private void 改名ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string str = textBoxRename.Text.Trim();
+            if (str.Length < 2)
+            {
+                MessageBox.Show("名稱請至少輸入二個字!");
+                return;
+            }
+            if (str.Contains('_'))
+            {
+                MessageBox.Show("名稱中不可以有底線 _");
+                return;
+            }
+            int i = tabControl1.SelectedIndex;
+            if (i < 0 || i >= tabControl1.TabCount) return;
+            string name = tabControl1.TabPages[i].Text;
+            if (MessageBox.Show("將第" + (i + 1).ToString() + "標簽<"+name+">改名成<" + str + ">?", "", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                return;
+            tabControl1.TabPages[i].Text = str;    // 在SaveProduct會重Load
+            RenewMenuSaveInProduct();
         }
     }
 }

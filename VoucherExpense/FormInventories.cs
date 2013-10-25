@@ -20,12 +20,12 @@ namespace VoucherExpense
         private void inventoryBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
             this.Validate();
-            this.inventoryBindingSource.EndEdit();
-            inventoryDetailBindingSource.EndEdit();
-            inventoryProductsBindingSource.EndEdit();
+            this.inventoryBindingSource1.EndEdit();
+            inventoryDetailBindingSource1.EndEdit();
+            inventoryProductsBindingSource1.EndEdit();
 
             DateTime now = DateTime.Now;
-            var detailTable = vEDataSet.InventoryDetail.GetChanges() as VEDataSet.InventoryDetailDataTable;
+            var detailTable = sQLVEDataSet.InventoryDetail.GetChanges() as SQLVEDataSet.InventoryDetailDataTable;
             if (detailTable != null)   // 把有更改的InventoryDetail填 Inventory.Lastupdated的值
             {
                 var IDs = (from r in detailTable 
@@ -33,12 +33,12 @@ namespace VoucherExpense
                            select r.InventoryID).Distinct();
                 foreach (int id in IDs)
                 {
-                    var rows = from r in vEDataSet.Inventory where (r.RowState != DataRowState.Deleted) && (id == r.InventoryID) select r;
+                    var rows = from r in sQLVEDataSet.Inventory where (r.RowState != DataRowState.Deleted) && (id == r.InventoryID) select r;
                     if (rows.Count() != 0)
                         rows.First().LastUpdated=now;
                 }
             }
-            var productDetailTable = vEDataSet.InventoryProducts.GetChanges() as VEDataSet.InventoryProductsDataTable;
+            var productDetailTable = sQLVEDataSet.InventoryProducts.GetChanges() as SQLVEDataSet.InventoryProductsDataTable;
             if (productDetailTable != null)  // 把有更改的InventoryProducts填 Inventory.Lastupdated的值
             {
                 var IDs = (from r in productDetailTable
@@ -46,13 +46,13 @@ namespace VoucherExpense
                            select r.InventoryID).Distinct();
                 foreach (int id in IDs)
                 {
-                    var rows = from r in vEDataSet.Inventory where (r.RowState != DataRowState.Deleted) && (id == r.InventoryID) select r;
+                    var rows = from r in sQLVEDataSet.Inventory where (r.RowState != DataRowState.Deleted) && (id == r.InventoryID) select r;
                     if (rows.Count() != 0)
                         rows.First().LastUpdated = now;
                 }
             }
 
-            var table = vEDataSet.Inventory.GetChanges() as VEDataSet.InventoryDataTable;
+            var table = sQLVEDataSet.Inventory.GetChanges() as SQLVEDataSet.InventoryDataTable;
             if (table == null && detailTable == null)
             {
                 MessageBox.Show("沒有更改,不用存檔!");
@@ -61,8 +61,7 @@ namespace VoucherExpense
             try
             {
                 int deleted = 0, updated = 0;
-                if (detailTable != null) inventoryDetailTableAdapter.Update(vEDataSet.InventoryDetail);
-                if (productDetailTable != null) inventoryProductsTableAdapter.Update(vEDataSet.InventoryProducts);
+
                 if (table != null)
                 {
                     foreach (var r in table)
@@ -76,10 +75,12 @@ namespace VoucherExpense
                         r.KeyinID = MyFunction.OperatorID;
                         updated++;
                     }
-                    inventoryTableAdapter.Update(table);
-                    vEDataSet.Inventory.Merge(table);
-                    vEDataSet.Inventory.AcceptChanges();
-                }
+                    inventoryTableAdapter1.Update(table);
+                    sQLVEDataSet.Inventory.Merge(table);
+                    sQLVEDataSet.Inventory.AcceptChanges();
+                }    
+                if (detailTable != null) inventoryDetailTableAdapter1.Update(sQLVEDataSet.InventoryDetail);
+                if (productDetailTable != null) inventoryProductsTableAdapter1.Update(sQLVEDataSet.InventoryProducts);
                 string msg = "共 ";
                 if (updated > 0) msg += updated.ToString() + "筆更改,";
                 if (deleted > 0) msg += deleted.ToString() + "筆刪除,";
@@ -95,20 +96,35 @@ namespace VoucherExpense
 
         private void FormIngredientInventories_Load(object sender, EventArgs e)
         {
+            // TODO: 这行代码将数据加载到表“sQLVEDataSet.InventoryProducts”中。您可以根据需要移动或删除它。
+            //this.inventoryProductsTableAdapter1.Fill(this.sQLVEDataSet.InventoryProducts);
+            //// TODO: 这行代码将数据加载到表“sQLVEDataSet.InventoryDetail”中。您可以根据需要移动或删除它。
+            //this.inventoryDetailTableAdapter1.Fill(this.sQLVEDataSet.InventoryDetail);
+            //// TODO: 这行代码将数据加载到表“sQLVEDataSet.Inventory”中。您可以根据需要移动或删除它。
+            //this.inventoryTableAdapter1.Fill(this.sQLVEDataSet.Inventory);
             productTableAdapter.Connection          = MapPath.BakeryConnection;
             operatorTableAdapter.Connection         = MapPath.VEConnection;
             ingredientTableAdapter.Connection       = MapPath.VEConnection;
-            inventoryTableAdapter.Connection        = MapPath.VEConnection;
-            inventoryDetailTableAdapter.Connection  = MapPath.VEConnection;
-            inventoryProductsTableAdapter.Connection= MapPath.VEConnection;
+            //inventoryTableAdapter.Connection        = MapPath.VEConnection;
+            //inventoryDetailTableAdapter.Connection  = MapPath.VEConnection;
+            //inventoryProductsTableAdapter.Connection= MapPath.VEConnection;
+            try
+            {
+                productTableAdapter.Fill(bakeryOrderSet.Product);
+                operatorTableAdapter.Fill(vEDataSet.Operator);
+                ingredientTableAdapter.Fill(vEDataSet.Ingredient);
+                //inventoryTableAdapter.Fill      (vEDataSet.Inventory);
+                //inventoryDetailTableAdapter.Fill  (vEDataSet.InventoryDetail);
+                //inventoryProductsTableAdapter.Fill(vEDataSet.InventoryProducts);
 
-            productTableAdapter.Fill        (bakeryOrderSet.Product);
-            operatorTableAdapter.Fill       (vEDataSet.Operator);
-            ingredientTableAdapter.Fill     (vEDataSet.Ingredient);
-            inventoryTableAdapter.Fill      (vEDataSet.Inventory);
-            inventoryDetailTableAdapter.Fill  (vEDataSet.InventoryDetail);
-            inventoryProductsTableAdapter.Fill(vEDataSet.InventoryProducts);
-
+                inventoryTableAdapter1.Fill(sQLVEDataSet.Inventory);
+                inventoryDetailTableAdapter1.Fill(sQLVEDataSet.InventoryDetail);
+                inventoryProductsTableAdapter1.Fill(sQLVEDataSet.InventoryProducts);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("錯誤訊息:" + ex.Message);
+            }
             ColumnLocked.ReadOnly = !MyFunction.LockInventory;
             if (MyFunction.LockInventory)
             {
@@ -128,14 +144,14 @@ namespace VoucherExpense
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
             DateTime maxDate = new DateTime(MyFunction.IntHeaderYear, 1, 1);
-            foreach (var r in vEDataSet.Inventory)
+            foreach (var r in sQLVEDataSet.Inventory)
             {
                 if (r.RowState == DataRowState.Deleted) continue;
                 if (!r.IsCheckDayNull())
                 {
                     if (r.CheckDay >= maxDate) maxDate = r.CheckDay.AddDays(1); // 設定盤點日為最大那張的加一天
                 }
-                if ((!r.IsLockedNull()) && r.Locked == true) continue;
+                if (r.Locked ) continue;
                 MessageBox.Show("有尚未核可的單子,無法新增盤點表!");
                 return;
             }
@@ -144,7 +160,7 @@ namespace VoucherExpense
                 MessageBox.Show("預計的盤點日超過資料年<"+MyFunction.HeaderYear+">");
                 return;
             }
-            this.inventoryBindingSource.AddNew();
+            this.inventoryBindingSource1.AddNew();
             DataGridViewRow row = dgvInventories.CurrentRow;
             DataGridViewCell cell = row.Cells["ColumnInventoryID"];
             if (cell == null)
@@ -156,10 +172,10 @@ namespace VoucherExpense
             {
                 try
                 {
-                    MyFunction.AddNewItem(dgvInventories, "ColumnInventoryID", "InventoryID", vEDataSet.Inventory);
+                    MyFunction.AddNewItem(dgvInventories, "ColumnInventoryID", "InventoryID", sQLVEDataSet.Inventory);
                     bindingNavigatorAddNewItem.Enabled = false;
                     DataRowView rowView = row.DataBoundItem as DataRowView;
-                    VEDataSet.InventoryRow data = rowView.Row as VEDataSet.InventoryRow;
+                    SQLVEDataSet.InventoryRow data = rowView.Row as SQLVEDataSet.InventoryRow;
                     data.CheckDay = maxDate;       // 盤點日
                     int inventoryID = data.InventoryID;
                     // 從食材表中有Code的,加入vEDataSet.InventoryDetail
@@ -167,25 +183,25 @@ namespace VoucherExpense
                     {
                         if (ingredient.IsCodeNull()) continue;
                         if (ingredient.Code <= 0) continue;    // 無代号食材不納入盤點
-                        VEDataSet.InventoryDetailRow detail = vEDataSet.InventoryDetail.NewInventoryDetailRow();
+                        SQLVEDataSet.InventoryDetailRow detail = sQLVEDataSet.InventoryDetail.NewInventoryDetailRow();
                         detail.ID = Guid.NewGuid();
                         detail.IngredientID = ingredient.IngredientID;
                         detail.InventoryID  = inventoryID;
-                        vEDataSet.InventoryDetail.AddInventoryDetailRow(detail);
+                        sQLVEDataSet.InventoryDetail.AddInventoryDetailRow(detail);
                     }
                     // 產品表中有Code的,加入vEDataSet.InventoryProducts
                     foreach (BakeryOrderSet.ProductRow product in bakeryOrderSet.Product)
                     {
                         if (product.IsClassNull()) continue;
                         if (product.Code <= 0) continue;
-                        VEDataSet.InventoryProductsRow inventoryProducts = vEDataSet.InventoryProducts.NewInventoryProductsRow();
+                        SQLVEDataSet.InventoryProductsRow inventoryProducts = sQLVEDataSet.InventoryProducts.NewInventoryProductsRow();
                         inventoryProducts.ID = Guid.NewGuid();
                         inventoryProducts.ProductID = product.ProductID;
                         inventoryProducts.InventoryID = inventoryID;
-                        vEDataSet.InventoryProducts.AddInventoryProductsRow(inventoryProducts);
+                        sQLVEDataSet.InventoryProducts.AddInventoryProductsRow(inventoryProducts);
                     }
 
-                    inventoryBindingSource.ResetBindings(false);  // inventoryDetailBindingSource 會連動,不用自己呼叫
+                    inventoryBindingSource1.ResetBindings(false);  // inventoryDetailBindingSource 會連動,不用自己呼叫
                     chBoxHide.Checked = false;                    // 初創立,要看到所有有產品碼的
                 }
                 catch (Exception ex)
@@ -223,19 +239,19 @@ namespace VoucherExpense
                 }
             }
             DataRowView rowView = row.DataBoundItem as DataRowView;
-            VEDataSet.InventoryRow inventory = rowView.Row as VEDataSet.InventoryRow;
+            SQLVEDataSet.InventoryRow inventory = rowView.Row as SQLVEDataSet.InventoryRow;
             int id = inventory.InventoryID;
             // 刪除本盤點單 食材
-            var rows = from r in vEDataSet.InventoryDetail where r.InventoryID == id select r;
-            List<VEDataSet.InventoryDetailRow> list = rows.ToList<VEDataSet.InventoryDetailRow>();    // 直接用linq的Collection會說枚舉己經改變
-            foreach (VEDataSet.InventoryDetailRow r in list)     // 用RemoveInventoryDetailRow() 會只是Remove, 不是留下要Delete的tag
+            var rows = from r in sQLVEDataSet.InventoryDetail where r.InventoryID == id select r;
+            List<SQLVEDataSet.InventoryDetailRow> list = rows.ToList<SQLVEDataSet.InventoryDetailRow>();    // 直接用linq的Collection會說枚舉己經改變
+            foreach (SQLVEDataSet.InventoryDetailRow r in list)     // 用RemoveInventoryDetailRow() 會只是Remove, 不是留下要Delete的tag
                 r.Delete();
             // 刪除本盤點單 產品
-            var rows1 = from r in vEDataSet.InventoryProducts where r.InventoryID == id select r;
-            List<VEDataSet.InventoryProductsRow> list1 = rows1.ToList<VEDataSet.InventoryProductsRow>();    // 直接用linq的Collection會說枚舉己經改變
-            foreach (VEDataSet.InventoryProductsRow r in list1)     // 用RemoveInventoryDetailRow() 會只是Remove, 不是留下要Delete的tag
+            var rows1 = from r in sQLVEDataSet.InventoryProducts where r.InventoryID == id select r;
+            List<SQLVEDataSet.InventoryProductsRow> list1 = rows1.ToList<SQLVEDataSet.InventoryProductsRow>();    // 直接用linq的Collection會說枚舉己經改變
+            foreach (SQLVEDataSet.InventoryProductsRow r in list1)     // 用RemoveInventoryDetailRow() 會只是Remove, 不是留下要Delete的tag
                 r.Delete();
-            inventoryBindingSource.RemoveCurrent();              // 要放在後面,因為還要取出 Current的IventoryID
+            inventoryBindingSource1.RemoveCurrent();              // 要放在後面,因為還要取出 Current的IventoryID
             bindingNavigatorDeleteItem.Enabled = false;
             bindingNavigatorAddNewItem.Enabled = false;          // 刪完不准新增,以免有己刪除的被操作
         }
@@ -257,10 +273,13 @@ namespace VoucherExpense
                 DataGridView view=sender as DataGridView;
                 DataGridViewRow dgvRow=view.Rows[e.RowIndex];
                 DataRowView rowView= dgvRow.DataBoundItem as DataRowView;
-                VEDataSet.InventoryRow dataRow = rowView.Row as VEDataSet.InventoryRow;
+                SQLVEDataSet.InventoryRow dataRow = rowView.Row as SQLVEDataSet.InventoryRow;
                 if (dataRow.IsLockedNull())
-                     SetDetailLocked(false);
-                else SetDetailLocked(dataRow.Locked);
+                {
+                    dataRow.Locked = false;//为空值是设为false
+                    SetDetailLocked(false);
+                }
+                else { SetDetailLocked(dataRow.Locked); }
 
                 checkDayDateTimePicker.ValueChanged -= this.checkDayDateTimePicker_ValueChanged;
                 if (!dataRow.IsCheckDayNull())
@@ -272,20 +291,20 @@ namespace VoucherExpense
                 MessageBox.Show("dgvInventories Row_Enter產生錯誤, 原因:" + ex.Message);
             }
             chBoxHide_CheckedChanged(null, null);
-            inventoryDetailBindingSource.ResetBindings(false);
+            inventoryDetailBindingSource1.ResetBindings(false);
         }
 
         private void chBoxHide_CheckedChanged(object sender, EventArgs e)
         {
             if (chBoxHide.Checked)
             {
-                inventoryDetailBindingSource.Filter = "StockVolume>0 OR PrevStockVolume>0 OR CurrentIn>0";
-                inventoryProductsBindingSource.Filter = "PrevVolume>0 OR Volume>0";
+                inventoryDetailBindingSource1.Filter = "StockVolume>0 OR PrevStockVolume>0 OR CurrentIn>0";
+                inventoryProductsBindingSource1.Filter = "PrevVolume>0 OR Volume>0";
             }
             else
             {
-                inventoryDetailBindingSource.RemoveFilter();
-                inventoryProductsBindingSource.RemoveFilter();
+                inventoryDetailBindingSource1.RemoveFilter();
+                inventoryProductsBindingSource1.RemoveFilter();
             }
         }
 
@@ -319,7 +338,7 @@ namespace VoucherExpense
         }
 
         // 檢查Locked 狀況
-        bool ValidateLocked(bool locked,VEDataSet.InventoryRow current)
+        bool ValidateLocked(bool locked,SQLVEDataSet.InventoryRow current)
         {
             if (locked)    // 檢查 核可 打勾情況
             {
@@ -334,7 +353,7 @@ namespace VoucherExpense
             int maxID = 0;
             try
             {
-                maxID = (from r in vEDataSet.Inventory select r.InventoryID).Max();
+                maxID = (from r in sQLVEDataSet.Inventory select r.InventoryID).Max();
             } catch{}
             if (current.InventoryID != maxID)
             {
@@ -366,7 +385,7 @@ namespace VoucherExpense
                 }
                 DataRowView rowView = view.Rows[e.RowIndex].DataBoundItem as DataRowView;
                 bool locked=(bool)e.FormattedValue;
-                if (!ValidateLocked(locked, rowView.Row as VEDataSet.InventoryRow))
+                if (!ValidateLocked(locked, rowView.Row as SQLVEDataSet.InventoryRow))
                 {
                     e.Cancel = true;
                     cell.Value = !locked;
@@ -385,18 +404,18 @@ namespace VoucherExpense
         private void btnEvaluate_Click(object sender, EventArgs e)
         {
             // 先把螢幕內容存回
-            inventoryBindingSource.EndEdit();
-            inventoryDetailBindingSource.EndEdit();
-            inventoryProductsBindingSource.EndEdit();
+            inventoryBindingSource1.EndEdit();
+            inventoryDetailBindingSource1.EndEdit();
+            inventoryProductsBindingSource1.EndEdit();
             try
             {
-                DataRowView rowView = inventoryBindingSource.Current as DataRowView;
+                DataRowView rowView = inventoryBindingSource1.Current as DataRowView;
                 if (rowView == null)
                 {
                     MessageBox.Show("沒有記錄,請先新增一筆!");
                     return;
                 }
-                VEDataSet.InventoryRow curr = rowView.Row as VEDataSet.InventoryRow;
+                SQLVEDataSet.InventoryRow curr = rowView.Row as SQLVEDataSet.InventoryRow;
                 var details = curr.GetInventoryDetailRows();
                 var productDetails=curr.GetInventoryProductsRows();
                 // 清除本單的進貨及金額
@@ -406,8 +425,8 @@ namespace VoucherExpense
                     dRow.LostMoney = 0;
                     dRow.CurrentIn = 0;
                 }
-                VEDataSet.InventoryRow prev = null;
-                foreach (VEDataSet.InventoryRow r in vEDataSet.Inventory)   // 找到前一張單子
+                SQLVEDataSet.InventoryRow prev = null;
+                foreach (SQLVEDataSet.InventoryRow r in sQLVEDataSet.Inventory)   // 找到前一張單子
                 {
                     if (r.InventoryID >= curr.InventoryID) continue;
                     if (prev == null) prev = r;
@@ -464,7 +483,7 @@ namespace VoucherExpense
                 Dictionary<int, CalcInventory> dicCalcStock = new Dictionary<int, CalcInventory>();
 
                 // 填CalcInventory 內容
-                foreach (VEDataSet.InventoryDetailRow d in details)
+                foreach (SQLVEDataSet.InventoryDetailRow d in details)
                 {
                     CalcInventory inv = new CalcInventory();
                     int id=d.IngredientID;
@@ -522,7 +541,7 @@ namespace VoucherExpense
                 // 將前期盤點及位置 資料填入, 並計算多於進貨remainStock的成本
                 if (prev == null)
                 {
-                    foreach (VEDataSet.InventoryDetailRow d in details) 
+                    foreach (SQLVEDataSet.InventoryDetailRow d in details) 
                     {
                         d.PrevStockVolume = 0;
                         CalcInventory inv = dicCalcStock[d.IngredientID];
@@ -537,7 +556,7 @@ namespace VoucherExpense
                 {
                     // 找出食材前期值代入
                     var prevDetails = prev.GetInventoryDetailRows();
-                    foreach (VEDataSet.InventoryDetailRow d in details)
+                    foreach (SQLVEDataSet.InventoryDetailRow d in details)
                     {
                         d.PrevStockVolume = 0;
                         int dIngredientID = d.IngredientID;
@@ -594,7 +613,7 @@ namespace VoucherExpense
                     }
                     // 找出前期產品庫存值代入 
                     var prevProducts = prev.GetInventoryProductsRows();
-                    foreach (VEDataSet.InventoryProductsRow pd in productDetails)
+                    foreach (SQLVEDataSet.InventoryProductsRow pd in productDetails)
                     {
                         var ds = from r in prevProducts where r.ProductID == pd.ProductID select r;
                         if (ds.Count() > 0)
@@ -609,7 +628,7 @@ namespace VoucherExpense
                 }
                 // 找出產品表.EvaluatedCost 計算產品Cost
                 decimal productCost = 0;
-                foreach (VEDataSet.InventoryProductsRow pd in productDetails)
+                foreach (SQLVEDataSet.InventoryProductsRow pd in productDetails)
                 {
                     pd.Cost = 0m;
                     if ((!pd.IsVolumeNull()) && pd.Volume > 0)
@@ -640,9 +659,9 @@ namespace VoucherExpense
                 curr.ProductsCost     = Math.Round(productCost    ,1);
                 curr.EvaluatedDate    = DateTime.Now;
 
-                inventoryBindingSource.ResetBindings(false);
-                inventoryDetailBindingSource.ResetBindings(false);
-                inventoryProductsBindingSource.ResetBindings(false);
+                inventoryBindingSource1.ResetBindings(false);
+                inventoryDetailBindingSource1.ResetBindings(false);
+                inventoryProductsBindingSource1.ResetBindings(false);
             }
             catch (Exception ex)
             {
@@ -651,7 +670,7 @@ namespace VoucherExpense
         }
 
 
-        void RemainStockWarning(VEDataSet.InventoryDetailRow detail,double remainStock)
+        void RemainStockWarning(SQLVEDataSet.InventoryDetailRow detail,double remainStock)
         {
             int ingredientID = detail.IngredientID;
             detail.AreaCode = "???";
@@ -671,8 +690,8 @@ namespace VoucherExpense
             if (column == null) return;
             if (column.Name == "ColumnStockChecked")   // 一改庫存,EvaluatedDate就DBNull
             {
-                DataRowView rowView = inventoryBindingSource.Current as DataRowView;
-                VEDataSet.InventoryRow curr = rowView.Row as VEDataSet.InventoryRow;
+                DataRowView rowView = inventoryBindingSource1.Current as DataRowView;
+                SQLVEDataSet.InventoryRow curr = rowView.Row as SQLVEDataSet.InventoryRow;
                 if (!curr.IsEvaluatedDateNull()) curr.SetEvaluatedDateNull();
             }
         }
@@ -685,8 +704,8 @@ namespace VoucherExpense
             if (column == null) return;
             if (column.Name == "ColumnProductVolume")   // 一改庫存,EvaluatedDate就DBNull
             {
-                DataRowView rowView = inventoryBindingSource.Current as DataRowView;
-                VEDataSet.InventoryRow curr = rowView.Row as VEDataSet.InventoryRow;
+                DataRowView rowView = inventoryBindingSource1.Current as DataRowView;
+                SQLVEDataSet.InventoryRow curr = rowView.Row as SQLVEDataSet.InventoryRow;
                 if (!curr.IsEvaluatedDateNull()) curr.SetEvaluatedDateNull();
             }
 
@@ -697,9 +716,9 @@ namespace VoucherExpense
         private void checkDayDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
             DateTimePicker picker = sender as DateTimePicker;
-            DataRowView rowView = inventoryBindingSource.Current as DataRowView;
+            DataRowView rowView = inventoryBindingSource1.Current as DataRowView;
             if (rowView == null) return;    // 還沒有任何記錄
-            VEDataSet.InventoryRow curr = rowView.Row as VEDataSet.InventoryRow;
+            SQLVEDataSet.InventoryRow curr = rowView.Row as SQLVEDataSet.InventoryRow;
             DateTime date = picker.Value.Date;
             if (date.Year != MyFunction.IntHeaderYear)
             {
@@ -707,8 +726,8 @@ namespace VoucherExpense
                 picker.Value = curr.CheckDay;     // 從DataGridView 抓值回來
                 return;
             }
-            var dataRow = rowView.Row as VEDataSet.InventoryRow;
-            foreach (var row in vEDataSet.Inventory)
+            var dataRow = rowView.Row as SQLVEDataSet.InventoryRow;
+            foreach (var row in sQLVEDataSet.Inventory)
             {
                 if (row.InventoryID == dataRow.InventoryID) continue; // 自己跳過
                 if (row.IsCheckDayNull()) continue;
@@ -735,6 +754,11 @@ namespace VoucherExpense
             dgvProducts.Visible = false;
             dgvInventoryDetail.Visible = false;
             dgvInventories.Visible = false;
+        }
+
+        private void dgvInventories_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            MessageBox.Show("错误：行"+e.RowIndex+"列"+e.ColumnIndex);
         }
 
 

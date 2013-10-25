@@ -70,10 +70,10 @@
             this.gSMTextBox = new System.Windows.Forms.TextBox();
             this.addressTextBox = new System.Windows.Forms.TextBox();
             this.noteTextBox = new System.Windows.Forms.TextBox();
-            this.lastUpdatedTextBox = new System.Windows.Forms.TextBox();
             this.fullNameTextBox = new System.Windows.Forms.TextBox();
             this.hideCheckBox = new System.Windows.Forms.CheckBox();
             this.vendorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.VendorTableAdapter();
+            this.lastUpdatedTextBox = new System.Windows.Forms.TextBox();
             vendorIDLabel = new System.Windows.Forms.Label();
             nameLabel = new System.Windows.Forms.Label();
             contactPeopleLabel = new System.Windows.Forms.Label();
@@ -217,7 +217,7 @@
             this.vendorBindingNavigator.Name = "vendorBindingNavigator";
             this.vendorBindingNavigator.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.vendorBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.vendorBindingNavigator.Size = new System.Drawing.Size(273, 27);
+            this.vendorBindingNavigator.Size = new System.Drawing.Size(276, 27);
             this.vendorBindingNavigator.TabIndex = 0;
             this.vendorBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -244,8 +244,8 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 24);
-            this.bindingNavigatorCountItem.Text = "/{0}";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(32, 24);
+            this.bindingNavigatorCountItem.Text = "/ {0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
             // bindingNavigatorMoveFirstItem
@@ -330,7 +330,7 @@
             this.vendorDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -469,18 +469,6 @@
             this.noteTextBox.Size = new System.Drawing.Size(213, 58);
             this.noteTextBox.TabIndex = 15;
             // 
-            // lastUpdatedTextBox
-            // 
-            this.lastUpdatedTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.lastUpdatedTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lastUpdatedTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.vendorBindingSource, "LastUpdated", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "g"));
-            this.lastUpdatedTextBox.Location = new System.Drawing.Point(676, 433);
-            this.lastUpdatedTextBox.Margin = new System.Windows.Forms.Padding(4);
-            this.lastUpdatedTextBox.Name = "lastUpdatedTextBox";
-            this.lastUpdatedTextBox.ReadOnly = true;
-            this.lastUpdatedTextBox.Size = new System.Drawing.Size(213, 20);
-            this.lastUpdatedTextBox.TabIndex = 17;
-            // 
             // fullNameTextBox
             // 
             this.fullNameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.vendorBindingSource, "FullName", true));
@@ -500,6 +488,18 @@
             // vendorTableAdapter
             // 
             this.vendorTableAdapter.ClearBeforeFill = true;
+            // 
+            // lastUpdatedTextBox
+            // 
+            this.lastUpdatedTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.lastUpdatedTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lastUpdatedTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.vendorBindingSource, "LastUpdated", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "g"));
+            this.lastUpdatedTextBox.Location = new System.Drawing.Point(676, 433);
+            this.lastUpdatedTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.lastUpdatedTextBox.Name = "lastUpdatedTextBox";
+            this.lastUpdatedTextBox.ReadOnly = true;
+            this.lastUpdatedTextBox.Size = new System.Drawing.Size(213, 20);
+            this.lastUpdatedTextBox.TabIndex = 17;
             // 
             // Vendor
             // 
@@ -529,7 +529,7 @@
             this.Controls.Add(lastUpdatedLabel);
             this.Controls.Add(this.vendorDataGridView);
             this.Controls.Add(this.vendorBindingNavigator);
-            this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Vendor";
             this.Text = "供應商";
@@ -570,7 +570,6 @@
         private System.Windows.Forms.TextBox gSMTextBox;
         private System.Windows.Forms.TextBox addressTextBox;
         private System.Windows.Forms.TextBox noteTextBox;
-        private System.Windows.Forms.TextBox lastUpdatedTextBox;
         private System.Windows.Forms.TextBox fullNameTextBox;
         private System.Windows.Forms.CheckBox hideCheckBox;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnVendorID;
@@ -579,6 +578,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewCheckBoxColumn HideBox;
+        private System.Windows.Forms.TextBox lastUpdatedTextBox;
 
     }
 }

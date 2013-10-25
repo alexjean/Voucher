@@ -19,6 +19,7 @@ namespace VoucherExpense
 
         Image image;
         HardwareConfig Config = new HardwareConfig();
+        string Apartmentname="";
        // bool  StateIsEndit = false;//状态是否编辑
         private void FormBillList_Load(object sender, EventArgs e)
         {
@@ -26,7 +27,11 @@ namespace VoucherExpense
             // TODO: 這行程式碼會將資料載入 'vEDataSet.Requests' 資料表。您可以視需要進行移動或移除。
             this.requestsTableAdapter.Fill(this.vEDataSet.Requests);
             this.requestsBindingSource.Sort = "requestsid desc";
-           // 设定打印机
+            this.apartmentTableAdapter1.Fill(this.vEDataSet.Apartment);
+            var apartment=vEDataSet.Apartment[0];
+            Apartmentname= apartment.ApartmentAllName;
+            textBox1.Text = Apartmentname;
+            //设定打印机
             Config.Load();
             PrinterSettings ps = new PrinterSettings();
             ps.PrinterName = Config.DotPrinterName;
@@ -257,7 +262,7 @@ namespace VoucherExpense
             //DrawImage(g);
             //fDpiX = g.DpiX;
             //fDpiY = g.DpiY;
-            Font font = new Font("新細明體", 30, GraphicsUnit.Pixel);
+            Font font = new Font("新宋体", 30, GraphicsUnit.Pixel);
             Brush brush = new SolidBrush(Color.Black);
             Graphics g1 = Graphics.FromImage(image);
             if (isEmpty)//打印空单

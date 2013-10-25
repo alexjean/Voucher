@@ -15,5 +15,20 @@ namespace VoucherExpense
         {
             InitializeComponent();
         }
+
+        private void inventoryBindingNavigatorSaveItem_Click(object sender, EventArgs e)
+        {
+            this.Validate();
+            this.inventoryBindingSource.EndEdit();
+            this.tableAdapterManager.UpdateAll(this.sQLVEDataSet);
+
+        }
+
+        private void FormShrink_Load(object sender, EventArgs e)
+        {
+            // TODO: 这行代码将数据加载到表“sQLVEDataSet.Inventory”中。您可以根据需要移动或删除它。
+            this.inventoryTableAdapter.Fill(this.sQLVEDataSet.Inventory);
+
+        }
     }
 }

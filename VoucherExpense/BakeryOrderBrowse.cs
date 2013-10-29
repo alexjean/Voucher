@@ -29,6 +29,7 @@ namespace VoucherExpense
 
         private void BakeryOrderBrowse_Load(object sender, EventArgs e)
         {
+            this.productTableAdapter.Connection = MapPath.BakeryConnection;
             m_ListViewItemBackup=new string[lvItems.Columns.Count]; // 備份給ResetListView用
             for(int i=1;i<lvItems.Columns.Count;i++) 
                 m_ListViewItemBackup[i]=lvItems.Columns[i].Text;

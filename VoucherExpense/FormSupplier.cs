@@ -30,5 +30,18 @@ namespace VoucherExpense
             this.supplier_TableAdapter.Fill(this.sQLVEDataSet.Supplier_);
 
         }
+
+        private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
+        {
+            MyFunction.AddNewItem(supplier_DataGridView, "ColumnSupplierID", "SupplierID", sQLVEDataSet.Supplier_);
+        }
+
+        private void supplier_DataGridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            if (!MyFunction.ColumnIDGood(supplier_DataGridView, "ColumnSupplierID", e.RowIndex))
+                            e.Cancel = true;
+        }       
+
+        
     }
 }

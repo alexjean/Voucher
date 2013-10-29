@@ -231,7 +231,7 @@
             this.inventoryDataGridView.Location = new System.Drawing.Point(0, 28);
             this.inventoryDataGridView.Name = "inventoryDataGridView";
             this.inventoryDataGridView.RowTemplate.Height = 23;
-            this.inventoryDataGridView.Size = new System.Drawing.Size(242, 682);
+            this.inventoryDataGridView.Size = new System.Drawing.Size(141, 682);
             this.inventoryDataGridView.TabIndex = 1;
             // 
             // dataGridViewTextBoxColumn1

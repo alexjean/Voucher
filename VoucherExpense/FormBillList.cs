@@ -23,7 +23,8 @@ namespace VoucherExpense
        // bool  StateIsEndit = false;//状态是否编辑
         private void FormBillList_Load(object sender, EventArgs e)
         {
-
+            this.requestsTableAdapter.Connection = MapPath.VEConnection;
+            this.apartmentTableAdapter1.Connection = MapPath.VEConnection;
             // TODO: 這行程式碼會將資料載入 'vEDataSet.Requests' 資料表。您可以視需要進行移動或移除。
             this.requestsTableAdapter.Fill(this.vEDataSet.Requests);
             this.requestsBindingSource.Sort = "requestsid desc";

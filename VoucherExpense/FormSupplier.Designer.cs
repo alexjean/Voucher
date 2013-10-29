@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSupplier));
             System.Windows.Forms.Label supplierIDLabel;
             System.Windows.Forms.Label nameLabel;
             System.Windows.Forms.Label fullNameLabel;
@@ -40,34 +39,25 @@
             System.Windows.Forms.Label noteLabel;
             System.Windows.Forms.Label hideLabel;
             System.Windows.Forms.Label lastUpdatedLabel;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSupplier));
             this.sQLVEDataSet = new VoucherExpense.SQLVEDataSet();
             this.supplier_BindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.supplier_TableAdapter = new VoucherExpense.SQLVEDataSetTableAdapters.Supplier_TableAdapter();
             this.tableAdapterManager = new VoucherExpense.SQLVEDataSetTableAdapters.TableAdapterManager();
             this.supplier_BindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
+            this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
+            this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
+            this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.bindingNavigatorPositionItem = new System.Windows.Forms.ToolStripTextBox();
-            this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
             this.supplier_BindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.supplier_DataGridView = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.supplierIDTextBox = new System.Windows.Forms.TextBox();
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.fullNameTextBox = new System.Windows.Forms.TextBox();
@@ -78,6 +68,16 @@
             this.noteTextBox = new System.Windows.Forms.TextBox();
             this.hideCheckBox = new System.Windows.Forms.CheckBox();
             this.lastUpdatedTextBox = new System.Windows.Forms.TextBox();
+            this.ColumnSupplierID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             supplierIDLabel = new System.Windows.Forms.Label();
             nameLabel = new System.Windows.Forms.Label();
             fullNameLabel = new System.Windows.Forms.Label();
@@ -94,6 +94,96 @@
             this.supplier_BindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.supplier_DataGridView)).BeginInit();
             this.SuspendLayout();
+            // 
+            // supplierIDLabel
+            // 
+            supplierIDLabel.AutoSize = true;
+            supplierIDLabel.Location = new System.Drawing.Point(610, 76);
+            supplierIDLabel.Name = "supplierIDLabel";
+            supplierIDLabel.Size = new System.Drawing.Size(44, 16);
+            supplierIDLabel.TabIndex = 2;
+            supplierIDLabel.Text = "内码:";
+            // 
+            // nameLabel
+            // 
+            nameLabel.AutoSize = true;
+            nameLabel.Location = new System.Drawing.Point(610, 115);
+            nameLabel.Name = "nameLabel";
+            nameLabel.Size = new System.Drawing.Size(44, 16);
+            nameLabel.TabIndex = 4;
+            nameLabel.Text = "简称:";
+            // 
+            // fullNameLabel
+            // 
+            fullNameLabel.AutoSize = true;
+            fullNameLabel.Location = new System.Drawing.Point(610, 158);
+            fullNameLabel.Name = "fullNameLabel";
+            fullNameLabel.Size = new System.Drawing.Size(44, 16);
+            fullNameLabel.TabIndex = 6;
+            fullNameLabel.Text = "全名:";
+            // 
+            // contactPeopleLabel
+            // 
+            contactPeopleLabel.AutoSize = true;
+            contactPeopleLabel.Location = new System.Drawing.Point(610, 202);
+            contactPeopleLabel.Name = "contactPeopleLabel";
+            contactPeopleLabel.Size = new System.Drawing.Size(60, 16);
+            contactPeopleLabel.TabIndex = 8;
+            contactPeopleLabel.Text = "联络人:";
+            // 
+            // telephoneLabel
+            // 
+            telephoneLabel.AutoSize = true;
+            telephoneLabel.Location = new System.Drawing.Point(610, 243);
+            telephoneLabel.Name = "telephoneLabel";
+            telephoneLabel.Size = new System.Drawing.Size(44, 16);
+            telephoneLabel.TabIndex = 10;
+            telephoneLabel.Text = "电话:";
+            // 
+            // gSMLabel
+            // 
+            gSMLabel.AutoSize = true;
+            gSMLabel.Location = new System.Drawing.Point(610, 275);
+            gSMLabel.Name = "gSMLabel";
+            gSMLabel.Size = new System.Drawing.Size(44, 16);
+            gSMLabel.TabIndex = 12;
+            gSMLabel.Text = "手机:";
+            // 
+            // addressLabel
+            // 
+            addressLabel.AutoSize = true;
+            addressLabel.Location = new System.Drawing.Point(610, 309);
+            addressLabel.Name = "addressLabel";
+            addressLabel.Size = new System.Drawing.Size(44, 16);
+            addressLabel.TabIndex = 14;
+            addressLabel.Text = "地址:";
+            // 
+            // noteLabel
+            // 
+            noteLabel.AutoSize = true;
+            noteLabel.Location = new System.Drawing.Point(610, 345);
+            noteLabel.Name = "noteLabel";
+            noteLabel.Size = new System.Drawing.Size(44, 16);
+            noteLabel.TabIndex = 16;
+            noteLabel.Text = "注记:";
+            // 
+            // hideLabel
+            // 
+            hideLabel.AutoSize = true;
+            hideLabel.Location = new System.Drawing.Point(610, 414);
+            hideLabel.Name = "hideLabel";
+            hideLabel.Size = new System.Drawing.Size(44, 16);
+            hideLabel.TabIndex = 18;
+            hideLabel.Text = "隐藏:";
+            // 
+            // lastUpdatedLabel
+            // 
+            lastUpdatedLabel.AutoSize = true;
+            lastUpdatedLabel.Location = new System.Drawing.Point(610, 462);
+            lastUpdatedLabel.Name = "lastUpdatedLabel";
+            lastUpdatedLabel.Size = new System.Drawing.Size(56, 16);
+            lastUpdatedLabel.TabIndex = 20;
+            lastUpdatedLabel.Text = "更新日";
             // 
             // sQLVEDataSet
             // 
@@ -151,6 +241,32 @@
             this.supplier_BindingNavigator.TabIndex = 0;
             this.supplier_BindingNavigator.Text = "bindingNavigator1";
             // 
+            // bindingNavigatorAddNewItem
+            // 
+            this.bindingNavigatorAddNewItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorAddNewItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem.Image")));
+            this.bindingNavigatorAddNewItem.Name = "bindingNavigatorAddNewItem";
+            this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorAddNewItem.Text = "新添";
+            this.bindingNavigatorAddNewItem.Click += new System.EventHandler(this.bindingNavigatorAddNewItem_Click);
+            // 
+            // bindingNavigatorCountItem
+            // 
+            this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(32, 22);
+            this.bindingNavigatorCountItem.Text = "/ {0}";
+            this.bindingNavigatorCountItem.ToolTipText = "总项数";
+            // 
+            // bindingNavigatorDeleteItem
+            // 
+            this.bindingNavigatorDeleteItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorDeleteItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorDeleteItem.Image")));
+            this.bindingNavigatorDeleteItem.Name = "bindingNavigatorDeleteItem";
+            this.bindingNavigatorDeleteItem.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorDeleteItem.Text = "删除";
+            // 
             // bindingNavigatorMoveFirstItem
             // 
             this.bindingNavigatorMoveFirstItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -183,17 +299,10 @@
             this.bindingNavigatorPositionItem.Text = "0";
             this.bindingNavigatorPositionItem.ToolTipText = "当前位置";
             // 
-            // bindingNavigatorCountItem
-            // 
-            this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(32, 17);
-            this.bindingNavigatorCountItem.Text = "/ {0}";
-            this.bindingNavigatorCountItem.ToolTipText = "总项数";
-            // 
             // bindingNavigatorSeparator1
             // 
-            this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator";
-            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 6);
+            this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
+            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // bindingNavigatorMoveNextItem
             // 
@@ -201,7 +310,7 @@
             this.bindingNavigatorMoveNextItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveNextItem.Image")));
             this.bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
             this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(23, 20);
+            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorMoveNextItem.Text = "移到下一条记录";
             // 
             // bindingNavigatorMoveLastItem
@@ -210,38 +319,20 @@
             this.bindingNavigatorMoveLastItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveLastItem.Image")));
             this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
             this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 20);
+            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorMoveLastItem.Text = "移到最后一条记录";
             // 
             // bindingNavigatorSeparator2
             // 
-            this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator";
-            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 6);
-            // 
-            // bindingNavigatorAddNewItem
-            // 
-            this.bindingNavigatorAddNewItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorAddNewItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem.Image")));
-            this.bindingNavigatorAddNewItem.Name = "bindingNavigatorAddNewItem";
-            this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorAddNewItem.Text = "新添";
-            // 
-            // bindingNavigatorDeleteItem
-            // 
-            this.bindingNavigatorDeleteItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorDeleteItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorDeleteItem.Image")));
-            this.bindingNavigatorDeleteItem.Name = "bindingNavigatorDeleteItem";
-            this.bindingNavigatorDeleteItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(23, 20);
-            this.bindingNavigatorDeleteItem.Text = "删除";
+            this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
+            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // supplier_BindingNavigatorSaveItem
             // 
             this.supplier_BindingNavigatorSaveItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.supplier_BindingNavigatorSaveItem.Image = ((System.Drawing.Image)(resources.GetObject("supplier_BindingNavigatorSaveItem.Image")));
             this.supplier_BindingNavigatorSaveItem.Name = "supplier_BindingNavigatorSaveItem";
-            this.supplier_BindingNavigatorSaveItem.Size = new System.Drawing.Size(23, 23);
+            this.supplier_BindingNavigatorSaveItem.Size = new System.Drawing.Size(23, 22);
             this.supplier_BindingNavigatorSaveItem.Text = "保存数据";
             this.supplier_BindingNavigatorSaveItem.Click += new System.EventHandler(this.supplier_BindingNavigatorSaveItem_Click);
             // 
@@ -251,7 +342,7 @@
             this.supplier_DataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
             this.supplier_DataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.supplier_DataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
+            this.ColumnSupplierID,
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn4,
@@ -267,13 +358,100 @@
             this.supplier_DataGridView.RowTemplate.Height = 23;
             this.supplier_DataGridView.Size = new System.Drawing.Size(572, 522);
             this.supplier_DataGridView.TabIndex = 1;
+            this.supplier_DataGridView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.supplier_DataGridView_CellBeginEdit);
             // 
-            // dataGridViewTextBoxColumn1
+            // supplierIDTextBox
             // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "SupplierID";
-            this.dataGridViewTextBoxColumn1.HeaderText = "内码";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.Width = 65;
+            this.supplierIDTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.supplierIDTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.supplierIDTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplier_BindingSource, "SupplierID", true));
+            this.supplierIDTextBox.Location = new System.Drawing.Point(675, 76);
+            this.supplierIDTextBox.Name = "supplierIDTextBox";
+            this.supplierIDTextBox.Size = new System.Drawing.Size(66, 20);
+            this.supplierIDTextBox.TabIndex = 3;
+            // 
+            // nameTextBox
+            // 
+            this.nameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplier_BindingSource, "Name", true));
+            this.nameTextBox.Location = new System.Drawing.Point(675, 112);
+            this.nameTextBox.Name = "nameTextBox";
+            this.nameTextBox.Size = new System.Drawing.Size(233, 27);
+            this.nameTextBox.TabIndex = 5;
+            // 
+            // fullNameTextBox
+            // 
+            this.fullNameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplier_BindingSource, "FullName", true));
+            this.fullNameTextBox.Location = new System.Drawing.Point(675, 156);
+            this.fullNameTextBox.Name = "fullNameTextBox";
+            this.fullNameTextBox.Size = new System.Drawing.Size(233, 27);
+            this.fullNameTextBox.TabIndex = 7;
+            // 
+            // contactPeopleTextBox
+            // 
+            this.contactPeopleTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplier_BindingSource, "ContactPeople", true));
+            this.contactPeopleTextBox.Location = new System.Drawing.Point(675, 198);
+            this.contactPeopleTextBox.Name = "contactPeopleTextBox";
+            this.contactPeopleTextBox.Size = new System.Drawing.Size(233, 27);
+            this.contactPeopleTextBox.TabIndex = 9;
+            // 
+            // telephoneTextBox
+            // 
+            this.telephoneTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplier_BindingSource, "Telephone", true));
+            this.telephoneTextBox.Location = new System.Drawing.Point(675, 238);
+            this.telephoneTextBox.Name = "telephoneTextBox";
+            this.telephoneTextBox.Size = new System.Drawing.Size(233, 27);
+            this.telephoneTextBox.TabIndex = 11;
+            // 
+            // gSMTextBox
+            // 
+            this.gSMTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplier_BindingSource, "GSM", true));
+            this.gSMTextBox.Location = new System.Drawing.Point(675, 271);
+            this.gSMTextBox.Name = "gSMTextBox";
+            this.gSMTextBox.Size = new System.Drawing.Size(233, 27);
+            this.gSMTextBox.TabIndex = 13;
+            // 
+            // addressTextBox
+            // 
+            this.addressTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplier_BindingSource, "Address", true));
+            this.addressTextBox.Location = new System.Drawing.Point(675, 307);
+            this.addressTextBox.Name = "addressTextBox";
+            this.addressTextBox.Size = new System.Drawing.Size(233, 27);
+            this.addressTextBox.TabIndex = 15;
+            // 
+            // noteTextBox
+            // 
+            this.noteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplier_BindingSource, "Note", true));
+            this.noteTextBox.Location = new System.Drawing.Point(675, 347);
+            this.noteTextBox.Multiline = true;
+            this.noteTextBox.Name = "noteTextBox";
+            this.noteTextBox.Size = new System.Drawing.Size(233, 61);
+            this.noteTextBox.TabIndex = 17;
+            // 
+            // hideCheckBox
+            // 
+            this.hideCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.supplier_BindingSource, "Hide", true));
+            this.hideCheckBox.Location = new System.Drawing.Point(675, 413);
+            this.hideCheckBox.Name = "hideCheckBox";
+            this.hideCheckBox.Size = new System.Drawing.Size(24, 24);
+            this.hideCheckBox.TabIndex = 19;
+            this.hideCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // lastUpdatedTextBox
+            // 
+            this.lastUpdatedTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.lastUpdatedTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lastUpdatedTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplier_BindingSource, "LastUpdated", true));
+            this.lastUpdatedTextBox.Location = new System.Drawing.Point(675, 456);
+            this.lastUpdatedTextBox.Name = "lastUpdatedTextBox";
+            this.lastUpdatedTextBox.Size = new System.Drawing.Size(231, 20);
+            this.lastUpdatedTextBox.TabIndex = 23;
+            // 
+            // ColumnSupplierID
+            // 
+            this.ColumnSupplierID.DataPropertyName = "SupplierID";
+            this.ColumnSupplierID.HeaderText = "内码";
+            this.ColumnSupplierID.Name = "ColumnSupplierID";
+            this.ColumnSupplierID.Width = 65;
             // 
             // dataGridViewTextBoxColumn2
             // 
@@ -335,182 +513,6 @@
             this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
             this.dataGridViewCheckBoxColumn1.Width = 50;
             // 
-            // supplierIDLabel
-            // 
-            supplierIDLabel.AutoSize = true;
-            supplierIDLabel.Location = new System.Drawing.Point(610, 76);
-            supplierIDLabel.Name = "supplierIDLabel";
-            supplierIDLabel.Size = new System.Drawing.Size(44, 16);
-            supplierIDLabel.TabIndex = 2;
-            supplierIDLabel.Text = "内码:";
-            // 
-            // supplierIDTextBox
-            // 
-            this.supplierIDTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.supplierIDTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.supplierIDTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplier_BindingSource, "SupplierID", true));
-            this.supplierIDTextBox.Location = new System.Drawing.Point(675, 76);
-            this.supplierIDTextBox.Name = "supplierIDTextBox";
-            this.supplierIDTextBox.Size = new System.Drawing.Size(66, 20);
-            this.supplierIDTextBox.TabIndex = 3;
-            // 
-            // nameLabel
-            // 
-            nameLabel.AutoSize = true;
-            nameLabel.Location = new System.Drawing.Point(610, 115);
-            nameLabel.Name = "nameLabel";
-            nameLabel.Size = new System.Drawing.Size(44, 16);
-            nameLabel.TabIndex = 4;
-            nameLabel.Text = "简称:";
-            // 
-            // nameTextBox
-            // 
-            this.nameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplier_BindingSource, "Name", true));
-            this.nameTextBox.Location = new System.Drawing.Point(675, 112);
-            this.nameTextBox.Name = "nameTextBox";
-            this.nameTextBox.Size = new System.Drawing.Size(233, 27);
-            this.nameTextBox.TabIndex = 5;
-            // 
-            // fullNameLabel
-            // 
-            fullNameLabel.AutoSize = true;
-            fullNameLabel.Location = new System.Drawing.Point(610, 158);
-            fullNameLabel.Name = "fullNameLabel";
-            fullNameLabel.Size = new System.Drawing.Size(44, 16);
-            fullNameLabel.TabIndex = 6;
-            fullNameLabel.Text = "全名:";
-            // 
-            // fullNameTextBox
-            // 
-            this.fullNameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplier_BindingSource, "FullName", true));
-            this.fullNameTextBox.Location = new System.Drawing.Point(675, 156);
-            this.fullNameTextBox.Name = "fullNameTextBox";
-            this.fullNameTextBox.Size = new System.Drawing.Size(233, 27);
-            this.fullNameTextBox.TabIndex = 7;
-            // 
-            // contactPeopleLabel
-            // 
-            contactPeopleLabel.AutoSize = true;
-            contactPeopleLabel.Location = new System.Drawing.Point(610, 202);
-            contactPeopleLabel.Name = "contactPeopleLabel";
-            contactPeopleLabel.Size = new System.Drawing.Size(60, 16);
-            contactPeopleLabel.TabIndex = 8;
-            contactPeopleLabel.Text = "联络人:";
-            // 
-            // contactPeopleTextBox
-            // 
-            this.contactPeopleTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplier_BindingSource, "ContactPeople", true));
-            this.contactPeopleTextBox.Location = new System.Drawing.Point(675, 198);
-            this.contactPeopleTextBox.Name = "contactPeopleTextBox";
-            this.contactPeopleTextBox.Size = new System.Drawing.Size(233, 27);
-            this.contactPeopleTextBox.TabIndex = 9;
-            // 
-            // telephoneLabel
-            // 
-            telephoneLabel.AutoSize = true;
-            telephoneLabel.Location = new System.Drawing.Point(610, 243);
-            telephoneLabel.Name = "telephoneLabel";
-            telephoneLabel.Size = new System.Drawing.Size(44, 16);
-            telephoneLabel.TabIndex = 10;
-            telephoneLabel.Text = "电话:";
-            // 
-            // telephoneTextBox
-            // 
-            this.telephoneTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplier_BindingSource, "Telephone", true));
-            this.telephoneTextBox.Location = new System.Drawing.Point(675, 238);
-            this.telephoneTextBox.Name = "telephoneTextBox";
-            this.telephoneTextBox.Size = new System.Drawing.Size(233, 27);
-            this.telephoneTextBox.TabIndex = 11;
-            // 
-            // gSMLabel
-            // 
-            gSMLabel.AutoSize = true;
-            gSMLabel.Location = new System.Drawing.Point(610, 275);
-            gSMLabel.Name = "gSMLabel";
-            gSMLabel.Size = new System.Drawing.Size(44, 16);
-            gSMLabel.TabIndex = 12;
-            gSMLabel.Text = "手机:";
-            // 
-            // gSMTextBox
-            // 
-            this.gSMTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplier_BindingSource, "GSM", true));
-            this.gSMTextBox.Location = new System.Drawing.Point(675, 271);
-            this.gSMTextBox.Name = "gSMTextBox";
-            this.gSMTextBox.Size = new System.Drawing.Size(233, 27);
-            this.gSMTextBox.TabIndex = 13;
-            // 
-            // addressLabel
-            // 
-            addressLabel.AutoSize = true;
-            addressLabel.Location = new System.Drawing.Point(610, 309);
-            addressLabel.Name = "addressLabel";
-            addressLabel.Size = new System.Drawing.Size(44, 16);
-            addressLabel.TabIndex = 14;
-            addressLabel.Text = "地址:";
-            // 
-            // addressTextBox
-            // 
-            this.addressTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplier_BindingSource, "Address", true));
-            this.addressTextBox.Location = new System.Drawing.Point(675, 307);
-            this.addressTextBox.Name = "addressTextBox";
-            this.addressTextBox.Size = new System.Drawing.Size(233, 27);
-            this.addressTextBox.TabIndex = 15;
-            // 
-            // noteLabel
-            // 
-            noteLabel.AutoSize = true;
-            noteLabel.Location = new System.Drawing.Point(610, 345);
-            noteLabel.Name = "noteLabel";
-            noteLabel.Size = new System.Drawing.Size(44, 16);
-            noteLabel.TabIndex = 16;
-            noteLabel.Text = "注记:";
-            // 
-            // noteTextBox
-            // 
-            this.noteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplier_BindingSource, "Note", true));
-            this.noteTextBox.Location = new System.Drawing.Point(675, 347);
-            this.noteTextBox.Multiline = true;
-            this.noteTextBox.Name = "noteTextBox";
-            this.noteTextBox.Size = new System.Drawing.Size(233, 61);
-            this.noteTextBox.TabIndex = 17;
-            // 
-            // hideLabel
-            // 
-            hideLabel.AutoSize = true;
-            hideLabel.Location = new System.Drawing.Point(610, 414);
-            hideLabel.Name = "hideLabel";
-            hideLabel.Size = new System.Drawing.Size(44, 16);
-            hideLabel.TabIndex = 18;
-            hideLabel.Text = "隐藏:";
-            // 
-            // hideCheckBox
-            // 
-            this.hideCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.supplier_BindingSource, "Hide", true));
-            this.hideCheckBox.Location = new System.Drawing.Point(675, 413);
-            this.hideCheckBox.Name = "hideCheckBox";
-            this.hideCheckBox.Size = new System.Drawing.Size(24, 24);
-            this.hideCheckBox.TabIndex = 19;
-            this.hideCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // lastUpdatedLabel
-            // 
-            lastUpdatedLabel.AutoSize = true;
-            lastUpdatedLabel.Location = new System.Drawing.Point(610, 462);
-            lastUpdatedLabel.Name = "lastUpdatedLabel";
-            lastUpdatedLabel.Size = new System.Drawing.Size(56, 16);
-            lastUpdatedLabel.TabIndex = 20;
-            lastUpdatedLabel.Text = "更新日";
-            // 
-            // lastUpdatedTextBox
-            // 
-            this.lastUpdatedTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.lastUpdatedTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lastUpdatedTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplier_BindingSource, "LastUpdated", true));
-            this.lastUpdatedTextBox.Location = new System.Drawing.Point(675, 456);
-            this.lastUpdatedTextBox.Name = "lastUpdatedTextBox";
-            this.lastUpdatedTextBox.Size = new System.Drawing.Size(231, 20);
-            this.lastUpdatedTextBox.TabIndex = 23;
-            // 
             // FormSupplier
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -540,7 +542,7 @@
             this.Controls.Add(this.supplier_DataGridView);
             this.Controls.Add(this.supplier_BindingNavigator);
             this.Font = new System.Drawing.Font("PMingLiU", 12F);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormSupplier";
             this.Text = "客户";
             this.Load += new System.EventHandler(this.FormSupplier_Load);
@@ -575,16 +577,6 @@
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.ToolStripButton supplier_BindingNavigatorSaveItem;
         private System.Windows.Forms.DataGridView supplier_DataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
         private System.Windows.Forms.TextBox supplierIDTextBox;
         private System.Windows.Forms.TextBox nameTextBox;
         private System.Windows.Forms.TextBox fullNameTextBox;
@@ -595,5 +587,15 @@
         private System.Windows.Forms.TextBox noteTextBox;
         private System.Windows.Forms.CheckBox hideCheckBox;
         private System.Windows.Forms.TextBox lastUpdatedTextBox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnSupplierID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
     }
 }

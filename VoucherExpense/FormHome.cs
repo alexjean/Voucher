@@ -447,5 +447,10 @@ namespace VoucherExpense
         {
             PopupOrRun("FormBillList", typeof(FormBillList));
         }
+
+        private void 客户ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PopupOrRun("FormSupplier", typeof(FormSupplier));
+        }
     }
 }

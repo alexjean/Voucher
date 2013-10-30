@@ -369,6 +369,11 @@
     <Compile Include="FormTitleSetup.Designer.cs">
       <DependentUpon>FormTitleSetup.cs</DependentUpon>
     </Compile>
+    <Compile Include="Mai2013DataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Mai2013DataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="SQLVEDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -647,6 +652,16 @@
       <DependentUpon>BasicDataSet.xsd</DependentUpon>
     </None>
     <None Include="EmptyBasic.gz" />
+    <None Include="Mai2013DataSet.xsc">
+      <DependentUpon>Mai2013DataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Mai2013DataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Mai2013DataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Mai2013DataSet.xss">
+      <DependentUpon>Mai2013DataSet.xsd</DependentUpon>
+    </None>
     <None Include="Properties\app.manifest" />
     <None Include="Properties\DataSources\CLedgerRow.datasource" />
     <None Include="Properties\DataSources\FormShift.CCodeForCombo.datasource" />

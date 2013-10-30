@@ -695,7 +695,7 @@ namespace BakeryOrder
 
         BakeryOrderSet.OrderRow m_CurrentOrder = null;
 
-        void Print(BakeryOrderSet.OrderRow CurrentOrder, double moneyGot)
+        void Print(BakeryOrderSet.OrderRow CurrentOrder, double moneyGot,bool printTwice)
         {
             //byte[] PrintChinese = new byte[] { };
             byte[] BorderMode = new byte[] { 0x1c, 0x21, 0x28 };
@@ -760,6 +760,16 @@ namespace BakeryOrder
             {
                 RawPrint.SendManagedBytes(m_Printer.PrinterName, Buf.ToBytes());
                 RawPrint.SendManagedBytes(m_Printer.PrinterName, CutPaper);
+                if (printTwice)
+                {
+                    ByteBuilder InnerUseWarning=new ByteBuilder();
+                    InnerUseWarning.DefaultEncoding=Encoding.GetEncoding("GB2312");
+                    InnerUseWarning.Append("内部联不给客户\r\n");
+
+                    RawPrint.SendManagedBytes(m_Printer.PrinterName, InnerUseWarning.ToBytes());
+                    RawPrint.SendManagedBytes(m_Printer.PrinterName, Buf.ToBytes());
+                    RawPrint.SendManagedBytes(m_Printer.PrinterName, CutPaper);
+                }
             }
             else
             {
@@ -789,7 +799,7 @@ namespace BakeryOrder
             }
             m_CurrentOrder.Income = (decimal)CalcTotal();
             //            m_CurrentOrder.PayBy = PayByFromBtn().ToString();
-            Print(m_CurrentOrder, 0);
+            Print(m_CurrentOrder, 0,true);
             if (!this.checkBoxTest.Checked)
                 RawPrint.SendManagedBytes(m_Printer.PrinterName, m_CashDrawer);
             CreateUpdateDrawerRecord(ref m_MaxDrawerRecordID, m_CurrentOrder.ID % 10000);
@@ -1214,7 +1224,7 @@ namespace BakeryOrder
                     labelTotal.Text = m_CurrentOrder.Income.ToString();
                 }
                 labelClass.Text = PayByChinese(m_CurrentOrder.PayBy[0]);
-                Print(m_CurrentOrder, (double)moneyGot);
+                Print(m_CurrentOrder, (double)moneyGot,true);
                 if (!this.checkBoxTest.Checked)
                     RawPrint.SendManagedBytes(m_Printer.PrinterName, m_CashDrawer);   // 彈出錢箱
                 CreateUpdateDrawerRecord(ref m_MaxDrawerRecordID, m_CurrentOrder.ID % 10000);

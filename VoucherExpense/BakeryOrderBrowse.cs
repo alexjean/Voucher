@@ -30,6 +30,11 @@ namespace VoucherExpense
         private void BakeryOrderBrowse_Load(object sender, EventArgs e)
         {
             this.productTableAdapter.Connection = MapPath.BakeryConnection;
+            m_OrderTableAdapter.Connection      = MapPath.BakeryConnection;
+            m_OrderItemTableAdapter.Connection  = MapPath.BakeryConnection;
+            m_DrawerReocrdAdapter.Connection    = MapPath.BakeryConnection;
+
+
             m_ListViewItemBackup=new string[lvItems.Columns.Count]; // 備份給ResetListView用
             for(int i=1;i<lvItems.Columns.Count;i++) 
                 m_ListViewItemBackup[i]=lvItems.Columns[i].Text;
@@ -220,8 +225,9 @@ namespace VoucherExpense
                 if (Row.PayBy == "B")      b.Text += "卡";
                 else if (Row.PayBy == "C") b.Text += "券";
             }
-
-            b.Text += "\r\n" + Row.Income.ToString()+"元";
+            decimal income = 0;
+            income = Math.Round(Row.Income, 2);
+            b.Text += "\r\n" + income.ToString()+"元";
             if (!Row.IsDeletedNull() &&　Row.Deleted) b.BackColor = Color.Green;
             b.Tag = Row;
             b.TextAlign = HorizontalAlignment.Center;
@@ -268,12 +274,19 @@ namespace VoucherExpense
             }
             lvItems.Columns[1].Text = "ID " + PureIDStr(order.ID) + (order.Deleted ? " deleted" : "");
             lvItems.Columns[2].Text = count.ToString();
-            if (!order.IsIncomeNull())
-                lvItems.Columns[3].Text = order.Income.ToString();
-            if (total != order.Income)
+            if (!order.IsDeductNull())
             {
-                MessageBox.Show("計算金額<" + total.ToString() + ">不符 " + order.Income.ToString());
-                return false;
+                total -= order.Deduct;
+            }
+            if (!order.IsIncomeNull())
+            {
+                decimal income = Math.Round(order.Income, 2);
+                lvItems.Columns[3].Text = income.ToString();
+                if (total != order.Income)
+                {
+                    MessageBox.Show("計算金額<" + total.ToString() + ">不符 " + income.ToString());
+                    return false;
+                }
             }
             return true;
         }
@@ -292,10 +305,13 @@ namespace VoucherExpense
         {
             TextBox t = (TextBox)sender;
             BakeryOrderSet.OrderRow row = t.Tag as BakeryOrderSet.OrderRow;
+            decimal income = 0;
+            if (!row.IsIncomeNull())
+                income=Math.Round( row.Income,2);
             if (ShowOrder(row))         // return false 總額不符
-                labelTotal.Text =  row.Income.ToString();
+                labelTotal.Text =  income.ToString();
             else
-                labelTotal.Text =  row.Income.ToString() + "???";
+                labelTotal.Text =  income.ToString() + "???";
 
         }
 

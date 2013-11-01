@@ -100,35 +100,74 @@ namespace BakeryOrder
             Buf.Append(NormalMode);                                      // 設定列印模式正常 
             Buf.Append("- - - - - - - - - - - - - - - -\r\n");
             int count = 0;
+            int deletedCount = 0, payByBCount = 0, payByCCount = 0,returnedCount=0;
             decimal total = 0m;
+            
+            DateTime first=new DateTime(2050,10,31);
+            DateTime last =new DateTime(2012,10,31);
             foreach (var order in m_BakeryOrderSet.Order)
             {
                 if (order.RowState == DataRowState.Deleted) continue;
                 if (order.CashierID == m_CashierID)
                 {
                     int id = order.ID % 100000;
-                    Buf.Append(id.ToString("d3") + " " + order.PrintTime.ToString("HH:mm:ss") + " " + order.Income.ToString("f0"));
+                    bool shouldPrint = false;
+                    decimal income = 0;
+                    if (!order.IsIncomeNull())
+                    {
+                        income = order.Income;
+                        if (income < 0)
+                            returnedCount++;
+                        if (income <= 0) shouldPrint = true;
+                    }
                     if (!order.IsDeletedNull() && order.Deleted)
-                        Buf.Append(" 删");
+                    {
+                        shouldPrint = true;    // 刪單的要印出
+                        deletedCount++;
+                    }
                     if (!order.IsPayByNull())
                     {
-                        if      (order.PayBy =="B") Buf.Append(" 卡");
-                        else if (order.PayBy =="C") Buf.Append(" 券");
+                        if (order.PayBy == "B" || order.PayBy == "C") shouldPrint = true;    // 刷卡和券的要印出
+                        if (order.PayBy == "B") payByBCount++;
+                        if (order.PayBy == "C") payByCCount++;
                     }
-                    
-                    Buf.Append("\r\n");
+                    DateTime printTime = new DateTime(2013, 10, 31);
+                    if (!order.IsPrintTimeNull())
+                    {
+                        printTime = order.PrintTime;
+                        if (order.PrintTime < first) first = printTime;
+                        if (order.PrintTime > last)  last  = printTime;
+                    }
+                    if (shouldPrint)
+                    {
+                        Buf.Append(id.ToString("d3") + " " + printTime.ToString("HH:mm:ss") + " " + income.ToString("f0"));
+                        if (!order.IsDeletedNull() && order.Deleted)
+                            Buf.Append(" 删");
+                        if (!order.IsPayByNull())
+                        {
+                            if (order.PayBy == "B") Buf.Append(" 卡");
+                            else if (order.PayBy == "C") Buf.Append(" 券");
+                        }
+                        if (income < 0) Buf.Append(" 退");
+                        Buf.Append("\r\n");
+                    }
                     count++;
-                    total += order.Income;
+                    total += income;
                 }
             }
             Buf.Append("- - - - - - - - - - - - - - - -\r\n");
             Buf.Append("收银: " + cashierIDName + "\r\n");
-            Buf.Append("共 " + count.ToString("d") + " 笔," + total.ToString("f0") + "元\r\n");
+            Buf.Append("首單時間" + first.ToString("HH:mm:ss") + "\r\n");
+            Buf.Append("末單時間" + last.ToString("HH:mm:ss")  + "\r\n");
+            Buf.Append("刷卡 "+payByBCount.ToString()   + " 笔, 用券 " +payByCCount.ToString()+" 笔\r\n");
+            Buf.Append("删单 "+ deletedCount.ToString() + " 笔, 退货 " +returnedCount.ToString() + " 笔\r\n");
+
+            Buf.Append("共 " + count.ToString("d") + " 笔, " + total.ToString("f0") + "元\r\n");
             Buf.Append(NormalMode);
             Buf.Append("* * * * * * * * * * * * * * * *\r\n\r\n\r\n\r\n\r\n\r\n");
             Buf.Append("\f");
-//            string str = Buf.ToString();
-//            File.WriteAllBytes("Test.txt", Encoding.UTF8.GetBytes(str));
+            string str = Buf.ToString();
+            //File.WriteAllBytes("Test.txt", Encoding.UTF8.GetBytes(str));
             RawPrint.SendManagedBytes(m_Printer.PrinterName, Buf.ToBytes());
             RawPrint.SendManagedBytes(m_Printer.PrinterName, CutPaper);
         }

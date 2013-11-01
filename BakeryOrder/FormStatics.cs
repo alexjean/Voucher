@@ -157,7 +157,9 @@ namespace BakeryOrder
                 if      (Row.PayBy == "B") b.Text += "卡";
                 else if (Row.PayBy == "C") b.Text += "券";
             }
-            b.Text += "\r\n" + Row.Income.ToString()+"元";
+            decimal income = 0;
+            if (!Row.IsIncomeNull()) income = Math.Round(Row.Income,2);
+            b.Text += "\r\n" + income.ToString()+"元";
             if (!Row.IsOldIDNull() && Row.OldID > 0) b.BackColor = Color.Red;
             if (!Row.IsDeletedNull() && Row.Deleted) b.BackColor = Color.Green;
             b.Tag = Row;
@@ -288,11 +290,12 @@ namespace BakeryOrder
             }
             else
                 labelDeduct.Text = "";
-            if (!order.IsIncomeNull())
-                labelIncome.Text=order.Income.ToString();
-            if (total != order.Income)
+            decimal income = 0;
+            if (!order.IsIncomeNull()) income = Math.Round(order.Income,2);
+            labelIncome.Text = income.ToString();
+            if (total != income)
             {
-                if (total == -order.Income)
+                if (total == -income)
                 {
                     if (order.OldID > 0)
                     {

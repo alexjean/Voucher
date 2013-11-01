@@ -43,6 +43,8 @@
             this.productTableAdapter = new VoucherExpense.BakeryOrderSetTableAdapters.ProductTableAdapter();
             this.cbBoxDay = new System.Windows.Forms.ComboBox();
             this.cbBoxMonth = new System.Windows.Forms.ComboBox();
+            this.labelDeduct = new System.Windows.Forms.Label();
+            this.labelDeductLabel = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).BeginInit();
             this.SuspendLayout();
@@ -130,14 +132,14 @@
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(671, 636);
-            this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
+            this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 3;
             this.tabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 387);
+            this.label1.Location = new System.Drawing.Point(46, 418);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 16);
             this.label1.TabIndex = 6;
@@ -145,9 +147,9 @@
             // 
             // labelTotal
             // 
-            this.labelTotal.Location = new System.Drawing.Point(59, 387);
+            this.labelTotal.Location = new System.Drawing.Point(130, 418);
             this.labelTotal.Name = "labelTotal";
-            this.labelTotal.Size = new System.Drawing.Size(147, 16);
+            this.labelTotal.Size = new System.Drawing.Size(71, 16);
             this.labelTotal.TabIndex = 7;
             this.labelTotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -166,7 +168,7 @@
             this.cbBoxDay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbBoxDay.FormattingEnabled = true;
             this.cbBoxDay.IntegralHeight = false;
-            this.cbBoxDay.Location = new System.Drawing.Point(140, 423);
+            this.cbBoxDay.Location = new System.Drawing.Point(130, 451);
             this.cbBoxDay.Name = "cbBoxDay";
             this.cbBoxDay.Size = new System.Drawing.Size(71, 24);
             this.cbBoxDay.TabIndex = 58;
@@ -190,10 +192,27 @@
             "十月",
             "十一月",
             "十二月"});
-            this.cbBoxMonth.Location = new System.Drawing.Point(25, 423);
+            this.cbBoxMonth.Location = new System.Drawing.Point(15, 451);
             this.cbBoxMonth.Name = "cbBoxMonth";
             this.cbBoxMonth.Size = new System.Drawing.Size(71, 24);
             this.cbBoxMonth.TabIndex = 57;
+            // 
+            // labelDeduct
+            // 
+            this.labelDeduct.Location = new System.Drawing.Point(130, 390);
+            this.labelDeduct.Name = "labelDeduct";
+            this.labelDeduct.Size = new System.Drawing.Size(71, 16);
+            this.labelDeduct.TabIndex = 59;
+            this.labelDeduct.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelDeductLabel
+            // 
+            this.labelDeductLabel.AutoSize = true;
+            this.labelDeductLabel.Location = new System.Drawing.Point(46, 390);
+            this.labelDeductLabel.Name = "labelDeductLabel";
+            this.labelDeductLabel.Size = new System.Drawing.Size(40, 16);
+            this.labelDeductLabel.TabIndex = 60;
+            this.labelDeductLabel.Text = "优惠";
             // 
             // BakeryOrderBrowse
             // 
@@ -201,6 +220,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Azure;
             this.ClientSize = new System.Drawing.Size(908, 637);
+            this.Controls.Add(this.labelDeductLabel);
+            this.Controls.Add(this.labelDeduct);
             this.Controls.Add(this.cbBoxDay);
             this.Controls.Add(this.cbBoxMonth);
             this.Controls.Add(this.labelTotal);
@@ -239,5 +260,7 @@
         private BakeryOrderSetTableAdapters.ProductTableAdapter productTableAdapter;
         private System.Windows.Forms.ComboBox cbBoxDay;
         private System.Windows.Forms.ComboBox cbBoxMonth;
+        private System.Windows.Forms.Label labelDeduct;
+        private System.Windows.Forms.Label labelDeductLabel;
     }
 }

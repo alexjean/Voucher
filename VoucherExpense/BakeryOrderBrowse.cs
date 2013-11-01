@@ -274,6 +274,7 @@ namespace VoucherExpense
             }
             lvItems.Columns[1].Text = "ID " + PureIDStr(order.ID) + (order.Deleted ? " deleted" : "");
             lvItems.Columns[2].Text = count.ToString();
+            lvItems.Columns[3].Text = total.ToString();
             if (!order.IsDeductNull())
             {
                 total -= order.Deduct;
@@ -281,7 +282,6 @@ namespace VoucherExpense
             if (!order.IsIncomeNull())
             {
                 decimal income = Math.Round(order.Income, 2);
-                lvItems.Columns[3].Text = income.ToString();
                 if (total != order.Income)
                 {
                     MessageBox.Show("計算金額<" + total.ToString() + ">不符 " + income.ToString());
@@ -305,13 +305,24 @@ namespace VoucherExpense
         {
             TextBox t = (TextBox)sender;
             BakeryOrderSet.OrderRow row = t.Tag as BakeryOrderSet.OrderRow;
+            labelDeductLabel.Visible = false;
+            if ((!row.IsDeductNull()) && row.Deduct != 0)
+            {
+                labelDeductLabel.Visible = true;
+                labelDeduct.Visible = true;
+                labelDeduct.Text = row.Deduct.ToString();
+            }
+            else
+            {
+                labelDeduct.Visible = false;
+                labelDeductLabel.Visible = false;
+            }
             decimal income = 0;
             if (!row.IsIncomeNull())
                 income=Math.Round( row.Income,2);
-            if (ShowOrder(row))         // return false 總額不符
-                labelTotal.Text =  income.ToString();
-            else
-                labelTotal.Text =  income.ToString() + "???";
+            labelTotal.Text =  income.ToString();
+            if (!ShowOrder(row))         // return false 總額不符
+                labelTotal.Text +=  "???";
 
         }
 

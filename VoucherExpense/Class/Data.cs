@@ -403,7 +403,7 @@ namespace VoucherExpense
         public decimal Cash         { get; set; }
         public decimal CreditCard   { get; set; }
         public decimal Coupond      { get; set; }
-
+        public decimal Deduct       { get; set; }
         public decimal CreditFee    { get; set; }
         public decimal CreditNet    { get; set; }
         public int     OrderCount   { get; set; }

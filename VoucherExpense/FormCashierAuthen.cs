@@ -869,7 +869,7 @@ namespace VoucherExpense
             decimal ave, sum, cash, credit, coupon;
             Dictionary<int,decimal> cashiers;
             GetStatics(out no, out sum, out ave, out cash, out credit, out coupon,out  cashiers);
-            int w = width / 2 - 50;
+            int w = width / 2 - 30;
             PrintMoney("營收" , sum, x, y, w);
             y += height;
             PrintMoney("現金" , cash   , x , y               , w);
@@ -940,10 +940,10 @@ namespace VoucherExpense
             DrawStr("各金額 均核對無誤後簽字!", x1, y2);
             y2 += height;
             DrawLine(x1, y2, x1 + w, y2);           // 簽字上方那條橫線
-            DrawStr("收銀簽字", x1, y2);
+//            DrawStr("店長簽字", x1, y2);
             x1 = x1 + w / 2;
             DrawLine(x1, y2, x1, y-2+h);  // 二人簽名中間那條直線  
-            DrawStr("主管簽字", x1, y2);
+            DrawStr("店長簽字", x1, y2);
     
         }
 

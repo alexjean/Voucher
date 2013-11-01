@@ -43,6 +43,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgViewMonthly = new System.Windows.Forms.DataGridView();
             this.monthlyReportDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bakeryOrderSet = new VoucherExpense.BakeryOrderSet();
@@ -64,6 +65,7 @@
             this.orderCountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.avePerPersonDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DeletedCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Deduct = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DeletedMoney = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreditNet = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreditFee = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -101,6 +103,7 @@
             this.orderCountDataGridViewTextBoxColumn,
             this.avePerPersonDataGridViewTextBoxColumn,
             this.DeletedCount,
+            this.Deduct,
             this.DeletedMoney,
             this.CreditNet,
             this.CreditFee,
@@ -306,11 +309,21 @@
             this.DeletedCount.ReadOnly = true;
             this.DeletedCount.Width = 64;
             // 
+            // Deduct
+            // 
+            this.Deduct.DataPropertyName = "Deduct";
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Deduct.DefaultCellStyle = dataGridViewCellStyle11;
+            this.Deduct.HeaderText = "优惠";
+            this.Deduct.Name = "Deduct";
+            this.Deduct.ReadOnly = true;
+            this.Deduct.Width = 64;
+            // 
             // DeletedMoney
             // 
             this.DeletedMoney.DataPropertyName = "DeletedMoney";
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.DeletedMoney.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.DeletedMoney.DefaultCellStyle = dataGridViewCellStyle12;
             this.DeletedMoney.HeaderText = "癈金額";
             this.DeletedMoney.Name = "DeletedMoney";
             this.DeletedMoney.ReadOnly = true;
@@ -319,8 +332,8 @@
             // CreditNet
             // 
             this.CreditNet.DataPropertyName = "CreditNet";
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.CreditNet.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.CreditNet.DefaultCellStyle = dataGridViewCellStyle13;
             this.CreditNet.HeaderText = "刷卡淨收";
             this.CreditNet.Name = "CreditNet";
             this.CreditNet.ReadOnly = true;
@@ -328,8 +341,8 @@
             // CreditFee
             // 
             this.CreditFee.DataPropertyName = "CreditFee";
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.CreditFee.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.CreditFee.DefaultCellStyle = dataGridViewCellStyle14;
             this.CreditFee.HeaderText = "手續費";
             this.CreditFee.Name = "CreditFee";
             this.CreditFee.ReadOnly = true;
@@ -338,8 +351,8 @@
             // Column1
             // 
             this.Column1.DataPropertyName = "Date";
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column1.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column1.DefaultCellStyle = dataGridViewCellStyle15;
             this.Column1.HeaderText = "日期";
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
@@ -396,6 +409,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn orderCountDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn avePerPersonDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn DeletedCount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Deduct;
         private System.Windows.Forms.DataGridViewTextBoxColumn DeletedMoney;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreditNet;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreditFee;

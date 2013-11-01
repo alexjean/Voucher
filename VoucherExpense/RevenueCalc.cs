@@ -147,7 +147,7 @@ namespace VoucherExpense
 
         public MonthlyReportData Statics(BasicDataSet basicDataSet1)
         {
-            decimal cash = 0, credit = 0;
+            decimal cash = 0, credit = 0,deduct=0;
             int people = 0;
             MonthlyReportData data = new MonthlyReportData();
             foreach (BasicDataSet.OrderRow row in basicDataSet1.Order)
@@ -158,6 +158,8 @@ namespace VoucherExpense
                     credit += row.Income;
                 if (!row.IsPeopleNoNull())
                     people += row.PeopleNo;
+                if (!row.IsDeductNull())
+                    deduct+= row.Deduct;
             }
             data.OrderCount = basicDataSet1.Order.Count;
             data.Cash = Math.Round(cash);
@@ -165,6 +167,7 @@ namespace VoucherExpense
             data.CreditCard = Math.Round(credit);
             data.CreditFee = Math.Round(FeeRate * data.CreditCard, 2);
             data.CreditNet = data.CreditCard - data.CreditFee;
+            data.Deduct = Math.Round(deduct);
             if (people != 0)
                 data.AvePerPerson = Math.Round((cash + credit) / people, 1);
             data.Revenue = Math.Round(cash + credit);
@@ -242,7 +245,8 @@ namespace VoucherExpense
 
         public MonthlyReportData Statics(BakeryOrderSet bakeryOrderSet)
         {
-            decimal cash = 0, credit = 0,coupond=0,deletedMoney=0;
+            decimal cash = 0, credit = 0, deduct = 0;
+            decimal coupond=0,deletedMoney=0;
             int orderCount = 0,deletedCount=0;
             MonthlyReportData data = new MonthlyReportData();
             foreach (BakeryOrderSet.OrderRow row in bakeryOrderSet.Order)
@@ -262,11 +266,13 @@ namespace VoucherExpense
                     credit += income;
                 else if (row.PayBy == "C")
                     coupond += income;
+                if (!row.IsDeductNull()) deduct += row.Deduct;
                 orderCount++;    //  一單一人
             }
             data.OrderCount = orderCount;
             data.Cash    = Math.Round(cash);
             data.Coupond = Math.Round(coupond);
+            data.Deduct = Math.Round(deduct);
             data.Date = (uint)m_WorkingDay.Day;
             data.CreditCard = Math.Round(credit);
             data.CreditFee = Math.Round(FeeRate * data.CreditCard, 2);

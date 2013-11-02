@@ -347,11 +347,15 @@ namespace VoucherExpense
         public CSaleItem() { ProductID = 0; Volume = 0; }  // 必需有這行BindingSource才能AllowNew
         public CSaleItem(int productID) { ProductID = productID; Volume = 0; }
 //        public int Code { get; set; }
-        public int ProductID { get; set; }
+        public int ProductID  { get; set; }
         public decimal Volume { get; set; }
-        public decimal Price { get; set; }
-        public decimal Total { get; set; }
-        public string Unit { get; set; }
+        public decimal Price  { get; set; }
+        public decimal EvaluatedCost { get; set; }
+        public decimal TotalEvaluatedCost { get; set; }
+        public decimal Total  { get; set; }
+        public decimal GrossProfitRate { get; set; }
+
+        public string Unit    { get; set; }
     }
 
     // BasicSoldSpend BakerySoldSpend使用

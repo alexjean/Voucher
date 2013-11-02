@@ -29,9 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnCalc = new System.Windows.Forms.Button();
             this.ckBoxWholeMonth = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -47,6 +50,8 @@
             this.Unit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnEvaluatedCost = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GrossProfitRate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cSaleItemBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btnImport = new System.Windows.Forms.Button();
             this.btnExport = new System.Windows.Forms.Button();
@@ -61,6 +66,13 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.labelMessage = new System.Windows.Forms.Label();
             this.productTableAdapter = new VoucherExpense.BakeryOrderSetTableAdapters.ProductTableAdapter();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.labelTotal = new System.Windows.Forms.Label();
+            this.labelCost = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.labelGrossProfitRate = new System.Windows.Forms.Label();
+            this.btnAddAllProduct = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgViewSale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).BeginInit();
@@ -69,9 +81,9 @@
             // 
             // btnCalc
             // 
-            this.btnCalc.Location = new System.Drawing.Point(54, 208);
+            this.btnCalc.Location = new System.Drawing.Point(32, 204);
             this.btnCalc.Name = "btnCalc";
-            this.btnCalc.Size = new System.Drawing.Size(75, 23);
+            this.btnCalc.Size = new System.Drawing.Size(85, 27);
             this.btnCalc.TabIndex = 16;
             this.btnCalc.Text = "計算";
             this.btnCalc.UseVisualStyleBackColor = true;
@@ -82,7 +94,7 @@
             this.ckBoxWholeMonth.AutoSize = true;
             this.ckBoxWholeMonth.Checked = true;
             this.ckBoxWholeMonth.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ckBoxWholeMonth.Location = new System.Drawing.Point(54, 130);
+            this.ckBoxWholeMonth.Location = new System.Drawing.Point(42, 130);
             this.ckBoxWholeMonth.Margin = new System.Windows.Forms.Padding(4);
             this.ckBoxWholeMonth.Name = "ckBoxWholeMonth";
             this.ckBoxWholeMonth.Size = new System.Drawing.Size(59, 20);
@@ -94,7 +106,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(20, 101);
+            this.label2.Location = new System.Drawing.Point(8, 101);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(24, 16);
@@ -104,7 +116,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(20, 69);
+            this.label1.Location = new System.Drawing.Point(8, 69);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(24, 16);
@@ -114,7 +126,7 @@
             // cbBoxTo
             // 
             this.cbBoxTo.FormattingEnabled = true;
-            this.cbBoxTo.Location = new System.Drawing.Point(54, 98);
+            this.cbBoxTo.Location = new System.Drawing.Point(42, 98);
             this.cbBoxTo.Margin = new System.Windows.Forms.Padding(4);
             this.cbBoxTo.Name = "cbBoxTo";
             this.cbBoxTo.Size = new System.Drawing.Size(75, 24);
@@ -124,7 +136,7 @@
             // cbBoxFrom
             // 
             this.cbBoxFrom.FormattingEnabled = true;
-            this.cbBoxFrom.Location = new System.Drawing.Point(54, 66);
+            this.cbBoxFrom.Location = new System.Drawing.Point(42, 66);
             this.cbBoxFrom.Margin = new System.Windows.Forms.Padding(4);
             this.cbBoxFrom.Name = "cbBoxFrom";
             this.cbBoxFrom.Size = new System.Drawing.Size(75, 24);
@@ -134,7 +146,7 @@
             // cbBoxMonth
             // 
             this.cbBoxMonth.FormattingEnabled = true;
-            this.cbBoxMonth.Location = new System.Drawing.Point(54, 34);
+            this.cbBoxMonth.Location = new System.Drawing.Point(42, 34);
             this.cbBoxMonth.Margin = new System.Windows.Forms.Padding(4);
             this.cbBoxMonth.Name = "cbBoxMonth";
             this.cbBoxMonth.Size = new System.Drawing.Size(75, 24);
@@ -154,13 +166,15 @@
             this.volumeDataGridViewTextBoxColumn,
             this.Unit,
             this.Price,
-            this.Total});
+            this.Total,
+            this.ColumnEvaluatedCost,
+            this.GrossProfitRate});
             this.dgViewSale.DataSource = this.cSaleItemBindingSource;
             this.dgViewSale.Location = new System.Drawing.Point(160, 34);
             this.dgViewSale.Name = "dgViewSale";
             this.dgViewSale.RowHeadersWidth = 25;
             this.dgViewSale.RowTemplate.Height = 24;
-            this.dgViewSale.Size = new System.Drawing.Size(437, 591);
+            this.dgViewSale.Size = new System.Drawing.Size(620, 591);
             this.dgViewSale.TabIndex = 18;
             this.dgViewSale.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgViewSale_DataError);
             // 
@@ -191,6 +205,8 @@
             // volumeDataGridViewTextBoxColumn
             // 
             this.volumeDataGridViewTextBoxColumn.DataPropertyName = "Volume";
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.volumeDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle7;
             this.volumeDataGridViewTextBoxColumn.HeaderText = "量";
             this.volumeDataGridViewTextBoxColumn.Name = "volumeDataGridViewTextBoxColumn";
             this.volumeDataGridViewTextBoxColumn.Width = 56;
@@ -198,8 +214,8 @@
             // Unit
             // 
             this.Unit.DataPropertyName = "Unit";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.Unit.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.Unit.DefaultCellStyle = dataGridViewCellStyle8;
             this.Unit.HeaderText = "";
             this.Unit.Name = "Unit";
             this.Unit.ReadOnly = true;
@@ -208,8 +224,8 @@
             // Price
             // 
             this.Price.DataPropertyName = "Price";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Price.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Price.DefaultCellStyle = dataGridViewCellStyle9;
             this.Price.HeaderText = "價";
             this.Price.Name = "Price";
             this.Price.ReadOnly = true;
@@ -218,14 +234,35 @@
             // Total
             // 
             this.Total.DataPropertyName = "Total";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "N1";
-            dataGridViewCellStyle3.NullValue = null;
-            this.Total.DefaultCellStyle = dataGridViewCellStyle3;
-            this.Total.HeaderText = "總計";
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle10.Format = "N1";
+            dataGridViewCellStyle10.NullValue = null;
+            this.Total.DefaultCellStyle = dataGridViewCellStyle10;
+            this.Total.HeaderText = "收入";
             this.Total.Name = "Total";
             this.Total.ReadOnly = true;
             this.Total.Width = 92;
+            // 
+            // ColumnEvaluatedCost
+            // 
+            this.ColumnEvaluatedCost.DataPropertyName = "TotalEvaluatedCost";
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle11.Format = "N1";
+            dataGridViewCellStyle11.NullValue = null;
+            this.ColumnEvaluatedCost.DefaultCellStyle = dataGridViewCellStyle11;
+            this.ColumnEvaluatedCost.HeaderText = "估成本";
+            this.ColumnEvaluatedCost.Name = "ColumnEvaluatedCost";
+            this.ColumnEvaluatedCost.Width = 92;
+            // 
+            // GrossProfitRate
+            // 
+            this.GrossProfitRate.DataPropertyName = "GrossProfitRate";
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle12.Format = "N1";
+            this.GrossProfitRate.DefaultCellStyle = dataGridViewCellStyle12;
+            this.GrossProfitRate.HeaderText = "毛利率";
+            this.GrossProfitRate.Name = "GrossProfitRate";
+            this.GrossProfitRate.Width = 92;
             // 
             // cSaleItemBindingSource
             // 
@@ -233,7 +270,7 @@
             // 
             // btnImport
             // 
-            this.btnImport.Location = new System.Drawing.Point(663, 476);
+            this.btnImport.Location = new System.Drawing.Point(805, 543);
             this.btnImport.Name = "btnImport";
             this.btnImport.Size = new System.Drawing.Size(80, 23);
             this.btnImport.TabIndex = 75;
@@ -244,7 +281,7 @@
             // 
             // btnExport
             // 
-            this.btnExport.Location = new System.Drawing.Point(663, 435);
+            this.btnExport.Location = new System.Drawing.Point(805, 502);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(80, 23);
             this.btnExport.TabIndex = 74;
@@ -255,7 +292,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(663, 390);
+            this.btnDelete.Location = new System.Drawing.Point(805, 457);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 23);
             this.btnDelete.TabIndex = 73;
@@ -266,7 +303,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(663, 319);
+            this.btnCancel.Location = new System.Drawing.Point(805, 386);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 72;
@@ -278,7 +315,7 @@
             // labelName
             // 
             this.labelName.AutoSize = true;
-            this.labelName.Location = new System.Drawing.Point(665, 168);
+            this.labelName.Location = new System.Drawing.Point(807, 215);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(56, 16);
             this.labelName.TabIndex = 71;
@@ -287,7 +324,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(663, 279);
+            this.btnSave.Location = new System.Drawing.Point(805, 346);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 69;
@@ -298,9 +335,9 @@
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(663, 98);
+            this.btnEdit.Location = new System.Drawing.Point(805, 145);
             this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(75, 23);
+            this.btnEdit.Size = new System.Drawing.Size(80, 27);
             this.btnEdit.TabIndex = 68;
             this.btnEdit.Text = "編修";
             this.btnEdit.UseVisualStyleBackColor = true;
@@ -308,7 +345,7 @@
             // 
             // textBoxName
             // 
-            this.textBoxName.Location = new System.Drawing.Point(663, 204);
+            this.textBoxName.Location = new System.Drawing.Point(805, 251);
             this.textBoxName.MaxLength = 10;
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(100, 27);
@@ -317,9 +354,9 @@
             // 
             // btnPrintSmall
             // 
-            this.btnPrintSmall.Location = new System.Drawing.Point(54, 380);
+            this.btnPrintSmall.Location = new System.Drawing.Point(32, 592);
             this.btnPrintSmall.Name = "btnPrintSmall";
-            this.btnPrintSmall.Size = new System.Drawing.Size(85, 23);
+            this.btnPrintSmall.Size = new System.Drawing.Size(85, 27);
             this.btnPrintSmall.TabIndex = 76;
             this.btnPrintSmall.Text = "列印小表";
             this.btnPrintSmall.UseVisualStyleBackColor = true;
@@ -328,7 +365,7 @@
             // cbBoxTable
             // 
             this.cbBoxTable.FormattingEnabled = true;
-            this.cbBoxTable.Location = new System.Drawing.Point(663, 34);
+            this.cbBoxTable.Location = new System.Drawing.Point(805, 34);
             this.cbBoxTable.Name = "cbBoxTable";
             this.cbBoxTable.Size = new System.Drawing.Size(94, 24);
             this.cbBoxTable.TabIndex = 77;
@@ -338,13 +375,13 @@
             // 
             this.progressBar1.Location = new System.Drawing.Point(160, 15);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(437, 13);
+            this.progressBar1.Size = new System.Drawing.Size(620, 13);
             this.progressBar1.TabIndex = 78;
             this.progressBar1.Visible = false;
             // 
             // labelMessage
             // 
-            this.labelMessage.Location = new System.Drawing.Point(51, 254);
+            this.labelMessage.Location = new System.Drawing.Point(29, 250);
             this.labelMessage.Name = "labelMessage";
             this.labelMessage.Size = new System.Drawing.Size(94, 20);
             this.labelMessage.TabIndex = 79;
@@ -353,12 +390,83 @@
             // 
             this.productTableAdapter.ClearBeforeFill = true;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 347);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(56, 16);
+            this.label3.TabIndex = 80;
+            this.label3.Text = "總收入";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 376);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(56, 16);
+            this.label4.TabIndex = 81;
+            this.label4.Text = "總成本";
+            // 
+            // labelTotal
+            // 
+            this.labelTotal.Location = new System.Drawing.Point(74, 347);
+            this.labelTotal.Name = "labelTotal";
+            this.labelTotal.Size = new System.Drawing.Size(68, 16);
+            this.labelTotal.TabIndex = 82;
+            this.labelTotal.Text = "0.0";
+            this.labelTotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelCost
+            // 
+            this.labelCost.Location = new System.Drawing.Point(74, 376);
+            this.labelCost.Name = "labelCost";
+            this.labelCost.Size = new System.Drawing.Size(68, 16);
+            this.labelCost.TabIndex = 83;
+            this.labelCost.Text = "0.0";
+            this.labelCost.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 407);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(56, 16);
+            this.label5.TabIndex = 84;
+            this.label5.Text = "毛利率";
+            // 
+            // labelGrossProfitRate
+            // 
+            this.labelGrossProfitRate.Location = new System.Drawing.Point(74, 407);
+            this.labelGrossProfitRate.Name = "labelGrossProfitRate";
+            this.labelGrossProfitRate.Size = new System.Drawing.Size(68, 16);
+            this.labelGrossProfitRate.TabIndex = 85;
+            this.labelGrossProfitRate.Text = "0.0%";
+            this.labelGrossProfitRate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // btnAddAllProduct
+            // 
+            this.btnAddAllProduct.Location = new System.Drawing.Point(805, 83);
+            this.btnAddAllProduct.Name = "btnAddAllProduct";
+            this.btnAddAllProduct.Size = new System.Drawing.Size(80, 34);
+            this.btnAddAllProduct.TabIndex = 86;
+            this.btnAddAllProduct.Text = "加全產品";
+            this.btnAddAllProduct.UseVisualStyleBackColor = true;
+            this.btnAddAllProduct.Click += new System.EventHandler(this.btnAddAllProduct_Click);
+            // 
             // BakerySoldProducts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(824, 641);
+            this.ClientSize = new System.Drawing.Size(921, 641);
+            this.Controls.Add(this.btnAddAllProduct);
+            this.Controls.Add(this.labelGrossProfitRate);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.labelCost);
+            this.Controls.Add(this.labelTotal);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.labelMessage);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.cbBoxTable);
@@ -419,10 +527,19 @@
         private System.Windows.Forms.BindingSource productBindingSource;
         private BakeryOrderSetTableAdapters.ProductTableAdapter productTableAdapter;
         private BakeryOrderSet bakeryOrderSet;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label labelTotal;
+        private System.Windows.Forms.Label labelCost;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label labelGrossProfitRate;
         private System.Windows.Forms.DataGridViewComboBoxColumn ColumnProduct;
         private System.Windows.Forms.DataGridViewTextBoxColumn volumeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn Unit;
         private System.Windows.Forms.DataGridViewTextBoxColumn Price;
         private System.Windows.Forms.DataGridViewTextBoxColumn Total;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEvaluatedCost;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GrossProfitRate;
+        private System.Windows.Forms.Button btnAddAllProduct;
     }
 }

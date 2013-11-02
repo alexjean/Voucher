@@ -7,12 +7,13 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 using System.IO;
+using System.Linq;
 
 namespace VoucherExpense
 {
     public partial class BakerySoldProducts : Form
     {
-        List<CSaleItem> m_SaleList = new List<CSaleItem>();
+        SortableBindingList<CSaleItem> m_SaleList = new SortableBindingList<CSaleItem>();
         
         private Config Cfg = new Config();
         private string ConfigName = "BakerySoldProducts";
@@ -174,7 +175,7 @@ namespace VoucherExpense
             int productID;
             XmlNode sale = root.SelectSingleNode("Product");
 //            XmlNode stock = root.SelectSingleNode("Ingredient");
-            m_SaleList = new List<CSaleItem>();
+            m_SaleList = new SortableBindingList<CSaleItem>();
 //            m_StockList = new List<StockItem>();
             foreach (XmlNode node in sale.ChildNodes)
             {
@@ -197,6 +198,9 @@ namespace VoucherExpense
                             m.Unit = row.Unit;
                         else
                             m.Unit = "份";
+                        if (!row.IsEvaluatedCostNull())
+                            m.EvaluatedCost = row.EvaluatedCost;
+                        else m.EvaluatedCost = 0m;
                         break;
                     }
                 }
@@ -357,8 +361,20 @@ namespace VoucherExpense
             bool[] debug = new bool[count];   // items code會重複, 不知為何 ,只好用此辦法
             foreach (BakeryOrderSet.OrderRow row in bakeryOrderSet.Order)
             {
+                decimal discountRate=0.88m,deductRate=1m;
+                if (!row.IsDiscountRateNull()) discountRate=row.DiscountRate;
                 BakeryOrderSet.OrderItemRow[] items = row.GetOrderItemRows();
                 for (int i = 0; i < count; i++) debug[i] = false;
+                decimal total = 0;
+                foreach (BakeryOrderSet.OrderItemRow it in items)
+                {
+                    if (it.IsProductIDNull()) continue;
+                    if (it.Discount)
+                        total += it.Price * it.No * discountRate;
+                    else
+                        total += it.Price * it.No;
+                }
+                if (total!=0m) deductRate = row.Income  / total;
                 foreach (BakeryOrderSet.OrderItemRow it in items)
                 {
                     if (it.IsProductIDNull()) continue;
@@ -371,9 +387,9 @@ namespace VoucherExpense
                             debug[i] = true;
                             m.Volume += it.No;
                             if (it.Discount)
-                                m.Total += it.Price * it.No * 0.88m;
+                                m.Total += (it.Price * it.No * discountRate)*deductRate;   
                             else
-                                m.Total += it.Price * it.No;
+                                m.Total += it.Price * it.No*deductRate;
                             break;
                         }
                     }
@@ -381,10 +397,23 @@ namespace VoucherExpense
                 progressBar1.Increment(1);
                 Application.DoEvents();
             }
-            decimal sum = 0;
-            foreach (CSaleItem item in m_SaleList) sum += item.Total;
+            decimal sum = 0,totalCost=0;
+            foreach (CSaleItem item in m_SaleList)
+            {
+                item.TotalEvaluatedCost = Math.Round(item.Volume * item.EvaluatedCost, 1);
+                if (item.Total != 0) item.GrossProfitRate = Math.Round((item.Total-item.TotalEvaluatedCost) / item.Total*100,1);
+                else                 item.GrossProfitRate = 0;
+                sum += item.Total;
+                totalCost+=item.TotalEvaluatedCost;
+            }
             progressBar1.Visible = false;
             labelMessage.Visible = false;
+            labelTotal.Text = sum.ToString("N1");
+            labelCost.Text = totalCost.ToString("N1");
+            if (sum==0m)
+                labelGrossProfitRate.Text="";
+            else
+                labelGrossProfitRate.Text = ((sum - totalCost) / sum * 100).ToString("N1");
             return sum;
 
             //            materialBindingSource.ResetBindings(false);
@@ -513,6 +542,31 @@ namespace VoucherExpense
             Buf.Append("\f", GB2312);
 //            File.WriteAllText("TestPrn.txt",GB2312.GetString(Buf.ToBytes()),Encoding.Unicode);
             RawPrint.SendManagedBytes(LoadConfigPrinterName(), Buf.ToBytes());
+        }
+
+        private void btnAddAllProduct_Click(object sender, EventArgs e)
+        {
+            foreach (BakeryOrderSet.ProductRow row in this.bakeryOrderSet.Product)
+            {
+                if (row.IsCodeNull()) continue;
+                if (row.Code <= 0)  continue;      // 有代碼才加入
+                int productID = row.ProductID;
+                var inList = from l in m_SaleList where l.ProductID == productID select l;
+                if (inList.Count()>0) continue;  // 己經有了不用再加 
+                CSaleItem m = new CSaleItem(productID);
+                if (!row.IsPriceNull())
+                    m.Price = (decimal)row.Price;
+                if (!row.IsUnitNull())
+                    m.Unit = row.Unit;
+                else
+                    m.Unit = "份";
+                if (!row.IsEvaluatedCostNull())
+                    m.EvaluatedCost = row.EvaluatedCost;
+                else m.EvaluatedCost = 0m;
+                m_SaleList.Add(m);
+            }
+            cSaleItemBindingSource.ResetBindings(false);
+
         }
 
 

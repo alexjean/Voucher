@@ -663,6 +663,7 @@
       <DependentUpon>Mai2013DataSet.xsd</DependentUpon>
     </None>
     <None Include="Properties\app.manifest" />
+    <None Include="Properties\DataSources\BakeryOrderBrowse.HourStatics.datasource" />
     <None Include="Properties\DataSources\CLedgerRow.datasource" />
     <None Include="Properties\DataSources\FormShift.CCodeForCombo.datasource" />
     <None Include="Properties\DataSources\FormShift.CHourForCombo.datasource" />

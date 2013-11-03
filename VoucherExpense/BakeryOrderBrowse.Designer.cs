@@ -28,6 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lvItems = new System.Windows.Forms.ListView();
             this.columnHeader代碼 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader品名 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -36,6 +42,8 @@
             this.btnOrderList = new System.Windows.Forms.Button();
             this.btnDrawerOpenedList = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.dgvStatics = new System.Windows.Forms.DataGridView();
+            this.hourStaticsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.label1 = new System.Windows.Forms.Label();
             this.labelTotal = new System.Windows.Forms.Label();
@@ -45,6 +53,18 @@
             this.cbBoxMonth = new System.Windows.Forms.ComboBox();
             this.labelDeduct = new System.Windows.Forms.Label();
             this.labelDeductLabel = new System.Windows.Forms.Label();
+            this.ColumnHour = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.orderCountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.revenueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.averageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.labelDgvTitle = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.labelOrderCount = new System.Windows.Forms.Label();
+            this.labelTotalRevenue = new System.Windows.Forms.Label();
+            this.labelTotalAverage = new System.Windows.Forms.Label();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStatics)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.hourStaticsBindingSource)).BeginInit();
             this.tabControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).BeginInit();
             this.SuspendLayout();
@@ -112,11 +132,45 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.tabPage1.Controls.Add(this.labelTotalAverage);
+            this.tabPage1.Controls.Add(this.labelTotalRevenue);
+            this.tabPage1.Controls.Add(this.labelOrderCount);
+            this.tabPage1.Controls.Add(this.label2);
+            this.tabPage1.Controls.Add(this.labelDgvTitle);
+            this.tabPage1.Controls.Add(this.dgvStatics);
             this.tabPage1.Location = new System.Drawing.Point(4, 4);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(663, 596);
             this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "統計";
+            // 
+            // dgvStatics
+            // 
+            this.dgvStatics.AllowUserToAddRows = false;
+            this.dgvStatics.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.Azure;
+            this.dgvStatics.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle11;
+            this.dgvStatics.AutoGenerateColumns = false;
+            this.dgvStatics.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.dgvStatics.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvStatics.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ColumnHour,
+            this.orderCountDataGridViewTextBoxColumn,
+            this.revenueDataGridViewTextBoxColumn,
+            this.averageDataGridViewTextBoxColumn});
+            this.dgvStatics.DataSource = this.hourStaticsBindingSource;
+            this.dgvStatics.Location = new System.Drawing.Point(0, 32);
+            this.dgvStatics.Name = "dgvStatics";
+            this.dgvStatics.ReadOnly = true;
+            this.dgvStatics.RowHeadersVisible = false;
+            this.dgvStatics.RowTemplate.Height = 24;
+            this.dgvStatics.Size = new System.Drawing.Size(319, 419);
+            this.dgvStatics.TabIndex = 0;
+            // 
+            // hourStaticsBindingSource
+            // 
+            this.hourStaticsBindingSource.DataSource = typeof(VoucherExpense.BakeryOrderBrowse.HourStatics);
             // 
             // tabControl1
             // 
@@ -214,6 +268,94 @@
             this.labelDeductLabel.TabIndex = 60;
             this.labelDeductLabel.Text = "优惠";
             // 
+            // ColumnHour
+            // 
+            this.ColumnHour.DataPropertyName = "Hour";
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.ColumnHour.DefaultCellStyle = dataGridViewCellStyle12;
+            this.ColumnHour.HeaderText = "時間";
+            this.ColumnHour.Name = "ColumnHour";
+            this.ColumnHour.ReadOnly = true;
+            this.ColumnHour.Width = 64;
+            // 
+            // orderCountDataGridViewTextBoxColumn
+            // 
+            this.orderCountDataGridViewTextBoxColumn.DataPropertyName = "OrderCount";
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.orderCountDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle13;
+            this.orderCountDataGridViewTextBoxColumn.HeaderText = "單數";
+            this.orderCountDataGridViewTextBoxColumn.Name = "orderCountDataGridViewTextBoxColumn";
+            this.orderCountDataGridViewTextBoxColumn.ReadOnly = true;
+            this.orderCountDataGridViewTextBoxColumn.Width = 64;
+            // 
+            // revenueDataGridViewTextBoxColumn
+            // 
+            this.revenueDataGridViewTextBoxColumn.DataPropertyName = "Revenue";
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle14.Format = "N1";
+            dataGridViewCellStyle14.NullValue = null;
+            this.revenueDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle14;
+            this.revenueDataGridViewTextBoxColumn.HeaderText = "營收";
+            this.revenueDataGridViewTextBoxColumn.Name = "revenueDataGridViewTextBoxColumn";
+            this.revenueDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // averageDataGridViewTextBoxColumn
+            // 
+            this.averageDataGridViewTextBoxColumn.DataPropertyName = "Average";
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle15.Format = "N1";
+            dataGridViewCellStyle15.NullValue = null;
+            this.averageDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle15;
+            this.averageDataGridViewTextBoxColumn.HeaderText = "人均";
+            this.averageDataGridViewTextBoxColumn.Name = "averageDataGridViewTextBoxColumn";
+            this.averageDataGridViewTextBoxColumn.ReadOnly = true;
+            this.averageDataGridViewTextBoxColumn.Width = 64;
+            // 
+            // labelDgvTitle
+            // 
+            this.labelDgvTitle.AutoSize = true;
+            this.labelDgvTitle.Location = new System.Drawing.Point(98, 13);
+            this.labelDgvTitle.Name = "labelDgvTitle";
+            this.labelDgvTitle.Size = new System.Drawing.Size(112, 16);
+            this.labelDgvTitle.TabIndex = 1;
+            this.labelDgvTitle.Text = "  月   日 統計表";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 455);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(40, 16);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "總計";
+            // 
+            // labelOrderCount
+            // 
+            this.labelOrderCount.Location = new System.Drawing.Point(61, 454);
+            this.labelOrderCount.Name = "labelOrderCount";
+            this.labelOrderCount.Size = new System.Drawing.Size(71, 16);
+            this.labelOrderCount.TabIndex = 8;
+            this.labelOrderCount.Text = "0";
+            this.labelOrderCount.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelTotalRevenue
+            // 
+            this.labelTotalRevenue.Location = new System.Drawing.Point(150, 455);
+            this.labelTotalRevenue.Name = "labelTotalRevenue";
+            this.labelTotalRevenue.Size = new System.Drawing.Size(79, 16);
+            this.labelTotalRevenue.TabIndex = 9;
+            this.labelTotalRevenue.Text = "0";
+            this.labelTotalRevenue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelTotalAverage
+            // 
+            this.labelTotalAverage.Location = new System.Drawing.Point(244, 454);
+            this.labelTotalAverage.Name = "labelTotalAverage";
+            this.labelTotalAverage.Size = new System.Drawing.Size(51, 16);
+            this.labelTotalAverage.TabIndex = 10;
+            this.labelTotalAverage.Text = "0.0";
+            this.labelTotalAverage.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // BakeryOrderBrowse
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -236,6 +378,10 @@
             this.ShowIcon = false;
             this.Text = "烘焙收入明細";
             this.Load += new System.EventHandler(this.BakeryOrderBrowse_Load);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStatics)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.hourStaticsBindingSource)).EndInit();
             this.tabControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).EndInit();
             this.ResumeLayout(false);
@@ -262,5 +408,16 @@
         private System.Windows.Forms.ComboBox cbBoxMonth;
         private System.Windows.Forms.Label labelDeduct;
         private System.Windows.Forms.Label labelDeductLabel;
+        private System.Windows.Forms.DataGridView dgvStatics;
+        private System.Windows.Forms.BindingSource hourStaticsBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnHour;
+        private System.Windows.Forms.DataGridViewTextBoxColumn orderCountDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn revenueDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn averageDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Label labelDgvTitle;
+        private System.Windows.Forms.Label labelTotalRevenue;
+        private System.Windows.Forms.Label labelOrderCount;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelTotalAverage;
     }
 }

@@ -20,13 +20,22 @@ namespace VoucherExpense
             public static int NoWidth = 8;
         }
 
+        public class HourStatics
+        {
+            public int Hour { get; set; }
+            public int OrderCount { get; set; }
+            public decimal Revenue { get; set; }
+            public decimal Average { get; set; }
+            public HourStatics(int hour) { Hour = hour; }
+        }
+
         public BakeryOrderBrowse()
         {
             InitializeComponent();
         }
 
         string[] m_ListViewItemBackup;
-
+        TabPage m_TabPageStatics = null;
         private void BakeryOrderBrowse_Load(object sender, EventArgs e)
         {
             this.productTableAdapter.Connection = MapPath.BakeryConnection;
@@ -50,6 +59,12 @@ namespace VoucherExpense
             cbBoxMonth.SelectedIndexChanged += new EventHandler(cbBoxMonth_SelectedIndexChanged);
             cbBoxMonth.SelectedIndex = DateTime.Now.Month - 1;
             cbBoxDay.SelectedIndex = DateTime.Now.Day - 1;
+            if (tabControl1.TabCount < 1)
+            {
+                MessageBox.Show("程式錯誤! 應該有統計頁!");
+            }
+            else 
+                m_TabPageStatics = this.tabControl1.TabPages[0];     // 為避免被清除,存起統計頁
         }
 
         class OrderAdapter : BakeryOrderSetTableAdapters.OrderTableAdapter
@@ -326,6 +341,7 @@ namespace VoucherExpense
 
         }
 
+
         private void btnOrderList_Click(object sender, EventArgs e)
         {
             int mon = cbBoxMonth.SelectedIndex+1;
@@ -340,9 +356,16 @@ namespace VoucherExpense
             // worry about IsPrintTimeNull()
             var groups = from row in bakeryOrderSet.Order
                          group row by row.PrintTime.Hour;
-            if (groups.Count() == 0) return;
+            if (groups.Count() == 0)
+            {
+                MessageBox.Show(mon.ToString() + "月" + day.ToString() + "日沒有資料!");
+                return;
+            }
             tc.TabPages.Clear();
+            tc.TabPages.Add(m_TabPageStatics);
             List<BakeryOrderSet.OrderRow> listXX = new List<BakeryOrderSet.OrderRow>();
+            SortableBindingList<HourStatics> listStatics = new SortableBindingList<HourStatics>();
+            labelDgvTitle.Text=mon.ToString()+"月"+day.ToString()+"日統計表";
             TabPage page=null;
             decimal total = 0;
             int count = 0;
@@ -353,6 +376,8 @@ namespace VoucherExpense
                 if (gr.Key > 6 && gr.Key < 23)
                 {
                     page=AddTabControl1Item(gr.Key.ToString("d2"));
+                    HourStatics st = new HourStatics(gr.Key);
+                    listStatics.Add(st);
                     int x = 0,y = 0;
                     foreach (var order in gr)
                     {
@@ -361,6 +386,8 @@ namespace VoucherExpense
                         {
                             count++;
                             total += order.Income;
+                            st.OrderCount++;
+                            st.Revenue += order.Income;
                         }
                         if (++x >= MyLayout.NoX)
                         {
@@ -372,6 +399,7 @@ namespace VoucherExpense
                             }
                         }
                     }
+
                 }
                 else
                 {
@@ -384,8 +412,11 @@ namespace VoucherExpense
             if (listXX.Count != 0)
             {
                 int x = 0, y = 0;
-                page=AddTabControl1Item("XX");
                 SuspendLayout();
+                page = AddTabControl1Item("XX");
+                HourStatics st = new HourStatics(99);
+                listStatics.Add(st);
+
                 foreach (var order in listXX)
                 {
                     CreateLabel(page, x, y, order);
@@ -393,6 +424,8 @@ namespace VoucherExpense
                     {
                         count++;
                         total += order.Income;
+                        st.OrderCount++;
+                        st.Revenue += order.Income;
                     }
                     if (++x >= MyLayout.NoX)
                     {
@@ -407,10 +440,21 @@ namespace VoucherExpense
                 ResumeLayout();
                 PerformLayout();
             }
-            if (page != null) tc.SelectTab(page);
+            // 統計頁
+            foreach (HourStatics hs in listStatics)
+            {
+                if (hs.OrderCount != 0)
+                    hs.Average = Math.Round(hs.Revenue / hs.OrderCount, 1);
+            }
+            dgvStatics.DataSource = listStatics;
+            tc.SelectedIndex = 0;
+//          if (page != null) tc.SelectTab(page);
             ResetListView();
             lvItems.Focus();
-            labelTotal.Text = count.ToString()+"單　共 "+total.ToString() + "元";
+            labelOrderCount.Text   = count.ToString();
+            labelTotalRevenue.Text = total.ToString("N1");
+            if (count!=0)
+                labelTotalAverage.Text = Math.Round(total / count, 1).ToString();
         }
 
         void CreateRecordLabel(TabPage tabPage, int x, int y, BakeryOrderSet.DrawerRecordRow Row)

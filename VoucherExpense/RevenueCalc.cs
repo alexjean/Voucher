@@ -246,8 +246,8 @@ namespace VoucherExpense
         public MonthlyReportData Statics(BakeryOrderSet bakeryOrderSet)
         {
             decimal cash = 0, credit = 0, deduct = 0;
-            decimal coupond=0,deletedMoney=0;
-            int orderCount = 0,deletedCount=0;
+            decimal coupond=0,deletedMoney=0,returnedMoney=0;
+            int orderCount = 0,deletedCount=0,returnedCount=0;
             MonthlyReportData data = new MonthlyReportData();
             foreach (BakeryOrderSet.OrderRow row in bakeryOrderSet.Order)
             {
@@ -267,7 +267,13 @@ namespace VoucherExpense
                 else if (row.PayBy == "C")
                     coupond += income;
                 if (!row.IsDeductNull()) deduct += row.Deduct;
-                orderCount++;    //  一單一人
+                if (income >= 0)     // 退貨的不計入單數
+                    orderCount++;    //  一單一人
+                else
+                {
+                    returnedMoney += income;
+                    returnedCount++;
+                }
             }
             data.OrderCount = orderCount;
             data.Cash    = Math.Round(cash);
@@ -283,6 +289,9 @@ namespace VoucherExpense
 
             data.DeletedCount = deletedCount;
             data.DeletedMoney = deletedMoney;
+
+            data.ReturnedCount = returnedCount;
+            data.ReturnedMoney = returnedMoney;
             return data;
         }
     }

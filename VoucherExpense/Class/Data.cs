@@ -415,6 +415,9 @@ namespace VoucherExpense
 
         public int     DeletedCount { get; set; }
         public decimal DeletedMoney { get; set; }
+
+        public int ReturnedCount     { get; set; }
+        public decimal ReturnedMoney { get; set; }
     }
 
     public class CLedgerRow

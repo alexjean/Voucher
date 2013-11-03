@@ -398,10 +398,13 @@ namespace VoucherExpense
                         CreateLabel(page, x, y, order);
                         if (!order.Deleted)
                         {
-                            count++;
                             total += order.Income;
-                            st.OrderCount++;
                             st.Revenue += order.Income;
+                            if (!order.IsIncomeNull() && order.Income >= 0)  // 退貨的不加入單數
+                            {
+                                count++;
+                                st.OrderCount++;
+                            }
                         }
                         if (++x >= MyLayout.NoX)
                         {
@@ -437,10 +440,13 @@ namespace VoucherExpense
                     CreateLabel(page, x, y, order);
                     if (!order.Deleted)
                     {
-                        count++;
                         total += order.Income;
-                        st.OrderCount++;
                         st.Revenue += order.Income;
+                        if (!order.IsIncomeNull() && order.Income >= 0)  // 退貨的不加入單數
+                        {
+                            count++;
+                            st.OrderCount++;
+                        }
                     }
                     if (++x >= MyLayout.NoX)
                     {

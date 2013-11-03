@@ -244,8 +244,10 @@ namespace VoucherExpense
             if (!Row.IsIncomeNull())
                 income = Math.Round(Row.Income, 2);
             b.Text += "\r\n" + income.ToString()+"元";
-            if (income < 0) b.BackColor = Color.Pink;
-            if (!Row.IsDeletedNull() &&　Row.Deleted) b.BackColor = Color.Green;
+
+            if (!Row.IsDeletedNull() && Row.Deleted)         b.BackColor = Color.Green;
+            else if (income < 0)                             b.BackColor = Color.Pink;
+            else if (!Row.IsDeductNull() && Row.Deduct != 0) b.BackColor = Color.Azure;
             b.Tag = Row;
             b.TextAlign = HorizontalAlignment.Center;
             b.BorderStyle = BorderStyle.Fixed3D;
@@ -304,7 +306,7 @@ namespace VoucherExpense
                 {
                     if (order.Income < 0 && total == (-order.Income))
                     {
-                        labelReturned.Text = "收銀"+order.RCashierID.ToString()+"   退單號"+order.OldID.ToString();
+                        labelReturned.Text = "收銀"+order.CashierID+" 授權"+order.RCashierID.ToString()+"  退單"+order.OldID.ToString();
                         labelReturned.Visible = true;
                         return true;
                     }
@@ -384,12 +386,15 @@ namespace VoucherExpense
                 SuspendLayout();
                 if (gr.Key > 6 && gr.Key < 23)
                 {
-                    page=AddTabControl1Item(gr.Key.ToString("d2"));
+                    string tabName = gr.Key.ToString("d2");
+                    page = null;
                     HourStatics st = new HourStatics(gr.Key);
                     listStatics.Add(st);
                     int x = 0,y = 0;
                     foreach (var order in gr)
                     {
+                        if (page == null)
+                            page=AddTabControl1Item(tabName);
                         CreateLabel(page, x, y, order);
                         if (!order.Deleted)
                         {
@@ -404,7 +409,8 @@ namespace VoucherExpense
                             if (++y >= MyLayout.NoY)
                             {
                                 y = 0;
-                                page = AddTabControl1Item(gr.Key.ToString("d2")+'.');
+                                page = null;
+                                tabName += '.';
                             }
                         }
                     }

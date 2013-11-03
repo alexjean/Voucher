@@ -374,7 +374,9 @@ namespace VoucherExpense
                     else
                         total += it.Price * it.No;
                 }
-                if (total!=0m) deductRate = row.Income  / total;
+                decimal income = 0;
+                if (!row.IsIncomeNull()) income = row.Income;
+                if (total!=0m) deductRate = income  / total;
                 foreach (BakeryOrderSet.OrderItemRow it in items)
                 {
                     if (it.IsProductIDNull()) continue;
@@ -385,7 +387,8 @@ namespace VoucherExpense
                         {
                             if (debug[i]) break;        // 重複算了二次, items存入有bug,只好先跳掉
                             debug[i] = true;
-                            m.Volume += it.No;
+                            if (income >= 0)            // 收入為負,退貨不計也不減回數量,計成本並回扣收入
+                                m.Volume += it.No;
                             if (it.Discount)
                                 m.Total += (it.Price * it.No * discountRate)*deductRate;   
                             else

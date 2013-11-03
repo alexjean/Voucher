@@ -42,7 +42,16 @@
             this.btnOrderList = new System.Windows.Forms.Button();
             this.btnDrawerOpenedList = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.labelTotalAverage = new System.Windows.Forms.Label();
+            this.labelTotalRevenue = new System.Windows.Forms.Label();
+            this.labelOrderCount = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.labelDgvTitle = new System.Windows.Forms.Label();
             this.dgvStatics = new System.Windows.Forms.DataGridView();
+            this.ColumnHour = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.orderCountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.revenueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.averageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.hourStaticsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.label1 = new System.Windows.Forms.Label();
@@ -53,15 +62,7 @@
             this.cbBoxMonth = new System.Windows.Forms.ComboBox();
             this.labelDeduct = new System.Windows.Forms.Label();
             this.labelDeductLabel = new System.Windows.Forms.Label();
-            this.ColumnHour = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.orderCountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.revenueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.averageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.labelDgvTitle = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.labelOrderCount = new System.Windows.Forms.Label();
-            this.labelTotalRevenue = new System.Windows.Forms.Label();
-            this.labelTotalAverage = new System.Windows.Forms.Label();
+            this.labelReturned = new System.Windows.Forms.Label();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStatics)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hourStaticsBindingSource)).BeginInit();
@@ -145,6 +146,51 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "統計";
             // 
+            // labelTotalAverage
+            // 
+            this.labelTotalAverage.Location = new System.Drawing.Point(244, 454);
+            this.labelTotalAverage.Name = "labelTotalAverage";
+            this.labelTotalAverage.Size = new System.Drawing.Size(51, 16);
+            this.labelTotalAverage.TabIndex = 10;
+            this.labelTotalAverage.Text = "0.0";
+            this.labelTotalAverage.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelTotalRevenue
+            // 
+            this.labelTotalRevenue.Location = new System.Drawing.Point(150, 455);
+            this.labelTotalRevenue.Name = "labelTotalRevenue";
+            this.labelTotalRevenue.Size = new System.Drawing.Size(79, 16);
+            this.labelTotalRevenue.TabIndex = 9;
+            this.labelTotalRevenue.Text = "0";
+            this.labelTotalRevenue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelOrderCount
+            // 
+            this.labelOrderCount.Location = new System.Drawing.Point(61, 454);
+            this.labelOrderCount.Name = "labelOrderCount";
+            this.labelOrderCount.Size = new System.Drawing.Size(71, 16);
+            this.labelOrderCount.TabIndex = 8;
+            this.labelOrderCount.Text = "0";
+            this.labelOrderCount.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 455);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(40, 16);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "總計";
+            // 
+            // labelDgvTitle
+            // 
+            this.labelDgvTitle.AutoSize = true;
+            this.labelDgvTitle.Location = new System.Drawing.Point(98, 13);
+            this.labelDgvTitle.Name = "labelDgvTitle";
+            this.labelDgvTitle.Size = new System.Drawing.Size(112, 16);
+            this.labelDgvTitle.TabIndex = 1;
+            this.labelDgvTitle.Text = "  月   日 統計表";
+            // 
             // dgvStatics
             // 
             this.dgvStatics.AllowUserToAddRows = false;
@@ -167,106 +213,6 @@
             this.dgvStatics.RowTemplate.Height = 24;
             this.dgvStatics.Size = new System.Drawing.Size(319, 419);
             this.dgvStatics.TabIndex = 0;
-            // 
-            // hourStaticsBindingSource
-            // 
-            this.hourStaticsBindingSource.DataSource = typeof(VoucherExpense.BakeryOrderBrowse.HourStatics);
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Alignment = System.Windows.Forms.TabAlignment.Bottom;
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
-            this.tabControl1.ItemSize = new System.Drawing.Size(48, 32);
-            this.tabControl1.Location = new System.Drawing.Point(234, 0);
-            this.tabControl1.Multiline = true;
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(671, 636);
-            this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-            this.tabControl1.TabIndex = 3;
-            this.tabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(46, 418);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(40, 16);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "總計";
-            // 
-            // labelTotal
-            // 
-            this.labelTotal.Location = new System.Drawing.Point(130, 418);
-            this.labelTotal.Name = "labelTotal";
-            this.labelTotal.Size = new System.Drawing.Size(71, 16);
-            this.labelTotal.TabIndex = 7;
-            this.labelTotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // bakeryOrderSet
-            // 
-            this.bakeryOrderSet.DataSetName = "BakeryOrderSet";
-            this.bakeryOrderSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // productTableAdapter
-            // 
-            this.productTableAdapter.ClearBeforeFill = true;
-            // 
-            // cbBoxDay
-            // 
-            this.cbBoxDay.DropDownHeight = 216;
-            this.cbBoxDay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbBoxDay.FormattingEnabled = true;
-            this.cbBoxDay.IntegralHeight = false;
-            this.cbBoxDay.Location = new System.Drawing.Point(130, 451);
-            this.cbBoxDay.Name = "cbBoxDay";
-            this.cbBoxDay.Size = new System.Drawing.Size(71, 24);
-            this.cbBoxDay.TabIndex = 58;
-            // 
-            // cbBoxMonth
-            // 
-            this.cbBoxMonth.DropDownHeight = 216;
-            this.cbBoxMonth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbBoxMonth.FormattingEnabled = true;
-            this.cbBoxMonth.IntegralHeight = false;
-            this.cbBoxMonth.Items.AddRange(new object[] {
-            "一月",
-            "二月",
-            "三月",
-            "四月",
-            "五月",
-            "六月",
-            "七月",
-            "八月",
-            "九月",
-            "十月",
-            "十一月",
-            "十二月"});
-            this.cbBoxMonth.Location = new System.Drawing.Point(15, 451);
-            this.cbBoxMonth.Name = "cbBoxMonth";
-            this.cbBoxMonth.Size = new System.Drawing.Size(71, 24);
-            this.cbBoxMonth.TabIndex = 57;
-            // 
-            // labelDeduct
-            // 
-            this.labelDeduct.Location = new System.Drawing.Point(130, 390);
-            this.labelDeduct.Name = "labelDeduct";
-            this.labelDeduct.Size = new System.Drawing.Size(71, 16);
-            this.labelDeduct.TabIndex = 59;
-            this.labelDeduct.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // labelDeductLabel
-            // 
-            this.labelDeductLabel.AutoSize = true;
-            this.labelDeductLabel.Location = new System.Drawing.Point(46, 390);
-            this.labelDeductLabel.Name = "labelDeductLabel";
-            this.labelDeductLabel.Size = new System.Drawing.Size(40, 16);
-            this.labelDeductLabel.TabIndex = 60;
-            this.labelDeductLabel.Text = "优惠";
             // 
             // ColumnHour
             // 
@@ -311,50 +257,115 @@
             this.averageDataGridViewTextBoxColumn.ReadOnly = true;
             this.averageDataGridViewTextBoxColumn.Width = 64;
             // 
-            // labelDgvTitle
+            // hourStaticsBindingSource
             // 
-            this.labelDgvTitle.AutoSize = true;
-            this.labelDgvTitle.Location = new System.Drawing.Point(98, 13);
-            this.labelDgvTitle.Name = "labelDgvTitle";
-            this.labelDgvTitle.Size = new System.Drawing.Size(112, 16);
-            this.labelDgvTitle.TabIndex = 1;
-            this.labelDgvTitle.Text = "  月   日 統計表";
+            this.hourStaticsBindingSource.DataSource = typeof(VoucherExpense.BakeryOrderBrowse.HourStatics);
             // 
-            // label2
+            // tabControl1
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 455);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(40, 16);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "總計";
+            this.tabControl1.Alignment = System.Windows.Forms.TabAlignment.Bottom;
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
+            this.tabControl1.ItemSize = new System.Drawing.Size(48, 32);
+            this.tabControl1.Location = new System.Drawing.Point(234, 0);
+            this.tabControl1.Multiline = true;
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(671, 636);
+            this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.tabControl1.TabIndex = 3;
+            this.tabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
             // 
-            // labelOrderCount
+            // label1
             // 
-            this.labelOrderCount.Location = new System.Drawing.Point(61, 454);
-            this.labelOrderCount.Name = "labelOrderCount";
-            this.labelOrderCount.Size = new System.Drawing.Size(71, 16);
-            this.labelOrderCount.TabIndex = 8;
-            this.labelOrderCount.Text = "0";
-            this.labelOrderCount.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(46, 426);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(40, 16);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "總計";
             // 
-            // labelTotalRevenue
+            // labelTotal
             // 
-            this.labelTotalRevenue.Location = new System.Drawing.Point(150, 455);
-            this.labelTotalRevenue.Name = "labelTotalRevenue";
-            this.labelTotalRevenue.Size = new System.Drawing.Size(79, 16);
-            this.labelTotalRevenue.TabIndex = 9;
-            this.labelTotalRevenue.Text = "0";
-            this.labelTotalRevenue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelTotal.Location = new System.Drawing.Point(130, 426);
+            this.labelTotal.Name = "labelTotal";
+            this.labelTotal.Size = new System.Drawing.Size(71, 16);
+            this.labelTotal.TabIndex = 7;
+            this.labelTotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // labelTotalAverage
+            // bakeryOrderSet
             // 
-            this.labelTotalAverage.Location = new System.Drawing.Point(244, 454);
-            this.labelTotalAverage.Name = "labelTotalAverage";
-            this.labelTotalAverage.Size = new System.Drawing.Size(51, 16);
-            this.labelTotalAverage.TabIndex = 10;
-            this.labelTotalAverage.Text = "0.0";
-            this.labelTotalAverage.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.bakeryOrderSet.DataSetName = "BakeryOrderSet";
+            this.bakeryOrderSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // productTableAdapter
+            // 
+            this.productTableAdapter.ClearBeforeFill = true;
+            // 
+            // cbBoxDay
+            // 
+            this.cbBoxDay.DropDownHeight = 216;
+            this.cbBoxDay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbBoxDay.FormattingEnabled = true;
+            this.cbBoxDay.IntegralHeight = false;
+            this.cbBoxDay.Location = new System.Drawing.Point(130, 459);
+            this.cbBoxDay.Name = "cbBoxDay";
+            this.cbBoxDay.Size = new System.Drawing.Size(71, 24);
+            this.cbBoxDay.TabIndex = 58;
+            // 
+            // cbBoxMonth
+            // 
+            this.cbBoxMonth.DropDownHeight = 216;
+            this.cbBoxMonth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbBoxMonth.FormattingEnabled = true;
+            this.cbBoxMonth.IntegralHeight = false;
+            this.cbBoxMonth.Items.AddRange(new object[] {
+            "一月",
+            "二月",
+            "三月",
+            "四月",
+            "五月",
+            "六月",
+            "七月",
+            "八月",
+            "九月",
+            "十月",
+            "十一月",
+            "十二月"});
+            this.cbBoxMonth.Location = new System.Drawing.Point(15, 459);
+            this.cbBoxMonth.Name = "cbBoxMonth";
+            this.cbBoxMonth.Size = new System.Drawing.Size(71, 24);
+            this.cbBoxMonth.TabIndex = 57;
+            // 
+            // labelDeduct
+            // 
+            this.labelDeduct.Location = new System.Drawing.Point(130, 398);
+            this.labelDeduct.Name = "labelDeduct";
+            this.labelDeduct.Size = new System.Drawing.Size(71, 16);
+            this.labelDeduct.TabIndex = 59;
+            this.labelDeduct.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelDeductLabel
+            // 
+            this.labelDeductLabel.AutoSize = true;
+            this.labelDeductLabel.Location = new System.Drawing.Point(46, 398);
+            this.labelDeductLabel.Name = "labelDeductLabel";
+            this.labelDeductLabel.Size = new System.Drawing.Size(40, 16);
+            this.labelDeductLabel.TabIndex = 60;
+            this.labelDeductLabel.Text = "优惠";
+            // 
+            // labelReturned
+            // 
+            this.labelReturned.AutoSize = true;
+            this.labelReturned.Location = new System.Drawing.Point(12, 370);
+            this.labelReturned.Name = "labelReturned";
+            this.labelReturned.Size = new System.Drawing.Size(56, 16);
+            this.labelReturned.TabIndex = 61;
+            this.labelReturned.Text = "退貨號";
+            this.labelReturned.Visible = false;
             // 
             // BakeryOrderBrowse
             // 
@@ -362,6 +373,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Azure;
             this.ClientSize = new System.Drawing.Size(908, 637);
+            this.Controls.Add(this.labelReturned);
             this.Controls.Add(this.labelDeductLabel);
             this.Controls.Add(this.labelDeduct);
             this.Controls.Add(this.cbBoxDay);
@@ -419,5 +431,6 @@
         private System.Windows.Forms.Label labelOrderCount;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label labelTotalAverage;
+        private System.Windows.Forms.Label labelReturned;
     }
 }

@@ -241,8 +241,10 @@ namespace VoucherExpense
                 else if (Row.PayBy == "C") b.Text += "券";
             }
             decimal income = 0;
-            income = Math.Round(Row.Income, 2);
+            if (!Row.IsIncomeNull())
+                income = Math.Round(Row.Income, 2);
             b.Text += "\r\n" + income.ToString()+"元";
+            if (income < 0) b.BackColor = Color.Pink;
             if (!Row.IsDeletedNull() &&　Row.Deleted) b.BackColor = Color.Green;
             b.Tag = Row;
             b.TextAlign = HorizontalAlignment.Center;
@@ -294,11 +296,18 @@ namespace VoucherExpense
             {
                 total -= order.Deduct;
             }
+            labelReturned.Visible = false;
             if (!order.IsIncomeNull())
             {
                 decimal income = Math.Round(order.Income, 2);
                 if (total != order.Income)
                 {
+                    if (order.Income < 0 && total == (-order.Income))
+                    {
+                        labelReturned.Text = "收銀"+order.RCashierID.ToString()+"   退單號"+order.OldID.ToString();
+                        labelReturned.Visible = true;
+                        return true;
+                    }
                     MessageBox.Show("計算金額<" + total.ToString() + ">不符 " + income.ToString());
                     return false;
                 }

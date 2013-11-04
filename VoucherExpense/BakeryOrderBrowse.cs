@@ -15,9 +15,9 @@ namespace VoucherExpense
         {
             public static int NoX = 10;
             public static int NoY = 10;
-            public static int OffsetX = 8;
-            public static int OffsetY = 8;
-            public static int NoWidth = 8;
+            public static int OffsetX = 6;
+            public static int OffsetY = 6;
+            public static int NoWidth = 2;
         }
 
         public class HourStatics
@@ -306,12 +306,19 @@ namespace VoucherExpense
                 {
                     if (order.Income < 0 && total == (-order.Income))
                     {
-                        labelReturned.Text = "收銀"+order.CashierID+" 授權"+order.RCashierID.ToString()+"  退單"+order.OldID.ToString();
+                        labelReturned.Text = "收銀" + order.CashierID + " 授權" + order.RCashierID.ToString() + "  退單" + order.OldID.ToString();
                         labelReturned.Visible = true;
                         return true;
                     }
                     MessageBox.Show("計算金額<" + total.ToString() + ">不符 " + income.ToString());
                     return false;
+                }
+                else
+                {
+                    labelReturned.Text = "收銀 " + order.CashierID;
+                    if (!order.IsPrintTimeNull())
+                        labelReturned.Text+="     時間 " + order.PrintTime.ToString("HH:mm:ss");
+                    labelReturned.Visible = true;
                 }
             }
             return true;
@@ -431,12 +438,15 @@ namespace VoucherExpense
             {
                 int x = 0, y = 0;
                 SuspendLayout();
-                page = AddTabControl1Item("XX");
+                string tabName = "99";
+                page = null;
                 HourStatics st = new HourStatics(99);
                 listStatics.Add(st);
 
                 foreach (var order in listXX)
                 {
+                    if (page==null)
+                        page = AddTabControl1Item(tabName);
                     CreateLabel(page, x, y, order);
                     if (!order.Deleted)
                     {
@@ -454,7 +464,8 @@ namespace VoucherExpense
                         if (++y >= MyLayout.NoY)
                         {
                             y = 0;
-                            page = AddTabControl1Item("XX.");
+                            page = null;
+                            tabName += '.';
                         }
                     }
                 }

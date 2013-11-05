@@ -288,6 +288,11 @@ namespace VoucherExpense
             birthdayTextBox.Text = picker.Text;
         }
 
+        private void hRDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+
+        }
+
  
     }
 }

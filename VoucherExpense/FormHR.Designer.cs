@@ -509,6 +509,7 @@
             this.hRDataGridView.RowTemplate.Height = 24;
             this.hRDataGridView.Size = new System.Drawing.Size(354, 860);
             this.hRDataGridView.TabIndex = 1;
+            this.hRDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.hRDataGridView_DataError);
             // 
             // columnEmployeeID
             // 

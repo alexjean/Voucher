@@ -372,7 +372,7 @@ namespace VoucherExpense
             LoadData(mon, day);
             TabControl tc = tabControl1;
             // worry about IsPrintTimeNull()
-            var groups = from row in bakeryOrderSet.Order
+            var groups = from row in bakeryOrderSet.Order orderby row.PrintTime
                          group row by row.PrintTime.Hour;
             if (groups.Count() == 0)
             {

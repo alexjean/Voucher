@@ -354,8 +354,54 @@ namespace VoucherExpense
         public decimal TotalEvaluatedCost { get; set; }
         public decimal Total  { get; set; }
         public decimal GrossProfitRate { get; set; }
+        public string Unit { get; set; }
 
-        public string Unit    { get; set; }
+        public decimal Vol7 { get; set; }
+        public decimal Vol8 { get; set; }
+        public decimal Vol9 { get; set; }
+        public decimal Vol10 { get; set; }
+        public decimal Vol11 { get; set; }
+        public decimal Vol12 { get; set; }
+        public decimal Vol13 { get; set; }
+        public decimal Vol14 { get; set; }
+        public decimal Vol15 { get; set; }
+        public decimal Vol16 { get; set; }
+        public decimal Vol17 { get; set; }
+        public decimal Vol18 { get; set; }
+        public decimal Vol19 { get; set; }
+        public decimal Vol20 { get; set; }
+        public decimal Vol21 { get; set; }
+        public decimal Vol22 { get; set; }
+        public decimal Vol99 { get; set; }
+
+        public void AddVolume(decimal vol, int hour)
+        {
+            Volume+=vol;
+            if (hour < 7 || hour > 22)
+            {
+                Vol99 += vol;
+                return;
+            }
+            switch (hour)
+            {
+                case 7 : Vol7  += vol; break;
+                case 8 : Vol8  += vol; break;
+                case 9 : Vol9  += vol; break;
+                case 10: Vol10 += vol; break;
+                case 11: Vol11 += vol; break;
+                case 12: Vol12 += vol; break;
+                case 13: Vol13 += vol; break;
+                case 14: Vol14 += vol; break;
+                case 15: Vol15 += vol; break;
+                case 16: Vol16 += vol; break;
+                case 17: Vol17 += vol; break;
+                case 18: Vol18 += vol; break;
+                case 19: Vol19 += vol; break;
+                case 20: Vol20 += vol; break;
+                case 21: Vol21 += vol; break;
+                case 22: Vol22 += vol; break;
+            }
+        }
     }
 
     // BasicSoldSpend BakerySoldSpend使用

@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lvItems = new System.Windows.Forms.ListView();
             this.columnHeader代碼 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader品名 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -49,6 +49,10 @@
             this.labelDgvTitle = new System.Windows.Forms.Label();
             this.dgvStatics = new System.Windows.Forms.DataGridView();
             this.ColumnHour = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.orderCountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.revenueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.averageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.hourStaticsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.label1 = new System.Windows.Forms.Label();
             this.labelTotal = new System.Windows.Forms.Label();
@@ -59,15 +63,11 @@
             this.labelReturned = new System.Windows.Forms.Label();
             this.bakeryOrderSet = new VoucherExpense.BakeryOrderSet();
             this.productTableAdapter = new VoucherExpense.BakeryOrderSetTableAdapters.ProductTableAdapter();
-            this.orderCountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.revenueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.averageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.hourStaticsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStatics)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.hourStaticsBindingSource)).BeginInit();
             this.tabControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.hourStaticsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // lvItems
@@ -148,7 +148,7 @@
             // 
             // labelTotalAverage
             // 
-            this.labelTotalAverage.Location = new System.Drawing.Point(244, 454);
+            this.labelTotalAverage.Location = new System.Drawing.Point(244, 473);
             this.labelTotalAverage.Name = "labelTotalAverage";
             this.labelTotalAverage.Size = new System.Drawing.Size(51, 16);
             this.labelTotalAverage.TabIndex = 10;
@@ -157,7 +157,7 @@
             // 
             // labelTotalRevenue
             // 
-            this.labelTotalRevenue.Location = new System.Drawing.Point(150, 455);
+            this.labelTotalRevenue.Location = new System.Drawing.Point(150, 474);
             this.labelTotalRevenue.Name = "labelTotalRevenue";
             this.labelTotalRevenue.Size = new System.Drawing.Size(79, 16);
             this.labelTotalRevenue.TabIndex = 9;
@@ -166,7 +166,7 @@
             // 
             // labelOrderCount
             // 
-            this.labelOrderCount.Location = new System.Drawing.Point(61, 454);
+            this.labelOrderCount.Location = new System.Drawing.Point(61, 473);
             this.labelOrderCount.Name = "labelOrderCount";
             this.labelOrderCount.Size = new System.Drawing.Size(71, 16);
             this.labelOrderCount.TabIndex = 8;
@@ -176,7 +176,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 455);
+            this.label2.Location = new System.Drawing.Point(6, 474);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(40, 16);
             this.label2.TabIndex = 2;
@@ -195,8 +195,8 @@
             // 
             this.dgvStatics.AllowUserToAddRows = false;
             this.dgvStatics.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
-            this.dgvStatics.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.Azure;
+            this.dgvStatics.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvStatics.AutoGenerateColumns = false;
             this.dgvStatics.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.dgvStatics.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -211,18 +211,55 @@
             this.dgvStatics.ReadOnly = true;
             this.dgvStatics.RowHeadersVisible = false;
             this.dgvStatics.RowTemplate.Height = 24;
-            this.dgvStatics.Size = new System.Drawing.Size(319, 419);
+            this.dgvStatics.Size = new System.Drawing.Size(319, 439);
             this.dgvStatics.TabIndex = 0;
             // 
             // ColumnHour
             // 
             this.ColumnHour.DataPropertyName = "Hour";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.ColumnHour.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.ColumnHour.DefaultCellStyle = dataGridViewCellStyle7;
             this.ColumnHour.HeaderText = "時間";
             this.ColumnHour.Name = "ColumnHour";
             this.ColumnHour.ReadOnly = true;
             this.ColumnHour.Width = 64;
+            // 
+            // orderCountDataGridViewTextBoxColumn
+            // 
+            this.orderCountDataGridViewTextBoxColumn.DataPropertyName = "OrderCount";
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.orderCountDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle8;
+            this.orderCountDataGridViewTextBoxColumn.HeaderText = "單數";
+            this.orderCountDataGridViewTextBoxColumn.Name = "orderCountDataGridViewTextBoxColumn";
+            this.orderCountDataGridViewTextBoxColumn.ReadOnly = true;
+            this.orderCountDataGridViewTextBoxColumn.Width = 64;
+            // 
+            // revenueDataGridViewTextBoxColumn
+            // 
+            this.revenueDataGridViewTextBoxColumn.DataPropertyName = "Revenue";
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle9.Format = "N1";
+            dataGridViewCellStyle9.NullValue = null;
+            this.revenueDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle9;
+            this.revenueDataGridViewTextBoxColumn.HeaderText = "營收";
+            this.revenueDataGridViewTextBoxColumn.Name = "revenueDataGridViewTextBoxColumn";
+            this.revenueDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // averageDataGridViewTextBoxColumn
+            // 
+            this.averageDataGridViewTextBoxColumn.DataPropertyName = "Average";
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle10.Format = "N1";
+            dataGridViewCellStyle10.NullValue = null;
+            this.averageDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle10;
+            this.averageDataGridViewTextBoxColumn.HeaderText = "人均";
+            this.averageDataGridViewTextBoxColumn.Name = "averageDataGridViewTextBoxColumn";
+            this.averageDataGridViewTextBoxColumn.ReadOnly = true;
+            this.averageDataGridViewTextBoxColumn.Width = 64;
+            // 
+            // hourStaticsBindingSource
+            // 
+            this.hourStaticsBindingSource.DataSource = typeof(VoucherExpense.BakeryOrderBrowse.HourStatics);
             // 
             // tabControl1
             // 
@@ -330,43 +367,6 @@
             // 
             this.productTableAdapter.ClearBeforeFill = true;
             // 
-            // orderCountDataGridViewTextBoxColumn
-            // 
-            this.orderCountDataGridViewTextBoxColumn.DataPropertyName = "OrderCount";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.orderCountDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
-            this.orderCountDataGridViewTextBoxColumn.HeaderText = "單數";
-            this.orderCountDataGridViewTextBoxColumn.Name = "orderCountDataGridViewTextBoxColumn";
-            this.orderCountDataGridViewTextBoxColumn.ReadOnly = true;
-            this.orderCountDataGridViewTextBoxColumn.Width = 64;
-            // 
-            // revenueDataGridViewTextBoxColumn
-            // 
-            this.revenueDataGridViewTextBoxColumn.DataPropertyName = "Revenue";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.Format = "N1";
-            dataGridViewCellStyle4.NullValue = null;
-            this.revenueDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
-            this.revenueDataGridViewTextBoxColumn.HeaderText = "營收";
-            this.revenueDataGridViewTextBoxColumn.Name = "revenueDataGridViewTextBoxColumn";
-            this.revenueDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // averageDataGridViewTextBoxColumn
-            // 
-            this.averageDataGridViewTextBoxColumn.DataPropertyName = "Average";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle5.Format = "N1";
-            dataGridViewCellStyle5.NullValue = null;
-            this.averageDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle5;
-            this.averageDataGridViewTextBoxColumn.HeaderText = "人均";
-            this.averageDataGridViewTextBoxColumn.Name = "averageDataGridViewTextBoxColumn";
-            this.averageDataGridViewTextBoxColumn.ReadOnly = true;
-            this.averageDataGridViewTextBoxColumn.Width = 64;
-            // 
-            // hourStaticsBindingSource
-            // 
-            this.hourStaticsBindingSource.DataSource = typeof(VoucherExpense.BakeryOrderBrowse.HourStatics);
-            // 
             // BakeryOrderBrowse
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -393,9 +393,9 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStatics)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.hourStaticsBindingSource)).EndInit();
             this.tabControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.hourStaticsBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

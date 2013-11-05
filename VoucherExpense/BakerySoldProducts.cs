@@ -100,6 +100,7 @@ namespace VoucherExpense
             Reload();
             if (cbBoxTable.Items.Count > 0)
                 cbBoxTable.SelectedIndex = 0;
+            chBoxShowHour_CheckedChanged(chBoxShowHour, null);
         }
 
         private void cbBoxMonth_SelectedIndexChanged(object sender, EventArgs e)
@@ -377,6 +378,8 @@ namespace VoucherExpense
                 decimal income = 0;
                 if (!row.IsIncomeNull()) income = row.Income;
                 if (total!=0m) deductRate = income  / total;
+                int hr = 0;
+                if (!row.IsPrintTimeNull()) hr=row.PrintTime.Hour;
                 foreach (BakeryOrderSet.OrderItemRow it in items)
                 {
                     if (it.IsProductIDNull()) continue;
@@ -388,7 +391,7 @@ namespace VoucherExpense
                             if (debug[i]) break;        // 重複算了二次, items存入有bug,只好先跳掉
                             debug[i] = true;
                             if (income >= 0)            // 收入為負,退貨不計也不減回數量,計成本並回扣收入
-                                m.Volume += it.No;
+                                m.AddVolume( it.No , hr );
                             if (it.Discount)
                                 m.Total += (it.Price * it.No * discountRate)*deductRate;   
                             else
@@ -570,6 +573,35 @@ namespace VoucherExpense
             }
             cSaleItemBindingSource.ResetBindings(false);
 
+        }
+
+        private void chBoxShowHour_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox box = sender as CheckBox;
+            bool b = box.Checked;
+//            ColumnVolume.Visible = !b;
+            ColumnPrice.Visible = !b;
+            ColumnUnit.Visible = !b;
+            ColumnTotal.Visible = !b;
+            ColumnEvaluatedCost.Visible=!b;
+            ColumnGrossProfitRate.Visible=!b;
+            ColumnVol7.Visible = b;
+            ColumnVol8.Visible = b;
+            ColumnVol9.Visible = b;
+            ColumnVol10.Visible = b;
+            ColumnVol11.Visible = b;
+            ColumnVol12.Visible = b;
+            ColumnVol13.Visible = b;
+            ColumnVol14.Visible = b;
+            ColumnVol15.Visible = b;
+            ColumnVol16.Visible = b;
+            ColumnVol17.Visible = b;
+            ColumnVol18.Visible = b;
+            ColumnVol19.Visible = b;
+            ColumnVol20.Visible = b;
+            ColumnVol21.Visible = b;
+            ColumnVol22.Visible = b;
+            ColumnVol99.Visible = b;
         }
 
 

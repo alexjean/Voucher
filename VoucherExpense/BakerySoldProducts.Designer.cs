@@ -29,12 +29,29 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnCalc = new System.Windows.Forms.Button();
             this.ckBoxWholeMonth = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -43,16 +60,8 @@
             this.cbBoxFrom = new System.Windows.Forms.ComboBox();
             this.cbBoxMonth = new System.Windows.Forms.ComboBox();
             this.dgViewSale = new System.Windows.Forms.DataGridView();
-            this.ColumnProduct = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bakeryOrderSet = new VoucherExpense.BakeryOrderSet();
-            this.volumeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Unit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnEvaluatedCost = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GrossProfitRate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cSaleItemBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btnImport = new System.Windows.Forms.Button();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
@@ -73,6 +82,32 @@
             this.label5 = new System.Windows.Forms.Label();
             this.labelGrossProfitRate = new System.Windows.Forms.Label();
             this.btnAddAllProduct = new System.Windows.Forms.Button();
+            this.chBoxShowHour = new System.Windows.Forms.CheckBox();
+            this.ColumnProduct = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.ColumnUnit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnEvaluatedCost = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnGrossProfitRate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnVol7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnVol8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnVol9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnVol10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnVol11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnVol12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnVol13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnVol14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnVol15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnVol16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnVol17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnVol18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnVol19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnVol20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnVol21 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnVol22 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnVol99 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnVolume = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cSaleItemBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgViewSale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).BeginInit();
@@ -156,19 +191,37 @@
             // dgViewSale
             // 
             this.dgViewSale.AllowUserToResizeRows = false;
-            this.dgViewSale.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.dgViewSale.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgViewSale.AutoGenerateColumns = false;
             this.dgViewSale.BackgroundColor = System.Drawing.Color.SeaShell;
             this.dgViewSale.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgViewSale.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnProduct,
-            this.volumeDataGridViewTextBoxColumn,
-            this.Unit,
-            this.Price,
-            this.Total,
+            this.ColumnVolume,
+            this.ColumnUnit,
+            this.ColumnPrice,
+            this.ColumnTotal,
             this.ColumnEvaluatedCost,
-            this.GrossProfitRate});
+            this.ColumnGrossProfitRate,
+            this.ColumnVol7,
+            this.ColumnVol8,
+            this.ColumnVol9,
+            this.ColumnVol10,
+            this.ColumnVol11,
+            this.ColumnVol12,
+            this.ColumnVol13,
+            this.ColumnVol14,
+            this.ColumnVol15,
+            this.ColumnVol16,
+            this.ColumnVol17,
+            this.ColumnVol18,
+            this.ColumnVol19,
+            this.ColumnVol20,
+            this.ColumnVol21,
+            this.ColumnVol22,
+            this.ColumnVol99});
             this.dgViewSale.DataSource = this.cSaleItemBindingSource;
             this.dgViewSale.Location = new System.Drawing.Point(160, 34);
             this.dgViewSale.Name = "dgViewSale";
@@ -177,19 +230,6 @@
             this.dgViewSale.Size = new System.Drawing.Size(620, 591);
             this.dgViewSale.TabIndex = 18;
             this.dgViewSale.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgViewSale_DataError);
-            // 
-            // ColumnProduct
-            // 
-            this.ColumnProduct.DataPropertyName = "ProductID";
-            this.ColumnProduct.DataSource = this.productBindingSource;
-            this.ColumnProduct.DisplayMember = "Name";
-            this.ColumnProduct.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.ColumnProduct.HeaderText = "產品";
-            this.ColumnProduct.Name = "ColumnProduct";
-            this.ColumnProduct.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ColumnProduct.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.ColumnProduct.ValueMember = "ProductID";
-            this.ColumnProduct.Width = 160;
             // 
             // productBindingSource
             // 
@@ -202,74 +242,9 @@
             this.bakeryOrderSet.DataSetName = "BakeryOrderSet";
             this.bakeryOrderSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // volumeDataGridViewTextBoxColumn
-            // 
-            this.volumeDataGridViewTextBoxColumn.DataPropertyName = "Volume";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.volumeDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle7;
-            this.volumeDataGridViewTextBoxColumn.HeaderText = "量";
-            this.volumeDataGridViewTextBoxColumn.Name = "volumeDataGridViewTextBoxColumn";
-            this.volumeDataGridViewTextBoxColumn.Width = 56;
-            // 
-            // Unit
-            // 
-            this.Unit.DataPropertyName = "Unit";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.Unit.DefaultCellStyle = dataGridViewCellStyle8;
-            this.Unit.HeaderText = "";
-            this.Unit.Name = "Unit";
-            this.Unit.ReadOnly = true;
-            this.Unit.Width = 32;
-            // 
-            // Price
-            // 
-            this.Price.DataPropertyName = "Price";
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Price.DefaultCellStyle = dataGridViewCellStyle9;
-            this.Price.HeaderText = "價";
-            this.Price.Name = "Price";
-            this.Price.ReadOnly = true;
-            this.Price.Width = 48;
-            // 
-            // Total
-            // 
-            this.Total.DataPropertyName = "Total";
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle10.Format = "N1";
-            dataGridViewCellStyle10.NullValue = null;
-            this.Total.DefaultCellStyle = dataGridViewCellStyle10;
-            this.Total.HeaderText = "收入";
-            this.Total.Name = "Total";
-            this.Total.ReadOnly = true;
-            this.Total.Width = 92;
-            // 
-            // ColumnEvaluatedCost
-            // 
-            this.ColumnEvaluatedCost.DataPropertyName = "TotalEvaluatedCost";
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle11.Format = "N1";
-            dataGridViewCellStyle11.NullValue = null;
-            this.ColumnEvaluatedCost.DefaultCellStyle = dataGridViewCellStyle11;
-            this.ColumnEvaluatedCost.HeaderText = "估成本";
-            this.ColumnEvaluatedCost.Name = "ColumnEvaluatedCost";
-            this.ColumnEvaluatedCost.Width = 92;
-            // 
-            // GrossProfitRate
-            // 
-            this.GrossProfitRate.DataPropertyName = "GrossProfitRate";
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle12.Format = "N1";
-            this.GrossProfitRate.DefaultCellStyle = dataGridViewCellStyle12;
-            this.GrossProfitRate.HeaderText = "毛利率";
-            this.GrossProfitRate.Name = "GrossProfitRate";
-            this.GrossProfitRate.Width = 92;
-            // 
-            // cSaleItemBindingSource
-            // 
-            this.cSaleItemBindingSource.DataSource = typeof(VoucherExpense.CSaleItem);
-            // 
             // btnImport
             // 
+            this.btnImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnImport.Location = new System.Drawing.Point(805, 543);
             this.btnImport.Name = "btnImport";
             this.btnImport.Size = new System.Drawing.Size(80, 23);
@@ -281,6 +256,7 @@
             // 
             // btnExport
             // 
+            this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExport.Location = new System.Drawing.Point(805, 502);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(80, 23);
@@ -292,6 +268,7 @@
             // 
             // btnDelete
             // 
+            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDelete.Location = new System.Drawing.Point(805, 457);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 23);
@@ -303,6 +280,7 @@
             // 
             // btnCancel
             // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.Location = new System.Drawing.Point(805, 386);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
@@ -314,8 +292,9 @@
             // 
             // labelName
             // 
+            this.labelName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelName.AutoSize = true;
-            this.labelName.Location = new System.Drawing.Point(807, 215);
+            this.labelName.Location = new System.Drawing.Point(807, 274);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(56, 16);
             this.labelName.TabIndex = 71;
@@ -324,6 +303,7 @@
             // 
             // btnSave
             // 
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSave.Location = new System.Drawing.Point(805, 346);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
@@ -335,7 +315,8 @@
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(805, 145);
+            this.btnEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEdit.Location = new System.Drawing.Point(805, 204);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(80, 27);
             this.btnEdit.TabIndex = 68;
@@ -345,7 +326,8 @@
             // 
             // textBoxName
             // 
-            this.textBoxName.Location = new System.Drawing.Point(805, 251);
+            this.textBoxName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxName.Location = new System.Drawing.Point(805, 310);
             this.textBoxName.MaxLength = 10;
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(100, 27);
@@ -364,6 +346,7 @@
             // 
             // cbBoxTable
             // 
+            this.cbBoxTable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbBoxTable.FormattingEnabled = true;
             this.cbBoxTable.Location = new System.Drawing.Point(805, 34);
             this.cbBoxTable.Name = "cbBoxTable";
@@ -446,7 +429,8 @@
             // 
             // btnAddAllProduct
             // 
-            this.btnAddAllProduct.Location = new System.Drawing.Point(805, 83);
+            this.btnAddAllProduct.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddAllProduct.Location = new System.Drawing.Point(805, 130);
             this.btnAddAllProduct.Name = "btnAddAllProduct";
             this.btnAddAllProduct.Size = new System.Drawing.Size(80, 34);
             this.btnAddAllProduct.TabIndex = 86;
@@ -454,12 +438,257 @@
             this.btnAddAllProduct.UseVisualStyleBackColor = true;
             this.btnAddAllProduct.Click += new System.EventHandler(this.btnAddAllProduct_Click);
             // 
+            // chBoxShowHour
+            // 
+            this.chBoxShowHour.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chBoxShowHour.AutoSize = true;
+            this.chBoxShowHour.Location = new System.Drawing.Point(805, 86);
+            this.chBoxShowHour.Name = "chBoxShowHour";
+            this.chBoxShowHour.Size = new System.Drawing.Size(75, 20);
+            this.chBoxShowHour.TabIndex = 87;
+            this.chBoxShowHour.Text = "分時量";
+            this.chBoxShowHour.UseVisualStyleBackColor = true;
+            this.chBoxShowHour.CheckedChanged += new System.EventHandler(this.chBoxShowHour_CheckedChanged);
+            // 
+            // ColumnProduct
+            // 
+            this.ColumnProduct.DataPropertyName = "ProductID";
+            this.ColumnProduct.DataSource = this.productBindingSource;
+            this.ColumnProduct.DisplayMember = "Name";
+            this.ColumnProduct.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.ColumnProduct.HeaderText = "產品";
+            this.ColumnProduct.Name = "ColumnProduct";
+            this.ColumnProduct.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ColumnProduct.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.ColumnProduct.ValueMember = "ProductID";
+            this.ColumnProduct.Width = 152;
+            // 
+            // ColumnUnit
+            // 
+            this.ColumnUnit.DataPropertyName = "Unit";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.ColumnUnit.DefaultCellStyle = dataGridViewCellStyle2;
+            this.ColumnUnit.HeaderText = "";
+            this.ColumnUnit.Name = "ColumnUnit";
+            this.ColumnUnit.ReadOnly = true;
+            this.ColumnUnit.Width = 32;
+            // 
+            // ColumnPrice
+            // 
+            this.ColumnPrice.DataPropertyName = "Price";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.ColumnPrice.DefaultCellStyle = dataGridViewCellStyle3;
+            this.ColumnPrice.HeaderText = "價";
+            this.ColumnPrice.Name = "ColumnPrice";
+            this.ColumnPrice.ReadOnly = true;
+            this.ColumnPrice.Width = 48;
+            // 
+            // ColumnTotal
+            // 
+            this.ColumnTotal.DataPropertyName = "Total";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle4.Format = "N1";
+            dataGridViewCellStyle4.NullValue = null;
+            this.ColumnTotal.DefaultCellStyle = dataGridViewCellStyle4;
+            this.ColumnTotal.HeaderText = "收入";
+            this.ColumnTotal.Name = "ColumnTotal";
+            this.ColumnTotal.ReadOnly = true;
+            this.ColumnTotal.Width = 92;
+            // 
+            // ColumnEvaluatedCost
+            // 
+            this.ColumnEvaluatedCost.DataPropertyName = "TotalEvaluatedCost";
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle5.Format = "N1";
+            dataGridViewCellStyle5.NullValue = null;
+            this.ColumnEvaluatedCost.DefaultCellStyle = dataGridViewCellStyle5;
+            this.ColumnEvaluatedCost.HeaderText = "估成本";
+            this.ColumnEvaluatedCost.Name = "ColumnEvaluatedCost";
+            this.ColumnEvaluatedCost.Width = 92;
+            // 
+            // ColumnGrossProfitRate
+            // 
+            this.ColumnGrossProfitRate.DataPropertyName = "GrossProfitRate";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle6.Format = "N1";
+            this.ColumnGrossProfitRate.DefaultCellStyle = dataGridViewCellStyle6;
+            this.ColumnGrossProfitRate.HeaderText = "毛利率";
+            this.ColumnGrossProfitRate.Name = "ColumnGrossProfitRate";
+            this.ColumnGrossProfitRate.Width = 92;
+            // 
+            // ColumnVol7
+            // 
+            this.ColumnVol7.DataPropertyName = "Vol7";
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.ColumnVol7.DefaultCellStyle = dataGridViewCellStyle7;
+            this.ColumnVol7.HeaderText = " 7";
+            this.ColumnVol7.Name = "ColumnVol7";
+            this.ColumnVol7.Width = 32;
+            // 
+            // ColumnVol8
+            // 
+            this.ColumnVol8.DataPropertyName = "Vol8";
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.ColumnVol8.DefaultCellStyle = dataGridViewCellStyle8;
+            this.ColumnVol8.HeaderText = " 8";
+            this.ColumnVol8.Name = "ColumnVol8";
+            this.ColumnVol8.Width = 32;
+            // 
+            // ColumnVol9
+            // 
+            this.ColumnVol9.DataPropertyName = "Vol9";
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.ColumnVol9.DefaultCellStyle = dataGridViewCellStyle9;
+            this.ColumnVol9.HeaderText = " 9";
+            this.ColumnVol9.Name = "ColumnVol9";
+            this.ColumnVol9.Width = 32;
+            // 
+            // ColumnVol10
+            // 
+            this.ColumnVol10.DataPropertyName = "Vol10";
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.ColumnVol10.DefaultCellStyle = dataGridViewCellStyle10;
+            this.ColumnVol10.HeaderText = "10";
+            this.ColumnVol10.Name = "ColumnVol10";
+            this.ColumnVol10.Width = 32;
+            // 
+            // ColumnVol11
+            // 
+            this.ColumnVol11.DataPropertyName = "Vol11";
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.ColumnVol11.DefaultCellStyle = dataGridViewCellStyle11;
+            this.ColumnVol11.HeaderText = "11";
+            this.ColumnVol11.Name = "ColumnVol11";
+            this.ColumnVol11.Width = 32;
+            // 
+            // ColumnVol12
+            // 
+            this.ColumnVol12.DataPropertyName = "Vol12";
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.ColumnVol12.DefaultCellStyle = dataGridViewCellStyle12;
+            this.ColumnVol12.HeaderText = "12";
+            this.ColumnVol12.Name = "ColumnVol12";
+            this.ColumnVol12.Width = 32;
+            // 
+            // ColumnVol13
+            // 
+            this.ColumnVol13.DataPropertyName = "Vol13";
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.ColumnVol13.DefaultCellStyle = dataGridViewCellStyle13;
+            this.ColumnVol13.HeaderText = "13";
+            this.ColumnVol13.Name = "ColumnVol13";
+            this.ColumnVol13.Width = 32;
+            // 
+            // ColumnVol14
+            // 
+            this.ColumnVol14.DataPropertyName = "Vol14";
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.ColumnVol14.DefaultCellStyle = dataGridViewCellStyle14;
+            this.ColumnVol14.HeaderText = "14";
+            this.ColumnVol14.Name = "ColumnVol14";
+            this.ColumnVol14.Width = 32;
+            // 
+            // ColumnVol15
+            // 
+            this.ColumnVol15.DataPropertyName = "Vol15";
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.ColumnVol15.DefaultCellStyle = dataGridViewCellStyle15;
+            this.ColumnVol15.HeaderText = "15";
+            this.ColumnVol15.Name = "ColumnVol15";
+            this.ColumnVol15.Width = 32;
+            // 
+            // ColumnVol16
+            // 
+            this.ColumnVol16.DataPropertyName = "Vol16";
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.ColumnVol16.DefaultCellStyle = dataGridViewCellStyle16;
+            this.ColumnVol16.HeaderText = "16";
+            this.ColumnVol16.Name = "ColumnVol16";
+            this.ColumnVol16.Width = 32;
+            // 
+            // ColumnVol17
+            // 
+            this.ColumnVol17.DataPropertyName = "Vol17";
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.ColumnVol17.DefaultCellStyle = dataGridViewCellStyle17;
+            this.ColumnVol17.HeaderText = "17";
+            this.ColumnVol17.Name = "ColumnVol17";
+            this.ColumnVol17.Width = 32;
+            // 
+            // ColumnVol18
+            // 
+            this.ColumnVol18.DataPropertyName = "Vol18";
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.ColumnVol18.DefaultCellStyle = dataGridViewCellStyle18;
+            this.ColumnVol18.HeaderText = "18";
+            this.ColumnVol18.Name = "ColumnVol18";
+            this.ColumnVol18.Width = 32;
+            // 
+            // ColumnVol19
+            // 
+            this.ColumnVol19.DataPropertyName = "Vol19";
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.ColumnVol19.DefaultCellStyle = dataGridViewCellStyle19;
+            this.ColumnVol19.HeaderText = "19";
+            this.ColumnVol19.Name = "ColumnVol19";
+            this.ColumnVol19.Width = 32;
+            // 
+            // ColumnVol20
+            // 
+            this.ColumnVol20.DataPropertyName = "Vol20";
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.ColumnVol20.DefaultCellStyle = dataGridViewCellStyle20;
+            this.ColumnVol20.HeaderText = "20";
+            this.ColumnVol20.Name = "ColumnVol20";
+            this.ColumnVol20.Width = 32;
+            // 
+            // ColumnVol21
+            // 
+            this.ColumnVol21.DataPropertyName = "Vol21";
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.ColumnVol21.DefaultCellStyle = dataGridViewCellStyle21;
+            this.ColumnVol21.HeaderText = "21";
+            this.ColumnVol21.Name = "ColumnVol21";
+            this.ColumnVol21.Width = 32;
+            // 
+            // ColumnVol22
+            // 
+            this.ColumnVol22.DataPropertyName = "Vol22";
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.ColumnVol22.DefaultCellStyle = dataGridViewCellStyle22;
+            this.ColumnVol22.HeaderText = "22";
+            this.ColumnVol22.Name = "ColumnVol22";
+            this.ColumnVol22.Width = 32;
+            // 
+            // ColumnVol99
+            // 
+            this.ColumnVol99.DataPropertyName = "Vol99";
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.ColumnVol99.DefaultCellStyle = dataGridViewCellStyle23;
+            this.ColumnVol99.HeaderText = "99";
+            this.ColumnVol99.Name = "ColumnVol99";
+            this.ColumnVol99.Width = 32;
+            // 
+            // ColumnVolume
+            // 
+            this.ColumnVolume.DataPropertyName = "Volume";
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.ColumnVolume.DefaultCellStyle = dataGridViewCellStyle1;
+            this.ColumnVolume.HeaderText = "量";
+            this.ColumnVolume.Name = "ColumnVolume";
+            this.ColumnVolume.Width = 56;
+            // 
+            // cSaleItemBindingSource
+            // 
+            this.cSaleItemBindingSource.DataSource = typeof(VoucherExpense.CSaleItem);
+            // 
             // BakerySoldProducts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(921, 641);
+            this.Controls.Add(this.chBoxShowHour);
             this.Controls.Add(this.btnAddAllProduct);
             this.Controls.Add(this.labelGrossProfitRate);
             this.Controls.Add(this.label5);
@@ -533,13 +762,31 @@
         private System.Windows.Forms.Label labelCost;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label labelGrossProfitRate;
-        private System.Windows.Forms.DataGridViewComboBoxColumn ColumnProduct;
-        private System.Windows.Forms.DataGridViewTextBoxColumn volumeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Unit;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Price;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Total;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEvaluatedCost;
-        private System.Windows.Forms.DataGridViewTextBoxColumn GrossProfitRate;
         private System.Windows.Forms.Button btnAddAllProduct;
+        private System.Windows.Forms.CheckBox chBoxShowHour;
+        private System.Windows.Forms.DataGridViewComboBoxColumn ColumnProduct;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnVolume;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnUnit;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPrice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnTotal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEvaluatedCost;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnGrossProfitRate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnVol7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnVol8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnVol9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnVol10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnVol11;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnVol12;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnVol13;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnVol14;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnVol15;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnVol16;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnVol17;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnVol18;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnVol19;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnVol20;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnVol21;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnVol22;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnVol99;
     }
 }

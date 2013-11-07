@@ -16,7 +16,6 @@ namespace VoucherExpense
             InitializeComponent();
         }
 
-
         private void inventoryBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
             this.Validate();
@@ -61,7 +60,32 @@ namespace VoucherExpense
             try
             {
                 int deleted = 0, updated = 0;
-
+                if (isDelete)
+                {
+                    if (table != null)
+                    {
+                        foreach (var r in table)
+                        {
+                            if (r.RowState == DataRowState.Deleted)
+                            {
+                                deleted++;
+                                continue;
+                            }
+                            r.LastUpdated = now;
+                            r.KeyinID = MyFunction.OperatorID;
+                            updated++;
+                        }
+ if (detailTable != null) inventoryDetailTableAdapter1.Update(sQLVEDataSet.InventoryDetail);
+                    if (productDetailTable != null) inventoryProductsTableAdapter1.Update(sQLVEDataSet.InventoryProducts);
+                        inventoryTableAdapter1.Update(table);
+                        sQLVEDataSet.Inventory.Merge(table);
+                        sQLVEDataSet.Inventory.AcceptChanges();
+                    }
+                   
+                    
+                }
+                else
+                {
                 if (table != null)
                 {
                     foreach (var r in table)
@@ -75,12 +99,17 @@ namespace VoucherExpense
                         r.KeyinID = MyFunction.OperatorID;
                         updated++;
                     }
+                   
                     inventoryTableAdapter1.Update(table);
                     sQLVEDataSet.Inventory.Merge(table);
                     sQLVEDataSet.Inventory.AcceptChanges();
-                }    
-                if (detailTable != null) inventoryDetailTableAdapter1.Update(sQLVEDataSet.InventoryDetail);
-                if (productDetailTable != null) inventoryProductsTableAdapter1.Update(sQLVEDataSet.InventoryProducts);
+                }
+                    if (detailTable != null) inventoryDetailTableAdapter1.Update(sQLVEDataSet.InventoryDetail);
+                    if (productDetailTable != null) inventoryProductsTableAdapter1.Update(sQLVEDataSet.InventoryProducts);
+                    
+                }
+
+                isDelete = false;
                 string msg = "共 ";
                 if (updated > 0) msg += updated.ToString() + "筆更改,";
                 if (deleted > 0) msg += deleted.ToString() + "筆刪除,";
@@ -96,6 +125,10 @@ namespace VoucherExpense
 
         private void FormIngredientInventories_Load(object sender, EventArgs e)
         {
+            // TODO: 这行代码将数据加载到表“sQLVEDataSet.InventoryProducts”中。您可以根据需要移动或删除它。
+            this.inventoryProductsTableAdapter1.Fill(this.sQLVEDataSet.InventoryProducts);
+            // TODO: 这行代码将数据加载到表“sQLVEDataSet.InventoryDetail”中。您可以根据需要移动或删除它。
+            this.inventoryDetailTableAdapter1.Fill(this.sQLVEDataSet.InventoryDetail);
             // TODO: 这行代码将数据加载到表“sQLVEDataSet.InventoryProducts”中。您可以根据需要移动或删除它。
             //this.inventoryProductsTableAdapter1.Fill(this.sQLVEDataSet.InventoryProducts);
             //// TODO: 这行代码将数据加载到表“sQLVEDataSet.InventoryDetail”中。您可以根据需要移动或删除它。
@@ -140,12 +173,14 @@ namespace VoucherExpense
             }
 //            tabControl1.DrawMode = TabDrawMode.OwnerDrawFixed;
         }
-
+        bool isFrist = false;
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
             DateTime maxDate = new DateTime(MyFunction.IntHeaderYear, 1, 1);
+            SQLVEDataSet.InventoryRow rowIsnull=null;
             foreach (var r in sQLVEDataSet.Inventory)
             {
+                rowIsnull = r;
                 if (r.RowState == DataRowState.Deleted) continue;
                 if (!r.IsCheckDayNull())
                 {
@@ -154,6 +189,25 @@ namespace VoucherExpense
                 if (r.Locked ) continue;
                 MessageBox.Show("有尚未核可的單子,無法新增盤點表!");
                 return;
+            }
+            if (rowIsnull == null)
+            {
+                MessageBox.Show("初值，请输入食材的盘点、金额和产品的本期");
+                prevVolumeColumn.Visible = false;
+                dgvColumnCurrentIn.Visible = false;
+                dgvColumnPrevStockVolume.Visible = false;
+                StockMoneyColumn.ReadOnly = false;
+                dgvColumnLostMoney.Visible = false;
+                isFrist = true;
+            }
+            else
+            {
+                prevVolumeColumn.Visible = true;
+                dgvColumnCurrentIn.Visible = true;
+                dgvColumnPrevStockVolume.Visible = true;
+                StockMoneyColumn.ReadOnly = true;
+                dgvColumnLostMoney.Visible = true;
+                isFrist = false;
             }
             if (maxDate.Year != MyFunction.IntHeaderYear)
             {
@@ -211,9 +265,10 @@ namespace VoucherExpense
                 }
             }
         }
-
+        bool isDelete = false;
         private void bindingNavigatorDeleteItem_Click(object sender, EventArgs e)
         {
+            isDelete = true;
             DataGridViewRow row = dgvInventories.CurrentRow;
             if (row == null)
             {
@@ -270,6 +325,22 @@ namespace VoucherExpense
         {
             try
             {
+                if (e.RowIndex == 0)
+                {
+                    prevVolumeColumn.Visible = false;
+                    dgvColumnCurrentIn.Visible = false;
+                    dgvColumnPrevStockVolume.Visible = false;
+                    StockMoneyColumn.ReadOnly = false;
+                    dgvColumnLostMoney.Visible = false;   
+                }
+                else
+                {
+                    prevVolumeColumn.Visible = true;
+                    dgvColumnCurrentIn.Visible = true;
+                    dgvColumnPrevStockVolume.Visible = true;
+                    StockMoneyColumn.ReadOnly = true;
+                    dgvColumnLostMoney.Visible = true;
+                }
                 DataGridView view=sender as DataGridView;
                 DataGridViewRow dgvRow=view.Rows[e.RowIndex];
                 DataRowView rowView= dgvRow.DataBoundItem as DataRowView;
@@ -298,13 +369,17 @@ namespace VoucherExpense
         {
             if (chBoxHide.Checked)
             {
-                inventoryDetailBindingSource1.Filter = "StockVolume>0 OR PrevStockVolume>0 OR CurrentIn>0";
-                inventoryProductsBindingSource1.Filter = "PrevVolume>0 OR Volume>0";
+                //inventoryDetailBindingSource1.Filter = "StockVolume>0 OR PrevStockVolume>0 OR CurrentIn>0";
+                //inventoryProductsBindingSource1.Filter = "PrevVolume>0 OR Volume>0";
+                fKInventoryDetailInventoryBindingSource.Filter = "StockVolume>0 OR PrevStockVolume>0 OR CurrentIn>0";
+                fKInventoryProductsInventoryBindingSource.Filter = "PrevVolume>0 OR Volume>0";
             }
             else
             {
-                inventoryDetailBindingSource1.RemoveFilter();
-                inventoryProductsBindingSource1.RemoveFilter();
+                //inventoryDetailBindingSource1.RemoveFilter();
+                //inventoryProductsBindingSource1.RemoveFilter();
+                fKInventoryDetailInventoryBindingSource.RemoveFilter();
+                fKInventoryProductsInventoryBindingSource.RemoveFilter();
             }
         }
 
@@ -406,9 +481,11 @@ namespace VoucherExpense
             // 先把螢幕內容存回
             inventoryBindingSource1.EndEdit();
             inventoryDetailBindingSource1.EndEdit();
+
             inventoryProductsBindingSource1.EndEdit();
             try
             {
+
                 DataRowView rowView = inventoryBindingSource1.Current as DataRowView;
                 if (rowView == null)
                 {
@@ -419,6 +496,7 @@ namespace VoucherExpense
                 var details = curr.GetInventoryDetailRows();
                 var productDetails=curr.GetInventoryProductsRows();
                 // 清除本單的進貨及金額
+                if (!isFrist)
                 foreach (var dRow in details)
                 {
                     dRow.StockMoney = 0;
@@ -435,6 +513,9 @@ namespace VoucherExpense
                 }
                 if (prev == null) // 這是本年第一張
                 {
+                    //var detailTable = sQLVEDataSet.InventoryDetail.GetChanges() as SQLVEDataSet.InventoryDetailDataTable;
+                    //if (detailTable != null) inventoryDetailTableAdapter1.Update(sQLVEDataSet.InventoryDetail);
+                    //details = curr.GetInventoryDetailRows();
                 }
                 else if (prev.IsCheckDayNull())
                 {
@@ -467,7 +548,7 @@ namespace VoucherExpense
                 {
                     m_VoucherAdapter = new VEDataSetTableAdapters.VoucherTableAdapter();
                     m_VoucherAdapter.Connection = MapPath.VEConnection;
-                    m_VoucherAdapter.Fill(vEDataSet.Voucher);
+                    m_VoucherAdapter.Fill(vEDataSet.Voucher); 
                 }
                 if (m_VoucherDetailAdapter == null)
                 {
@@ -483,6 +564,7 @@ namespace VoucherExpense
                 Dictionary<int, CalcInventory> dicCalcStock = new Dictionary<int, CalcInventory>();
 
                 // 填CalcInventory 內容
+                if (prev != null)
                 foreach (SQLVEDataSet.InventoryDetailRow d in details)
                 {
                     CalcInventory inv = new CalcInventory();
@@ -541,16 +623,16 @@ namespace VoucherExpense
                 // 將前期盤點及位置 資料填入, 並計算多於進貨remainStock的成本
                 if (prev == null)
                 {
-                    foreach (SQLVEDataSet.InventoryDetailRow d in details) 
-                    {
-                        d.PrevStockVolume = 0;
-                        CalcInventory inv = dicCalcStock[d.IngredientID];
-                        if (inv.StockVolume > 0)
-                            RemainStockWarning(d, inv.StockVolume);
-                        d.LostMoney = inv.CurrInMoney - d.StockMoney;     // 沒有前期
-                    }
-                    foreach (var p in productDetails)
-                        p.PrevVolume = 0;
+                    //foreach (SQLVEDataSet.InventoryDetailRow d in details) 
+                    //{
+                    //    d.PrevStockVolume = 0;
+                    //    CalcInventory inv = dicCalcStock[d.IngredientID];
+                    //    if (inv.StockVolume > 0)
+                    //        RemainStockWarning(d, inv.StockVolume);
+                    //    d.LostMoney = inv.CurrInMoney - d.StockMoney;     // 沒有前期
+                    //}
+                    //foreach (var p in productDetails)
+                    //    p.PrevVolume = 0;
                 }
                 else
                 {
@@ -646,14 +728,16 @@ namespace VoucherExpense
                     }
                 }
                 // 計算總食材庫材及損失
-                decimal ingredientsCost = 0,ingredientsLost=0;
-                foreach (var d in details)
-                {
-                    if (!d.IsStockMoneyNull())
-                        ingredientsCost += d.StockMoney;
-                    if (!d.IsLostMoneyNull())
-                        ingredientsLost += d.LostMoney;
-                }
+
+                    decimal ingredientsCost = 0, ingredientsLost = 0;
+                    foreach (var d in details)
+                    {
+                        if (!d.IsStockMoneyNull())
+                            ingredientsCost += d.StockMoney;
+                        if (!d.IsLostMoneyNull())
+                            ingredientsLost += d.LostMoney;
+                    }
+
                 curr.IngredientsCost  = Math.Round(ingredientsCost,1);
                 curr.IngredientsLost  = Math.Round(ingredientsLost,1);
                 curr.ProductsCost     = Math.Round(productCost    ,1);
@@ -708,7 +792,6 @@ namespace VoucherExpense
                 SQLVEDataSet.InventoryRow curr = rowView.Row as SQLVEDataSet.InventoryRow;
                 if (!curr.IsEvaluatedDateNull()) curr.SetEvaluatedDateNull();
             }
-
         }
 
 

@@ -94,11 +94,19 @@ namespace VoucherExpense
             }
             if (veDataSet1.Apartment.Rows.Count != 0)
             {
-                var a = veDataSet1.Apartment[0];
-                if (a.IsApartmentNameNull())
-                    m_BranchName = "分店" + a.ApartmentID.ToString();
+                var a0 = veDataSet1.Apartment[0];
+                foreach (var a in veDataSet1.Apartment)
+                {
+                    if (!a.IsIsCurrentNull() && a.IsCurrent)
+                    {
+                        a0 = a;
+                        break;
+                    }
+                }
+                if (a0.IsApartmentNameNull())
+                    m_BranchName = "分店" + a0.ApartmentID.ToString();
                 else
-                    m_BranchName = a.ApartmentName;
+                    m_BranchName = a0.ApartmentName;
             }
 
             VEDataSet.HeaderRow header = null;

@@ -50,6 +50,7 @@
             this.AppartementCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ApartmentAllName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IsCurrent = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.apartmentBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.apartmentBindingNavigator)).BeginInit();
@@ -113,8 +114,8 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(32, 22);
-            this.bindingNavigatorCountItem.Text = "/ {0}";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 22);
+            this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
             // bindingNavigatorMoveFirstItem
@@ -144,7 +145,7 @@
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "位置";
             this.bindingNavigatorPositionItem.AutoSize = false;
-            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Microsoft JhengHei", 9F);
+            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("微軟正黑體", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -201,26 +202,27 @@
             this.columnApartmentID,
             this.AppartementCode,
             this.dataGridViewTextBoxColumn2,
-            this.ApartmentAllName});
+            this.ApartmentAllName,
+            this.IsCurrent});
             this.apartmentDataGridView.DataSource = this.apartmentBindingSource;
             this.apartmentDataGridView.Location = new System.Drawing.Point(0, 28);
             this.apartmentDataGridView.Name = "apartmentDataGridView";
             this.apartmentDataGridView.RowTemplate.Height = 24;
-            this.apartmentDataGridView.Size = new System.Drawing.Size(465, 654);
+            this.apartmentDataGridView.Size = new System.Drawing.Size(760, 654);
             this.apartmentDataGridView.TabIndex = 1;
             // 
             // columnApartmentID
             // 
             this.columnApartmentID.DataPropertyName = "ApartmentID";
-            this.columnApartmentID.HeaderText = "ID";
+            this.columnApartmentID.HeaderText = "內碼";
             this.columnApartmentID.Name = "columnApartmentID";
             this.columnApartmentID.ReadOnly = true;
-            this.columnApartmentID.Visible = false;
+            this.columnApartmentID.Width = 64;
             // 
             // AppartementCode
             // 
             this.AppartementCode.DataPropertyName = "AppartementCode";
-            this.AppartementCode.HeaderText = "部门内码";
+            this.AppartementCode.HeaderText = "部门代碼";
             this.AppartementCode.Name = "AppartementCode";
             // 
             // dataGridViewTextBoxColumn2
@@ -234,6 +236,13 @@
             this.ApartmentAllName.DataPropertyName = "ApartmentAllName";
             this.ApartmentAllName.HeaderText = "部门全称";
             this.ApartmentAllName.Name = "ApartmentAllName";
+            this.ApartmentAllName.Width = 300;
+            // 
+            // IsCurrent
+            // 
+            this.IsCurrent.DataPropertyName = "IsCurrent";
+            this.IsCurrent.HeaderText = "此部門";
+            this.IsCurrent.Name = "IsCurrent";
             // 
             // FormApartment
             // 
@@ -243,7 +252,7 @@
             this.ClientSize = new System.Drawing.Size(760, 684);
             this.Controls.Add(this.apartmentDataGridView);
             this.Controls.Add(this.apartmentBindingNavigator);
-            this.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormApartment";
             this.Text = "編修部門";
@@ -281,5 +290,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn AppartementCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn ApartmentAllName;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn IsCurrent;
     }
 }

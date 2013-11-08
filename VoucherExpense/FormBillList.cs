@@ -29,8 +29,24 @@ namespace VoucherExpense
             this.requestsTableAdapter.Fill(this.vEDataSet.Requests);
             this.requestsBindingSource.Sort = "requestsid desc";
             this.apartmentTableAdapter1.Fill(this.vEDataSet.Apartment);
-            var apartment=vEDataSet.Apartment[0];
-            Apartmentname= apartment.ApartmentAllName;
+            //var apartment=vEDataSet.Apartment[0];
+            //Apartmentname= apartment.ApartmentAllName;
+            if (vEDataSet.Apartment.Rows.Count != 0)
+            {
+                var a0 = vEDataSet.Apartment[0];
+                foreach (var a in vEDataSet.Apartment)
+                {
+                    if (!a.IsIsCurrentNull() && a.IsCurrent)
+                    {
+                        a0 = a;
+                        break;
+                    }
+                }
+                if (a0.IsApartmentNameNull())
+                    Apartmentname = a0.ApartmentAllName;
+                else
+                    Apartmentname = a0.ApartmentAllName;
+            }
             textBox1.Text = Apartmentname;
             //设定打印机
             Config.Load();

@@ -35,6 +35,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -168,7 +169,7 @@
             this.productScrappedBindingNavigator.MovePreviousItem = null;
             this.productScrappedBindingNavigator.Name = "productScrappedBindingNavigator";
             this.productScrappedBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.productScrappedBindingNavigator.Size = new System.Drawing.Size(177, 25);
+            this.productScrappedBindingNavigator.Size = new System.Drawing.Size(174, 25);
             this.productScrappedBindingNavigator.TabIndex = 2;
             this.productScrappedBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -185,8 +186,8 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(32, 22);
-            this.bindingNavigatorCountItem.Text = "/ {0}";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 22);
+            this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
             // bindingNavigatorSeparator
@@ -319,6 +320,8 @@
             // dataGridViewTextBoxColumn9
             // 
             this.dataGridViewTextBoxColumn9.DataPropertyName = "ID";
+            dataGridViewCellStyle5.NullValue = null;
+            this.dataGridViewTextBoxColumn9.DefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridViewTextBoxColumn9.HeaderText = "ID";
             this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
             this.dataGridViewTextBoxColumn9.Visible = false;
@@ -370,8 +373,10 @@
             // ColumnVolume
             // 
             this.ColumnVolume.DataPropertyName = "Volume";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.ColumnVolume.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle6.Format = "N1";
+            dataGridViewCellStyle6.NullValue = null;
+            this.ColumnVolume.DefaultCellStyle = dataGridViewCellStyle6;
             this.ColumnVolume.HeaderText = "量";
             this.ColumnVolume.Name = "ColumnVolume";
             this.ColumnVolume.Width = 80;
@@ -379,8 +384,10 @@
             // dataGridViewTextBoxColumn13
             // 
             this.dataGridViewTextBoxColumn13.DataPropertyName = "Price";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewTextBoxColumn13.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle7.Format = "N1";
+            dataGridViewCellStyle7.NullValue = null;
+            this.dataGridViewTextBoxColumn13.DefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridViewTextBoxColumn13.HeaderText = "價格";
             this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
             this.dataGridViewTextBoxColumn13.ReadOnly = true;
@@ -389,10 +396,10 @@
             // dataGridViewTextBoxColumn14
             // 
             this.dataGridViewTextBoxColumn14.DataPropertyName = "EvaluatedCost";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle7.Format = "N2";
-            dataGridViewCellStyle7.NullValue = null;
-            this.dataGridViewTextBoxColumn14.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle8.Format = "N2";
+            dataGridViewCellStyle8.NullValue = null;
+            this.dataGridViewTextBoxColumn14.DefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridViewTextBoxColumn14.HeaderText = "成本";
             this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
             this.dataGridViewTextBoxColumn14.ReadOnly = true;
@@ -491,6 +498,8 @@
             // 
             this.dataGridViewTextBoxColumn4.DataPropertyName = "SoldValue";
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle1.Format = "N1";
+            dataGridViewCellStyle1.NullValue = null;
             this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewTextBoxColumn4.HeaderText = "價值";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
@@ -501,6 +510,8 @@
             // 
             this.dataGridViewTextBoxColumn5.DataPropertyName = "IngredientsCost";
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Format = "N2";
+            dataGridViewCellStyle2.NullValue = null;
             this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewTextBoxColumn5.HeaderText = "成本";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
@@ -574,7 +585,7 @@
             this.Controls.Add(this.dgvProductScrapped);
             this.Controls.Add(this.productScrappedBindingNavigator);
             this.Controls.Add(this.label1);
-            this.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormScraps";
             this.Text = "報癈 試吃 登記表";

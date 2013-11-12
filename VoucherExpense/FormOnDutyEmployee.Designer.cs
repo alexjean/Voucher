@@ -40,13 +40,7 @@
             this.btnConfirmTrans = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.dgvOnDutyEmployee = new System.Windows.Forms.DataGridView();
-            this.employeeIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EmployeeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FingerPintNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.InPosition = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.ColumnApartmentID = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.apartmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.hRBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -55,6 +49,13 @@
             this.comboBoxApartment = new System.Windows.Forms.ComboBox();
             this.cNameIDForComboBoxBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btnExcel = new System.Windows.Forms.Button();
+            this.employeeIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EmployeeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Fingerprintmachine = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FingerPintNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.InPosition = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.ColumnApartmentID = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOnDutyEmployee)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.apartmentBindingSource)).BeginInit();
@@ -165,6 +166,7 @@
             this.dgvOnDutyEmployee.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.employeeIDDataGridViewTextBoxColumn,
             this.EmployeeName,
+            this.Fingerprintmachine,
             this.FingerPintNo,
             this.InPosition,
             this.ColumnApartmentID,
@@ -180,60 +182,10 @@
             this.dgvOnDutyEmployee.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvOnDutyEmployee_DataError);
             this.dgvOnDutyEmployee.SelectionChanged += new System.EventHandler(this.dgvOnDutyEmployee_SelectionChanged);
             // 
-            // employeeIDDataGridViewTextBoxColumn
-            // 
-            this.employeeIDDataGridViewTextBoxColumn.DataPropertyName = "EmployeeID";
-            this.employeeIDDataGridViewTextBoxColumn.HeaderText = "EmployeeID";
-            this.employeeIDDataGridViewTextBoxColumn.MinimumWidth = 2;
-            this.employeeIDDataGridViewTextBoxColumn.Name = "employeeIDDataGridViewTextBoxColumn";
-            this.employeeIDDataGridViewTextBoxColumn.ReadOnly = true;
-            this.employeeIDDataGridViewTextBoxColumn.Width = 2;
-            // 
-            // EmployeeName
-            // 
-            this.EmployeeName.DataPropertyName = "EmployeeName";
-            this.EmployeeName.HeaderText = "姓名";
-            this.EmployeeName.Name = "EmployeeName";
-            this.EmployeeName.ReadOnly = true;
-            this.EmployeeName.Width = 64;
-            // 
-            // FingerPintNo
-            // 
-            this.FingerPintNo.DataPropertyName = "FingerPintNo";
-            this.FingerPintNo.HeaderText = "指紋";
-            this.FingerPintNo.Name = "FingerPintNo";
-            this.FingerPintNo.ReadOnly = true;
-            this.FingerPintNo.Width = 64;
-            // 
-            // InPosition
-            // 
-            this.InPosition.DataPropertyName = "InPosition";
-            this.InPosition.HeaderText = "顯示";
-            this.InPosition.Name = "InPosition";
-            this.InPosition.Width = 48;
-            // 
-            // ColumnApartmentID
-            // 
-            this.ColumnApartmentID.DataPropertyName = "ApartmentID";
-            this.ColumnApartmentID.DataSource = this.apartmentBindingSource;
-            this.ColumnApartmentID.DisplayMember = "ApartmentName";
-            this.ColumnApartmentID.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.ColumnApartmentID.HeaderText = "部門";
-            this.ColumnApartmentID.Name = "ColumnApartmentID";
-            this.ColumnApartmentID.ReadOnly = true;
-            this.ColumnApartmentID.ValueMember = "ApartmentID";
-            // 
             // apartmentBindingSource
             // 
             this.apartmentBindingSource.DataMember = "Apartment";
             this.apartmentBindingSource.DataSource = this.vEDataSet;
-            // 
-            // Title
-            // 
-            this.Title.DataPropertyName = "Title";
-            this.Title.HeaderText = "職稱";
-            this.Title.Name = "Title";
-            this.Title.ReadOnly = true;
             // 
             // hRBindingSource
             // 
@@ -298,6 +250,63 @@
             this.btnExcel.UseVisualStyleBackColor = true;
             this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
             // 
+            // employeeIDDataGridViewTextBoxColumn
+            // 
+            this.employeeIDDataGridViewTextBoxColumn.DataPropertyName = "EmployeeID";
+            this.employeeIDDataGridViewTextBoxColumn.HeaderText = "EmployeeID";
+            this.employeeIDDataGridViewTextBoxColumn.MinimumWidth = 2;
+            this.employeeIDDataGridViewTextBoxColumn.Name = "employeeIDDataGridViewTextBoxColumn";
+            this.employeeIDDataGridViewTextBoxColumn.ReadOnly = true;
+            this.employeeIDDataGridViewTextBoxColumn.Width = 2;
+            // 
+            // EmployeeName
+            // 
+            this.EmployeeName.DataPropertyName = "EmployeeName";
+            this.EmployeeName.HeaderText = "姓名";
+            this.EmployeeName.Name = "EmployeeName";
+            this.EmployeeName.ReadOnly = true;
+            this.EmployeeName.Width = 64;
+            // 
+            // Fingerprintmachine
+            // 
+            this.Fingerprintmachine.DataPropertyName = "Fingerprintmachine";
+            this.Fingerprintmachine.HeaderText = "指纹机";
+            this.Fingerprintmachine.Name = "Fingerprintmachine";
+            this.Fingerprintmachine.Width = 80;
+            // 
+            // FingerPintNo
+            // 
+            this.FingerPintNo.DataPropertyName = "FingerPintNo";
+            this.FingerPintNo.HeaderText = "指紋";
+            this.FingerPintNo.Name = "FingerPintNo";
+            this.FingerPintNo.ReadOnly = true;
+            this.FingerPintNo.Width = 64;
+            // 
+            // InPosition
+            // 
+            this.InPosition.DataPropertyName = "InPosition";
+            this.InPosition.HeaderText = "顯示";
+            this.InPosition.Name = "InPosition";
+            this.InPosition.Width = 48;
+            // 
+            // ColumnApartmentID
+            // 
+            this.ColumnApartmentID.DataPropertyName = "ApartmentID";
+            this.ColumnApartmentID.DataSource = this.apartmentBindingSource;
+            this.ColumnApartmentID.DisplayMember = "ApartmentName";
+            this.ColumnApartmentID.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.ColumnApartmentID.HeaderText = "部門";
+            this.ColumnApartmentID.Name = "ColumnApartmentID";
+            this.ColumnApartmentID.ReadOnly = true;
+            this.ColumnApartmentID.ValueMember = "ApartmentID";
+            // 
+            // Title
+            // 
+            this.Title.DataPropertyName = "Title";
+            this.Title.HeaderText = "職稱";
+            this.Title.Name = "Title";
+            this.Title.ReadOnly = true;
+            // 
             // FormOnDutyEmployee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -314,7 +323,7 @@
             this.Controls.Add(this.ckBoxShowAll);
             this.Controls.Add(this.labelName);
             this.Controls.Add(this.comboBoxMonth);
-            this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormOnDutyEmployee";
             this.Text = "上傳考勤至電腦";
@@ -349,12 +358,13 @@
         private VEDataSetTableAdapters.ApartmentTableAdapter apartmentTableAdapter;
         private System.Windows.Forms.ComboBox comboBoxApartment;
         private System.Windows.Forms.BindingSource cNameIDForComboBoxBindingSource;
+        private System.Windows.Forms.Button btnExcel;
         private System.Windows.Forms.DataGridViewTextBoxColumn employeeIDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn EmployeeName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Fingerprintmachine;
         private System.Windows.Forms.DataGridViewTextBoxColumn FingerPintNo;
         private System.Windows.Forms.DataGridViewCheckBoxColumn InPosition;
         private System.Windows.Forms.DataGridViewComboBoxColumn ColumnApartmentID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Title;
-        private System.Windows.Forms.Button btnExcel;
     }
 }

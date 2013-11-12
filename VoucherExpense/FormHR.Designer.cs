@@ -50,9 +50,10 @@
             System.Windows.Forms.Label fingerPintNoLabel;
             System.Windows.Forms.Label bankAccoutLabel;
             System.Windows.Forms.Label salaryLabel;
+            System.Windows.Forms.Label fingerprintmachineLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormHR));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.vEDataSet = new VoucherExpense.VEDataSet();
             this.hRBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.hRTableAdapter = new VoucherExpense.VEDataSetTableAdapters.HRTableAdapter();
@@ -119,6 +120,7 @@
             this.checkBoxShowAll = new System.Windows.Forms.CheckBox();
             this.birthdayTextBox = new System.Windows.Forms.TextBox();
             this.checkBoxIsApplier = new System.Windows.Forms.CheckBox();
+            this.fingerprintmachineComboBox = new System.Windows.Forms.ComboBox();
             employeeIDLabel = new System.Windows.Forms.Label();
             employeeCodeLabel = new System.Windows.Forms.Label();
             employeeNameLabel = new System.Windows.Forms.Label();
@@ -140,6 +142,7 @@
             fingerPintNoLabel = new System.Windows.Forms.Label();
             bankAccoutLabel = new System.Windows.Forms.Label();
             salaryLabel = new System.Windows.Forms.Label();
+            fingerprintmachineLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hRBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hRBindingNavigator)).BeginInit();
@@ -229,7 +232,7 @@
             // telphoneLabel
             // 
             telphoneLabel.AutoSize = true;
-            telphoneLabel.Location = new System.Drawing.Point(387, 231);
+            telphoneLabel.Location = new System.Drawing.Point(613, 263);
             telphoneLabel.Name = "telphoneLabel";
             telphoneLabel.Size = new System.Drawing.Size(40, 16);
             telphoneLabel.TabIndex = 24;
@@ -319,7 +322,7 @@
             // fingerPintNoLabel
             // 
             fingerPintNoLabel.AutoSize = true;
-            fingerPintNoLabel.Location = new System.Drawing.Point(387, 199);
+            fingerPintNoLabel.Location = new System.Drawing.Point(387, 229);
             fingerPintNoLabel.Name = "fingerPintNoLabel";
             fingerPintNoLabel.Size = new System.Drawing.Size(56, 16);
             fingerPintNoLabel.TabIndex = 43;
@@ -342,6 +345,15 @@
             salaryLabel.Size = new System.Drawing.Size(40, 16);
             salaryLabel.TabIndex = 50;
             salaryLabel.Text = "薪資";
+            // 
+            // fingerprintmachineLabel
+            // 
+            fingerprintmachineLabel.AutoSize = true;
+            fingerprintmachineLabel.Location = new System.Drawing.Point(386, 196);
+            fingerprintmachineLabel.Name = "fingerprintmachineLabel";
+            fingerprintmachineLabel.Size = new System.Drawing.Size(60, 16);
+            fingerprintmachineLabel.TabIndex = 53;
+            fingerprintmachineLabel.Text = "指纹机 ";
             // 
             // vEDataSet
             // 
@@ -380,14 +392,14 @@
             this.bindingNavigatorSeparator2,
             this.bindingNavigatorAddNewItem,
             this.hRBindingNavigatorSaveItem});
-            this.hRBindingNavigator.Location = new System.Drawing.Point(714, 2);
+            this.hRBindingNavigator.Location = new System.Drawing.Point(722, 2);
             this.hRBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.hRBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
             this.hRBindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
             this.hRBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.hRBindingNavigator.Name = "hRBindingNavigator";
             this.hRBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.hRBindingNavigator.Size = new System.Drawing.Size(249, 25);
+            this.hRBindingNavigator.Size = new System.Drawing.Size(252, 25);
             this.hRBindingNavigator.TabIndex = 0;
             this.hRBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -404,8 +416,8 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 22);
-            this.bindingNavigatorCountItem.Text = "/{0}";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(32, 22);
+            this.bindingNavigatorCountItem.Text = "/ {0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
             // bindingNavigatorMoveFirstItem
@@ -486,14 +498,14 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.hRDataGridView.AutoGenerateColumns = false;
             this.hRDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.hRDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.hRDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.hRDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.hRDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.columnEmployeeID,
@@ -507,7 +519,8 @@
             this.hRDataGridView.Name = "hRDataGridView";
             this.hRDataGridView.RowHeadersVisible = false;
             this.hRDataGridView.RowTemplate.Height = 24;
-            this.hRDataGridView.Size = new System.Drawing.Size(354, 860);
+            this.hRDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.hRDataGridView.Size = new System.Drawing.Size(354, 926);
             this.hRDataGridView.TabIndex = 1;
             this.hRDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.hRDataGridView_DataError);
             // 
@@ -642,9 +655,9 @@
             // telphoneTextBox
             // 
             this.telphoneTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.hRBindingSource, "Telphone", true));
-            this.telphoneTextBox.Location = new System.Drawing.Point(449, 226);
+            this.telphoneTextBox.Location = new System.Drawing.Point(670, 259);
             this.telphoneTextBox.Name = "telphoneTextBox";
-            this.telphoneTextBox.Size = new System.Drawing.Size(147, 27);
+            this.telphoneTextBox.Size = new System.Drawing.Size(116, 27);
             this.telphoneTextBox.TabIndex = 4;
             // 
             // mobileTextBox
@@ -706,7 +719,7 @@
             // fingerPintNoTextBox
             // 
             this.fingerPintNoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.hRBindingSource, "FingerPintNo", true));
-            this.fingerPintNoTextBox.Location = new System.Drawing.Point(449, 194);
+            this.fingerPintNoTextBox.Location = new System.Drawing.Point(449, 224);
             this.fingerPintNoTextBox.Name = "fingerPintNoTextBox";
             this.fingerPintNoTextBox.Size = new System.Drawing.Size(147, 27);
             this.fingerPintNoTextBox.TabIndex = 3;
@@ -748,7 +761,7 @@
             this.hRDetailDataGridView.Name = "hRDetailDataGridView";
             this.hRDetailDataGridView.RowHeadersWidth = 25;
             this.hRDetailDataGridView.RowTemplate.Height = 24;
-            this.hRDetailDataGridView.Size = new System.Drawing.Size(602, 390);
+            this.hRDetailDataGridView.Size = new System.Drawing.Size(613, 456);
             this.hRDetailDataGridView.TabIndex = 45;
             this.hRDetailDataGridView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.hRDetailDataGridView_CellBeginEdit);
             this.hRDetailDataGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.hRDetailDataGridView_CellValueChanged);
@@ -790,9 +803,9 @@
             // columnEffectiveDate
             // 
             this.columnEffectiveDate.DataPropertyName = "EffectiveDate";
-            dataGridViewCellStyle2.Format = "d";
-            dataGridViewCellStyle2.NullValue = null;
-            this.columnEffectiveDate.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Format = "d";
+            dataGridViewCellStyle4.NullValue = null;
+            this.columnEffectiveDate.DefaultCellStyle = dataGridViewCellStyle4;
             this.columnEffectiveDate.HeaderText = "生效日";
             this.columnEffectiveDate.Name = "columnEffectiveDate";
             // 
@@ -955,12 +968,29 @@
             this.checkBoxIsApplier.Text = "申請者";
             this.checkBoxIsApplier.UseVisualStyleBackColor = true;
             // 
+            // fingerprintmachineComboBox
+            // 
+            this.fingerprintmachineComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.hRBindingSource, "Fingerprintmachine", true));
+            this.fingerprintmachineComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.fingerprintmachineComboBox.FormattingEnabled = true;
+            this.fingerprintmachineComboBox.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4"});
+            this.fingerprintmachineComboBox.Location = new System.Drawing.Point(449, 194);
+            this.fingerprintmachineComboBox.Name = "fingerprintmachineComboBox";
+            this.fingerprintmachineComboBox.Size = new System.Drawing.Size(147, 24);
+            this.fingerprintmachineComboBox.TabIndex = 54;
+            // 
             // FormHR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(226)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(972, 816);
+            this.ClientSize = new System.Drawing.Size(983, 882);
+            this.Controls.Add(fingerprintmachineLabel);
+            this.Controls.Add(this.fingerprintmachineComboBox);
             this.Controls.Add(this.checkBoxIsApplier);
             this.Controls.Add(this.birthdayTextBox);
             this.Controls.Add(this.checkBoxShowAll);
@@ -1013,7 +1043,7 @@
             this.Controls.Add(this.hRBindingNavigator);
             this.Controls.Add(bloodTypeLabel);
             this.Controls.Add(genderLabel);
-            this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormHR";
             this.Text = "人事資料卡";
@@ -1104,5 +1134,6 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn ApartmentID;
         private System.Windows.Forms.TextBox birthdayTextBox;
         private System.Windows.Forms.CheckBox checkBoxIsApplier;
+        private System.Windows.Forms.ComboBox fingerprintmachineComboBox;
     }
 }

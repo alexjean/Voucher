@@ -75,6 +75,8 @@ namespace VoucherExpense
             if (hRRow == null) return;
             if (hRRow.IsFingerPintNoNull()) return;
             if (hRRow.IsEmployeeNameNull()) return;
+            if (hRRow.IsFingerprintmachineNull()) return;
+      
             labelName.Text = hRRow.EmployeeName;
             int dutyCode = hRRow.FingerPintNo;
             int month = comboBoxMonth.SelectedIndex + 1;
@@ -83,7 +85,9 @@ namespace VoucherExpense
             for (int i = 0; i < count; i++) str[i] = (i+1).ToString("d2")+"日";
 
             int d, h;
-            VEDataSet.OnDutyDataRow[] rows=hRRow.GetOnDutyDataRows();
+           // VEDataSet.OnDutyDataRow[] rows=hRRow.GetOnDutyDataRows();
+
+            VEDataSet.OnDutyDataRow[] rows = (VEDataSet.OnDutyDataRow[])vEDataSet.OnDutyData.Select("Fingerprintmachine=" + hRRow.Fingerprintmachine + "and " + "OnDutyCode=" + hRRow.FingerPintNo);
             foreach (VEDataSet.OnDutyDataRow row in rows)
             {
                 try
@@ -159,6 +163,7 @@ namespace VoucherExpense
             char[] sept= new char[3] {',',' ','\t'};
             string[] l;
             int code;
+            int machineno;
             DateTime dt;
             int max=0,success=0,error=0,repeat=0;
             progressBar1.Maximum = 0;
@@ -175,11 +180,12 @@ namespace VoucherExpense
                 {
                     //if (!int.TryParse(l[0]         , out code   )) continue;
                     //if (!DateTime.TryParse(l[1], out dt      )) continue;
+                    if (!int.TryParse(l[1], out machineno)) continue;
                     if (!int.TryParse(l[2], out code)) continue;
                     if (!DateTime.TryParse(l[5]+" "+l[6],out dt)) continue;
                     if (dt.Year != MyFunction.IntHeaderYear) continue;       // 不是今年的資料,不收錄
                     var linqRow = from lr in vEDataSet.OnDutyData
-                                  where (lr.TimeMark.Date == dt.Date && lr.TimeMark.Hour == dt.Hour && lr.TimeMark.Minute == dt.Minute && lr.OnDutyCode == code)
+                                  where (lr.TimeMark.Date == dt.Date && lr.TimeMark.Hour == dt.Hour && lr.TimeMark.Minute == dt.Minute && lr.OnDutyCode == code && lr.Fingerprintmachine == machineno)
                                   select lr.RowState;
                     if (linqRow.Count() > 0)
                     {
@@ -202,6 +208,7 @@ namespace VoucherExpense
                     row.ID = (++max);
                     row.OnDutyCode = code;
                     row.TimeMark = dt;
+                    row.Fingerprintmachine = Convert.ToInt16(machineno);
                     vEDataSet.OnDutyData.AddOnDutyDataRow(row);
                     success++;
                 }

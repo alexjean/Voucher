@@ -11,6 +11,7 @@ namespace VoucherExpense
         public int Year { get { return m_Date.Year; } }
         public int Month { get { return m_Date.Month; } }
         public int Day { get { return m_Date.Day; } }
+        public DateTime Date { get { return m_Date; } }
         public static int IDTagHead(int y, int m, int d)
         {
             int tag = y % 100;
@@ -163,7 +164,7 @@ namespace VoucherExpense
             }
             data.OrderCount = basicDataSet1.Order.Count;
             data.Cash = Math.Round(cash);
-            data.Date = (uint)m_WorkingDay.Day;
+            data.Date = m_WorkingDay.Date;
             data.CreditCard = Math.Round(credit);
             data.CreditFee = Math.Round(FeeRate * data.CreditCard, 2);
             data.CreditNet = data.CreditCard - data.CreditFee;
@@ -279,7 +280,7 @@ namespace VoucherExpense
             data.Cash    = Math.Round(cash);
             data.Coupond = Math.Round(coupond);
             data.Deduct = Math.Round(deduct);
-            data.Date = (uint)m_WorkingDay.Day;
+            data.Date = m_WorkingDay.Date;
             data.CreditCard = Math.Round(credit);
             data.CreditFee = Math.Round(FeeRate * data.CreditCard, 2);
             data.CreditNet = data.CreditCard - data.CreditFee;

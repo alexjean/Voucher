@@ -331,8 +331,8 @@ namespace VoucherExpense
                     total = CalcRevenue(m1, out list);
                     foreach (MonthlyReportData report in list)
                     {
-                        DateTime da = new DateTime(MyFunction.IntHeaderYear, m1, (int)report.Date);
-                        string note = m1.ToString() + "月" + report.Date.ToString() + "日 ";
+                        DateTime da = report.Date;
+                        string note = da.Month.ToString() + "月" + da.Day.ToString() + "日 ";
                         if (report.Cash != 0m)
                         {
                             AddIfWant(da, cashIncome.Code    , cashIncome.Name + note    , report.Cash, false, isCurrent, inDuration, cashReceivable.Code);

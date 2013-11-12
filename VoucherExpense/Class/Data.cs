@@ -448,7 +448,9 @@ namespace VoucherExpense
     // MonthlyReport及MonthlyReportBakery用
     public class MonthlyReportData
     {
-        public uint    Date         { get; set; }
+        private string[] weekString={"日","一","二","三","四","五","六"};
+        public DateTime Date        { get; set; }
+        public string DayAndWeekDay { get { return (Date.Day.ToString() + "  " + weekString[(int)Date.DayOfWeek]); } }
         public decimal Revenue      { get; set; }
         public decimal Cash         { get; set; }
         public decimal CreditCard   { get; set; }

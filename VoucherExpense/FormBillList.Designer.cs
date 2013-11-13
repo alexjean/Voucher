@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormBillList));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -56,9 +56,7 @@
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.requestsBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.列印PToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.tSBtEndit = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -267,15 +265,13 @@
             this.bindingNavigatorAddNewItem,
             this.requestsBindingNavigatorSaveItem,
             this.列印PToolStripButton,
-            this.bindingNavigatorDeleteItem,
             this.toolStripSeparator1,
-            this.toolStripButton1,
             this.toolStripSeparator4,
             this.tSBtEndit,
             this.toolStripSeparator2,
+            this.dateTimetoolStripCbB,
             this.toolStripSeparator3,
-            this.toolStripLabel1,
-            this.dateTimetoolStripCbB});
+            this.toolStripLabel1});
             this.requestsBindingNavigator.Location = new System.Drawing.Point(5, 7);
             this.requestsBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.requestsBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
@@ -283,7 +279,7 @@
             this.requestsBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.requestsBindingNavigator.Name = "requestsBindingNavigator";
             this.requestsBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.requestsBindingNavigator.Size = new System.Drawing.Size(456, 25);
+            this.requestsBindingNavigator.Size = new System.Drawing.Size(487, 25);
             this.requestsBindingNavigator.TabIndex = 10;
             this.requestsBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -301,7 +297,7 @@
             // 
             this.bindingNavigatorCountItem.Enabled = false;
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(32, 22);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(32, 26);
             this.bindingNavigatorCountItem.Text = "/ {0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
@@ -311,7 +307,7 @@
             this.bindingNavigatorMoveFirstItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveFirstItem.Image")));
             this.bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
             this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(23, 26);
             this.bindingNavigatorMoveFirstItem.Text = "移到最前面";
             // 
             // bindingNavigatorMovePreviousItem
@@ -320,13 +316,13 @@
             this.bindingNavigatorMovePreviousItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMovePreviousItem.Image")));
             this.bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
             this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(23, 26);
             this.bindingNavigatorMovePreviousItem.Text = "移到上一個";
             // 
             // bindingNavigatorSeparator
             // 
             this.bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
-            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 25);
+            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 29);
             // 
             // bindingNavigatorPositionItem
             // 
@@ -341,7 +337,7 @@
             // bindingNavigatorSeparator1
             // 
             this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
-            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 29);
             // 
             // bindingNavigatorMoveNextItem
             // 
@@ -349,7 +345,7 @@
             this.bindingNavigatorMoveNextItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveNextItem.Image")));
             this.bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
             this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(23, 26);
             this.bindingNavigatorMoveNextItem.Text = "移到下一個";
             // 
             // bindingNavigatorMoveLastItem
@@ -358,13 +354,13 @@
             this.bindingNavigatorMoveLastItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveLastItem.Image")));
             this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
             this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 26);
             this.bindingNavigatorMoveLastItem.Text = "移到最後面";
             // 
             // bindingNavigatorSeparator2
             // 
             this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
-            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
+            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 29);
             // 
             // requestsBindingNavigatorSaveItem
             // 
@@ -372,7 +368,7 @@
             this.requestsBindingNavigatorSaveItem.Enabled = false;
             this.requestsBindingNavigatorSaveItem.Image = ((System.Drawing.Image)(resources.GetObject("requestsBindingNavigatorSaveItem.Image")));
             this.requestsBindingNavigatorSaveItem.Name = "requestsBindingNavigatorSaveItem";
-            this.requestsBindingNavigatorSaveItem.Size = new System.Drawing.Size(23, 22);
+            this.requestsBindingNavigatorSaveItem.Size = new System.Drawing.Size(23, 26);
             this.requestsBindingNavigatorSaveItem.Text = "儲存資料";
             this.requestsBindingNavigatorSaveItem.Click += new System.EventHandler(this.requestsBindingNavigatorSaveItem_Click);
             // 
@@ -382,40 +378,19 @@
             this.列印PToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("列印PToolStripButton.Image")));
             this.列印PToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.列印PToolStripButton.Name = "列印PToolStripButton";
-            this.列印PToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.列印PToolStripButton.Size = new System.Drawing.Size(23, 26);
             this.列印PToolStripButton.Text = "列印(&P)";
             this.列印PToolStripButton.Click += new System.EventHandler(this.toolStripButton1_Click);
-            // 
-            // bindingNavigatorDeleteItem
-            // 
-            this.bindingNavigatorDeleteItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorDeleteItem.Enabled = false;
-            this.bindingNavigatorDeleteItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorDeleteItem.Image")));
-            this.bindingNavigatorDeleteItem.Name = "bindingNavigatorDeleteItem";
-            this.bindingNavigatorDeleteItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorDeleteItem.Text = "刪除";
-            this.bindingNavigatorDeleteItem.Visible = false;
-            this.bindingNavigatorDeleteItem.Click += new System.EventHandler(this.bindingNavigatorDeleteItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(60, 22);
-            this.toolStripButton1.Text = "打印空单";
-            this.toolStripButton1.Visible = false;
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 29);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 29);
             // 
             // tSBtEndit
             // 
@@ -423,24 +398,24 @@
             this.tSBtEndit.Image = ((System.Drawing.Image)(resources.GetObject("tSBtEndit.Image")));
             this.tSBtEndit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tSBtEndit.Name = "tSBtEndit";
-            this.tSBtEndit.Size = new System.Drawing.Size(36, 22);
+            this.tSBtEndit.Size = new System.Drawing.Size(36, 26);
             this.tSBtEndit.Text = "编辑";
             this.tSBtEndit.Click += new System.EventHandler(this.tSBtEndit_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 29);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 29);
             // 
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(44, 22);
+            this.toolStripLabel1.Size = new System.Drawing.Size(44, 26);
             this.toolStripLabel1.Text = "日期：";
             // 
             // dateTimetoolStripCbB
@@ -460,7 +435,7 @@
             "十一",
             "十二"});
             this.dateTimetoolStripCbB.Name = "dateTimetoolStripCbB";
-            this.dateTimetoolStripCbB.Size = new System.Drawing.Size(75, 25);
+            this.dateTimetoolStripCbB.Size = new System.Drawing.Size(75, 29);
             this.dateTimetoolStripCbB.SelectedIndexChanged += new System.EventHandler(this.dateTimetoolStripCbB_SelectedIndexChanged);
             // 
             // paymenMethodsTextBox
@@ -558,22 +533,22 @@
             // 
             this.requestsDataGridView.AllowUserToAddRows = false;
             this.requestsDataGridView.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.requestsDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.requestsDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             this.requestsDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.requestsDataGridView.AutoGenerateColumns = false;
             this.requestsDataGridView.BackgroundColor = System.Drawing.Color.White;
             this.requestsDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("PMingLiU", 12F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.requestsDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("PMingLiU", 12F);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.requestsDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.requestsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.requestsDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dgvColRequestsID,
@@ -600,7 +575,7 @@
             this.requestsDataGridView.RowHeadersVisible = false;
             this.requestsDataGridView.RowTemplate.Height = 23;
             this.requestsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.requestsDataGridView.Size = new System.Drawing.Size(1165, 267);
+            this.requestsDataGridView.Size = new System.Drawing.Size(1165, 266);
             this.requestsDataGridView.TabIndex = 0;
             this.requestsDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.requestsDataGridView_DataError);
             this.requestsDataGridView.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.requestsDataGridView_RowPostPaint);
@@ -829,10 +804,8 @@
         private System.Windows.Forms.TextBox departmentTextBox;
         private System.Drawing.Printing.PrintDocument pD;
         private System.Windows.Forms.ToolStripButton 列印PToolStripButton;
-        private System.Windows.Forms.ToolStripButton bindingNavigatorDeleteItem;
         private System.Windows.Forms.TextBox listNumberTextBox;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripComboBox dateTimetoolStripCbB;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;

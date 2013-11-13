@@ -331,7 +331,8 @@ namespace VoucherExpense
                     dgvColumnCurrentIn.Visible = false;
                     dgvColumnPrevStockVolume.Visible = false;
                     StockMoneyColumn.ReadOnly = false;
-                    dgvColumnLostMoney.Visible = false;   
+                    dgvColumnLostMoney.Visible = false;
+                    isFrist = true;
                 }
                 else
                 {
@@ -340,6 +341,7 @@ namespace VoucherExpense
                     dgvColumnPrevStockVolume.Visible = true;
                     StockMoneyColumn.ReadOnly = true;
                     dgvColumnLostMoney.Visible = true;
+                    isFrist = false;
                 }
                 DataGridView view=sender as DataGridView;
                 DataGridViewRow dgvRow=view.Rows[e.RowIndex];
@@ -493,6 +495,7 @@ namespace VoucherExpense
                     return;
                 }
                 SQLVEDataSet.InventoryRow curr = rowView.Row as SQLVEDataSet.InventoryRow;
+                
                 var details = curr.GetInventoryDetailRows();
                 var productDetails=curr.GetInventoryProductsRows();
                 // 清除本單的進貨及金額
@@ -585,45 +588,52 @@ namespace VoucherExpense
                 DateTime prevDate=new DateTime(MyFunction.IntHeaderYear-1,12,31);
                 if (prev!=null) prevDate=prev.CheckDay.Date;     // 盤點日當天的進貨單,都計入是本期的
                 var vouchers = from vo in vEDataSet.Voucher
-                               where (vo.StockTime.Date > prevDate) && (vo.StockTime.Date <= curr.CheckDay.Date) && (!vo.Removed)
+                               where(!vo.IsStockTimeNull()) && (vo.StockTime.Date > prevDate) && (vo.StockTime.Date <= curr.CheckDay.Date) && (!vo.Removed)
                                orderby vo.StockTime descending
                                select vo;
                 // 計算本期進貨
-                foreach (VEDataSet.VoucherRow vo in vouchers)
+                if (isFrist)
                 {
-                    var ds=vo.GetVoucherDetailRows();
-                    foreach (var d in ds)
+
+                }
+                else
+                {
+                    foreach (VEDataSet.VoucherRow vo in vouchers)
                     {
-                        if (d.IsIngredientIDNull()) continue; 
-                        if (d.IsVolumeNull()) continue;   // 沒有數量
-                        if (d.Volume <= 0) continue;
-                        int id = d.IngredientID;
-                        var des = from de in details where de.IngredientID == id select de;
-                        if (des.Count() <= 0) continue;   // 盤點單找不到此食材
-                        var de1 = des.First();
-                        double vol=(double)d.Volume;
-                        de1.CurrentIn+=vol;
-                        CalcInventory inv = dicCalcStock[de1.IngredientID];
-                        decimal dCost = 0;
-                        if (!d.IsCostNull()) dCost = d.Cost;
-                        inv.CurrInMoney += dCost;
-                        // 算出相對應庫存的成本
-                        if (inv.StockVolume >= vol)
+                        var ds = vo.GetVoucherDetailRows();
+                        foreach (var d in ds)
                         {
-                            de1.StockMoney += dCost;
-                            inv.StockVolume-= vol;
-                        }
-                        else if (inv.StockVolume>0)
-                        {
-                            de1.StockMoney += (dCost / (decimal)vol * (decimal)inv.StockVolume);   // 小於
-                            inv.StockVolume = 0;
+                            if (d.IsIngredientIDNull()) continue;
+                            if (d.IsVolumeNull()) continue;   // 沒有數量
+                            if (d.Volume <= 0) continue;
+                            int id = d.IngredientID;
+                            var des = from de in details where de.IngredientID == id select de;
+                            if (des.Count() <= 0) continue;   // 盤點單找不到此食材
+                            var de1 = des.First();
+                            double vol = (double)d.Volume;
+                            de1.CurrentIn += vol;
+                            CalcInventory inv = dicCalcStock[de1.IngredientID];
+                            decimal dCost = 0;
+                            if (!d.IsCostNull()) dCost = d.Cost;
+                            inv.CurrInMoney += dCost;
+                            // 算出相對應庫存的成本
+                            if (inv.StockVolume >= vol)
+                            {
+                                de1.StockMoney += dCost;
+                                inv.StockVolume -= vol;
+                            }
+                            else if (inv.StockVolume > 0)
+                            {
+                                de1.StockMoney += (dCost / (decimal)vol * (decimal)inv.StockVolume);   // 小於
+                                inv.StockVolume = 0;
+                            }
                         }
                     }
                 }
                 // 將前期盤點及位置 資料填入, 並計算多於進貨remainStock的成本
                 if (prev == null)
                 {
-                    //foreach (SQLVEDataSet.InventoryDetailRow d in details) 
+                    //foreach (SQLVEDataSet.InventoryDetailRow d in details)
                     //{
                     //    d.PrevStockVolume = 0;
                     //    CalcInventory inv = dicCalcStock[d.IngredientID];
@@ -633,6 +643,31 @@ namespace VoucherExpense
                     //}
                     //foreach (var p in productDetails)
                     //    p.PrevVolume = 0;
+
+                    try
+                    {
+                        DataRowView inventoryrow = inventoryBindingSource1.Current as DataRowView;
+                        if (rowView == null) return; 
+                        SQLVEDataSet.InventoryRow inventory = rowView.Row as SQLVEDataSet.InventoryRow;
+                        inventory.IngredientsCost = 0;
+                        var detailrows = inventory.GetInventoryDetailRows();
+                        foreach (var item in detailrows)
+                        {
+                            var ingredientrows=vEDataSet.Ingredient.Select("IngredientID="+item.IngredientID);
+                            if (item.IsStockVolumeNull()) continue;
+
+                            if (ingredientrows==null)
+	                            {
+		                             continue;
+	                            }else{
+                                    item.StockMoney = (decimal)item.StockVolume * Convert.ToDecimal(ingredientrows[0][3]);
+                                }
+                            inventory.IngredientsCost += item.StockMoney;
+                        }
+                        
+                    }
+                    catch (Exception ex) { MessageBox.Show("错误：" + ex.Message); };
+                    
                 }
                 else
                 {
@@ -652,7 +687,7 @@ namespace VoucherExpense
                             continue;
                         }
                         var p = ds.First();
-                        if (!p.IsAreaCodeNull())   
+                        if (!p.IsAreaCodeNull())
                         {
                             if (d.IsAreaCodeNull() || d.AreaCode.Trim().Count() == 0) // 沒有位置資料才從前期代入
                                 d.AreaCode = p.AreaCode;

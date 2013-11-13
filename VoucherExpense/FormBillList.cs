@@ -53,7 +53,7 @@ namespace VoucherExpense
             PrinterSettings ps = new PrinterSettings();
             ps.PrinterName = Config.DotPrinterName;
             pD.PrinterSettings = ps;
-                  
+            dateTimetoolStripCbB.SelectedIndex = 1;   
         }
         VEDataSet.RequestsRow Addrow;
         string intToint6(int num, int numlength)
@@ -194,7 +194,7 @@ namespace VoucherExpense
             //}
             this.bindingNavigatorAddNewItem.Enabled = true;
             this.requestsBindingNavigatorSaveItem.Enabled = false;
-            this.bindingNavigatorDeleteItem.Enabled = false;
+            //this.bindingNavigatorDeleteItem.Enabled = false;
             this.requestsTableAdapter.Fill(this.vEDataSet.Requests);
             this.requestsDataGridView.Enabled = true;
             this.isCancelCheckBox.Enabled = true;
@@ -204,69 +204,123 @@ namespace VoucherExpense
             IsEnabled(true);//资料设置为可编辑
             this.isCancelCheckBox.Enabled = false;
             this.bindingNavigatorAddNewItem.Enabled = false; 
-            this.bindingNavigatorDeleteItem.Enabled = true;
+           // this.bindingNavigatorDeleteItem.Enabled = true;
             this.requestsBindingNavigatorSaveItem.Enabled = true;
             this.bindingNavigatorMovePreviousItem.Enabled = false;
             this.bindingNavigatorMoveFirstItem.Enabled = false;
             this.requestsDataGridView.Enabled = false;
-            dateTimetoolStripCbB.SelectedIndex = -1;
+            //dateTimetoolStripCbB.SelectedIndex = -1;
             departmentTextBox.Focus();
             newRequests();
         }
         int CurrentId=0;
-        string CurrentList;
+        string CurrentList; string tems = ""; string strtemp = "";
         void newRequests()//创建新单数据
         {
-            
-            int maxID = 0;
+                      int maxID = 0;
             int maxCode = 0;
             this.requestsTableAdapter.Fill(this.vEDataSet.Requests);
-            foreach (VEDataSet.RequestsRow item in vEDataSet.Requests)
-            {
-                if (item.RequestsID > maxID)
+            int tem = dateTimetoolStripCbB.SelectedIndex;
+            int tems =Convert.ToInt32(DateTime.Now.ToString("MM"));
+            if (tem != tems &&tem >0)//打印非当月的单子
+            {                    string datetime = DateTime.Now.ToString("yyMM");
+
+                if (MessageBox.Show("确定打印" + dateTimetoolStripCbB.Text + "的请款单?", "Confirm Message", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
-                    maxID = item.RequestsID;
+                    foreach (VEDataSet.RequestsRow item in vEDataSet.Requests)
+                    {
+                        if (item.RequestsID > maxID)
+                        {
+                            maxID = item.RequestsID;
+                        }
+
+                        strtemp = item.ListNumber.ToString().Substring(2, 2);
+                        if (Convert.ToInt32(strtemp) != tem)//只比较选定月份相同的单号
+                        {
+
+                        }
+                        else
+                        {
+                            if (tem < 10)
+                            {
+                                maxCode = Convert.ToInt32(datetime.Remove(2) + "0" + tem + "000");
+                            }
+                            else
+                            {
+                                maxCode = Convert.ToInt32(datetime.Remove(2) + tem + "000");
+                            }
+                            if (Convert.ToInt32(item.ListNumber) > maxCode)
+                            {
+                                maxCode = Convert.ToInt32(item.ListNumber);
+                            }
+                        }
+                    }
+                    if (maxCode == 0)
+                    {
+                        if (tem<10)
+                        {
+                            maxCode=Convert.ToInt32(datetime.Remove(2)+"0"+tem+ "000");
+                        }
+                        else
+                        {
+                            maxCode = Convert.ToInt32(datetime.Remove(2) + tem + "000");
+                        }
+                    }
+
                 }
-                if (Convert.ToInt32(item.ListNumber) > maxCode)
+                else { return; }
+            }
+            else
+            {
+
+                foreach (VEDataSet.RequestsRow item in vEDataSet.Requests)
                 {
-                    maxCode = Convert.ToInt32(item.ListNumber);
+                    if (item.RequestsID > maxID)
+                    {
+                        maxID = item.RequestsID;
+                    }
+                    if (Convert.ToInt32(item.ListNumber) > maxCode)
+                    {
+                        maxCode = Convert.ToInt32(item.ListNumber);
+                    }
+                }
+
+                string datetime = DateTime.Now.ToString("yyMM");
+                string maxcode = "0";
+                if (maxCode > 0)
+                    maxcode = maxCode.ToString().Remove(4);
+                if (Convert.ToInt32(datetime) > Convert.ToInt32(maxcode))
+                {
+                    maxCode = Convert.ToInt32(datetime + "000");
                 }
             }
-            string datetime = DateTime.Now.ToString("yyMM");
-             string maxcode ="0";
-            if(maxCode>0)
-            maxcode = maxCode.ToString().Remove(4);
-            if (Convert.ToInt32(datetime)>Convert.ToInt32(maxcode))
-            {
-                maxCode = Convert.ToInt32(datetime + "000");
-            }
-            Addrow = vEDataSet.Requests.NewRequestsRow();
-            Addrow.RequestsID = maxID + 1;
-            CurrentId = maxID + 1;
-            Addrow.ListNumber = (maxCode + 1).ToString();
-            CurrentList = (maxCode + 1).ToString();
-            listNumberTextBox.Text = (maxCode + 1).ToString();
-            listNumberTextBox.Text = Addrow.ListNumber;
-            Addrow.SetAccountNull();
-            Addrow.OperatorID = MyFunction.OperatorID;
-            Addrow.SetDepartmentNull();
-            Addrow.SetApplicantNull();
-            Addrow.SetRequestsUseNull();
-            Addrow.SetUintNameNull();
-            Addrow.SetBankOfDepositNull();
-            Addrow.SetMoneyAaNull();
-            Addrow.SetMoneyANull();
-            Addrow.SetPaymenMethodsNull();
-            Addrow.SetHandoverPoepleNull();
-            Addrow.SetBillingDateNull();
-            Addrow.SetDateOfPaymentNull();
-            Addrow.IsLock = false;
-            Addrow.IsCancel = false;
-            Addrow.CreateTime = DateTime.Now;
-            Addrow.EndEdit();
-             vEDataSet.Requests.Rows.Add(Addrow);
-              this.requestsTableAdapter.Update(vEDataSet.Requests);
-            this.requestsTableAdapter.Fill(this.vEDataSet.Requests);
+                Addrow = vEDataSet.Requests.NewRequestsRow();
+                Addrow.RequestsID = maxID + 1;
+                CurrentId = maxID + 1;
+                Addrow.ListNumber = maxCode + 1;
+                CurrentList = (maxCode + 1).ToString();
+                listNumberTextBox.Text = (maxCode + 1).ToString();
+                listNumberTextBox.Text = Addrow.ListNumber.ToString();
+                Addrow.SetAccountNull();
+                Addrow.OperatorID = MyFunction.OperatorID;
+                Addrow.SetDepartmentNull();
+                Addrow.SetApplicantNull();
+                Addrow.SetRequestsUseNull();
+                Addrow.SetUintNameNull();
+                Addrow.SetBankOfDepositNull();
+                Addrow.SetMoneyAaNull();
+                Addrow.SetMoneyANull();
+                Addrow.SetPaymenMethodsNull();
+                Addrow.SetHandoverPoepleNull();
+                Addrow.SetBillingDateNull();
+                Addrow.SetDateOfPaymentNull();
+                Addrow.IsLock = false;
+                Addrow.IsCancel = false;
+                Addrow.CreateTime = DateTime.Now;
+                Addrow.EndEdit();
+                vEDataSet.Requests.Rows.Add(Addrow);
+                this.requestsTableAdapter.Update(vEDataSet.Requests);
+                this.requestsTableAdapter.Fill(this.vEDataSet.Requests);
             
         }
         bool isEmpty=false;
@@ -339,7 +393,7 @@ namespace VoucherExpense
         private void bindingNavigatorDeleteItem_Click(object sender, EventArgs e)
         {
             IsEnabled(false);//资料设置为不可编辑
-            this.bindingNavigatorDeleteItem.Enabled = false;
+           // this.bindingNavigatorDeleteItem.Enabled = false;
             this.bindingNavigatorAddNewItem.Enabled = true;
             this.requestsBindingNavigatorSaveItem.Enabled = false;
             this.requestsDataGridView.Enabled = true;
@@ -440,7 +494,7 @@ namespace VoucherExpense
 
         private void dateTimetoolStripCbB_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int i = dateTimetoolStripCbB.SelectedIndex;
+            int i = dateTimetoolStripCbB.SelectedIndex;//月份选择，所选的索引值
             if (i == -1)
             {
                 return;
@@ -450,25 +504,39 @@ namespace VoucherExpense
                 MessageBox.Show("单子正在编辑！");
                 return;
             }  
-            string y = "#" + MyFunction.HeaderYear + "/";
-            string m1, m2;
+           // string y = "#" + MyFunction.HeaderYear + "/";
+            string y =  MyFunction.HeaderYear.Substring(2,2) ;
+            //string m1, m2;
 
             if (i == 0)
+            {
                 requestsBindingSource.Filter = "";
+            }
             else
-                if (i < 12)
+            {
+                //if (i < 12)
+                //{
+                //    m1 = y + i.ToString("d2") + "01#";
+                //    m2 = y + (i + 1).ToString("d2") + "01";
+                //    requestsBindingSource.Filter = "(ListNumber>=" + Convert.ToInt32(m1) * 1000 + ") AND (ListNumber<" + Convert.ToInt32(m2) * 1000 + ")";
+                //}
+                //else if (i == 12)
+                //{
+                //    m1 = y + "12/01#";
+                //    m2 = y + "12/31#";
+                //    requestsBindingSource.Filter = "(ListNumber>=" + Convert.ToInt32(m1) * 1000 + ") AND (ListNumber<=" + Convert.ToInt32(m2) * 1000 + ")";
+                //}
+                if (i>9)
                 {
-                    m1 = y + i.ToString("d2") + "/01#";
-                    m2 = y + (i + 1).ToString("d2") + "/01#";
-                    requestsBindingSource.Filter = "(CreateTime>=" + m1 + ") AND (CreateTime<" + m2 + ")";
+                    requestsBindingSource.Filter = "(ListNumber>=" + Convert.ToInt32(y + i.ToString() + "000") + ") AND (ListNumber<" + Convert.ToInt32(y + i.ToString() + "999") + ")";
                 }
-                else if (i == 12)
+                else
                 {
-                    m1 = y + "12/01#";
-                    m2 = y + "12/31#";
-                    requestsBindingSource.Filter = "(CreateTime>=" + m1 + ") AND (CreateTime<=" + m2 + ")";
+                    y = y + "0";
+                    requestsBindingSource.Filter = "(ListNumber>=" + Convert.ToInt32(y+i.ToString()+"000" )+ ") AND (ListNumber<" + Convert.ToInt32(y+i.ToString()+"999" ) + ")";
                 }
-            this.requestsDataGridView.Focus();
+            }
+                this.requestsDataGridView.Focus();
         }
 
         private void isCancelCheckBox_Click(object sender, EventArgs e)
@@ -544,7 +612,7 @@ namespace VoucherExpense
             IsEnabled(true);  
             this.requestsBindingNavigatorSaveItem.Enabled = true;
             this.bindingNavigatorAddNewItem.Enabled = false;
-            this.bindingNavigatorDeleteItem.Enabled = false;
+            //this.bindingNavigatorDeleteItem.Enabled = false;
             this.bindingNavigatorMovePreviousItem.Enabled = false;
             this.bindingNavigatorMoveFirstItem.Enabled = false;
             this.requestsDataGridView.Enabled = false;

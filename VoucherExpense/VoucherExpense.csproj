@@ -351,6 +351,12 @@
     <Compile Include="FormShiftDetail.Designer.cs">
       <DependentUpon>FormShiftDetail.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormShipment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormShipment.Designer.cs">
+      <DependentUpon>FormShipment.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormShrink.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -550,6 +556,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormShiftDetail.resx">
       <DependentUpon>FormShiftDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormShipment.resx">
+      <DependentUpon>FormShipment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormShrink.resx">
       <DependentUpon>FormShrink.cs</DependentUpon>

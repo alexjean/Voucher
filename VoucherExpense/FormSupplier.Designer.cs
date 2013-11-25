@@ -41,10 +41,10 @@
             System.Windows.Forms.Label lastUpdatedLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSupplier));
             this.sQLVEDataSet = new VoucherExpense.SQLVEDataSet();
-            this.supplier_BindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.supplier_TableAdapter = new VoucherExpense.SQLVEDataSetTableAdapters.Supplier_TableAdapter();
+            this.supplierBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.supplierTableAdapter = new VoucherExpense.SQLVEDataSetTableAdapters.SupplierTableAdapter();
             this.tableAdapterManager = new VoucherExpense.SQLVEDataSetTableAdapters.TableAdapterManager();
-            this.supplier_BindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
+            this.supplierBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
@@ -56,18 +56,8 @@
             this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.supplier_BindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
-            this.supplier_DataGridView = new System.Windows.Forms.DataGridView();
-            this.supplierIDTextBox = new System.Windows.Forms.TextBox();
-            this.nameTextBox = new System.Windows.Forms.TextBox();
-            this.fullNameTextBox = new System.Windows.Forms.TextBox();
-            this.contactPeopleTextBox = new System.Windows.Forms.TextBox();
-            this.telephoneTextBox = new System.Windows.Forms.TextBox();
-            this.gSMTextBox = new System.Windows.Forms.TextBox();
-            this.addressTextBox = new System.Windows.Forms.TextBox();
-            this.noteTextBox = new System.Windows.Forms.TextBox();
-            this.hideCheckBox = new System.Windows.Forms.CheckBox();
-            this.lastUpdatedTextBox = new System.Windows.Forms.TextBox();
+            this.supplierBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
+            this.supplierDataGridView = new System.Windows.Forms.DataGridView();
             this.ColumnSupplierID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -78,6 +68,16 @@
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.supplierIDTextBox = new System.Windows.Forms.TextBox();
+            this.nameTextBox = new System.Windows.Forms.TextBox();
+            this.fullNameTextBox = new System.Windows.Forms.TextBox();
+            this.contactPeopleTextBox = new System.Windows.Forms.TextBox();
+            this.telephoneTextBox = new System.Windows.Forms.TextBox();
+            this.gSMTextBox = new System.Windows.Forms.TextBox();
+            this.addressTextBox = new System.Windows.Forms.TextBox();
+            this.noteTextBox = new System.Windows.Forms.TextBox();
+            this.hideCheckBox = new System.Windows.Forms.CheckBox();
+            this.lastUpdatedTextBox = new System.Windows.Forms.TextBox();
             supplierIDLabel = new System.Windows.Forms.Label();
             nameLabel = new System.Windows.Forms.Label();
             fullNameLabel = new System.Windows.Forms.Label();
@@ -89,10 +89,10 @@
             hideLabel = new System.Windows.Forms.Label();
             lastUpdatedLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.sQLVEDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.supplier_BindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.supplier_BindingNavigator)).BeginInit();
-            this.supplier_BindingNavigator.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.supplier_DataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.supplierBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.supplierBindingNavigator)).BeginInit();
+            this.supplierBindingNavigator.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.supplierDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // supplierIDLabel
@@ -190,14 +190,14 @@
             this.sQLVEDataSet.DataSetName = "SQLVEDataSet";
             this.sQLVEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // supplier_BindingSource
+            // supplierBindingSource
             // 
-            this.supplier_BindingSource.DataMember = "Supplier ";
-            this.supplier_BindingSource.DataSource = this.sQLVEDataSet;
+            this.supplierBindingSource.DataMember = "Supplier";
+            this.supplierBindingSource.DataSource = this.sQLVEDataSet;
             // 
-            // supplier_TableAdapter
+            // supplierTableAdapter
             // 
-            this.supplier_TableAdapter.ClearBeforeFill = true;
+            this.supplierTableAdapter.ClearBeforeFill = true;
             // 
             // tableAdapterManager
             // 
@@ -207,17 +207,19 @@
             this.tableAdapterManager.InventoryTableAdapter = null;
             this.tableAdapterManager.ProductScrappedDetailTableAdapter = null;
             this.tableAdapterManager.ProductScrappedTableAdapter = null;
-            this.tableAdapterManager.Supplier_TableAdapter = this.supplier_TableAdapter;
+            this.tableAdapterManager.ShipmentDetailTableAdapter = null;
+            this.tableAdapterManager.ShipmentTableAdapter = null;
+            this.tableAdapterManager.SupplierTableAdapter = this.supplierTableAdapter;
             this.tableAdapterManager.UpdateOrder = VoucherExpense.SQLVEDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
-            // supplier_BindingNavigator
+            // supplierBindingNavigator
             // 
-            this.supplier_BindingNavigator.AddNewItem = this.bindingNavigatorAddNewItem;
-            this.supplier_BindingNavigator.BindingSource = this.supplier_BindingSource;
-            this.supplier_BindingNavigator.CountItem = this.bindingNavigatorCountItem;
-            this.supplier_BindingNavigator.DeleteItem = this.bindingNavigatorDeleteItem;
-            this.supplier_BindingNavigator.Dock = System.Windows.Forms.DockStyle.None;
-            this.supplier_BindingNavigator.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.supplierBindingNavigator.AddNewItem = this.bindingNavigatorAddNewItem;
+            this.supplierBindingNavigator.BindingSource = this.supplierBindingSource;
+            this.supplierBindingNavigator.CountItem = this.bindingNavigatorCountItem;
+            this.supplierBindingNavigator.DeleteItem = this.bindingNavigatorDeleteItem;
+            this.supplierBindingNavigator.Dock = System.Windows.Forms.DockStyle.None;
+            this.supplierBindingNavigator.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bindingNavigatorMoveFirstItem,
             this.bindingNavigatorMovePreviousItem,
             this.bindingNavigatorSeparator,
@@ -229,17 +231,17 @@
             this.bindingNavigatorSeparator2,
             this.bindingNavigatorAddNewItem,
             this.bindingNavigatorDeleteItem,
-            this.supplier_BindingNavigatorSaveItem});
-            this.supplier_BindingNavigator.Location = new System.Drawing.Point(605, 6);
-            this.supplier_BindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
-            this.supplier_BindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
-            this.supplier_BindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
-            this.supplier_BindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
-            this.supplier_BindingNavigator.Name = "supplier_BindingNavigator";
-            this.supplier_BindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.supplier_BindingNavigator.Size = new System.Drawing.Size(275, 25);
-            this.supplier_BindingNavigator.TabIndex = 0;
-            this.supplier_BindingNavigator.Text = "bindingNavigator1";
+            this.supplierBindingNavigatorSaveItem});
+            this.supplierBindingNavigator.Location = new System.Drawing.Point(605, 6);
+            this.supplierBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
+            this.supplierBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
+            this.supplierBindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
+            this.supplierBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
+            this.supplierBindingNavigator.Name = "supplierBindingNavigator";
+            this.supplierBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
+            this.supplierBindingNavigator.Size = new System.Drawing.Size(275, 25);
+            this.supplierBindingNavigator.TabIndex = 0;
+            this.supplierBindingNavigator.Text = "bindingNavigator1";
             // 
             // bindingNavigatorAddNewItem
             // 
@@ -327,21 +329,20 @@
             this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
             this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
-            // supplier_BindingNavigatorSaveItem
+            // supplierBindingNavigatorSaveItem
             // 
-            this.supplier_BindingNavigatorSaveItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.supplier_BindingNavigatorSaveItem.Image = ((System.Drawing.Image)(resources.GetObject("supplier_BindingNavigatorSaveItem.Image")));
-            this.supplier_BindingNavigatorSaveItem.Name = "supplier_BindingNavigatorSaveItem";
-            this.supplier_BindingNavigatorSaveItem.Size = new System.Drawing.Size(23, 22);
-            this.supplier_BindingNavigatorSaveItem.Text = "保存数据";
-            this.supplier_BindingNavigatorSaveItem.Click += new System.EventHandler(this.supplier_BindingNavigatorSaveItem_Click);
+            this.supplierBindingNavigatorSaveItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.supplierBindingNavigatorSaveItem.Name = "supplierBindingNavigatorSaveItem";
+            this.supplierBindingNavigatorSaveItem.Size = new System.Drawing.Size(23, 22);
+            this.supplierBindingNavigatorSaveItem.Text = "保存数据";
+            this.supplierBindingNavigatorSaveItem.Click += new System.EventHandler(this.supplierBindingNavigatorSaveItem_Click);
             // 
-            // supplier_DataGridView
+            // supplierDataGridView
             // 
-            this.supplier_DataGridView.AutoGenerateColumns = false;
-            this.supplier_DataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
-            this.supplier_DataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.supplier_DataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.supplierDataGridView.AutoGenerateColumns = false;
+            this.supplierDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
+            this.supplierDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.supplierDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnSupplierID,
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3,
@@ -352,99 +353,13 @@
             this.dataGridViewTextBoxColumn8,
             this.dataGridViewTextBoxColumn9,
             this.dataGridViewCheckBoxColumn1});
-            this.supplier_DataGridView.DataSource = this.supplier_BindingSource;
-            this.supplier_DataGridView.Location = new System.Drawing.Point(-2, 1);
-            this.supplier_DataGridView.Name = "supplier_DataGridView";
-            this.supplier_DataGridView.RowTemplate.Height = 23;
-            this.supplier_DataGridView.Size = new System.Drawing.Size(572, 522);
-            this.supplier_DataGridView.TabIndex = 1;
-            this.supplier_DataGridView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.supplier_DataGridView_CellBeginEdit);
-            // 
-            // supplierIDTextBox
-            // 
-            this.supplierIDTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.supplierIDTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.supplierIDTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplier_BindingSource, "SupplierID", true));
-            this.supplierIDTextBox.Location = new System.Drawing.Point(675, 76);
-            this.supplierIDTextBox.Name = "supplierIDTextBox";
-            this.supplierIDTextBox.Size = new System.Drawing.Size(66, 20);
-            this.supplierIDTextBox.TabIndex = 3;
-            // 
-            // nameTextBox
-            // 
-            this.nameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplier_BindingSource, "Name", true));
-            this.nameTextBox.Location = new System.Drawing.Point(675, 112);
-            this.nameTextBox.Name = "nameTextBox";
-            this.nameTextBox.Size = new System.Drawing.Size(233, 27);
-            this.nameTextBox.TabIndex = 5;
-            // 
-            // fullNameTextBox
-            // 
-            this.fullNameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplier_BindingSource, "FullName", true));
-            this.fullNameTextBox.Location = new System.Drawing.Point(675, 156);
-            this.fullNameTextBox.Name = "fullNameTextBox";
-            this.fullNameTextBox.Size = new System.Drawing.Size(233, 27);
-            this.fullNameTextBox.TabIndex = 7;
-            // 
-            // contactPeopleTextBox
-            // 
-            this.contactPeopleTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplier_BindingSource, "ContactPeople", true));
-            this.contactPeopleTextBox.Location = new System.Drawing.Point(675, 198);
-            this.contactPeopleTextBox.Name = "contactPeopleTextBox";
-            this.contactPeopleTextBox.Size = new System.Drawing.Size(233, 27);
-            this.contactPeopleTextBox.TabIndex = 9;
-            // 
-            // telephoneTextBox
-            // 
-            this.telephoneTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplier_BindingSource, "Telephone", true));
-            this.telephoneTextBox.Location = new System.Drawing.Point(675, 238);
-            this.telephoneTextBox.Name = "telephoneTextBox";
-            this.telephoneTextBox.Size = new System.Drawing.Size(233, 27);
-            this.telephoneTextBox.TabIndex = 11;
-            // 
-            // gSMTextBox
-            // 
-            this.gSMTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplier_BindingSource, "GSM", true));
-            this.gSMTextBox.Location = new System.Drawing.Point(675, 271);
-            this.gSMTextBox.Name = "gSMTextBox";
-            this.gSMTextBox.Size = new System.Drawing.Size(233, 27);
-            this.gSMTextBox.TabIndex = 13;
-            // 
-            // addressTextBox
-            // 
-            this.addressTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplier_BindingSource, "Address", true));
-            this.addressTextBox.Location = new System.Drawing.Point(675, 307);
-            this.addressTextBox.Name = "addressTextBox";
-            this.addressTextBox.Size = new System.Drawing.Size(233, 27);
-            this.addressTextBox.TabIndex = 15;
-            // 
-            // noteTextBox
-            // 
-            this.noteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplier_BindingSource, "Note", true));
-            this.noteTextBox.Location = new System.Drawing.Point(675, 347);
-            this.noteTextBox.Multiline = true;
-            this.noteTextBox.Name = "noteTextBox";
-            this.noteTextBox.Size = new System.Drawing.Size(233, 61);
-            this.noteTextBox.TabIndex = 17;
-            // 
-            // hideCheckBox
-            // 
-            this.hideCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.supplier_BindingSource, "Hide", true));
-            this.hideCheckBox.Location = new System.Drawing.Point(675, 413);
-            this.hideCheckBox.Name = "hideCheckBox";
-            this.hideCheckBox.Size = new System.Drawing.Size(24, 24);
-            this.hideCheckBox.TabIndex = 19;
-            this.hideCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // lastUpdatedTextBox
-            // 
-            this.lastUpdatedTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.lastUpdatedTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lastUpdatedTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplier_BindingSource, "LastUpdated", true));
-            this.lastUpdatedTextBox.Location = new System.Drawing.Point(675, 456);
-            this.lastUpdatedTextBox.Name = "lastUpdatedTextBox";
-            this.lastUpdatedTextBox.Size = new System.Drawing.Size(231, 20);
-            this.lastUpdatedTextBox.TabIndex = 23;
+            this.supplierDataGridView.DataSource = this.supplierBindingSource;
+            this.supplierDataGridView.Location = new System.Drawing.Point(-2, 1);
+            this.supplierDataGridView.Name = "supplierDataGridView";
+            this.supplierDataGridView.RowTemplate.Height = 23;
+            this.supplierDataGridView.Size = new System.Drawing.Size(572, 522);
+            this.supplierDataGridView.TabIndex = 1;
+            this.supplierDataGridView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.supplierDataGridView_CellBeginEdit);
             // 
             // ColumnSupplierID
             // 
@@ -513,6 +428,92 @@
             this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
             this.dataGridViewCheckBoxColumn1.Width = 50;
             // 
+            // supplierIDTextBox
+            // 
+            this.supplierIDTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.supplierIDTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.supplierIDTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplierBindingSource, "SupplierID", true));
+            this.supplierIDTextBox.Location = new System.Drawing.Point(675, 76);
+            this.supplierIDTextBox.Name = "supplierIDTextBox";
+            this.supplierIDTextBox.Size = new System.Drawing.Size(66, 20);
+            this.supplierIDTextBox.TabIndex = 3;
+            // 
+            // nameTextBox
+            // 
+            this.nameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplierBindingSource, "Name", true));
+            this.nameTextBox.Location = new System.Drawing.Point(675, 112);
+            this.nameTextBox.Name = "nameTextBox";
+            this.nameTextBox.Size = new System.Drawing.Size(233, 27);
+            this.nameTextBox.TabIndex = 5;
+            // 
+            // fullNameTextBox
+            // 
+            this.fullNameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplierBindingSource, "FullName", true));
+            this.fullNameTextBox.Location = new System.Drawing.Point(675, 156);
+            this.fullNameTextBox.Name = "fullNameTextBox";
+            this.fullNameTextBox.Size = new System.Drawing.Size(233, 27);
+            this.fullNameTextBox.TabIndex = 7;
+            // 
+            // contactPeopleTextBox
+            // 
+            this.contactPeopleTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplierBindingSource, "ContactPeople", true));
+            this.contactPeopleTextBox.Location = new System.Drawing.Point(675, 198);
+            this.contactPeopleTextBox.Name = "contactPeopleTextBox";
+            this.contactPeopleTextBox.Size = new System.Drawing.Size(233, 27);
+            this.contactPeopleTextBox.TabIndex = 9;
+            // 
+            // telephoneTextBox
+            // 
+            this.telephoneTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplierBindingSource, "Telephone", true));
+            this.telephoneTextBox.Location = new System.Drawing.Point(675, 238);
+            this.telephoneTextBox.Name = "telephoneTextBox";
+            this.telephoneTextBox.Size = new System.Drawing.Size(233, 27);
+            this.telephoneTextBox.TabIndex = 11;
+            // 
+            // gSMTextBox
+            // 
+            this.gSMTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplierBindingSource, "GSM", true));
+            this.gSMTextBox.Location = new System.Drawing.Point(675, 271);
+            this.gSMTextBox.Name = "gSMTextBox";
+            this.gSMTextBox.Size = new System.Drawing.Size(233, 27);
+            this.gSMTextBox.TabIndex = 13;
+            // 
+            // addressTextBox
+            // 
+            this.addressTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplierBindingSource, "Address", true));
+            this.addressTextBox.Location = new System.Drawing.Point(675, 307);
+            this.addressTextBox.Name = "addressTextBox";
+            this.addressTextBox.Size = new System.Drawing.Size(233, 27);
+            this.addressTextBox.TabIndex = 15;
+            // 
+            // noteTextBox
+            // 
+            this.noteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplierBindingSource, "Note", true));
+            this.noteTextBox.Location = new System.Drawing.Point(675, 347);
+            this.noteTextBox.Multiline = true;
+            this.noteTextBox.Name = "noteTextBox";
+            this.noteTextBox.Size = new System.Drawing.Size(233, 61);
+            this.noteTextBox.TabIndex = 17;
+            // 
+            // hideCheckBox
+            // 
+            this.hideCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.supplierBindingSource, "Hide", true));
+            this.hideCheckBox.Location = new System.Drawing.Point(675, 413);
+            this.hideCheckBox.Name = "hideCheckBox";
+            this.hideCheckBox.Size = new System.Drawing.Size(24, 24);
+            this.hideCheckBox.TabIndex = 19;
+            this.hideCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // lastUpdatedTextBox
+            // 
+            this.lastUpdatedTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.lastUpdatedTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lastUpdatedTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplierBindingSource, "LastUpdated", true));
+            this.lastUpdatedTextBox.Location = new System.Drawing.Point(675, 456);
+            this.lastUpdatedTextBox.Name = "lastUpdatedTextBox";
+            this.lastUpdatedTextBox.Size = new System.Drawing.Size(231, 20);
+            this.lastUpdatedTextBox.TabIndex = 23;
+            // 
             // FormSupplier
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -539,19 +540,19 @@
             this.Controls.Add(this.nameTextBox);
             this.Controls.Add(supplierIDLabel);
             this.Controls.Add(this.supplierIDTextBox);
-            this.Controls.Add(this.supplier_DataGridView);
-            this.Controls.Add(this.supplier_BindingNavigator);
+            this.Controls.Add(this.supplierDataGridView);
+            this.Controls.Add(this.supplierBindingNavigator);
             this.Font = new System.Drawing.Font("PMingLiU", 12F);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormSupplier";
             this.Text = "客户";
-            this.Load += new System.EventHandler(this.FormSupplier_Load);
+            this.Load += new System.EventHandler(this.FormsupplierLoad);
             ((System.ComponentModel.ISupportInitialize)(this.sQLVEDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.supplier_BindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.supplier_BindingNavigator)).EndInit();
-            this.supplier_BindingNavigator.ResumeLayout(false);
-            this.supplier_BindingNavigator.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.supplier_DataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.supplierBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.supplierBindingNavigator)).EndInit();
+            this.supplierBindingNavigator.ResumeLayout(false);
+            this.supplierBindingNavigator.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.supplierDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -560,10 +561,10 @@
         #endregion
 
         private SQLVEDataSet sQLVEDataSet;
-        private System.Windows.Forms.BindingSource supplier_BindingSource;
-        private SQLVEDataSetTableAdapters.Supplier_TableAdapter supplier_TableAdapter;
+        private System.Windows.Forms.BindingSource supplierBindingSource;
+        private SQLVEDataSetTableAdapters.SupplierTableAdapter supplierTableAdapter;
         private SQLVEDataSetTableAdapters.TableAdapterManager tableAdapterManager;
-        private System.Windows.Forms.BindingNavigator supplier_BindingNavigator;
+        private System.Windows.Forms.BindingNavigator supplierBindingNavigator;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorDeleteItem;
@@ -575,8 +576,8 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveNextItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
-        private System.Windows.Forms.ToolStripButton supplier_BindingNavigatorSaveItem;
-        private System.Windows.Forms.DataGridView supplier_DataGridView;
+        private System.Windows.Forms.ToolStripButton supplierBindingNavigatorSaveItem;
+        private System.Windows.Forms.DataGridView supplierDataGridView;
         private System.Windows.Forms.TextBox supplierIDTextBox;
         private System.Windows.Forms.TextBox nameTextBox;
         private System.Windows.Forms.TextBox fullNameTextBox;

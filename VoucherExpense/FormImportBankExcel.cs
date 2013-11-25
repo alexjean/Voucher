@@ -310,12 +310,14 @@ namespace VoucherExpense
                 {
                     row.IsCredit = true;    // 定義反了
                     row.Money = d.Debt;
+                    
                 }
                 else
                 {
                     row.IsCredit = false;
                     row.Money = d.Credit;
                 }
+                
                 string s = d.Note;
                 if (s != null)
                 {
@@ -324,6 +326,7 @@ namespace VoucherExpense
                     else
                         row.Note = s.Substring(0, maxNoteLen);
                 }
+                row.TitleCode = "";///
                 table.Rows.Add(row);
             }
             if (table == null || table.Count == 0)

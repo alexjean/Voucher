@@ -16,29 +16,29 @@ namespace VoucherExpense
             InitializeComponent();
         }
 
-        private void supplier_BindingNavigatorSaveItem_Click(object sender, EventArgs e)
+        private void supplierBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
             this.Validate();
-            this.supplier_BindingSource.EndEdit();
+            this.supplierBindingSource.EndEdit();
             this.tableAdapterManager.UpdateAll(this.sQLVEDataSet);
 
         }
 
-        private void FormSupplier_Load(object sender, EventArgs e)
+        private void FormsupplierLoad(object sender, EventArgs e)
         {
             // TODO: 这行代码将数据加载到表“sQLVEDataSet.Supplier_”中。您可以根据需要移动或删除它。
-            this.supplier_TableAdapter.Fill(this.sQLVEDataSet.Supplier_);
+            this.supplierTableAdapter.Fill(this.sQLVEDataSet.Supplier);
 
         }
 
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
-            MyFunction.AddNewItem(supplier_DataGridView, "ColumnSupplierID", "SupplierID", sQLVEDataSet.Supplier_);
+            MyFunction.AddNewItem(supplierDataGridView, "ColumnSupplierID", "SupplierID", sQLVEDataSet.Supplier);
         }
 
-        private void supplier_DataGridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        private void supplierDataGridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
-            if (!MyFunction.ColumnIDGood(supplier_DataGridView, "ColumnSupplierID", e.RowIndex))
+            if (!MyFunction.ColumnIDGood(supplierDataGridView, "ColumnSupplierID", e.RowIndex))
                             e.Cancel = true;
         }       
 

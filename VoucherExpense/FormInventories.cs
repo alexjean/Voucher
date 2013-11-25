@@ -20,9 +20,10 @@ namespace VoucherExpense
         {
             this.Validate();
             this.inventoryBindingSource1.EndEdit();
-            inventoryDetailBindingSource1.EndEdit();
-            inventoryProductsBindingSource1.EndEdit();
-
+           // inventoryDetailBindingSource1.EndEdit();
+            //inventoryProductsBindingSource1.EndEdit();
+            fKInventoryDetailInventoryBindingSource.EndEdit();
+            fKInventoryProductsInventoryBindingSource.EndEdit();
             DateTime now = DateTime.Now;
             var detailTable = sQLVEDataSet.InventoryDetail.GetChanges() as SQLVEDataSet.InventoryDetailDataTable;
             if (detailTable != null)   // 把有更改的InventoryDetail填 Inventory.Lastupdated的值
@@ -153,6 +154,8 @@ namespace VoucherExpense
                 inventoryTableAdapter1.Fill(sQLVEDataSet.Inventory);
                 inventoryDetailTableAdapter1.Fill(sQLVEDataSet.InventoryDetail);
                 inventoryProductsTableAdapter1.Fill(sQLVEDataSet.InventoryProducts);
+                //fKInventoryDetailInventoryBindingSource.Sort = "ingredientid desc";
+                //ingredientBindingSource.Sort = "code desc";
             }
             catch (Exception ex)
             {
@@ -364,7 +367,9 @@ namespace VoucherExpense
                 MessageBox.Show("dgvInventories Row_Enter產生錯誤, 原因:" + ex.Message);
             }
             chBoxHide_CheckedChanged(null, null);
-            inventoryDetailBindingSource1.ResetBindings(false);
+            //inventoryDetailBindingSource1.ResetBindings(false);
+            fKInventoryDetailInventoryBindingSource.EndEdit();
+           
         }
 
         private void chBoxHide_CheckedChanged(object sender, EventArgs e)
@@ -482,9 +487,11 @@ namespace VoucherExpense
         {
             // 先把螢幕內容存回
             inventoryBindingSource1.EndEdit();
-            inventoryDetailBindingSource1.EndEdit();
+            //inventoryDetailBindingSource1.EndEdit();
 
-            inventoryProductsBindingSource1.EndEdit();
+            //inventoryProductsBindingSource1.EndEdit();
+            fKInventoryDetailInventoryBindingSource.EndEdit();
+            fKInventoryProductsInventoryBindingSource.EndEdit();
             try
             {
 
@@ -653,15 +660,20 @@ namespace VoucherExpense
                         var detailrows = inventory.GetInventoryDetailRows();
                         foreach (var item in detailrows)
                         {
-                            var ingredientrows=vEDataSet.Ingredient.Select("IngredientID="+item.IngredientID);
-                            if (item.IsStockVolumeNull()) continue;
+                            if (item.IsStockMoneyNull())//计算初值时，如果输入初值金额，就不估算，没有就估算
+                            {
+                                var ingredientrows = vEDataSet.Ingredient.Select("IngredientID=" + item.IngredientID);
+                                if (item.IsStockVolumeNull()) continue;
 
-                            if (ingredientrows==null)
-	                            {
-		                             continue;
-	                            }else{
+                                if (ingredientrows == null)
+                                {
+                                    continue;
+                                }
+                                else
+                                {
                                     item.StockMoney = (decimal)item.StockVolume * Convert.ToDecimal(ingredientrows[0][3]);
                                 }
+                            }
                             inventory.IngredientsCost += item.StockMoney;
                         }
                         
@@ -779,8 +791,10 @@ namespace VoucherExpense
                 curr.EvaluatedDate    = DateTime.Now;
 
                 inventoryBindingSource1.ResetBindings(false);
-                inventoryDetailBindingSource1.ResetBindings(false);
-                inventoryProductsBindingSource1.ResetBindings(false);
+                //inventoryDetailBindingSource1.ResetBindings(false);
+                //inventoryProductsBindingSource1.ResetBindings(false);
+                fKInventoryDetailInventoryBindingSource.EndEdit();
+                fKInventoryProductsInventoryBindingSource.EndEdit();
             }
             catch (Exception ex)
             {

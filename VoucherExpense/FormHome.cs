@@ -452,5 +452,10 @@ namespace VoucherExpense
         {
             PopupOrRun("FormSupplier", typeof(FormSupplier));
         }
+
+        private void 出货MenuItem_Click(object sender, EventArgs e)
+        {
+            PopupOrRun("FormShipment", typeof(FormShipment));
+        }
     }
 }

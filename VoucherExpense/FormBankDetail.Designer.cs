@@ -223,7 +223,7 @@
             this.bankDetailDataGridView.Name = "bankDetailDataGridView";
             this.bankDetailDataGridView.RowHeadersWidth = 25;
             this.bankDetailDataGridView.RowTemplate.Height = 24;
-            this.bankDetailDataGridView.Size = new System.Drawing.Size(908, 595);
+            this.bankDetailDataGridView.Size = new System.Drawing.Size(952, 595);
             this.bankDetailDataGridView.TabIndex = 1;
             this.bankDetailDataGridView.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.bankDetailDataGridView_CellMouseDoubleClick);
             this.bankDetailDataGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.bankDetailDataGridView_DataBindingComplete);
@@ -385,7 +385,7 @@
             this.dataGridViewTextBoxColumn5.HeaderText = "Note";
             this.dataGridViewTextBoxColumn5.MaxInputLength = 20;
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.Width = 200;
+            this.dataGridViewTextBoxColumn5.Width = 320;
             // 
             // columnTotal
             // 
@@ -403,7 +403,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(908, 625);
+            this.ClientSize = new System.Drawing.Size(952, 625);
             this.Controls.Add(this.checkBoxSort);
             this.Controls.Add(this.cbSelectBank);
             this.Controls.Add(this.comboBoxMonth);

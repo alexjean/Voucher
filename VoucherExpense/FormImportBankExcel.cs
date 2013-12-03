@@ -282,7 +282,8 @@ namespace VoucherExpense
 
             int count=0;
             VEDataSet.BankDetailDataTable table = new VEDataSet.BankDetailDataTable();
-            int maxNoteLen = 20;
+
+            int maxNoteLen = table.NoteColumn.MaxLength;
           
             foreach (CBankDetail d in m_ImportDataList)
             {

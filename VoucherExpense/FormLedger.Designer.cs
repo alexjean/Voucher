@@ -35,12 +35,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cLedgerTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cLedgerTableDataGridView = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnDebt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCredit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Sum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.OthersideAccTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.comboBoxMonth = new System.Windows.Forms.ComboBox();
             this.vEDataSet = new VoucherExpense.VEDataSet();
             this.accountingTitleBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -57,6 +51,12 @@
             this.vendorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.VendorTableAdapter();
             this.ingredientTableAdapter = new VoucherExpense.VEDataSetTableAdapters.IngredientTableAdapter();
             this.btnExport2Excel = new System.Windows.Forms.Button();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnDebt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCredit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Sum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.OthersideAccTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.cLedgerTableBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cLedgerTableDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
@@ -92,64 +92,9 @@
             this.cLedgerTableDataGridView.ReadOnly = true;
             this.cLedgerTableDataGridView.RowHeadersWidth = 25;
             this.cLedgerTableDataGridView.RowTemplate.Height = 24;
-            this.cLedgerTableDataGridView.Size = new System.Drawing.Size(950, 610);
+            this.cLedgerTableDataGridView.Size = new System.Drawing.Size(964, 610);
             this.cLedgerTableDataGridView.TabIndex = 1;
             this.cLedgerTableDataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.cLedgerTableDataGridView_CellFormatting);
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "Date";
-            this.dataGridViewTextBoxColumn1.HeaderText = "日期";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Width = 92;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "Note";
-            this.dataGridViewTextBoxColumn2.HeaderText = "摘要";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Width = 308;
-            // 
-            // ColumnDebt
-            // 
-            this.ColumnDebt.DataPropertyName = "Debt";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "N2";
-            this.ColumnDebt.DefaultCellStyle = dataGridViewCellStyle2;
-            this.ColumnDebt.HeaderText = "借方";
-            this.ColumnDebt.Name = "ColumnDebt";
-            this.ColumnDebt.ReadOnly = true;
-            // 
-            // ColumnCredit
-            // 
-            this.ColumnCredit.DataPropertyName = "Credit";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "N2";
-            this.ColumnCredit.DefaultCellStyle = dataGridViewCellStyle3;
-            this.ColumnCredit.HeaderText = "貸方";
-            this.ColumnCredit.Name = "ColumnCredit";
-            this.ColumnCredit.ReadOnly = true;
-            // 
-            // Sum
-            // 
-            this.Sum.DataPropertyName = "Sum";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.Format = "N2";
-            dataGridViewCellStyle4.NullValue = null;
-            this.Sum.DefaultCellStyle = dataGridViewCellStyle4;
-            this.Sum.HeaderText = "餘額";
-            this.Sum.Name = "Sum";
-            this.Sum.ReadOnly = true;
-            // 
-            // OthersideAccTitle
-            // 
-            this.OthersideAccTitle.DataPropertyName = "OthersideAccTitle";
-            this.OthersideAccTitle.HeaderText = "對沖科目";
-            this.OthersideAccTitle.Name = "OthersideAccTitle";
-            this.OthersideAccTitle.ReadOnly = true;
-            this.OthersideAccTitle.Width = 200;
             // 
             // comboBoxMonth
             // 
@@ -243,7 +188,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBar1.Location = new System.Drawing.Point(0, 605);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(950, 23);
+            this.progressBar1.Size = new System.Drawing.Size(964, 23);
             this.progressBar1.TabIndex = 82;
             this.progressBar1.Visible = false;
             // 
@@ -266,12 +211,67 @@
             this.btnExport2Excel.UseVisualStyleBackColor = true;
             this.btnExport2Excel.Click += new System.EventHandler(this.btnExport2Excel_Click);
             // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "Date";
+            this.dataGridViewTextBoxColumn1.HeaderText = "日期";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Width = 92;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "Note";
+            this.dataGridViewTextBoxColumn2.HeaderText = "摘要";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 320;
+            // 
+            // ColumnDebt
+            // 
+            this.ColumnDebt.DataPropertyName = "Debt";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Format = "N2";
+            this.ColumnDebt.DefaultCellStyle = dataGridViewCellStyle2;
+            this.ColumnDebt.HeaderText = "借方";
+            this.ColumnDebt.Name = "ColumnDebt";
+            this.ColumnDebt.ReadOnly = true;
+            // 
+            // ColumnCredit
+            // 
+            this.ColumnCredit.DataPropertyName = "Credit";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.Format = "N2";
+            this.ColumnCredit.DefaultCellStyle = dataGridViewCellStyle3;
+            this.ColumnCredit.HeaderText = "貸方";
+            this.ColumnCredit.Name = "ColumnCredit";
+            this.ColumnCredit.ReadOnly = true;
+            // 
+            // Sum
+            // 
+            this.Sum.DataPropertyName = "Sum";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle4.Format = "N2";
+            dataGridViewCellStyle4.NullValue = null;
+            this.Sum.DefaultCellStyle = dataGridViewCellStyle4;
+            this.Sum.HeaderText = "餘額";
+            this.Sum.Name = "Sum";
+            this.Sum.ReadOnly = true;
+            // 
+            // OthersideAccTitle
+            // 
+            this.OthersideAccTitle.DataPropertyName = "OthersideAccTitle";
+            this.OthersideAccTitle.HeaderText = "對沖科目";
+            this.OthersideAccTitle.Name = "OthersideAccTitle";
+            this.OthersideAccTitle.ReadOnly = true;
+            this.OthersideAccTitle.Width = 200;
+            // 
             // FormLedger
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(950, 640);
+            this.ClientSize = new System.Drawing.Size(964, 640);
             this.Controls.Add(this.btnExport2Excel);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.labelMessage);

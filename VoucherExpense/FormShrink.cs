@@ -16,105 +16,164 @@ namespace VoucherExpense
             InitializeComponent();                  
         }
 
-        DataTable shrinkDT =null;
+        public class TimeData
+        {
+            public DateTime InventoryTimeBefore { get; set; }
+            public DateTime InventoryTimeAfter { get; set; }
+            public string TimeStr { get { return (InventoryTimeBefore.ToString("MM/dd") + "-" + InventoryTimeAfter.ToString("MM/dd")); } }   
+            public decimal IngredientsBefore { get; set; }
+            public decimal IngredientsAfter { get; set; }
+            public decimal ProductBefore { get; set; }
+            public decimal ProductAfter { get; set; }
+            public decimal Stock { get; set; }
+            public decimal Scrap { get; set; }
+            public decimal Sold { get; set; }
+           // public decimal Shink { get  { return (IngredientsBefore + ProductBefore + Stock - IngredientsAfter - ProductAfter - Scrap - Sold); }  }
+            public decimal Shink { get; set; }
+        }
+        OrderAdapter m_OrderAdapter = new OrderAdapter();
+        
+        public class OrderAdapter : BakeryOrderSetTableAdapters.OrderTableAdapter
+        {
+            string SaveStr;
+            public int FillBySelectStr(BakeryOrderSet.OrderDataTable dataTable, string SelectStr)
+            {
+                SaveStr = base.CommandCollection[0].CommandText;
+                base.CommandCollection[0].CommandText = SelectStr;
+                int result = Fill(dataTable);
+                base.CommandCollection[0].CommandText = SaveStr;
+                return result;
+            }
+        }
+        OrderItemAdapter m_OrderItemAdapter =new OrderItemAdapter ();
+
+        public class OrderItemAdapter : BakeryOrderSetTableAdapters.OrderItemTableAdapter
+        {
+            string SaveStr;
+            public int FillBySelectStr(BakeryOrderSet.OrderItemDataTable dataTable, string SelectStr)
+            {
+                SaveStr = base.CommandCollection[0].CommandText;
+                base.CommandCollection[0].CommandText = SelectStr;
+                int result = Fill(dataTable);
+                base.CommandCollection[0].CommandText = SaveStr;
+                return result;
+            }
+        } 
+        SQLVEDataSet.InventoryDataTable Inventory = new SQLVEDataSet.InventoryDataTable();
+        BakeryOrderSet.ProductDataTable Product = new BakeryOrderSet.ProductDataTable();
+        SQLVEDataSet.ProductScrappedDataTable ProductScrapped = new SQLVEDataSet.ProductScrappedDataTable();
+        
         private void FormShrink_Load(object sender, EventArgs e)
         {
             // TODO: 这行代码将数据加载到表“sQLVEDataSet.Inventory”中。您可以根据需要移动或删除它。
-            loaddata("");
-        }
-         private void loaddata(string str)
-        {
-            shrinkDT = new DataTable("shrink");
-            shrinkDT.Columns.Add("序号",Type.GetType("System.Int32"));
-            shrinkDT.Columns[0].AutoIncrement = true;
-            shrinkDT.Columns[0].AutoIncrementSeed = 1;
-            shrinkDT.Columns[0].AutoIncrementStep = 1;
-            //shrinkDT.Columns.Add("DateTime", Type.GetType("System.String"));
-            //shrinkDT.Columns.Add("IngredientsCosta", Type.GetType("System.Int32"));
-            //shrinkDT.Columns.Add("IngredientsCostb", Type.GetType("System.Int32"));
-            //shrinkDT.Columns.Add("ProductsCosta", Type.GetType("System.Int32")); 
-            //shrinkDT.Columns.Add("ProductsCostb", Type.GetType("System.Int32"));
-            shrinkDT.Columns.Add("时间", Type.GetType("System.String"));
-            shrinkDT.Columns.Add("食材前库存", Type.GetType("System.Int32"));
-            shrinkDT.Columns.Add("食材后库存", Type.GetType("System.Int32"));
-            shrinkDT.Columns.Add("进货", Type.GetType("System.Int32"));
-            shrinkDT.Columns.Add("产品前库存", Type.GetType("System.Int32"));
-            shrinkDT.Columns.Add("产品后库存", Type.GetType("System.Int32"));
-            shrinkDT.Columns.Add("报废", Type.GetType("System.Int32"));
-            shrinkDT.Columns.Add("售出", Type.GetType("System.Int32"));
-            shrinkDT.Columns.Add("未知损耗", Type.GetType("System.Int32"));
-           // shrinkDT.Columns.Add("月份", Type.GetType("System.String"));
-            //导入数据
-            SQLVEDataSet.InventoryDataTable Inventory = new SQLVEDataSet.InventoryDataTable();
-            SQLVEDataSetTableAdapters.InventoryTableAdapter inventoryTableAdapter = new SQLVEDataSetTableAdapters.InventoryTableAdapter();
-            inventoryTableAdapter.Fill(Inventory);
-            SQLVEDataSet.ProductScrappedDataTable ProductScrapped = new SQLVEDataSet.ProductScrappedDataTable();
-            SQLVEDataSetTableAdapters.ProductScrappedTableAdapter ProductScrappedTableAdapter = new SQLVEDataSetTableAdapters.ProductScrappedTableAdapter();
-            ProductScrappedTableAdapter.Fill(ProductScrapped);
-            BakeryOrderSet.OrderDataTable Order = new BakeryOrderSet.OrderDataTable();
-            BakeryOrderSet.OrderItemDataTable OrderItem = new BakeryOrderSet.OrderItemDataTable();
-            BakeryOrderSet.ProductDataTable Product = new BakeryOrderSet.ProductDataTable();
-            BakeryOrderSetTableAdapters.OrderTableAdapter orderTableAdapter = new BakeryOrderSetTableAdapters.OrderTableAdapter();
-            orderTableAdapter.Fill(Order);
-            BakeryOrderSetTableAdapters.OrderItemTableAdapter orderItemTableAdapter = new BakeryOrderSetTableAdapters.OrderItemTableAdapter();
-            orderItemTableAdapter.Fill(OrderItem);
-            BakeryOrderSetTableAdapters.ProductTableAdapter productTableAdapter = new BakeryOrderSetTableAdapters.ProductTableAdapter();
-            productTableAdapter.Fill(Product);
-            var Inventoryrows =  Inventory.Select();
-
-            for (int i = 0; i < Inventoryrows.Length-1; i++)
+           // loaddata("");
+            try
             {
-                //计算时间段报废 
-                int baofei = 0;
-                var ProductScrappedrows = ProductScrapped.Select("ScrappedDate<='"+Inventory[i+1]["checkday"]+"'and ScrappedDate>'"+Inventory[i]["checkday"]+"'");//大于前期日期，小于等于本期日期的报废
-                for (int j = 0; j < ProductScrappedrows.Length; j++)
-                {
-                    baofei +=Convert.ToInt32( ProductScrappedrows[j]["IngredientsCost"]);//计算时间段内报废和
-                }
-                //计算售出
-                int shouchu = 0;
-                var ProductRow = Product.Select();
-                foreach (var item in ProductRow)
-                {
-                    var OrderItemrow = OrderItem.Select("ID>'" + Convert.ToDateTime(Inventoryrows[i]["checkday"]).ToString("MMdd") + "100000'" + "and ID<='" + Convert.ToDateTime(Inventoryrows[i+1]["checkday"]).ToString("MMdd") + "999999'"+"and ProductID='"+item["ProductID"]+"'");
-                    foreach (var item1 in OrderItemrow)
-	                {
-		                shouchu +=Convert.ToInt32(item1["No"])*Convert.ToInt32(item["Price"]);
-	                }
-                }     
-                shrinkDT.Rows.Add(new object[] { null, 
-                    Inventoryrows[i]["checkday"].ToString().Remove(10) + "- " + Inventoryrows[i + 1]["CheckDay"].ToString().Remove(10), //时间
-                    Inventoryrows[i]["IngredientsCost"],       //食材前库存
-                    Inventoryrows[i + 1]["IngredientsCost"],    //食材后库存
-                    (decimal) Inventoryrows[i + 1]["IngredientsLost"]+(decimal)Inventoryrows[i + 1]["IngredientsCost"]-(decimal)Inventoryrows[i]["IngredientsCost"]  ,  //进货= 后库存加损失减前库存
-                    Inventoryrows[i]["ProductsCost"],           //产品前库存
-                    Inventoryrows[i+1]["ProductsCost"],         //产品后库存
-                    baofei,                              //报废和 
-                    shouchu,                           //售出
-                    (decimal)Inventoryrows[i]["IngredientsCost"]+(decimal)Inventoryrows[i]["ProductsCost"]+((decimal) Inventoryrows[i + 1]["IngredientsLost"]+(decimal)Inventoryrows[i + 1]["IngredientsCost"]-(decimal)Inventoryrows[i]["IngredientsCost"] )-(decimal)Inventoryrows[i + 1]["IngredientsCost"]-(decimal)Inventoryrows[i+1]["ProductsCost"]-baofei-shouchu
-                   // ,Convert.ToInt32(((DateTime)Inventoryrows[i]["checkday"]).ToString("MM"))
-                });
-            }  
-            //DataTable dt=null;
-            dataGridView1.DataSource =shrinkDT;
-        }
+                SQLVEDataSetTableAdapters.InventoryTableAdapter inventoryTableAdapter = new SQLVEDataSetTableAdapters.InventoryTableAdapter();
+                inventoryTableAdapter.Fill(Inventory);
+                BakeryOrderSetTableAdapters.ProductTableAdapter productTableAdapter = new BakeryOrderSetTableAdapters.ProductTableAdapter();
+                productTableAdapter.Fill(Product);
+                SQLVEDataSetTableAdapters.ProductScrappedTableAdapter ProductScrappedTableAdapter = new SQLVEDataSetTableAdapters.ProductScrappedTableAdapter();
+                ProductScrappedTableAdapter.Fill(ProductScrapped);
 
-        private void comboBoxMonth_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (comboBoxMonth.SelectedIndex == 0)
-            {
-                return;
+                Inventorydata();
             }
-            else
+            catch (Exception ex)
             {
-                loaddata("月份='"+comboBoxMonth.SelectedIndex+"'");
+                MessageBox.Show(" " + ex.Message);
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            loaddata("");
+        private void Inventorydata()
+        { 
+            List<TimeData> data = new List<TimeData>();
+                        if (Inventory.Rows.Count < 2) return;
+                        for (int i = 0; i < Inventory.Rows.Count - 1; i++)
+                        {
+                            var inventoryrow = (SQLVEDataSet.InventoryRow)Inventory.Rows[i];
+                            var inventoryrow1 = (SQLVEDataSet.InventoryRow)Inventory.Rows[i + 1];
+                            var shink = new TimeData();
+                            shink.InventoryTimeBefore = inventoryrow.CheckDay;
+                            shink.InventoryTimeAfter = inventoryrow1.CheckDay;
+                            shink.IngredientsBefore = inventoryrow.IngredientsCost;
+                            shink.IngredientsAfter = inventoryrow1.IngredientsCost;
+                            shink.Stock = inventoryrow1.IngredientsCost + inventoryrow1.IngredientsLost - inventoryrow.IngredientsCost;
+                            shink.ProductBefore = inventoryrow.ProductsCost;
+                            shink.ProductAfter = inventoryrow1.ProductsCost;
+                            data.Add(shink);
+                        }
+                        formShrink_TimeDataDataGridView.DataSource = data;
         }
+
+     
+
+
+
+        private void formShrink_TimeDataDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+            DataGridViewRow dgvr = dgv.CurrentRow;
+            dgvr.Cells["Sold"].Value= selectdata((DateTime)dgvr.Cells["InventoryTimeBefore"].Value, (DateTime)dgvr.Cells["InventoryTimeAfter"].Value);
+            dgvr.Cells["Scrap"].Value=selectScrap((DateTime)dgvr.Cells["InventoryTimeBefore"].Value, (DateTime)dgvr.Cells["InventoryTimeAfter"].Value);
+            //(IngredientsBefore + ProductBefore + Stock - IngredientsAfter - ProductAfter - Scrap - Sold); 
+            dgvr.Cells["Shink"].Value = (decimal)dgvr.Cells["IngredientsBefore"].Value + (decimal)dgvr.Cells["ProductBefore"].Value + (decimal)dgvr.Cells["Stock"].Value - (decimal)dgvr.Cells["IngredientsAfter"].Value - (decimal)dgvr.Cells["ProductAfter"].Value - (decimal)dgvr.Cells["Scrap"].Value - (decimal)dgvr.Cells["Sold"].Value;
+        }
+       Dictionary<int, decimal> m_ProductDic = new Dictionary<int, decimal>();
+
+       decimal selectdata(DateTime time1, DateTime time2)
+       {
+           if (m_ProductDic.Count==0)
+           {
+               foreach (var pd in Product)
+               {
+                   if (pd.Code>0)
+                   {
+                        m_ProductDic.Add(pd.ProductID, pd.EvaluatedCost);
+                   }          
+               }
+           }
+
+           TimeData timedata = new TimeData();
+           decimal costtemp = 0;
+           string sqlstr = "Where INT(ID/1000000)>" + Convert.ToInt32(time1.ToString("MMdd")) + " and INT(ID/1000000)<=" + Convert.ToInt32(time2.ToString("MMdd"));
+           BakeryOrderSet.OrderDataTable Order = new BakeryOrderSet.OrderDataTable();
+           BakeryOrderSet.OrderItemDataTable OrderItem = new BakeryOrderSet.OrderItemDataTable();
+           m_OrderAdapter.FillBySelectStr(Order, "Select * From [Order] " + sqlstr + " and oldid=0 And deleted=false Order by ID");
+           m_OrderItemAdapter.FillBySelectStr(OrderItem, "Select * From [OrderItem] " + sqlstr + " Order by ID");
+           progressBar1.Visible = true;
+           progressBar1.Maximum = Order.Count + 1;
+           int i = 0;
+           foreach (BakeryOrderSet.OrderRow item in Order)
+           {
+               progressBar1.Value = i++;
+               var orderItem = from row in OrderItem where (row.ID == item.ID) select row;
+               foreach (var item1 in orderItem)
+//               var rows = item.GetOrderItemRows();
+//               foreach (BakeryOrderSet.OrderItemRow item1 in rows)
+               {
+                   decimal cost = 0;
+                   if (m_ProductDic.TryGetValue(item1.ProductID,out cost))
+                   {
+                           costtemp += cost * item1.No;
+                   }
+               }
+           }
+           progressBar1.Visible = false;
+
+           return costtemp;
+       }
+       decimal selectScrap(DateTime time1, DateTime time2)
+       {
+           decimal baofei = 0;
+           var ProductScrappeds = from row in ProductScrapped where (row.ScrappedDate <= time2 && row.ScrappedDate > time1) select row;
+           foreach (var productScrappedsrow in ProductScrappeds)
+           {
+               baofei += productScrappedsrow.IngredientsCost;
+           }
+           return baofei;
+       }
+
+
     }
 }
  

@@ -9,7 +9,7 @@
     <Shape ID="DesignTable:AccountingTitle" ZOrder="39" X="376" Y="63" Height="177" Width="152" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="122" />
     <Shape ID="DesignTable:Expense" ZOrder="30" X="26" Y="12" Height="419" Width="188" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="23" SplitterPosition="364" />
     <Shape ID="DesignTable:Header" ZOrder="13" X="1303" Y="302" Height="188" Width="197" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="23" OldDataTableHeight="0" SplitterPosition="133" />
-    <Shape ID="DesignTable:Operator" ZOrder="17" X="72" Y="548" Height="335" Width="208" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="280" />
+    <Shape ID="DesignTable:Operator" ZOrder="17" X="72" Y="548" Height="305" Width="206" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="254" />
     <Shape ID="DesignTable:Vendor" ZOrder="29" X="1042" Y="321" Height="315" Width="155" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="260" />
     <Shape ID="DesignTable:Voucher" ZOrder="28" X="723" Y="445" Height="342" Width="211" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="283" />
     <Shape ID="DesignTable:VoucherDetail" ZOrder="16" X="355" Y="375" Height="227" Width="213" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="28" OldDataTableHeight="0" SplitterPosition="168" />
@@ -61,7 +61,7 @@
     <Connector ID="DesignRelation:OperatorVoucher" ZOrder="42" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>280</X>
+          <X>278</X>
           <Y>702</Y>
         </Point>
         <Point>

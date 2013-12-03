@@ -80,6 +80,7 @@ namespace VoucherExpense
             排班表MenuItem.Enabled = Op.EditOnDuty;
             資料卡MenuItem.Enabled = Op.EditSalary;
             合併傳票MenuItem.Enabled = Op.LockAccVoucher;
+            出货MenuItem.Enabled = Op.EditShipment||Op.LockShipment;
 
             if (MyFunction.LockAll)
                 i.DropDownItems["鎖定資料庫MenuItem"].Text = "解鎖資料庫";

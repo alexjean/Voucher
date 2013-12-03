@@ -59,10 +59,12 @@
             this.EditProduct = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewCheckBoxColumn5 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewCheckBoxColumn6 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.EditShipment = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewCheckBoxColumn8 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.EditInventory = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.RevenueOperate = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.LockVoucher = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.LockShipment = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.LockExpense = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.LockAccVoucher = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.LockInventory = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -134,8 +136,8 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 24);
-            this.bindingNavigatorCountItem.Text = "/{0}";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(32, 24);
+            this.bindingNavigatorCountItem.Text = "/ {0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
             // bindingNavigatorMoveFirstItem
@@ -228,10 +230,12 @@
             this.EditProduct,
             this.dataGridViewCheckBoxColumn5,
             this.dataGridViewCheckBoxColumn6,
+            this.EditShipment,
             this.dataGridViewCheckBoxColumn8,
             this.EditInventory,
             this.RevenueOperate,
             this.LockVoucher,
+            this.LockShipment,
             this.LockExpense,
             this.LockAccVoucher,
             this.LockInventory,
@@ -337,6 +341,13 @@
             this.dataGridViewCheckBoxColumn6.Name = "dataGridViewCheckBoxColumn6";
             this.dataGridViewCheckBoxColumn6.Width = 32;
             // 
+            // EditShipment
+            // 
+            this.EditShipment.DataPropertyName = "EditShipment";
+            this.EditShipment.HeaderText = "出货";
+            this.EditShipment.Name = "EditShipment";
+            this.EditShipment.Width = 32;
+            // 
             // dataGridViewCheckBoxColumn8
             // 
             this.dataGridViewCheckBoxColumn8.DataPropertyName = "EditExpense";
@@ -364,6 +375,13 @@
             this.LockVoucher.HeaderText = "核進貨";
             this.LockVoucher.Name = "LockVoucher";
             this.LockVoucher.Width = 32;
+            // 
+            // LockShipment
+            // 
+            this.LockShipment.DataPropertyName = "LockShipment";
+            this.LockShipment.HeaderText = "核出货";
+            this.LockShipment.Name = "LockShipment";
+            this.LockShipment.Width = 32;
             // 
             // LockExpense
             // 
@@ -453,7 +471,7 @@
             this.ClientSize = new System.Drawing.Size(951, 510);
             this.Controls.Add(this.operatorDataGridView);
             this.Controls.Add(this.operatorBindingNavigator);
-            this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormOperator";
             this.Text = "帳號權限";
@@ -498,10 +516,12 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn EditProduct;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn5;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn6;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn EditShipment;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn8;
         private System.Windows.Forms.DataGridViewCheckBoxColumn EditInventory;
         private System.Windows.Forms.DataGridViewCheckBoxColumn RevenueOperate;
         private System.Windows.Forms.DataGridViewCheckBoxColumn LockVoucher;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn LockShipment;
         private System.Windows.Forms.DataGridViewCheckBoxColumn LockExpense;
         private System.Windows.Forms.DataGridViewCheckBoxColumn LockAccVoucher;
         private System.Windows.Forms.DataGridViewCheckBoxColumn LockInventory;

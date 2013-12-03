@@ -671,6 +671,7 @@
     <None Include="Properties\DataSources\CSaleItem.datasource" />
     <None Include="Properties\DataSources\CVendor.datasource" />
     <None Include="Properties\DataSources\FormMonthlyPay.CMonthlyPay.datasource" />
+    <None Include="Properties\DataSources\FormShrink.TimeData.datasource" />
     <None Include="Properties\DataSources\TitleSetup.datasource" />
     <None Include="Properties\DataSources\Voucher.TitleCode.datasource" />
     <None Include="Properties\Settings.settings">
@@ -756,6 +757,7 @@
     <None Include="NavBar_Back.png" />
     <None Include="Resources\LogoVI.jpg" />
     <None Include="Resources\Company_Back.jpg" />
+    <None Include="NavBar_Back1.png" />
     <Content Include="Resources\Requests.png" />
     <Content Include="VoucherExpense.mdb" />
   </ItemGroup>

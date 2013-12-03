@@ -29,6 +29,7 @@ namespace VoucherExpense
         {
             try
             {
+                vendorTableAdapter.Connection = MapPath.VEConnection;
                 this.vendorTableAdapter.Fill(this.veDataSet1.Vendor);
             }
             catch (Exception ex)

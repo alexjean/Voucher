@@ -27,9 +27,12 @@ namespace VoucherExpense
             public decimal ProductAfter { get; set; }
             public decimal Stock { get; set; }
             public decimal Scrap { get; set; }
+            public decimal PerScrap { get; set; }
             public decimal Sold { get; set; }
+            public decimal PerSold { get; set; }
            // public decimal Shink { get  { return (IngredientsBefore + ProductBefore + Stock - IngredientsAfter - ProductAfter - Scrap - Sold); }  }
-            public decimal Shink { get; set; }
+            public decimal Shrink { get; set; }
+            public decimal PerShrink { get; set; }
         }
         OrderAdapter m_OrderAdapter = new OrderAdapter();
         
@@ -93,12 +96,19 @@ namespace VoucherExpense
                             var inventoryrow = (SQLVEDataSet.InventoryRow)Inventory.Rows[i];
                             var inventoryrow1 = (SQLVEDataSet.InventoryRow)Inventory.Rows[i + 1];
                             var shink = new TimeData();
+                            if(!inventoryrow.IsCheckDayNull())
                             shink.InventoryTimeBefore = inventoryrow.CheckDay;
+                            if(!inventoryrow1.IsCheckDayNull())
                             shink.InventoryTimeAfter = inventoryrow1.CheckDay;
+                            if(!inventoryrow.IsIngredientsCostNull())
                             shink.IngredientsBefore = inventoryrow.IngredientsCost;
+                            if (!inventoryrow1.IsIngredientsCostNull() || !inventoryrow1.IsIngredientsCostNull() || !inventoryrow.IsIngredientsCostNull())
                             shink.IngredientsAfter = inventoryrow1.IngredientsCost;
+                            if(!inventoryrow1.IsIngredientsLostNull())
                             shink.Stock = inventoryrow1.IngredientsCost + inventoryrow1.IngredientsLost - inventoryrow.IngredientsCost;
+                            if(!inventoryrow.IsProductsCostNull())
                             shink.ProductBefore = inventoryrow.ProductsCost;
+                            if(!inventoryrow1.IsProductsCostNull())
                             shink.ProductAfter = inventoryrow1.ProductsCost;
                             data.Add(shink);
                         }
@@ -111,12 +121,35 @@ namespace VoucherExpense
 
         private void formShrink_TimeDataDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridView dgv = (DataGridView)sender;
-            DataGridViewRow dgvr = dgv.CurrentRow;
-            dgvr.Cells["Sold"].Value= selectdata((DateTime)dgvr.Cells["InventoryTimeBefore"].Value, (DateTime)dgvr.Cells["InventoryTimeAfter"].Value);
-            dgvr.Cells["Scrap"].Value=selectScrap((DateTime)dgvr.Cells["InventoryTimeBefore"].Value, (DateTime)dgvr.Cells["InventoryTimeAfter"].Value);
-            //(IngredientsBefore + ProductBefore + Stock - IngredientsAfter - ProductAfter - Scrap - Sold); 
-            dgvr.Cells["Shink"].Value = (decimal)dgvr.Cells["IngredientsBefore"].Value + (decimal)dgvr.Cells["ProductBefore"].Value + (decimal)dgvr.Cells["Stock"].Value - (decimal)dgvr.Cells["IngredientsAfter"].Value - (decimal)dgvr.Cells["ProductAfter"].Value - (decimal)dgvr.Cells["Scrap"].Value - (decimal)dgvr.Cells["Sold"].Value;
+            try
+            {
+                DataGridView dgv = (DataGridView)sender;
+                DataGridViewRow dgvr = dgv.CurrentRow;
+                dgvr.Cells["Sold"].Value = selectdata((DateTime)dgvr.Cells["InventoryTimeBefore"].Value, (DateTime)dgvr.Cells["InventoryTimeAfter"].Value);
+                dgvr.Cells["Scrap"].Value = selectScrap((DateTime)dgvr.Cells["InventoryTimeBefore"].Value, (DateTime)dgvr.Cells["InventoryTimeAfter"].Value);
+                //(IngredientsBefore + ProductBefore + Stock - IngredientsAfter - ProductAfter - Scrap - Sold); 
+                dgvr.Cells["Shrink"].Value = (decimal)dgvr.Cells["IngredientsBefore"].Value + (decimal)dgvr.Cells["ProductBefore"].Value + (decimal)dgvr.Cells["Stock"].Value - (decimal)dgvr.Cells["IngredientsAfter"].Value - (decimal)dgvr.Cells["ProductAfter"].Value - (decimal)dgvr.Cells["Scrap"].Value - (decimal)dgvr.Cells["Sold"].Value;
+                dgvr.Cells["PerShrink"].Value = (decimal)dgvr.Cells["Shrink"].Value / ((decimal)dgvr.Cells["IngredientsBefore"].Value + (decimal)dgvr.Cells["ProductBefore"].Value + (decimal)dgvr.Cells["Stock"].Value - (decimal)dgvr.Cells["IngredientsAfter"].Value - (decimal)dgvr.Cells["ProductAfter"].Value);
+                dgvr.Cells["PerSold"].Value = (decimal)dgvr.Cells["Sold"].Value / ((decimal)dgvr.Cells["IngredientsBefore"].Value + (decimal)dgvr.Cells["ProductBefore"].Value + (decimal)dgvr.Cells["Stock"].Value - (decimal)dgvr.Cells["IngredientsAfter"].Value - (decimal)dgvr.Cells["ProductAfter"].Value);
+                dgvr.Cells["PerScrap"].Value = (decimal)dgvr.Cells["Scrap"].Value / ((decimal)dgvr.Cells["IngredientsBefore"].Value + (decimal)dgvr.Cells["ProductBefore"].Value + (decimal)dgvr.Cells["Stock"].Value - (decimal)dgvr.Cells["IngredientsAfter"].Value - (decimal)dgvr.Cells["ProductAfter"].Value);
+                dgvr.Cells["Shrink"].Style.SelectionBackColor = Color.Lime;
+                dgvr.Cells["Shrink"].Style.BackColor = Color.Lime;
+                dgvr.Cells["Sold"].Style.SelectionBackColor = Color.Lime;
+                dgvr.Cells["Sold"].Style.BackColor = Color.Lime;
+                dgvr.Cells["Scrap"].Style.SelectionBackColor = Color.Lime;
+                dgvr.Cells["Scrap"].Style.BackColor = Color.Lime;
+                dgvr.Cells["PerShrink"].Style.SelectionBackColor = Color.Lime;
+                dgvr.Cells["PerShrink"].Style.BackColor = Color.Lime;
+                dgvr.Cells["PerSold"].Style.SelectionBackColor = Color.Lime;
+                dgvr.Cells["PerSold"].Style.BackColor = Color.Lime;
+                dgvr.Cells["PerScrap"].Style.SelectionBackColor = Color.Lime;
+                dgvr.Cells["PerScrap"].Style.BackColor = Color.Lime;
+                 
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("数据计算时出现错误" + ex.ToString());
+            }
         }
        Dictionary<int, decimal> m_ProductDic = new Dictionary<int, decimal>();
 
@@ -138,18 +171,27 @@ namespace VoucherExpense
            string sqlstr = "Where INT(ID/1000000)>" + Convert.ToInt32(time1.ToString("MMdd")) + " and INT(ID/1000000)<=" + Convert.ToInt32(time2.ToString("MMdd"));
            BakeryOrderSet.OrderDataTable Order = new BakeryOrderSet.OrderDataTable();
            BakeryOrderSet.OrderItemDataTable OrderItem = new BakeryOrderSet.OrderItemDataTable();
-           m_OrderAdapter.FillBySelectStr(Order, "Select * From [Order] " + sqlstr + " and oldid=0 And deleted=false Order by ID");
-           m_OrderItemAdapter.FillBySelectStr(OrderItem, "Select * From [OrderItem] " + sqlstr + " Order by ID");
+           //m_OrderAdapter.FillBySelectStr(Order, "Select * From [Order] " + sqlstr + " and oldid=0 And deleted=false Order by ID");
+           //m_OrderItemAdapter.FillBySelectStr(OrderItem, "Select * From [OrderItem] " + sqlstr + " Order by ID");
+           bakeryOrderSet1.OrderItem.Clear();
+           bakeryOrderSet1.Order.Clear();
+           m_OrderAdapter.FillBySelectStr(bakeryOrderSet1.Order, "Select * From [Order] " + sqlstr + " Order by ID");
+           m_OrderItemAdapter.FillBySelectStr(bakeryOrderSet1.OrderItem, "Select * From [OrderItem] " + sqlstr + " Order by ID");
            progressBar1.Visible = true;
-           progressBar1.Maximum = Order.Count + 1;
+           progressBar1.Maximum = bakeryOrderSet1.Order.Count + 1;
            int i = 0;
-           foreach (BakeryOrderSet.OrderRow item in Order)
+           foreach (BakeryOrderSet.OrderRow item in bakeryOrderSet1.Order)
            {
                progressBar1.Value = i++;
-               var orderItem = from row in OrderItem where (row.ID == item.ID) select row;
-               foreach (var item1 in orderItem)
-//               var rows = item.GetOrderItemRows();
-//               foreach (BakeryOrderSet.OrderItemRow item1 in rows)
+               if (item.Deleted)
+                   continue;
+               if (item.OldID != 0)
+                   continue;
+
+               //var orderItem = from row in OrderItem where (row.ID == item.ID) select row;
+               //foreach (var item1 in orderItem)
+               var rows = item.GetOrderItemRows();
+               foreach (BakeryOrderSet.OrderItemRow item1 in rows)
                {
                    decimal cost = 0;
                    if (m_ProductDic.TryGetValue(item1.ProductID,out cost))

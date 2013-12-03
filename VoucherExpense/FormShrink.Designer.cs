@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -39,9 +40,13 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             this.formShrink_TimeDataDataGridView = new System.Windows.Forms.DataGridView();
             this.formShrink_TimeDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.bakeryOrderSet1 = new VoucherExpense.BakeryOrderSet();
             this.InventoryTimeBefore = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.InventoryTimeAfter = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -51,10 +56,14 @@
             this.ProductAfter = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Stock = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Scrap = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PerScrap = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Sold = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Shink = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PerSold = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Shrink = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PerShrink = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.formShrink_TimeDataDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.formShrink_TimeDataBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet1)).BeginInit();
             this.SuspendLayout();
             // 
             // formShrink_TimeDataDataGridView
@@ -80,15 +89,22 @@
             this.ProductAfter,
             this.Stock,
             this.Scrap,
+            this.PerScrap,
             this.Sold,
-            this.Shink});
+            this.PerSold,
+            this.Shrink,
+            this.PerShrink});
             this.formShrink_TimeDataDataGridView.DataSource = this.formShrink_TimeDataBindingSource;
-            this.formShrink_TimeDataDataGridView.Location = new System.Drawing.Point(-1, 3);
+            this.formShrink_TimeDataDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.formShrink_TimeDataDataGridView.Location = new System.Drawing.Point(0, 0);
             this.formShrink_TimeDataDataGridView.Name = "formShrink_TimeDataDataGridView";
             this.formShrink_TimeDataDataGridView.RowHeadersVisible = false;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.formShrink_TimeDataDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle14;
             this.formShrink_TimeDataDataGridView.RowTemplate.Height = 23;
             this.formShrink_TimeDataDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.formShrink_TimeDataDataGridView.Size = new System.Drawing.Size(1197, 722);
+            this.formShrink_TimeDataDataGridView.Size = new System.Drawing.Size(1256, 729);
             this.formShrink_TimeDataDataGridView.TabIndex = 6;
             this.formShrink_TimeDataDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.formShrink_TimeDataDataGridView_CellDoubleClick);
             // 
@@ -102,9 +118,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBar1.Location = new System.Drawing.Point(-1, 683);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(1197, 23);
+            this.progressBar1.Size = new System.Drawing.Size(1255, 23);
             this.progressBar1.TabIndex = 7;
             this.progressBar1.Visible = false;
+            // 
+            // bakeryOrderSet1
+            // 
+            this.bakeryOrderSet1.DataSetName = "BakeryOrderSet";
+            this.bakeryOrderSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // InventoryTimeBefore
             // 
@@ -123,12 +144,12 @@
             // dataGridViewTextBoxColumn3
             // 
             this.dataGridViewTextBoxColumn3.DataPropertyName = "TimeStr";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewTextBoxColumn3.HeaderText = "盘点时间段";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.Width = 150;
+            this.dataGridViewTextBoxColumn3.Width = 110;
             // 
             // IngredientsBefore
             // 
@@ -185,31 +206,63 @@
             this.Scrap.HeaderText = "报废试吃";
             this.Scrap.Name = "Scrap";
             // 
+            // PerScrap
+            // 
+            this.PerScrap.DataPropertyName = "PerScrap";
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle9.Format = "N4";
+            dataGridViewCellStyle9.NullValue = null;
+            this.PerScrap.DefaultCellStyle = dataGridViewCellStyle9;
+            this.PerScrap.HeaderText = "%";
+            this.PerScrap.Name = "PerScrap";
+            this.PerScrap.Width = 80;
+            // 
             // Sold
             // 
             this.Sold.DataPropertyName = "Sold";
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle9.Format = "N2";
-            this.Sold.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle10.Format = "N2";
+            this.Sold.DefaultCellStyle = dataGridViewCellStyle10;
             this.Sold.HeaderText = "售出成本";
             this.Sold.Name = "Sold";
             // 
-            // Shink
+            // PerSold
             // 
-            this.Shink.DataPropertyName = "Shink";
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle10.Format = "N2";
-            this.Shink.DefaultCellStyle = dataGridViewCellStyle10;
-            this.Shink.HeaderText = "未知损耗";
-            this.Shink.Name = "Shink";
-            this.Shink.ReadOnly = true;
+            this.PerSold.DataPropertyName = "PerSold";
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle11.Format = "N4";
+            dataGridViewCellStyle11.NullValue = null;
+            this.PerSold.DefaultCellStyle = dataGridViewCellStyle11;
+            this.PerSold.HeaderText = "%";
+            this.PerSold.Name = "PerSold";
+            this.PerSold.Width = 80;
+            // 
+            // Shrink
+            // 
+            this.Shrink.DataPropertyName = "Shrink";
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle12.Format = "N2";
+            this.Shrink.DefaultCellStyle = dataGridViewCellStyle12;
+            this.Shrink.HeaderText = "未知损耗";
+            this.Shrink.Name = "Shrink";
+            this.Shrink.ReadOnly = true;
+            // 
+            // PerShrink
+            // 
+            this.PerShrink.DataPropertyName = "PerShrink";
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle13.Format = "N4";
+            this.PerShrink.DefaultCellStyle = dataGridViewCellStyle13;
+            this.PerShrink.HeaderText = "%";
+            this.PerShrink.Name = "PerShrink";
+            this.PerShrink.Width = 80;
             // 
             // FormShrink
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(1198, 729);
+            this.ClientSize = new System.Drawing.Size(1256, 729);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.formShrink_TimeDataDataGridView);
             this.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
@@ -219,6 +272,7 @@
             this.Load += new System.EventHandler(this.FormShrink_Load);
             ((System.ComponentModel.ISupportInitialize)(this.formShrink_TimeDataDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.formShrink_TimeDataBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -228,6 +282,7 @@
         private System.Windows.Forms.BindingSource formShrink_TimeDataBindingSource;
         private System.Windows.Forms.DataGridView formShrink_TimeDataDataGridView;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private BakeryOrderSet bakeryOrderSet1;
         private System.Windows.Forms.DataGridViewTextBoxColumn InventoryTimeBefore;
         private System.Windows.Forms.DataGridViewTextBoxColumn InventoryTimeAfter;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
@@ -237,8 +292,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductAfter;
         private System.Windows.Forms.DataGridViewTextBoxColumn Stock;
         private System.Windows.Forms.DataGridViewTextBoxColumn Scrap;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PerScrap;
         private System.Windows.Forms.DataGridViewTextBoxColumn Sold;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Shink;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PerSold;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Shrink;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PerShrink;
 
 
 

@@ -323,6 +323,8 @@ namespace VoucherExpense
             {
                 sql = "Where (INT(ID/1000000)>=" + DateStr(month, from)
                     + " And INT(ID/1000000)<=" + DateStr(month, to) + ")";
+                bakeryOrderSet.OrderItem.Rows.Clear();
+                bakeryOrderSet.Order.Rows.Clear();
                 m_OrderAdapter.FillBySelectStr(bakeryOrderSet.Order, "Select * From [Order] " + sql + " Order by ID");
                 m_OrderItemAdapter.FillBySelectStr(bakeryOrderSet.OrderItem, "Select * From [OrderItem] " + sql);
             }
@@ -403,7 +405,7 @@ namespace VoucherExpense
                 progressBar1.Increment(1);
                 Application.DoEvents();
             }
-            decimal sum = 0,totalCost=0;
+            decimal sum = 0,totalCost=0,totalVolume=0;
             foreach (CSaleItem item in m_SaleList)
             {
                 item.TotalEvaluatedCost = Math.Round(item.Volume * item.EvaluatedCost, 1);
@@ -411,11 +413,13 @@ namespace VoucherExpense
                 else                 item.GrossProfitRate = 0;
                 sum += item.Total;
                 totalCost+=item.TotalEvaluatedCost;
+                totalVolume += item.Volume;
             }
             progressBar1.Visible = false;
             labelMessage.Visible = false;
             labelTotal.Text = sum.ToString("N1");
             labelCost.Text = totalCost.ToString("N1");
+            labelTotalVolume.Text = totalVolume.ToString("N0");
             if (sum==0m)
                 labelGrossProfitRate.Text="";
             else

@@ -114,6 +114,8 @@ namespace VoucherExpense
             int MaxID = 0;
             try
             {
+                bakeryOrderSet.OrderItem.Rows.Clear();
+                bakeryOrderSet.Order.Rows.Clear();
                 m_OrderTableAdapter.FillBySelectStr(bakeryOrderSet.Order, "Select * From [Order] " + sql + " Order by ID");
                 m_OrderItemTableAdapter.FillBySelectStr(bakeryOrderSet.OrderItem, "Select * From [OrderItem] " + sql);
                 foreach (BakeryOrderSet.OrderRow R in bakeryOrderSet.Order.Rows)

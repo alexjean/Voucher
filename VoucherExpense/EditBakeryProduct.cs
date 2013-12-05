@@ -22,6 +22,8 @@ namespace VoucherExpense
         private string m_PhotoPath;
         private void EditBakeryProduct_Load(object sender, EventArgs e)
         {
+            // TODO: 这行代码将数据加载到表“vEDataSet.AccountingTitle”中。您可以根据需要移动或删除它。
+            this.accountingTitleTableAdapter.Fill(this.vEDataSet.AccountingTitle);
             productTableAdapter.Connection  = MapPath.BakeryConnection;
             orderItemTableAdapter.Connection= MapPath.BakeryConnection;
             orderTableAdapter.Connection    = MapPath.BakeryConnection;

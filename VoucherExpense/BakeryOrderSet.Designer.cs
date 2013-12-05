@@ -2458,6 +2458,8 @@ namespace VoucherExpense {
             
             private global::System.Data.DataColumn columnUnit;
             
+            private global::System.Data.DataColumn columnTitleCode;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ProductDataTable() {
@@ -2565,6 +2567,14 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn TitleCodeColumn {
+                get {
+                    return this.columnTitleCode;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2600,7 +2610,7 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ProductRow AddProductRow(int ProductID, int Code, short Class, string Name, double Price, short MenuX, short MenuY, decimal EvaluatedCost, string Unit) {
+            public ProductRow AddProductRow(int ProductID, int Code, short Class, string Name, double Price, short MenuX, short MenuY, decimal EvaluatedCost, string Unit, string TitleCode) {
                 ProductRow rowProductRow = ((ProductRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ProductID,
@@ -2611,7 +2621,8 @@ namespace VoucherExpense {
                         MenuX,
                         MenuY,
                         EvaluatedCost,
-                        Unit};
+                        Unit,
+                        TitleCode};
                 rowProductRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowProductRow);
                 return rowProductRow;
@@ -2650,6 +2661,7 @@ namespace VoucherExpense {
                 this.columnMenuY = base.Columns["MenuY"];
                 this.columnEvaluatedCost = base.Columns["EvaluatedCost"];
                 this.columnUnit = base.Columns["Unit"];
+                this.columnTitleCode = base.Columns["TitleCode"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2673,12 +2685,15 @@ namespace VoucherExpense {
                 base.Columns.Add(this.columnEvaluatedCost);
                 this.columnUnit = new global::System.Data.DataColumn("Unit", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnUnit);
+                this.columnTitleCode = new global::System.Data.DataColumn("TitleCode", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTitleCode);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnProductID}, true));
                 this.columnProductID.AllowDBNull = false;
                 this.columnProductID.Unique = true;
                 this.columnName.MaxLength = 50;
                 this.columnUnit.MaxLength = 5;
+                this.columnTitleCode.MaxLength = 10;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3877,6 +3892,22 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string TitleCode {
+                get {
+                    try {
+                        return ((string)(this[this.tableProduct.TitleCodeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("表“Product”中列“TitleCode”的值为 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tableProduct.TitleCodeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsCodeNull() {
                 return this.IsNull(this.tableProduct.CodeColumn);
             }
@@ -3969,6 +4000,18 @@ namespace VoucherExpense {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetUnitNull() {
                 this[this.tableProduct.UnitColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsTitleCodeNull() {
+                return this.IsNull(this.tableProduct.TitleCodeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetTitleCodeNull() {
+                this[this.tableProduct.TitleCodeColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -6986,10 +7029,11 @@ namespace VoucherExpense.BakeryOrderSetTableAdapters {
             tableMapping.ColumnMappings.Add("MenuY", "MenuY");
             tableMapping.ColumnMappings.Add("EvaluatedCost", "EvaluatedCost");
             tableMapping.ColumnMappings.Add("Unit", "Unit");
+            tableMapping.ColumnMappings.Add("TitleCode", "TitleCode");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `Product` WHERE ((`ProductID` = ?) AND ((? = 1 AND `Code` IS NULL) OR (`Code` = ?)) AND ((? = 1 AND `Class` IS NULL) OR (`Class` = ?)) AND ((? = 1 AND `Name` IS NULL) OR (`Name` = ?)) AND ((? = 1 AND `Price` IS NULL) OR (`Price` = ?)) AND ((? = 1 AND `MenuX` IS NULL) OR (`MenuX` = ?)) AND ((? = 1 AND `MenuY` IS NULL) OR (`MenuY` = ?)) AND ((? = 1 AND `EvaluatedCost` IS NULL) OR (`EvaluatedCost` = ?)) AND ((? = 1 AND `Unit` IS NULL) OR (`Unit` = ?)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `Product` WHERE ((`ProductID` = ?) AND ((? = 1 AND `Code` IS NULL) OR (`Code` = ?)) AND ((? = 1 AND `Class` IS NULL) OR (`Class` = ?)) AND ((? = 1 AND `Name` IS NULL) OR (`Name` = ?)) AND ((? = 1 AND `Price` IS NULL) OR (`Price` = ?)) AND ((? = 1 AND `MenuX` IS NULL) OR (`MenuX` = ?)) AND ((? = 1 AND `MenuY` IS NULL) OR (`MenuY` = ?)) AND ((? = 1 AND `EvaluatedCost` IS NULL) OR (`EvaluatedCost` = ?)) AND ((? = 1 AND `Unit` IS NULL) OR (`Unit` = ?)) AND ((? = 1 AND `TitleCode` IS NULL) OR (`TitleCode` = ?)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ProductID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ProductID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Code", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Code", global::System.Data.DataRowVersion.Original, true, null));
@@ -7008,10 +7052,13 @@ namespace VoucherExpense.BakeryOrderSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_EvaluatedCost", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EvaluatedCost", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Unit", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Unit", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Unit", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Unit", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_TitleCode", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TitleCode", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_TitleCode", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TitleCode", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
             this._adapter.InsertCommand.CommandText = "INSERT INTO `Product` (`ProductID`, `Code`, `Class`, `Name`, `Price`, `MenuX`, `M" +
-                "enuY`, `EvaluatedCost`, `Unit`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "enuY`, `EvaluatedCost`, `Unit`, `TitleCode`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, " +
+                "?)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ProductID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ProductID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Code", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Code", global::System.Data.DataRowVersion.Current, false, null));
@@ -7022,9 +7069,10 @@ namespace VoucherExpense.BakeryOrderSetTableAdapters {
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("MenuY", global::System.Data.OleDb.OleDbType.SmallInt, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MenuY", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("EvaluatedCost", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EvaluatedCost", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Unit", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Unit", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("TitleCode", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TitleCode", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE `Product` SET `ProductID` = ?, `Code` = ?, `Class` = ?, `Name` = ?, `Price` = ?, `MenuX` = ?, `MenuY` = ?, `EvaluatedCost` = ?, `Unit` = ? WHERE ((`ProductID` = ?) AND ((? = 1 AND `Code` IS NULL) OR (`Code` = ?)) AND ((? = 1 AND `Class` IS NULL) OR (`Class` = ?)) AND ((? = 1 AND `Name` IS NULL) OR (`Name` = ?)) AND ((? = 1 AND `Price` IS NULL) OR (`Price` = ?)) AND ((? = 1 AND `MenuX` IS NULL) OR (`MenuX` = ?)) AND ((? = 1 AND `MenuY` IS NULL) OR (`MenuY` = ?)) AND ((? = 1 AND `EvaluatedCost` IS NULL) OR (`EvaluatedCost` = ?)) AND ((? = 1 AND `Unit` IS NULL) OR (`Unit` = ?)))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE `Product` SET `ProductID` = ?, `Code` = ?, `Class` = ?, `Name` = ?, `Price` = ?, `MenuX` = ?, `MenuY` = ?, `EvaluatedCost` = ?, `Unit` = ?, `TitleCode` = ? WHERE ((`ProductID` = ?) AND ((? = 1 AND `Code` IS NULL) OR (`Code` = ?)) AND ((? = 1 AND `Class` IS NULL) OR (`Class` = ?)) AND ((? = 1 AND `Name` IS NULL) OR (`Name` = ?)) AND ((? = 1 AND `Price` IS NULL) OR (`Price` = ?)) AND ((? = 1 AND `MenuX` IS NULL) OR (`MenuX` = ?)) AND ((? = 1 AND `MenuY` IS NULL) OR (`MenuY` = ?)) AND ((? = 1 AND `EvaluatedCost` IS NULL) OR (`EvaluatedCost` = ?)) AND ((? = 1 AND `Unit` IS NULL) OR (`Unit` = ?)) AND ((? = 1 AND `TitleCode` IS NULL) OR (`TitleCode` = ?)))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ProductID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ProductID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Code", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Code", global::System.Data.DataRowVersion.Current, false, null));
@@ -7035,6 +7083,7 @@ namespace VoucherExpense.BakeryOrderSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("MenuY", global::System.Data.OleDb.OleDbType.SmallInt, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MenuY", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("EvaluatedCost", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EvaluatedCost", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Unit", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Unit", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("TitleCode", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TitleCode", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ProductID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ProductID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Code", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Code", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Code", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Code", global::System.Data.DataRowVersion.Original, false, null));
@@ -7052,6 +7101,8 @@ namespace VoucherExpense.BakeryOrderSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_EvaluatedCost", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EvaluatedCost", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Unit", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Unit", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Unit", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Unit", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_TitleCode", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TitleCode", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_TitleCode", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TitleCode", global::System.Data.DataRowVersion.Original, false, null));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7067,8 +7118,8 @@ namespace VoucherExpense.BakeryOrderSetTableAdapters {
             this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ProductID, Code, Class, Name, Price, MenuX, MenuY, EvaluatedCost, Unit FRO" +
-                "M Product";
+            this._commandCollection[0].CommandText = "SELECT ProductID, Code, Class, Name, Price, MenuX, MenuY, EvaluatedCost, Unit, Ti" +
+                "tleCode FROM Product";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -7129,7 +7180,7 @@ namespace VoucherExpense.BakeryOrderSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_ProductID, global::System.Nullable<int> Original_Code, global::System.Nullable<short> Original_Class, string Original_Name, global::System.Nullable<double> Original_Price, global::System.Nullable<short> Original_MenuX, global::System.Nullable<short> Original_MenuY, global::System.Nullable<decimal> Original_EvaluatedCost, string Original_Unit) {
+        public virtual int Delete(int Original_ProductID, global::System.Nullable<int> Original_Code, global::System.Nullable<short> Original_Class, string Original_Name, global::System.Nullable<double> Original_Price, global::System.Nullable<short> Original_MenuX, global::System.Nullable<short> Original_MenuY, global::System.Nullable<decimal> Original_EvaluatedCost, string Original_Unit, string Original_TitleCode) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ProductID));
             if ((Original_Code.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
@@ -7195,6 +7246,14 @@ namespace VoucherExpense.BakeryOrderSetTableAdapters {
                 this.Adapter.DeleteCommand.Parameters[15].Value = ((object)(0));
                 this.Adapter.DeleteCommand.Parameters[16].Value = ((string)(Original_Unit));
             }
+            if ((Original_TitleCode == null)) {
+                this.Adapter.DeleteCommand.Parameters[17].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[18].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[17].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[18].Value = ((string)(Original_TitleCode));
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -7215,7 +7274,7 @@ namespace VoucherExpense.BakeryOrderSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int ProductID, global::System.Nullable<int> Code, global::System.Nullable<short> Class, string Name, global::System.Nullable<double> Price, global::System.Nullable<short> MenuX, global::System.Nullable<short> MenuY, global::System.Nullable<decimal> EvaluatedCost, string Unit) {
+        public virtual int Insert(int ProductID, global::System.Nullable<int> Code, global::System.Nullable<short> Class, string Name, global::System.Nullable<double> Price, global::System.Nullable<short> MenuX, global::System.Nullable<short> MenuY, global::System.Nullable<decimal> EvaluatedCost, string Unit, string TitleCode) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(ProductID));
             if ((Code.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[1].Value = ((int)(Code.Value));
@@ -7265,6 +7324,12 @@ namespace VoucherExpense.BakeryOrderSetTableAdapters {
             else {
                 this.Adapter.InsertCommand.Parameters[8].Value = ((string)(Unit));
             }
+            if ((TitleCode == null)) {
+                this.Adapter.InsertCommand.Parameters[9].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[9].Value = ((string)(TitleCode));
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -7295,6 +7360,7 @@ namespace VoucherExpense.BakeryOrderSetTableAdapters {
                     global::System.Nullable<short> MenuY, 
                     global::System.Nullable<decimal> EvaluatedCost, 
                     string Unit, 
+                    string TitleCode, 
                     int Original_ProductID, 
                     global::System.Nullable<int> Original_Code, 
                     global::System.Nullable<short> Original_Class, 
@@ -7303,7 +7369,8 @@ namespace VoucherExpense.BakeryOrderSetTableAdapters {
                     global::System.Nullable<short> Original_MenuX, 
                     global::System.Nullable<short> Original_MenuY, 
                     global::System.Nullable<decimal> Original_EvaluatedCost, 
-                    string Original_Unit) {
+                    string Original_Unit, 
+                    string Original_TitleCode) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(ProductID));
             if ((Code.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(Code.Value));
@@ -7353,70 +7420,84 @@ namespace VoucherExpense.BakeryOrderSetTableAdapters {
             else {
                 this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(Unit));
             }
-            this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_ProductID));
-            if ((Original_Code.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((int)(Original_Code.Value));
+            if ((TitleCode == null)) {
+                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((string)(TitleCode));
+            }
+            this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(Original_ProductID));
+            if ((Original_Code.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((int)(Original_Code.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
             }
             if ((Original_Class.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((short)(Original_Class.Value));
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[14].Value = ((short)(Original_Class.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[13].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[14].Value = global::System.DBNull.Value;
             }
             if ((Original_Name == null)) {
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[15].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[16].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[15].Value = ((string)(Original_Name));
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[16].Value = ((string)(Original_Name));
             }
             if ((Original_Price.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[17].Value = ((double)(Original_Price.Value));
+                this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[18].Value = ((double)(Original_Price.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[17].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[18].Value = global::System.DBNull.Value;
             }
             if ((Original_MenuX.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[19].Value = ((short)(Original_MenuX.Value));
+                this.Adapter.UpdateCommand.Parameters[19].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[20].Value = ((short)(Original_MenuX.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[19].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[19].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[20].Value = global::System.DBNull.Value;
             }
             if ((Original_MenuY.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[20].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[21].Value = ((short)(Original_MenuY.Value));
+                this.Adapter.UpdateCommand.Parameters[21].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[22].Value = ((short)(Original_MenuY.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[20].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[21].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[21].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[22].Value = global::System.DBNull.Value;
             }
             if ((Original_EvaluatedCost.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[22].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[23].Value = ((decimal)(Original_EvaluatedCost.Value));
+                this.Adapter.UpdateCommand.Parameters[23].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[24].Value = ((decimal)(Original_EvaluatedCost.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[22].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[23].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[23].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[24].Value = global::System.DBNull.Value;
             }
             if ((Original_Unit == null)) {
-                this.Adapter.UpdateCommand.Parameters[24].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[25].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[25].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[26].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[24].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[25].Value = ((string)(Original_Unit));
+                this.Adapter.UpdateCommand.Parameters[25].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[26].Value = ((string)(Original_Unit));
+            }
+            if ((Original_TitleCode == null)) {
+                this.Adapter.UpdateCommand.Parameters[27].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[28].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[27].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[28].Value = ((string)(Original_TitleCode));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -7447,6 +7528,7 @@ namespace VoucherExpense.BakeryOrderSetTableAdapters {
                     global::System.Nullable<short> MenuY, 
                     global::System.Nullable<decimal> EvaluatedCost, 
                     string Unit, 
+                    string TitleCode, 
                     int Original_ProductID, 
                     global::System.Nullable<int> Original_Code, 
                     global::System.Nullable<short> Original_Class, 
@@ -7455,8 +7537,9 @@ namespace VoucherExpense.BakeryOrderSetTableAdapters {
                     global::System.Nullable<short> Original_MenuX, 
                     global::System.Nullable<short> Original_MenuY, 
                     global::System.Nullable<decimal> Original_EvaluatedCost, 
-                    string Original_Unit) {
-            return this.Update(Original_ProductID, Code, Class, Name, Price, MenuX, MenuY, EvaluatedCost, Unit, Original_ProductID, Original_Code, Original_Class, Original_Name, Original_Price, Original_MenuX, Original_MenuY, Original_EvaluatedCost, Original_Unit);
+                    string Original_Unit, 
+                    string Original_TitleCode) {
+            return this.Update(Original_ProductID, Code, Class, Name, Price, MenuX, MenuY, EvaluatedCost, Unit, TitleCode, Original_ProductID, Original_Code, Original_Class, Original_Name, Original_Price, Original_MenuX, Original_MenuY, Original_EvaluatedCost, Original_Unit, Original_TitleCode);
         }
     }
     

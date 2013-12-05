@@ -115,10 +115,6 @@ namespace VoucherExpense
                         formShrink_TimeDataDataGridView.DataSource = data;
         }
 
-     
-
-
-
         private void formShrink_TimeDataDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             try

@@ -136,6 +136,11 @@
     </Compile>
     <Compile Include="AccTitleList.cs" />
     <Compile Include="Class\BakeryConfig.cs" />
+    <Compile Include="DamaiDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DamaiDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="EditBakeryMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -655,6 +660,17 @@
     <None Include="BasicDataSet.xss">
       <DependentUpon>BasicDataSet.xsd</DependentUpon>
     </None>
+    <None Include="DamaiDataSet.xsc">
+      <DependentUpon>DamaiDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="DamaiDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DamaiDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DamaiDataSet.xss">
+      <DependentUpon>DamaiDataSet.xsd</DependentUpon>
+    </None>
     <None Include="EmptyBasic.gz" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\DataSources\BakeryOrderBrowse.HourStatics.datasource" />
@@ -757,7 +773,6 @@
     <None Include="NavBar_Back.png" />
     <None Include="Resources\LogoVI.jpg" />
     <None Include="Resources\Company_Back.jpg" />
-    <None Include="NavBar_Back1.png" />
     <Content Include="Resources\Requests.png" />
     <Content Include="VoucherExpense.mdb" />
   </ItemGroup>

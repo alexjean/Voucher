@@ -35,7 +35,7 @@
             this.operatorBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.operatorBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.vEDataSet = new VoucherExpense.VEDataSet();
+            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
@@ -46,8 +46,8 @@
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.operatorBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
+            this.vEDataSet = new VoucherExpense.VEDataSet();
             this.operatorDataGridView = new System.Windows.Forms.DataGridView();
-            this.operatorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
             this.OperatorID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StopAccount = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.LoginName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -76,9 +76,12 @@
             this.dataGridViewCheckBoxColumn9 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.IsSuper = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.operatorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
+            this.operatorSQLAdapter = new VoucherExpense.DamaiDataSetTableAdapters.OperatorTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingNavigator)).BeginInit();
             this.operatorBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorDataGridView)).BeginInit();
             this.SuspendLayout();
@@ -126,18 +129,18 @@
             // operatorBindingSource
             // 
             this.operatorBindingSource.DataMember = "Operator";
-            this.operatorBindingSource.DataSource = this.vEDataSet;
+            this.operatorBindingSource.DataSource = this.damaiDataSet;
             // 
-            // vEDataSet
+            // damaiDataSet
             // 
-            this.vEDataSet.DataSetName = "VEDataSet";
-            this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.damaiDataSet.DataSetName = "DamaiDataSet";
+            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(32, 24);
-            this.bindingNavigatorCountItem.Text = "/ {0}";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 24);
+            this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
             // bindingNavigatorMoveFirstItem
@@ -209,6 +212,11 @@
             this.operatorBindingNavigatorSaveItem.Text = "儲存資料";
             this.operatorBindingNavigatorSaveItem.Click += new System.EventHandler(this.operatorBindingNavigatorSaveItem_Click);
             // 
+            // vEDataSet
+            // 
+            this.vEDataSet.DataSetName = "VEDataSet";
+            this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // operatorDataGridView
             // 
             this.operatorDataGridView.AllowUserToAddRows = false;
@@ -257,10 +265,6 @@
             this.operatorDataGridView.TabIndex = 1;
             this.operatorDataGridView.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.operatorDataGridView_CellValidating);
             this.operatorDataGridView.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.operatorDataGridView_RowValidating);
-            // 
-            // operatorTableAdapter
-            // 
-            this.operatorTableAdapter.ClearBeforeFill = true;
             // 
             // OperatorID
             // 
@@ -464,6 +468,14 @@
             this.dataGridViewTextBoxColumn6.ReadOnly = true;
             this.dataGridViewTextBoxColumn6.Width = 76;
             // 
+            // operatorTableAdapter
+            // 
+            this.operatorTableAdapter.ClearBeforeFill = true;
+            // 
+            // operatorSQLAdapter
+            // 
+            this.operatorSQLAdapter.ClearBeforeFill = true;
+            // 
             // FormOperator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -471,7 +483,7 @@
             this.ClientSize = new System.Drawing.Size(951, 510);
             this.Controls.Add(this.operatorDataGridView);
             this.Controls.Add(this.operatorBindingNavigator);
-            this.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormOperator";
             this.Text = "帳號權限";
@@ -480,6 +492,7 @@
             this.operatorBindingNavigator.ResumeLayout(false);
             this.operatorBindingNavigator.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorDataGridView)).EndInit();
             this.ResumeLayout(false);
@@ -533,5 +546,7 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn9;
         private System.Windows.Forms.DataGridViewCheckBoxColumn IsSuper;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private DamaiDataSet damaiDataSet;
+        private DamaiDataSetTableAdapters.OperatorTableAdapter operatorSQLAdapter;
     }
 }

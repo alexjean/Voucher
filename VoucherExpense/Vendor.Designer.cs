@@ -74,6 +74,8 @@
             this.hideCheckBox = new System.Windows.Forms.CheckBox();
             this.vendorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.VendorTableAdapter();
             this.lastUpdatedTextBox = new System.Windows.Forms.TextBox();
+            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
+            this.vendorSQLAdapter = new VoucherExpense.DamaiDataSetTableAdapters.VendorTableAdapter();
             vendorIDLabel = new System.Windows.Forms.Label();
             nameLabel = new System.Windows.Forms.Label();
             contactPeopleLabel = new System.Windows.Forms.Label();
@@ -89,6 +91,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.vendorBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vendorDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // vendorIDLabel
@@ -217,7 +220,7 @@
             this.vendorBindingNavigator.Name = "vendorBindingNavigator";
             this.vendorBindingNavigator.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.vendorBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.vendorBindingNavigator.Size = new System.Drawing.Size(276, 27);
+            this.vendorBindingNavigator.Size = new System.Drawing.Size(273, 27);
             this.vendorBindingNavigator.TabIndex = 0;
             this.vendorBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -234,7 +237,7 @@
             // vendorBindingSource
             // 
             this.vendorBindingSource.DataMember = "Vendor";
-            this.vendorBindingSource.DataSource = this.vEDataSet;
+            this.vendorBindingSource.DataSource = this.damaiDataSet;
             // 
             // vEDataSet
             // 
@@ -244,8 +247,8 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(32, 24);
-            this.bindingNavigatorCountItem.Text = "/ {0}";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 24);
+            this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
             // bindingNavigatorMoveFirstItem
@@ -330,7 +333,7 @@
             this.vendorDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -501,6 +504,15 @@
             this.lastUpdatedTextBox.Size = new System.Drawing.Size(213, 20);
             this.lastUpdatedTextBox.TabIndex = 17;
             // 
+            // damaiDataSet
+            // 
+            this.damaiDataSet.DataSetName = "DamaiDataSet";
+            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // vendorSQLAdapter
+            // 
+            this.vendorSQLAdapter.ClearBeforeFill = true;
+            // 
             // Vendor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -529,7 +541,7 @@
             this.Controls.Add(lastUpdatedLabel);
             this.Controls.Add(this.vendorDataGridView);
             this.Controls.Add(this.vendorBindingNavigator);
-            this.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Vendor";
             this.Text = "供應商";
@@ -540,6 +552,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.vendorBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vendorDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -579,6 +592,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewCheckBoxColumn HideBox;
         private System.Windows.Forms.TextBox lastUpdatedTextBox;
+        private DamaiDataSet damaiDataSet;
+        private DamaiDataSetTableAdapters.VendorTableAdapter vendorSQLAdapter;
 
     }
 }

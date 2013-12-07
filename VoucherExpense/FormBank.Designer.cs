@@ -33,7 +33,7 @@
             this.bankAccountBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bankAccountBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.vEDataSet = new VoucherExpense.VEDataSet();
+            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
@@ -44,6 +44,7 @@
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.bankAccountBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
+            this.vEDataSet = new VoucherExpense.VEDataSet();
             this.dgvBankAccount = new System.Windows.Forms.DataGridView();
             this.columnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -58,9 +59,12 @@
             this.bankAccountTableAdapter = new VoucherExpense.VEDataSetTableAdapters.BankAccountTableAdapter();
             this.accountingTitleTableAdapter = new VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter();
             this.label2 = new System.Windows.Forms.Label();
+            this.bankAccountSQLAdapter = new VoucherExpense.DamaiDataSetTableAdapters.BankAccountTableAdapter();
+            this.accountingTitleSQLAdapter = new VoucherExpense.DamaiDataSetTableAdapters.AccountingTitleTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.bankAccountBindingNavigator)).BeginInit();
             this.bankAccountBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bankAccountBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBankAccount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource1)).BeginInit();
@@ -109,18 +113,18 @@
             // bankAccountBindingSource
             // 
             this.bankAccountBindingSource.DataMember = "BankAccount";
-            this.bankAccountBindingSource.DataSource = this.vEDataSet;
+            this.bankAccountBindingSource.DataSource = this.damaiDataSet;
             // 
-            // vEDataSet
+            // damaiDataSet
             // 
-            this.vEDataSet.DataSetName = "VEDataSet";
-            this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.damaiDataSet.DataSetName = "DamaiDataSet";
+            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(38, 22);
-            this.bindingNavigatorCountItem.Text = "of {0}";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 22);
+            this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
             // bindingNavigatorMoveFirstItem
@@ -191,6 +195,11 @@
             this.bankAccountBindingNavigatorSaveItem.Size = new System.Drawing.Size(23, 22);
             this.bankAccountBindingNavigatorSaveItem.Text = "儲存資料";
             this.bankAccountBindingNavigatorSaveItem.Click += new System.EventHandler(this.bankAccountBindingNavigatorSaveItem_Click);
+            // 
+            // vEDataSet
+            // 
+            this.vEDataSet.DataSetName = "VEDataSet";
+            this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // dgvBankAccount
             // 
@@ -263,7 +272,7 @@
             // accountingTitleBindingSource
             // 
             this.accountingTitleBindingSource.DataMember = "AccountingTitle";
-            this.accountingTitleBindingSource.DataSource = this.vEDataSet;
+            this.accountingTitleBindingSource.DataSource = this.damaiDataSet;
             // 
             // dataGridViewTextBoxColumn3
             // 
@@ -314,6 +323,14 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "帳號1是給零用金的特殊帳戶";
             // 
+            // bankAccountSQLAdapter
+            // 
+            this.bankAccountSQLAdapter.ClearBeforeFill = true;
+            // 
+            // accountingTitleSQLAdapter
+            // 
+            this.accountingTitleSQLAdapter.ClearBeforeFill = true;
+            // 
             // FormBank
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -334,6 +351,7 @@
             this.bankAccountBindingNavigator.ResumeLayout(false);
             this.bankAccountBindingNavigator.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bankAccountBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBankAccount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource1)).EndInit();
@@ -373,5 +391,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.Label label2;
+        private DamaiDataSet damaiDataSet;
+        private DamaiDataSetTableAdapters.BankAccountTableAdapter bankAccountSQLAdapter;
+        private DamaiDataSetTableAdapters.AccountingTitleTableAdapter accountingTitleSQLAdapter;
     }
 }

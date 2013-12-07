@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AccountingTitle));
             this.accountingTitleBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.vEDataSet = new VoucherExpense.VEDataSet();
@@ -80,6 +80,8 @@
             this.labelMessage = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
+            this.accountingTitleSQLAdapter = new VoucherExpense.DamaiDataSetTableAdapters.AccountingTitleTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleDataGridView)).BeginInit();
@@ -88,12 +90,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingNavigator)).BeginInit();
             this.accountingTitleBindingNavigator.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // accountingTitleBindingSource
             // 
             this.accountingTitleBindingSource.DataMember = "AccountingTitle";
-            this.accountingTitleBindingSource.DataSource = this.vEDataSet;
+            this.accountingTitleBindingSource.DataSource = this.damaiDataSet;
             this.accountingTitleBindingSource.Sort = "TitleCode";
             // 
             // vEDataSet
@@ -106,20 +109,20 @@
             this.accountingTitleDataGridView.AllowUserToAddRows = false;
             this.accountingTitleDataGridView.AllowUserToDeleteRows = false;
             this.accountingTitleDataGridView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
-            this.accountingTitleDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.Azure;
+            this.accountingTitleDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle10;
             this.accountingTitleDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.accountingTitleDataGridView.AutoGenerateColumns = false;
             this.accountingTitleDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.accountingTitleDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.accountingTitleDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.accountingTitleDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.TitleCode,
             this.columnTitleName,
@@ -144,8 +147,8 @@
             // TitleCode
             // 
             this.TitleCode.DataPropertyName = "TitleCode";
-            dataGridViewCellStyle3.NullValue = null;
-            this.TitleCode.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle12.NullValue = null;
+            this.TitleCode.DefaultCellStyle = dataGridViewCellStyle12;
             this.TitleCode.HeaderText = "科目編號";
             this.TitleCode.Name = "TitleCode";
             this.TitleCode.Width = 80;
@@ -160,19 +163,19 @@
             // InitialValue
             // 
             this.InitialValue.DataPropertyName = "InitialValue";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.Format = "N2";
-            dataGridViewCellStyle4.NullValue = null;
-            this.InitialValue.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle13.Format = "N2";
+            dataGridViewCellStyle13.NullValue = null;
+            this.InitialValue.DefaultCellStyle = dataGridViewCellStyle13;
             this.InitialValue.HeaderText = "期初值";
             this.InitialValue.Name = "InitialValue";
             // 
             // dataGridViewTextBoxColumn4
             // 
             this.dataGridViewTextBoxColumn4.DataPropertyName = "LastUpdated";
-            dataGridViewCellStyle5.Format = "d";
-            dataGridViewCellStyle5.NullValue = null;
-            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle14.Format = "d";
+            dataGridViewCellStyle14.NullValue = null;
+            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle14;
             this.dataGridViewTextBoxColumn4.HeaderText = "更新日";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
@@ -185,8 +188,8 @@
             // 
             this.dgvLedgerTable.AllowUserToAddRows = false;
             this.dgvLedgerTable.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.SeaShell;
-            this.dgvLedgerTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle15.BackColor = System.Drawing.Color.SeaShell;
+            this.dgvLedgerTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle15;
             this.dgvLedgerTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -229,8 +232,8 @@
             // debtDataGridViewTextBoxColumn
             // 
             this.debtDataGridViewTextBoxColumn.DataPropertyName = "Debt";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.debtDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.debtDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle16;
             this.debtDataGridViewTextBoxColumn.HeaderText = "借方";
             this.debtDataGridViewTextBoxColumn.Name = "debtDataGridViewTextBoxColumn";
             this.debtDataGridViewTextBoxColumn.ReadOnly = true;
@@ -238,8 +241,8 @@
             // creditDataGridViewTextBoxColumn
             // 
             this.creditDataGridViewTextBoxColumn.DataPropertyName = "Credit";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.creditDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.creditDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle17;
             this.creditDataGridViewTextBoxColumn.HeaderText = "貸方";
             this.creditDataGridViewTextBoxColumn.Name = "creditDataGridViewTextBoxColumn";
             this.creditDataGridViewTextBoxColumn.ReadOnly = true;
@@ -247,8 +250,8 @@
             // sumDataGridViewTextBoxColumn
             // 
             this.sumDataGridViewTextBoxColumn.DataPropertyName = "Sum";
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.sumDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.sumDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle18;
             this.sumDataGridViewTextBoxColumn.HeaderText = "餘額";
             this.sumDataGridViewTextBoxColumn.Name = "sumDataGridViewTextBoxColumn";
             this.sumDataGridViewTextBoxColumn.ReadOnly = true;
@@ -488,6 +491,15 @@
             this.panel1.Size = new System.Drawing.Size(437, 514);
             this.panel1.TabIndex = 2;
             // 
+            // damaiDataSet
+            // 
+            this.damaiDataSet.DataSetName = "DamaiDataSet";
+            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // accountingTitleSQLAdapter
+            // 
+            this.accountingTitleSQLAdapter.ClearBeforeFill = true;
+            // 
             // AccountingTitle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -512,6 +524,7 @@
             this.accountingTitleBindingNavigator.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -559,6 +572,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn creditDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn sumDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn othersideAccTitleDataGridViewTextBoxColumn;
+        private DamaiDataSet damaiDataSet;
+        private DamaiDataSetTableAdapters.AccountingTitleTableAdapter accountingTitleSQLAdapter;
 
     }
 }

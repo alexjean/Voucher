@@ -51,11 +51,14 @@
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ApartmentAllName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IsCurrent = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.apartmentSQLAdapter = new VoucherExpense.DamaiDataSetTableAdapters.ApartmentTableAdapter();
+            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.apartmentBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.apartmentBindingNavigator)).BeginInit();
             this.apartmentBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.apartmentDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // vEDataSet
@@ -244,6 +247,15 @@
             this.IsCurrent.HeaderText = "此部門";
             this.IsCurrent.Name = "IsCurrent";
             // 
+            // apartmentSQLAdapter
+            // 
+            this.apartmentSQLAdapter.ClearBeforeFill = true;
+            // 
+            // damaiDataSet
+            // 
+            this.damaiDataSet.DataSetName = "DamaiDataSet";
+            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // FormApartment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -263,6 +275,7 @@
             this.apartmentBindingNavigator.ResumeLayout(false);
             this.apartmentBindingNavigator.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.apartmentDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -291,5 +304,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn ApartmentAllName;
         private System.Windows.Forms.DataGridViewCheckBoxColumn IsCurrent;
+        private DamaiDataSetTableAdapters.ApartmentTableAdapter apartmentSQLAdapter;
+        private DamaiDataSet damaiDataSet;
     }
 }

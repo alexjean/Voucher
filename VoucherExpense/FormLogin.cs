@@ -29,6 +29,12 @@ namespace VoucherExpense
                   + ";Persist Security Info=True;User ID=" + cfg.SqlUserID
                   + ";Password=" + cfg.SqlPassword;
 
+            global::VoucherExpense.Properties.Settings.Default.DamaiConnectionString =
+                   "Data Source=" + cfg.SqlServerIP
+                  + ";Initial Catalog=" + cfg.SqlDatabase
+                  + ";Persist Security Info=True;User ID=" + cfg.SqlUserID
+                  + ";Password=" + cfg.SqlPassword;
+
             m_Cfg = cfg;
             InitializeComponent();
             ShowLogin(false);

@@ -5,6 +5,7 @@ using System.Data.OleDb;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.Data.SqlClient;
 
 namespace VoucherExpense
 {
@@ -16,7 +17,8 @@ namespace VoucherExpense
         static public OleDbConnection BakeryConnection = new OleDbConnection(global::VoucherExpense.Properties.Settings.Default.BakeryOrderConnectionString);    // 己在Program.cs設定
         const string HeadStr = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=";
         const string TailStr = ";Persist Security Info=True;Jet OLEDB:Database Password=";
-        const string SQLConnStr = "Data Source=192.168.88.201;Initial Catalog=Mai2013;Persist Security Info=True;User ID=VoucherExpense;Password=CalcVoucher888";
+
+        static public SqlConnection DamaiSQLConnection = new SqlConnection(global::VoucherExpense.Properties.Settings.Default.DamaiConnectionString);
 
         static public string VoucherPass = "CalcVoucher";
         static public string BasicPass  = "love";
@@ -40,6 +42,12 @@ namespace VoucherExpense
         static public void SetBakeryConnectionString(string path, string password)
         {
             BakeryConnection.ConnectionString = HeadStr + path + TailStr + password;
+        }
+
+        static public void SetDamaiConnectionString(string address, string database, string userID,string password)
+        {
+            DamaiSQLConnection.ConnectionString="Data Source=" + address + ";Initial Catalog=" + database 
+                              + ";Persist Security Info=True;User ID=" + userID + ";Password=" + password;
         }
         #endregion
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿//#define UseSQLServer
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -36,6 +37,29 @@ namespace VoucherExpense
                 }
             }
 */
+#if (UseSQLServer)
+            DamaiDataSet.AccountingTitleDataTable table = MyFunction.SaveCheck<DamaiDataSet.AccountingTitleDataTable>(
+                                                  this, accountingTitleBindingSource, damaiDataSet.AccountingTitle);
+            if (table == null) return;
+            MyFunction.SetGlobalFlag(GlobalFlag.basicDataModified);
+
+            foreach (DamaiDataSet.AccountingTitleRow r in table)
+            {
+                if (r.RowState != DataRowState.Deleted)
+                {
+                    r.BeginEdit();
+                    r.LastUpdated = DateTime.Now;
+                    if (!r.IsNameNull())
+                        r.Name = r.Name.Trim();
+                    r.TitleCode = r.TitleCode.Trim();
+                    r.EndEdit();
+                }
+            }
+            damaiDataSet.AccountingTitle.Merge(table);
+            this.accountingTitleSQLAdapter.Update(this.damaiDataSet.AccountingTitle);
+            damaiDataSet.AccountingTitle.AcceptChanges();
+
+#else
             VEDataSet.AccountingTitleDataTable table = MyFunction.SaveCheck<VEDataSet.AccountingTitleDataTable>(
                                                               this, accountingTitleBindingSource, vEDataSet.AccountingTitle);
             if (table == null) return;
@@ -56,13 +80,21 @@ namespace VoucherExpense
             vEDataSet.AccountingTitle.Merge(table);
             this.accountingTitleTableAdapter.Update(this.vEDataSet.AccountingTitle);
             vEDataSet.AccountingTitle.AcceptChanges();
+#endif
         }
 
         private void FormAccountingTitle_Load(object sender, EventArgs e)
         {
+#if (UseSQLServer)
+            this.accountingTitleBindingSource.DataSource = damaiDataSet;
+            this.accountingTitleSQLAdapter.Fill(this.damaiDataSet.AccountingTitle);
+            MyFunction.SetFieldLength(accountingTitleDataGridView, damaiDataSet.AccountingTitle);
+#else
+            this.accountingTitleBindingSource.DataSource = vEDataSet;
             accountingTitleTableAdapter.Connection = MapPath.VEConnection;
             this.accountingTitleTableAdapter.Fill(this.vEDataSet.AccountingTitle);
             MyFunction.SetFieldLength(accountingTitleDataGridView, vEDataSet.AccountingTitle);
+#endif
         }
 
         private bool ValidateTitleCode(object obj,out string error)
@@ -175,7 +207,11 @@ namespace VoucherExpense
                 return;
             }
             DataRowView rowView = cells[0].OwningRow.DataBoundItem as DataRowView;
-            VEDataSet.AccountingTitleRow row = rowView.Row as VEDataSet.AccountingTitleRow;
+#if (UseSQLServer)
+            var row = rowView.Row as DamaiDataSet.AccountingTitleRow;
+#else
+            var row = rowView.Row as VEDataSet.AccountingTitleRow;
+#endif
             if (Convert.IsDBNull(cells[0].OwningRow.Cells[0].Value))    // 只有新增未存檔的才可能沒資料
             {
                 accountingTitleBindingSource.RemoveCurrent();
@@ -225,15 +261,10 @@ namespace VoucherExpense
         }
 
         #region ====== LedgerData Gloal======
-#if Define_Bakery
         RevenueCalcBakery m_Revenue;
         BakeryOrderSetTableAdapters.HeaderTableAdapter headerTableAdapter = new BakeryOrderSetTableAdapters.HeaderTableAdapter();
         BakeryOrderSet bakeryOrderSet = new BakeryOrderSet();
-#else
-        RevenueCalc m_Revenue;
-        BasicDataSetTableAdapters.HeaderTableAdapter headerTableAdapter = new BasicDataSetTableAdapters.HeaderTableAdapter();
-        BasicDataSet basicDataSet=new BasicDataSet();
-#endif
+
         AccTitleList AccList = new AccTitleList();
         AccTitleList AccList1 = new AccTitleList();      // Copy有初值的空表用
         TitleSetup Setup = new TitleSetup();
@@ -243,7 +274,6 @@ namespace VoucherExpense
         private void LoadLedgerData()
         {
             if (DataPrepared) return;
-            #if Define_Bakery
             try
             {
                 headerTableAdapter.Connection = MapPath.BakeryConnection;
@@ -259,47 +289,42 @@ namespace VoucherExpense
             }
             BakeryOrderSet.HeaderRow row = bakeryOrderSet.Header[count - 1];
             m_Revenue = new RevenueCalcBakery(row.DataDate, 0);
-#else
-            try
-            {
-                headerTableAdapter.Connection = MapPath.BasicConnection;
-                headerTableAdapter.Fill(basicDataSet.Header);
-            }
-            catch { MessageBox.Show("標頭資料讀取錯誤,你的資料庫版本可能不對"); }
-            int count = basicDataSet.Header.Count;
-            if (count == 0)
-            {
-                MessageBox.Show("無資料!");
-                Close();
-                return;
-            }
-            BasicDataSet.HeaderRow row = basicDataSet.Header[count - 1];
-            m_Revenue = new RevenueCalc(row.DataDate,0);
-#endif
             AccList.NewAll();
- 
-            //accountingTitleTableAdapter.Connection = MapPath.VEConnection;
-            bankAccountTableAdapter.Connection     = MapPath.VEConnection;
-            expenseTableAdapter.Connection         = MapPath.VEConnection;
-            voucherTableAdapter.Connection         = MapPath.VEConnection;
-            voucherDetailTableAdapter.Connection   = MapPath.VEConnection;
-            bankDetailTableAdapter.Connection      = MapPath.VEConnection;
-            accVoucherTableAdapter.Connection      = MapPath.VEConnection;
-            vendorTableAdapter.Connection          = MapPath.VEConnection;
-            ingredientTableAdapter.Connection      = MapPath.VEConnection;
 
+            expenseTableAdapter.Connection = MapPath.VEConnection;
+            voucherTableAdapter.Connection = MapPath.VEConnection;
+            voucherDetailTableAdapter.Connection = MapPath.VEConnection;
+            bankDetailTableAdapter.Connection = MapPath.VEConnection;
+            accVoucherTableAdapter.Connection = MapPath.VEConnection;
+            ingredientTableAdapter.Connection = MapPath.VEConnection;
+
+ 
+#if (UseSQLServer)
+            var bankAccountSQLAdapter= new DamaiDataSetTableAdapters.BankAccountTableAdapter();
+            var vendorSQLAdapter     = new DamaiDataSetTableAdapters.VendorTableAdapter();
+            DamaiDataSet.AccountingTitleDataTable accTitleTable = damaiDataSet.AccountingTitle;
             try
             {
-                //accountingTitleTableAdapter.Fill(vEDataSet.AccountingTitle); 外面Load過了,再Load DataGridView會全亂掉
+                bankAccountSQLAdapter.Fill(damaiDataSet.BankAccount);
+                vendorSQLAdapter.Fill(damaiDataSet.Vendor);
+#else
+
+            bankAccountTableAdapter.Connection     = MapPath.VEConnection;
+            vendorTableAdapter.Connection          = MapPath.VEConnection;
+            VEDataSet.AccountingTitleDataTable accTitleTable=vEDataSet.AccountingTitle;
+            try
+            {
                 bankAccountTableAdapter.Fill(vEDataSet.BankAccount);
+                vendorTableAdapter.Fill(vEDataSet.Vendor);
+
+#endif          
                 expenseTableAdapter.Fill(vEDataSet.Expense);    // expense檔案小,先全部讀進記憶體
                 voucherTableAdapter.Fill(vEDataSet.Voucher);
                 voucherDetailTableAdapter.Fill(vEDataSet.VoucherDetail);
                 bankDetailTableAdapter.Fill(vEDataSet.BankDetail);
                 accVoucherTableAdapter.Fill(vEDataSet.AccVoucher);
-                vendorTableAdapter.Fill(vEDataSet.Vendor);
                 ingredientTableAdapter.Fill(vEDataSet.Ingredient);
-                foreach (VEDataSet.AccountingTitleRow r in vEDataSet.AccountingTitle.Rows)
+                foreach (var r in accTitleTable)
                 {
                     AccTitle item=new AccTitle(r.TitleCode,r.Name);
                     if (r.IsInitialValueNull())
@@ -343,13 +368,8 @@ namespace VoucherExpense
             List<MonthlyReportData> list = new List<MonthlyReportData>();
             for (int i = 1; i <= count; i++)
             {
-#if Define_Bakery
                 if (m_Revenue.LoadData(bakeryOrderSet, month, i))
                     list.Add(m_Revenue.Statics(bakeryOrderSet));
-#else
-                if (m_Revenue.LoadData(basicDataSet, year, month, i, true))
-                    list.Add(m_Revenue.Statics(basicDataSet));
-#endif
                 progressBar1.Value = i;
                 Application.DoEvents();
             }

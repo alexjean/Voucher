@@ -282,7 +282,7 @@
             this.voucherBindingNavigator.Name = "voucherBindingNavigator";
             this.voucherBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
             this.voucherBindingNavigator.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.voucherBindingNavigator.Size = new System.Drawing.Size(275, 27);
+            this.voucherBindingNavigator.Size = new System.Drawing.Size(272, 27);
             this.voucherBindingNavigator.TabIndex = 0;
             this.voucherBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -299,8 +299,8 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(32, 24);
-            this.bindingNavigatorCountItem.Text = "/ {0}";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 24);
+            this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
             // bindingNavigatorMoveFirstItem
@@ -434,7 +434,9 @@
             // vendorIDComboBox
             // 
             this.vendorIDComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.voucherBindingSource, "VendorID", true));
+            this.vendorIDComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.venderBindingSource, "Name", true));
             this.vendorIDComboBox.DataSource = this.venderFilterSource;
+            this.vendorIDComboBox.DisplayMember = "Name";
             this.vendorIDComboBox.DropDownHeight = 360;
             this.vendorIDComboBox.FormattingEnabled = true;
             this.vendorIDComboBox.IntegralHeight = false;
@@ -653,7 +655,7 @@
             this.dgvVoucher.BackgroundColor = System.Drawing.Color.SeaShell;
             dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -880,7 +882,7 @@
             this.Controls.Add(this.dgvVoucher);
             this.Controls.Add(this.voucherBindingNavigator);
             this.Controls.Add(this.dgvVoucherDetail);
-            this.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Voucher";
             this.Text = "進貨";

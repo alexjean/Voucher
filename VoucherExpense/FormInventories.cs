@@ -126,16 +126,11 @@ namespace VoucherExpense
 
         private void FormIngredientInventories_Load(object sender, EventArgs e)
         {
-            // TODO: 这行代码将数据加载到表“sQLVEDataSet.InventoryProducts”中。您可以根据需要移动或删除它。
             this.inventoryProductsTableAdapter1.Fill(this.sQLVEDataSet.InventoryProducts);
-            // TODO: 这行代码将数据加载到表“sQLVEDataSet.InventoryDetail”中。您可以根据需要移动或删除它。
             this.inventoryDetailTableAdapter1.Fill(this.sQLVEDataSet.InventoryDetail);
-            // TODO: 这行代码将数据加载到表“sQLVEDataSet.InventoryProducts”中。您可以根据需要移动或删除它。
-            //this.inventoryProductsTableAdapter1.Fill(this.sQLVEDataSet.InventoryProducts);
-            //// TODO: 这行代码将数据加载到表“sQLVEDataSet.InventoryDetail”中。您可以根据需要移动或删除它。
-            //this.inventoryDetailTableAdapter1.Fill(this.sQLVEDataSet.InventoryDetail);
-            //// TODO: 这行代码将数据加载到表“sQLVEDataSet.Inventory”中。您可以根据需要移动或删除它。
+
             //this.inventoryTableAdapter1.Fill(this.sQLVEDataSet.Inventory);
+
             productTableAdapter.Connection          = MapPath.BakeryConnection;
             operatorTableAdapter.Connection         = MapPath.VEConnection;
             ingredientTableAdapter.Connection       = MapPath.VEConnection;

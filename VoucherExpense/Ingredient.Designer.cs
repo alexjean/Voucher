@@ -45,7 +45,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.IngredientBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
-            this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.IngredientBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.vEDataSet = new VoucherExpense.VEDataSet();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -57,6 +56,7 @@
             this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.IngredientBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.DeletetoolStripButton = new System.Windows.Forms.ToolStripButton();
             this.dgvIngredient = new System.Windows.Forms.DataGridView();
@@ -75,20 +75,15 @@
             this.unitTextBox = new System.Windows.Forms.TextBox();
             this.lastUpdatedTextBox = new System.Windows.Forms.TextBox();
             this.canPurchaseCheckBox = new System.Windows.Forms.CheckBox();
-            this.IngredientTableAdapter = new VoucherExpense.VEDataSetTableAdapters.IngredientTableAdapter();
-            this.accountingTitleTableAdapter = new VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter();
             this.titleCodeComboBox = new System.Windows.Forms.ComboBox();
             this.photoPictureBox = new System.Windows.Forms.PictureBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.voucherDetailTableAdapter = new VoucherExpense.VEDataSetTableAdapters.VoucherDetailTableAdapter();
-            this.voucherTableAdapter = new VoucherExpense.VEDataSetTableAdapters.VoucherTableAdapter();
             this.unitWeightTextBox = new System.Windows.Forms.TextBox();
             this.vendorIDComboBox = new System.Windows.Forms.ComboBox();
             this.cNameIDForComboBoxBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.specsTextBox = new System.Windows.Forms.TextBox();
             this.minOrderTextBox = new System.Windows.Forms.TextBox();
             this.vendorBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.vendorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.VendorTableAdapter();
             this.textBoxCostPerGram = new System.Windows.Forms.TextBox();
             IngredientIDLabel = new System.Windows.Forms.Label();
             codeLabel = new System.Windows.Forms.Label();
@@ -246,19 +241,9 @@
             this.IngredientBindingNavigator.Name = "IngredientBindingNavigator";
             this.IngredientBindingNavigator.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.IngredientBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.IngredientBindingNavigator.Size = new System.Drawing.Size(318, 27);
+            this.IngredientBindingNavigator.Size = new System.Drawing.Size(287, 27);
             this.IngredientBindingNavigator.TabIndex = 3;
             this.IngredientBindingNavigator.Text = "bindingNavigator1";
-            // 
-            // bindingNavigatorAddNewItem
-            // 
-            this.bindingNavigatorAddNewItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorAddNewItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem.Image")));
-            this.bindingNavigatorAddNewItem.Name = "bindingNavigatorAddNewItem";
-            this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 24);
-            this.bindingNavigatorAddNewItem.Text = "加入新的";
-            this.bindingNavigatorAddNewItem.Click += new System.EventHandler(this.bindingNavigatorAddNewItem_Click);
             // 
             // IngredientBindingSource
             // 
@@ -337,6 +322,16 @@
             // 
             this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
             this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 27);
+            // 
+            // bindingNavigatorAddNewItem
+            // 
+            this.bindingNavigatorAddNewItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorAddNewItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem.Image")));
+            this.bindingNavigatorAddNewItem.Name = "bindingNavigatorAddNewItem";
+            this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 24);
+            this.bindingNavigatorAddNewItem.Text = "加入新的";
+            this.bindingNavigatorAddNewItem.Click += new System.EventHandler(this.bindingNavigatorAddNewItem_Click);
             // 
             // IngredientBindingNavigatorSaveItem
             // 
@@ -534,14 +529,6 @@
             this.canPurchaseCheckBox.TabIndex = 27;
             this.canPurchaseCheckBox.Text = "能進貨";
             // 
-            // IngredientTableAdapter
-            // 
-            this.IngredientTableAdapter.ClearBeforeFill = true;
-            // 
-            // accountingTitleTableAdapter
-            // 
-            this.accountingTitleTableAdapter.ClearBeforeFill = true;
-            // 
             // titleCodeComboBox
             // 
             this.titleCodeComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.IngredientBindingSource, "TitleCode", true));
@@ -572,14 +559,6 @@
             this.openFileDialog1.DefaultExt = "jpg";
             this.openFileDialog1.RestoreDirectory = true;
             this.openFileDialog1.Title = "請選擇本食材的圖片";
-            // 
-            // voucherDetailTableAdapter
-            // 
-            this.voucherDetailTableAdapter.ClearBeforeFill = true;
-            // 
-            // voucherTableAdapter
-            // 
-            this.voucherTableAdapter.ClearBeforeFill = true;
             // 
             // unitWeightTextBox
             // 
@@ -627,10 +606,6 @@
             // 
             this.vendorBindingSource.DataMember = "Vendor";
             this.vendorBindingSource.DataSource = this.vEDataSet;
-            // 
-            // vendorTableAdapter
-            // 
-            this.vendorTableAdapter.ClearBeforeFill = true;
             // 
             // textBoxCostPerGram
             // 
@@ -700,7 +675,6 @@
 
         private VEDataSet vEDataSet;
         private System.Windows.Forms.BindingSource IngredientBindingSource;
-        private VoucherExpense.VEDataSetTableAdapters.IngredientTableAdapter IngredientTableAdapter;
         private System.Windows.Forms.BindingNavigator IngredientBindingNavigator;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
@@ -722,19 +696,15 @@
         private System.Windows.Forms.TextBox lastUpdatedTextBox;
         private System.Windows.Forms.CheckBox canPurchaseCheckBox;
         private System.Windows.Forms.BindingSource accountingTitleBindingSource;
-        private VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter accountingTitleTableAdapter;
         private System.Windows.Forms.ComboBox titleCodeComboBox;
         private System.Windows.Forms.PictureBox photoPictureBox;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.ToolStripButton DeletetoolStripButton;
-        private VEDataSetTableAdapters.VoucherDetailTableAdapter voucherDetailTableAdapter;
-        private VEDataSetTableAdapters.VoucherTableAdapter voucherTableAdapter;
         private System.Windows.Forms.TextBox unitWeightTextBox;
         private System.Windows.Forms.ComboBox vendorIDComboBox;
         private System.Windows.Forms.TextBox specsTextBox;
         private System.Windows.Forms.TextBox minOrderTextBox;
         private System.Windows.Forms.BindingSource vendorBindingSource;
-        private VEDataSetTableAdapters.VendorTableAdapter vendorTableAdapter;
         private System.Windows.Forms.TextBox textBoxCostPerGram;
         private System.Windows.Forms.BindingSource cNameIDForComboBoxBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnIngredientID;

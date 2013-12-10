@@ -6,6 +6,15 @@ using System.IO;
 using System.Drawing;
 using System.Collections.Generic;
 using System.Linq;
+#if UseSQLServer
+using MyDataSet = VoucherExpense.DamaiDataSet;
+using MyIngredientRow = VoucherExpense.DamaiDataSet.IngredientRow;
+using MyIngredientTable = VoucherExpense.DamaiDataSet.IngredientDataTable;
+#else
+using MyDataSet = VoucherExpense.VEDataSet;
+using MyIngredientRow = VoucherExpense.VEDataSet.IngredientRow;
+using MyIngredientTable = VoucherExpense.VEDataSet.IngredientDataTable;
+#endif
 
 namespace VoucherExpense
 {
@@ -16,16 +25,73 @@ namespace VoucherExpense
             InitializeComponent();
         }
 
+        MyDataSet m_DataSet = new MyDataSet();
+
+        private string m_PhotoPath = "Photos\\Ingredients\\";
+        private List<CNameIDForComboBox> m_VendorList = new List<CNameIDForComboBox>();
+
+#if UseSQLServer
+        DamaiDataSetTableAdapters.IngredientTableAdapter    IngredientAdapter   = new DamaiDataSetTableAdapters.IngredientTableAdapter();
+        DamaiDataSetTableAdapters.VoucherTableAdapter       VoucherAdapter      = new DamaiDataSetTableAdapters.VoucherTableAdapter();
+        DamaiDataSetTableAdapters.VoucherDetailTableAdapter VoucherDetailAdapter= new DamaiDataSetTableAdapters.VoucherDetailTableAdapter();
+        private void Ingredient_Load(object sender, EventArgs e)
+        {
+            IngredientBindingSource.DataSource      = m_DataSet;
+            vendorBindingSource.DataSource          = m_DataSet;
+            accountingTitleBindingSource.DataSource = m_DataSet;
+
+            var vendorAdapter = new DamaiDataSetTableAdapters.VendorTableAdapter();
+            var accountingTitleAdapter = new DamaiDataSetTableAdapters.AccountingTitleTableAdapter();
+#else
+        VEDataSetTableAdapters.IngredientTableAdapter    IngredientAdapter   = new VEDataSetTableAdapters.IngredientTableAdapter();
+        VEDataSetTableAdapters.VoucherTableAdapter       VoucherAdapter      = new VEDataSetTableAdapters.VoucherTableAdapter();
+        VEDataSetTableAdapters.VoucherDetailTableAdapter VoucherDetailAdapter= new VEDataSetTableAdapters.VoucherDetailTableAdapter();
+        private void Ingredient_Load(object sender, EventArgs e)
+        {
+            IngredientBindingSource.DataSource      = m_DataSet;
+            vendorBindingSource.DataSource          = m_DataSet;
+            accountingTitleBindingSource.DataSource = m_DataSet;
+
+            var vendorAdapter          = new VEDataSetTableAdapters.VendorTableAdapter();
+            var accountingTitleAdapter = new VEDataSetTableAdapters.AccountingTitleTableAdapter();
+            vendorAdapter.Connection           = MapPath.VEConnection;
+            accountingTitleAdapter.Connection  = MapPath.VEConnection;
+            IngredientAdapter.Connection       = MapPath.VEConnection;
+            VoucherAdapter.Connection          = MapPath.VEConnection;
+            VoucherDetailAdapter.Connection    = MapPath.VEConnection;
+#endif
+            try
+            {
+                vendorAdapter.Fill         (m_DataSet.Vendor);
+                m_VendorList.Add(new CNameIDForComboBox(0, ""));                                // 提到 .Fill(vEdataSet.Ingredient)之前,要不然第一次 BindingSource.CurrentChanged會先發生
+                foreach (var vendor in m_DataSet.Vendor)
+                    m_VendorList.Add(new CNameIDForComboBox(vendor.VendorID, vendor.Name));
+                vendorIDComboBox.DataSource = m_VendorList;
+                //vendorIDComboBox.ValueMember = "ID";
+                //vendorIDComboBox.DisplayMember = "Name";
+                accountingTitleAdapter.Fill(m_DataSet.AccountingTitle);
+                IngredientAdapter.Fill     (m_DataSet.Ingredient);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("錯誤:" + ex.Message);
+            }
+
+            MyFunction.SetFieldLength(dgvIngredient, m_DataSet.Ingredient);
+            MyFunction.SetControlLengthFromDB(this, m_DataSet.Ingredient);
+            photoPictureBox.Visible = Directory.Exists(m_PhotoPath);
+        }
+
         private void IngredientBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
-//            VEDataSet.IngredientDataTable table = MyFunction.SaveCheck<VEDataSet.IngredientDataTable>(this, IngredientBindingSource, vEDataSet.Ingredient);
+            //            VEDataSet.IngredientDataTable table = MyFunction.SaveCheck<VEDataSet.IngredientDataTable>(this, IngredientBindingSource, vEDataSet.Ingredient);
             if (!this.Validate())
             {
                 MessageBox.Show("有資料錯誤, 請改好再存!");
                 return;
             }
             IngredientBindingSource.EndEdit();     // 執行此行時,若無問題 RowState.Detached => RowState.Added
-            VEDataSet.IngredientDataTable table = (VEDataSet.IngredientDataTable)vEDataSet.Ingredient.GetChanges();
+            var table = (MyIngredientTable)m_DataSet.Ingredient.GetChanges();
             if (table == null)
             {
                 MessageBox.Show("沒有改動任何資料! 不用存");
@@ -34,7 +100,7 @@ namespace VoucherExpense
             if (table == null) return;
             MyFunction.SetGlobalFlag(GlobalFlag.basicDataModified);
 
-            foreach (VEDataSet.IngredientRow r in table)
+            foreach (var r in table)
             {
                 if (r.RowState != DataRowState.Deleted)
                 {
@@ -56,51 +122,23 @@ namespace VoucherExpense
             }
             try
             {
-//                this.IngredientTableAdapter.Update(table);
-                vEDataSet.Ingredient.Merge(table); 
-                this.IngredientTableAdapter.Update(this.vEDataSet.Ingredient);
-                vEDataSet.Ingredient.AcceptChanges();
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show("錯誤原因:"+ex.Message+"\r\n存檔發生錯誤,請關閉程式,重新登入！");
-            }
-        }
-
-        private string m_PhotoPath = "Photos\\Ingredients\\";
-        private List<CNameIDForComboBox> m_VendorList = new List<CNameIDForComboBox>();
-        private void Ingredient_Load(object sender, EventArgs e)
-        {
-            vendorTableAdapter.Connection           = MapPath.VEConnection;
-            accountingTitleTableAdapter.Connection  = MapPath.VEConnection;
-            IngredientTableAdapter.Connection       = MapPath.VEConnection;
-            try
-            {
-                vendorTableAdapter.Fill         (this.vEDataSet.Vendor);
-                m_VendorList.Add(new CNameIDForComboBox(0, ""));                                // 提到 .Fill(vEdataSet.Ingredient)之前,要不然第一次 BindingSource.CurrentChanged會先發生
-                foreach (VEDataSet.VendorRow vendor in vEDataSet.Vendor)
-                    m_VendorList.Add(new CNameIDForComboBox(vendor.VendorID, vendor.Name));
-                vendorIDComboBox.DataSource = m_VendorList;
-                //vendorIDComboBox.ValueMember = "ID";
-                //vendorIDComboBox.DisplayMember = "Name";
-                accountingTitleTableAdapter.Fill(this.vEDataSet.AccountingTitle);
-                IngredientTableAdapter.Fill     (this.vEDataSet.Ingredient);
+                //                this.IngredientTableAdapter.Update(table);
+                m_DataSet.Ingredient.Merge(table);
+                this.IngredientAdapter.Update(m_DataSet.Ingredient);
+                m_DataSet.Ingredient.AcceptChanges();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("錯誤:" + ex.Message);
+                MessageBox.Show("錯誤原因:" + ex.Message + "\r\n存檔發生錯誤,請關閉程式,重新登入！");
             }
-           
-            MyFunction.SetFieldLength(dgvIngredient, vEDataSet.Ingredient);
-            MyFunction.SetControlLengthFromDB(this, vEDataSet.Ingredient);
-            photoPictureBox.Visible = Directory.Exists(m_PhotoPath);
         }
+
 
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
 //            MyFunction.AddNewItem(dgvIngredient, "columnIngredientID","IngredientID", vEDataSet.Ingredient);
             IngredientBindingSource.AddNew();
-            int max = (from ro in vEDataSet.Ingredient select ro.IngredientID).Max();
+            int max = (from ro in m_DataSet.Ingredient select ro.IngredientID).Max();
             int ingredientID = MyFunction.SetCellMaxNo("columnIngredientID", dgvIngredient, max);
             
             // 因為供應商資料沒有ValueMember啟始值,只Binding了SelectedValue
@@ -112,6 +150,11 @@ namespace VoucherExpense
             //VEDataSet.IngredientRow row = (VEDataSet.IngredientRow)rowView.Row;
             //if (row.RowState == DataRowState.Detached)
             //    vEDataSet.Ingredient.Rows.Add(row);        
+
+            DataRowView rowView = (DataRowView)IngredientBindingSource.Current;
+            var row = (MyIngredientRow)rowView.Row;
+            row.CanPurchase = true;
+
         }
 
         bool m_ShowValidatingWarning = true;
@@ -148,7 +191,7 @@ namespace VoucherExpense
         {
             DataRowView rowView = IngredientBindingSource.Current as DataRowView;
             if (rowView == null) return null;
-            VEDataSet.IngredientRow row = rowView.Row as VEDataSet.IngredientRow;
+            var row = rowView.Row as MyIngredientRow;
             if (row.RowState == DataRowState.Detached)
             {
                 try
@@ -171,7 +214,7 @@ namespace VoucherExpense
             if (m_VendorList != null && m_VendorList.Count > 0)
             {
                 DataRowView rowView = IngredientBindingSource.Current as DataRowView;
-                VEDataSet.IngredientRow row = rowView.Row as VEDataSet.IngredientRow;
+                var row = rowView.Row as MyIngredientRow;
                 CNameIDForComboBox vendor = m_VendorList[0];    // 第一個放的是ID=0 Name ""
                 if (!row.IsVendorIDNull())
                 {
@@ -232,8 +275,8 @@ namespace VoucherExpense
             {
                 try
                 {
-                    voucherTableAdapter.Fill(vEDataSet.Voucher);
-                    voucherDetailTableAdapter.Fill(vEDataSet.VoucherDetail);
+                    VoucherAdapter.Fill(m_DataSet.Voucher);
+                    VoucherDetailAdapter.Fill(m_DataSet.VoucherDetail);
                 }
                 catch (Exception ex)
                 {
@@ -242,12 +285,12 @@ namespace VoucherExpense
                 }
                 m_VoucherDetailLoaded = true;
             }
-            foreach (VEDataSet.VoucherDetailRow row in vEDataSet.VoucherDetail)
+            foreach (var row in m_DataSet.VoucherDetail)
             {
                 if (row.IsIngredientIDNull()) continue;
                 if (row.IngredientID == ingredientID)
                 {
-                    VEDataSet.VoucherRow voucher = row.VoucherRow;
+                    var voucher = row.VoucherRow;
                     MessageBox.Show("進貨單" + voucher.ID.ToString() + "  己經進過" + strCodeName + " 無法刪除");
                     return;
                 }
@@ -259,7 +302,7 @@ namespace VoucherExpense
                 try
                 {
                     IngredientBindingSource.RemoveCurrent();
-                    IngredientTableAdapter.Update(this.vEDataSet.Ingredient);
+                    IngredientAdapter.Update(m_DataSet.Ingredient);
                 }
                 catch (Exception ex)
                 {
@@ -330,7 +373,7 @@ namespace VoucherExpense
         {
             ComboBox box=sender as ComboBox;
             var rowView = IngredientBindingSource.Current as DataRowView;
-            var row     = rowView.Row as VEDataSet.IngredientRow;
+            var row     = rowView.Row as MyIngredientRow;
             object obj = box.SelectedItem;
             if (obj != null && obj != DBNull.Value)
             {

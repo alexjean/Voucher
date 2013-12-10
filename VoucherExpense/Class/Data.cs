@@ -498,5 +498,37 @@ namespace VoucherExpense
         }
     }
 
+    public class COperator   // 用於FormLogin及FormHome之間傳遞權限
+    {
+        public int OperatorID { get; set; }
+        public bool StopAccount { get; set; }
+        public string LoginName { get; set; }
+//        public string Password { get; set; }
+        public string Name { get; set; }
+        public bool EditOperator { get; set; }
+        public bool EditVendor { get; set; }
+        public bool EditIngredient { get; set; }
+        public bool EditEmployee { get; set; }
+        public bool EditAccountingTitle { get; set; }
+        public bool EditVoucher { get; set; }
+        public bool EditExpense { get; set; }
+//        public bool LastUpdated { get; set; }
+        public bool IsSuper { get; set; }
+        public bool IsManager { get; set; }
+        public bool EditBank { get; set; }
+        public bool LockVoucher { get; set; }
+        public bool LockExpense { get; set; }
+        public bool LockAccVoucher { get; set; }
+        public bool EditOnDuty { get; set; }
+        public bool EditSalary { get; set; }
+        public bool LockHR { get; set; }
+        public bool EditProduct { get; set; }
+        public bool EditRecipe { get; set; }
+        public bool EditInventory { get; set; }
+        public bool RevenueOperate { get; set; }
+        public bool LockInventory { get; set; }
+        public bool EditShipment { get; set; }
+        public bool LockShipment { get; set; }
+    }
 
 }

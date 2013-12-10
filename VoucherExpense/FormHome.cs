@@ -11,7 +11,7 @@ namespace VoucherExpense
 {
     public partial class FormHome : Form
     {
-        VEDataSet.OperatorRow Operator;
+        COperator Operator;
         HardwareConfig m_Config;
         string m_BranchName;
         // 必需設好 Operator及m_Config才能呼叫SetFormTitle
@@ -21,15 +21,12 @@ namespace VoucherExpense
             //if (m_Config.IsServer)  str = "本地";
             //else                    str = "遠端";
             str = m_BranchName;
-            string name;
-            if (Operator.IsNameNull()) 
-                 name = "操作員" + Operator.OperatorID.ToString();   
-            else name = Operator.Name;
+            string name = Operator.Name;
             this.Text = str + MyFunction.HeaderYear + "      " + name;
             if (MyFunction.LockAll) this.Text += " 鎖定中";
         }
 
-        public FormHome(VEDataSet.OperatorRow Op,HardwareConfig cfg,string branchName)
+        public FormHome(COperator Op,HardwareConfig cfg,string branchName)
         {
             InitializeComponent();
 
@@ -46,8 +43,7 @@ namespace VoucherExpense
             bool manager = Op.IsManager;
             MyFunction.IsManager = manager;
             MyFunction.LockHR = Op.LockHR;
-            if (!Op.IsLockInventoryNull()) MyFunction.LockInventory = Op.LockInventory;
-            else                           MyFunction.LockInventory = false;
+            MyFunction.LockInventory = Op.LockInventory;
             basic.DropDownItems["操作員MenuItem"].Enabled   = Op.EditOperator;
             basic.DropDownItems["硬體環境MenuItem"].Enabled = Op.IsSuper;
             basic.DropDownItems["食材表MenuItem"].Enabled   = Op.EditIngredient;

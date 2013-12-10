@@ -1,4 +1,5 @@
-﻿using System;
+﻿//#define UseSQLServer
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,6 +18,36 @@ namespace VoucherExpense
         }
 
         RevenueCalcBakery Revenue;
+#if (UseSQLServer)
+        DamaiDataSet orderSet = new DamaiDataSet();
+        private void MonthlyReportBakery_Load(object sender, EventArgs e)
+        {
+            decimal FeeRate = 1.8m;
+            try
+            {
+                var headerSQLAdapter = new DamaiDataSetTableAdapters.HeaderTableAdapter();
+                headerSQLAdapter.Fill(orderSet.Header);
+                TitleSetup Setup = new TitleSetup();
+                Setup.Load();
+                FeeRate = Setup.FeeRate();
+            }
+            catch
+            {
+                MessageBox.Show("標頭資料讀取錯誤,你的資料庫版本可能不對");
+            }
+            int count = orderSet.Header.Count;
+            if (count == 0)
+            {
+                MessageBox.Show("無資料!");
+                Close();
+                return;
+            }
+            var row = orderSet.Header[count - 1];
+            Revenue = new RevenueCalcBakery(row.DataDate, FeeRate / 100);
+            comboBoxMonth.SelectedIndex = row.DataDate.Month - 1;
+            labelFeeRate.Text = FeeRate.ToString() + "%";
+        }
+#else
         private void MonthlyReportBakery_Load(object sender, EventArgs e)
         {
             decimal FeeRate = 1.8m;
@@ -39,13 +70,14 @@ namespace VoucherExpense
                 Close();
                 return;
             }
-            BakeryOrderSet.HeaderRow row = bakeryOrderSet.Header[count - 1];
+            var row = bakeryOrderSet.Header[count - 1];
             Revenue = new RevenueCalcBakery(row.DataDate,FeeRate/100);
             comboBoxMonth.SelectedIndex = row.DataDate.Month - 1;
             labelFeeRate.Text = FeeRate.ToString() + "%";
         }
+#endif
 
-      
+
         void Calc()
         {
             int year = Revenue.Year;
@@ -63,8 +95,11 @@ namespace VoucherExpense
             List<MonthlyReportData> list = new List<MonthlyReportData>();
             for (int i = 1; i <= count; i++)
             {
-                if (Revenue.LoadData(bakeryOrderSet,  month, i))
-                    list.Add(Revenue.Statics(bakeryOrderSet));
+#if UseSQLServer
+                if (Revenue.LoadData(orderSet, month, i)) list.Add(Revenue.Statics(orderSet));
+#else
+                if (Revenue.LoadData(bakeryOrderSet,  month, i)) list.Add(Revenue.Statics(bakeryOrderSet));
+#endif
                 progressBar1.Value = i;
                 Application.DoEvents();
             }

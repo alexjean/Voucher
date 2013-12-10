@@ -82,8 +82,6 @@ namespace VoucherExpense {
         
         private global::System.Data.DataRelation relationOperatorVoucher;
         
-        private global::System.Data.DataRelation relationVendorStock;
-        
         private global::System.Data.DataRelation relationAccountingTitle_VoucherDetail;
         
         private global::System.Data.DataRelation relationAccountingTitle_Ingredient;
@@ -111,6 +109,8 @@ namespace VoucherExpense {
         private global::System.Data.DataRelation relationInventoryInventoryProducts;
         
         private global::System.Data.DataRelation relationIngredientVoucherDetail;
+        
+        private global::System.Data.DataRelation relationVendorVoucher;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -833,7 +833,6 @@ namespace VoucherExpense {
             this.relationAccountingCodeListFee = this.Relations["AccountingCodeListFee"];
             this.relationOperatorExpense = this.Relations["OperatorExpense"];
             this.relationOperatorVoucher = this.Relations["OperatorVoucher"];
-            this.relationVendorStock = this.Relations["VendorStock"];
             this.relationAccountingTitle_VoucherDetail = this.Relations["AccountingTitle_VoucherDetail"];
             this.relationAccountingTitle_Ingredient = this.Relations["AccountingTitle_Ingredient"];
             this.relationAccountingTitleBankDetail = this.Relations["AccountingTitleBankDetail"];
@@ -848,6 +847,7 @@ namespace VoucherExpense {
             this.relationProductScrappedProductScrappedDetail = this.Relations["ProductScrappedProductScrappedDetail"];
             this.relationInventoryInventoryProducts = this.Relations["InventoryInventoryProducts"];
             this.relationIngredientVoucherDetail = this.Relations["IngredientVoucherDetail"];
+            this.relationVendorVoucher = this.Relations["VendorVoucher"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -922,10 +922,6 @@ namespace VoucherExpense {
                         this.tableOperator.OperatorIDColumn}, new global::System.Data.DataColumn[] {
                         this.tableVoucher.KeyinIDColumn}, false);
             this.Relations.Add(this.relationOperatorVoucher);
-            this.relationVendorStock = new global::System.Data.DataRelation("VendorStock", new global::System.Data.DataColumn[] {
-                        this.tableVendor.VendorIDColumn}, new global::System.Data.DataColumn[] {
-                        this.tableVoucher.VendorIDColumn}, false);
-            this.Relations.Add(this.relationVendorStock);
             this.relationAccountingTitle_VoucherDetail = new global::System.Data.DataRelation("AccountingTitle_VoucherDetail", new global::System.Data.DataColumn[] {
                         this.tableAccountingTitle.TitleCodeColumn}, new global::System.Data.DataColumn[] {
                         this.tableVoucherDetail.TitleCodeColumn}, false);
@@ -982,6 +978,10 @@ namespace VoucherExpense {
                         this.tableIngredient.IngredientIDColumn}, new global::System.Data.DataColumn[] {
                         this.tableVoucherDetail.IngredientIDColumn}, false);
             this.Relations.Add(this.relationIngredientVoucherDetail);
+            this.relationVendorVoucher = new global::System.Data.DataRelation("VendorVoucher", new global::System.Data.DataColumn[] {
+                        this.tableVendor.VendorIDColumn}, new global::System.Data.DataColumn[] {
+                        this.tableVoucher.VendorIDColumn}, false);
+            this.Relations.Add(this.relationVendorVoucher);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3643,7 +3643,7 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public VoucherRow AddVoucherRow(int ID, int VoucherID, VendorRow parentVendorRowByVendorStock, decimal Cost, System.DateTime StockTime, System.DateTime EntryTime, System.DateTime PrintTime, OperatorRow parentOperatorRowByOperatorVoucher, bool Removed, bool Locked, System.DateTime LastUpdated) {
+            public VoucherRow AddVoucherRow(int ID, int VoucherID, VendorRow parentVendorRowByVendorVoucher, decimal Cost, System.DateTime StockTime, System.DateTime EntryTime, System.DateTime PrintTime, OperatorRow parentOperatorRowByOperatorVoucher, bool Removed, bool Locked, System.DateTime LastUpdated) {
                 VoucherRow rowVoucherRow = ((VoucherRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ID,
@@ -3657,8 +3657,8 @@ namespace VoucherExpense {
                         Removed,
                         Locked,
                         LastUpdated};
-                if ((parentVendorRowByVendorStock != null)) {
-                    columnValuesArray[2] = parentVendorRowByVendorStock[0];
+                if ((parentVendorRowByVendorVoucher != null)) {
+                    columnValuesArray[2] = parentVendorRowByVendorVoucher[0];
                 }
                 if ((parentOperatorRowByOperatorVoucher != null)) {
                     columnValuesArray[7] = parentOperatorRowByOperatorVoucher[0];
@@ -13397,23 +13397,23 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public VoucherRow[] GetVoucherRows() {
-                if ((this.Table.ChildRelations["VendorStock"] == null)) {
-                    return new VoucherRow[0];
-                }
-                else {
-                    return ((VoucherRow[])(base.GetChildRows(this.Table.ChildRelations["VendorStock"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public IngredientRow[] GetIngredientRows() {
                 if ((this.Table.ChildRelations["VendorIngredient"] == null)) {
                     return new IngredientRow[0];
                 }
                 else {
                     return ((IngredientRow[])(base.GetChildRows(this.Table.ChildRelations["VendorIngredient"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public VoucherRow[] GetVoucherRows() {
+                if ((this.Table.ChildRelations["VendorVoucher"] == null)) {
+                    return new VoucherRow[0];
+                }
+                else {
+                    return ((VoucherRow[])(base.GetChildRows(this.Table.ChildRelations["VendorVoucher"])));
                 }
             }
         }
@@ -13618,10 +13618,10 @@ namespace VoucherExpense {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public VendorRow VendorRow {
                 get {
-                    return ((VendorRow)(this.GetParentRow(this.Table.ParentRelations["VendorStock"])));
+                    return ((VendorRow)(this.GetParentRow(this.Table.ParentRelations["VendorVoucher"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["VendorStock"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["VendorVoucher"]);
                 }
             }
             

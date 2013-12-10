@@ -136,6 +136,8 @@ namespace VoucherExpense
         public AccTitle FindTitleByCode(string code, out int credit)
         {
             AccTitle r;
+            if (code.Length == 0) 
+                { credit = 1; return null; }
             switch (code[0])
             {
                 case '1': r = Find(code, Assets     , defaultAsset);         credit = -1; break;
@@ -152,6 +154,7 @@ namespace VoucherExpense
         AccTitle FindTitleByCodeWithDefault(string code, AccTitle defaultTitle, out int credit)
         {
             AccTitle r;
+            if (code.Length == 0) { credit = 0; return null; }
             switch (code[0])
             {
                 case '1': r = Find(code, Assets      , defaultTitle); break;

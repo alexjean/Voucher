@@ -1,4 +1,5 @@
-﻿using System;
+﻿//#define UseSQLServer
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,15 +18,7 @@ namespace VoucherExpense
             InitializeComponent();
         }
 
-#if Define_Bakery
         RevenueCalcBakery m_Revenue;
-        BakeryOrderSetTableAdapters.HeaderTableAdapter headerTableAdapter = new BakeryOrderSetTableAdapters.HeaderTableAdapter();
-        BakeryOrderSet bakeryOrderSet = new BakeryOrderSet();
-#else
-        RevenueCalc m_Revenue;
-        BasicDataSetTableAdapters.HeaderTableAdapter headerTableAdapter = new BasicDataSetTableAdapters.HeaderTableAdapter();
-        BasicDataSet basicDataSet=new BasicDataSet();
-#endif
         string m_SelectedTitleCode = "";
         int m_SelectedMonth = -1;
         AccTitleList AccList    = new AccTitleList();
@@ -36,11 +29,58 @@ namespace VoucherExpense
         TitleSetup Setup = new TitleSetup();
 
         LedgerTableGenerator m_Generator;
+#if (UseSQLServer)
+        DamaiDataSet m_DataSet = new DamaiDataSet();
+#else
+        VEDataSet m_DataSet=new VEDataSet();
+        BakeryOrderSetTableAdapters.HeaderTableAdapter headerTableAdapter = new BakeryOrderSetTableAdapters.HeaderTableAdapter();
+        BakeryOrderSet bakeryOrderSet = new BakeryOrderSet();
+#endif
 
         private void FormLedger_Load(object sender, EventArgs e)
         {
+#if (UseSQLServer)
+            accountingTitleBindingSource.DataSource = m_DataSet;
+            try
+            {
+                var headerSQLAdapter = new DamaiDataSetTableAdapters.HeaderTableAdapter();
+                headerSQLAdapter.Fill(m_DataSet.Header);
+            }
+            catch { MessageBox.Show("標頭資料讀取錯誤,你的資料庫版本可能不對"); }
+            int count = m_DataSet.Header.Count;
+            if (count == 0)
+            {
+                MessageBox.Show("無資料!");
+                Close();
+                return;
+            }
+            var row = m_DataSet.Header[count - 1];
+            m_Revenue = new RevenueCalcBakery(row.DataDate, 0);
 
-#if Define_Bakery
+            AccList.NewAll();
+            var accountingTitleSQLAdapter   = new DamaiDataSetTableAdapters.AccountingTitleTableAdapter();
+            var bankAccountSQLAdapter       = new DamaiDataSetTableAdapters.BankAccountTableAdapter();
+            var expenseSQLAdapter           = new DamaiDataSetTableAdapters.ExpenseTableAdapter();
+            var voucherSQLAdapter           = new DamaiDataSetTableAdapters.VoucherTableAdapter();
+            var voucherDetailSQLAdapter     = new DamaiDataSetTableAdapters.VoucherDetailTableAdapter();
+            var bankDetailSQLAdapter        = new DamaiDataSetTableAdapters.BankDetailTableAdapter();
+            var accVoucherSQLAdapter        = new DamaiDataSetTableAdapters.AccVoucherTableAdapter();
+            var vendorSQLAdapter            = new DamaiDataSetTableAdapters.VendorTableAdapter();
+            var ingredientSQLAdapter        = new DamaiDataSetTableAdapters.IngredientTableAdapter();
+
+            try
+            {
+                accountingTitleSQLAdapter.Fill(m_DataSet.AccountingTitle);
+                bankAccountSQLAdapter.Fill(m_DataSet.BankAccount);
+                expenseSQLAdapter.Fill(m_DataSet.Expense);    // expense檔案小,先全部讀進記憶體
+                voucherSQLAdapter.Fill(m_DataSet.Voucher);
+                voucherDetailSQLAdapter.Fill(m_DataSet.VoucherDetail);
+                bankDetailSQLAdapter.Fill(m_DataSet.BankDetail);
+                accVoucherSQLAdapter.Fill(m_DataSet.AccVoucher);
+                vendorSQLAdapter.Fill(m_DataSet.Vendor);
+                ingredientSQLAdapter.Fill(m_DataSet.Ingredient);
+
+#else
             try
             {
                 headerTableAdapter.Connection = MapPath.BakeryConnection;
@@ -54,34 +94,10 @@ namespace VoucherExpense
                 Close();
                 return;
             }
-            BakeryOrderSet.HeaderRow row = bakeryOrderSet.Header[count - 1];
+            var row = bakeryOrderSet.Header[count - 1];
             m_Revenue = new RevenueCalcBakery(row.DataDate, 0);
-#else
-            try
-            {
-                headerTableAdapter.Connection = MapPath.BasicConnection;
-                headerTableAdapter.Fill(basicDataSet.Header);
-            }
-            catch { MessageBox.Show("標頭資料讀取錯誤,你的資料庫版本可能不對"); }
-            int count = basicDataSet.Header.Count;
-            if (count == 0)
-            {
-                MessageBox.Show("無資料!");
-                Close();
-                return;
-            }
-            BasicDataSet.HeaderRow row = basicDataSet.Header[count - 1];
-            m_Revenue = new RevenueCalc(row.DataDate,0);
-#endif
+
             AccList.NewAll();
-            //RevenueCache = new MonthlyReportData[12];
-            //MonthBalances = new CMonthBalance[13];
-            //for (int i = 0; i < 13; i++)
-            //{
-            //    MonthBalances[i] = new CMonthBalance();
-            //    MonthBalances[i].Month = i + 1;
-            //}
-            //MonthBalances[12].Month = 0;   // 第13月統計用
 
             accountingTitleTableAdapter.Connection = MapPath.VEConnection;
             bankAccountTableAdapter.Connection     = MapPath.VEConnection;
@@ -95,21 +111,22 @@ namespace VoucherExpense
 
             try
             {
-                accountingTitleTableAdapter.Fill(vEDataSet.AccountingTitle);
-                bankAccountTableAdapter.Fill(vEDataSet.BankAccount);
-                expenseTableAdapter.Fill(vEDataSet.Expense);    // expense檔案小,先全部讀進記憶體
-                voucherTableAdapter.Fill(vEDataSet.Voucher);
-                voucherDetailTableAdapter.Fill(vEDataSet.VoucherDetail);
-                bankDetailTableAdapter.Fill(vEDataSet.BankDetail);
-                accVoucherTableAdapter.Fill(vEDataSet.AccVoucher);
-                vendorTableAdapter.Fill(vEDataSet.Vendor);
-                ingredientTableAdapter.Fill(vEDataSet.Ingredient);
-                foreach (VEDataSet.AccountingTitleRow r in vEDataSet.AccountingTitle.Rows)
+                accountingTitleTableAdapter.Fill(m_DataSet.AccountingTitle);
+                bankAccountTableAdapter.Fill(m_DataSet.BankAccount);
+                expenseTableAdapter.Fill(m_DataSet.Expense);    // expense檔案小,先全部讀進記憶體
+                voucherTableAdapter.Fill(m_DataSet.Voucher);
+                voucherDetailTableAdapter.Fill(m_DataSet.VoucherDetail);
+                bankDetailTableAdapter.Fill(m_DataSet.BankDetail);
+                accVoucherTableAdapter.Fill(m_DataSet.AccVoucher);
+                vendorTableAdapter.Fill(m_DataSet.Vendor);
+                ingredientTableAdapter.Fill(m_DataSet.Ingredient);
+#endif
+                foreach (var r in m_DataSet.AccountingTitle)
                 {
-                    AccTitle item=new AccTitle(r.TitleCode,r.Name);
+                    AccTitle item = new AccTitle(r.TitleCode, r.Name);
                     if (r.IsInitialValueNull())
                         item.Money = 0;
-                    else 
+                    else
                         item.Money = r.InitialValue;
                     if (r.TitleCode.Length == 0) continue;
                     AccList.Add(item);
@@ -117,24 +134,25 @@ namespace VoucherExpense
                 AccList1.CopyTableFrom(AccList);
 
                 Setup.Load();
-                m_Generator = new LedgerTableGenerator(labelMessage,Setup,vEDataSet,new CalcRevenueDelegate(CalcRevenue));
+                m_Generator = new LedgerTableGenerator(labelMessage, Setup, m_DataSet, new CalcRevenueDelegate(CalcRevenue));
                 cLedgerTableDataGridView.Focus();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show("資料庫讀取錯誤! 原因:"+ex.Message);
+                MessageBox.Show("資料庫讀取錯誤! 原因:" + ex.Message);
             }
-        
+
             // 設置comboBoxAccTitle的初值為 <零用金>
-            if (vEDataSet.BankAccount.Rows.Count>1)
+            if (m_DataSet.BankAccount.Rows.Count > 1)
             {
-                VEDataSet.BankAccountRow bank=vEDataSet.BankAccount[0];
+                var bank = m_DataSet.BankAccount[0];
                 if (bank.IsAccountTitleCodeNull())
-                    comboBoxAccTitle.SelectedIndex=0;
+                    comboBoxAccTitle.SelectedIndex = 0;
                 else
-                    comboBoxAccTitle.SelectedValue=bank.AccountTitleCode;
+                    comboBoxAccTitle.SelectedValue = bank.AccountTitleCode;
             }
             DontRefresh = false;     // Form剛Load不Refresh DataGridView
+
         }
 
         bool DontRefresh = true;
@@ -187,13 +205,11 @@ namespace VoucherExpense
             List<MonthlyReportData> list = new List<MonthlyReportData>();
             for (int i = 1; i <= count; i++)
             {
-#if Define_Bakery
-                if (m_Revenue.LoadData(bakeryOrderSet, month, i))
-                    list.Add(m_Revenue.Statics(bakeryOrderSet));
+#if (UseSQLServer)
+                if (m_Revenue.LoadData(m_DataSet, month, i)) list.Add(m_Revenue.Statics(m_DataSet));
 #else
-                if (m_Revenue.LoadData(basicDataSet, year, month, i, true))
-                    list.Add(m_Revenue.Statics(basicDataSet));
-#endif
+                if (m_Revenue.LoadData(bakeryOrderSet, month, i)) list.Add(m_Revenue.Statics(bakeryOrderSet));
+#endif 
                 progressBar1.Value = i;
                 Application.DoEvents();
             }

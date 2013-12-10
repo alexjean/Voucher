@@ -36,37 +36,49 @@ namespace VoucherExpense
 
         string[] m_ListViewItemBackup;
         TabPage m_TabPageStatics = null;
-        private void BakeryOrderBrowse_Load(object sender, EventArgs e)
+
+#if (UseSQLServer)
+        DamaiDataSet m_OrderSet = new DamaiDataSet();
+        string FloorStr = "FLOOR";
+        class OrderAdapter : DamaiDataSetTableAdapters.OrderTableAdapter
         {
-            this.productTableAdapter.Connection = MapPath.BakeryConnection;
-            m_OrderTableAdapter.Connection      = MapPath.BakeryConnection;
-            m_OrderItemTableAdapter.Connection  = MapPath.BakeryConnection;
-            m_DrawerReocrdAdapter.Connection    = MapPath.BakeryConnection;
-
-
-            m_ListViewItemBackup=new string[lvItems.Columns.Count]; // 備份給ResetListView用
-            for(int i=1;i<lvItems.Columns.Count;i++) 
-                m_ListViewItemBackup[i]=lvItems.Columns[i].Text;
-
-            try
+            string SaveStr;
+            public int FillBySelectStr(DamaiDataSet.OrderDataTable dataTable, string SelectStr)
             {
-                this.productTableAdapter.Fill(bakeryOrderSet.Product);
+                SaveStr = base.CommandCollection[0].CommandText;
+                base.CommandCollection[0].CommandText = SelectStr;
+                int result = Fill(dataTable);
+                base.CommandCollection[0].CommandText = SaveStr;
+                return result;
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("載入烘焙產品表時出錯,原因:" + ex.Message);
-            }
-            cbBoxMonth.SelectedIndexChanged += new EventHandler(cbBoxMonth_SelectedIndexChanged);
-            cbBoxMonth.SelectedIndex = DateTime.Now.Month - 1;
-            cbBoxDay.SelectedIndex = DateTime.Now.Day - 1;
-            if (tabControl1.TabCount < 1)
-            {
-                MessageBox.Show("程式錯誤! 應該有統計頁!");
-            }
-            else 
-                m_TabPageStatics = this.tabControl1.TabPages[0];     // 為避免被清除,存起統計頁
         }
-
+        class OrderItemAdapter : DamaiDataSetTableAdapters.OrderItemTableAdapter
+        {
+            string SaveStr;
+            public int FillBySelectStr(DamaiDataSet.OrderItemDataTable dataTable, string SelectStr)
+            {
+                SaveStr = base.CommandCollection[0].CommandText;
+                base.CommandCollection[0].CommandText = SelectStr;
+                int result = Fill(dataTable);
+                base.CommandCollection[0].CommandText = SaveStr;
+                return result;
+            }
+        }
+        class DrawerRecordAdapter : DamaiDataSetTableAdapters.DrawerRecordTableAdapter
+        {
+            string SaveStr;
+            public int FillBySelectStr(DamaiDataSet.DrawerRecordDataTable dataTable, string SelectStr)
+            {
+                SaveStr = base.CommandCollection[0].CommandText;
+                base.CommandCollection[0].CommandText = SelectStr;
+                int result = Fill(dataTable);
+                base.CommandCollection[0].CommandText = SaveStr;
+                return result;
+            }
+        }
+#else
+        BakeryOrderSet m_OrderSet = new BakeryOrderSet();
+        string FloorStr = "INT";
         class OrderAdapter : BakeryOrderSetTableAdapters.OrderTableAdapter
         {
             string SaveStr;
@@ -103,22 +115,62 @@ namespace VoucherExpense
                 return result;
             }
         }
-
+#endif
         OrderAdapter m_OrderTableAdapter = new OrderAdapter();
         OrderItemAdapter m_OrderItemTableAdapter = new OrderItemAdapter();
         DrawerRecordAdapter m_DrawerReocrdAdapter = new DrawerRecordAdapter();
 
+
+
+        private void BakeryOrderBrowse_Load(object sender, EventArgs e)
+        {
+
+#if UseSQLServer
+            var productSQLAdapter = new DamaiDataSetTableAdapters.ProductTableAdapter();
+            try
+            {
+                productSQLAdapter.Fill(m_OrderSet.Product);
+            }
+#else
+            this.productTableAdapter.Connection = MapPath.BakeryConnection;
+            m_OrderTableAdapter.Connection      = MapPath.BakeryConnection;
+            m_OrderItemTableAdapter.Connection  = MapPath.BakeryConnection;
+            m_DrawerReocrdAdapter.Connection    = MapPath.BakeryConnection;
+            try
+            {
+                this.productTableAdapter.Fill(m_OrderSet.Product);
+            }
+#endif 
+            catch (Exception ex)
+            {
+                MessageBox.Show("載入烘焙產品表時出錯,原因:" + ex.Message);
+            }
+            m_ListViewItemBackup = new string[lvItems.Columns.Count]; // 備份給ResetListView用
+            for (int i = 1; i < lvItems.Columns.Count; i++)
+                m_ListViewItemBackup[i] = lvItems.Columns[i].Text;
+            cbBoxMonth.SelectedIndexChanged += new EventHandler(cbBoxMonth_SelectedIndexChanged);
+            cbBoxMonth.SelectedIndex = DateTime.Now.Month - 1;
+            cbBoxDay.SelectedIndex = DateTime.Now.Day - 1;
+            if (tabControl1.TabCount < 1)
+            {
+                MessageBox.Show("程式錯誤! 應該有統計頁!");
+            }
+            else 
+                m_TabPageStatics = this.tabControl1.TabPages[0];     // 為避免被清除,存起統計頁
+        }
+
         int LoadData(int m, int d)
         {
-            string sql = "Where INT(ID/1000000)=" + m.ToString("d2") + d.ToString("d2");
+
+            string sql = "Where "+FloorStr+"(ID/1000000)=" + m.ToString("d2") + d.ToString("d2");
             int MaxID = 0;
             try
             {
-                bakeryOrderSet.OrderItem.Rows.Clear();
-                bakeryOrderSet.Order.Rows.Clear();
-                m_OrderTableAdapter.FillBySelectStr(bakeryOrderSet.Order, "Select * From [Order] " + sql + " Order by ID");
-                m_OrderItemTableAdapter.FillBySelectStr(bakeryOrderSet.OrderItem, "Select * From [OrderItem] " + sql);
-                foreach (BakeryOrderSet.OrderRow R in bakeryOrderSet.Order.Rows)
+                m_OrderSet.OrderItem.Rows.Clear();
+                m_OrderSet.Order.Rows.Clear();
+                m_OrderTableAdapter.FillBySelectStr(m_OrderSet.Order, "Select * From [Order] " + sql + " Order by ID");
+                m_OrderItemTableAdapter.FillBySelectStr(m_OrderSet.OrderItem, "Select * From [OrderItem] " + sql);
+                foreach (var R in m_OrderSet.Order)
                 {
                     int id = PureID(R.ID);       // 資料定義為 MMDDNN9999  N POS机号,店長收資料時,再自動填上
                     if (id > MaxID) MaxID = id;
@@ -128,19 +180,19 @@ namespace VoucherExpense
             catch (Exception ex)
             {
                 string str = ex.Message;
-                MessageBox.Show("BakeryOrder.Order OrderItem讀取錯誤!" + str);
+                MessageBox.Show("Order OrderItem讀取錯誤!" + str);
                 return -1;
             }
         }
 
         int LoadDrawerRecordData(int m, int d)
         {
-            string sql = "Where INT(DrawerRecordID/1000000)=" + m.ToString("d2") + d.ToString("d2");
+            string sql = "Where "+FloorStr+"(DrawerRecordID/1000000)=" + m.ToString("d2") + d.ToString("d2");
             int MaxID = 0;
             try
             {
-                m_DrawerReocrdAdapter.FillBySelectStr(bakeryOrderSet.DrawerRecord, "Select * From [DrawerRecord] " + sql);
-                foreach (BakeryOrderSet.DrawerRecordRow R in bakeryOrderSet.DrawerRecord.Rows)
+                m_DrawerReocrdAdapter.FillBySelectStr(m_OrderSet.DrawerRecord, "Select * From [DrawerRecord] " + sql);
+                foreach (var R in m_OrderSet.DrawerRecord)
                 {
                     int id = PureID(R.DrawerRecordID);       // 資料定義為 MMDDN99999  N POS机号比Order.ID少一位, id最多10萬筆多十倍
                     if (id > MaxID) MaxID = id;
@@ -150,7 +202,7 @@ namespace VoucherExpense
             catch (Exception ex)
             {
                 string str = ex.Message;
-                MessageBox.Show("BakeryOrder.DrawerRecord讀取錯誤!" + str);
+                MessageBox.Show("DrawerRecord讀取錯誤!" + str);
                 return -1;
             }
         }
@@ -214,8 +266,11 @@ namespace VoucherExpense
             page.Font = new Font("標楷體", 14.25f);
             return page;
         }
-
+#if UseSQLServer
+        void CreateLabel(TabPage tabPage, int x, int y, DamaiDataSet.OrderRow Row)
+#else
         void CreateLabel(TabPage tabPage, int x, int y, BakeryOrderSet.OrderRow Row)
+#endif
         {
             if (Row == null) return;
             string mark = "St" + tabPage.Name + DateTime.Now.Ticks.ToString();  //避免多次進入,label重名了
@@ -258,7 +313,7 @@ namespace VoucherExpense
 
         string  FindNameFromProduct(int productID)
         {
-            foreach (BakeryOrderSet.ProductRow row in bakeryOrderSet.Product)
+            foreach (var row in m_OrderSet.Product)
             {
                 if (productID == row.ProductID) return row.Name;
             }
@@ -272,13 +327,16 @@ namespace VoucherExpense
             for(int i=1;i<lvItems.Columns.Count;i++)
                 lvItems.Columns[i].Text = m_ListViewItemBackup[i];
         }
-
+#if UseSQLServer
+        private bool ShowOrder(DamaiDataSet.OrderRow order)
+#else
         private bool ShowOrder(BakeryOrderSet.OrderRow order)
+#endif
         {
-            BakeryOrderSet.OrderItemRow[] items = order.GetOrderItemRows();
+            var items = order.GetOrderItemRows();
             lvItems.Items.Clear();
             decimal total = 0, count = 0; ;
-            foreach (BakeryOrderSet.OrderItemRow item in items)
+            foreach (var item in items)
             {
                 if (item.IsNoNull()) continue;
                 if (item.IsProductIDNull()) continue;
@@ -332,14 +390,18 @@ namespace VoucherExpense
             BakeryOrderSet.DrawerRecordRow record = t.Tag as BakeryOrderSet.DrawerRecordRow;
             ResetListView();
             if (record.IsAssociateOrderIDNull() || record.AssociateOrderID < 0) return;
-            var Orders = from row in bakeryOrderSet.Order where (row.ID%1000000 == record.AssociateOrderID) select row;   // 要含Pos机号
+            var Orders = from row in m_OrderSet.Order where (row.ID%1000000 == record.AssociateOrderID) select row;   // 要含Pos机号
             if (Orders.Count() > 0) ShowOrder(Orders.First());
         }
 
         private void b_MouseClick(object sender, MouseEventArgs e)
         {
             TextBox t = (TextBox)sender;
-            BakeryOrderSet.OrderRow row = t.Tag as BakeryOrderSet.OrderRow;
+#if (UseSQLServer)
+            var row = t.Tag as DamaiDataSet.OrderRow;
+#else
+            var row = t.Tag as BakeryOrderSet.OrderRow;
+#endif
             labelDeductLabel.Visible = false;
             if ((!row.IsDeductNull()) && row.Deduct != 0)
             {
@@ -361,7 +423,6 @@ namespace VoucherExpense
 
         }
 
-
         private void btnOrderList_Click(object sender, EventArgs e)
         {
             int mon = cbBoxMonth.SelectedIndex+1;
@@ -374,7 +435,7 @@ namespace VoucherExpense
             LoadData(mon, day);
             TabControl tc = tabControl1;
             // worry about IsPrintTimeNull()
-            var groups = from row in bakeryOrderSet.Order orderby row.PrintTime
+            var groups = from row in m_OrderSet.Order orderby row.PrintTime
                          group row by row.PrintTime.Hour;
             if (groups.Count() == 0)
             {
@@ -383,7 +444,11 @@ namespace VoucherExpense
             }
             tc.TabPages.Clear();
             tc.TabPages.Add(m_TabPageStatics);
-            List<BakeryOrderSet.OrderRow> listXX = new List<BakeryOrderSet.OrderRow>();
+#if (UseSQLServer)
+            var listXX = new List<DamaiDataSet.OrderRow>();
+#else
+            var listXX = new List<BakeryOrderSet.OrderRow>();
+#endif
             SortableBindingList<HourStatics> listStatics = new SortableBindingList<HourStatics>();
             labelDgvTitle.Text=mon.ToString()+"月"+day.ToString()+"日統計表";
             TabPage page=null;
@@ -491,7 +556,11 @@ namespace VoucherExpense
                 labelTotalAverage.Text = Math.Round(total / count, 1).ToString();
         }
 
+#if (UseSQLServer)
+        void CreateRecordLabel(TabPage tabPage, int x, int y, DamaiDataSet.DrawerRecordRow Row)
+#else
         void CreateRecordLabel(TabPage tabPage, int x, int y, BakeryOrderSet.DrawerRecordRow Row)
+#endif
         {
             if (Row == null) return;
             string mark = "St" + tabPage.Name + DateTime.Now.Ticks.ToString();  //避免多次進入,label重名了
@@ -547,11 +616,15 @@ namespace VoucherExpense
 
             TabControl tc = tabControl1;
             // worry about IsPrintTimeNull()
-            var groups = from row in bakeryOrderSet.DrawerRecord
+            var groups = from row in m_OrderSet.DrawerRecord
                          group row by row.OpenTime.Hour;
             if (groups.Count() == 0) return;
             tc.TabPages.Clear();
-            List<BakeryOrderSet.DrawerRecordRow> listXX = new List<BakeryOrderSet.DrawerRecordRow>();
+#if UseSQLServer
+            var listXX = new List<DamaiDataSet.DrawerRecordRow>();
+#else
+            var listXX = new List<BakeryOrderSet.DrawerRecordRow>();
+#endif
             TabPage page = null;
             int count = 0;
 

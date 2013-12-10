@@ -90,6 +90,14 @@ namespace VoucherExpense {
         
         private VoucherDetailDataTable tableVoucherDetail;
         
+        private global::System.Data.DataRelation relationFK_Vendor_Voucher;
+        
+        private global::System.Data.DataRelation relationFK_Ingredient_VoucherDetail;
+        
+        private global::System.Data.DataRelation relationFK_Voucher_VoucherDetail;
+        
+        private global::System.Data.DataRelation relationFK_Order_OrderItem;
+        
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -962,6 +970,10 @@ namespace VoucherExpense {
                     this.tableVoucherDetail.InitVars();
                 }
             }
+            this.relationFK_Vendor_Voucher = this.Relations["FK_Vendor_Voucher"];
+            this.relationFK_Ingredient_VoucherDetail = this.Relations["FK_Ingredient_VoucherDetail"];
+            this.relationFK_Voucher_VoucherDetail = this.Relations["FK_Voucher_VoucherDetail"];
+            this.relationFK_Order_OrderItem = this.Relations["FK_Order_OrderItem"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1038,6 +1050,22 @@ namespace VoucherExpense {
             base.Tables.Add(this.tableVoucher);
             this.tableVoucherDetail = new VoucherDetailDataTable();
             base.Tables.Add(this.tableVoucherDetail);
+            this.relationFK_Vendor_Voucher = new global::System.Data.DataRelation("FK_Vendor_Voucher", new global::System.Data.DataColumn[] {
+                        this.tableVendor.VendorIDColumn}, new global::System.Data.DataColumn[] {
+                        this.tableVoucher.VendorIDColumn}, false);
+            this.Relations.Add(this.relationFK_Vendor_Voucher);
+            this.relationFK_Ingredient_VoucherDetail = new global::System.Data.DataRelation("FK_Ingredient_VoucherDetail", new global::System.Data.DataColumn[] {
+                        this.tableIngredient.IngredientIDColumn}, new global::System.Data.DataColumn[] {
+                        this.tableVoucherDetail.IngredientIDColumn}, false);
+            this.Relations.Add(this.relationFK_Ingredient_VoucherDetail);
+            this.relationFK_Voucher_VoucherDetail = new global::System.Data.DataRelation("FK_Voucher_VoucherDetail", new global::System.Data.DataColumn[] {
+                        this.tableVoucher.IDColumn}, new global::System.Data.DataColumn[] {
+                        this.tableVoucherDetail.VoIDColumn}, false);
+            this.Relations.Add(this.relationFK_Voucher_VoucherDetail);
+            this.relationFK_Order_OrderItem = new global::System.Data.DataRelation("FK_Order_OrderItem", new global::System.Data.DataColumn[] {
+                        this.tableOrder.IDColumn}, new global::System.Data.DataColumn[] {
+                        this.tableOrderItem.IDColumn}, false);
+            this.Relations.Add(this.relationFK_Order_OrderItem);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2162,7 +2190,6 @@ namespace VoucherExpense {
                 this.columnIsDebt2.AllowDBNull = false;
                 this.columnIsDebt3.AllowDBNull = false;
                 this.columnNote.MaxLength = 50;
-                this.columnRemoved.AllowDBNull = false;
                 this.columnLocked.AllowDBNull = false;
                 this.columnTitleCode0.MaxLength = 10;
                 this.columnTitleCode1.MaxLength = 10;
@@ -3262,11 +3289,11 @@ namespace VoucherExpense {
             
             private global::System.Data.DataColumn columnTitleCode;
             
-            private global::System.Data.DataColumn columnIsCredit;
-            
             private global::System.Data.DataColumn columnMoney;
             
             private global::System.Data.DataColumn columnNote;
+            
+            private global::System.Data.DataColumn columnIsCredit;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -3335,14 +3362,6 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn IsCreditColumn {
-                get {
-                    return this.columnIsCredit;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn MoneyColumn {
                 get {
                     return this.columnMoney;
@@ -3354,6 +3373,14 @@ namespace VoucherExpense {
             public global::System.Data.DataColumn NoteColumn {
                 get {
                     return this.columnNote;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn IsCreditColumn {
+                get {
+                    return this.columnIsCredit;
                 }
             }
             
@@ -3394,16 +3421,16 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public BankDetailRow AddBankDetailRow(int ID, System.DateTime Day, int BankID, string TitleCode, bool IsCredit, decimal Money, string Note) {
+            public BankDetailRow AddBankDetailRow(int ID, System.DateTime Day, int BankID, string TitleCode, decimal Money, string Note, bool IsCredit) {
                 BankDetailRow rowBankDetailRow = ((BankDetailRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ID,
                         Day,
                         BankID,
                         TitleCode,
-                        IsCredit,
                         Money,
-                        Note};
+                        Note,
+                        IsCredit};
                 rowBankDetailRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowBankDetailRow);
                 return rowBankDetailRow;
@@ -3437,9 +3464,9 @@ namespace VoucherExpense {
                 this.columnDay = base.Columns["Day"];
                 this.columnBankID = base.Columns["BankID"];
                 this.columnTitleCode = base.Columns["TitleCode"];
-                this.columnIsCredit = base.Columns["IsCredit"];
                 this.columnMoney = base.Columns["Money"];
                 this.columnNote = base.Columns["Note"];
+                this.columnIsCredit = base.Columns["IsCredit"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3453,18 +3480,17 @@ namespace VoucherExpense {
                 base.Columns.Add(this.columnBankID);
                 this.columnTitleCode = new global::System.Data.DataColumn("TitleCode", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTitleCode);
-                this.columnIsCredit = new global::System.Data.DataColumn("IsCredit", typeof(bool), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnIsCredit);
                 this.columnMoney = new global::System.Data.DataColumn("Money", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnMoney);
                 this.columnNote = new global::System.Data.DataColumn("Note", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnNote);
+                this.columnIsCredit = new global::System.Data.DataColumn("IsCredit", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIsCredit);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AllowDBNull = false;
                 this.columnID.Unique = true;
                 this.columnTitleCode.MaxLength = 10;
-                this.columnIsCredit.AllowDBNull = false;
                 this.columnNote.MaxLength = 40;
             }
             
@@ -4887,7 +4913,6 @@ namespace VoucherExpense {
                 this.columnNote.MaxLength = 50;
                 this.columnPaid.AllowDBNull = false;
                 this.columnTitleCode.MaxLength = 10;
-                this.columnRemoved.AllowDBNull = false;
                 this.columnLocked.AllowDBNull = false;
                 this.columnTitleCodeCredit.MaxLength = 10;
             }
@@ -8859,11 +8884,11 @@ namespace VoucherExpense {
             
             private global::System.Data.DataColumn columnPayBy;
             
-            private global::System.Data.DataColumn columnDeleted;
-            
             private global::System.Data.DataColumn columnOldID;
             
             private global::System.Data.DataColumn columnRCashierID;
+            
+            private global::System.Data.DataColumn columnDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -8964,14 +8989,6 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn DeletedColumn {
-                get {
-                    return this.columnDeleted;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn OldIDColumn {
                 get {
                     return this.columnOldID;
@@ -8983,6 +9000,14 @@ namespace VoucherExpense {
             public global::System.Data.DataColumn RCashierIDColumn {
                 get {
                     return this.columnRCashierID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn DeletedColumn {
+                get {
+                    return this.columnDeleted;
                 }
             }
             
@@ -9023,7 +9048,7 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public OrderRow AddOrderRow(int ID, int CashierID, System.DateTime PrintTime, decimal Income, int BranchID, decimal Deduct, decimal DiscountRate, string PayBy, bool Deleted, int OldID, int RCashierID) {
+            public OrderRow AddOrderRow(int ID, int CashierID, System.DateTime PrintTime, decimal Income, int BranchID, decimal Deduct, decimal DiscountRate, string PayBy, int OldID, int RCashierID, bool Deleted) {
                 OrderRow rowOrderRow = ((OrderRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ID,
@@ -9034,9 +9059,9 @@ namespace VoucherExpense {
                         Deduct,
                         DiscountRate,
                         PayBy,
-                        Deleted,
                         OldID,
-                        RCashierID};
+                        RCashierID,
+                        Deleted};
                 rowOrderRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowOrderRow);
                 return rowOrderRow;
@@ -9074,9 +9099,9 @@ namespace VoucherExpense {
                 this.columnDeduct = base.Columns["Deduct"];
                 this.columnDiscountRate = base.Columns["DiscountRate"];
                 this.columnPayBy = base.Columns["PayBy"];
-                this.columnDeleted = base.Columns["Deleted"];
                 this.columnOldID = base.Columns["OldID"];
                 this.columnRCashierID = base.Columns["RCashierID"];
+                this.columnDeleted = base.Columns["Deleted"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -9098,19 +9123,18 @@ namespace VoucherExpense {
                 base.Columns.Add(this.columnDiscountRate);
                 this.columnPayBy = new global::System.Data.DataColumn("PayBy", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPayBy);
-                this.columnDeleted = new global::System.Data.DataColumn("Deleted", typeof(bool), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDeleted);
                 this.columnOldID = new global::System.Data.DataColumn("OldID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnOldID);
                 this.columnRCashierID = new global::System.Data.DataColumn("RCashierID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRCashierID);
+                this.columnDeleted = new global::System.Data.DataColumn("Deleted", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDeleted);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AllowDBNull = false;
                 this.columnID.Unique = true;
                 this.columnCashierID.AllowDBNull = false;
                 this.columnPayBy.MaxLength = 1;
-                this.columnDeleted.AllowDBNull = false;
                 this.columnOldID.AllowDBNull = false;
                 this.columnRCashierID.AllowDBNull = false;
             }
@@ -9258,6 +9282,8 @@ namespace VoucherExpense {
             
             private global::System.Data.DataColumn columnDiscount;
             
+            private global::System.Data.DataColumn columnItemID;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public OrderItemDataTable() {
@@ -9341,6 +9367,14 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ItemIDColumn {
+                get {
+                    return this.columnItemID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -9376,15 +9410,19 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public OrderItemRow AddOrderItemRow(int ID, short Index, int ProductID, decimal No, decimal Price, bool Discount) {
+            public OrderItemRow AddOrderItemRow(OrderRow parentOrderRowByFK_Order_OrderItem, short Index, int ProductID, decimal No, decimal Price, bool Discount, long ItemID) {
                 OrderItemRow rowOrderItemRow = ((OrderItemRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        ID,
+                        null,
                         Index,
                         ProductID,
                         No,
                         Price,
-                        Discount};
+                        Discount,
+                        ItemID};
+                if ((parentOrderRowByFK_Order_OrderItem != null)) {
+                    columnValuesArray[0] = parentOrderRowByFK_Order_OrderItem[0];
+                }
                 rowOrderItemRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowOrderItemRow);
                 return rowOrderItemRow;
@@ -9421,6 +9459,7 @@ namespace VoucherExpense {
                 this.columnNo = base.Columns["No"];
                 this.columnPrice = base.Columns["Price"];
                 this.columnDiscount = base.Columns["Discount"];
+                this.columnItemID = base.Columns["ItemID"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -9438,12 +9477,18 @@ namespace VoucherExpense {
                 base.Columns.Add(this.columnPrice);
                 this.columnDiscount = new global::System.Data.DataColumn("Discount", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDiscount);
+                this.columnItemID = new global::System.Data.DataColumn("ItemID", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnItemID);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnID,
                                 this.columnIndex}, true));
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint2", new global::System.Data.DataColumn[] {
+                                this.columnItemID}, false));
                 this.columnID.AllowDBNull = false;
                 this.columnIndex.AllowDBNull = false;
                 this.columnDiscount.AllowDBNull = false;
+                this.columnItemID.AllowDBNull = false;
+                this.columnItemID.Unique = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -13425,12 +13470,12 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public VoucherRow AddVoucherRow(int ID, int VoucherID, int VendorID, decimal Cost, System.DateTime StockTime, System.DateTime EntryTime, System.DateTime PrintTime, int KeyinID, bool Removed, bool Locked, System.DateTime LastUpdated) {
+            public VoucherRow AddVoucherRow(int ID, int VoucherID, VendorRow parentVendorRowByFK_Vendor_Voucher, decimal Cost, System.DateTime StockTime, System.DateTime EntryTime, System.DateTime PrintTime, int KeyinID, bool Removed, bool Locked, System.DateTime LastUpdated) {
                 VoucherRow rowVoucherRow = ((VoucherRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ID,
                         VoucherID,
-                        VendorID,
+                        null,
                         Cost,
                         StockTime,
                         EntryTime,
@@ -13439,6 +13484,9 @@ namespace VoucherExpense {
                         Removed,
                         Locked,
                         LastUpdated};
+                if ((parentVendorRowByFK_Vendor_Voucher != null)) {
+                    columnValuesArray[2] = parentVendorRowByFK_Vendor_Voucher[0];
+                }
                 rowVoucherRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowVoucherRow);
                 return rowVoucherRow;
@@ -13510,7 +13558,6 @@ namespace VoucherExpense {
                                 this.columnID}, true));
                 this.columnID.AllowDBNull = false;
                 this.columnID.Unique = true;
-                this.columnRemoved.AllowDBNull = false;
                 this.columnLocked.AllowDBNull = false;
             }
             
@@ -13775,15 +13822,21 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public VoucherDetailRow AddVoucherDetailRow(System.Guid ID, int VoID, int IngredientID, decimal Cost, decimal Volume, string TitleCode) {
+            public VoucherDetailRow AddVoucherDetailRow(System.Guid ID, VoucherRow parentVoucherRowByFK_Voucher_VoucherDetail, IngredientRow parentIngredientRowByFK_Ingredient_VoucherDetail, decimal Cost, decimal Volume, string TitleCode) {
                 VoucherDetailRow rowVoucherDetailRow = ((VoucherDetailRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ID,
-                        VoID,
-                        IngredientID,
+                        null,
+                        null,
                         Cost,
                         Volume,
                         TitleCode};
+                if ((parentVoucherRowByFK_Voucher_VoucherDetail != null)) {
+                    columnValuesArray[1] = parentVoucherRowByFK_Voucher_VoucherDetail[0];
+                }
+                if ((parentIngredientRowByFK_Ingredient_VoucherDetail != null)) {
+                    columnValuesArray[2] = parentIngredientRowByFK_Ingredient_VoucherDetail[0];
+                }
                 rowVoucherDetailRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowVoucherDetailRow);
                 return rowVoucherDetailRow;
@@ -14310,7 +14363,12 @@ namespace VoucherExpense {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Removed {
                 get {
-                    return ((bool)(this[this.tableAccVoucher.RemovedColumn]));
+                    try {
+                        return ((bool)(this[this.tableAccVoucher.RemovedColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("資料表 \'AccVoucher\' 中資料行 \'Removed\' 的值是 DBNull。", e);
+                    }
                 }
                 set {
                     this[this.tableAccVoucher.RemovedColumn] = value;
@@ -14542,6 +14600,18 @@ namespace VoucherExpense {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetKeyinIDNull() {
                 this[this.tableAccVoucher.KeyinIDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsRemovedNull() {
+                return this.IsNull(this.tableAccVoucher.RemovedColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetRemovedNull() {
+                this[this.tableAccVoucher.RemovedColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -15089,17 +15159,6 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsCredit {
-                get {
-                    return ((bool)(this[this.tableBankDetail.IsCreditColumn]));
-                }
-                set {
-                    this[this.tableBankDetail.IsCreditColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public decimal Money {
                 get {
                     try {
@@ -15127,6 +15186,22 @@ namespace VoucherExpense {
                 }
                 set {
                     this[this.tableBankDetail.NoteColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsCredit {
+                get {
+                    try {
+                        return ((bool)(this[this.tableBankDetail.IsCreditColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("資料表 \'BankDetail\' 中資料行 \'IsCredit\' 的值是 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tableBankDetail.IsCreditColumn] = value;
                 }
             }
             
@@ -15188,6 +15263,18 @@ namespace VoucherExpense {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetNoteNull() {
                 this[this.tableBankDetail.NoteColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsIsCreditNull() {
+                return this.IsNull(this.tableBankDetail.IsCreditColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetIsCreditNull() {
+                this[this.tableBankDetail.IsCreditColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -15711,7 +15798,12 @@ namespace VoucherExpense {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Removed {
                 get {
-                    return ((bool)(this[this.tableExpense.RemovedColumn]));
+                    try {
+                        return ((bool)(this[this.tableExpense.RemovedColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("資料表 \'Expense\' 中資料行 \'Removed\' 的值是 DBNull。", e);
+                    }
                 }
                 set {
                     this[this.tableExpense.RemovedColumn] = value;
@@ -15887,6 +15979,18 @@ namespace VoucherExpense {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetKeyinIDNull() {
                 this[this.tableExpense.KeyinIDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsRemovedNull() {
+                return this.IsNull(this.tableExpense.RemovedColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetRemovedNull() {
+                this[this.tableExpense.RemovedColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -17180,6 +17284,17 @@ namespace VoucherExpense {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetMinOrderNull() {
                 this[this.tableIngredient.MinOrderColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public VoucherDetailRow[] GetVoucherDetailRows() {
+                if ((this.Table.ChildRelations["FK_Ingredient_VoucherDetail"] == null)) {
+                    return new VoucherDetailRow[0];
+                }
+                else {
+                    return ((VoucherDetailRow[])(base.GetChildRows(this.Table.ChildRelations["FK_Ingredient_VoucherDetail"])));
+                }
             }
         }
         
@@ -18534,17 +18649,6 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool Deleted {
-                get {
-                    return ((bool)(this[this.tableOrder.DeletedColumn]));
-                }
-                set {
-                    this[this.tableOrder.DeletedColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public int OldID {
                 get {
                     return ((int)(this[this.tableOrder.OldIDColumn]));
@@ -18562,6 +18666,22 @@ namespace VoucherExpense {
                 }
                 set {
                     this[this.tableOrder.RCashierIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Deleted {
+                get {
+                    try {
+                        return ((bool)(this[this.tableOrder.DeletedColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("資料表 \'Order\' 中資料行 \'Deleted\' 的值是 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tableOrder.DeletedColumn] = value;
                 }
             }
             
@@ -18635,6 +18755,29 @@ namespace VoucherExpense {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetPayByNull() {
                 this[this.tableOrder.PayByColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsDeletedNull() {
+                return this.IsNull(this.tableOrder.DeletedColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetDeletedNull() {
+                this[this.tableOrder.DeletedColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public OrderItemRow[] GetOrderItemRows() {
+                if ((this.Table.ChildRelations["FK_Order_OrderItem"] == null)) {
+                    return new OrderItemRow[0];
+                }
+                else {
+                    return ((OrderItemRow[])(base.GetChildRows(this.Table.ChildRelations["FK_Order_OrderItem"])));
+                }
             }
         }
         
@@ -18730,6 +18873,28 @@ namespace VoucherExpense {
                 }
                 set {
                     this[this.tableOrderItem.DiscountColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public long ItemID {
+                get {
+                    return ((long)(this[this.tableOrderItem.ItemIDColumn]));
+                }
+                set {
+                    this[this.tableOrderItem.ItemIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public OrderRow OrderRow {
+                get {
+                    return ((OrderRow)(this.GetParentRow(this.Table.ParentRelations["FK_Order_OrderItem"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_Order_OrderItem"]);
                 }
             }
             
@@ -20998,6 +21163,17 @@ namespace VoucherExpense {
             public void SetFullNameNull() {
                 this[this.tableVendor.FullNameColumn] = global::System.Convert.DBNull;
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public VoucherRow[] GetVoucherRows() {
+                if ((this.Table.ChildRelations["FK_Vendor_Voucher"] == null)) {
+                    return new VoucherRow[0];
+                }
+                else {
+                    return ((VoucherRow[])(base.GetChildRows(this.Table.ChildRelations["FK_Vendor_Voucher"])));
+                }
+            }
         }
         
         /// <summary>
@@ -21141,7 +21317,12 @@ namespace VoucherExpense {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Removed {
                 get {
-                    return ((bool)(this[this.tableVoucher.RemovedColumn]));
+                    try {
+                        return ((bool)(this[this.tableVoucher.RemovedColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("資料表 \'Voucher\' 中資料行 \'Removed\' 的值是 DBNull。", e);
+                    }
                 }
                 set {
                     this[this.tableVoucher.RemovedColumn] = value;
@@ -21172,6 +21353,17 @@ namespace VoucherExpense {
                 }
                 set {
                     this[this.tableVoucher.LastUpdatedColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public VendorRow VendorRow {
+                get {
+                    return ((VendorRow)(this.GetParentRow(this.Table.ParentRelations["FK_Vendor_Voucher"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_Vendor_Voucher"]);
                 }
             }
             
@@ -21261,6 +21453,18 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsRemovedNull() {
+                return this.IsNull(this.tableVoucher.RemovedColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetRemovedNull() {
+                this[this.tableVoucher.RemovedColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsLastUpdatedNull() {
                 return this.IsNull(this.tableVoucher.LastUpdatedColumn);
             }
@@ -21269,6 +21473,17 @@ namespace VoucherExpense {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetLastUpdatedNull() {
                 this[this.tableVoucher.LastUpdatedColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public VoucherDetailRow[] GetVoucherDetailRows() {
+                if ((this.Table.ChildRelations["FK_Voucher_VoucherDetail"] == null)) {
+                    return new VoucherDetailRow[0];
+                }
+                else {
+                    return ((VoucherDetailRow[])(base.GetChildRows(this.Table.ChildRelations["FK_Voucher_VoucherDetail"])));
+                }
             }
         }
         
@@ -21374,6 +21589,28 @@ namespace VoucherExpense {
                 }
                 set {
                     this[this.tableVoucherDetail.TitleCodeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public IngredientRow IngredientRow {
+                get {
+                    return ((IngredientRow)(this.GetParentRow(this.Table.ParentRelations["FK_Ingredient_VoucherDetail"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_Ingredient_VoucherDetail"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public VoucherRow VoucherRow {
+                get {
+                    return ((VoucherRow)(this.GetParentRow(this.Table.ParentRelations["FK_Voucher_VoucherDetail"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_Voucher_VoucherDetail"]);
                 }
             }
             
@@ -23140,15 +23377,16 @@ SELECT TitleCode, Name, LastUpdated, InitialValue FROM AccountingTitle WHERE (Ti
                 "LL) OR ([Money3] = @Original_Money3)) AND ((@IsNull_Note = 1 AND [Note] IS NULL)" +
                 " OR ([Note] = @Original_Note)) AND ((@IsNull_AuthorizeID = 1 AND [AuthorizeID] I" +
                 "S NULL) OR ([AuthorizeID] = @Original_AuthorizeID)) AND ((@IsNull_KeyinID = 1 AN" +
-                "D [KeyinID] IS NULL) OR ([KeyinID] = @Original_KeyinID)) AND ([Removed] = @Origi" +
-                "nal_Removed) AND ([Locked] = @Original_Locked) AND ((@IsNull_LastUpdated = 1 AND" +
-                " [LastUpdated] IS NULL) OR ([LastUpdated] = @Original_LastUpdated)) AND ((@IsNul" +
-                "l_IndentureID = 1 AND [IndentureID] IS NULL) OR ([IndentureID] = @Original_Inden" +
-                "tureID)) AND ((@IsNull_TitleCode0 = 1 AND [TitleCode0] IS NULL) OR ([TitleCode0]" +
-                " = @Original_TitleCode0)) AND ((@IsNull_TitleCode1 = 1 AND [TitleCode1] IS NULL)" +
-                " OR ([TitleCode1] = @Original_TitleCode1)) AND ((@IsNull_TitleCode2 = 1 AND [Tit" +
-                "leCode2] IS NULL) OR ([TitleCode2] = @Original_TitleCode2)) AND ((@IsNull_TitleC" +
-                "ode3 = 1 AND [TitleCode3] IS NULL) OR ([TitleCode3] = @Original_TitleCode3)))";
+                "D [KeyinID] IS NULL) OR ([KeyinID] = @Original_KeyinID)) AND ((@IsNull_Removed =" +
+                " 1 AND [Removed] IS NULL) OR ([Removed] = @Original_Removed)) AND ([Locked] = @O" +
+                "riginal_Locked) AND ((@IsNull_LastUpdated = 1 AND [LastUpdated] IS NULL) OR ([La" +
+                "stUpdated] = @Original_LastUpdated)) AND ((@IsNull_IndentureID = 1 AND [Indentur" +
+                "eID] IS NULL) OR ([IndentureID] = @Original_IndentureID)) AND ((@IsNull_TitleCod" +
+                "e0 = 1 AND [TitleCode0] IS NULL) OR ([TitleCode0] = @Original_TitleCode0)) AND (" +
+                "(@IsNull_TitleCode1 = 1 AND [TitleCode1] IS NULL) OR ([TitleCode1] = @Original_T" +
+                "itleCode1)) AND ((@IsNull_TitleCode2 = 1 AND [TitleCode2] IS NULL) OR ([TitleCod" +
+                "e2] = @Original_TitleCode2)) AND ((@IsNull_TitleCode3 = 1 AND [TitleCode3] IS NU" +
+                "LL) OR ([TitleCode3] = @Original_TitleCode3)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_AccVoucherID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AccVoucherID", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
@@ -23175,6 +23413,7 @@ SELECT TitleCode, Name, LastUpdated, InitialValue FROM AccountingTitle WHERE (Ti
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AuthorizeID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AuthorizeID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_KeyinID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "KeyinID", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_KeyinID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "KeyinID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Removed", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Removed", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Removed", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Removed", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Locked", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Locked", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_LastUpdated", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastUpdated", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
@@ -23239,19 +23478,19 @@ SELECT ID, AccVoucherID, ApplierID, AccVoucherTime, IsDebt0, IsDebt1, IsDebt2, I
                 " ([Money3] = @Original_Money3)) AND ((@IsNull_Note = 1 AND [Note] IS NULL) OR ([" +
                 "Note] = @Original_Note)) AND ((@IsNull_AuthorizeID = 1 AND [AuthorizeID] IS NULL" +
                 ") OR ([AuthorizeID] = @Original_AuthorizeID)) AND ((@IsNull_KeyinID = 1 AND [Key" +
-                "inID] IS NULL) OR ([KeyinID] = @Original_KeyinID)) AND ([Removed] = @Original_Re" +
-                "moved) AND ([Locked] = @Original_Locked) AND ((@IsNull_LastUpdated = 1 AND [Last" +
-                "Updated] IS NULL) OR ([LastUpdated] = @Original_LastUpdated)) AND ((@IsNull_Inde" +
-                "ntureID = 1 AND [IndentureID] IS NULL) OR ([IndentureID] = @Original_IndentureID" +
-                ")) AND ((@IsNull_TitleCode0 = 1 AND [TitleCode0] IS NULL) OR ([TitleCode0] = @Or" +
-                "iginal_TitleCode0)) AND ((@IsNull_TitleCode1 = 1 AND [TitleCode1] IS NULL) OR ([" +
-                "TitleCode1] = @Original_TitleCode1)) AND ((@IsNull_TitleCode2 = 1 AND [TitleCode" +
-                "2] IS NULL) OR ([TitleCode2] = @Original_TitleCode2)) AND ((@IsNull_TitleCode3 =" +
-                " 1 AND [TitleCode3] IS NULL) OR ([TitleCode3] = @Original_TitleCode3)));\r\nSELECT" +
-                " ID, AccVoucherID, ApplierID, AccVoucherTime, IsDebt0, IsDebt1, IsDebt2, IsDebt3" +
-                ", Money0, Money1, Money2, Money3, Note, AuthorizeID, KeyinID, Removed, Locked, L" +
-                "astUpdated, IndentureID, TitleCode0, TitleCode1, TitleCode2, TitleCode3 FROM Acc" +
-                "Voucher WHERE (ID = @ID)";
+                "inID] IS NULL) OR ([KeyinID] = @Original_KeyinID)) AND ((@IsNull_Removed = 1 AND" +
+                " [Removed] IS NULL) OR ([Removed] = @Original_Removed)) AND ([Locked] = @Origina" +
+                "l_Locked) AND ((@IsNull_LastUpdated = 1 AND [LastUpdated] IS NULL) OR ([LastUpda" +
+                "ted] = @Original_LastUpdated)) AND ((@IsNull_IndentureID = 1 AND [IndentureID] I" +
+                "S NULL) OR ([IndentureID] = @Original_IndentureID)) AND ((@IsNull_TitleCode0 = 1" +
+                " AND [TitleCode0] IS NULL) OR ([TitleCode0] = @Original_TitleCode0)) AND ((@IsNu" +
+                "ll_TitleCode1 = 1 AND [TitleCode1] IS NULL) OR ([TitleCode1] = @Original_TitleCo" +
+                "de1)) AND ((@IsNull_TitleCode2 = 1 AND [TitleCode2] IS NULL) OR ([TitleCode2] = " +
+                "@Original_TitleCode2)) AND ((@IsNull_TitleCode3 = 1 AND [TitleCode3] IS NULL) OR" +
+                " ([TitleCode3] = @Original_TitleCode3)));\r\nSELECT ID, AccVoucherID, ApplierID, A" +
+                "ccVoucherTime, IsDebt0, IsDebt1, IsDebt2, IsDebt3, Money0, Money1, Money2, Money" +
+                "3, Note, AuthorizeID, KeyinID, Removed, Locked, LastUpdated, IndentureID, TitleC" +
+                "ode0, TitleCode1, TitleCode2, TitleCode3 FROM AccVoucher WHERE (ID = @ID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AccVoucherID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AccVoucherID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -23301,6 +23540,7 @@ SELECT ID, AccVoucherID, ApplierID, AccVoucherTime, IsDebt0, IsDebt1, IsDebt2, I
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AuthorizeID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AuthorizeID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_KeyinID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "KeyinID", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_KeyinID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "KeyinID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Removed", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Removed", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Removed", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Removed", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Locked", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Locked", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_LastUpdated", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastUpdated", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
@@ -23407,7 +23647,7 @@ SELECT ID, AccVoucherID, ApplierID, AccVoucherTime, IsDebt0, IsDebt1, IsDebt2, I
                     string Original_Note, 
                     global::System.Nullable<int> Original_AuthorizeID, 
                     global::System.Nullable<int> Original_KeyinID, 
-                    bool Original_Removed, 
+                    global::System.Nullable<bool> Original_Removed, 
                     bool Original_Locked, 
                     global::System.Nullable<global::System.DateTime> Original_LastUpdated, 
                     global::System.Nullable<int> Original_IndentureID, 
@@ -23500,55 +23740,62 @@ SELECT ID, AccVoucherID, ApplierID, AccVoucherTime, IsDebt0, IsDebt1, IsDebt2, I
                 this.Adapter.DeleteCommand.Parameters[23].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[24].Value = global::System.DBNull.Value;
             }
-            this.Adapter.DeleteCommand.Parameters[25].Value = ((bool)(Original_Removed));
-            this.Adapter.DeleteCommand.Parameters[26].Value = ((bool)(Original_Locked));
-            if ((Original_LastUpdated.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[27].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[28].Value = ((System.DateTime)(Original_LastUpdated.Value));
+            if ((Original_Removed.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[25].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[26].Value = ((bool)(Original_Removed.Value));
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[27].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[28].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[25].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[26].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.DeleteCommand.Parameters[27].Value = ((bool)(Original_Locked));
+            if ((Original_LastUpdated.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[28].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[29].Value = ((System.DateTime)(Original_LastUpdated.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[28].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[29].Value = global::System.DBNull.Value;
             }
             if ((Original_IndentureID.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[29].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[30].Value = ((int)(Original_IndentureID.Value));
+                this.Adapter.DeleteCommand.Parameters[30].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[31].Value = ((int)(Original_IndentureID.Value));
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[29].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[30].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[30].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[31].Value = global::System.DBNull.Value;
             }
             if ((Original_TitleCode0 == null)) {
-                this.Adapter.DeleteCommand.Parameters[31].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[32].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[32].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[33].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[31].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[32].Value = ((string)(Original_TitleCode0));
+                this.Adapter.DeleteCommand.Parameters[32].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[33].Value = ((string)(Original_TitleCode0));
             }
             if ((Original_TitleCode1 == null)) {
-                this.Adapter.DeleteCommand.Parameters[33].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[34].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[34].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[35].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[33].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[34].Value = ((string)(Original_TitleCode1));
+                this.Adapter.DeleteCommand.Parameters[34].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[35].Value = ((string)(Original_TitleCode1));
             }
             if ((Original_TitleCode2 == null)) {
-                this.Adapter.DeleteCommand.Parameters[35].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[36].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[36].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[37].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[35].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[36].Value = ((string)(Original_TitleCode2));
+                this.Adapter.DeleteCommand.Parameters[36].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[37].Value = ((string)(Original_TitleCode2));
             }
             if ((Original_TitleCode3 == null)) {
-                this.Adapter.DeleteCommand.Parameters[37].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[38].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[38].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[39].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[37].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[38].Value = ((string)(Original_TitleCode3));
+                this.Adapter.DeleteCommand.Parameters[38].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[39].Value = ((string)(Original_TitleCode3));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -23586,7 +23833,7 @@ SELECT ID, AccVoucherID, ApplierID, AccVoucherTime, IsDebt0, IsDebt1, IsDebt2, I
                     string Note, 
                     global::System.Nullable<int> AuthorizeID, 
                     global::System.Nullable<int> KeyinID, 
-                    bool Removed, 
+                    global::System.Nullable<bool> Removed, 
                     bool Locked, 
                     global::System.Nullable<global::System.DateTime> LastUpdated, 
                     global::System.Nullable<int> IndentureID, 
@@ -23659,7 +23906,12 @@ SELECT ID, AccVoucherID, ApplierID, AccVoucherTime, IsDebt0, IsDebt1, IsDebt2, I
             else {
                 this.Adapter.InsertCommand.Parameters[14].Value = global::System.DBNull.Value;
             }
-            this.Adapter.InsertCommand.Parameters[15].Value = ((bool)(Removed));
+            if ((Removed.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[15].Value = ((bool)(Removed.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[15].Value = global::System.DBNull.Value;
+            }
             this.Adapter.InsertCommand.Parameters[16].Value = ((bool)(Locked));
             if ((LastUpdated.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[17].Value = ((System.DateTime)(LastUpdated.Value));
@@ -23733,7 +23985,7 @@ SELECT ID, AccVoucherID, ApplierID, AccVoucherTime, IsDebt0, IsDebt1, IsDebt2, I
                     string Note, 
                     global::System.Nullable<int> AuthorizeID, 
                     global::System.Nullable<int> KeyinID, 
-                    bool Removed, 
+                    global::System.Nullable<bool> Removed, 
                     bool Locked, 
                     global::System.Nullable<global::System.DateTime> LastUpdated, 
                     global::System.Nullable<int> IndentureID, 
@@ -23756,7 +24008,7 @@ SELECT ID, AccVoucherID, ApplierID, AccVoucherTime, IsDebt0, IsDebt1, IsDebt2, I
                     string Original_Note, 
                     global::System.Nullable<int> Original_AuthorizeID, 
                     global::System.Nullable<int> Original_KeyinID, 
-                    bool Original_Removed, 
+                    global::System.Nullable<bool> Original_Removed, 
                     bool Original_Locked, 
                     global::System.Nullable<global::System.DateTime> Original_LastUpdated, 
                     global::System.Nullable<int> Original_IndentureID, 
@@ -23829,7 +24081,12 @@ SELECT ID, AccVoucherID, ApplierID, AccVoucherTime, IsDebt0, IsDebt1, IsDebt2, I
             else {
                 this.Adapter.UpdateCommand.Parameters[14].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[15].Value = ((bool)(Removed));
+            if ((Removed.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((bool)(Removed.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[15].Value = global::System.DBNull.Value;
+            }
             this.Adapter.UpdateCommand.Parameters[16].Value = ((bool)(Locked));
             if ((LastUpdated.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[17].Value = ((System.DateTime)(LastUpdated.Value));
@@ -23952,55 +24209,62 @@ SELECT ID, AccVoucherID, ApplierID, AccVoucherTime, IsDebt0, IsDebt1, IsDebt2, I
                 this.Adapter.UpdateCommand.Parameters[46].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[47].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[48].Value = ((bool)(Original_Removed));
-            this.Adapter.UpdateCommand.Parameters[49].Value = ((bool)(Original_Locked));
-            if ((Original_LastUpdated.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[50].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[51].Value = ((System.DateTime)(Original_LastUpdated.Value));
+            if ((Original_Removed.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[48].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[49].Value = ((bool)(Original_Removed.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[50].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[51].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[48].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[49].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[50].Value = ((bool)(Original_Locked));
+            if ((Original_LastUpdated.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[51].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[52].Value = ((System.DateTime)(Original_LastUpdated.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[51].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[52].Value = global::System.DBNull.Value;
             }
             if ((Original_IndentureID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[52].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[53].Value = ((int)(Original_IndentureID.Value));
+                this.Adapter.UpdateCommand.Parameters[53].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[54].Value = ((int)(Original_IndentureID.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[52].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[53].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[53].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[54].Value = global::System.DBNull.Value;
             }
             if ((Original_TitleCode0 == null)) {
-                this.Adapter.UpdateCommand.Parameters[54].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[55].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[55].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[56].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[54].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[55].Value = ((string)(Original_TitleCode0));
+                this.Adapter.UpdateCommand.Parameters[55].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[56].Value = ((string)(Original_TitleCode0));
             }
             if ((Original_TitleCode1 == null)) {
-                this.Adapter.UpdateCommand.Parameters[56].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[57].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[57].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[58].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[56].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[57].Value = ((string)(Original_TitleCode1));
+                this.Adapter.UpdateCommand.Parameters[57].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[58].Value = ((string)(Original_TitleCode1));
             }
             if ((Original_TitleCode2 == null)) {
-                this.Adapter.UpdateCommand.Parameters[58].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[59].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[59].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[60].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[58].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[59].Value = ((string)(Original_TitleCode2));
+                this.Adapter.UpdateCommand.Parameters[59].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[60].Value = ((string)(Original_TitleCode2));
             }
             if ((Original_TitleCode3 == null)) {
-                this.Adapter.UpdateCommand.Parameters[60].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[61].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[61].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[62].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[60].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[61].Value = ((string)(Original_TitleCode3));
+                this.Adapter.UpdateCommand.Parameters[61].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[62].Value = ((string)(Original_TitleCode3));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -24037,7 +24301,7 @@ SELECT ID, AccVoucherID, ApplierID, AccVoucherTime, IsDebt0, IsDebt1, IsDebt2, I
                     string Note, 
                     global::System.Nullable<int> AuthorizeID, 
                     global::System.Nullable<int> KeyinID, 
-                    bool Removed, 
+                    global::System.Nullable<bool> Removed, 
                     bool Locked, 
                     global::System.Nullable<global::System.DateTime> LastUpdated, 
                     global::System.Nullable<int> IndentureID, 
@@ -24060,7 +24324,7 @@ SELECT ID, AccVoucherID, ApplierID, AccVoucherTime, IsDebt0, IsDebt1, IsDebt2, I
                     string Original_Note, 
                     global::System.Nullable<int> Original_AuthorizeID, 
                     global::System.Nullable<int> Original_KeyinID, 
-                    bool Original_Removed, 
+                    global::System.Nullable<bool> Original_Removed, 
                     bool Original_Locked, 
                     global::System.Nullable<global::System.DateTime> Original_LastUpdated, 
                     global::System.Nullable<int> Original_IndentureID, 
@@ -25442,13 +25706,13 @@ SELECT ID, ShowName, BankName, AccountNo, AccountName, DefaultTitleCode, Account
             tableMapping.ColumnMappings.Add("Day", "Day");
             tableMapping.ColumnMappings.Add("BankID", "BankID");
             tableMapping.ColumnMappings.Add("TitleCode", "TitleCode");
-            tableMapping.ColumnMappings.Add("IsCredit", "IsCredit");
             tableMapping.ColumnMappings.Add("Money", "Money");
             tableMapping.ColumnMappings.Add("Note", "Note");
+            tableMapping.ColumnMappings.Add("IsCredit", "IsCredit");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[BankDetail] WHERE (([ID] = @Original_ID) AND ((@IsNull_Day = 1 AND [Day] IS NULL) OR ([Day] = @Original_Day)) AND ((@IsNull_BankID = 1 AND [BankID] IS NULL) OR ([BankID] = @Original_BankID)) AND ((@IsNull_TitleCode = 1 AND [TitleCode] IS NULL) OR ([TitleCode] = @Original_TitleCode)) AND ([IsCredit] = @Original_IsCredit) AND ((@IsNull_Money = 1 AND [Money] IS NULL) OR ([Money] = @Original_Money)) AND ((@IsNull_Note = 1 AND [Note] IS NULL) OR ([Note] = @Original_Note)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [BankDetail] WHERE (([ID] = @Original_ID) AND ((@IsNull_Day = 1 AND [Day] IS NULL) OR ([Day] = @Original_Day)) AND ((@IsNull_BankID = 1 AND [BankID] IS NULL) OR ([BankID] = @Original_BankID)) AND ((@IsNull_TitleCode = 1 AND [TitleCode] IS NULL) OR ([TitleCode] = @Original_TitleCode)) AND ((@IsNull_Money = 1 AND [Money] IS NULL) OR ([Money] = @Original_Money)) AND ((@IsNull_Note = 1 AND [Note] IS NULL) OR ([Note] = @Original_Note)) AND ((@IsNull_IsCredit = 1 AND [IsCredit] IS NULL) OR ([IsCredit] = @Original_IsCredit)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Day", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Day", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
@@ -25457,37 +25721,38 @@ SELECT ID, ShowName, BankName, AccountNo, AccountName, DefaultTitleCode, Account
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_BankID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "BankID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_TitleCode", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TitleCode", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TitleCode", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TitleCode", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IsCredit", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsCredit", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Money", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Money", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Money", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Money", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Note", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Note", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Note", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Note", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_IsCredit", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsCredit", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IsCredit", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsCredit", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[BankDetail] ([ID], [Day], [BankID], [TitleCode], [IsCredit], [" +
-                "Money], [Note]) VALUES (@ID, @Day, @BankID, @TitleCode, @IsCredit, @Money, @Note" +
-                ");\r\nSELECT ID, Day, BankID, TitleCode, IsCredit, Money, Note FROM BankDetail WHE" +
-                "RE (ID = @ID)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [BankDetail] ([ID], [Day], [BankID], [TitleCode], [Money], [Note], [I" +
+                "sCredit]) VALUES (@ID, @Day, @BankID, @TitleCode, @Money, @Note, @IsCredit);\r\nSE" +
+                "LECT ID, Day, BankID, TitleCode, Money, Note, IsCredit FROM BankDetail WHERE (ID" +
+                " = @ID)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Day", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Day", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@BankID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "BankID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TitleCode", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TitleCode", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsCredit", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsCredit", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Money", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Money", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Note", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Note", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsCredit", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsCredit", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[BankDetail] SET [ID] = @ID, [Day] = @Day, [BankID] = @BankID, [TitleCode] = @TitleCode, [IsCredit] = @IsCredit, [Money] = @Money, [Note] = @Note WHERE (([ID] = @Original_ID) AND ((@IsNull_Day = 1 AND [Day] IS NULL) OR ([Day] = @Original_Day)) AND ((@IsNull_BankID = 1 AND [BankID] IS NULL) OR ([BankID] = @Original_BankID)) AND ((@IsNull_TitleCode = 1 AND [TitleCode] IS NULL) OR ([TitleCode] = @Original_TitleCode)) AND ([IsCredit] = @Original_IsCredit) AND ((@IsNull_Money = 1 AND [Money] IS NULL) OR ([Money] = @Original_Money)) AND ((@IsNull_Note = 1 AND [Note] IS NULL) OR ([Note] = @Original_Note)));
-SELECT ID, Day, BankID, TitleCode, IsCredit, Money, Note FROM BankDetail WHERE (ID = @ID)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [BankDetail] SET [ID] = @ID, [Day] = @Day, [BankID] = @BankID, [TitleCode] = @TitleCode, [Money] = @Money, [Note] = @Note, [IsCredit] = @IsCredit WHERE (([ID] = @Original_ID) AND ((@IsNull_Day = 1 AND [Day] IS NULL) OR ([Day] = @Original_Day)) AND ((@IsNull_BankID = 1 AND [BankID] IS NULL) OR ([BankID] = @Original_BankID)) AND ((@IsNull_TitleCode = 1 AND [TitleCode] IS NULL) OR ([TitleCode] = @Original_TitleCode)) AND ((@IsNull_Money = 1 AND [Money] IS NULL) OR ([Money] = @Original_Money)) AND ((@IsNull_Note = 1 AND [Note] IS NULL) OR ([Note] = @Original_Note)) AND ((@IsNull_IsCredit = 1 AND [IsCredit] IS NULL) OR ([IsCredit] = @Original_IsCredit)));
+SELECT ID, Day, BankID, TitleCode, Money, Note, IsCredit FROM BankDetail WHERE (ID = @ID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Day", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Day", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@BankID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "BankID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TitleCode", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TitleCode", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsCredit", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsCredit", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Money", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Money", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Note", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Note", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsCredit", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsCredit", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Day", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Day", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Day", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Day", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
@@ -25495,11 +25760,12 @@ SELECT ID, Day, BankID, TitleCode, IsCredit, Money, Note FROM BankDetail WHERE (
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_BankID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "BankID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_TitleCode", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TitleCode", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TitleCode", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TitleCode", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IsCredit", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsCredit", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Money", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Money", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Money", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Money", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Note", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Note", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Note", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Note", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_IsCredit", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsCredit", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IsCredit", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsCredit", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -25515,7 +25781,7 @@ SELECT ID, Day, BankID, TitleCode, IsCredit, Money, Note FROM BankDetail WHERE (
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, Day, BankID, TitleCode, IsCredit, Money, Note FROM dbo.BankDetail";
+            this._commandCollection[0].CommandText = "SELECT ID, Day, BankID, TitleCode, Money, Note, IsCredit FROM BankDetail";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -25576,7 +25842,7 @@ SELECT ID, Day, BankID, TitleCode, IsCredit, Money, Note FROM BankDetail WHERE (
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_ID, global::System.Nullable<global::System.DateTime> Original_Day, global::System.Nullable<int> Original_BankID, string Original_TitleCode, bool Original_IsCredit, global::System.Nullable<decimal> Original_Money, string Original_Note) {
+        public virtual int Delete(int Original_ID, global::System.Nullable<global::System.DateTime> Original_Day, global::System.Nullable<int> Original_BankID, string Original_TitleCode, global::System.Nullable<decimal> Original_Money, string Original_Note, global::System.Nullable<bool> Original_IsCredit) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
             if ((Original_Day.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
@@ -25602,22 +25868,29 @@ SELECT ID, Day, BankID, TitleCode, IsCredit, Money, Note FROM BankDetail WHERE (
                 this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
                 this.Adapter.DeleteCommand.Parameters[6].Value = ((string)(Original_TitleCode));
             }
-            this.Adapter.DeleteCommand.Parameters[7].Value = ((bool)(Original_IsCredit));
             if ((Original_Money.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[8].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[9].Value = ((decimal)(Original_Money.Value));
+                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[8].Value = ((decimal)(Original_Money.Value));
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[8].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[9].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[8].Value = global::System.DBNull.Value;
             }
             if ((Original_Note == null)) {
-                this.Adapter.DeleteCommand.Parameters[10].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[11].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[10].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[10].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[11].Value = ((string)(Original_Note));
+                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[10].Value = ((string)(Original_Note));
+            }
+            if ((Original_IsCredit.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[12].Value = ((bool)(Original_IsCredit.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[12].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -25639,7 +25912,7 @@ SELECT ID, Day, BankID, TitleCode, IsCredit, Money, Note FROM BankDetail WHERE (
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int ID, global::System.Nullable<global::System.DateTime> Day, global::System.Nullable<int> BankID, string TitleCode, bool IsCredit, global::System.Nullable<decimal> Money, string Note) {
+        public virtual int Insert(int ID, global::System.Nullable<global::System.DateTime> Day, global::System.Nullable<int> BankID, string TitleCode, global::System.Nullable<decimal> Money, string Note, global::System.Nullable<bool> IsCredit) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(ID));
             if ((Day.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[1].Value = ((System.DateTime)(Day.Value));
@@ -25659,18 +25932,23 @@ SELECT ID, Day, BankID, TitleCode, IsCredit, Money, Note FROM BankDetail WHERE (
             else {
                 this.Adapter.InsertCommand.Parameters[3].Value = ((string)(TitleCode));
             }
-            this.Adapter.InsertCommand.Parameters[4].Value = ((bool)(IsCredit));
             if ((Money.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[5].Value = ((decimal)(Money.Value));
+                this.Adapter.InsertCommand.Parameters[4].Value = ((decimal)(Money.Value));
             }
             else {
-                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
+                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             if ((Note == null)) {
-                this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
+                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[6].Value = ((string)(Note));
+                this.Adapter.InsertCommand.Parameters[5].Value = ((string)(Note));
+            }
+            if ((IsCredit.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[6].Value = ((bool)(IsCredit.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -25692,7 +25970,7 @@ SELECT ID, Day, BankID, TitleCode, IsCredit, Money, Note FROM BankDetail WHERE (
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int ID, global::System.Nullable<global::System.DateTime> Day, global::System.Nullable<int> BankID, string TitleCode, bool IsCredit, global::System.Nullable<decimal> Money, string Note, int Original_ID, global::System.Nullable<global::System.DateTime> Original_Day, global::System.Nullable<int> Original_BankID, string Original_TitleCode, bool Original_IsCredit, global::System.Nullable<decimal> Original_Money, string Original_Note) {
+        public virtual int Update(int ID, global::System.Nullable<global::System.DateTime> Day, global::System.Nullable<int> BankID, string TitleCode, global::System.Nullable<decimal> Money, string Note, global::System.Nullable<bool> IsCredit, int Original_ID, global::System.Nullable<global::System.DateTime> Original_Day, global::System.Nullable<int> Original_BankID, string Original_TitleCode, global::System.Nullable<decimal> Original_Money, string Original_Note, global::System.Nullable<bool> Original_IsCredit) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(ID));
             if ((Day.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[1].Value = ((System.DateTime)(Day.Value));
@@ -25712,18 +25990,23 @@ SELECT ID, Day, BankID, TitleCode, IsCredit, Money, Note FROM BankDetail WHERE (
             else {
                 this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(TitleCode));
             }
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((bool)(IsCredit));
             if ((Money.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((decimal)(Money.Value));
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((decimal)(Money.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             if ((Note == null)) {
-                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(Note));
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(Note));
+            }
+            if ((IsCredit.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((bool)(IsCredit.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
             this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_ID));
             if ((Original_Day.HasValue == true)) {
@@ -25750,22 +26033,29 @@ SELECT ID, Day, BankID, TitleCode, IsCredit, Money, Note FROM BankDetail WHERE (
                 this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(0));
                 this.Adapter.UpdateCommand.Parameters[13].Value = ((string)(Original_TitleCode));
             }
-            this.Adapter.UpdateCommand.Parameters[14].Value = ((bool)(Original_IsCredit));
             if ((Original_Money.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[16].Value = ((decimal)(Original_Money.Value));
+                this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((decimal)(Original_Money.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[16].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[15].Value = global::System.DBNull.Value;
             }
             if ((Original_Note == null)) {
-                this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[18].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[17].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((string)(Original_Note));
+                this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[17].Value = ((string)(Original_Note));
+            }
+            if ((Original_IsCredit.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[19].Value = ((bool)(Original_IsCredit.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[19].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -25787,8 +26077,8 @@ SELECT ID, Day, BankID, TitleCode, IsCredit, Money, Note FROM BankDetail WHERE (
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(global::System.Nullable<global::System.DateTime> Day, global::System.Nullable<int> BankID, string TitleCode, bool IsCredit, global::System.Nullable<decimal> Money, string Note, int Original_ID, global::System.Nullable<global::System.DateTime> Original_Day, global::System.Nullable<int> Original_BankID, string Original_TitleCode, bool Original_IsCredit, global::System.Nullable<decimal> Original_Money, string Original_Note) {
-            return this.Update(Original_ID, Day, BankID, TitleCode, IsCredit, Money, Note, Original_ID, Original_Day, Original_BankID, Original_TitleCode, Original_IsCredit, Original_Money, Original_Note);
+        public virtual int Update(global::System.Nullable<global::System.DateTime> Day, global::System.Nullable<int> BankID, string TitleCode, global::System.Nullable<decimal> Money, string Note, global::System.Nullable<bool> IsCredit, int Original_ID, global::System.Nullable<global::System.DateTime> Original_Day, global::System.Nullable<int> Original_BankID, string Original_TitleCode, global::System.Nullable<decimal> Original_Money, string Original_Note, global::System.Nullable<bool> Original_IsCredit) {
+            return this.Update(Original_ID, Day, BankID, TitleCode, Money, Note, IsCredit, Original_ID, Original_Day, Original_BankID, Original_TitleCode, Original_Money, Original_Note, Original_IsCredit);
         }
     }
     
@@ -27116,7 +27406,7 @@ SELECT DrawerRecordID, OpenTime, CashierID, AssociateOrderID FROM DrawerRecord W
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[Expense] WHERE (([ID] = @Original_ID) AND ((@IsNull_ExpenseID = 1 AND [ExpenseID] IS NULL) OR ([ExpenseID] = @Original_ExpenseID)) AND ((@IsNull_ApplierID = 1 AND [ApplierID] IS NULL) OR ([ApplierID] = @Original_ApplierID)) AND ((@IsNull_ApplyTime = 1 AND [ApplyTime] IS NULL) OR ([ApplyTime] = @Original_ApplyTime)) AND ((@IsNull_Money = 1 AND [Money] IS NULL) OR ([Money] = @Original_Money)) AND ((@IsNull_Note = 1 AND [Note] IS NULL) OR ([Note] = @Original_Note)) AND ([Paid] = @Original_Paid) AND ((@IsNull_AuthorizeID = 1 AND [AuthorizeID] IS NULL) OR ([AuthorizeID] = @Original_AuthorizeID)) AND ((@IsNull_TitleCode = 1 AND [TitleCode] IS NULL) OR ([TitleCode] = @Original_TitleCode)) AND ((@IsNull_KeyinID = 1 AND [KeyinID] IS NULL) OR ([KeyinID] = @Original_KeyinID)) AND ([Removed] = @Original_Removed) AND ([Locked] = @Original_Locked) AND ((@IsNull_LastUpdated = 1 AND [LastUpdated] IS NULL) OR ([LastUpdated] = @Original_LastUpdated)) AND ((@IsNull_InnerID = 1 AND [InnerID] IS NULL) OR ([InnerID] = @Original_InnerID)) AND ((@IsNull_BankAccountID = 1 AND [BankAccountID] IS NULL) OR ([BankAccountID] = @Original_BankAccountID)) AND ((@IsNull_TitleCodeCredit = 1 AND [TitleCodeCredit] IS NULL) OR ([TitleCodeCredit] = @Original_TitleCodeCredit)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[Expense] WHERE (([ID] = @Original_ID) AND ((@IsNull_ExpenseID = 1 AND [ExpenseID] IS NULL) OR ([ExpenseID] = @Original_ExpenseID)) AND ((@IsNull_ApplierID = 1 AND [ApplierID] IS NULL) OR ([ApplierID] = @Original_ApplierID)) AND ((@IsNull_ApplyTime = 1 AND [ApplyTime] IS NULL) OR ([ApplyTime] = @Original_ApplyTime)) AND ((@IsNull_Money = 1 AND [Money] IS NULL) OR ([Money] = @Original_Money)) AND ((@IsNull_Note = 1 AND [Note] IS NULL) OR ([Note] = @Original_Note)) AND ([Paid] = @Original_Paid) AND ((@IsNull_AuthorizeID = 1 AND [AuthorizeID] IS NULL) OR ([AuthorizeID] = @Original_AuthorizeID)) AND ((@IsNull_TitleCode = 1 AND [TitleCode] IS NULL) OR ([TitleCode] = @Original_TitleCode)) AND ((@IsNull_KeyinID = 1 AND [KeyinID] IS NULL) OR ([KeyinID] = @Original_KeyinID)) AND ((@IsNull_Removed = 1 AND [Removed] IS NULL) OR ([Removed] = @Original_Removed)) AND ([Locked] = @Original_Locked) AND ((@IsNull_LastUpdated = 1 AND [LastUpdated] IS NULL) OR ([LastUpdated] = @Original_LastUpdated)) AND ((@IsNull_InnerID = 1 AND [InnerID] IS NULL) OR ([InnerID] = @Original_InnerID)) AND ((@IsNull_BankAccountID = 1 AND [BankAccountID] IS NULL) OR ([BankAccountID] = @Original_BankAccountID)) AND ((@IsNull_TitleCodeCredit = 1 AND [TitleCodeCredit] IS NULL) OR ([TitleCodeCredit] = @Original_TitleCodeCredit)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_ExpenseID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ExpenseID", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
@@ -27136,6 +27426,7 @@ SELECT DrawerRecordID, OpenTime, CashierID, AssociateOrderID FROM DrawerRecord W
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TitleCode", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TitleCode", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_KeyinID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "KeyinID", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_KeyinID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "KeyinID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Removed", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Removed", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Removed", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Removed", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Locked", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Locked", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_LastUpdated", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastUpdated", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
@@ -27183,16 +27474,16 @@ SELECT ID, ExpenseID, ApplierID, ApplyTime, Money, Note, Paid, AuthorizeID, Titl
                 " @Original_Paid) AND ((@IsNull_AuthorizeID = 1 AND [AuthorizeID] IS NULL) OR ([A" +
                 "uthorizeID] = @Original_AuthorizeID)) AND ((@IsNull_TitleCode = 1 AND [TitleCode" +
                 "] IS NULL) OR ([TitleCode] = @Original_TitleCode)) AND ((@IsNull_KeyinID = 1 AND" +
-                " [KeyinID] IS NULL) OR ([KeyinID] = @Original_KeyinID)) AND ([Removed] = @Origin" +
-                "al_Removed) AND ([Locked] = @Original_Locked) AND ((@IsNull_LastUpdated = 1 AND " +
-                "[LastUpdated] IS NULL) OR ([LastUpdated] = @Original_LastUpdated)) AND ((@IsNull" +
-                "_InnerID = 1 AND [InnerID] IS NULL) OR ([InnerID] = @Original_InnerID)) AND ((@I" +
-                "sNull_BankAccountID = 1 AND [BankAccountID] IS NULL) OR ([BankAccountID] = @Orig" +
-                "inal_BankAccountID)) AND ((@IsNull_TitleCodeCredit = 1 AND [TitleCodeCredit] IS " +
-                "NULL) OR ([TitleCodeCredit] = @Original_TitleCodeCredit)));\r\nSELECT ID, ExpenseI" +
-                "D, ApplierID, ApplyTime, Money, Note, Paid, AuthorizeID, TitleCode, KeyinID, Rem" +
-                "oved, Locked, LastUpdated, InnerID, BankAccountID, TitleCodeCredit FROM Expense " +
-                "WHERE (ID = @ID)";
+                " [KeyinID] IS NULL) OR ([KeyinID] = @Original_KeyinID)) AND ((@IsNull_Removed = " +
+                "1 AND [Removed] IS NULL) OR ([Removed] = @Original_Removed)) AND ([Locked] = @Or" +
+                "iginal_Locked) AND ((@IsNull_LastUpdated = 1 AND [LastUpdated] IS NULL) OR ([Las" +
+                "tUpdated] = @Original_LastUpdated)) AND ((@IsNull_InnerID = 1 AND [InnerID] IS N" +
+                "ULL) OR ([InnerID] = @Original_InnerID)) AND ((@IsNull_BankAccountID = 1 AND [Ba" +
+                "nkAccountID] IS NULL) OR ([BankAccountID] = @Original_BankAccountID)) AND ((@IsN" +
+                "ull_TitleCodeCredit = 1 AND [TitleCodeCredit] IS NULL) OR ([TitleCodeCredit] = @" +
+                "Original_TitleCodeCredit)));\r\nSELECT ID, ExpenseID, ApplierID, ApplyTime, Money," +
+                " Note, Paid, AuthorizeID, TitleCode, KeyinID, Removed, Locked, LastUpdated, Inne" +
+                "rID, BankAccountID, TitleCodeCredit FROM Expense WHERE (ID = @ID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ExpenseID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ExpenseID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -27228,6 +27519,7 @@ SELECT ID, ExpenseID, ApplierID, ApplyTime, Money, Note, Paid, AuthorizeID, Titl
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TitleCode", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TitleCode", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_KeyinID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "KeyinID", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_KeyinID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "KeyinID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Removed", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Removed", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Removed", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Removed", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Locked", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Locked", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_LastUpdated", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastUpdated", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
@@ -27327,7 +27619,7 @@ SELECT ID, ExpenseID, ApplierID, ApplyTime, Money, Note, Paid, AuthorizeID, Titl
                     global::System.Nullable<int> Original_AuthorizeID, 
                     string Original_TitleCode, 
                     global::System.Nullable<int> Original_KeyinID, 
-                    bool Original_Removed, 
+                    global::System.Nullable<bool> Original_Removed, 
                     bool Original_Locked, 
                     global::System.Nullable<global::System.DateTime> Original_LastUpdated, 
                     global::System.Nullable<int> Original_InnerID, 
@@ -27399,39 +27691,46 @@ SELECT ID, ExpenseID, ApplierID, ApplyTime, Money, Note, Paid, AuthorizeID, Titl
                 this.Adapter.DeleteCommand.Parameters[16].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[17].Value = global::System.DBNull.Value;
             }
-            this.Adapter.DeleteCommand.Parameters[18].Value = ((bool)(Original_Removed));
-            this.Adapter.DeleteCommand.Parameters[19].Value = ((bool)(Original_Locked));
-            if ((Original_LastUpdated.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[20].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[21].Value = ((System.DateTime)(Original_LastUpdated.Value));
+            if ((Original_Removed.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[18].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[19].Value = ((bool)(Original_Removed.Value));
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[20].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[21].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[18].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[19].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.DeleteCommand.Parameters[20].Value = ((bool)(Original_Locked));
+            if ((Original_LastUpdated.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[21].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[22].Value = ((System.DateTime)(Original_LastUpdated.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[21].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[22].Value = global::System.DBNull.Value;
             }
             if ((Original_InnerID.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[22].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[23].Value = ((int)(Original_InnerID.Value));
+                this.Adapter.DeleteCommand.Parameters[23].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[24].Value = ((int)(Original_InnerID.Value));
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[22].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[23].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[23].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[24].Value = global::System.DBNull.Value;
             }
             if ((Original_BankAccountID.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[24].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[25].Value = ((int)(Original_BankAccountID.Value));
+                this.Adapter.DeleteCommand.Parameters[25].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[26].Value = ((int)(Original_BankAccountID.Value));
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[24].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[25].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[25].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[26].Value = global::System.DBNull.Value;
             }
             if ((Original_TitleCodeCredit == null)) {
-                this.Adapter.DeleteCommand.Parameters[26].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[27].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[27].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[28].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[26].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[27].Value = ((string)(Original_TitleCodeCredit));
+                this.Adapter.DeleteCommand.Parameters[27].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[28].Value = ((string)(Original_TitleCodeCredit));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -27464,7 +27763,7 @@ SELECT ID, ExpenseID, ApplierID, ApplyTime, Money, Note, Paid, AuthorizeID, Titl
                     global::System.Nullable<int> AuthorizeID, 
                     string TitleCode, 
                     global::System.Nullable<int> KeyinID, 
-                    bool Removed, 
+                    global::System.Nullable<bool> Removed, 
                     bool Locked, 
                     global::System.Nullable<global::System.DateTime> LastUpdated, 
                     global::System.Nullable<int> InnerID, 
@@ -27520,7 +27819,12 @@ SELECT ID, ExpenseID, ApplierID, ApplyTime, Money, Note, Paid, AuthorizeID, Titl
             else {
                 this.Adapter.InsertCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
-            this.Adapter.InsertCommand.Parameters[10].Value = ((bool)(Removed));
+            if ((Removed.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[10].Value = ((bool)(Removed.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[10].Value = global::System.DBNull.Value;
+            }
             this.Adapter.InsertCommand.Parameters[11].Value = ((bool)(Locked));
             if ((LastUpdated.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[12].Value = ((System.DateTime)(LastUpdated.Value));
@@ -27577,7 +27881,7 @@ SELECT ID, ExpenseID, ApplierID, ApplyTime, Money, Note, Paid, AuthorizeID, Titl
                     global::System.Nullable<int> AuthorizeID, 
                     string TitleCode, 
                     global::System.Nullable<int> KeyinID, 
-                    bool Removed, 
+                    global::System.Nullable<bool> Removed, 
                     bool Locked, 
                     global::System.Nullable<global::System.DateTime> LastUpdated, 
                     global::System.Nullable<int> InnerID, 
@@ -27593,7 +27897,7 @@ SELECT ID, ExpenseID, ApplierID, ApplyTime, Money, Note, Paid, AuthorizeID, Titl
                     global::System.Nullable<int> Original_AuthorizeID, 
                     string Original_TitleCode, 
                     global::System.Nullable<int> Original_KeyinID, 
-                    bool Original_Removed, 
+                    global::System.Nullable<bool> Original_Removed, 
                     bool Original_Locked, 
                     global::System.Nullable<global::System.DateTime> Original_LastUpdated, 
                     global::System.Nullable<int> Original_InnerID, 
@@ -27649,7 +27953,12 @@ SELECT ID, ExpenseID, ApplierID, ApplyTime, Money, Note, Paid, AuthorizeID, Titl
             else {
                 this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[10].Value = ((bool)(Removed));
+            if ((Removed.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((bool)(Removed.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
+            }
             this.Adapter.UpdateCommand.Parameters[11].Value = ((bool)(Locked));
             if ((LastUpdated.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[12].Value = ((System.DateTime)(LastUpdated.Value));
@@ -27741,39 +28050,46 @@ SELECT ID, ExpenseID, ApplierID, ApplyTime, Money, Note, Paid, AuthorizeID, Titl
                 this.Adapter.UpdateCommand.Parameters[32].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[33].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[34].Value = ((bool)(Original_Removed));
-            this.Adapter.UpdateCommand.Parameters[35].Value = ((bool)(Original_Locked));
-            if ((Original_LastUpdated.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[36].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[37].Value = ((System.DateTime)(Original_LastUpdated.Value));
+            if ((Original_Removed.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[34].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[35].Value = ((bool)(Original_Removed.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[36].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[37].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[34].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[35].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[36].Value = ((bool)(Original_Locked));
+            if ((Original_LastUpdated.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[37].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[38].Value = ((System.DateTime)(Original_LastUpdated.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[37].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[38].Value = global::System.DBNull.Value;
             }
             if ((Original_InnerID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[38].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[39].Value = ((int)(Original_InnerID.Value));
+                this.Adapter.UpdateCommand.Parameters[39].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[40].Value = ((int)(Original_InnerID.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[38].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[39].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[39].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[40].Value = global::System.DBNull.Value;
             }
             if ((Original_BankAccountID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[40].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[41].Value = ((int)(Original_BankAccountID.Value));
+                this.Adapter.UpdateCommand.Parameters[41].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[42].Value = ((int)(Original_BankAccountID.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[40].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[41].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[41].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[42].Value = global::System.DBNull.Value;
             }
             if ((Original_TitleCodeCredit == null)) {
-                this.Adapter.UpdateCommand.Parameters[42].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[43].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[43].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[44].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[42].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[43].Value = ((string)(Original_TitleCodeCredit));
+                this.Adapter.UpdateCommand.Parameters[43].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[44].Value = ((string)(Original_TitleCodeCredit));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -27805,7 +28121,7 @@ SELECT ID, ExpenseID, ApplierID, ApplyTime, Money, Note, Paid, AuthorizeID, Titl
                     global::System.Nullable<int> AuthorizeID, 
                     string TitleCode, 
                     global::System.Nullable<int> KeyinID, 
-                    bool Removed, 
+                    global::System.Nullable<bool> Removed, 
                     bool Locked, 
                     global::System.Nullable<global::System.DateTime> LastUpdated, 
                     global::System.Nullable<int> InnerID, 
@@ -27821,7 +28137,7 @@ SELECT ID, ExpenseID, ApplierID, ApplyTime, Money, Note, Paid, AuthorizeID, Titl
                     global::System.Nullable<int> Original_AuthorizeID, 
                     string Original_TitleCode, 
                     global::System.Nullable<int> Original_KeyinID, 
-                    bool Original_Removed, 
+                    global::System.Nullable<bool> Original_Removed, 
                     bool Original_Locked, 
                     global::System.Nullable<global::System.DateTime> Original_LastUpdated, 
                     global::System.Nullable<int> Original_InnerID, 
@@ -33758,13 +34074,13 @@ SELECT OperatorID, StopAccount, LoginName, Password, Name, EditOperator, EditVen
             tableMapping.ColumnMappings.Add("Deduct", "Deduct");
             tableMapping.ColumnMappings.Add("DiscountRate", "DiscountRate");
             tableMapping.ColumnMappings.Add("PayBy", "PayBy");
-            tableMapping.ColumnMappings.Add("Deleted", "Deleted");
             tableMapping.ColumnMappings.Add("OldID", "OldID");
             tableMapping.ColumnMappings.Add("RCashierID", "RCashierID");
+            tableMapping.ColumnMappings.Add("Deleted", "Deleted");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[Order] WHERE (([ID] = @Original_ID) AND ([CashierID] = @Original_CashierID) AND ((@IsNull_PrintTime = 1 AND [PrintTime] IS NULL) OR ([PrintTime] = @Original_PrintTime)) AND ((@IsNull_Income = 1 AND [Income] IS NULL) OR ([Income] = @Original_Income)) AND ((@IsNull_BranchID = 1 AND [BranchID] IS NULL) OR ([BranchID] = @Original_BranchID)) AND ((@IsNull_Deduct = 1 AND [Deduct] IS NULL) OR ([Deduct] = @Original_Deduct)) AND ((@IsNull_DiscountRate = 1 AND [DiscountRate] IS NULL) OR ([DiscountRate] = @Original_DiscountRate)) AND ((@IsNull_PayBy = 1 AND [PayBy] IS NULL) OR ([PayBy] = @Original_PayBy)) AND ([Deleted] = @Original_Deleted) AND ([OldID] = @Original_OldID) AND ([RCashierID] = @Original_RCashierID))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [Order] WHERE (([ID] = @Original_ID) AND ([CashierID] = @Original_CashierID) AND ((@IsNull_PrintTime = 1 AND [PrintTime] IS NULL) OR ([PrintTime] = @Original_PrintTime)) AND ((@IsNull_Income = 1 AND [Income] IS NULL) OR ([Income] = @Original_Income)) AND ((@IsNull_BranchID = 1 AND [BranchID] IS NULL) OR ([BranchID] = @Original_BranchID)) AND ((@IsNull_Deduct = 1 AND [Deduct] IS NULL) OR ([Deduct] = @Original_Deduct)) AND ((@IsNull_DiscountRate = 1 AND [DiscountRate] IS NULL) OR ([DiscountRate] = @Original_DiscountRate)) AND ((@IsNull_PayBy = 1 AND [PayBy] IS NULL) OR ([PayBy] = @Original_PayBy)) AND ([OldID] = @Original_OldID) AND ([RCashierID] = @Original_RCashierID) AND ((@IsNull_Deleted = 1 AND [Deleted] IS NULL) OR ([Deleted] = @Original_Deleted)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CashierID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CashierID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
@@ -33780,13 +34096,14 @@ SELECT OperatorID, StopAccount, LoginName, Password, Name, EditOperator, EditVen
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_DiscountRate", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DiscountRate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_PayBy", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PayBy", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PayBy", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PayBy", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Deleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Deleted", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_OldID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OldID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_RCashierID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RCashierID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Deleted", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Deleted", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Deleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Deleted", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[Order] ([ID], [CashierID], [PrintTime], [Income], [BranchID], [Deduct], [DiscountRate], [PayBy], [Deleted], [OldID], [RCashierID]) VALUES (@ID, @CashierID, @PrintTime, @Income, @BranchID, @Deduct, @DiscountRate, @PayBy, @Deleted, @OldID, @RCashierID);
-SELECT ID, CashierID, PrintTime, Income, BranchID, Deduct, DiscountRate, PayBy, Deleted, OldID, RCashierID FROM [Order] WHERE (ID = @ID)";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [Order] ([ID], [CashierID], [PrintTime], [Income], [BranchID], [Deduct], [DiscountRate], [PayBy], [OldID], [RCashierID], [Deleted]) VALUES (@ID, @CashierID, @PrintTime, @Income, @BranchID, @Deduct, @DiscountRate, @PayBy, @OldID, @RCashierID, @Deleted);
+SELECT ID, CashierID, PrintTime, Income, BranchID, Deduct, DiscountRate, PayBy, OldID, RCashierID, Deleted FROM [Order] WHERE (ID = @ID)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CashierID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CashierID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -33796,13 +34113,13 @@ SELECT ID, CashierID, PrintTime, Income, BranchID, Deduct, DiscountRate, PayBy, 
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Deduct", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Deduct", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DiscountRate", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DiscountRate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PayBy", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PayBy", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Deleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Deleted", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@OldID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OldID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RCashierID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RCashierID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Deleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Deleted", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Order] SET [ID] = @ID, [CashierID] = @CashierID, [PrintTime] = @PrintTime, [Income] = @Income, [BranchID] = @BranchID, [Deduct] = @Deduct, [DiscountRate] = @DiscountRate, [PayBy] = @PayBy, [Deleted] = @Deleted, [OldID] = @OldID, [RCashierID] = @RCashierID WHERE (([ID] = @Original_ID) AND ([CashierID] = @Original_CashierID) AND ((@IsNull_PrintTime = 1 AND [PrintTime] IS NULL) OR ([PrintTime] = @Original_PrintTime)) AND ((@IsNull_Income = 1 AND [Income] IS NULL) OR ([Income] = @Original_Income)) AND ((@IsNull_BranchID = 1 AND [BranchID] IS NULL) OR ([BranchID] = @Original_BranchID)) AND ((@IsNull_Deduct = 1 AND [Deduct] IS NULL) OR ([Deduct] = @Original_Deduct)) AND ((@IsNull_DiscountRate = 1 AND [DiscountRate] IS NULL) OR ([DiscountRate] = @Original_DiscountRate)) AND ((@IsNull_PayBy = 1 AND [PayBy] IS NULL) OR ([PayBy] = @Original_PayBy)) AND ([Deleted] = @Original_Deleted) AND ([OldID] = @Original_OldID) AND ([RCashierID] = @Original_RCashierID));
-SELECT ID, CashierID, PrintTime, Income, BranchID, Deduct, DiscountRate, PayBy, Deleted, OldID, RCashierID FROM [Order] WHERE (ID = @ID)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [Order] SET [ID] = @ID, [CashierID] = @CashierID, [PrintTime] = @PrintTime, [Income] = @Income, [BranchID] = @BranchID, [Deduct] = @Deduct, [DiscountRate] = @DiscountRate, [PayBy] = @PayBy, [OldID] = @OldID, [RCashierID] = @RCashierID, [Deleted] = @Deleted WHERE (([ID] = @Original_ID) AND ([CashierID] = @Original_CashierID) AND ((@IsNull_PrintTime = 1 AND [PrintTime] IS NULL) OR ([PrintTime] = @Original_PrintTime)) AND ((@IsNull_Income = 1 AND [Income] IS NULL) OR ([Income] = @Original_Income)) AND ((@IsNull_BranchID = 1 AND [BranchID] IS NULL) OR ([BranchID] = @Original_BranchID)) AND ((@IsNull_Deduct = 1 AND [Deduct] IS NULL) OR ([Deduct] = @Original_Deduct)) AND ((@IsNull_DiscountRate = 1 AND [DiscountRate] IS NULL) OR ([DiscountRate] = @Original_DiscountRate)) AND ((@IsNull_PayBy = 1 AND [PayBy] IS NULL) OR ([PayBy] = @Original_PayBy)) AND ([OldID] = @Original_OldID) AND ([RCashierID] = @Original_RCashierID) AND ((@IsNull_Deleted = 1 AND [Deleted] IS NULL) OR ([Deleted] = @Original_Deleted)));
+SELECT ID, CashierID, PrintTime, Income, BranchID, Deduct, DiscountRate, PayBy, OldID, RCashierID, Deleted FROM [Order] WHERE (ID = @ID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CashierID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CashierID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -33812,9 +34129,9 @@ SELECT ID, CashierID, PrintTime, Income, BranchID, Deduct, DiscountRate, PayBy, 
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Deduct", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Deduct", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DiscountRate", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DiscountRate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PayBy", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PayBy", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Deleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Deleted", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@OldID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OldID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RCashierID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RCashierID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Deleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Deleted", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CashierID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CashierID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_PrintTime", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PrintTime", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
@@ -33829,9 +34146,10 @@ SELECT ID, CashierID, PrintTime, Income, BranchID, Deduct, DiscountRate, PayBy, 
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_DiscountRate", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DiscountRate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_PayBy", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PayBy", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PayBy", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PayBy", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Deleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Deleted", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_OldID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OldID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_RCashierID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RCashierID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Deleted", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Deleted", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Deleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Deleted", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -33847,8 +34165,8 @@ SELECT ID, CashierID, PrintTime, Income, BranchID, Deduct, DiscountRate, PayBy, 
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, CashierID, PrintTime, Income, BranchID, Deduct, DiscountRate, PayBy, D" +
-                "eleted, OldID, RCashierID FROM dbo.[Order]";
+            this._commandCollection[0].CommandText = "SELECT ID, CashierID, PrintTime, Income, BranchID, Deduct, DiscountRate, PayBy, O" +
+                "ldID, RCashierID, Deleted FROM [Order]";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -33909,7 +34227,7 @@ SELECT ID, CashierID, PrintTime, Income, BranchID, Deduct, DiscountRate, PayBy, 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_ID, int Original_CashierID, global::System.Nullable<global::System.DateTime> Original_PrintTime, global::System.Nullable<decimal> Original_Income, global::System.Nullable<int> Original_BranchID, global::System.Nullable<decimal> Original_Deduct, global::System.Nullable<decimal> Original_DiscountRate, string Original_PayBy, bool Original_Deleted, int Original_OldID, int Original_RCashierID) {
+        public virtual int Delete(int Original_ID, int Original_CashierID, global::System.Nullable<global::System.DateTime> Original_PrintTime, global::System.Nullable<decimal> Original_Income, global::System.Nullable<int> Original_BranchID, global::System.Nullable<decimal> Original_Deduct, global::System.Nullable<decimal> Original_DiscountRate, string Original_PayBy, int Original_OldID, int Original_RCashierID, global::System.Nullable<bool> Original_Deleted) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
             this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_CashierID));
             if ((Original_PrintTime.HasValue == true)) {
@@ -33960,9 +34278,16 @@ SELECT ID, CashierID, PrintTime, Income, BranchID, Deduct, DiscountRate, PayBy, 
                 this.Adapter.DeleteCommand.Parameters[12].Value = ((object)(0));
                 this.Adapter.DeleteCommand.Parameters[13].Value = ((string)(Original_PayBy));
             }
-            this.Adapter.DeleteCommand.Parameters[14].Value = ((bool)(Original_Deleted));
-            this.Adapter.DeleteCommand.Parameters[15].Value = ((int)(Original_OldID));
-            this.Adapter.DeleteCommand.Parameters[16].Value = ((int)(Original_RCashierID));
+            this.Adapter.DeleteCommand.Parameters[14].Value = ((int)(Original_OldID));
+            this.Adapter.DeleteCommand.Parameters[15].Value = ((int)(Original_RCashierID));
+            if ((Original_Deleted.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[16].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[17].Value = ((bool)(Original_Deleted.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[16].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[17].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -33983,7 +34308,7 @@ SELECT ID, CashierID, PrintTime, Income, BranchID, Deduct, DiscountRate, PayBy, 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int ID, int CashierID, global::System.Nullable<global::System.DateTime> PrintTime, global::System.Nullable<decimal> Income, global::System.Nullable<int> BranchID, global::System.Nullable<decimal> Deduct, global::System.Nullable<decimal> DiscountRate, string PayBy, bool Deleted, int OldID, int RCashierID) {
+        public virtual int Insert(int ID, int CashierID, global::System.Nullable<global::System.DateTime> PrintTime, global::System.Nullable<decimal> Income, global::System.Nullable<int> BranchID, global::System.Nullable<decimal> Deduct, global::System.Nullable<decimal> DiscountRate, string PayBy, int OldID, int RCashierID, global::System.Nullable<bool> Deleted) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(ID));
             this.Adapter.InsertCommand.Parameters[1].Value = ((int)(CashierID));
             if ((PrintTime.HasValue == true)) {
@@ -34022,9 +34347,14 @@ SELECT ID, CashierID, PrintTime, Income, BranchID, Deduct, DiscountRate, PayBy, 
             else {
                 this.Adapter.InsertCommand.Parameters[7].Value = ((string)(PayBy));
             }
-            this.Adapter.InsertCommand.Parameters[8].Value = ((bool)(Deleted));
-            this.Adapter.InsertCommand.Parameters[9].Value = ((int)(OldID));
-            this.Adapter.InsertCommand.Parameters[10].Value = ((int)(RCashierID));
+            this.Adapter.InsertCommand.Parameters[8].Value = ((int)(OldID));
+            this.Adapter.InsertCommand.Parameters[9].Value = ((int)(RCashierID));
+            if ((Deleted.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[10].Value = ((bool)(Deleted.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[10].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -34054,9 +34384,9 @@ SELECT ID, CashierID, PrintTime, Income, BranchID, Deduct, DiscountRate, PayBy, 
                     global::System.Nullable<decimal> Deduct, 
                     global::System.Nullable<decimal> DiscountRate, 
                     string PayBy, 
-                    bool Deleted, 
                     int OldID, 
                     int RCashierID, 
+                    global::System.Nullable<bool> Deleted, 
                     int Original_ID, 
                     int Original_CashierID, 
                     global::System.Nullable<global::System.DateTime> Original_PrintTime, 
@@ -34065,9 +34395,9 @@ SELECT ID, CashierID, PrintTime, Income, BranchID, Deduct, DiscountRate, PayBy, 
                     global::System.Nullable<decimal> Original_Deduct, 
                     global::System.Nullable<decimal> Original_DiscountRate, 
                     string Original_PayBy, 
-                    bool Original_Deleted, 
                     int Original_OldID, 
-                    int Original_RCashierID) {
+                    int Original_RCashierID, 
+                    global::System.Nullable<bool> Original_Deleted) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(ID));
             this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(CashierID));
             if ((PrintTime.HasValue == true)) {
@@ -34106,9 +34436,14 @@ SELECT ID, CashierID, PrintTime, Income, BranchID, Deduct, DiscountRate, PayBy, 
             else {
                 this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(PayBy));
             }
-            this.Adapter.UpdateCommand.Parameters[8].Value = ((bool)(Deleted));
-            this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(OldID));
-            this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(RCashierID));
+            this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(OldID));
+            this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(RCashierID));
+            if ((Deleted.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((bool)(Deleted.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
+            }
             this.Adapter.UpdateCommand.Parameters[11].Value = ((int)(Original_ID));
             this.Adapter.UpdateCommand.Parameters[12].Value = ((int)(Original_CashierID));
             if ((Original_PrintTime.HasValue == true)) {
@@ -34159,9 +34494,16 @@ SELECT ID, CashierID, PrintTime, Income, BranchID, Deduct, DiscountRate, PayBy, 
                 this.Adapter.UpdateCommand.Parameters[23].Value = ((object)(0));
                 this.Adapter.UpdateCommand.Parameters[24].Value = ((string)(Original_PayBy));
             }
-            this.Adapter.UpdateCommand.Parameters[25].Value = ((bool)(Original_Deleted));
-            this.Adapter.UpdateCommand.Parameters[26].Value = ((int)(Original_OldID));
-            this.Adapter.UpdateCommand.Parameters[27].Value = ((int)(Original_RCashierID));
+            this.Adapter.UpdateCommand.Parameters[25].Value = ((int)(Original_OldID));
+            this.Adapter.UpdateCommand.Parameters[26].Value = ((int)(Original_RCashierID));
+            if ((Original_Deleted.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[27].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[28].Value = ((bool)(Original_Deleted.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[27].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[28].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -34190,9 +34532,9 @@ SELECT ID, CashierID, PrintTime, Income, BranchID, Deduct, DiscountRate, PayBy, 
                     global::System.Nullable<decimal> Deduct, 
                     global::System.Nullable<decimal> DiscountRate, 
                     string PayBy, 
-                    bool Deleted, 
                     int OldID, 
                     int RCashierID, 
+                    global::System.Nullable<bool> Deleted, 
                     int Original_ID, 
                     int Original_CashierID, 
                     global::System.Nullable<global::System.DateTime> Original_PrintTime, 
@@ -34201,10 +34543,10 @@ SELECT ID, CashierID, PrintTime, Income, BranchID, Deduct, DiscountRate, PayBy, 
                     global::System.Nullable<decimal> Original_Deduct, 
                     global::System.Nullable<decimal> Original_DiscountRate, 
                     string Original_PayBy, 
-                    bool Original_Deleted, 
                     int Original_OldID, 
-                    int Original_RCashierID) {
-            return this.Update(Original_ID, CashierID, PrintTime, Income, BranchID, Deduct, DiscountRate, PayBy, Deleted, OldID, RCashierID, Original_ID, Original_CashierID, Original_PrintTime, Original_Income, Original_BranchID, Original_Deduct, Original_DiscountRate, Original_PayBy, Original_Deleted, Original_OldID, Original_RCashierID);
+                    int Original_RCashierID, 
+                    global::System.Nullable<bool> Original_Deleted) {
+            return this.Update(Original_ID, CashierID, PrintTime, Income, BranchID, Deduct, DiscountRate, PayBy, OldID, RCashierID, Deleted, Original_ID, Original_CashierID, Original_PrintTime, Original_Income, Original_BranchID, Original_Deduct, Original_DiscountRate, Original_PayBy, Original_OldID, Original_RCashierID, Original_Deleted);
         }
     }
     
@@ -34335,26 +34677,25 @@ SELECT ID, CashierID, PrintTime, Income, BranchID, Deduct, DiscountRate, PayBy, 
             tableMapping.ColumnMappings.Add("No", "No");
             tableMapping.ColumnMappings.Add("Price", "Price");
             tableMapping.ColumnMappings.Add("Discount", "Discount");
+            tableMapping.ColumnMappings.Add("ItemID", "ItemID");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[OrderItem] WHERE (([ID] = @Original_ID) AND ([Index] = @Original_Index) AND ((@IsNull_ProductID = 1 AND [ProductID] IS NULL) OR ([ProductID] = @Original_ProductID)) AND ((@IsNull_No = 1 AND [No] IS NULL) OR ([No] = @Original_No)) AND ((@IsNull_Price = 1 AND [Price] IS NULL) OR ([Price] = @Original_Price)) AND ([Discount] = @Original_Discount))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [OrderItem] WHERE (([ID] = @Original_ID) AND ([Index] = @Original_Index) AND ([ProductID] = @Original_ProductID) AND ((@IsNull_No = 1 AND [No] IS NULL) OR ([No] = @Original_No)) AND ((@IsNull_Price = 1 AND [Price] IS NULL) OR ([Price] = @Original_Price)) AND ([Discount] = @Original_Discount) AND ([ItemID] = @Original_ItemID))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Index", global::System.Data.SqlDbType.SmallInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Index", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_ProductID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ProductID", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ProductID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ProductID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_No", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "No", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_No", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "No", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Price", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Price", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Price", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Price", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Discount", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Discount", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ItemID", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ItemID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[OrderItem] ([ID], [Index], [ProductID], [No], [Price], [Discou" +
-                "nt]) VALUES (@ID, @Index, @ProductID, @No, @Price, @Discount);\r\nSELECT ID, [Inde" +
-                "x], ProductID, No, Price, Discount FROM OrderItem WHERE (ID = @ID) AND ([Index] " +
-                "= @Index)";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [OrderItem] ([ID], [Index], [ProductID], [No], [Price], [Discount], [ItemID]) VALUES (@ID, @Index, @ProductID, @No, @Price, @Discount, @ItemID);
+SELECT ID, [Index], ProductID, No, Price, Discount, ItemID FROM OrderItem WHERE (ItemID = @ItemID)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Index", global::System.Data.SqlDbType.SmallInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Index", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -34362,10 +34703,11 @@ SELECT ID, CashierID, PrintTime, Income, BranchID, Deduct, DiscountRate, PayBy, 
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@No", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "No", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Price", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Price", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Discount", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Discount", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ItemID", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ItemID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[OrderItem] SET [ID] = @ID, [Index] = @Index, [ProductID] = @ProductID, [No] = @No, [Price] = @Price, [Discount] = @Discount WHERE (([ID] = @Original_ID) AND ([Index] = @Original_Index) AND ((@IsNull_ProductID = 1 AND [ProductID] IS NULL) OR ([ProductID] = @Original_ProductID)) AND ((@IsNull_No = 1 AND [No] IS NULL) OR ([No] = @Original_No)) AND ((@IsNull_Price = 1 AND [Price] IS NULL) OR ([Price] = @Original_Price)) AND ([Discount] = @Original_Discount));
-SELECT ID, [Index], ProductID, No, Price, Discount FROM OrderItem WHERE (ID = @ID) AND ([Index] = @Index)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [OrderItem] SET [ID] = @ID, [Index] = @Index, [ProductID] = @ProductID, [No] = @No, [Price] = @Price, [Discount] = @Discount, [ItemID] = @ItemID WHERE (([ID] = @Original_ID) AND ([Index] = @Original_Index) AND ([ProductID] = @Original_ProductID) AND ((@IsNull_No = 1 AND [No] IS NULL) OR ([No] = @Original_No)) AND ((@IsNull_Price = 1 AND [Price] IS NULL) OR ([Price] = @Original_Price)) AND ([Discount] = @Original_Discount) AND ([ItemID] = @Original_ItemID));
+SELECT ID, [Index], ProductID, No, Price, Discount, ItemID FROM OrderItem WHERE (ItemID = @ItemID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Index", global::System.Data.SqlDbType.SmallInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Index", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -34373,15 +34715,16 @@ SELECT ID, [Index], ProductID, No, Price, Discount FROM OrderItem WHERE (ID = @I
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@No", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "No", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Price", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Price", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Discount", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Discount", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ItemID", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ItemID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Index", global::System.Data.SqlDbType.SmallInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Index", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_ProductID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ProductID", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ProductID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ProductID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_No", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "No", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_No", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "No", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Price", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Price", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Price", global::System.Data.SqlDbType.Money, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Price", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Discount", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Discount", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ItemID", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ItemID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -34397,7 +34740,7 @@ SELECT ID, [Index], ProductID, No, Price, Discount FROM OrderItem WHERE (ID = @I
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, [Index], ProductID, No, Price, Discount FROM dbo.OrderItem";
+            this._commandCollection[0].CommandText = "SELECT ID, [Index], ProductID, No, Price, Discount, ItemID FROM OrderItem";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -34458,34 +34801,28 @@ SELECT ID, [Index], ProductID, No, Price, Discount FROM OrderItem WHERE (ID = @I
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_ID, short Original_Index, global::System.Nullable<int> Original_ProductID, global::System.Nullable<decimal> Original_No, global::System.Nullable<decimal> Original_Price, bool Original_Discount) {
+        public virtual int Delete(int Original_ID, short Original_Index, int Original_ProductID, global::System.Nullable<decimal> Original_No, global::System.Nullable<decimal> Original_Price, bool Original_Discount, long Original_ItemID) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
             this.Adapter.DeleteCommand.Parameters[1].Value = ((short)(Original_Index));
-            if ((Original_ProductID.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((int)(Original_ProductID.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
+            this.Adapter.DeleteCommand.Parameters[2].Value = ((int)(Original_ProductID));
             if ((Original_No.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[5].Value = ((decimal)(Original_No.Value));
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[4].Value = ((decimal)(Original_No.Value));
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[5].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             if ((Original_Price.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[6].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[7].Value = ((decimal)(Original_Price.Value));
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[6].Value = ((decimal)(Original_Price.Value));
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[6].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[7].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
-            this.Adapter.DeleteCommand.Parameters[8].Value = ((bool)(Original_Discount));
+            this.Adapter.DeleteCommand.Parameters[7].Value = ((bool)(Original_Discount));
+            this.Adapter.DeleteCommand.Parameters[8].Value = ((long)(Original_ItemID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -34506,15 +34843,10 @@ SELECT ID, [Index], ProductID, No, Price, Discount FROM OrderItem WHERE (ID = @I
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int ID, short Index, global::System.Nullable<int> ProductID, global::System.Nullable<decimal> No, global::System.Nullable<decimal> Price, bool Discount) {
+        public virtual int Insert(int ID, short Index, int ProductID, global::System.Nullable<decimal> No, global::System.Nullable<decimal> Price, bool Discount, long ItemID) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(ID));
             this.Adapter.InsertCommand.Parameters[1].Value = ((short)(Index));
-            if ((ProductID.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((int)(ProductID.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
+            this.Adapter.InsertCommand.Parameters[2].Value = ((int)(ProductID));
             if ((No.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[3].Value = ((decimal)(No.Value));
             }
@@ -34528,6 +34860,7 @@ SELECT ID, [Index], ProductID, No, Price, Discount FROM OrderItem WHERE (ID = @I
                 this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             this.Adapter.InsertCommand.Parameters[5].Value = ((bool)(Discount));
+            this.Adapter.InsertCommand.Parameters[6].Value = ((long)(ItemID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -34548,15 +34881,10 @@ SELECT ID, [Index], ProductID, No, Price, Discount FROM OrderItem WHERE (ID = @I
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int ID, short Index, global::System.Nullable<int> ProductID, global::System.Nullable<decimal> No, global::System.Nullable<decimal> Price, bool Discount, int Original_ID, short Original_Index, global::System.Nullable<int> Original_ProductID, global::System.Nullable<decimal> Original_No, global::System.Nullable<decimal> Original_Price, bool Original_Discount) {
+        public virtual int Update(int ID, short Index, int ProductID, global::System.Nullable<decimal> No, global::System.Nullable<decimal> Price, bool Discount, long ItemID, int Original_ID, short Original_Index, int Original_ProductID, global::System.Nullable<decimal> Original_No, global::System.Nullable<decimal> Original_Price, bool Original_Discount, long Original_ItemID) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(ID));
             this.Adapter.UpdateCommand.Parameters[1].Value = ((short)(Index));
-            if ((ProductID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(ProductID.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(ProductID));
             if ((No.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[3].Value = ((decimal)(No.Value));
             }
@@ -34570,16 +34898,10 @@ SELECT ID, [Index], ProductID, No, Price, Discount FROM OrderItem WHERE (ID = @I
                 this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             this.Adapter.UpdateCommand.Parameters[5].Value = ((bool)(Discount));
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_ID));
-            this.Adapter.UpdateCommand.Parameters[7].Value = ((short)(Original_Index));
-            if ((Original_ProductID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_ProductID.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
-            }
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((long)(ItemID));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_ID));
+            this.Adapter.UpdateCommand.Parameters[8].Value = ((short)(Original_Index));
+            this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_ProductID));
             if ((Original_No.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(0));
                 this.Adapter.UpdateCommand.Parameters[11].Value = ((decimal)(Original_No.Value));
@@ -34597,6 +34919,7 @@ SELECT ID, [Index], ProductID, No, Price, Discount FROM OrderItem WHERE (ID = @I
                 this.Adapter.UpdateCommand.Parameters[13].Value = global::System.DBNull.Value;
             }
             this.Adapter.UpdateCommand.Parameters[14].Value = ((bool)(Original_Discount));
+            this.Adapter.UpdateCommand.Parameters[15].Value = ((long)(Original_ItemID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -34617,8 +34940,8 @@ SELECT ID, [Index], ProductID, No, Price, Discount FROM OrderItem WHERE (ID = @I
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(global::System.Nullable<int> ProductID, global::System.Nullable<decimal> No, global::System.Nullable<decimal> Price, bool Discount, int Original_ID, short Original_Index, global::System.Nullable<int> Original_ProductID, global::System.Nullable<decimal> Original_No, global::System.Nullable<decimal> Original_Price, bool Original_Discount) {
-            return this.Update(Original_ID, Original_Index, ProductID, No, Price, Discount, Original_ID, Original_Index, Original_ProductID, Original_No, Original_Price, Original_Discount);
+        public virtual int Update(int ProductID, global::System.Nullable<decimal> No, global::System.Nullable<decimal> Price, bool Discount, long ItemID, int Original_ID, short Original_Index, int Original_ProductID, global::System.Nullable<decimal> Original_No, global::System.Nullable<decimal> Original_Price, bool Original_Discount, long Original_ItemID) {
+            return this.Update(Original_ID, Original_Index, ProductID, No, Price, Discount, ItemID, Original_ID, Original_Index, Original_ProductID, Original_No, Original_Price, Original_Discount, Original_ItemID);
         }
     }
     
@@ -40318,7 +40641,7 @@ SELECT VendorID, Name, ContactPeople, Telephone, GSM, Address, Note, LastUpdated
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[Voucher] WHERE (([ID] = @Original_ID) AND ((@IsNull_VoucherID = 1 AND [VoucherID] IS NULL) OR ([VoucherID] = @Original_VoucherID)) AND ((@IsNull_VendorID = 1 AND [VendorID] IS NULL) OR ([VendorID] = @Original_VendorID)) AND ((@IsNull_Cost = 1 AND [Cost] IS NULL) OR ([Cost] = @Original_Cost)) AND ((@IsNull_StockTime = 1 AND [StockTime] IS NULL) OR ([StockTime] = @Original_StockTime)) AND ((@IsNull_EntryTime = 1 AND [EntryTime] IS NULL) OR ([EntryTime] = @Original_EntryTime)) AND ((@IsNull_PrintTime = 1 AND [PrintTime] IS NULL) OR ([PrintTime] = @Original_PrintTime)) AND ((@IsNull_KeyinID = 1 AND [KeyinID] IS NULL) OR ([KeyinID] = @Original_KeyinID)) AND ([Removed] = @Original_Removed) AND ([Locked] = @Original_Locked) AND ((@IsNull_LastUpdated = 1 AND [LastUpdated] IS NULL) OR ([LastUpdated] = @Original_LastUpdated)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[Voucher] WHERE (([ID] = @Original_ID) AND ((@IsNull_VoucherID = 1 AND [VoucherID] IS NULL) OR ([VoucherID] = @Original_VoucherID)) AND ((@IsNull_VendorID = 1 AND [VendorID] IS NULL) OR ([VendorID] = @Original_VendorID)) AND ((@IsNull_Cost = 1 AND [Cost] IS NULL) OR ([Cost] = @Original_Cost)) AND ((@IsNull_StockTime = 1 AND [StockTime] IS NULL) OR ([StockTime] = @Original_StockTime)) AND ((@IsNull_EntryTime = 1 AND [EntryTime] IS NULL) OR ([EntryTime] = @Original_EntryTime)) AND ((@IsNull_PrintTime = 1 AND [PrintTime] IS NULL) OR ([PrintTime] = @Original_PrintTime)) AND ((@IsNull_KeyinID = 1 AND [KeyinID] IS NULL) OR ([KeyinID] = @Original_KeyinID)) AND ((@IsNull_Removed = 1 AND [Removed] IS NULL) OR ([Removed] = @Original_Removed)) AND ([Locked] = @Original_Locked) AND ((@IsNull_LastUpdated = 1 AND [LastUpdated] IS NULL) OR ([LastUpdated] = @Original_LastUpdated)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_VoucherID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "VoucherID", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
@@ -40335,6 +40658,7 @@ SELECT VendorID, Name, ContactPeople, Telephone, GSM, Address, Note, LastUpdated
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PrintTime", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PrintTime", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_KeyinID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "KeyinID", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_KeyinID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "KeyinID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Removed", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Removed", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Removed", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Removed", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Locked", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Locked", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_LastUpdated", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastUpdated", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
@@ -40357,7 +40681,7 @@ SELECT ID, VoucherID, VendorID, Cost, StockTime, EntryTime, PrintTime, KeyinID, 
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LastUpdated", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastUpdated", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Voucher] SET [ID] = @ID, [VoucherID] = @VoucherID, [VendorID] = @VendorID, [Cost] = @Cost, [StockTime] = @StockTime, [EntryTime] = @EntryTime, [PrintTime] = @PrintTime, [KeyinID] = @KeyinID, [Removed] = @Removed, [Locked] = @Locked, [LastUpdated] = @LastUpdated WHERE (([ID] = @Original_ID) AND ((@IsNull_VoucherID = 1 AND [VoucherID] IS NULL) OR ([VoucherID] = @Original_VoucherID)) AND ((@IsNull_VendorID = 1 AND [VendorID] IS NULL) OR ([VendorID] = @Original_VendorID)) AND ((@IsNull_Cost = 1 AND [Cost] IS NULL) OR ([Cost] = @Original_Cost)) AND ((@IsNull_StockTime = 1 AND [StockTime] IS NULL) OR ([StockTime] = @Original_StockTime)) AND ((@IsNull_EntryTime = 1 AND [EntryTime] IS NULL) OR ([EntryTime] = @Original_EntryTime)) AND ((@IsNull_PrintTime = 1 AND [PrintTime] IS NULL) OR ([PrintTime] = @Original_PrintTime)) AND ((@IsNull_KeyinID = 1 AND [KeyinID] IS NULL) OR ([KeyinID] = @Original_KeyinID)) AND ([Removed] = @Original_Removed) AND ([Locked] = @Original_Locked) AND ((@IsNull_LastUpdated = 1 AND [LastUpdated] IS NULL) OR ([LastUpdated] = @Original_LastUpdated)));
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Voucher] SET [ID] = @ID, [VoucherID] = @VoucherID, [VendorID] = @VendorID, [Cost] = @Cost, [StockTime] = @StockTime, [EntryTime] = @EntryTime, [PrintTime] = @PrintTime, [KeyinID] = @KeyinID, [Removed] = @Removed, [Locked] = @Locked, [LastUpdated] = @LastUpdated WHERE (([ID] = @Original_ID) AND ((@IsNull_VoucherID = 1 AND [VoucherID] IS NULL) OR ([VoucherID] = @Original_VoucherID)) AND ((@IsNull_VendorID = 1 AND [VendorID] IS NULL) OR ([VendorID] = @Original_VendorID)) AND ((@IsNull_Cost = 1 AND [Cost] IS NULL) OR ([Cost] = @Original_Cost)) AND ((@IsNull_StockTime = 1 AND [StockTime] IS NULL) OR ([StockTime] = @Original_StockTime)) AND ((@IsNull_EntryTime = 1 AND [EntryTime] IS NULL) OR ([EntryTime] = @Original_EntryTime)) AND ((@IsNull_PrintTime = 1 AND [PrintTime] IS NULL) OR ([PrintTime] = @Original_PrintTime)) AND ((@IsNull_KeyinID = 1 AND [KeyinID] IS NULL) OR ([KeyinID] = @Original_KeyinID)) AND ((@IsNull_Removed = 1 AND [Removed] IS NULL) OR ([Removed] = @Original_Removed)) AND ([Locked] = @Original_Locked) AND ((@IsNull_LastUpdated = 1 AND [LastUpdated] IS NULL) OR ([LastUpdated] = @Original_LastUpdated)));
 SELECT ID, VoucherID, VendorID, Cost, StockTime, EntryTime, PrintTime, KeyinID, Removed, Locked, LastUpdated FROM Voucher WHERE (ID = @ID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -40386,6 +40710,7 @@ SELECT ID, VoucherID, VendorID, Cost, StockTime, EntryTime, PrintTime, KeyinID, 
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PrintTime", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PrintTime", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_KeyinID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "KeyinID", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_KeyinID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "KeyinID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Removed", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Removed", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Removed", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Removed", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Locked", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Locked", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_LastUpdated", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastUpdated", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
@@ -40467,7 +40792,7 @@ SELECT ID, VoucherID, VendorID, Cost, StockTime, EntryTime, PrintTime, KeyinID, 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_ID, global::System.Nullable<int> Original_VoucherID, global::System.Nullable<int> Original_VendorID, global::System.Nullable<decimal> Original_Cost, global::System.Nullable<global::System.DateTime> Original_StockTime, global::System.Nullable<global::System.DateTime> Original_EntryTime, global::System.Nullable<global::System.DateTime> Original_PrintTime, global::System.Nullable<int> Original_KeyinID, bool Original_Removed, bool Original_Locked, global::System.Nullable<global::System.DateTime> Original_LastUpdated) {
+        public virtual int Delete(int Original_ID, global::System.Nullable<int> Original_VoucherID, global::System.Nullable<int> Original_VendorID, global::System.Nullable<decimal> Original_Cost, global::System.Nullable<global::System.DateTime> Original_StockTime, global::System.Nullable<global::System.DateTime> Original_EntryTime, global::System.Nullable<global::System.DateTime> Original_PrintTime, global::System.Nullable<int> Original_KeyinID, global::System.Nullable<bool> Original_Removed, bool Original_Locked, global::System.Nullable<global::System.DateTime> Original_LastUpdated) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
             if ((Original_VoucherID.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
@@ -40525,15 +40850,22 @@ SELECT ID, VoucherID, VendorID, Cost, StockTime, EntryTime, PrintTime, KeyinID, 
                 this.Adapter.DeleteCommand.Parameters[13].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[14].Value = global::System.DBNull.Value;
             }
-            this.Adapter.DeleteCommand.Parameters[15].Value = ((bool)(Original_Removed));
-            this.Adapter.DeleteCommand.Parameters[16].Value = ((bool)(Original_Locked));
-            if ((Original_LastUpdated.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[17].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[18].Value = ((System.DateTime)(Original_LastUpdated.Value));
+            if ((Original_Removed.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[15].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[16].Value = ((bool)(Original_Removed.Value));
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[17].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[18].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[15].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[16].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.DeleteCommand.Parameters[17].Value = ((bool)(Original_Locked));
+            if ((Original_LastUpdated.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[18].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[19].Value = ((System.DateTime)(Original_LastUpdated.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[18].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[19].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -40555,7 +40887,7 @@ SELECT ID, VoucherID, VendorID, Cost, StockTime, EntryTime, PrintTime, KeyinID, 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int ID, global::System.Nullable<int> VoucherID, global::System.Nullable<int> VendorID, global::System.Nullable<decimal> Cost, global::System.Nullable<global::System.DateTime> StockTime, global::System.Nullable<global::System.DateTime> EntryTime, global::System.Nullable<global::System.DateTime> PrintTime, global::System.Nullable<int> KeyinID, bool Removed, bool Locked, global::System.Nullable<global::System.DateTime> LastUpdated) {
+        public virtual int Insert(int ID, global::System.Nullable<int> VoucherID, global::System.Nullable<int> VendorID, global::System.Nullable<decimal> Cost, global::System.Nullable<global::System.DateTime> StockTime, global::System.Nullable<global::System.DateTime> EntryTime, global::System.Nullable<global::System.DateTime> PrintTime, global::System.Nullable<int> KeyinID, global::System.Nullable<bool> Removed, bool Locked, global::System.Nullable<global::System.DateTime> LastUpdated) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(ID));
             if ((VoucherID.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[1].Value = ((int)(VoucherID.Value));
@@ -40599,7 +40931,12 @@ SELECT ID, VoucherID, VendorID, Cost, StockTime, EntryTime, PrintTime, KeyinID, 
             else {
                 this.Adapter.InsertCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
-            this.Adapter.InsertCommand.Parameters[8].Value = ((bool)(Removed));
+            if ((Removed.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[8].Value = ((bool)(Removed.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[8].Value = global::System.DBNull.Value;
+            }
             this.Adapter.InsertCommand.Parameters[9].Value = ((bool)(Locked));
             if ((LastUpdated.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[10].Value = ((System.DateTime)(LastUpdated.Value));
@@ -40636,7 +40973,7 @@ SELECT ID, VoucherID, VendorID, Cost, StockTime, EntryTime, PrintTime, KeyinID, 
                     global::System.Nullable<global::System.DateTime> EntryTime, 
                     global::System.Nullable<global::System.DateTime> PrintTime, 
                     global::System.Nullable<int> KeyinID, 
-                    bool Removed, 
+                    global::System.Nullable<bool> Removed, 
                     bool Locked, 
                     global::System.Nullable<global::System.DateTime> LastUpdated, 
                     int Original_ID, 
@@ -40647,7 +40984,7 @@ SELECT ID, VoucherID, VendorID, Cost, StockTime, EntryTime, PrintTime, KeyinID, 
                     global::System.Nullable<global::System.DateTime> Original_EntryTime, 
                     global::System.Nullable<global::System.DateTime> Original_PrintTime, 
                     global::System.Nullable<int> Original_KeyinID, 
-                    bool Original_Removed, 
+                    global::System.Nullable<bool> Original_Removed, 
                     bool Original_Locked, 
                     global::System.Nullable<global::System.DateTime> Original_LastUpdated) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(ID));
@@ -40693,7 +41030,12 @@ SELECT ID, VoucherID, VendorID, Cost, StockTime, EntryTime, PrintTime, KeyinID, 
             else {
                 this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[8].Value = ((bool)(Removed));
+            if ((Removed.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((bool)(Removed.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
+            }
             this.Adapter.UpdateCommand.Parameters[9].Value = ((bool)(Locked));
             if ((LastUpdated.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[10].Value = ((System.DateTime)(LastUpdated.Value));
@@ -40758,15 +41100,22 @@ SELECT ID, VoucherID, VendorID, Cost, StockTime, EntryTime, PrintTime, KeyinID, 
                 this.Adapter.UpdateCommand.Parameters[24].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[25].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[26].Value = ((bool)(Original_Removed));
-            this.Adapter.UpdateCommand.Parameters[27].Value = ((bool)(Original_Locked));
-            if ((Original_LastUpdated.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[28].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[29].Value = ((System.DateTime)(Original_LastUpdated.Value));
+            if ((Original_Removed.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[26].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[27].Value = ((bool)(Original_Removed.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[28].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[29].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[26].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[27].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[28].Value = ((bool)(Original_Locked));
+            if ((Original_LastUpdated.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[29].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[30].Value = ((System.DateTime)(Original_LastUpdated.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[29].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[30].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -40796,7 +41145,7 @@ SELECT ID, VoucherID, VendorID, Cost, StockTime, EntryTime, PrintTime, KeyinID, 
                     global::System.Nullable<global::System.DateTime> EntryTime, 
                     global::System.Nullable<global::System.DateTime> PrintTime, 
                     global::System.Nullable<int> KeyinID, 
-                    bool Removed, 
+                    global::System.Nullable<bool> Removed, 
                     bool Locked, 
                     global::System.Nullable<global::System.DateTime> LastUpdated, 
                     int Original_ID, 
@@ -40807,7 +41156,7 @@ SELECT ID, VoucherID, VendorID, Cost, StockTime, EntryTime, PrintTime, KeyinID, 
                     global::System.Nullable<global::System.DateTime> Original_EntryTime, 
                     global::System.Nullable<global::System.DateTime> Original_PrintTime, 
                     global::System.Nullable<int> Original_KeyinID, 
-                    bool Original_Removed, 
+                    global::System.Nullable<bool> Original_Removed, 
                     bool Original_Locked, 
                     global::System.Nullable<global::System.DateTime> Original_LastUpdated) {
             return this.Update(Original_ID, VoucherID, VendorID, Cost, StockTime, EntryTime, PrintTime, KeyinID, Removed, Locked, LastUpdated, Original_ID, Original_VoucherID, Original_VendorID, Original_Cost, Original_StockTime, Original_EntryTime, Original_PrintTime, Original_KeyinID, Original_Removed, Original_Locked, Original_LastUpdated);
@@ -42109,6 +42458,42 @@ SELECT ID, VoID, IngredientID, Cost, Volume, TitleCode FROM VoucherDetail WHERE 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private int UpdateUpdatedRows(DamaiDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
+            if ((this._vendorTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Vendor.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._vendorTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._ingredientTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Ingredient.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._ingredientTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._orderTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Order.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._orderTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._voucherTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Voucher.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._voucherTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             if ((this._productScrappedTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.ProductScrapped.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
@@ -42127,21 +42512,12 @@ SELECT ID, VoID, IngredientID, Cost, Volume, TitleCode FROM VoucherDetail WHERE 
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._recipeTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Recipe.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._orderItemTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.OrderItem.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._recipeTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._productScrappedDetailTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.ProductScrappedDetail.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._productScrappedDetailTableAdapter.Update(updatedRows));
+                    result = (result + this._orderItemTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -42163,30 +42539,21 @@ SELECT ID, VoID, IngredientID, Cost, Volume, TitleCode FROM VoucherDetail WHERE 
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._orderItemTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.OrderItem.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._productScrappedDetailTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.ProductScrappedDetail.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._orderItemTableAdapter.Update(updatedRows));
+                    result = (result + this._productScrappedDetailTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._orderTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Order.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._shiftTableTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.ShiftTable.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._orderTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._vendorTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Vendor.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._vendorTableAdapter.Update(updatedRows));
+                    result = (result + this._shiftTableTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -42208,21 +42575,21 @@ SELECT ID, VoID, IngredientID, Cost, Volume, TitleCode FROM VoucherDetail WHERE 
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._voucherTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Voucher.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._shiftDetailTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.ShiftDetail.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._voucherTableAdapter.Update(updatedRows));
+                    result = (result + this._shiftDetailTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._requestsTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Requests.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._recipeTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Recipe.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._requestsTableAdapter.Update(updatedRows));
+                    result = (result + this._recipeTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -42235,30 +42602,12 @@ SELECT ID, VoID, IngredientID, Cost, Volume, TitleCode FROM VoucherDetail WHERE 
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._shiftTableTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.ShiftTable.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._requestsTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Requests.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._shiftTableTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._shiftDetailTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.ShiftDetail.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._shiftDetailTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._inventoryProductsTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.InventoryProducts.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._inventoryProductsTableAdapter.Update(updatedRows));
+                    result = (result + this._requestsTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -42334,12 +42683,12 @@ SELECT ID, VoID, IngredientID, Cost, Volume, TitleCode FROM VoucherDetail WHERE 
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._ingredientTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Ingredient.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._inventoryTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Inventory.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._ingredientTableAdapter.Update(updatedRows));
+                    result = (result + this._inventoryTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -42352,21 +42701,21 @@ SELECT ID, VoID, IngredientID, Cost, Volume, TitleCode FROM VoucherDetail WHERE 
                     allChangedRows.AddRange(updatedRows);
                 }
             }
+            if ((this._inventoryProductsTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.InventoryProducts.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._inventoryProductsTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             if ((this._inventoryDetailTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.InventoryDetail.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._inventoryDetailTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._inventoryTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Inventory.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._inventoryTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -42416,6 +42765,38 @@ SELECT ID, VoID, IngredientID, Cost, Volume, TitleCode FROM VoucherDetail WHERE 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private int UpdateInsertedRows(DamaiDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
+            if ((this._vendorTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Vendor.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._vendorTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._ingredientTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Ingredient.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._ingredientTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._orderTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Order.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._orderTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._voucherTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Voucher.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._voucherTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
             if ((this._productScrappedTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.ProductScrapped.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
@@ -42432,19 +42813,11 @@ SELECT ID, VoID, IngredientID, Cost, Volume, TitleCode FROM VoucherDetail WHERE 
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._recipeTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Recipe.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._orderItemTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.OrderItem.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._recipeTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._productScrappedDetailTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.ProductScrappedDetail.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._productScrappedDetailTableAdapter.Update(addedRows));
+                    result = (result + this._orderItemTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -42464,27 +42837,19 @@ SELECT ID, VoID, IngredientID, Cost, Volume, TitleCode FROM VoucherDetail WHERE 
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._orderItemTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.OrderItem.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._productScrappedDetailTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.ProductScrappedDetail.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._orderItemTableAdapter.Update(addedRows));
+                    result = (result + this._productScrappedDetailTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._orderTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Order.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._shiftTableTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.ShiftTable.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._orderTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._vendorTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Vendor.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._vendorTableAdapter.Update(addedRows));
+                    result = (result + this._shiftTableTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -42504,19 +42869,19 @@ SELECT ID, VoID, IngredientID, Cost, Volume, TitleCode FROM VoucherDetail WHERE 
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._voucherTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Voucher.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._shiftDetailTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.ShiftDetail.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._voucherTableAdapter.Update(addedRows));
+                    result = (result + this._shiftDetailTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._requestsTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Requests.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._recipeTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Recipe.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._requestsTableAdapter.Update(addedRows));
+                    result = (result + this._recipeTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -42528,27 +42893,11 @@ SELECT ID, VoID, IngredientID, Cost, Volume, TitleCode FROM VoucherDetail WHERE 
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._shiftTableTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.ShiftTable.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._requestsTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Requests.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._shiftTableTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._shiftDetailTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.ShiftDetail.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._shiftDetailTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._inventoryProductsTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.InventoryProducts.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._inventoryProductsTableAdapter.Update(addedRows));
+                    result = (result + this._requestsTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -42616,11 +42965,11 @@ SELECT ID, VoID, IngredientID, Cost, Volume, TitleCode FROM VoucherDetail WHERE 
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._ingredientTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Ingredient.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._inventoryTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Inventory.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._ingredientTableAdapter.Update(addedRows));
+                    result = (result + this._inventoryTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -42632,19 +42981,19 @@ SELECT ID, VoID, IngredientID, Cost, Volume, TitleCode FROM VoucherDetail WHERE 
                     allAddedRows.AddRange(addedRows);
                 }
             }
+            if ((this._inventoryProductsTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.InventoryProducts.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._inventoryProductsTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
             if ((this._inventoryDetailTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.InventoryDetail.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._inventoryDetailTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._inventoryTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Inventory.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._inventoryTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -42722,19 +43071,19 @@ SELECT ID, VoID, IngredientID, Cost, Volume, TitleCode FROM VoucherDetail WHERE 
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._inventoryTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Inventory.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._inventoryTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._inventoryDetailTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.InventoryDetail.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._inventoryDetailTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._inventoryProductsTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.InventoryProducts.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._inventoryProductsTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -42746,11 +43095,11 @@ SELECT ID, VoID, IngredientID, Cost, Volume, TitleCode FROM VoucherDetail WHERE 
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._ingredientTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Ingredient.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._inventoryTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Inventory.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._ingredientTableAdapter.Update(deletedRows));
+                    result = (result + this._inventoryTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -42818,27 +43167,11 @@ SELECT ID, VoID, IngredientID, Cost, Volume, TitleCode FROM VoucherDetail WHERE 
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._inventoryProductsTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.InventoryProducts.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._requestsTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Requests.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._inventoryProductsTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._shiftDetailTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.ShiftDetail.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._shiftDetailTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._shiftTableTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.ShiftTable.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._shiftTableTableAdapter.Update(deletedRows));
+                    result = (result + this._requestsTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -42850,19 +43183,19 @@ SELECT ID, VoID, IngredientID, Cost, Volume, TitleCode FROM VoucherDetail WHERE 
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._requestsTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Requests.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._recipeTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Recipe.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._requestsTableAdapter.Update(deletedRows));
+                    result = (result + this._recipeTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._voucherTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Voucher.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._shiftDetailTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.ShiftDetail.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._voucherTableAdapter.Update(deletedRows));
+                    result = (result + this._shiftDetailTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -42882,27 +43215,19 @@ SELECT ID, VoID, IngredientID, Cost, Volume, TitleCode FROM VoucherDetail WHERE 
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._vendorTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Vendor.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._shiftTableTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.ShiftTable.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._vendorTableAdapter.Update(deletedRows));
+                    result = (result + this._shiftTableTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._orderTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Order.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._productScrappedDetailTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.ProductScrappedDetail.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._orderTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._orderItemTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.OrderItem.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._orderItemTableAdapter.Update(deletedRows));
+                    result = (result + this._productScrappedDetailTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -42922,19 +43247,11 @@ SELECT ID, VoID, IngredientID, Cost, Volume, TitleCode FROM VoucherDetail WHERE 
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._productScrappedDetailTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.ProductScrappedDetail.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._orderItemTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.OrderItem.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._productScrappedDetailTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._recipeTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Recipe.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._recipeTableAdapter.Update(deletedRows));
+                    result = (result + this._orderItemTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -42951,6 +43268,38 @@ SELECT ID, VoID, IngredientID, Cost, Volume, TitleCode FROM VoucherDetail WHERE 
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._productScrappedTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._voucherTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Voucher.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._voucherTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._orderTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Order.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._orderTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._ingredientTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Ingredient.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._ingredientTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._vendorTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Vendor.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._vendorTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }

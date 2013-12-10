@@ -171,8 +171,15 @@ namespace VoucherExpense
            //m_OrderItemAdapter.FillBySelectStr(OrderItem, "Select * From [OrderItem] " + sqlstr + " Order by ID");
            bakeryOrderSet1.OrderItem.Clear();
            bakeryOrderSet1.Order.Clear();
-           m_OrderAdapter.FillBySelectStr(bakeryOrderSet1.Order, "Select * From [Order] " + sqlstr + " Order by ID");
-           m_OrderItemAdapter.FillBySelectStr(bakeryOrderSet1.OrderItem, "Select * From [OrderItem] " + sqlstr + " Order by ID");
+           try
+           {
+               m_OrderAdapter.FillBySelectStr(bakeryOrderSet1.Order, "Select * From [Order] " + sqlstr + " Order by ID");
+               m_OrderItemAdapter.FillBySelectStr(bakeryOrderSet1.OrderItem, "Select * From [OrderItem] " + sqlstr + " Order by ID");
+           }
+           catch (Exception ex)
+           {
+               MessageBox.Show(ex.Message);
+           }
            progressBar1.Visible = true;
            progressBar1.Maximum = bakeryOrderSet1.Order.Count + 1;
            int i = 0;

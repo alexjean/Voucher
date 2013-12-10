@@ -1,7 +1,9 @@
-﻿using System;
+﻿//#define UseSQLServer
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace VoucherExpense
 {
@@ -180,6 +182,82 @@ namespace VoucherExpense
     {
         public WorkingDay m_WorkingDay;
         decimal FeeRate = 0;
+        public int Year { get { return m_WorkingDay.Year; } }
+        OrderAdapter m_OrderAdapter = new OrderAdapter();
+        // BakeryOrderSet.Order.ID ==> MMDDN99999
+
+#if (UseSQLServer)
+        string CreateSql(int m, int d)
+        {
+            return "Where FLOOR(ID/1000000)=" + m.ToString("d2") + d.ToString("d2");
+        }
+
+        public RevenueCalcBakery(DateTime d, decimal feeRate)
+        {
+            FeeRate = feeRate;
+            m_WorkingDay = new WorkingDay();
+            m_WorkingDay.Set(d);
+        }
+
+        public class OrderAdapter : DamaiDataSetTableAdapters.OrderTableAdapter
+        {
+            string SaveStr;
+            public int FillBySelectStr(DamaiDataSet.OrderDataTable dataTable, string SelectStr)
+            {
+                SaveStr = base.CommandCollection[0].CommandText;
+                base.CommandCollection[0].CommandText = SelectStr;
+                int result = Fill(dataTable);
+                base.CommandCollection[0].CommandText = SaveStr;
+                return result;
+            }
+        }
+
+        public bool LoadData(DamaiDataSet orderSet, int month, int day)
+        {
+            int count = orderSet.Header.Rows.Count;
+            if (count == 0) return false;
+            if (month < 1 || month > 12) return false;
+            if (day < 1 || day > 31) return false;
+            DamaiDataSet.HeaderRow row;
+            foreach (var r in orderSet.Header)
+            {
+                if (r.DataDate.Year != MyFunction.IntHeaderYear) continue; 
+                if (r.DataDate.Month != month) continue;
+                if (r.DataDate.Day == day)
+                {
+                    row = r;
+                    goto Yes;
+                }
+            }
+            return false;
+        Yes:
+            string sql = CreateSql(row.DataDate.Month, row.DataDate.Day);
+            try
+            {
+                m_OrderAdapter.FillBySelectStr(orderSet.Order, "Select * From [Order] " + sql + " Order by ID");
+                m_WorkingDay.Set(row.DataDate);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LastErrorString = ex.Message;
+                if (MessageBox.Show(LastErrorString, "", MessageBoxButtons.RetryCancel) == DialogResult.Cancel)
+                {
+                    throw ex;
+                }
+            }
+            return false;
+        }
+
+        public string LastErrorString = "";
+
+        public MonthlyReportData Statics(DamaiDataSet orderSet)
+#else
+        string CreateSql(int m, int d)
+        {
+            return "Where INT(ID/1000000)=" + m.ToString("d2") + d.ToString("d2");
+        }
+
         public RevenueCalcBakery(DateTime d, decimal feeRate)
         {
             FeeRate = feeRate;
@@ -187,10 +265,7 @@ namespace VoucherExpense
             m_WorkingDay.Set(d);
             m_OrderAdapter.Connection = MapPath.BakeryConnection;
         }
-        public int Year { get { return m_WorkingDay.Year; } }
 
-
-        OrderAdapter m_OrderAdapter = new OrderAdapter();
         public class OrderAdapter : BakeryOrderSetTableAdapters.OrderTableAdapter
         {
             string SaveStr;
@@ -204,12 +279,6 @@ namespace VoucherExpense
             }
         }
 
-        // BakeryOrderSet.Order.ID ==> MMDDN99999
-        string CreateSql(int m, int d)
-        {
-            return "Where INT(ID/1000000)=" + m.ToString("d2") + d.ToString("d2"); 
-        }
-
         public bool LoadData(BakeryOrderSet bakeryOrderSet, int month, int day)
         {
             int count = bakeryOrderSet.Header.Rows.Count;
@@ -219,6 +288,7 @@ namespace VoucherExpense
             BakeryOrderSet.HeaderRow row;
             foreach (BakeryOrderSet.HeaderRow r in bakeryOrderSet.Header.Rows)
             {
+                if (r.DataDate.Year != MyFunction.IntHeaderYear) continue; 
                 if (r.DataDate.Month != month) continue;
                 if (r.DataDate.Day == day)
                 {
@@ -238,19 +308,24 @@ namespace VoucherExpense
             catch (Exception ex)
             {
                 LastErrorString = ex.Message;
+                if (MessageBox.Show(ex.Message, "", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
+                {
+                    throw ex;
+                }
             }
             return false;
         }
 
         public string LastErrorString = "";
 
-        public MonthlyReportData Statics(BakeryOrderSet bakeryOrderSet)
+        public MonthlyReportData Statics(BakeryOrderSet orderSet)
+#endif
         {
             decimal cash = 0, credit = 0, deduct = 0;
             decimal coupond=0,deletedMoney=0,returnedMoney=0;
             int orderCount = 0,deletedCount=0,returnedCount=0;
             MonthlyReportData data = new MonthlyReportData();
-            foreach (BakeryOrderSet.OrderRow row in bakeryOrderSet.Order)
+            foreach (var row in orderSet.Order)
             {
                 decimal income;
                 if (row.IsIncomeNull()) income = 0m;
@@ -289,10 +364,10 @@ namespace VoucherExpense
             data.Revenue = Math.Round(cash + credit + coupond);
 
             data.DeletedCount = deletedCount;
-            data.DeletedMoney = deletedMoney;
+            data.DeletedMoney = Math.Round(deletedMoney);
 
             data.ReturnedCount = returnedCount;
-            data.ReturnedMoney = returnedMoney;
+            data.ReturnedMoney = Math.Round(returnedMoney);
             return data;
         }
     }

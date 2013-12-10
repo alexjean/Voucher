@@ -968,7 +968,12 @@ namespace VoucherExpense
             }
             DateTime today = todayPicker.Value.Date;
             m_Revenue = new RevenueCalcBakery(today, 0m);   // 先不管手續費
+#if (UseSQLServer)
+            MessageBox.Show("UseSQLServer未完工!");
+       //     m_Revenue.LoadData(bakeryOrderSet, today.Month, today.Day);
+#else
             m_Revenue.LoadData(bakeryOrderSet, today.Month, today.Day);
+#endif
             try
             {
                 printDocument1.Print();

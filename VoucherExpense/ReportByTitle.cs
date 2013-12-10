@@ -322,51 +322,36 @@ namespace VoucherExpense
             box.Enabled = true;
         }
 
-#if Define_Bakery
         RevenueCalcBakery Revenue;
-        BakeryOrderSetTableAdapters.HeaderTableAdapter headerTableAdapter = new BakeryOrderSetTableAdapters.HeaderTableAdapter();
-        BakeryOrderSet bakeryOrderSet = new BakeryOrderSet();
-#else
-        RevenueCalc Revenue;
-        BasicDataSetTableAdapters.HeaderTableAdapter headerTableAdapter = new BasicDataSetTableAdapters.HeaderTableAdapter();
-        BasicDataSet basicDataSet=new BasicDataSet();
-#endif
-
+#if (UseSQLServer)
+        DamaiDataSetTableAdapters.HeaderTableAdapter headerSQLAdapter = new DamaiDataSetTableAdapters.HeaderTableAdapter();
+        DamaiDataSet orderSet = new DamaiDataSet();
         private void ReportByTitle_Load(object sender, EventArgs e)
         {
-#if Define_Bakery
+            try
+            {
+                headerSQLAdapter.Fill(orderSet.Header);
+#else
+        BakeryOrderSetTableAdapters.HeaderTableAdapter headerTableAdapter = new BakeryOrderSetTableAdapters.HeaderTableAdapter();
+        BakeryOrderSet orderSet = new BakeryOrderSet();
+        private void ReportByTitle_Load(object sender, EventArgs e)
+        {
             try
             {
                 headerTableAdapter.Connection = MapPath.BakeryConnection;
-                headerTableAdapter.Fill(bakeryOrderSet.Header);
-            }
-            catch { MessageBox.Show("標頭資料讀取錯誤,你的資料庫版本可能不對"); }
-            int count = bakeryOrderSet.Header.Count;
-            if (count == 0)
-            {
-                MessageBox.Show("無資料!");
-                Close();
-                return;
-            }
-            BakeryOrderSet.HeaderRow row = bakeryOrderSet.Header[count - 1];
-            Revenue = new RevenueCalcBakery(row.DataDate, 0);
-#else
-            try
-            {
-                headerTableAdapter.Connection = MapPath.BasicConnection;
-                headerTableAdapter.Fill(basicDataSet.Header);
-            }
-            catch { MessageBox.Show("標頭資料讀取錯誤,你的資料庫版本可能不對"); }
-            int count = basicDataSet.Header.Count;
-            if (count == 0)
-            {
-                MessageBox.Show("無資料!");
-                Close();
-                return;
-            }
-            BasicDataSet.HeaderRow row = basicDataSet.Header[count - 1];
-            Revenue = new RevenueCalc(row.DataDate,0);
+                headerTableAdapter.Fill(orderSet.Header);
 #endif
+            }
+            catch { MessageBox.Show("標頭資料讀取錯誤,你的資料庫版本可能不對"); }
+            int count = orderSet.Header.Count;
+            if (count == 0)
+            {
+                MessageBox.Show("無資料!");
+                Close();
+                return;
+            }
+            var row = orderSet.Header[count - 1];
+            Revenue = new RevenueCalcBakery(row.DataDate, 0);
             AccList.NewAll();
             BankDictionary = new Dictionary<int, BankDefault>();
             RevenueCache = new MonthlyReportData[12];
@@ -449,13 +434,7 @@ namespace VoucherExpense
             List<MonthlyReportData> list = new List<MonthlyReportData>();
             for (int i = 1; i <= count; i++)
             {
-#if Define_Bakery
-                if (Revenue.LoadData(bakeryOrderSet, month, i))
-                    list.Add(Revenue.Statics(bakeryOrderSet));
-#else
-                if (Revenue.LoadData(basicDataSet, year, month, i, true))
-                    list.Add(Revenue.Statics(basicDataSet));
-#endif
+                if (Revenue.LoadData(orderSet, month, i)) list.Add(Revenue.Statics(orderSet));
                 progressBar1.Value = i;
                 Application.DoEvents();
             }

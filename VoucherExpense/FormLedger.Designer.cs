@@ -29,15 +29,21 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cLedgerTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cLedgerTableDataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnDebt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCredit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Sum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.OthersideAccTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.comboBoxMonth = new System.Windows.Forms.ComboBox();
-            this.vEDataSet = new VoucherExpense.VEDataSet();
             this.accountingTitleBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.vEDataSet = new VoucherExpense.VEDataSet();
             this.accountingTitleTableAdapter = new VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter();
             this.comboBoxAccTitle = new System.Windows.Forms.ComboBox();
             this.bankAccountTableAdapter = new VoucherExpense.VEDataSetTableAdapters.BankAccountTableAdapter();
@@ -51,16 +57,13 @@
             this.vendorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.VendorTableAdapter();
             this.ingredientTableAdapter = new VoucherExpense.VEDataSetTableAdapters.IngredientTableAdapter();
             this.btnExport2Excel = new System.Windows.Forms.Button();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnDebt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCredit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Sum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.OthersideAccTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
+            this.accountingTitleTableAdapter1 = new VoucherExpense.DamaiDataSetTableAdapters.AccountingTitleTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.cLedgerTableBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cLedgerTableDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // cLedgerTableBindingSource
@@ -71,8 +74,8 @@
             // 
             this.cLedgerTableDataGridView.AllowUserToAddRows = false;
             this.cLedgerTableDataGridView.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
-            this.cLedgerTableDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.Azure;
+            this.cLedgerTableDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
             this.cLedgerTableDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -95,6 +98,61 @@
             this.cLedgerTableDataGridView.Size = new System.Drawing.Size(964, 610);
             this.cLedgerTableDataGridView.TabIndex = 1;
             this.cLedgerTableDataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.cLedgerTableDataGridView_CellFormatting);
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "Date";
+            this.dataGridViewTextBoxColumn1.HeaderText = "日期";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Width = 92;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "Note";
+            this.dataGridViewTextBoxColumn2.HeaderText = "摘要";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 320;
+            // 
+            // ColumnDebt
+            // 
+            this.ColumnDebt.DataPropertyName = "Debt";
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle14.Format = "N2";
+            this.ColumnDebt.DefaultCellStyle = dataGridViewCellStyle14;
+            this.ColumnDebt.HeaderText = "借方";
+            this.ColumnDebt.Name = "ColumnDebt";
+            this.ColumnDebt.ReadOnly = true;
+            // 
+            // ColumnCredit
+            // 
+            this.ColumnCredit.DataPropertyName = "Credit";
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle15.Format = "N2";
+            this.ColumnCredit.DefaultCellStyle = dataGridViewCellStyle15;
+            this.ColumnCredit.HeaderText = "貸方";
+            this.ColumnCredit.Name = "ColumnCredit";
+            this.ColumnCredit.ReadOnly = true;
+            // 
+            // Sum
+            // 
+            this.Sum.DataPropertyName = "Sum";
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle16.Format = "N2";
+            dataGridViewCellStyle16.NullValue = null;
+            this.Sum.DefaultCellStyle = dataGridViewCellStyle16;
+            this.Sum.HeaderText = "餘額";
+            this.Sum.Name = "Sum";
+            this.Sum.ReadOnly = true;
+            // 
+            // OthersideAccTitle
+            // 
+            this.OthersideAccTitle.DataPropertyName = "OthersideAccTitle";
+            this.OthersideAccTitle.HeaderText = "對沖科目";
+            this.OthersideAccTitle.Name = "OthersideAccTitle";
+            this.OthersideAccTitle.ReadOnly = true;
+            this.OthersideAccTitle.Width = 200;
             // 
             // comboBoxMonth
             // 
@@ -123,15 +181,15 @@
             this.comboBoxMonth.TabIndex = 55;
             this.comboBoxMonth.SelectedIndexChanged += new System.EventHandler(this.comboBoxMonth_SelectedIndexChanged);
             // 
+            // accountingTitleBindingSource
+            // 
+            this.accountingTitleBindingSource.DataMember = "AccountingTitle";
+            this.accountingTitleBindingSource.DataSource = this.damaiDataSet;
+            // 
             // vEDataSet
             // 
             this.vEDataSet.DataSetName = "VEDataSet";
             this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // accountingTitleBindingSource
-            // 
-            this.accountingTitleBindingSource.DataMember = "AccountingTitle";
-            this.accountingTitleBindingSource.DataSource = this.vEDataSet;
             // 
             // accountingTitleTableAdapter
             // 
@@ -211,60 +269,14 @@
             this.btnExport2Excel.UseVisualStyleBackColor = true;
             this.btnExport2Excel.Click += new System.EventHandler(this.btnExport2Excel_Click);
             // 
-            // dataGridViewTextBoxColumn1
+            // damaiDataSet
             // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "Date";
-            this.dataGridViewTextBoxColumn1.HeaderText = "日期";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Width = 92;
+            this.damaiDataSet.DataSetName = "DamaiDataSet";
+            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // dataGridViewTextBoxColumn2
+            // accountingTitleTableAdapter1
             // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "Note";
-            this.dataGridViewTextBoxColumn2.HeaderText = "摘要";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Width = 320;
-            // 
-            // ColumnDebt
-            // 
-            this.ColumnDebt.DataPropertyName = "Debt";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "N2";
-            this.ColumnDebt.DefaultCellStyle = dataGridViewCellStyle2;
-            this.ColumnDebt.HeaderText = "借方";
-            this.ColumnDebt.Name = "ColumnDebt";
-            this.ColumnDebt.ReadOnly = true;
-            // 
-            // ColumnCredit
-            // 
-            this.ColumnCredit.DataPropertyName = "Credit";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "N2";
-            this.ColumnCredit.DefaultCellStyle = dataGridViewCellStyle3;
-            this.ColumnCredit.HeaderText = "貸方";
-            this.ColumnCredit.Name = "ColumnCredit";
-            this.ColumnCredit.ReadOnly = true;
-            // 
-            // Sum
-            // 
-            this.Sum.DataPropertyName = "Sum";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.Format = "N2";
-            dataGridViewCellStyle4.NullValue = null;
-            this.Sum.DefaultCellStyle = dataGridViewCellStyle4;
-            this.Sum.HeaderText = "餘額";
-            this.Sum.Name = "Sum";
-            this.Sum.ReadOnly = true;
-            // 
-            // OthersideAccTitle
-            // 
-            this.OthersideAccTitle.DataPropertyName = "OthersideAccTitle";
-            this.OthersideAccTitle.HeaderText = "對沖科目";
-            this.OthersideAccTitle.Name = "OthersideAccTitle";
-            this.OthersideAccTitle.ReadOnly = true;
-            this.OthersideAccTitle.Width = 200;
+            this.accountingTitleTableAdapter1.ClearBeforeFill = true;
             // 
             // FormLedger
             // 
@@ -286,8 +298,9 @@
             this.Load += new System.EventHandler(this.FormLedger_Load);
             ((System.ComponentModel.ISupportInitialize)(this.cLedgerTableBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cLedgerTableDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -297,7 +310,6 @@
         private System.Windows.Forms.BindingSource cLedgerTableBindingSource;
         private System.Windows.Forms.DataGridView cLedgerTableDataGridView;
         private System.Windows.Forms.ComboBox comboBoxMonth;
-        private VEDataSet vEDataSet;
         private System.Windows.Forms.BindingSource accountingTitleBindingSource;
         private VEDataSetTableAdapters.AccountingTitleTableAdapter accountingTitleTableAdapter;
         private System.Windows.Forms.ComboBox comboBoxAccTitle;
@@ -318,5 +330,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCredit;
         private System.Windows.Forms.DataGridViewTextBoxColumn Sum;
         private System.Windows.Forms.DataGridViewTextBoxColumn OthersideAccTitle;
+        private VEDataSet vEDataSet;
+        private DamaiDataSet damaiDataSet;
+        private DamaiDataSetTableAdapters.AccountingTitleTableAdapter accountingTitleTableAdapter1;
     }
 }

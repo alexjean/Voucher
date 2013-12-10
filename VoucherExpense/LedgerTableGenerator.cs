@@ -1,4 +1,6 @@
-﻿using System;
+﻿//#define UseSQLServer
+// 這裏的define必需和 FormLedger及AccountingTitle一致,二處都有使用 LedgerTableGenerator
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +10,7 @@ using System.Data;
 namespace VoucherExpense
 {
     delegate MonthlyReportData CalcRevenueDelegate(int month, out List<MonthlyReportData> reportList);
-    // vEDataSet1 必需載入
+    // m_DataSet 必需載入
     // AccountingTitle, BankAccount,Ingredient
     // Expense,Voucher, VoucherDetail
     // BankDetail,AccVoucher,Vendor
@@ -19,22 +21,29 @@ namespace VoucherExpense
         Dictionary<int, BankDefault> BankDictionary;
         string SelectedTitleCode;
         TitleSetup Setup;
-        VEDataSet vEDataSet;
+
         CalcRevenueDelegate CalcRevenue;
 
         // 和TitleCode比較相同就加
         decimal TitleSum = 0;  // 實科目算期初值用的
         int Direction = 1; // 借方科目Direction -1 ,貸方科目Direction 1
         List<CLedgerRow> LedgerTable;
-        
 
-        public LedgerTableGenerator(Label labelMsg, TitleSetup setup, VEDataSet vEDataSet1, CalcRevenueDelegate calcRevenue)
+
+#if (UseSQLServer)
+        DamaiDataSet m_DataSet;
+        public LedgerTableGenerator(Label labelMsg, TitleSetup setup, DamaiDataSet dataSet1, CalcRevenueDelegate calcRevenue)
+#else
+        VEDataSet m_DataSet;
+        public LedgerTableGenerator(Label labelMsg, TitleSetup setup, VEDataSet dataSet1, CalcRevenueDelegate calcRevenue)
+#endif
         {
             LabelMessage = labelMsg;
             Setup = setup;
-            vEDataSet = vEDataSet1;
+            m_DataSet = dataSet1;
             CalcRevenue = calcRevenue;
         }
+
 
         void Message(string msg)
         {
@@ -110,7 +119,7 @@ namespace VoucherExpense
             List4Calc.defaultAsset = AccTitleList.Find(Setup.DefaultAsset, List4Calc.Assets, null);
             List4Calc.defaultLiability = AccTitleList.Find(Setup.DefualtLiability, List4Calc.Liabilitys, null);
             BankDictionary = new Dictionary<int, BankDefault>();
-            foreach (VEDataSet.BankAccountRow r in vEDataSet.BankAccount.Rows)
+            foreach (var r in m_DataSet.BankAccount)
                 BankDictionary.Add(r.ID, new BankDefault(r.AccountTitleCode, r.DefaultTitleCode));
             foreach (KeyValuePair<int, BankDefault> pair in BankDictionary)
             {
@@ -133,12 +142,17 @@ namespace VoucherExpense
         public List<CLedgerRow> CreateTable(int mon, string selectedTitleCode, AccTitleList sourceList)
         {
             SelectedTitleCode = selectedTitleCode;
+            if (selectedTitleCode == "")
+            {
+                MessageBox.Show("請選會計科目!");
+                return null;
+            }
             LedgerTable = new List<CLedgerRow>();
             NewList = InitList(sourceList);
             AccTitle selected = NewList.FindTitleByCode(selectedTitleCode, out Direction);
             if (selected == null)
             {
-                MessageBox.Show("所選的科目<" + selectedTitleCode + "> 在會計科目表找不到!");
+                MessageBox.Show("所選的科目<" + selectedTitleCode + "> 不在類別1至6!");
                 return null;
             }
             TitleSum = selected.Money;  // 年度初值
@@ -158,7 +172,7 @@ namespace VoucherExpense
 
             #region  ======= 計算費用 =======
             Message("計算費用");
-            foreach (VEDataSet.ExpenseRow ro in vEDataSet.Expense)
+            foreach (var ro in m_DataSet.Expense)
             {
                 if (ro.IsApplyTimeNull()) continue;
                 if (ro.ApplyTime.Year != MyFunction.IntHeaderYear) continue;
@@ -211,7 +225,7 @@ namespace VoucherExpense
             #endregion
             #region ====== 計算轉帳傳票 ======
             Message("計算轉帳傳票");
-            foreach (VEDataSet.AccVoucherRow ro in vEDataSet.AccVoucher)
+            foreach (var ro in m_DataSet.AccVoucher)
             {
                 if (ro.IsAccVoucherTimeNull()) continue;
                 if (ro.AccVoucherTime.Year != MyFunction.IntHeaderYear) continue;
@@ -251,7 +265,7 @@ namespace VoucherExpense
             AccTitle shouldPay = AccTitleList.Find(Setup.VoucherShouldPay, NewList.Liabilitys, NewList.defaultLiability);
             if (shouldPay == null)
                 MessageBox.Show("<應付帳款>科目未設定, 計算可能發生錯誤!");
-            foreach (VEDataSet.VoucherRow ro in vEDataSet.Voucher)
+            foreach (var ro in m_DataSet.Voucher)
             {
                 if (ro.IsStockTimeNull()) continue;
                 if (ro.StockTime.Year != MyFunction.IntHeaderYear) continue;
@@ -279,7 +293,7 @@ namespace VoucherExpense
                 }
                 if (IsCurrent(m1, mon))  // 加總到每個成本科目去 
                 {
-                    foreach (VEDataSet.VoucherDetailRow r1 in ro.GetVoucherDetailRows())
+                    foreach (var r1 in ro.GetVoucherDetailRows())
                     {
                         AccTitle r;
                         if (r1.IsTitleCodeNull()) r = NewList.defaultCost;
@@ -290,7 +304,7 @@ namespace VoucherExpense
                             if (r.Code == selectedTitleCode)          // 要找SubRow費時,先檢查一下  
                             {
                                 string note = "<" + ro.ID.ToString("d4") + "> ";
-                                VEDataSet.IngredientRow ingredient = r1.IngredientRow;
+                                var ingredient = r1.IngredientRow;
                                 if (ingredient != null && (!ingredient.IsNameNull()))
                                     note += r1.IngredientRow.Name;
                                 if (!r1.IsVolumeNull())
@@ -349,7 +363,7 @@ namespace VoucherExpense
             //            MessageBox.Show("計算銀行前 1040 刷卡應付 " + creditReceivable.Money.ToString("N1"));
             #region ====== 計算銀行帳戶 ======
             Message("計算銀行帳戶");
-            foreach (VEDataSet.BankDetailRow ro in vEDataSet.BankDetail.Rows)
+            foreach (var ro in m_DataSet.BankDetail)
             {
                 if (ro.IsDayNull()) continue;
                 if (ro.Day.Year != MyFunction.IntHeaderYear) continue;

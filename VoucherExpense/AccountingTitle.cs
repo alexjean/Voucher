@@ -1,4 +1,5 @@
 ﻿//#define UseSQLServer
+// 此處因為用到LedgerTableGenerator ,所以二處UseSQLServer必需相同
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -234,12 +235,13 @@ namespace VoucherExpense
             }
             List<CLedgerRow> list=m_Generator.CreateTable(0, titleCode, AccList1);   
             bool used;
-            if (list.Count == 0)        used = false;
+            if (list == null)           used = false;
+            else if (list.Count == 0)   used = false;
             else if (list.Count > 2)    used = true;
             else if (AccTitleList.IsVirtualTitle(titleCode))
-                                        used = true;    // 虛科目有一行就不行
-            else if (list[0].Sum != 0)  used = true;    // 實科目第一行是餘額,不是0 ,代表上年度有餘額
-            else                        used = false;
+                used = true;    // 虛科目有一行就不行
+            else if (list[0].Sum != 0) used = true;    // 實科目第一行是餘額,不是0 ,代表上年度有餘額
+            else used = false;
             if (used)
             {
                 dgvLedgerTable.DataSource = list;
@@ -274,6 +276,58 @@ namespace VoucherExpense
         private void LoadLedgerData()
         {
             if (DataPrepared) return;
+#if (UseSQLServer)
+            try
+            {
+                var headerSQLAdapter = new DamaiDataSetTableAdapters.HeaderTableAdapter();
+                headerSQLAdapter.Fill(damaiDataSet.Header);
+            }
+            catch { MessageBox.Show("標頭資料讀取錯誤,你的資料庫版本可能不對"); }
+            int count = damaiDataSet.Header.Count;
+            if (count == 0)
+            {
+                MessageBox.Show("無資料!");
+                Close();
+                return;
+            }
+            var row = damaiDataSet.Header[count - 1];
+            m_Revenue = new RevenueCalcBakery(row.DataDate, 0);
+            AccList.NewAll();
+            var expenseSQLAdapter = new DamaiDataSetTableAdapters.ExpenseTableAdapter();
+            var voucherSQLAdapter = new DamaiDataSetTableAdapters.VoucherTableAdapter();
+            var voucherDetailSQLAdapter = new DamaiDataSetTableAdapters.VoucherDetailTableAdapter();
+            var bankDetailSQLAdapter = new DamaiDataSetTableAdapters.BankDetailTableAdapter();
+            var accVoucherSQLAdapter = new DamaiDataSetTableAdapters.AccVoucherTableAdapter();
+            var ingredientSQLAdapter = new DamaiDataSetTableAdapters.IngredientTableAdapter();
+            var bankAccountSQLAdapter = new DamaiDataSetTableAdapters.BankAccountTableAdapter();
+            var vendorSQLAdapter     = new DamaiDataSetTableAdapters.VendorTableAdapter();
+
+            DamaiDataSet.AccountingTitleDataTable accTitleTable = damaiDataSet.AccountingTitle;
+            try
+            {
+                bankAccountSQLAdapter.Fill  (damaiDataSet.BankAccount);
+                vendorSQLAdapter.Fill       (damaiDataSet.Vendor);
+                expenseSQLAdapter.Fill      (damaiDataSet.Expense);    // expense檔案小,先全部讀進記憶體
+                voucherSQLAdapter.Fill      (damaiDataSet.Voucher);
+                voucherDetailSQLAdapter.Fill(damaiDataSet.VoucherDetail);
+                bankDetailSQLAdapter.Fill   (damaiDataSet.BankDetail);
+                accVoucherSQLAdapter.Fill   (damaiDataSet.AccVoucher);
+                ingredientSQLAdapter.Fill   (damaiDataSet.Ingredient);
+                foreach (var r in accTitleTable)
+                {
+                    AccTitle item = new AccTitle(r.TitleCode, r.Name);
+                    if (r.IsInitialValueNull())
+                        item.Money = 0;
+                    else
+                        item.Money = r.InitialValue;
+                    if (r.TitleCode.Length == 0) continue;
+                    AccList.Add(item);
+                }
+                AccList1.CopyTableFrom(AccList);
+                Setup.Load();
+                m_Generator = new LedgerTableGenerator(labelMessage, Setup, damaiDataSet, new CalcRevenueDelegate(CalcRevenue));
+            }
+#else
             try
             {
                 headerTableAdapter.Connection = MapPath.BakeryConnection;
@@ -287,37 +341,23 @@ namespace VoucherExpense
                 Close();
                 return;
             }
-            BakeryOrderSet.HeaderRow row = bakeryOrderSet.Header[count - 1];
+            var row = bakeryOrderSet.Header[count - 1];
             m_Revenue = new RevenueCalcBakery(row.DataDate, 0);
             AccList.NewAll();
-
             expenseTableAdapter.Connection = MapPath.VEConnection;
             voucherTableAdapter.Connection = MapPath.VEConnection;
             voucherDetailTableAdapter.Connection = MapPath.VEConnection;
             bankDetailTableAdapter.Connection = MapPath.VEConnection;
             accVoucherTableAdapter.Connection = MapPath.VEConnection;
             ingredientTableAdapter.Connection = MapPath.VEConnection;
-
- 
-#if (UseSQLServer)
-            var bankAccountSQLAdapter= new DamaiDataSetTableAdapters.BankAccountTableAdapter();
-            var vendorSQLAdapter     = new DamaiDataSetTableAdapters.VendorTableAdapter();
-            DamaiDataSet.AccountingTitleDataTable accTitleTable = damaiDataSet.AccountingTitle;
-            try
-            {
-                bankAccountSQLAdapter.Fill(damaiDataSet.BankAccount);
-                vendorSQLAdapter.Fill(damaiDataSet.Vendor);
-#else
-
             bankAccountTableAdapter.Connection     = MapPath.VEConnection;
             vendorTableAdapter.Connection          = MapPath.VEConnection;
+
             VEDataSet.AccountingTitleDataTable accTitleTable=vEDataSet.AccountingTitle;
             try
             {
                 bankAccountTableAdapter.Fill(vEDataSet.BankAccount);
                 vendorTableAdapter.Fill(vEDataSet.Vendor);
-
-#endif          
                 expenseTableAdapter.Fill(vEDataSet.Expense);    // expense檔案小,先全部讀進記憶體
                 voucherTableAdapter.Fill(vEDataSet.Voucher);
                 voucherDetailTableAdapter.Fill(vEDataSet.VoucherDetail);
@@ -335,10 +375,10 @@ namespace VoucherExpense
                     AccList.Add(item);
                 }
                 AccList1.CopyTableFrom(AccList);
-
                 Setup.Load();
                 m_Generator = new LedgerTableGenerator(labelMessage,Setup,vEDataSet,new CalcRevenueDelegate(CalcRevenue));
             }
+#endif
             catch (Exception ex)
             {
                 MessageBox.Show("資料庫讀取錯誤! 原因:" + ex.Message);
@@ -368,8 +408,11 @@ namespace VoucherExpense
             List<MonthlyReportData> list = new List<MonthlyReportData>();
             for (int i = 1; i <= count; i++)
             {
-                if (m_Revenue.LoadData(bakeryOrderSet, month, i))
-                    list.Add(m_Revenue.Statics(bakeryOrderSet));
+#if (UseSQLServer)
+                if (m_Revenue.LoadData(damaiDataSet, month, i)) list.Add(m_Revenue.Statics(damaiDataSet));
+#else
+                if (m_Revenue.LoadData(bakeryOrderSet, month, i))  list.Add(m_Revenue.Statics(bakeryOrderSet));
+#endif
                 progressBar1.Value = i;
                 Application.DoEvents();
             }

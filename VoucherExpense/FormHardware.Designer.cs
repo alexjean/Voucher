@@ -51,8 +51,6 @@
             this.btnFolerBrowse = new System.Windows.Forms.Button();
             this.labelProgramVersion = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.headerTableAdapter1 = new VoucherExpense.VEDataSetTableAdapters.HeaderTableAdapter();
-            this.veDataSet1 = new VoucherExpense.VEDataSet();
             this.labelRequiredVersion = new System.Windows.Forms.Label();
             this.btnUpdateRequiedVersion = new System.Windows.Forms.Button();
             this.btnFindDotPrinter = new System.Windows.Forms.Button();
@@ -72,7 +70,6 @@
             this.textBoxSqlUserID = new System.Windows.Forms.TextBox();
             this.textBoxSqlPassword = new System.Windows.Forms.TextBox();
             this.btnSaveSql = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.veDataSet1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -309,15 +306,6 @@
             this.label6.TabIndex = 21;
             this.label6.Text = "同一店內POS机編号不可相同";
             // 
-            // headerTableAdapter1
-            // 
-            this.headerTableAdapter1.ClearBeforeFill = true;
-            // 
-            // veDataSet1
-            // 
-            this.veDataSet1.DataSetName = "VEDataSet";
-            this.veDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // labelRequiredVersion
             // 
             this.labelRequiredVersion.AutoSize = true;
@@ -532,7 +520,6 @@
             this.Name = "FormHardware";
             this.Text = "硬體環境設定";
             this.Load += new System.EventHandler(this.FormHardware_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.veDataSet1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -573,8 +560,6 @@
         private System.Windows.Forms.Button btnFolerBrowse;
         private System.Windows.Forms.Label labelProgramVersion;
         private System.Windows.Forms.Label label6;
-        private VEDataSetTableAdapters.HeaderTableAdapter headerTableAdapter1;
-        private VEDataSet veDataSet1;
         private System.Windows.Forms.Label labelRequiredVersion;
         private System.Windows.Forms.Button btnUpdateRequiedVersion;
         private System.Windows.Forms.Button btnFindDotPrinter;

@@ -93,7 +93,7 @@
             // 
             this.productTableAdapter1.ClearBeforeFill = true;
             // 
-            // FormEditMenu
+            // EditBasicMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -105,7 +105,7 @@
             this.Controls.Add(this.cbSelectMenu);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "FormEditMenu";
+            this.Name = "EditBasicMenu";
             this.Text = "編修菜單";
             this.Load += new System.EventHandler(this.FormEditMenu_Load);
             this.Shown += new System.EventHandler(this.FormEditMenu_Shown);

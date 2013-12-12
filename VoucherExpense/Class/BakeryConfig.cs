@@ -7,22 +7,33 @@ using System.Windows.Forms;
 using System.IO;
 using System.Data.OleDb;
 using System.Data;
-
+#if UseSQLServer
+using MyDataSet     = VoucherExpense.DamaiDataSet;
+using MyConfigRow   = VoucherExpense.DamaiDataSet.BakeryConfigRow;
+using MyAdapter     = VoucherExpense.DamaiDataSetTableAdapters.BakeryConfigTableAdapter;
+#else
+using MyDataSet     = VoucherExpense.BakeryOrderSet;
+using MyConfigRow   = VoucherExpense.BakeryOrderSet.BakeryConfigRow;
+using MyAdapter     = VoucherExpense.BakeryOrderSetTableAdapters.BakeryConfigTableAdapter;
+#endif
 namespace VoucherExpense
 {
     class BakeryConfig
     {
-        BakeryOrderSet bakeryOrderSet= new BakeryOrderSet();
-        BakeryOrderSetTableAdapters.BakeryConfigTableAdapter configAdapter = new BakeryOrderSetTableAdapters.BakeryConfigTableAdapter();
+        MyDataSet m_DataSet= new MyDataSet();
+        MyAdapter configAdapter = new MyAdapter();
+
         public BakeryConfig(string MdbDir)
         {
+#if !UseSQLServer
             if (MdbDir.Trim().Length == 0) MdbDir = ".";
             string connStr = MapPath.ConnectString(MdbDir + "\\BakeryOrder.mdb", MapPath.BakeryPass + "Bakery");
             OleDbConnection dbConnection = new OleDbConnection(connStr);
             configAdapter.Connection = dbConnection;
+#endif
             try
             {
-                configAdapter.Fill(bakeryOrderSet.BakeryConfig);
+                configAdapter.Fill(m_DataSet.BakeryConfig);
             }
             catch (Exception ex)
             {
@@ -33,7 +44,7 @@ namespace VoucherExpense
         public List<XmlNode> LoadAll(string ConfigName)
         {
             List<XmlNode> list = new List<XmlNode>();
-            foreach (BakeryOrderSet.BakeryConfigRow row in bakeryOrderSet.BakeryConfig)
+            foreach (var row in m_DataSet.BakeryConfig)
             {
                 if (row.ConfigName.Trim() == ConfigName.Trim())
                 {
@@ -54,7 +65,7 @@ namespace VoucherExpense
 
         public XmlNode Load(string ConfigName,string Name)
         {
-            foreach (BakeryOrderSet.BakeryConfigRow row in bakeryOrderSet.BakeryConfig)
+            foreach (var row in m_DataSet.BakeryConfig)
             {
                 if (row.ConfigName.Trim() == ConfigName.Trim())
                 {
@@ -88,7 +99,7 @@ namespace VoucherExpense
                 MessageBox.Show("內容太長,存不了!");
                 return false;       // 太大了,不讓存
             }
-            foreach (BakeryOrderSet.BakeryConfigRow row in bakeryOrderSet.BakeryConfig)
+            foreach (var row in m_DataSet.BakeryConfig)
             {
                 if (row.RowState == DataRowState.Deleted) continue;
                 if (row.ConfigName.Trim() == configName.Trim())
@@ -121,21 +132,21 @@ namespace VoucherExpense
                     goto Update;
                 }
             }
-            BakeryOrderSet.BakeryConfigRow r = bakeryOrderSet.BakeryConfig.NewBakeryConfigRow();
+            var r = m_DataSet.BakeryConfig.NewBakeryConfigRow();
             r.ConfigName = configName;
             r.XMLContent = content;
             int max = 0;
-            foreach (BakeryOrderSet.BakeryConfigRow row in bakeryOrderSet.BakeryConfig)
+            foreach (var row in m_DataSet.BakeryConfig)
             {
                 if (row.RowState == DataRowState.Deleted) continue;
                 if (row.ID > max) max = row.ID;
             }
             r.ID = max + 1;
-            bakeryOrderSet.BakeryConfig.AddBakeryConfigRow(r);
+            m_DataSet.BakeryConfig.AddBakeryConfigRow(r);
         Update:
             try
             {
-                configAdapter.Update(bakeryOrderSet.BakeryConfig);
+                configAdapter.Update(m_DataSet.BakeryConfig);
                 return true;
             }
             catch(Exception ex)
@@ -147,7 +158,7 @@ namespace VoucherExpense
 
         public bool Remove(string configName, string tableName)
         {
-            foreach (BakeryOrderSet.BakeryConfigRow row in bakeryOrderSet.BakeryConfig)
+            foreach (var row in m_DataSet.BakeryConfig)
             {
                 if (row.RowState == DataRowState.Deleted) continue;
                 if (row.ConfigName.Trim() == configName.Trim())
@@ -177,7 +188,7 @@ namespace VoucherExpense
                     try
                     {
                         row.Delete();
-                        configAdapter.Update(bakeryOrderSet.BakeryConfig);
+                        configAdapter.Update(m_DataSet.BakeryConfig);
                         return true;
                     }
                     catch { }

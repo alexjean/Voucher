@@ -38,13 +38,13 @@
             System.Windows.Forms.Label unitLabel;
             System.Windows.Forms.Label evaluatedCostLabel;
             System.Windows.Forms.Label label1;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditBakeryProduct));
             System.Windows.Forms.Label titleCodeLabel;
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditBakeryProduct));
             this.productIDTextBox = new System.Windows.Forms.TextBox();
             this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bakeryOrderSet = new VoucherExpense.BakeryOrderSet();
@@ -76,10 +76,7 @@
             this.儲存SToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.DeletetoolStripButton = new System.Windows.Forms.ToolStripButton();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.productTableAdapter = new VoucherExpense.BakeryOrderSetTableAdapters.ProductTableAdapter();
             this.unitTextBox = new System.Windows.Forms.TextBox();
-            this.orderItemTableAdapter = new VoucherExpense.BakeryOrderSetTableAdapters.OrderItemTableAdapter();
-            this.orderTableAdapter = new VoucherExpense.BakeryOrderSetTableAdapters.OrderTableAdapter();
             this.tableAdapterManager = new VoucherExpense.BakeryOrderSetTableAdapters.TableAdapterManager();
             this.evaluatedCostTextBox = new System.Windows.Forms.TextBox();
             this.photoPictureBox = new System.Windows.Forms.PictureBox();
@@ -88,9 +85,8 @@
             this.grossPercentTextBox = new System.Windows.Forms.TextBox();
             this.btnExcel = new System.Windows.Forms.Button();
             this.titleCodeComboBox = new System.Windows.Forms.ComboBox();
-            this.vEDataSet = new VoucherExpense.VEDataSet();
             this.accountingTitleBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.accountingTitleTableAdapter = new VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter();
+            this.vEDataSet = new VoucherExpense.VEDataSet();
             codeLabel = new System.Windows.Forms.Label();
             classLabel = new System.Windows.Forms.Label();
             nameLabel = new System.Windows.Forms.Label();
@@ -107,8 +103,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator)).BeginInit();
             this.bindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.photoPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // codeLabel
@@ -199,6 +195,15 @@
             label1.TabIndex = 23;
             label1.Text = "毛利";
             // 
+            // titleCodeLabel
+            // 
+            titleCodeLabel.AutoSize = true;
+            titleCodeLabel.Location = new System.Drawing.Point(650, 295);
+            titleCodeLabel.Name = "titleCodeLabel";
+            titleCodeLabel.Size = new System.Drawing.Size(72, 16);
+            titleCodeLabel.TabIndex = 26;
+            titleCodeLabel.Text = "会计科目";
+            // 
             // productIDTextBox
             // 
             this.productIDTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
@@ -286,8 +291,8 @@
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AllowUserToResizeRows = false;
-            dataGridViewCellStyle16.BackColor = System.Drawing.Color.Azure;
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.SeaShell;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -348,8 +353,8 @@
             // priceDataGridViewTextBoxColumn
             // 
             this.priceDataGridViewTextBoxColumn.DataPropertyName = "Price";
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.priceDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.priceDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
             this.priceDataGridViewTextBoxColumn.HeaderText = "價格";
             this.priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
             this.priceDataGridViewTextBoxColumn.ReadOnly = true;
@@ -366,10 +371,10 @@
             // EvaluatedCost
             // 
             this.EvaluatedCost.DataPropertyName = "EvaluatedCost";
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle18.Format = "N2";
-            dataGridViewCellStyle18.NullValue = null;
-            this.EvaluatedCost.DefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.Format = "N2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.EvaluatedCost.DefaultCellStyle = dataGridViewCellStyle3;
             this.EvaluatedCost.HeaderText = "成本";
             this.EvaluatedCost.Name = "EvaluatedCost";
             this.EvaluatedCost.ReadOnly = true;
@@ -378,8 +383,8 @@
             // menuXDataGridViewTextBoxColumn
             // 
             this.menuXDataGridViewTextBoxColumn.DataPropertyName = "MenuX";
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.menuXDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.menuXDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
             this.menuXDataGridViewTextBoxColumn.HeaderText = "X";
             this.menuXDataGridViewTextBoxColumn.Name = "menuXDataGridViewTextBoxColumn";
             this.menuXDataGridViewTextBoxColumn.ReadOnly = true;
@@ -388,8 +393,8 @@
             // menuYDataGridViewTextBoxColumn
             // 
             this.menuYDataGridViewTextBoxColumn.DataPropertyName = "MenuY";
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.menuYDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.menuYDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle5;
             this.menuYDataGridViewTextBoxColumn.HeaderText = "Y";
             this.menuYDataGridViewTextBoxColumn.Name = "menuYDataGridViewTextBoxColumn";
             this.menuYDataGridViewTextBoxColumn.ReadOnly = true;
@@ -421,7 +426,7 @@
             this.bindingNavigator.MovePreviousItem = null;
             this.bindingNavigator.Name = "bindingNavigator";
             this.bindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.bindingNavigator.Size = new System.Drawing.Size(229, 27);
+            this.bindingNavigator.Size = new System.Drawing.Size(226, 27);
             this.bindingNavigator.TabIndex = 17;
             this.bindingNavigator.Text = "bindingNavigator1";
             // 
@@ -438,8 +443,8 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(32, 24);
-            this.bindingNavigatorCountItem.Text = "/ {0}";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 24);
+            this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
             // bindingNavigatorMoveFirstItem
@@ -497,7 +502,7 @@
             // DeletetoolStripButton
             // 
             this.DeletetoolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.DeletetoolStripButton.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.DeletetoolStripButton.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.DeletetoolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("DeletetoolStripButton.Image")));
             this.DeletetoolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.DeletetoolStripButton.Name = "DeletetoolStripButton";
@@ -518,10 +523,6 @@
             this.listBox1.Size = new System.Drawing.Size(210, 16);
             this.listBox1.TabIndex = 18;
             // 
-            // productTableAdapter
-            // 
-            this.productTableAdapter.ClearBeforeFill = true;
-            // 
             // unitTextBox
             // 
             this.unitTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productBindingSource, "Unit", true));
@@ -530,14 +531,6 @@
             this.unitTextBox.Size = new System.Drawing.Size(80, 27);
             this.unitTextBox.TabIndex = 20;
             // 
-            // orderItemTableAdapter
-            // 
-            this.orderItemTableAdapter.ClearBeforeFill = true;
-            // 
-            // orderTableAdapter
-            // 
-            this.orderTableAdapter.ClearBeforeFill = true;
-            // 
             // tableAdapterManager
             // 
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
@@ -545,9 +538,6 @@
             this.tableAdapterManager.CashierTableAdapter = null;
             this.tableAdapterManager.DrawerRecordTableAdapter = null;
             this.tableAdapterManager.HeaderTableAdapter = null;
-            this.tableAdapterManager.OrderItemTableAdapter = this.orderItemTableAdapter;
-            this.tableAdapterManager.OrderTableAdapter = this.orderTableAdapter;
-            this.tableAdapterManager.ProductTableAdapter = this.productTableAdapter;
             this.tableAdapterManager.UpdateOrder = VoucherExpense.BakeryOrderSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // evaluatedCostTextBox
@@ -604,15 +594,6 @@
             this.btnExcel.UseVisualStyleBackColor = true;
             this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
             // 
-            // titleCodeLabel
-            // 
-            titleCodeLabel.AutoSize = true;
-            titleCodeLabel.Location = new System.Drawing.Point(650, 295);
-            titleCodeLabel.Name = "titleCodeLabel";
-            titleCodeLabel.Size = new System.Drawing.Size(72, 16);
-            titleCodeLabel.TabIndex = 26;
-            titleCodeLabel.Text = "会计科目";
-            // 
             // titleCodeComboBox
             // 
             this.titleCodeComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productBindingSource, "TitleCode", true));
@@ -625,19 +606,15 @@
             this.titleCodeComboBox.TabIndex = 27;
             this.titleCodeComboBox.ValueMember = "TitleCode";
             // 
-            // vEDataSet
-            // 
-            this.vEDataSet.DataSetName = "VEDataSet";
-            this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // accountingTitleBindingSource
             // 
             this.accountingTitleBindingSource.DataMember = "AccountingTitle";
             this.accountingTitleBindingSource.DataSource = this.vEDataSet;
             // 
-            // accountingTitleTableAdapter
+            // vEDataSet
             // 
-            this.accountingTitleTableAdapter.ClearBeforeFill = true;
+            this.vEDataSet.DataSetName = "VEDataSet";
+            this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // EditBakeryProduct
             // 
@@ -673,7 +650,7 @@
             this.Controls.Add(this.menuXTextBox);
             this.Controls.Add(menuYLabel);
             this.Controls.Add(this.menuYTextBox);
-            this.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "EditBakeryProduct";
             this.Text = "產品表";
@@ -686,8 +663,8 @@
             this.bindingNavigator.ResumeLayout(false);
             this.bindingNavigator.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.photoPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -697,7 +674,6 @@
 
         private BakeryOrderSet bakeryOrderSet;
         private System.Windows.Forms.BindingSource productBindingSource;
-        private BakeryOrderSetTableAdapters.ProductTableAdapter productTableAdapter;
         private System.Windows.Forms.TextBox productIDTextBox;
         private System.Windows.Forms.TextBox codeTextBox;
         private System.Windows.Forms.TextBox nameTextBox;
@@ -719,8 +695,6 @@
         private System.Windows.Forms.ToolStripButton 儲存SToolStripButton;
         private System.Windows.Forms.TextBox unitTextBox;
         private System.Windows.Forms.ToolStripButton DeletetoolStripButton;
-        private BakeryOrderSetTableAdapters.OrderItemTableAdapter orderItemTableAdapter;
-        private BakeryOrderSetTableAdapters.OrderTableAdapter orderTableAdapter;
         private BakeryOrderSetTableAdapters.TableAdapterManager tableAdapterManager;
         private System.Windows.Forms.TextBox evaluatedCostTextBox;
         private System.Windows.Forms.PictureBox photoPictureBox;
@@ -740,6 +714,5 @@
         private System.Windows.Forms.ComboBox titleCodeComboBox;
         private VEDataSet vEDataSet;
         private System.Windows.Forms.BindingSource accountingTitleBindingSource;
-        private VEDataSetTableAdapters.AccountingTitleTableAdapter accountingTitleTableAdapter;
     }
 }

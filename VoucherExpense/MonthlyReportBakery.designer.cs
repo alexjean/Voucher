@@ -65,7 +65,6 @@
             this.monthlyReportDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bakeryOrderSet = new VoucherExpense.BakeryOrderSet();
             this.comboBoxMonth = new System.Windows.Forms.ComboBox();
-            this.headerTableAdapter1 = new VoucherExpense.BakeryOrderSetTableAdapters.HeaderTableAdapter();
             this.labelOrderCount = new System.Windows.Forms.Label();
             this.labelCash = new System.Windows.Forms.Label();
             this.labelCredit = new System.Windows.Forms.Label();
@@ -92,7 +91,7 @@
             this.dgViewMonthly.BackgroundColor = System.Drawing.Color.SeaShell;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -309,10 +308,6 @@
             this.comboBoxMonth.TabIndex = 2;
             this.comboBoxMonth.SelectedIndexChanged += new System.EventHandler(this.comboBoxMonth_SelectedIndexChanged);
             // 
-            // headerTableAdapter1
-            // 
-            this.headerTableAdapter1.ClearBeforeFill = true;
-            // 
             // labelOrderCount
             // 
             this.labelOrderCount.Location = new System.Drawing.Point(406, 8);
@@ -403,7 +398,7 @@
             this.Controls.Add(this.labelOrderCount);
             this.Controls.Add(this.comboBoxMonth);
             this.Controls.Add(this.dgViewMonthly);
-            this.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MonthlyReportBakery";
             this.Text = "烘焙收入月報";
@@ -421,7 +416,6 @@
         private System.Windows.Forms.BindingSource monthlyReportDataBindingSource;
         private BakeryOrderSet bakeryOrderSet;
         private System.Windows.Forms.ComboBox comboBoxMonth;
-        private BakeryOrderSetTableAdapters.HeaderTableAdapter headerTableAdapter1;
         private System.Windows.Forms.Label labelOrderCount;
         private System.Windows.Forms.Label labelCash;
         private System.Windows.Forms.Label labelCredit;

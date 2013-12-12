@@ -6,7 +6,13 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
-
+#if UseSQLServer
+using MyVEHeaderAdapter = VoucherExpense.DamaiDataSetTableAdapters.VEHeaderTableAdapter;
+using MyVEHeaderTable = VoucherExpense.DamaiDataSet.VEHeaderDataTable;
+#else
+using MyVEHeaderAdapter = VoucherExpense.VEDataSetTableAdapters.HeaderTableAdapter;
+using MyVEHeaderTable = VoucherExpense.VEDataSet.HeaderDataTable;
+#endif
 namespace VoucherExpense
 {
     public partial class FormHardware : Form
@@ -44,13 +50,18 @@ namespace VoucherExpense
         }
 
         HardwareConfig Config = new HardwareConfig();
-        
+        MyVEHeaderTable m_VEHeader = new MyVEHeaderTable();
+        MyVEHeaderAdapter VEHeaderAdapter = new MyVEHeaderAdapter();
         private void FormHardware_Load(object sender, EventArgs e)
         {
             try
             {
-                headerTableAdapter1.Connection =    MapPath.VEConnection;
-                headerTableAdapter1.Fill(veDataSet1.Header);
+#if UseSQLServer
+                VEHeaderAdapter.Fill(m_VEHeader);
+#else
+                VEHeaderAdapter.Connection =    MapPath.VEConnection;
+                VEHeaderAdapter.Fill(m_VEHeader);
+#endif
             }
             catch (Exception ex)
             {
@@ -70,16 +81,21 @@ namespace VoucherExpense
             textBoxSqlDatabase.Text = Config.SqlDatabase;
             textBoxSqlUserID.Text   = Config.SqlUserID;
             textBoxSqlPassword.Text = Config.SqlPassword;
+            
 
             labelProgramVersion.Text = "程式版本 "+Application.ProductVersion.ToString();
-            string version="未註明";
-            if (veDataSet1.Header.Count>0)
+            labelRequiredVersion.Text = "要求版本 " + GetVersion();
+        }
+
+        string GetVersion()
+        {
+            if (m_VEHeader.Count > 0)
             {
-                var header=veDataSet1.Header[0];
+                var header = m_VEHeader[0];
                 if (!header.IsVersionNull())
-                    version=header.Version.Trim();
+                    return header.Version.Trim();
             }
-            labelRequiredVersion.Text = "要求版本 " + version;
+            return "未註明";
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -129,15 +145,15 @@ namespace VoucherExpense
         {
             try
             {
-                if (veDataSet1.Header.Count<=0) return;
-                var header = veDataSet1.Header[0];
+                if (m_VEHeader.Count<=0) return;
+                var header = m_VEHeader[0];
                 if (!header.IsVersionNull() && header.Version.Trim() == Application.ProductVersion.Trim())
                 {
                     MessageBox.Show("版本号相同不需更換!");
                     return;
                 }
                 header.Version = Application.ProductVersion.Trim();
-                headerTableAdapter1.Update(veDataSet1.Header);
+                VEHeaderAdapter.Update(m_VEHeader);
                 labelRequiredVersion.Text = "要求版本 " + header.Version;
             }
             catch (Exception ex)

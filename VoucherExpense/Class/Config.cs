@@ -4,30 +4,39 @@ using System.Text;
 using System.Xml;
 using System.Windows.Forms;
 using System.IO;
+#if UseSQLServer
+using MyDataSet = VoucherExpense.DamaiDataSet;
+using MyConfigAdapter = VoucherExpense.DamaiDataSetTableAdapters.ConfigTableAdapter;
+#else
+using MyDataSet = VoucherExpense.VEDataSet;
+using MyConfigAdapter = VoucherExpense.VEDataSetTableAdapters.ConfigTableAdapter;
+#endif
 
 namespace VoucherExpense
 {
     class Config
     {
-        VEDataSet vEDataset = new VEDataSet();
-        VEDataSetTableAdapters.ConfigTableAdapter adapter = new VEDataSetTableAdapters.ConfigTableAdapter();
+        MyDataSet m_Dataset = new MyDataSet();
+        MyConfigAdapter adapter = new MyConfigAdapter();
         public Config()
         {
+#if !UseSQLServer
             adapter.Connection = MapPath.VEConnection;
+#endif
             try
             {
-                adapter.Fill(vEDataset.Config);
+                adapter.Fill(m_Dataset.Config);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("無法讀入BakeryConfig,原因:" + ex.Message);
+                MessageBox.Show("無法讀入Config,原因:" + ex.Message);
             }
         }
 
         public List<XmlNode> LoadAll(string ConfigName)
         {
             List<XmlNode> list = new List<XmlNode>();
-            foreach (VEDataSet.ConfigRow row in vEDataset.Config)
+            foreach (var row in m_Dataset.Config)
             {
                 if (row.Name.Trim() == ConfigName.Trim())
                 {
@@ -49,7 +58,7 @@ namespace VoucherExpense
 
         public XmlNode Load(string ConfigName,string Name)
         {
-            foreach (VEDataSet.ConfigRow row in vEDataset.Config)
+            foreach (var row in m_Dataset.Config)
             {
                 if (row.Name.Trim() == ConfigName.Trim())
                 {
@@ -79,7 +88,7 @@ namespace VoucherExpense
         public bool Save(string configName,string tableName, string content)
         {
             if (content.Length > 32787) return false;       // 太大了,不讓存
-            foreach (VEDataSet.ConfigRow row in vEDataset.Config)
+            foreach (var row in m_Dataset.Config)
             {
                 if (row.Name.Trim() == configName.Trim())
                 {
@@ -111,20 +120,20 @@ namespace VoucherExpense
                     goto Update;
                 }
             }
-            VEDataSet.ConfigRow r = vEDataset.Config.NewConfigRow();
+            var r = m_Dataset.Config.NewConfigRow();
             r.Name = configName;
             r.Content = content;
             int max = 0;
-            foreach (VEDataSet.ConfigRow row in vEDataset.Config)
+            foreach (var row in m_Dataset.Config)
             {
                 if (row.ID > max) max = row.ID;
             }
             r.ID = max + 1;
-            vEDataset.Config.AddConfigRow(r);
+            m_Dataset.Config.AddConfigRow(r);
         Update:
             try
             {
-                adapter.Update(vEDataset.Config);
+                adapter.Update(m_Dataset.Config);
                 return true;
             }
             catch { }
@@ -133,7 +142,7 @@ namespace VoucherExpense
 
         public bool Remove(string configName, string tableName)
         {
-            foreach (VEDataSet.ConfigRow row in vEDataset.Config)
+            foreach (var row in m_Dataset.Config)
             {
                 if (row.Name.Trim() == configName.Trim())
                 {
@@ -162,7 +171,7 @@ namespace VoucherExpense
                     try
                     {
                         row.Delete();
-                        adapter.Update(vEDataset.Config);
+                        adapter.Update(m_Dataset.Config);
                         return true;
                     }
                     catch { }

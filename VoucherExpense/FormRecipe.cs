@@ -7,6 +7,27 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+#if UseSQLServer
+using MyDataSet             = VoucherExpense.DamaiDataSet;
+using MyRecipeTable         = VoucherExpense.DamaiDataSet.RecipeDataTable;
+using MyRecipeDetailTable   = VoucherExpense.DamaiDataSet.RecipeDetailDataTable;
+using MyRecipeRow           = VoucherExpense.DamaiDataSet.RecipeRow;
+using MyRecipeDetailRow     = VoucherExpense.DamaiDataSet.RecipeDetailRow;
+using MyProductAdapter      = VoucherExpense.DamaiDataSetTableAdapters.ProductTableAdapter;
+using MyRecipeAdapter       = VoucherExpense.DamaiDataSetTableAdapters.RecipeTableAdapter;
+using MyRecipeDetailAdapter = VoucherExpense.DamaiDataSetTableAdapters.RecipeDetailTableAdapter;
+using MyIngredientAdapter   = VoucherExpense.DamaiDataSetTableAdapters.IngredientTableAdapter;
+#else
+using MyDataSet             = VoucherExpense.VEDataSet;
+using MyRecipeTable         = VoucherExpense.VEDataSet.RecipeDataTable;
+using MyRecipeDetailTable   = VoucherExpense.VEDataSet.RecipeDetailDataTable;
+using MyRecipeRow           = VoucherExpense.VEDataSet.RecipeRow;
+using MyRecipeDetailRow     = VoucherExpense.VEDataSet.RecipeDetailRow;
+using MyProductAdapter = VoucherExpense.BakeryOrderSetTableAdapters.ProductTableAdapter;
+using MyRecipeAdapter       = VoucherExpense.VEDataSetTableAdapters.RecipeTableAdapter;
+using MyRecipeDetailAdapter = VoucherExpense.VEDataSetTableAdapters.RecipeDetailTableAdapter;
+using MyIngredientAdapter   = VoucherExpense.VEDataSetTableAdapters.IngredientTableAdapter;
+#endif
 
 namespace VoucherExpense
 {
@@ -19,18 +40,35 @@ namespace VoucherExpense
 
         List<CNameIDForComboBox> m_ProductList = null;
         List<CNameIDForComboBox> m_SourceList = null;
+        MyDataSet m_DataSet = new MyDataSet();
+        MyRecipeAdapter       recipeAdapter      = new MyRecipeAdapter();
+        MyRecipeDetailAdapter recipeDetailAdapter= new MyRecipeDetailAdapter();
+        MyProductAdapter      productAdapter     = new MyProductAdapter();
         private void FormRecipe_Load(object sender, EventArgs e)
         {
-            productTableAdapter.Connection = MapPath.BakeryConnection;
-            recipeTableAdapter.Connection = MapPath.VEConnection;
-            recipeDetailTableAdapter.Connection = MapPath.VEConnection;
-            ingredientTableAdapter.Connection = MapPath.VEConnection;
+            var ingredientAdapter = new MyIngredientAdapter();
             try
             {
-                this.productTableAdapter.Fill(this.bakeryOrderSet.Product);
-                this.recipeTableAdapter.Fill(this.vEDataSet.Recipe);
-                this.recipeDetailTableAdapter.Fill(this.vEDataSet.RecipeDetail);
-                this.ingredientTableAdapter.Fill(this.vEDataSet.Ingredient);
+                
+                recipeBindingSource.DataSource = m_DataSet;
+#if UseSQLServer  // fKRecipeRecipeDetailBindingSource,damaiDataSet recipeSqlBindingSource創來抄的, 實際上沒用到
+                fKRecipeRecipeDetailBindingSource.DataSource = recipeBindingSource;
+                dgvRecipeDetail.DataSource = fKRecipeRecipeDetailBindingSource;
+                productBindingSource.DataSource = m_DataSet;
+                productAdapter.Fill(m_DataSet.Product);
+#else
+                recipeRecipeDetailBindingSource.DataSource = recipeBindingSource;
+                dgvRecipeDetail.DataSource = recipeRecipeDetailBindingSource;
+                productBindingSource.DataSource = bakeryOrderSet;
+                productAdapter.Connection      = MapPath.BakeryConnection;
+                recipeAdapter.Connection       = MapPath.VEConnection;
+                recipeDetailAdapter.Connection = MapPath.VEConnection;
+                ingredientAdapter.Connection   = MapPath.VEConnection;
+                productAdapter.Fill(bakeryOrderSet.Product);
+#endif
+                recipeAdapter.Fill      (m_DataSet.Recipe);
+                recipeDetailAdapter.Fill(m_DataSet.RecipeDetail);
+                ingredientAdapter.Fill  (m_DataSet.Ingredient);
             }
             catch (Exception ex)
             {
@@ -39,7 +77,11 @@ namespace VoucherExpense
             // 填給使用者選的產品表, 第一個為空白
             m_ProductList = new List<CNameIDForComboBox>();
             m_ProductList.Add(new CNameIDForComboBox(0, " "));
+#if UseSQLServer
+            foreach (var product in m_DataSet.Product)
+#else
             foreach (var product in bakeryOrderSet.Product)
+#endif
             {
                 if (product.IsCodeNull()) continue;
                 if (product.Code <= 0) continue;
@@ -48,7 +90,7 @@ namespace VoucherExpense
             this.cNameIDForProductBindingSource.DataSource = m_ProductList;
             // 填 食材+配方表 (RecipeID +10000)
             m_SourceList = new List<CNameIDForComboBox>();
-            foreach (var ing in vEDataSet.Ingredient)
+            foreach (var ing in m_DataSet.Ingredient)
             {
                 string name;
                 if (ing.IsNameNull()) name = "食材" + ing.IngredientID.ToString();
@@ -57,7 +99,7 @@ namespace VoucherExpense
                     name = "**" + name;
                 m_SourceList.Add(new CNameIDForComboBox(ing.IngredientID, name));
             }
-            foreach (var recipe in vEDataSet.Recipe)
+            foreach (var recipe in m_DataSet.Recipe)
             {
                 if (recipe.IsFinalProductIDNull() || recipe.FinalProductID <= 0)   // 該配方沒有最終產品,才列入
                 {
@@ -85,8 +127,8 @@ namespace VoucherExpense
                 MessageBox.Show("錯誤原因:" + ex.Message);
                 return;
             }
-            var table = (VEDataSet.RecipeDataTable)vEDataSet.Recipe.GetChanges();
-            var detail = (VEDataSet.RecipeDetailDataTable)vEDataSet.RecipeDetail.GetChanges();
+            var table  = (MyRecipeTable)      m_DataSet.Recipe.GetChanges();
+            var detail = (MyRecipeDetailTable)m_DataSet.RecipeDetail.GetChanges();
             if (table == null && detail == null)
             {
                 MessageBox.Show("沒有更改,不需存檔!");
@@ -97,9 +139,9 @@ namespace VoucherExpense
             {
                 try
                 {
-                    n = recipeTableAdapter.Update(table);
-                    vEDataSet.Recipe.Merge(table);
-                    vEDataSet.Recipe.AcceptChanges();
+                    n = recipeAdapter.Update(table);
+                    m_DataSet.Recipe.Merge(table);
+                    m_DataSet.Recipe.AcceptChanges();
                 }
                 catch (Exception ex)
                 {
@@ -111,9 +153,9 @@ namespace VoucherExpense
             {
                 try
                 {
-                    int n1 = recipeDetailTableAdapter.Update(detail);
-                    vEDataSet.RecipeDetail.Merge(detail);
-                    vEDataSet.RecipeDetail.AcceptChanges();
+                    int n1 = recipeDetailAdapter.Update(detail);
+                    m_DataSet.RecipeDetail.Merge(detail);
+                    m_DataSet.RecipeDetail.AcceptChanges();
                 }
                 catch (Exception ex)
                 {
@@ -127,7 +169,7 @@ namespace VoucherExpense
 
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
-            MyFunction.AddNewItem(dgvRecipe, "dgvColumnID", "RecipeID", vEDataSet.Recipe);
+            MyFunction.AddNewItem(dgvRecipe, "dgvColumnID", "RecipeID", m_DataSet.Recipe);
             recipeBindingSource.ResetBindings(false);    // 不加這行Detail顯示不會改
         }
 
@@ -170,7 +212,7 @@ namespace VoucherExpense
         {
             var rowView = recipeBindingSource.Current as DataRowView;
             if (rowView == null) return;
-            var row = rowView.Row as VEDataSet.RecipeRow;
+            var row = rowView.Row as MyRecipeRow;
             CNameIDForComboBox product = m_ProductList[0];    // 第一個放的是ID=0 Name ""
             if (!row.IsFinalProductIDNull())
             {
@@ -192,12 +234,12 @@ namespace VoucherExpense
         //因為RTF的Binding 總是 Changed ,變成每次都Save,所以自己Binding
         bool m_Instruction1Modified = false;
         bool m_Instruction2Modified = false;
-        VEDataSet.RecipeRow m_OldRow=null;
+        MyRecipeRow m_OldRow=null;
         private void BindingRtf()
         {
             if (recipeBindingSource.Current == null) return;
             DataRowView rowView = recipeBindingSource.Current as DataRowView;
-            VEDataSet.RecipeRow row = rowView.Row as VEDataSet.RecipeRow;
+            var row = rowView.Row as MyRecipeRow;
             if (row == null) return;
             if (row.IsInstruction1Null()) richTextBoxInstruction1.Rtf = "";
             else richTextBoxInstruction1.Rtf = row.Instruction1;  // 這裏Rtf的TextChanged會被呼叫, 但後面 m_Instruction1Modified=false又會蓋回來
@@ -255,7 +297,7 @@ namespace VoucherExpense
             ShowCurrentPicture();
             CalcWeight();
             BindingRtf();
-            vEDataSet.Recipe.AcceptChanges();  // 不知為何第一次進來,第一筆就被當做有改過,所以加了這行.可能用rtf的副作用
+            m_DataSet.Recipe.AcceptChanges();  // 不知為何第一次進來,第一筆就被當做有改過,所以加了這行.可能用rtf的副作用
         }
 
         private void dgvRecipeDetail_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
@@ -292,7 +334,7 @@ namespace VoucherExpense
             string RecipePhotoPath = MapPath.DataDir+"Photos\\Recipes\\";
             DataRowView rowView = this.recipeBindingSource.Current as DataRowView;
             if (rowView == null) return null;
-            var row = rowView.Row as VEDataSet.RecipeRow;
+            var row = rowView.Row as MyRecipeRow;
             if (row.RowState == DataRowState.Deleted) return null;
             if (row.RowState == DataRowState.Detached )    //  新增時, RecipeID有時沒有值,會Exception
             {
@@ -387,7 +429,7 @@ namespace VoucherExpense
             {
                 DataRowView rowView = this.recipeBindingSource.Current as DataRowView;
                 if (rowView == null) return;
-                var row = rowView.Row as VEDataSet.RecipeRow;
+                var row = rowView.Row as MyRecipeRow;
                 var details = row.GetRecipeDetailRows();
                 foreach (var d in details)
                 {
@@ -414,7 +456,7 @@ namespace VoucherExpense
             textBoxIngredientWeight.Text = sum.ToString("N1");
         }
 
-        private decimal CalcCost(decimal ratio,VEDataSet.RecipeDetailRow[] details, List<int> usedRecipes)  // usedRecipes填入己使用的配方,避免Recursive
+        private decimal CalcCost(decimal ratio,MyRecipeDetailRow[] details, List<int> usedRecipes)  // usedRecipes填入己使用的配方,避免Recursive
         {
             decimal cost = 0m;
             if (ratio <= 0) ratio = 1;     // 包裝單位不正常時,以1計算
@@ -428,7 +470,7 @@ namespace VoucherExpense
                 else we = d.Weight;
                 if (d.SourceID < 10000)  // 是食材
                 {
-                    var ingredients = from ing in vEDataSet.Ingredient where ing.IngredientID == d.SourceID select ing;
+                    var ingredients = from ing in m_DataSet.Ingredient where ing.IngredientID == d.SourceID select ing;
                     if (ingredients.Count() <= 0) continue;
                     var ingredient = ingredients.First();
                     if (ingredient.IsPriceNull())
@@ -449,14 +491,14 @@ namespace VoucherExpense
                     var ids = from i in usedRecipes where i == recipeID select i;
                     if (ids.Count() == 0)   // 沒有使用過此配方可用
                     {
-                        var recipes = from row in vEDataSet.Recipe where (row.RowState!=DataRowState.Deleted) && (row.RecipeID == recipeID) select row;
+                        var recipes = from row in m_DataSet.Recipe where (row.RowState!=DataRowState.Deleted) && (row.RecipeID == recipeID) select row;
                         if (recipes.Count() > 0)
                         {
                             usedRecipes.Add(recipeID);
                             var recipe = recipes.First();
                             var details1 = recipe.GetRecipeDetailRows();
                             decimal we1 = 0;
-                            foreach (VEDataSet.RecipeDetailRow r in details1)
+                            foreach (var r in details1)
                             {
                                 if (r.IsWeightNull()) continue;
                                 we1 += r.Weight;
@@ -487,7 +529,7 @@ namespace VoucherExpense
                 MessageBox.Show("沒有現有配方,無法更新!");
                 return;
             }
-            var row = rowView.Row as VEDataSet.RecipeRow;
+            var row = rowView.Row as MyRecipeRow;
             if (row.RowState == DataRowState.Detached || row.RowState == DataRowState.Deleted)
             {
                 MessageBox.Show("配方表尚未儲存或己刪除!");
@@ -498,7 +540,7 @@ namespace VoucherExpense
             decimal bakedNo = 1;
             if (!row.IsBakedNoNull() && row.BakedNo > 0) bakedNo = row.BakedNo;
             var details = row.GetRecipeDetailRows();
-            Form form = new FormRecipePriceUpdate(packageNo,bakedNo,details,vEDataSet);
+            Form form = new FormRecipePriceUpdate(packageNo,bakedNo,details,m_DataSet);
             if (form.ShowDialog()==DialogResult.OK)
             {
                 if (row.IsFinalProductIDNull() || row.FinalProductID <= 0)
@@ -506,7 +548,11 @@ namespace VoucherExpense
                     MessageBox.Show("沒有最終產品,無可更新!");
                     return;
                 }
+#if UseSQLServer
+                var products = from pr in m_DataSet.Product where pr.ProductID == row.FinalProductID select pr;
+#else
                 var products = from pr in bakeryOrderSet.Product where pr.ProductID == row.FinalProductID select pr;
+#endif
                 if (products.Count() == 0)
                 {
                     MessageBox.Show("找不到產品号<" + row.FinalProductID.ToString() + ">,無法更新價格!");
@@ -518,7 +564,7 @@ namespace VoucherExpense
                     decimal co=(decimal)form.Tag;
                     co=Math.Round(co,1);
                     product.EvaluatedCost = co;
-                    productTableAdapter.Update(product);
+                    productAdapter.Update(product);
                     product.AcceptChanges();
                     productBindingSource.ResetBindings(false);    // 刷新Product螢幕顯示
                     MessageBox.Show("產品<"+product.Name+">的估算成本己更新為 "+co.ToString());
@@ -533,7 +579,7 @@ namespace VoucherExpense
         {
             var rowView = recipeBindingSource.Current as DataRowView;
             if (rowView == null) return;
-            var row = rowView.Row as VEDataSet.RecipeRow;
+            var row = rowView.Row as MyRecipeRow;
             var details = row.GetRecipeDetailRows();
             foreach (var d in details)
                 d.Delete();
@@ -661,7 +707,11 @@ namespace VoucherExpense
                     }
                     textBoxPrice.Text = textBoxPriceForEdit.Text;
                     productBindingSource.EndEdit();
-                    productTableAdapter.Update(bakeryOrderSet.Product);
+#if UseSQLServer
+                    productAdapter.Update(m_DataSet.Product);
+#else
+                    productAdapter.Update(bakeryOrderSet.Product);
+#endif
                     bakeryOrderSet.Product.AcceptChanges();
                     textBoxPriceForEdit.Tag = PriceEditMode.Invisible;
                     textBoxPriceForEdit.Visible = false;

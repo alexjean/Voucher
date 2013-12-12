@@ -1,11 +1,17 @@
-﻿//#define UseSQLServer
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+#if UseSQLServer
+using MyDataSet = VoucherExpense.DamaiDataSet;
+using MyHeaderAdapter = VoucherExpense.DamaiDataSetTableAdapters.HeaderTableAdapter;
+#else
+using MyDataSet = VoucherExpense.BakeryOrderSet;
+using MyHeaderAdapter = VoucherExpense.BakeryOrderSetTableAdapters.HeaderTableAdapter;
+#endif
 
 namespace VoucherExpense
 {
@@ -18,15 +24,17 @@ namespace VoucherExpense
         }
 
         RevenueCalcBakery Revenue;
-#if (UseSQLServer)
-        DamaiDataSet orderSet = new DamaiDataSet();
+        MyDataSet m_DataSet = new MyDataSet();
         private void MonthlyReportBakery_Load(object sender, EventArgs e)
         {
             decimal FeeRate = 1.8m;
             try
             {
-                var headerSQLAdapter = new DamaiDataSetTableAdapters.HeaderTableAdapter();
-                headerSQLAdapter.Fill(orderSet.Header);
+                var headerAdapter = new MyHeaderAdapter();
+#if (!UseSQLServer)
+                headerAdapter.Connection = MapPath.BakeryConnection;
+#endif
+                headerAdapter.Fill(m_DataSet.Header);
                 TitleSetup Setup = new TitleSetup();
                 Setup.Load();
                 FeeRate = Setup.FeeRate();
@@ -35,48 +43,18 @@ namespace VoucherExpense
             {
                 MessageBox.Show("標頭資料讀取錯誤,你的資料庫版本可能不對");
             }
-            int count = orderSet.Header.Count;
+            int count = m_DataSet.Header.Count;
             if (count == 0)
             {
                 MessageBox.Show("無資料!");
                 Close();
                 return;
             }
-            var row = orderSet.Header[count - 1];
+            var row = m_DataSet.Header[count - 1];
             Revenue = new RevenueCalcBakery(row.DataDate, FeeRate / 100);
             comboBoxMonth.SelectedIndex = row.DataDate.Month - 1;
             labelFeeRate.Text = FeeRate.ToString() + "%";
         }
-#else
-        private void MonthlyReportBakery_Load(object sender, EventArgs e)
-        {
-            decimal FeeRate = 1.8m;
-            try
-            {
-                headerTableAdapter1.Connection = MapPath.BakeryConnection;
-                headerTableAdapter1.Fill(bakeryOrderSet.Header);
-                TitleSetup Setup = new TitleSetup();
-                Setup.Load();
-                FeeRate = Setup.FeeRate();
-            }
-            catch
-            {
-                MessageBox.Show("標頭資料讀取錯誤,你的資料庫版本可能不對");
-            }
-            int count=bakeryOrderSet.Header.Count;
-            if (count == 0)
-            {
-                MessageBox.Show("無資料!");
-                Close();
-                return;
-            }
-            var row = bakeryOrderSet.Header[count - 1];
-            Revenue = new RevenueCalcBakery(row.DataDate,FeeRate/100);
-            comboBoxMonth.SelectedIndex = row.DataDate.Month - 1;
-            labelFeeRate.Text = FeeRate.ToString() + "%";
-        }
-#endif
-
 
         void Calc()
         {
@@ -95,11 +73,7 @@ namespace VoucherExpense
             List<MonthlyReportData> list = new List<MonthlyReportData>();
             for (int i = 1; i <= count; i++)
             {
-#if UseSQLServer
-                if (Revenue.LoadData(orderSet, month, i)) list.Add(Revenue.Statics(orderSet));
-#else
-                if (Revenue.LoadData(bakeryOrderSet,  month, i)) list.Add(Revenue.Statics(bakeryOrderSet));
-#endif
+                if (Revenue.LoadData(m_DataSet, month, i)) list.Add(Revenue.Statics(m_DataSet));
                 progressBar1.Value = i;
                 Application.DoEvents();
             }

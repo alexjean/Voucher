@@ -8,6 +8,24 @@ using System.Windows.Forms;
 using System.IO;
 using System.Linq;
 using Excel = Microsoft.Office.Interop.Excel;
+#if UseSQLServer
+using MyDataSet         = VoucherExpense.DamaiDataSet;
+using MyProductTable    = VoucherExpense.DamaiDataSet.ProductDataTable;
+using MyProductRow      = VoucherExpense.DamaiDataSet.ProductRow;
+using MyProductAdapter  = VoucherExpense.DamaiDataSetTableAdapters.ProductTableAdapter;
+using MyOrderAdapter    = VoucherExpense.DamaiDataSetTableAdapters.OrderTableAdapter;
+using MyOrderItemAdapter= VoucherExpense.DamaiDataSetTableAdapters.OrderItemTableAdapter;
+using MyAccountingTitleAdapter = VoucherExpense.DamaiDataSetTableAdapters.AccountingTitleTableAdapter;
+#else
+using MyDataSet          = VoucherExpense.BakeryOrderSet;
+using MyProductTable     = VoucherExpense.BakeryOrderSet.ProductDataTable;
+using MyProductRow       = VoucherExpense.BakeryOrderSet.ProductRow;
+using MyProductAdapter   = VoucherExpense.BakeryOrderSetTableAdapters.ProductTableAdapter;
+using MyOrderAdapter     = VoucherExpense.BakeryOrderSetTableAdapters.OrderTableAdapter;
+using MyOrderItemAdapter = VoucherExpense.BakeryOrderSetTableAdapters.OrderItemTableAdapter;
+using MyAccountingTitleAdapter = VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter;
+#endif
+
 
 namespace VoucherExpense
 {
@@ -20,15 +38,27 @@ namespace VoucherExpense
 
         private const string m_LocalPhotoPath="Photos\\Products\\";
         private string m_PhotoPath;
+        private MyDataSet m_DataSet=new MyDataSet();
+        MyProductAdapter productAdapter     = new MyProductAdapter();
+        MyOrderAdapter   orderAdapter       = new MyOrderAdapter();
+        MyOrderItemAdapter orderItemAdapter = new MyOrderItemAdapter();
         private void EditBakeryProduct_Load(object sender, EventArgs e)
         {
-            // TODO: 这行代码将数据加载到表“vEDataSet.AccountingTitle”中。您可以根据需要移动或删除它。
-            this.accountingTitleTableAdapter.Fill(this.vEDataSet.AccountingTitle);
-            productTableAdapter.Connection  = MapPath.BakeryConnection;
-            orderItemTableAdapter.Connection= MapPath.BakeryConnection;
-            orderTableAdapter.Connection    = MapPath.BakeryConnection;
-            this.productTableAdapter.Fill(this.bakeryOrderSet.Product);
-            SetControlLengthFromDB(this, bakeryOrderSet.Product);
+            var accountingTitleAdapter = new MyAccountingTitleAdapter();
+            productBindingSource.DataSource = m_DataSet;
+#if UseSQLServer
+            accountingTitleBindingSource.DataSource = m_DataSet;
+            accountingTitleAdapter.Fill(m_DataSet.AccountingTitle);
+#else
+            accountingTitleBindingSource.DataSource = vEDataSet;
+            accountingTitleAdapter.Fill(vEDataSet.AccountingTitle);
+            accountingTitleAdapter.Connection   = MapPath.VEConnection;
+            productAdapter.Connection       = MapPath.BakeryConnection;
+            orderItemAdapter.Connection     = MapPath.BakeryConnection;
+            orderAdapter.Connection         = MapPath.BakeryConnection;
+#endif
+            productAdapter.Fill(m_DataSet.Product);
+            SetControlLengthFromDB(this, m_DataSet.Product);
             m_PhotoPath = MapPath.DataDir + m_LocalPhotoPath;
             photoPictureBox.Visible = Directory.Exists(m_LocalPhotoPath);
         }
@@ -115,7 +145,7 @@ namespace VoucherExpense
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
 //            MyFunction.AddNewItem(dataGridView1, "ColumnProductID","ProductID", bakeryOrderSet.Product);
-            int max = (from row in bakeryOrderSet.Product select row.ProductID).Max();
+            int max = (from row in m_DataSet.Product select row.ProductID).Max();
             int productID=MyFunction.SetCellMaxNo("ColumnProductID",dataGridView1 ,max);
             productIDTextBox.Text = productID.ToString();
             string code=MaxNoInDGView("codeColumn", dataGridView1).ToString();
@@ -149,8 +179,8 @@ namespace VoucherExpense
                 e.Cancel = true;
                 return;
             }
-            BakeryOrderSet.ProductDataTable table = bakeryOrderSet.Product;
-            foreach (BakeryOrderSet.ProductRow row in table.Rows)
+            var table = m_DataSet.Product;
+            foreach (var row in table)
             {
                 if (row.Code == code)
                 {
@@ -228,13 +258,13 @@ namespace VoucherExpense
                 return;
             }
             productBindingSource.EndEdit();
-            BakeryOrderSet.ProductDataTable table = (BakeryOrderSet.ProductDataTable)bakeryOrderSet.Product.GetChanges();
+            var table = (MyProductTable)m_DataSet.Product.GetChanges();
             if (table == null)
             {
                 MessageBox.Show("沒有改動任何資料! 不用存");
                 return;
             }
-            productTableAdapter.Update(bakeryOrderSet.Product);
+            productAdapter.Update(m_DataSet.Product);
             MessageBox.Show(table.Rows.Count.ToString()+"筆有改動,己存檔!");
         }
 
@@ -268,8 +298,8 @@ namespace VoucherExpense
             {
                 try
                 {
-                    orderTableAdapter.Fill(bakeryOrderSet.Order);
-                    orderItemTableAdapter.Fill(bakeryOrderSet.OrderItem);
+                    orderAdapter.Fill(m_DataSet.Order);
+                    orderItemAdapter.Fill(m_DataSet.OrderItem);
                 }
                 catch(Exception ex)
                 {
@@ -278,12 +308,12 @@ namespace VoucherExpense
                 }
                 m_OrderItemLoaded = true;
             }
-            foreach (BakeryOrderSet.OrderItemRow row in bakeryOrderSet.OrderItem)
+            foreach (var row in m_DataSet.OrderItem)
             {
                 if (row.IsProductIDNull()) continue;
                 if (row.ProductID == productID)
                 {
-                    BakeryOrderSet.OrderRow order=row.OrderRow;
+                    var order=row.OrderRow;
                     MessageBox.Show("點菜單"+order.ID.ToString()+"  己經點了"+strCode+" 無法刪除");
                     return;
                 }
@@ -295,7 +325,7 @@ namespace VoucherExpense
                 try
                 {
                     productBindingSource.RemoveCurrent();
-                    productTableAdapter.Update(bakeryOrderSet.Product);
+                    productAdapter.Update(m_DataSet.Product);
                 }
                 catch (Exception ex)
                 {
@@ -312,7 +342,7 @@ namespace VoucherExpense
         string CurrentPhotoPath()
         {
             DataRowView rowView = productBindingSource.Current as DataRowView;
-            BakeryOrderSet.ProductRow row = rowView.Row as BakeryOrderSet.ProductRow;
+            var row = rowView.Row as MyProductRow;
             if (row.RowState == DataRowState.Detached) return "";   // 因為此時row.ProductID 會出錯
             return m_PhotoPath + row.ProductID.ToString() + ".jpg";
         }
@@ -361,7 +391,7 @@ namespace VoucherExpense
         private void SavePicture()
         {
             DataRowView rowView = productBindingSource.Current as DataRowView;
-            BakeryOrderSet.ProductRow row = rowView.Row as BakeryOrderSet.ProductRow;
+            var row = rowView.Row as MyProductRow;
             if (row.ProductID <= 0)
             {
                 MessageBox.Show("抱歉! 新增時內碼小於 0 無法存照片!\r\n請存檔後關閉產品表,再重新進入設定照片!");
@@ -475,7 +505,7 @@ namespace VoucherExpense
             foreach (DataGridViewRow vr in view.Rows)
             {
                 DataRowView rowView = vr.DataBoundItem as DataRowView;
-                BakeryOrderSet.ProductRow row =  rowView.Row as BakeryOrderSet.ProductRow;
+                var row =  rowView.Row as MyProductRow;
                 if (row.Code <= 0) continue;   // 系統內用的不轉Excel
                 string strI = i.ToString();
                 sheet.Cells[i, 1] = vr.Cells[1].FormattedValue;         // 代碼

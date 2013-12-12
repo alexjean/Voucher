@@ -6,6 +6,13 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+#if UseSQLServer
+using MyDataSet = VoucherExpense.DamaiDataSet;
+using MyRecipeDetailRow = VoucherExpense.DamaiDataSet.RecipeDetailRow;
+#else
+using MyDataSet = VoucherExpense.VEDataSet;
+using MyRecipeDetailRow = VoucherExpense.VEDataSet.RecipeDetailRow;
+#endif
 
 namespace VoucherExpense
 {
@@ -13,14 +20,14 @@ namespace VoucherExpense
     {
         decimal m_PackageNo = 1;
         decimal m_BakedNo = 1;
-        VEDataSet.RecipeDetailRow[] m_Details;
-        VEDataSet m_vEDataSet;
-        public FormRecipePriceUpdate(decimal packageNo,decimal bakedNo,VEDataSet.RecipeDetailRow[] details, VEDataSet vEDataSet)
+        MyRecipeDetailRow[] m_Details;
+        MyDataSet m_DataSet;
+        public FormRecipePriceUpdate(decimal packageNo,decimal bakedNo,MyRecipeDetailRow[] details, MyDataSet dataSet)
         {
             m_PackageNo = packageNo;
             m_BakedNo = bakedNo;
             m_Details = details;
-            m_vEDataSet=vEDataSet;
+            m_DataSet=dataSet;
             InitializeComponent();
         }
 
@@ -46,7 +53,7 @@ namespace VoucherExpense
             dgvShow.Rows.Add(row);
         }
 
-        private decimal CalcCost(decimal ratio,VEDataSet.RecipeDetailRow[] details, List<int> usedRecipes,bool show)  // usedRecipes填入己使用的配方,避免Recursive
+        private decimal CalcCost(decimal ratio,MyRecipeDetailRow[] details, List<int> usedRecipes,bool show)  // usedRecipes填入己使用的配方,避免Recursive
         {
             decimal cost = 0m;
             if (ratio <= 0) ratio = 1;
@@ -62,7 +69,7 @@ namespace VoucherExpense
                 totalWeight += we;
                 if (d.SourceID < 10000)  // 是食材
                 {
-                    var ingredients = from ing in m_vEDataSet.Ingredient where ing.IngredientID == d.SourceID select ing;
+                    var ingredients = from ing in m_DataSet.Ingredient where ing.IngredientID == d.SourceID select ing;
                     if (ingredients.Count() <= 0) continue;
                     var ingredient = ingredients.First();
                     string name;
@@ -93,7 +100,7 @@ namespace VoucherExpense
                     var ids = from i in usedRecipes where i == recipeID select i;
                     if (ids.Count() == 0)   // 沒有使用過此配方可用
                     {
-                        var recipes = from row in m_vEDataSet.Recipe where (row.RowState != DataRowState.Deleted) && (row.RecipeID == recipeID) select row;
+                        var recipes = from row in m_DataSet.Recipe where (row.RowState != DataRowState.Deleted) && (row.RecipeID == recipeID) select row;
                         if (recipes.Count() > 0)
                         {
                             usedRecipes.Add(recipeID);
@@ -101,7 +108,7 @@ namespace VoucherExpense
                             if (!recipe.IsRecipeNameNull()) name ="配方:"+recipe.RecipeName;
                             var details1 = recipe.GetRecipeDetailRows();
                             decimal we1=0;
-                            foreach (VEDataSet.RecipeDetailRow r in details1)
+                            foreach (var r in details1)
                             {
                                 if (r.IsWeightNull()) continue;
                                 we1 += r.Weight;

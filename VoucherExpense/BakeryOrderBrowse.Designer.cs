@@ -193,6 +193,7 @@
             // 
             this.dgvStatics.AllowUserToAddRows = false;
             this.dgvStatics.AllowUserToDeleteRows = false;
+            this.dgvStatics.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
             this.dgvStatics.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvStatics.AutoGenerateColumns = false;

@@ -41,16 +41,15 @@
             System.Windows.Forms.Label lastUpdatedLabel;
             System.Windows.Forms.Label lockedLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Voucher));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.vEDataSet = new VoucherExpense.VEDataSet();
             this.voucherBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.voucherTableAdapter = new VoucherExpense.VEDataSetTableAdapters.VoucherTableAdapter();
             this.voucherBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -68,26 +67,14 @@
             this.IngredientBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.iDTextBox = new System.Windows.Forms.TextBox();
             this.voucherIDTextBox = new System.Windows.Forms.TextBox();
-            this.vendorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.VendorTableAdapter();
             this.accountingTitleBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.accountingTitleTableAdapter = new VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter();
-            this.IngredientTableAdapter = new VoucherExpense.VEDataSetTableAdapters.IngredientTableAdapter();
             this.vendorIDComboBox = new System.Windows.Forms.ComboBox();
             this.venderFilterSource = new System.Windows.Forms.BindingSource(this.components);
             this.operatorBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.operatorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
             this.stockTimeTextBox = new System.Windows.Forms.TextBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.voucherVoucherDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.voucherDetailTableAdapter = new VoucherExpense.VEDataSetTableAdapters.VoucherDetailTableAdapter();
             this.dgvVoucherDetail = new System.Windows.Forms.DataGridView();
-            this.detailColumnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnVoID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgIngredientIDColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dgVolumeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgUnitComlumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dgCostColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnTitleCode = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.costTextBox = new System.Windows.Forms.TextBox();
             this.comboBoxMonth = new System.Windows.Forms.ComboBox();
             this.printDocument = new System.Drawing.Printing.PrintDocument();
@@ -107,6 +94,16 @@
             this.lastUpdatedTextBox = new System.Windows.Forms.TextBox();
             this.removedCheckBox = new System.Windows.Forms.CheckBox();
             this.lockedCheckBox = new System.Windows.Forms.CheckBox();
+            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
+            this.voucherVoucherDetailSqlBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.voucherSqlBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.detailColumnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnVoID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgIngredientIDColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.dgVolumeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgUnitComlumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.dgCostColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnTitleCode = new System.Windows.Forms.DataGridViewComboBoxColumn();
             iDLabel = new System.Windows.Forms.Label();
             voucherIDLabel = new System.Windows.Forms.Label();
             vendorIDLabel = new System.Windows.Forms.Label();
@@ -131,6 +128,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvVoucherDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVoucher)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.titleCodeBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.voucherVoucherDetailSqlBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.voucherSqlBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // iDLabel
@@ -248,10 +248,6 @@
             // 
             this.voucherBindingSource.DataMember = "Voucher";
             this.voucherBindingSource.DataSource = this.vEDataSet;
-            // 
-            // voucherTableAdapter
-            // 
-            this.voucherTableAdapter.ClearBeforeFill = true;
             // 
             // voucherBindingNavigator
             // 
@@ -413,23 +409,11 @@
             this.voucherIDTextBox.Size = new System.Drawing.Size(94, 27);
             this.voucherIDTextBox.TabIndex = 38;
             // 
-            // vendorTableAdapter
-            // 
-            this.vendorTableAdapter.ClearBeforeFill = true;
-            // 
             // accountingTitleBindingSource
             // 
             this.accountingTitleBindingSource.DataMember = "AccountingTitle";
             this.accountingTitleBindingSource.DataSource = this.vEDataSet;
             this.accountingTitleBindingSource.Filter = "TitleCode like \'5*\'";
-            // 
-            // accountingTitleTableAdapter
-            // 
-            this.accountingTitleTableAdapter.ClearBeforeFill = true;
-            // 
-            // IngredientTableAdapter
-            // 
-            this.IngredientTableAdapter.ClearBeforeFill = true;
             // 
             // vendorIDComboBox
             // 
@@ -458,10 +442,6 @@
             this.operatorBindingSource.DataMember = "Operator";
             this.operatorBindingSource.DataSource = this.vEDataSet;
             // 
-            // operatorTableAdapter
-            // 
-            this.operatorTableAdapter.ClearBeforeFill = true;
-            // 
             // stockTimeTextBox
             // 
             this.stockTimeTextBox.BackColor = System.Drawing.SystemColors.Window;
@@ -486,15 +466,11 @@
             this.voucherVoucherDetailBindingSource.DataMember = "VoucherVoucherDetail";
             this.voucherVoucherDetailBindingSource.DataSource = this.voucherBindingSource;
             // 
-            // voucherDetailTableAdapter
-            // 
-            this.voucherDetailTableAdapter.ClearBeforeFill = true;
-            // 
             // dgvVoucherDetail
             // 
             this.dgvVoucherDetail.AllowUserToResizeRows = false;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.Azure;
-            this.dgvVoucherDetail.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
+            this.dgvVoucherDetail.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvVoucherDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -515,7 +491,7 @@
             this.dgvVoucherDetail.Name = "dgvVoucherDetail";
             this.dgvVoucherDetail.RowHeadersWidth = 25;
             this.dgvVoucherDetail.RowTemplate.Height = 24;
-            this.dgvVoucherDetail.Size = new System.Drawing.Size(530, 394);
+            this.dgvVoucherDetail.Size = new System.Drawing.Size(548, 394);
             this.dgvVoucherDetail.TabIndex = 50;
             this.dgvVoucherDetail.CellValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.voucherDetailDataGridView_CellValidated);
             this.dgvVoucherDetail.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.voucherDetailDataGridView_CellValidating);
@@ -525,85 +501,10 @@
             this.dgvVoucherDetail.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.voucherDetailDataGridView_DefaultValuesNeeded);
             this.dgvVoucherDetail.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.voucherDetailDataGridView_UserDeletedRow);
             // 
-            // detailColumnID
-            // 
-            this.detailColumnID.DataPropertyName = "ID";
-            this.detailColumnID.HeaderText = "ID";
-            this.detailColumnID.Name = "detailColumnID";
-            this.detailColumnID.ReadOnly = true;
-            this.detailColumnID.Visible = false;
-            // 
-            // columnVoID
-            // 
-            this.columnVoID.DataPropertyName = "VoID";
-            this.columnVoID.HeaderText = "順序";
-            this.columnVoID.Name = "columnVoID";
-            this.columnVoID.ReadOnly = true;
-            this.columnVoID.Visible = false;
-            // 
-            // dgIngredientIDColumn
-            // 
-            this.dgIngredientIDColumn.DataPropertyName = "IngredientID";
-            this.dgIngredientIDColumn.DataSource = this.IngredientBindingSource;
-            this.dgIngredientIDColumn.DisplayMember = "Name";
-            this.dgIngredientIDColumn.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.dgIngredientIDColumn.HeaderText = "食材";
-            this.dgIngredientIDColumn.MaxDropDownItems = 22;
-            this.dgIngredientIDColumn.Name = "dgIngredientIDColumn";
-            this.dgIngredientIDColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgIngredientIDColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dgIngredientIDColumn.ValueMember = "IngredientID";
-            this.dgIngredientIDColumn.Width = 232;
-            // 
-            // dgVolumeColumn
-            // 
-            this.dgVolumeColumn.DataPropertyName = "Volume";
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dgVolumeColumn.DefaultCellStyle = dataGridViewCellStyle9;
-            this.dgVolumeColumn.HeaderText = "量";
-            this.dgVolumeColumn.Name = "dgVolumeColumn";
-            this.dgVolumeColumn.Width = 48;
-            // 
-            // dgUnitComlumn
-            // 
-            this.dgUnitComlumn.DataPropertyName = "IngredientID";
-            this.dgUnitComlumn.DataSource = this.IngredientBindingSource;
-            this.dgUnitComlumn.DisplayMember = "Unit";
-            this.dgUnitComlumn.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.dgUnitComlumn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.dgUnitComlumn.HeaderText = "";
-            this.dgUnitComlumn.MaxDropDownItems = 16;
-            this.dgUnitComlumn.Name = "dgUnitComlumn";
-            this.dgUnitComlumn.ReadOnly = true;
-            this.dgUnitComlumn.ValueMember = "IngredientID";
-            this.dgUnitComlumn.Width = 40;
-            // 
-            // dgCostColumn
-            // 
-            this.dgCostColumn.DataPropertyName = "Cost";
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dgCostColumn.DefaultCellStyle = dataGridViewCellStyle10;
-            this.dgCostColumn.HeaderText = "小計";
-            this.dgCostColumn.Name = "dgCostColumn";
-            this.dgCostColumn.Width = 60;
-            // 
-            // columnTitleCode
-            // 
-            this.columnTitleCode.DataPropertyName = "TitleCode";
-            this.columnTitleCode.DataSource = this.accountingTitleBindingSource;
-            this.columnTitleCode.DisplayMember = "Name";
-            this.columnTitleCode.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.columnTitleCode.HeaderText = "會計科目";
-            this.columnTitleCode.MaxDropDownItems = 16;
-            this.columnTitleCode.Name = "columnTitleCode";
-            this.columnTitleCode.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.columnTitleCode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.columnTitleCode.ValueMember = "TitleCode";
-            // 
             // costTextBox
             // 
             this.costTextBox.BackColor = System.Drawing.SystemColors.Window;
-            this.costTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.voucherBindingSource, "Cost", true));
+            this.costTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.voucherBindingSource, "Cost", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.costTextBox.Location = new System.Drawing.Point(747, 116);
             this.costTextBox.Name = "costTextBox";
             this.costTextBox.ReadOnly = true;
@@ -649,18 +550,18 @@
             this.dgvVoucher.AllowUserToDeleteRows = false;
             this.dgvVoucher.AllowUserToOrderColumns = true;
             this.dgvVoucher.AllowUserToResizeRows = false;
-            dataGridViewCellStyle11.BackColor = System.Drawing.Color.Azure;
-            this.dgvVoucher.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Azure;
+            this.dgvVoucher.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvVoucher.AutoGenerateColumns = false;
             this.dgvVoucher.BackgroundColor = System.Drawing.Color.SeaShell;
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvVoucher.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvVoucher.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvVoucher.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvVoucher.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.columnRemoved,
@@ -714,9 +615,9 @@
             // StockTime
             // 
             this.StockTime.DataPropertyName = "StockTime";
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle13.Format = "M/dd";
-            this.StockTime.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle6.Format = "M/dd";
+            this.StockTime.DefaultCellStyle = dataGridViewCellStyle6;
             this.StockTime.HeaderText = "時間";
             this.StockTime.Name = "StockTime";
             this.StockTime.ReadOnly = true;
@@ -739,10 +640,10 @@
             // columnCost
             // 
             this.columnCost.DataPropertyName = "Cost";
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle14.Format = "N1";
-            dataGridViewCellStyle14.NullValue = null;
-            this.columnCost.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle7.Format = "N1";
+            dataGridViewCellStyle7.NullValue = null;
+            this.columnCost.DefaultCellStyle = dataGridViewCellStyle7;
             this.columnCost.HeaderText = "總計";
             this.columnCost.Name = "columnCost";
             this.columnCost.ReadOnly = true;
@@ -848,12 +749,103 @@
             this.lockedCheckBox.TabIndex = 27;
             this.lockedCheckBox.CheckedChanged += new System.EventHandler(this.lockedCheckBox_CheckedChanged);
             // 
+            // damaiDataSet
+            // 
+            this.damaiDataSet.DataSetName = "DamaiDataSet";
+            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // voucherVoucherDetailSqlBindingSource
+            // 
+            this.voucherVoucherDetailSqlBindingSource.DataMember = "FK_Voucher_VoucherDetail";
+            this.voucherVoucherDetailSqlBindingSource.DataSource = this.voucherSqlBindingSource;
+            // 
+            // voucherSqlBindingSource
+            // 
+            this.voucherSqlBindingSource.DataMember = "Voucher";
+            this.voucherSqlBindingSource.DataSource = this.damaiDataSet;
+            // 
+            // detailColumnID
+            // 
+            this.detailColumnID.DataPropertyName = "ID";
+            this.detailColumnID.HeaderText = "ID";
+            this.detailColumnID.Name = "detailColumnID";
+            this.detailColumnID.ReadOnly = true;
+            this.detailColumnID.Visible = false;
+            // 
+            // columnVoID
+            // 
+            this.columnVoID.DataPropertyName = "VoID";
+            this.columnVoID.HeaderText = "順序";
+            this.columnVoID.Name = "columnVoID";
+            this.columnVoID.ReadOnly = true;
+            this.columnVoID.Visible = false;
+            // 
+            // dgIngredientIDColumn
+            // 
+            this.dgIngredientIDColumn.DataPropertyName = "IngredientID";
+            this.dgIngredientIDColumn.DataSource = this.IngredientBindingSource;
+            this.dgIngredientIDColumn.DisplayMember = "Name";
+            this.dgIngredientIDColumn.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.dgIngredientIDColumn.HeaderText = "食材";
+            this.dgIngredientIDColumn.MaxDropDownItems = 22;
+            this.dgIngredientIDColumn.Name = "dgIngredientIDColumn";
+            this.dgIngredientIDColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgIngredientIDColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dgIngredientIDColumn.ValueMember = "IngredientID";
+            this.dgIngredientIDColumn.Width = 232;
+            // 
+            // dgVolumeColumn
+            // 
+            this.dgVolumeColumn.DataPropertyName = "Volume";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dgVolumeColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dgVolumeColumn.HeaderText = "量";
+            this.dgVolumeColumn.Name = "dgVolumeColumn";
+            this.dgVolumeColumn.Width = 48;
+            // 
+            // dgUnitComlumn
+            // 
+            this.dgUnitComlumn.DataPropertyName = "IngredientID";
+            this.dgUnitComlumn.DataSource = this.IngredientBindingSource;
+            this.dgUnitComlumn.DisplayMember = "Unit";
+            this.dgUnitComlumn.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.dgUnitComlumn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.dgUnitComlumn.HeaderText = "";
+            this.dgUnitComlumn.MaxDropDownItems = 16;
+            this.dgUnitComlumn.Name = "dgUnitComlumn";
+            this.dgUnitComlumn.ReadOnly = true;
+            this.dgUnitComlumn.ValueMember = "IngredientID";
+            this.dgUnitComlumn.Width = 40;
+            // 
+            // dgCostColumn
+            // 
+            this.dgCostColumn.DataPropertyName = "Cost";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.Format = "N2";
+            this.dgCostColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dgCostColumn.HeaderText = "小計";
+            this.dgCostColumn.Name = "dgCostColumn";
+            this.dgCostColumn.Width = 80;
+            // 
+            // columnTitleCode
+            // 
+            this.columnTitleCode.DataPropertyName = "TitleCode";
+            this.columnTitleCode.DataSource = this.accountingTitleBindingSource;
+            this.columnTitleCode.DisplayMember = "Name";
+            this.columnTitleCode.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.columnTitleCode.HeaderText = "會計科目";
+            this.columnTitleCode.MaxDropDownItems = 16;
+            this.columnTitleCode.Name = "columnTitleCode";
+            this.columnTitleCode.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.columnTitleCode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.columnTitleCode.ValueMember = "TitleCode";
+            // 
             // Voucher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(943, 670);
+            this.ClientSize = new System.Drawing.Size(961, 670);
             this.Controls.Add(lockedLabel);
             this.Controls.Add(lastUpdatedLabel);
             this.Controls.Add(this.dateTimePicker1);
@@ -902,6 +894,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvVoucherDetail)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVoucher)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.titleCodeBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.voucherVoucherDetailSqlBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.voucherSqlBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -911,7 +906,6 @@
 
         private VEDataSet vEDataSet;
         private System.Windows.Forms.BindingSource voucherBindingSource;
-        private VoucherExpense.VEDataSetTableAdapters.VoucherTableAdapter voucherTableAdapter;
         private System.Windows.Forms.BindingNavigator voucherBindingNavigator;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
@@ -927,17 +921,12 @@
         private System.Windows.Forms.TextBox iDTextBox;
         private System.Windows.Forms.TextBox voucherIDTextBox;
         private System.Windows.Forms.BindingSource venderBindingSource;
-        private VoucherExpense.VEDataSetTableAdapters.VendorTableAdapter vendorTableAdapter;
         private System.Windows.Forms.BindingSource accountingTitleBindingSource;
-        private VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter accountingTitleTableAdapter;
         private System.Windows.Forms.BindingSource IngredientBindingSource;
-        private VoucherExpense.VEDataSetTableAdapters.IngredientTableAdapter IngredientTableAdapter;
         private System.Windows.Forms.ComboBox vendorIDComboBox;
         private System.Windows.Forms.BindingSource operatorBindingSource;
-        private VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter operatorTableAdapter;
         private System.Windows.Forms.TextBox stockTimeTextBox;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private VoucherExpense.VEDataSetTableAdapters.VoucherDetailTableAdapter voucherDetailTableAdapter;
         private System.Windows.Forms.DataGridView dgvVoucherDetail;
         private System.Windows.Forms.BindingSource voucherVoucherDetailBindingSource;
         private System.Windows.Forms.TextBox costTextBox;
@@ -961,6 +950,9 @@
         private System.Windows.Forms.TextBox lastUpdatedTextBox;
         private System.Windows.Forms.CheckBox removedCheckBox;
         private System.Windows.Forms.CheckBox lockedCheckBox;
+        private DamaiDataSet damaiDataSet;
+        private System.Windows.Forms.BindingSource voucherVoucherDetailSqlBindingSource;
+        private System.Windows.Forms.BindingSource voucherSqlBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn detailColumnID;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnVoID;
         private System.Windows.Forms.DataGridViewComboBoxColumn dgIngredientIDColumn;

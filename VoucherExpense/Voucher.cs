@@ -7,7 +7,27 @@ using System.Drawing;
 using System.Drawing.Printing;
 using System.Windows.Forms;
 using System.Linq;
-
+#if UseSQLServer
+using MyDataSet             = VoucherExpense.DamaiDataSet;
+using MyVoucherTable        = VoucherExpense.DamaiDataSet.VoucherDataTable;
+using MyVoucherDetailTable  = VoucherExpense.DamaiDataSet.VoucherDetailDataTable;
+using MyVoucherRow          = VoucherExpense.DamaiDataSet.VoucherRow;
+using MyVoucherDetailRow    = VoucherExpense.DamaiDataSet.VoucherDetailRow;
+using MyVendorRow           = VoucherExpense.DamaiDataSet.VendorRow;
+using MyVoucherAdapter      = VoucherExpense.DamaiDataSetTableAdapters.VoucherTableAdapter;
+using MyVoucherDetailAdapter= VoucherExpense.DamaiDataSetTableAdapters.VoucherDetailTableAdapter;
+using MyIngredientAdapter   = VoucherExpense.DamaiDataSetTableAdapters.IngredientTableAdapter;
+#else
+using MyDataSet             = VoucherExpense.VEDataSet;
+using MyVoucherTable        = VoucherExpense.VEDataSet.VoucherDataTable;
+using MyVoucherDetailTable  = VoucherExpense.VEDataSet.VoucherDetailDataTable;
+using MyVoucherRow          = VoucherExpense.VEDataSet.VoucherRow;
+using MyVoucherDetailRow    = VoucherExpense.VEDataSet.VoucherDetailRow;
+using MyVendorRow           = VoucherExpense.VEDataSet.VendorRow;
+using MyVoucherAdapter      = VoucherExpense.VEDataSetTableAdapters.VoucherTableAdapter;
+using MyVoucherDetailAdapter= VoucherExpense.VEDataSetTableAdapters.VoucherDetailTableAdapter;
+using MyIngredientAdapter   = VoucherExpense.VEDataSetTableAdapters.IngredientTableAdapter;
+#endif
 
 namespace VoucherExpense
 {
@@ -17,6 +37,83 @@ namespace VoucherExpense
         {
             InitializeComponent();
             checkMode = false;
+        }
+
+        MyDataSet m_DataSet = new MyDataSet();
+        MyVoucherAdapter       voucherAdapter       = new MyVoucherAdapter();
+        MyVoucherDetailAdapter voucherDetailAdapter = new MyVoucherDetailAdapter();
+        MyIngredientAdapter    IngredientAdapter    = new MyIngredientAdapter();
+        private void Voucher_Load(object sender, EventArgs e)
+        {
+#if UseSQLServer
+            var operatorAdapter         = new VoucherExpense.DamaiDataSetTableAdapters.OperatorTableAdapter();
+            var accountingTitleAdapter  = new VoucherExpense.DamaiDataSetTableAdapters.AccountingTitleTableAdapter();
+            var vendorAdapter           = new VoucherExpense.DamaiDataSetTableAdapters.VendorTableAdapter();
+#else
+            var operatorAdapter         = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
+            var accountingTitleAdapter  = new VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter();
+            var vendorAdapter           = new VoucherExpense.VEDataSetTableAdapters.VendorTableAdapter();
+            voucherDetailAdapter.Connection   = MapPath.VEConnection;
+            operatorAdapter.Connection        = MapPath.VEConnection;
+            IngredientAdapter.Connection      = MapPath.VEConnection;
+            accountingTitleAdapter.Connection = MapPath.VEConnection;
+            vendorAdapter.Connection          = MapPath.VEConnection;
+            voucherAdapter.Connection         = MapPath.VEConnection;
+#endif
+            SetupBindingSource();
+            try
+            {
+                voucherDetailAdapter.Fill(m_DataSet.VoucherDetail);
+                operatorAdapter.Fill(m_DataSet.Operator);
+                IngredientAdapter.Fill(m_DataSet.Ingredient);
+                accountingTitleAdapter.Fill(m_DataSet.AccountingTitle);
+                vendorAdapter.Fill(m_DataSet.Vendor);
+                voucherAdapter.Fill(m_DataSet.Voucher);
+                MyFunction.SetControlLengthFromDB(this, m_DataSet.Voucher);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("載入資料出錯:" + ex.Message);
+            }
+
+            if (checkMode)
+            {
+                this.Text = "查核進貨";
+                blockEdit();
+                dgvVoucher.Columns["columnCheck"].ReadOnly = false;
+                ckBoxAllowEdit.Visible = true;
+            }
+            if (MyFunction.LockAll)
+            {
+                blockEdit();
+                ckBoxAllowEdit.Visible = false;
+            }
+            if (MyFunction.IntHeaderYear != DateTime.Now.Year)
+                comboBoxMonth.SelectedIndex = comboBoxMonth.Items.Count - 1;
+            else
+                comboBoxMonth.SelectedIndex = DateTime.Now.Month;
+            //           this.btnEditable.BringToFront();
+            BuildTitleCodeMenu();
+            dateTimePicker1.MaxDate = new DateTime(MyFunction.IntHeaderYear, 12, 31);
+            dateTimePicker1.MinDate = new DateTime(MyFunction.IntHeaderYear, 1, 1);
+        }
+
+
+        void SetupBindingSource()
+        {
+            voucherBindingSource.DataSource                 = m_DataSet;
+            this.venderBindingSource.DataSource             = m_DataSet;
+            this.accountingTitleBindingSource.DataSource    = m_DataSet;
+            this.IngredientBindingSource.DataSource         = m_DataSet;
+            this.operatorBindingSource.DataSource           = m_DataSet;
+            this.venderFilterSource.DataSource              = m_DataSet;
+#if (UseSQLServer)
+            voucherVoucherDetailSqlBindingSource.DataSource=voucherBindingSource;
+            dgvVoucherDetail.DataSource=voucherVoucherDetailSqlBindingSource;
+#else
+            voucherVoucherDetailBindingSource.DataSource=voucherBindingSource;
+            dgvVoucherDetail.DataSource=voucherVoucherDetailBindingSource;
+#endif
         }
 
         bool checkMode;
@@ -42,8 +139,8 @@ namespace VoucherExpense
             this.voucherBindingSource.EndEdit();
             this.voucherVoucherDetailBindingSource.EndEdit();
 
-            VEDataSet.VoucherDataTable table = (VEDataSet.VoucherDataTable)vEDataSet.Voucher.GetChanges();
-            VEDataSet.VoucherDetailDataTable detail = (VEDataSet.VoucherDetailDataTable)vEDataSet.VoucherDetail.GetChanges();
+            var table  = (MyVoucherTable)m_DataSet.Voucher.GetChanges();
+            var detail = (MyVoucherDetailTable)m_DataSet.VoucherDetail.GetChanges();
             if (table == null && detail==null)
             {
                 MessageBox.Show("沒有改動任何資料! 不用存");
@@ -51,7 +148,7 @@ namespace VoucherExpense
             }
             if (table != null)
             {
-                foreach (VEDataSet.VoucherRow r in table)
+                foreach (MyVoucherRow r in table)
                     if (r.RowState != DataRowState.Deleted)
                     {
                         if (r.IsStockTimeNull())
@@ -66,9 +163,9 @@ namespace VoucherExpense
                     }
                 try
                 {
-                    vEDataSet.Voucher.Merge(table);
-                    voucherTableAdapter.Update(this.vEDataSet.Voucher);
-                    vEDataSet.Voucher.AcceptChanges();
+                    m_DataSet.Voucher.Merge(table);
+                    voucherAdapter.Update(m_DataSet.Voucher);
+                    m_DataSet.Voucher.AcceptChanges();
                 }
                 catch (Exception ex)
                 {
@@ -84,9 +181,9 @@ namespace VoucherExpense
             {
                 try
                 {
-                    vEDataSet.VoucherDetail.Merge(detail);
-                    voucherDetailTableAdapter.Update(vEDataSet.VoucherDetail);
-                    vEDataSet.VoucherDetail.AcceptChanges();
+                    m_DataSet.VoucherDetail.Merge(detail);
+                    voucherDetailAdapter.Update(m_DataSet.VoucherDetail);
+                    m_DataSet.VoucherDetail.AcceptChanges();
                 }
                 catch (Exception ex)
                 {
@@ -95,44 +192,6 @@ namespace VoucherExpense
             }
         }
 
-        private void Voucher_Load(object sender, EventArgs e)
-        {
-            voucherDetailTableAdapter.Connection    = MapPath.VEConnection;
-            operatorTableAdapter.Connection         = MapPath.VEConnection;
-            IngredientTableAdapter.Connection       = MapPath.VEConnection;
-            accountingTitleTableAdapter.Connection  = MapPath.VEConnection;
-            vendorTableAdapter.Connection           = MapPath.VEConnection;
-            voucherTableAdapter.Connection          = MapPath.VEConnection;
-
-            this.voucherDetailTableAdapter.Fill(this.vEDataSet.VoucherDetail);
-            this.operatorTableAdapter.Fill(this.vEDataSet.Operator);
-            this.IngredientTableAdapter.Fill(this.vEDataSet.Ingredient);
-            this.accountingTitleTableAdapter.Fill(this.vEDataSet.AccountingTitle);
-            this.vendorTableAdapter.Fill(this.vEDataSet.Vendor);
-            this.voucherTableAdapter.Fill(this.vEDataSet.Voucher);
-            MyFunction.SetControlLengthFromDB(this,vEDataSet.Voucher);
-
-            if (checkMode)
-            {
-                this.Text = "查核進貨";
-                blockEdit();
-                dgvVoucher.Columns["columnCheck"].ReadOnly = false;
-                ckBoxAllowEdit.Visible = true;
-            }
-            if (MyFunction.LockAll)
-            {
-                blockEdit();
-                ckBoxAllowEdit.Visible = false;
-            }
-            if (MyFunction.IntHeaderYear != DateTime.Now.Year)
-                comboBoxMonth.SelectedIndex = comboBoxMonth.Items.Count - 1;
-            else
-                comboBoxMonth.SelectedIndex = DateTime.Now.Month;
- //           this.btnEditable.BringToFront();
-            BuildTitleCodeMenu();
-            dateTimePicker1.MaxDate = new DateTime(MyFunction.IntHeaderYear, 12, 31);
-            dateTimePicker1.MinDate = new DateTime(MyFunction.IntHeaderYear, 1, 1);
-        }
 
         public class TitleCode
         {
@@ -145,7 +204,7 @@ namespace VoucherExpense
         private void BuildTitleCodeMenu()
         {
             m_TitleList.Add(new TitleCode(0,"全部"));
-            foreach (VEDataSet.AccountingTitleRow row in vEDataSet.AccountingTitle)
+            foreach (var row in m_DataSet.AccountingTitle)
             {
                 string sCode = row.TitleCode;
                 if (sCode[0] != '5') continue;
@@ -211,15 +270,15 @@ namespace VoucherExpense
             }
             
 //            int count=this.voucherBindingNavigator.PositionItem.
-            int ma = MyFunction.MaxNoInDB("ID", vEDataSet.Voucher);
+            int ma = MyFunction.MaxNoInDB("ID", m_DataSet.Voucher);
             int i=MyFunction.SetCellMaxNo("columnID", dgvVoucher,ma);
             if (i > 0)
             {
                 this.iDTextBox.Text = i.ToString();
-                lockedCheckBox.Checked = false;                           // 只有對DateTime的Binding會受影響, bool不會,所以可以放ResetBindings前  
                 this.voucherBindingSource.ResetBindings(false);           // 這行加了會把stockTimeTextBox.Text和entryTimeTextBox.Text給清成空白,所以放前面
                 voucherVoucherDetailBindingSource.ResetBindings(false);   // 有id了,可以刷新下面的detail表
-                
+
+                lockedCheckBox.Checked = false;                           // 只有對DateTime的Binding會受影響, bool不會,所以可以放ResetBindings前  
                 // 初始時間, 放在ResetBindings後面
                 int year = MyFunction.IntHeaderYear;
                 DateTime t = DateTime.Now;
@@ -335,10 +394,10 @@ namespace VoucherExpense
                 {
                     //string str="ID="+code.ToString();
                     //VEDataSet.IngredientRow[] row = (VEDataSet.IngredientRow[])vEDataSet.Ingredient.Select(str);
-                    var rows = from row in vEDataSet.Ingredient where (row.IngredientID == ingredientID) select row;
+                    var rows = from row in m_DataSet.Ingredient where (row.IngredientID == ingredientID) select row;
                     if (rows.Count()>0)
                     {
-                        VEDataSet.IngredientRow row = rows.First();
+                        var row = rows.First();
                         if (!row.IsTitleCodeNull())
                             dgRow.Cells["columnTitleCode"].Value = row.TitleCode;
                     }
@@ -355,12 +414,12 @@ namespace VoucherExpense
                     if (costCell.Value == null) return;
                     if (costCell.Value != DBNull.Value) return;         // Cost有資料時就不改
                     DataRowView rowView=dgRow.DataBoundItem as DataRowView;
-                    VEDataSet.VoucherDetailRow voucherDetailRow=rowView.Row as VEDataSet.VoucherDetailRow;
+                    var voucherDetailRow=rowView.Row as MyVoucherDetailRow;
                     // 查出食材表中相對應記錄
-                    var rows = from ro in vEDataSet.Ingredient
+                    var rows = from ro in m_DataSet.Ingredient
                                where (ro.IngredientID == voucherDetailRow.IngredientID) select ro;
                     if (rows.Count()<=0) return;
-                    VEDataSet.IngredientRow row = rows.First();
+                    var row = rows.First();
                     if (row.IsPriceNull()) return;
                     if (row.Price<=0)      return;                      // 參考價不合理
                     costCell.Value = voucherDetailRow.Volume * (decimal)row.Price;
@@ -466,7 +525,7 @@ namespace VoucherExpense
                 m_UserSelectedVendorID = -1;
                 goto ret;
             }
-            VEDataSet.VendorRow vendor = (VEDataSet.VendorRow)(rowView.Row);
+            var vendor = (MyVendorRow)(rowView.Row);
             m_UserSelectedVendorID = vendor.VendorID;
         ret:
             SetIngredientFilter(m_UserSelectedTitleCode, m_UserSelectedVendorID);
@@ -498,9 +557,9 @@ namespace VoucherExpense
             // Code 己經被改成IngredientID
             //VEDataSet.IngredientRow[] Rows = (VEDataSet.IngredientRow[])vEDataSet.Ingredient.Select("Code =" + code.ToString());  
             //if (Rows == null || Rows.Length == 0) return false;
-            var rows = from ro in vEDataSet.Ingredient where (ro.IngredientID == ingredientID) select ro;
+            var rows = from ro in m_DataSet.Ingredient where (ro.IngredientID == ingredientID) select ro;
             if (rows.Count() <= 0) return false;
-            VEDataSet.IngredientRow ingredient=rows.First();
+            var ingredient=rows.First();
             double price=0;
             if (!ingredient.IsPriceNull()) price=ingredient.Price;
             costCell = row.Cells["dgCostColumn"];
@@ -565,14 +624,16 @@ namespace VoucherExpense
             }
         }
 
-        void ModifyReferenceCost(int code,decimal price)
-        {
-            VEDataSet.IngredientRow[] rows=(VEDataSet.IngredientRow[])vEDataSet.Ingredient.Select(
-                                                                            "Code=" + code.ToString());
-            if (rows.Length <= 0) return;
-            rows[0].Price = (double)price;
-            IngredientTableAdapter.Update(rows[0]);
-        }
+        //void ModifyReferenceCost(int code,decimal price)
+        //{
+        //    //VEDataSet.IngredientRow[] rows=(VEDataSet.IngredientRow[])vEDataSet.Ingredient.Select(
+        //    //                                                                "Code=" + code.ToString());
+        //    var rows = from r in m_DataSet.Ingredient where r.Code == code select r;
+        //    if (rows.Count() <= 0) return;
+        //    var r0 = rows.First();
+        //    r0.Price = (double)price;
+        //    IngredientAdapter.Update(r0);
+        //}
 
         bool IsDataWrong(Type type, object val)
         {
@@ -630,13 +691,13 @@ namespace VoucherExpense
                     if (int.TryParse(ingredientIDCell.Value.ToString(), out id))
                     {
                         //                    VEDataSet.IngredientRow[] rows = (VEDataSet.IngredientRow[])vEDataSet.Ingredient.Select("Code=" + codeCell.Value.ToString());
-                        var rows = from ro in vEDataSet.Ingredient where (ro.IngredientID == id) select ro;
+                        var rows = from ro in m_DataSet.Ingredient where (ro.IngredientID == id) select ro;
                         if (rows.Count() == 0)
                         {
                             MessageBox.Show("查不到<" + ingredientIDCell.FormattedValue + ">,無法比對價格!");
                             return;
                         }
-                        VEDataSet.IngredientRow r0 = rows.First();
+                        var r0 = rows.First();
                         double price0 = 0;
                         if (!r0.IsPriceNull()) price0 = r0.Price;
                         DialogResult result = MessageBox.Show(ingredientIDCell.FormattedValue + "價格<" + PriceForHuman((double)price)
@@ -646,7 +707,7 @@ namespace VoucherExpense
                         if (result == DialogResult.Yes)
                         {
                             r0.Price = (double)price;
-                            IngredientTableAdapter.Update(r0);
+                            IngredientAdapter.Update(r0);
                         }
                     }
                 }

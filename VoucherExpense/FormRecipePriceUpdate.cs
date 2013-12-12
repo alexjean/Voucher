@@ -130,7 +130,7 @@ namespace VoucherExpense
                     }
                 }
             }
-            dgvShow.Columns["ColumnWeight"].HeaderText = "總重 "+totalWeight.ToString()+"克";
+            dgvShow.Columns["ColumnWeight"].HeaderText = "總重 "+totalWeight.ToString("N1")+"克";
             dgvShow.Columns["ColumnCost"].HeaderText = "成本 " + cost.ToString("N2") + "元";
             return cost*ratio;
         }

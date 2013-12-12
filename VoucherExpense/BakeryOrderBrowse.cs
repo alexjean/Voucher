@@ -6,6 +6,13 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+#if UseSQLServer
+using MyOrderRow        = VoucherExpense.DamaiDataSet.OrderRow;
+using MyDrawerRecordRow = VoucherExpense.DamaiDataSet.DrawerRecordRow;
+#else
+using MyOrderRow        = VoucherExpense.BakeryOrderSet.OrderRow;
+using MyDrawerRecordRow = VoucherExpense.BakeryOrderSet.DrawerRecordRow;
+#endif
 
 namespace VoucherExpense
 {
@@ -119,9 +126,6 @@ namespace VoucherExpense
         OrderAdapter m_OrderTableAdapter = new OrderAdapter();
         OrderItemAdapter m_OrderItemTableAdapter = new OrderItemAdapter();
         DrawerRecordAdapter m_DrawerReocrdAdapter = new DrawerRecordAdapter();
-
-
-
         private void BakeryOrderBrowse_Load(object sender, EventArgs e)
         {
 
@@ -266,11 +270,7 @@ namespace VoucherExpense
             page.Font = new Font("標楷體", 14.25f);
             return page;
         }
-#if UseSQLServer
-        void CreateLabel(TabPage tabPage, int x, int y, DamaiDataSet.OrderRow Row)
-#else
-        void CreateLabel(TabPage tabPage, int x, int y, BakeryOrderSet.OrderRow Row)
-#endif
+        void CreateLabel(TabPage tabPage, int x, int y, MyOrderRow Row)
         {
             if (Row == null) return;
             string mark = "St" + tabPage.Name + DateTime.Now.Ticks.ToString();  //避免多次進入,label重名了
@@ -300,7 +300,7 @@ namespace VoucherExpense
             decimal income = 0;
             if (!Row.IsIncomeNull())
                 income = Math.Round(Row.Income, 2);
-            b.Text += "\r\n" + income.ToString()+"元";
+            b.Text += "\r\n" + income.ToString("N0")+"元";
 
             if (!Row.IsDeletedNull() && Row.Deleted)         b.BackColor = Color.Green;
             else if (income < 0)                             b.BackColor = Color.Pink;
@@ -320,22 +320,19 @@ namespace VoucherExpense
             return "";
         }
 
-
         void ResetListView()
         {
             lvItems.Items.Clear();
             for(int i=1;i<lvItems.Columns.Count;i++)
                 lvItems.Columns[i].Text = m_ListViewItemBackup[i];
         }
-#if UseSQLServer
-        private bool ShowOrder(DamaiDataSet.OrderRow order)
-#else
-        private bool ShowOrder(BakeryOrderSet.OrderRow order)
-#endif
+
+        private bool ShowOrder(MyOrderRow order)
         {
             var items = order.GetOrderItemRows();
             lvItems.Items.Clear();
-            decimal total = 0, count = 0; ;
+            decimal total = 0;
+            int count = 0; ;
             foreach (var item in items)
             {
                 if (item.IsNoNull()) continue;
@@ -346,14 +343,14 @@ namespace VoucherExpense
                 int productID = item.ProductID;
                 ListViewItem lvItem = lvItems.Items.Add(productID.ToString());
                 lvItem.SubItems.Add(FindNameFromProduct(productID));
-                lvItem.SubItems.Add(no.ToString());
-                lvItem.SubItems.Add(money.ToString());
+                lvItem.SubItems.Add(no.ToString("N0"));
+                lvItem.SubItems.Add(money.ToString("N0"));
                 total += money;
                 count++;
             }
             lvItems.Columns[1].Text = "ID " + PureIDStr(order.ID) + (order.Deleted ? " deleted" : "");
             lvItems.Columns[2].Text = count.ToString();
-            lvItems.Columns[3].Text = total.ToString();
+            lvItems.Columns[3].Text = total.ToString("N0");
             if (!order.IsDeductNull())
             {
                 total -= order.Deduct;
@@ -397,11 +394,7 @@ namespace VoucherExpense
         private void b_MouseClick(object sender, MouseEventArgs e)
         {
             TextBox t = (TextBox)sender;
-#if (UseSQLServer)
-            var row = t.Tag as DamaiDataSet.OrderRow;
-#else
-            var row = t.Tag as BakeryOrderSet.OrderRow;
-#endif
+            var row = t.Tag as MyOrderRow;
             labelDeductLabel.Visible = false;
             if ((!row.IsDeductNull()) && row.Deduct != 0)
             {
@@ -417,7 +410,7 @@ namespace VoucherExpense
             decimal income = 0;
             if (!row.IsIncomeNull())
                 income=Math.Round( row.Income,2);
-            labelTotal.Text =  income.ToString();
+            labelTotal.Text =  income.ToString("N0");
             if (!ShowOrder(row))         // return false 總額不符
                 labelTotal.Text +=  "???";
 
@@ -444,11 +437,7 @@ namespace VoucherExpense
             }
             tc.TabPages.Clear();
             tc.TabPages.Add(m_TabPageStatics);
-#if (UseSQLServer)
-            var listXX = new List<DamaiDataSet.OrderRow>();
-#else
-            var listXX = new List<BakeryOrderSet.OrderRow>();
-#endif
+            var listXX = new List<MyOrderRow>();
             SortableBindingList<HourStatics> listStatics = new SortableBindingList<HourStatics>();
             labelDgvTitle.Text=mon.ToString()+"月"+day.ToString()+"日統計表";
             TabPage page=null;
@@ -556,11 +545,7 @@ namespace VoucherExpense
                 labelTotalAverage.Text = Math.Round(total / count, 1).ToString();
         }
 
-#if (UseSQLServer)
-        void CreateRecordLabel(TabPage tabPage, int x, int y, DamaiDataSet.DrawerRecordRow Row)
-#else
-        void CreateRecordLabel(TabPage tabPage, int x, int y, BakeryOrderSet.DrawerRecordRow Row)
-#endif
+        void CreateRecordLabel(TabPage tabPage, int x, int y, MyDrawerRecordRow Row)
         {
             if (Row == null) return;
             string mark = "St" + tabPage.Name + DateTime.Now.Ticks.ToString();  //避免多次進入,label重名了
@@ -620,11 +605,7 @@ namespace VoucherExpense
                          group row by row.OpenTime.Hour;
             if (groups.Count() == 0) return;
             tc.TabPages.Clear();
-#if UseSQLServer
-            var listXX = new List<DamaiDataSet.DrawerRecordRow>();
-#else
-            var listXX = new List<BakeryOrderSet.DrawerRecordRow>();
-#endif
+            var listXX = new List<MyDrawerRecordRow>();
             TabPage page = null;
             int count = 0;
 

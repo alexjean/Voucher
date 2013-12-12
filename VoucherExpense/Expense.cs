@@ -5,10 +5,19 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 using Excel = Microsoft.Office.Interop.Excel;
-
+#if UseSQLServer
+using MyDataSet         = VoucherExpense.DamaiDataSet;
+using MyExpenseTable    = VoucherExpense.DamaiDataSet.ExpenseDataTable;
+using MyExpenseRow      = VoucherExpense.DamaiDataSet.ExpenseRow;
+using MyExpenseAdapter  = VoucherExpense.DamaiDataSetTableAdapters.ExpenseTableAdapter;
+#else
+using MyDataSet         = VoucherExpense.VEDataSet;
+using MyExpenseTable    = VoucherExpense.VEDataSet.ExpenseDataTable;
+using MyExpenseRow      = VoucherExpense.VEDataSet.ExpenseRow;
+using MyExpenseAdapter  = VoucherExpense.VEDataSetTableAdapters.ExpenseTableAdapter;
+#endif
 namespace VoucherExpense
 {
-  
     public partial class Expense : Form,FormWantDate
     {
         bool checkMode;
@@ -19,7 +28,7 @@ namespace VoucherExpense
             checkMode = false;
         }
 
-        // 原本設計 可以有非零用金mode,現己癈棄
+        // 設計 可以有非零用金mode
         public Expense(bool isCheckMode,bool only零用金mode)
         {
             InitializeComponent();
@@ -50,63 +59,35 @@ namespace VoucherExpense
                     }
                 }
             }
-        } 
-
-        private void expenseBindingNavigatorSaveItem_Click(object sender, EventArgs e)
-        {
-            if (MyFunction.LockAll)
-            {
-                MessageBox.Show("鎖定中,不能存檔");
-                return;
-            }
-            if (!this.Validate())
-            {
-                MessageBox.Show("有資料錯誤, 請改好再存!");
-                return;
-            }
-            this.expenseBindingSource.EndEdit();
-
-            VEDataSet.ExpenseDataTable table = (VEDataSet.ExpenseDataTable)vEDataSet.Expense.GetChanges();
-            if (table == null)
-            {
-                MessageBox.Show("沒有改動任何資料! 不用存");
-                return;
-            }
-            if (checkMode) // 讓Form Expense Reload
-            {
-                MyFunction.SetGlobalFlag(GlobalFlag.employeeModified);
-            }
-            else
-                foreach (VEDataSet.ExpenseRow r in table)
-                {
-                    if (r.RowState != DataRowState.Deleted)
-                    {
-                        r.BeginEdit();
-                        r.KeyinID = MyFunction.OperatorID;
-                        r.LastUpdated = DateTime.Now;
-                        r.EndEdit();
-                    }
-                }
-            vEDataSet.Expense.Merge(table);
-            this.expenseTableAdapter.Update(this.vEDataSet.Expense);
-            this.vEDataSet.Expense.AcceptChanges();
         }
 
+        MyDataSet m_DataSet = new MyDataSet();
+        MyExpenseAdapter expenseAdapter = new MyExpenseAdapter();
         private void Expense_Load(object sender, EventArgs e)
         {
-            // 將預設的Connection指到我要重定的位置
-            bankAccountTableAdapter.Connection  = MapPath.VEConnection;
-            operatorTableAdapter.Connection     = MapPath.VEConnection;
-            titleTableAdapter.Connection        = MapPath.VEConnection;
-            hRTableAdapter.Connection     = MapPath.VEConnection;
-            expenseTableAdapter.Connection      = MapPath.VEConnection;
-            
-            this.bankAccountTableAdapter.Fill(this.vEDataSet.BankAccount);
-            this.operatorTableAdapter.Fill(this.vEDataSet.Operator);
-            this.titleTableAdapter.Fill(this.vEDataSet.AccountingTitle);
-            this.hRTableAdapter.Fill(this.vEDataSet.HR);
-            this.expenseTableAdapter.Fill(this.vEDataSet.Expense);
-            MyFunction.SetControlLengthFromDB(this, vEDataSet.Expense);
+            SetupBindingSource();
+#if (UseSQLServer)
+            var bankAccountAdapter  = new VoucherExpense.DamaiDataSetTableAdapters.BankAccountTableAdapter();
+            var operatorAdapter     = new VoucherExpense.DamaiDataSetTableAdapters.OperatorTableAdapter();
+            var accTitleAdapter     = new VoucherExpense.DamaiDataSetTableAdapters.AccountingTitleTableAdapter();
+            var HRAdapter           = new VoucherExpense.DamaiDataSetTableAdapters.HRTableAdapter();
+#else
+            var bankAccountAdapter  = new VoucherExpense.VEDataSetTableAdapters.BankAccountTableAdapter();
+            var operatorAdapter     = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
+            var accTitleAdapter     = new VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter();
+            var HRAdapter           = new VoucherExpense.VEDataSetTableAdapters.HRTableAdapter();
+            bankAccountAdapter.Connection  = MapPath.VEConnection;
+            operatorAdapter.Connection     = MapPath.VEConnection;
+            accTitleAdapter.Connection     = MapPath.VEConnection;
+            HRAdapter.Connection           = MapPath.VEConnection;
+            expenseAdapter.Connection      = MapPath.VEConnection;
+#endif
+            bankAccountAdapter.Fill (m_DataSet.BankAccount);
+            operatorAdapter.Fill    (m_DataSet.Operator);
+            accTitleAdapter.Fill    (m_DataSet.AccountingTitle);
+            HRAdapter.Fill          (m_DataSet.HR);
+            expenseAdapter.Fill     (m_DataSet.Expense);
+            MyFunction.SetControlLengthFromDB(this, m_DataSet.Expense);
             if (checkMode)
             {
                 this.Text = "查核費用";
@@ -126,7 +107,7 @@ namespace VoucherExpense
 
             cbSelectBank.Items.Clear();
             cbSelectBank.Items.Add("全部");
-            foreach (VEDataSet.BankAccountRow r in vEDataSet.BankAccount)
+            foreach (var r in m_DataSet.BankAccount)
                 cbSelectBank.Items.Add(r.ShowName);
 
             // 資料準備好,再加上EventHandler
@@ -146,6 +127,59 @@ namespace VoucherExpense
             dateTimePicker1.MaxDate = new DateTime(MyFunction.IntHeaderYear, 12, 31);
             dateTimePicker1.MinDate = new DateTime(MyFunction.IntHeaderYear, 1, 1);
 
+        }
+
+        private void expenseBindingNavigatorSaveItem_Click(object sender, EventArgs e)
+        {
+            if (MyFunction.LockAll)
+            {
+                MessageBox.Show("鎖定中,不能存檔");
+                return;
+            }
+            if (!this.Validate())
+            {
+                MessageBox.Show("有資料錯誤, 請改好再存!");
+                return;
+            }
+            this.expenseBindingSource.EndEdit();
+
+            var table = (MyExpenseTable)m_DataSet.Expense.GetChanges();
+            if (table == null)
+            {
+                MessageBox.Show("沒有改動任何資料! 不用存");
+                return;
+            }
+            if (checkMode) // 讓Form Expense Reload
+            {
+                MyFunction.SetGlobalFlag(GlobalFlag.employeeModified);
+            }
+            else
+                foreach (var r in table)
+                {
+                    if (r.RowState != DataRowState.Deleted)
+                    {
+                        r.BeginEdit();
+                        r.KeyinID = MyFunction.OperatorID;
+                        r.LastUpdated = DateTime.Now;
+                        r.EndEdit();
+                    }
+                }
+            m_DataSet.Expense.Merge(table);
+            expenseAdapter.Update(m_DataSet.Expense);
+            m_DataSet.Expense.AcceptChanges();
+        }
+
+        void SetupBindingSource()
+        {
+            expenseBindingSource.DataSource   = m_DataSet;
+            applierBindingSource.DataSource   = m_DataSet;
+            employeeBindingSource.DataSource  = m_DataSet;
+            authorizeBindingSource.DataSource = m_DataSet;
+            operatorBindingSource.DataSource  = m_DataSet;
+            bankBindingSource.DataSource      = m_DataSet;
+            titleBindingSource.DataSource     = m_DataSet;
+            titleBindingSource1.DataSource    = m_DataSet;
+            titleBindingSource2.DataSource    = m_DataSet;
         }
 
         private void SetBackColor(Color Co)
@@ -187,7 +221,7 @@ namespace VoucherExpense
             {
                 MessageBox.Show("鎖定中,新增無用");
             }
-            int m = MyFunction.MaxNoInDB("ID", vEDataSet.Expense);
+            int m = MyFunction.MaxNoInDB("ID", m_DataSet.Expense);
             MyFunction.SetCellMaxNo("columnID", expenseDataGridView,m);
             int month = comboBoxMonth.SelectedIndex;
             int mon;
@@ -274,18 +308,14 @@ namespace VoucherExpense
                 expenseBindingSource.Filter = day;
             else
                 expenseBindingSource.Filter = day + " And " + bank;
-
         }
-
-
-        
 
         void CalcTotal()
         {
             decimal total = 0;
             foreach (DataRowView rv in expenseBindingSource)
             {
-                VEDataSet.ExpenseRow row = (VEDataSet.ExpenseRow)rv.Row;
+                var row = (MyExpenseRow)rv.Row;
                 if (!row.IsRemovedNull())
                     if (row.Removed) continue;
                 if (row.IsMoneyNull()) continue;
@@ -367,7 +397,7 @@ namespace VoucherExpense
             int lineCount = 0;
             int mo = more;
             bool NeedMore = false;
-            foreach (VEDataSet.ExpenseRow row in vEDataSet.Expense)
+            foreach (MyExpenseRow row in m_DataSet.Expense)
             {
                 if (row.IsApplierIDNull()) continue;
                 if (row.IsApplyTimeNull()) continue;
@@ -549,7 +579,7 @@ namespace VoucherExpense
             row.DefaultCellStyle.ForeColor = color;
         }
 
-        // 目前廢掉此功能
+        
         private void cbSelectBank_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox box=(ComboBox)sender;
@@ -591,7 +621,7 @@ namespace VoucherExpense
                 }
                 else
                     checkBoxAllAccTitle.Enabled = true;
-                VEDataSet.ExpenseRow row = (VEDataSet.ExpenseRow)rv.Row;
+                var row = (MyExpenseRow)rv.Row;
                 string code=null;
                 if (!row.IsTitleCodeNull())  code = row.TitleCode;
                 if (checkBoxAllAccTitle.Checked)

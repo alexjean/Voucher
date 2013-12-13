@@ -69,14 +69,11 @@
             this.accTitleDGVBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.columnTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnCheck = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.accVoucherTableAdapter = new VoucherExpense.VEDataSetTableAdapters.AccVoucherTableAdapter();
-            this.accountingTitleTableAdapter = new VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter();
             this.iDTextBox = new System.Windows.Forms.TextBox();
             this.accVoucherTimeTextBox = new System.Windows.Forms.TextBox();
             this.indentureIDTextBox = new System.Windows.Forms.TextBox();
             this.keyinIDComboBox = new System.Windows.Forms.ComboBox();
             this.operatorBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.operatorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
             this.removedCheckBox = new System.Windows.Forms.CheckBox();
             this.lockedCheckBox = new System.Windows.Forms.CheckBox();
             this.lastUpdatedLabel = new System.Windows.Forms.Label();
@@ -110,7 +107,6 @@
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.comboBoxMonth = new System.Windows.Forms.ComboBox();
             this.ckBoxAllowEdit = new System.Windows.Forms.CheckBox();
-            this.hRTableAdapter = new VoucherExpense.VEDataSetTableAdapters.HRTableAdapter();
             accVoucherTimeLabel = new System.Windows.Forms.Label();
             indentureIDLabel = new System.Windows.Forms.Label();
             keyinIDLabel = new System.Windows.Forms.Label();
@@ -484,14 +480,6 @@
             this.columnCheck.ReadOnly = true;
             this.columnCheck.Width = 32;
             // 
-            // accVoucherTableAdapter
-            // 
-            this.accVoucherTableAdapter.ClearBeforeFill = true;
-            // 
-            // accountingTitleTableAdapter
-            // 
-            this.accountingTitleTableAdapter.ClearBeforeFill = true;
-            // 
             // iDTextBox
             // 
             this.iDTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
@@ -536,10 +524,6 @@
             // 
             this.operatorBindingSource.DataMember = "Operator";
             this.operatorBindingSource.DataSource = this.vEDataSet;
-            // 
-            // operatorTableAdapter
-            // 
-            this.operatorTableAdapter.ClearBeforeFill = true;
             // 
             // removedCheckBox
             // 
@@ -612,7 +596,7 @@
             // 
             this.employeeBindingSource.DataMember = "HR";
             this.employeeBindingSource.DataSource = this.vEDataSet;
-            this.employeeBindingSource.Filter = "InPosition";
+            this.employeeBindingSource.Filter = "IsApplier";
             // 
             // money0TextBox
             // 
@@ -877,10 +861,6 @@
             this.ckBoxAllowEdit.Visible = false;
             this.ckBoxAllowEdit.CheckedChanged += new System.EventHandler(this.ckBoxAllowEdit_CheckedChanged);
             // 
-            // hRTableAdapter
-            // 
-            this.hRTableAdapter.ClearBeforeFill = true;
-            // 
             // FormAccVoucher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -946,7 +926,6 @@
 //        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
         private VEDataSet vEDataSet;
         private System.Windows.Forms.BindingSource accVoucherBindingSource;
-        private VoucherExpense.VEDataSetTableAdapters.AccVoucherTableAdapter accVoucherTableAdapter;
         private System.Windows.Forms.BindingNavigator accVoucherBindingNavigator;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
@@ -960,13 +939,11 @@
         private System.Windows.Forms.ToolStripButton accVoucherBindingNavigatorSaveItem;
         private System.Windows.Forms.DataGridView accVoucherDataGridView;
         private System.Windows.Forms.BindingSource accTitleDGVBindingSource;
-        private VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter accountingTitleTableAdapter;
         private System.Windows.Forms.TextBox iDTextBox;
         private System.Windows.Forms.TextBox accVoucherTimeTextBox;
         private System.Windows.Forms.TextBox indentureIDTextBox;
         private System.Windows.Forms.ComboBox keyinIDComboBox;
         private System.Windows.Forms.BindingSource operatorBindingSource;
-        private VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter operatorTableAdapter;
         private System.Windows.Forms.CheckBox removedCheckBox;
         private System.Windows.Forms.CheckBox lockedCheckBox;
         private System.Windows.Forms.Label lastUpdatedLabel;
@@ -1010,7 +987,6 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn TitleCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnTotal;
         private System.Windows.Forms.DataGridViewCheckBoxColumn columnCheck;
-        private VEDataSetTableAdapters.HRTableAdapter hRTableAdapter;
 
     }
 }

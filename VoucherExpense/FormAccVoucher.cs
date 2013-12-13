@@ -5,12 +5,22 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+#if UseSQLServer
+using MyDataSet         = VoucherExpense.DamaiDataSet;
+using MyAccVoucherTable = VoucherExpense.DamaiDataSet.AccVoucherDataTable;
+using MyAccVoucherRow   = VoucherExpense.DamaiDataSet.AccVoucherRow;
+using MyAccVoucherAdapter = VoucherExpense.DamaiDataSetTableAdapters.AccVoucherTableAdapter;
+#else
+using MyDataSet         = VoucherExpense.VEDataSet;
+using MyAccVoucherTable = VoucherExpense.VEDataSet.AccVoucherDataTable;
+using MyAccVoucherRow   = VoucherExpense.VEDataSet.AccVoucherRow;
+using MyAccVoucherAdapter = VoucherExpense.VEDataSetTableAdapters.AccVoucherTableAdapter;
+#endif
 
 namespace VoucherExpense
 {
     public partial class FormAccVoucher : Form
     {
-
         bool CheckMode;
 
         public FormAccVoucher(bool checkMode)
@@ -18,57 +28,28 @@ namespace VoucherExpense
             CheckMode = checkMode;
             InitializeComponent();
         }
-
-        private void accVoucherBindingNavigatorSaveItem_Click(object sender, EventArgs e)
-        {
-            if (MyFunction.LockAll)
-            {
-                MessageBox.Show("鎖定中,不能存檔");
-                return;
-            }
-            if (!this.Validate())
-            {
-                MessageBox.Show("有資料錯誤, 請改好再存!");
-                return;
-            }
-            this.accVoucherBindingSource.EndEdit();
-            VEDataSet.AccVoucherDataTable table = (VEDataSet.AccVoucherDataTable)vEDataSet.AccVoucher.GetChanges();
-            if (table == null || table.Rows.Count <= 0)
-            {
-                MessageBox.Show("沒有改變,無需存檔!");
-                return;
-            }
-            if (!CheckMode)
-                foreach (VEDataSet.AccVoucherRow r in table)
-                {
-                    if (r.RowState != DataRowState.Deleted)
-                    {
-                        r.BeginEdit();
-                        r.KeyinID = MyFunction.OperatorID;
-                        r.LastUpdated = DateTime.Now;
-                        r.EndEdit();
-                    }
-                }
-
-            vEDataSet.AccVoucher.Merge(table);
-            accVoucherTableAdapter.Update(vEDataSet.AccVoucher);
-            vEDataSet.AccVoucher.AcceptChanges();
-            MessageBox.Show("己存檔!");
-        }
-
+        MyDataSet m_DataSet = new MyDataSet();
+        MyAccVoucherAdapter accVoucherAdapter = new MyAccVoucherAdapter();
         private void FormAccVoucher_Load(object sender, EventArgs e)
         {
-            // 將預設的Connection指到我要重定的位置
-            hRTableAdapter.Connection              = MapPath.VEConnection;
-            operatorTableAdapter.Connection        = MapPath.VEConnection;
-            accountingTitleTableAdapter.Connection = MapPath.VEConnection;
-            accVoucherTableAdapter.Connection      = MapPath.VEConnection;
-
-
-            this.hRTableAdapter.Fill(this.vEDataSet.HR);
-            this.operatorTableAdapter.Fill(this.vEDataSet.Operator);
-            this.accountingTitleTableAdapter.Fill(this.vEDataSet.AccountingTitle);
-            this.accVoucherTableAdapter.Fill(this.vEDataSet.AccVoucher);
+            SetupBindingSource();
+#if UseSQLServer
+            var HRAdapter        = new VoucherExpense.DamaiDataSetTableAdapters.HRTableAdapter();
+            var operatorAdapter  = new VoucherExpense.DamaiDataSetTableAdapters.OperatorTableAdapter();
+            var accTitleAdapter  = new VoucherExpense.DamaiDataSetTableAdapters.AccountingTitleTableAdapter();
+#else
+            var HRAdapter        = new VoucherExpense.VEDataSetTableAdapters.HRTableAdapter();
+            var operatorAdapter  = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
+            var accTitleAdapter  = new VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter();
+            HRAdapter.Connection         = MapPath.VEConnection;
+            operatorAdapter.Connection   = MapPath.VEConnection;
+            accTitleAdapter.Connection   = MapPath.VEConnection;
+            accVoucherAdapter.Connection = MapPath.VEConnection;
+#endif
+            HRAdapter.Fill          (m_DataSet.HR);
+            operatorAdapter.Fill    (m_DataSet.Operator);
+            accTitleAdapter.Fill    (m_DataSet.AccountingTitle);
+            accVoucherAdapter.Fill  (m_DataSet.AccVoucher);
 
             dateTimePicker1.MaxDate = new DateTime(MyFunction.IntHeaderYear, 12, 31);
             dateTimePicker1.MinDate = new DateTime(MyFunction.IntHeaderYear, 1, 1);
@@ -90,6 +71,57 @@ namespace VoucherExpense
             }
         }
 
+        void SetupBindingSource()
+        {
+            accTitleDGVBindingSource.DataSource = m_DataSet;
+            accVoucherBindingSource.DataSource = m_DataSet;
+            operatorBindingSource.DataSource  = m_DataSet;
+            employeeBindingSource.DataSource  = m_DataSet;
+            authorizeBindingSource.DataSource = m_DataSet;
+            accTitle0BindingSource.DataSource = m_DataSet;
+            accTitle1BindingSource.DataSource = m_DataSet;
+            accTitle2BindingSource.DataSource = m_DataSet;
+            accTitle3BindingSource.DataSource = m_DataSet;
+        }
+
+        private void accVoucherBindingNavigatorSaveItem_Click(object sender, EventArgs e)
+        {
+            if (MyFunction.LockAll)
+            {
+                MessageBox.Show("鎖定中,不能存檔");
+                return;
+            }
+            if (!this.Validate())
+            {
+                MessageBox.Show("有資料錯誤, 請改好再存!");
+                return;
+            }
+            this.accVoucherBindingSource.EndEdit();
+            var table = (MyAccVoucherTable)m_DataSet.AccVoucher.GetChanges();
+            if (table == null || table.Rows.Count <= 0)
+            {
+                MessageBox.Show("沒有改變,無需存檔!");
+                return;
+            }
+            if (!CheckMode)
+                foreach (var r in table)
+                {
+                    if (r.RowState != DataRowState.Deleted)
+                    {
+                        r.BeginEdit();
+                        r.KeyinID = MyFunction.OperatorID;
+                        r.LastUpdated = DateTime.Now;
+                        r.EndEdit();
+                    }
+                }
+
+            m_DataSet.AccVoucher.Merge(table);
+            accVoucherAdapter.Update(m_DataSet.AccVoucher);
+            m_DataSet.AccVoucher.AcceptChanges();
+            MessageBox.Show("己存檔!");
+        }
+
+
         void SetDebtCredit(bool IsDebt,Button btn, TextBox box)
         {
             if (IsDebt)
@@ -104,7 +136,7 @@ namespace VoucherExpense
             }
         }
 
-        void SetAllDebtCreditBtn(VEDataSet.AccVoucherRow row)
+        void SetAllDebtCreditBtn(MyAccVoucherRow row)
         {
             SetDebtCredit(row.IsDebt0, btnCD0, money0TextBox);
             SetDebtCredit(row.IsDebt1, btnCD1, money1TextBox);
@@ -116,7 +148,7 @@ namespace VoucherExpense
         {
             DataRowView view =(DataRowView)accVoucherBindingSource.Current;
             if (view == null) return;
-            VEDataSet.AccVoucherRow row = (VEDataSet.AccVoucherRow)view.Row;
+            var row = (MyAccVoucherRow)view.Row;
             if (row.IsIsDebt0Null()) return;   // 不應該發生,在AddNew時應該設上去, 如同ID要先設
             SetAllDebtCreditBtn(row);
             CalcTotal(row);
@@ -126,7 +158,7 @@ namespace VoucherExpense
         {
             DataRowView view = (DataRowView)accVoucherBindingSource.Current;
             if (view == null) return;
-            VEDataSet.AccVoucherRow row = (VEDataSet.AccVoucherRow)view.Row;
+            var row = (MyAccVoucherRow)view.Row;
             row.IsDebt0 = !row.IsDebt0;                         // new Row時會出問題
             SetDebtCredit(row.IsDebt0, btnCD0, money0TextBox);
             CalcTotal(row);
@@ -136,7 +168,7 @@ namespace VoucherExpense
         {
             DataRowView view = (DataRowView)accVoucherBindingSource.Current;
             if (view == null) return;
-            VEDataSet.AccVoucherRow row = (VEDataSet.AccVoucherRow)view.Row;
+            var row = (MyAccVoucherRow)view.Row;
             row.IsDebt1 = !row.IsDebt1;
             SetDebtCredit(row.IsDebt1, btnCD1, money1TextBox);
             CalcTotal(row);
@@ -146,7 +178,7 @@ namespace VoucherExpense
         {
             DataRowView view = (DataRowView)accVoucherBindingSource.Current;
             if (view == null) return;
-            VEDataSet.AccVoucherRow row = (VEDataSet.AccVoucherRow)view.Row;
+            var row = (MyAccVoucherRow)view.Row;
             row.IsDebt2 = !row.IsDebt2;
             SetDebtCredit(row.IsDebt2, btnCD2, money2TextBox);
             CalcTotal(row);
@@ -156,7 +188,7 @@ namespace VoucherExpense
         {
             DataRowView view = (DataRowView)accVoucherBindingSource.Current;
             if (view == null) return;
-            VEDataSet.AccVoucherRow row = (VEDataSet.AccVoucherRow)view.Row;
+            var row = (MyAccVoucherRow)view.Row;
             row.IsDebt3 = !row.IsDebt3;
             SetDebtCredit(row.IsDebt3, btnCD3, money3TextBox);
             CalcTotal(row);
@@ -200,7 +232,7 @@ namespace VoucherExpense
             row.DefaultCellStyle.ForeColor = color;
         }
 
-        void CalcTotal(VEDataSet.AccVoucherRow row)
+        void CalcTotal(MyAccVoucherRow row)
         {
             decimal debt = 0m,credit = 0m;
             if (!row.IsMoney0Null())
@@ -242,7 +274,7 @@ namespace VoucherExpense
             }
         }
 
-        object DebtTotal(VEDataSet.AccVoucherRow row)
+        object DebtTotal(MyAccVoucherRow row)
         {
             if (row.IsIsDebt0Null()) return null;  
             decimal debt = 0m, credit = 0m;
@@ -267,7 +299,7 @@ namespace VoucherExpense
             return debt;
         }
 
-        VEDataSet.AccVoucherRow GetAccVoucherRow(DataGridViewRow vr)
+        MyAccVoucherRow GetAccVoucherRow(DataGridViewRow vr)
         {
             if (vr == null) return null;
 //            if (vr.IsNewRow) return null;   // NewRow 沒有DataBoundItem
@@ -284,7 +316,7 @@ namespace VoucherExpense
             if (obj == null) return null;
             DataRowView rowView = (DataRowView)obj;
             if (rowView == null) return null;
-            return ((VEDataSet.AccVoucherRow)rowView.Row);
+            return ((MyAccVoucherRow)rowView.Row);
         }
 
         private void accVoucherDataGridView_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
@@ -294,7 +326,7 @@ namespace VoucherExpense
             {
                 if (view.Rows.Count > e.RowIndex)
                 {
-                    VEDataSet.AccVoucherRow row = GetAccVoucherRow(view.Rows[e.RowIndex]);
+                    var row = GetAccVoucherRow(view.Rows[e.RowIndex]);
                     if (row != null)
                     {
                         e.Value = DebtTotal(row);
@@ -311,7 +343,7 @@ namespace VoucherExpense
             DataGridView view = (DataGridView)sender;
             if (e.RowIndex >= view.Rows.Count) return;
             DataGridViewRow vr = view.Rows[e.RowIndex];
-            VEDataSet.AccVoucherRow row = GetAccVoucherRow(vr);
+            var row = GetAccVoucherRow(vr);
             if (row == null) return;
             object val= DebtTotal(row);
             if ( val== null)
@@ -332,7 +364,7 @@ namespace VoucherExpense
             {
                 MessageBox.Show("鎖定中,新增無用");
             }
-            int m = MyFunction.MaxNoInDB("ID", vEDataSet.AccVoucher);
+            int m = MyFunction.MaxNoInDB("ID", m_DataSet.AccVoucher);
             MyFunction.SetCellMaxNo("columnID", accVoucherDataGridView, m);
             int month = comboBoxMonth.SelectedIndex;
             int mon;
@@ -345,7 +377,7 @@ namespace VoucherExpense
             try
             {
                 DataRowView rv = row.DataBoundItem as DataRowView;
-                VEDataSet.AccVoucherRow d = (VEDataSet.AccVoucherRow)rv.Row;
+                var d = (MyAccVoucherRow)rv.Row;
                 d.IsDebt0 = true;       
                 d.IsDebt1 = d.IsDebt2 = d.IsDebt3 = false;
                 SetAllDebtCreditBtn(d);
@@ -467,11 +499,5 @@ namespace VoucherExpense
             DateTimePicker picker = sender as DateTimePicker;
             this.accVoucherTimeTextBox.Text = picker.Text;
         }
-
-     
-
-
-
-
     }
 }

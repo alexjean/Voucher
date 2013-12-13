@@ -8,7 +8,15 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
-
+#if UseSQLServer
+using MyDataSet = VoucherExpense.DamaiDataSet;
+using MyOrderSet= VoucherExpense.DamaiDataSet;
+using MyHeaderAdapter=VoucherExpense.DamaiDataSetTableAdapters.HeaderTableAdapter;
+#else
+using MyDataSet = VoucherExpense.VEDataSet;
+using MyOrderSet= VoucherExpense.BakeryOrderSet;
+using MyHeaderAdapter=VoucherExpense.BakeryOrderSetTableAdapters.HeaderTableAdapter;
+#endif
 namespace VoucherExpense
 {
     public partial class FormLedger : Form
@@ -29,22 +37,18 @@ namespace VoucherExpense
         TitleSetup Setup = new TitleSetup();
 
         LedgerTableGenerator m_Generator;
-#if (UseSQLServer)
-        DamaiDataSet m_DataSet = new DamaiDataSet();
-#else
-        VEDataSet m_DataSet=new VEDataSet();
-        BakeryOrderSetTableAdapters.HeaderTableAdapter headerTableAdapter = new BakeryOrderSetTableAdapters.HeaderTableAdapter();
-        BakeryOrderSet bakeryOrderSet = new BakeryOrderSet();
-#endif
+        MyDataSet m_DataSet = new MyDataSet();
+        MyOrderSet m_OrderSet=new MyOrderSet();
+        MyHeaderAdapter headerAdapter = new MyHeaderAdapter();
 
         private void FormLedger_Load(object sender, EventArgs e)
         {
 #if (UseSQLServer)
+            m_OrderSet=m_DataSet;
             accountingTitleBindingSource.DataSource = m_DataSet;
             try
             {
-                var headerSQLAdapter = new DamaiDataSetTableAdapters.HeaderTableAdapter();
-                headerSQLAdapter.Fill(m_DataSet.Header);
+                headerAdapter.Fill(m_DataSet.Header);
             }
             catch { MessageBox.Show("標頭資料讀取錯誤,你的資料庫版本可能不對"); }
             int count = m_DataSet.Header.Count;
@@ -58,68 +62,79 @@ namespace VoucherExpense
             m_Revenue = new RevenueCalcBakery(row.DataDate, 0);
 
             AccList.NewAll();
-            var accountingTitleSQLAdapter   = new DamaiDataSetTableAdapters.AccountingTitleTableAdapter();
-            var bankAccountSQLAdapter       = new DamaiDataSetTableAdapters.BankAccountTableAdapter();
-            var expenseSQLAdapter           = new DamaiDataSetTableAdapters.ExpenseTableAdapter();
-            var voucherSQLAdapter           = new DamaiDataSetTableAdapters.VoucherTableAdapter();
-            var voucherDetailSQLAdapter     = new DamaiDataSetTableAdapters.VoucherDetailTableAdapter();
-            var bankDetailSQLAdapter        = new DamaiDataSetTableAdapters.BankDetailTableAdapter();
-            var accVoucherSQLAdapter        = new DamaiDataSetTableAdapters.AccVoucherTableAdapter();
-            var vendorSQLAdapter            = new DamaiDataSetTableAdapters.VendorTableAdapter();
-            var ingredientSQLAdapter        = new DamaiDataSetTableAdapters.IngredientTableAdapter();
+            var accTitleAdapter     = new DamaiDataSetTableAdapters.AccountingTitleTableAdapter();
+            var bankAccountAdapter  = new DamaiDataSetTableAdapters.BankAccountTableAdapter();
+            var expenseAdapter      = new DamaiDataSetTableAdapters.ExpenseTableAdapter();
+            var voucherAdapter      = new DamaiDataSetTableAdapters.VoucherTableAdapter();
+            var voucherDetailAdapter= new DamaiDataSetTableAdapters.VoucherDetailTableAdapter();
+            var bankDetailAdapter   = new DamaiDataSetTableAdapters.BankDetailTableAdapter();
+            var accVoucherAdapter   = new DamaiDataSetTableAdapters.AccVoucherTableAdapter();
+            var vendorAdapter       = new DamaiDataSetTableAdapters.VendorTableAdapter();
+            var ingredientAdapter   = new DamaiDataSetTableAdapters.IngredientTableAdapter();
 
             try
             {
-                accountingTitleSQLAdapter.Fill(m_DataSet.AccountingTitle);
-                bankAccountSQLAdapter.Fill(m_DataSet.BankAccount);
-                expenseSQLAdapter.Fill(m_DataSet.Expense);    // expense檔案小,先全部讀進記憶體
-                voucherSQLAdapter.Fill(m_DataSet.Voucher);
-                voucherDetailSQLAdapter.Fill(m_DataSet.VoucherDetail);
-                bankDetailSQLAdapter.Fill(m_DataSet.BankDetail);
-                accVoucherSQLAdapter.Fill(m_DataSet.AccVoucher);
-                vendorSQLAdapter.Fill(m_DataSet.Vendor);
-                ingredientSQLAdapter.Fill(m_DataSet.Ingredient);
+                accTitleAdapter.Fill    (m_DataSet.AccountingTitle);
+                bankAccountAdapter.Fill (m_DataSet.BankAccount);
+                expenseAdapter.Fill     (m_DataSet.Expense);    // expense檔案小,先全部讀進記憶體
+                voucherAdapter.Fill     (m_DataSet.Voucher);
+                voucherDetailAdapter.Fill(m_DataSet.VoucherDetail);
+                bankDetailAdapter.Fill  (m_DataSet.BankDetail);
+                accVoucherAdapter.Fill  (m_DataSet.AccVoucher);
+                vendorAdapter.Fill      (m_DataSet.Vendor);
+                ingredientAdapter.Fill  (m_DataSet.Ingredient);
 
 #else
+            m_OrderSet = new BakeryOrderSet();
             try
             {
-                headerTableAdapter.Connection = MapPath.BakeryConnection;
-                headerTableAdapter.Fill(bakeryOrderSet.Header);
+                headerAdapter.Connection = MapPath.BakeryConnection;
+                headerAdapter.Fill(m_OrderSet.Header);
             }
             catch { MessageBox.Show("標頭資料讀取錯誤,你的資料庫版本可能不對"); }
-            int count = bakeryOrderSet.Header.Count;
+            int count =m_OrderSet.Header.Count;
             if (count == 0)
             {
                 MessageBox.Show("無資料!");
                 Close();
                 return;
             }
-            var row = bakeryOrderSet.Header[count - 1];
+            var row = m_OrderSet.Header[count - 1];
             m_Revenue = new RevenueCalcBakery(row.DataDate, 0);
 
             AccList.NewAll();
 
-            accountingTitleTableAdapter.Connection = MapPath.VEConnection;
-            bankAccountTableAdapter.Connection     = MapPath.VEConnection;
-            expenseTableAdapter.Connection         = MapPath.VEConnection;
-            voucherTableAdapter.Connection         = MapPath.VEConnection;
-            voucherDetailTableAdapter.Connection   = MapPath.VEConnection;
-            bankDetailTableAdapter.Connection      = MapPath.VEConnection;
-            accVoucherTableAdapter.Connection      = MapPath.VEConnection;
-            vendorTableAdapter.Connection          = MapPath.VEConnection;
-            ingredientTableAdapter.Connection      = MapPath.VEConnection;
+            var accTitleAdapter     = new VEDataSetTableAdapters.AccountingTitleTableAdapter();
+            var bankAccountAdapter  = new VEDataSetTableAdapters.BankAccountTableAdapter();
+            var expenseAdapter      = new VEDataSetTableAdapters.ExpenseTableAdapter();
+            var voucherAdapter      = new VEDataSetTableAdapters.VoucherTableAdapter();
+            var voucherDetailAdapter= new VEDataSetTableAdapters.VoucherDetailTableAdapter();
+            var bankDetailAdapter   = new VEDataSetTableAdapters.BankDetailTableAdapter();
+            var accVoucherAdapter   = new VEDataSetTableAdapters.AccVoucherTableAdapter();
+            var vendorAdapter       = new VEDataSetTableAdapters.VendorTableAdapter();
+            var ingredientAdapter   = new VEDataSetTableAdapters.IngredientTableAdapter();
+
+            accTitleAdapter.Connection        = MapPath.VEConnection;
+            bankAccountAdapter.Connection     = MapPath.VEConnection;
+            expenseAdapter.Connection         = MapPath.VEConnection;
+            voucherAdapter.Connection         = MapPath.VEConnection;
+            voucherDetailAdapter.Connection   = MapPath.VEConnection;
+            bankDetailAdapter.Connection      = MapPath.VEConnection;
+            accVoucherAdapter.Connection      = MapPath.VEConnection;
+            vendorAdapter.Connection          = MapPath.VEConnection;
+            ingredientAdapter.Connection      = MapPath.VEConnection;
 
             try
             {
-                accountingTitleTableAdapter.Fill(m_DataSet.AccountingTitle);
-                bankAccountTableAdapter.Fill(m_DataSet.BankAccount);
-                expenseTableAdapter.Fill(m_DataSet.Expense);    // expense檔案小,先全部讀進記憶體
-                voucherTableAdapter.Fill(m_DataSet.Voucher);
-                voucherDetailTableAdapter.Fill(m_DataSet.VoucherDetail);
-                bankDetailTableAdapter.Fill(m_DataSet.BankDetail);
-                accVoucherTableAdapter.Fill(m_DataSet.AccVoucher);
-                vendorTableAdapter.Fill(m_DataSet.Vendor);
-                ingredientTableAdapter.Fill(m_DataSet.Ingredient);
+                accTitleAdapter.Fill(m_DataSet.AccountingTitle);
+                bankAccountAdapter.Fill(m_DataSet.BankAccount);
+                expenseAdapter.Fill(m_DataSet.Expense);    // expense檔案小,先全部讀進記憶體
+                voucherAdapter.Fill(m_DataSet.Voucher);
+                voucherDetailAdapter.Fill(m_DataSet.VoucherDetail);
+                bankDetailAdapter.Fill(m_DataSet.BankDetail);
+                accVoucherAdapter.Fill(m_DataSet.AccVoucher);
+                vendorAdapter.Fill(m_DataSet.Vendor);
+                ingredientAdapter.Fill(m_DataSet.Ingredient);
 #endif
                 foreach (var r in m_DataSet.AccountingTitle)
                 {
@@ -208,7 +223,7 @@ namespace VoucherExpense
 #if (UseSQLServer)
                 if (m_Revenue.LoadData(m_DataSet, month, i)) list.Add(m_Revenue.Statics(m_DataSet));
 #else
-                if (m_Revenue.LoadData(bakeryOrderSet, month, i)) list.Add(m_Revenue.Statics(bakeryOrderSet));
+                if (m_Revenue.LoadData(m_OrderSet, month, i)) list.Add(m_Revenue.Statics(m_OrderSet));
 #endif 
                 progressBar1.Value = i;
                 Application.DoEvents();

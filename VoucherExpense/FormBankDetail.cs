@@ -5,6 +5,15 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+#if UseSQLServer
+using MyDataSet = VoucherExpense.DamaiDataSet;
+using MyBankDetailTable = VoucherExpense.DamaiDataSet.BankDetailDataTable;
+using MyBankDetailAdapter = VoucherExpense.DamaiDataSetTableAdapters.BankDetailTableAdapter;
+#else
+using MyDataSet = VoucherExpense.VEDataSet;
+using MyBankDetailTable = VoucherExpense.VEDataSet.BankDetailDataTable;
+using MyBankDetailAdapter = VoucherExpense.VEDataSetTableAdapters.BankDetailTableAdapter;
+#endif
 
 namespace VoucherExpense
 {
@@ -26,6 +35,71 @@ namespace VoucherExpense
             InitializeComponent();
         }
 
+        MyDataSet m_DataSet = new MyDataSet();
+        MyBankDetailAdapter bankDetailAdapter=new MyBankDetailAdapter();
+        private void FormBankDetail_Load(object sender, EventArgs e)
+        {
+            SetupBindingSource();
+#if UseSQLServer
+            var bankAccountAdapter      = new VoucherExpense.DamaiDataSetTableAdapters.BankAccountTableAdapter();
+            var accountingTitleAdapter  = new VoucherExpense.DamaiDataSetTableAdapters.AccountingTitleTableAdapter();
+#else
+            var bankAccountAdapter      = new VoucherExpense.VEDataSetTableAdapters.BankAccountTableAdapter();
+            var accountingTitleAdapter  = new VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter();
+            bankAccountAdapter.Connection      = MapPath.VEConnection;
+            accountingTitleAdapter.Connection  = MapPath.VEConnection;
+            bankDetailAdapter.Connection       = MapPath.VEConnection;
+#endif
+
+            bankAccountAdapter.Fill(m_DataSet.BankAccount);
+            accountingTitleAdapter.Fill(m_DataSet.AccountingTitle);
+            bankDetailAdapter.Fill(m_DataSet.BankDetail);
+            //accountingTitleBindingSource.Filter = 
+            //    "(TitleCode like '1*' or TitleCode like '2*')";
+            int btm = bankDetailBindingNavigator.Bottom + 5;
+            bankDetailDataGridView.Top = btm - Top;
+            bankDetailDataGridView.Height = Height - bankDetailDataGridView.Top - 5;
+
+            calendar.MaxDate = new DateTime(MyFunction.IntHeaderYear, 12, 31);
+            calendar.MinDate = new DateTime(MyFunction.IntHeaderYear, 1, 1);
+
+            MakeBankAccountComboBox();
+
+            List<AccTitle> AssetList = new List<AccTitle>();
+            foreach (var r in m_DataSet.AccountingTitle)
+            {
+                if (r.TitleCode.Length == 0) continue;
+                AccTitle item = new AccTitle(r.TitleCode, r.Name);
+                if (r.IsInitialValueNull())
+                    item.Money = 0;
+                else
+                    item.Money = r.InitialValue;
+                char c = r.TitleCode[0];
+                if (c == '1') AssetList.Add(item);
+            }
+
+            foreach (var r in m_DataSet.BankAccount)
+            {
+                BankDictionary.Add(r.ID, new BankDefault(r.AccountTitleCode, r.DefaultTitleCode));
+            }
+
+            AccTitle defaultAsset = Find(Setup.DefaultAsset, AssetList, null);
+            foreach (KeyValuePair<int, BankDefault> pair in BankDictionary)
+            {
+                BankDefault bank = pair.Value;
+                bank.DefaultTitle = Find(bank.DefaultCode, AssetList, defaultAsset);
+                AccTitle title = Find(bank.BankCode, AssetList, defaultAsset);
+                if (title != null)
+                    bank.InitialValue = title.Money;
+            }
+
+            if (cbSelectBank.Items.Count > 1)
+                cbSelectBank.SelectedIndex = cbSelectBank.Items.Count - 1;
+            if (MyFunction.LockAll)
+                bankDetailDataGridView.ReadOnly = true;
+
+        }
+
         private void bankDetailBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
             if (MyFunction.LockAll)
@@ -35,14 +109,21 @@ namespace VoucherExpense
             }
             this.Validate();
             this.bankDetailBindingSource.EndEdit();
-            VEDataSet.BankDetailDataTable table = (VEDataSet.BankDetailDataTable)vEDataSet.BankDetail.GetChanges();
+            var table = (MyBankDetailTable)m_DataSet.BankDetail.GetChanges();
             if (table==null || table.Count == 0)
             {
                 MessageBox.Show("沒有修改,不需要存!");
                 return;
             }
-            this.bankDetailTableAdapter.Update(table);
-            vEDataSet.BankDetail.AcceptChanges();
+            bankDetailAdapter.Update(table);
+            m_DataSet.BankDetail.AcceptChanges();
+        }
+
+        void SetupBindingSource()
+        {
+            bankDetailBindingSource.DataSource      = m_DataSet;
+            accountingTitleBindingSource.DataSource = m_DataSet;
+            bankAccountBindingSource.DataSource     = m_DataSet;
         }
 
         AccTitle Find(string code, List<AccTitle> table, AccTitle defaultTitle)
@@ -60,7 +141,7 @@ namespace VoucherExpense
             CBankAccountForComboBox acc = new CBankAccountForComboBox();
             acc.Name = "全部";
             list.Add(acc);
-            foreach (VEDataSet.BankAccountRow r in this.vEDataSet.BankAccount)
+            foreach (var r in m_DataSet.BankAccount)
             {
                 if (r.ID != 1)   // ID 1是給零用金的特殊帳號
                 {
@@ -74,62 +155,6 @@ namespace VoucherExpense
         }
 
 
-        private void FormBankDetail_Load(object sender, EventArgs e)
-        {
-            bankAccountTableAdapter.Connection      = MapPath.VEConnection;
-            accountingTitleTableAdapter.Connection  = MapPath.VEConnection;
-            bankDetailTableAdapter.Connection       = MapPath.VEConnection;
-
-            this.bankAccountTableAdapter.Fill(this.vEDataSet.BankAccount);
-            this.accountingTitleTableAdapter.Fill(this.vEDataSet.AccountingTitle);
-            this.bankDetailTableAdapter.Fill(this.vEDataSet.BankDetail);
-            //accountingTitleBindingSource.Filter = 
-            //    "(TitleCode like '1*' or TitleCode like '2*')";
-
-
-            int btm = bankDetailBindingNavigator.Bottom + 5;
-            bankDetailDataGridView.Top = btm - Top;
-            bankDetailDataGridView.Height = Height - bankDetailDataGridView.Top - 5;
-
-            calendar.MaxDate = new DateTime(MyFunction.IntHeaderYear, 12, 31);
-            calendar.MinDate = new DateTime(MyFunction.IntHeaderYear, 1, 1);
-
-            MakeBankAccountComboBox();
-
-            List<AccTitle> AssetList = new List<AccTitle>();
-            foreach (VEDataSet.AccountingTitleRow r in vEDataSet.AccountingTitle.Rows)
-            {
-                if (r.TitleCode.Length == 0) continue;
-                AccTitle item = new AccTitle(r.TitleCode, r.Name);
-                if (r.IsInitialValueNull())
-                    item.Money = 0;
-                else
-                    item.Money = r.InitialValue;
-                char c = r.TitleCode[0];
-                if (c=='1') AssetList.Add(item); 
-            }
-
-            foreach (VEDataSet.BankAccountRow r in vEDataSet.BankAccount)
-            {
-                BankDictionary.Add(r.ID, new BankDefault(r.AccountTitleCode, r.DefaultTitleCode));
-            }
-
-            AccTitle defaultAsset = Find(Setup.DefaultAsset, AssetList, null);
-            foreach (KeyValuePair<int, BankDefault> pair in BankDictionary)
-            {
-                BankDefault bank = pair.Value;
-                bank.DefaultTitle = Find(bank.DefaultCode, AssetList, defaultAsset);
-                AccTitle title = Find(bank.BankCode, AssetList, defaultAsset);
-                if (title != null)
-                    bank.InitialValue = title.Money;
-            }
-
-            if (cbSelectBank.Items.Count > 1)
-                cbSelectBank.SelectedIndex = cbSelectBank.Items.Count-1;
-            if (MyFunction.LockAll)
-                bankDetailDataGridView.ReadOnly = true;
-
-        }
 
         private void bankDetailDataGridView_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
@@ -225,7 +250,7 @@ namespace VoucherExpense
                 MessageBox.Show("鎖定中,新增無用");
             if (checkBoxSort.Checked)
                 checkBoxSort.Checked = false;
-            MyFunction.AddNewItem(bankDetailDataGridView, "columnID", "ID", vEDataSet.BankDetail);
+            MyFunction.AddNewItem(bankDetailDataGridView, "columnID", "ID", m_DataSet.BankDetail);
             DataGridViewRow row = bankDetailDataGridView.CurrentRow;
             DataGridViewCell cell = row.Cells["columnAccount"];
             if (cbSelectBank.SelectedIndex < 1)   // 第一個是 全部
@@ -351,11 +376,11 @@ namespace VoucherExpense
             row.DefaultCellStyle.ForeColor = color;
         }
 
-        private void FormBankDetail_SizeChanged(object sender, EventArgs e)
-        {
-            int top;
-            top= bankDetailBindingNavigator.Bottom +7;
-            bankDetailDataGridView.Height = ClientRectangle.Height - top ;
-        }
+        //private void FormBankDetail_SizeChanged(object sender, EventArgs e)
+        //{
+        //    int top;
+        //    top= bankDetailBindingNavigator.Bottom +7;
+        //    bankDetailDataGridView.Height = ClientRectangle.Height - top ;
+        //}
     }
 }

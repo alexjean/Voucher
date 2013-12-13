@@ -48,24 +48,21 @@
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.bankDetailBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.bankDetailDataGridView = new System.Windows.Forms.DataGridView();
-            this.bankAccountBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.accountingTitleBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.calendar = new System.Windows.Forms.MonthCalendar();
-            this.comboBoxMonth = new System.Windows.Forms.ComboBox();
-            this.cbSelectBank = new System.Windows.Forms.ComboBox();
-            this.cBankAccountForComboBoxBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.bankDetailTableAdapter = new VoucherExpense.VEDataSetTableAdapters.BankDetailTableAdapter();
-            this.accountingTitleTableAdapter = new VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter();
-            this.bankAccountTableAdapter = new VoucherExpense.VEDataSetTableAdapters.BankAccountTableAdapter();
-            this.checkBoxSort = new System.Windows.Forms.CheckBox();
             this.columnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnAccount = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.bankAccountBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.columnIsCredit = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.columnDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnMoney = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.accountingTitleBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.calendar = new System.Windows.Forms.MonthCalendar();
+            this.comboBoxMonth = new System.Windows.Forms.ComboBox();
+            this.cbSelectBank = new System.Windows.Forms.ComboBox();
+            this.cBankAccountForComboBoxBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.checkBoxSort = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.bankDetailBindingNavigator)).BeginInit();
             this.bankDetailBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bankDetailBindingSource)).BeginInit();
@@ -205,6 +202,9 @@
             // bankDetailDataGridView
             // 
             this.bankDetailDataGridView.AllowUserToAddRows = false;
+            this.bankDetailDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.bankDetailDataGridView.AutoGenerateColumns = false;
             this.bankDetailDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
             this.bankDetailDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -218,7 +218,6 @@
             this.dataGridViewTextBoxColumn5,
             this.columnTotal});
             this.bankDetailDataGridView.DataSource = this.bankDetailBindingSource;
-            this.bankDetailDataGridView.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.bankDetailDataGridView.Location = new System.Drawing.Point(0, 30);
             this.bankDetailDataGridView.Name = "bankDetailDataGridView";
             this.bankDetailDataGridView.RowHeadersWidth = 25;
@@ -230,16 +229,100 @@
             this.bankDetailDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.bankDetailDataGridView_DataError);
             this.bankDetailDataGridView.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.bankDetailDataGridView_RowPrePaint);
             // 
+            // columnID
+            // 
+            this.columnID.DataPropertyName = "ID";
+            this.columnID.HeaderText = "ID";
+            this.columnID.MinimumWidth = 2;
+            this.columnID.Name = "columnID";
+            this.columnID.ReadOnly = true;
+            this.columnID.Width = 2;
+            // 
+            // columnAccount
+            // 
+            this.columnAccount.DataPropertyName = "BankID";
+            this.columnAccount.DataSource = this.bankAccountBindingSource;
+            this.columnAccount.DisplayMember = "ShowName";
+            this.columnAccount.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.columnAccount.HeaderText = "帳戶";
+            this.columnAccount.Name = "columnAccount";
+            this.columnAccount.ReadOnly = true;
+            this.columnAccount.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.columnAccount.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.columnAccount.ValueMember = "ID";
+            this.columnAccount.Width = 92;
+            // 
             // bankAccountBindingSource
             // 
             this.bankAccountBindingSource.DataMember = "BankAccount";
             this.bankAccountBindingSource.DataSource = this.vEDataSet;
+            // 
+            // columnIsCredit
+            // 
+            this.columnIsCredit.DataPropertyName = "IsCredit";
+            this.columnIsCredit.HeaderText = "付";
+            this.columnIsCredit.Name = "columnIsCredit";
+            this.columnIsCredit.Width = 45;
+            // 
+            // columnDay
+            // 
+            this.columnDay.DataPropertyName = "Day";
+            dataGridViewCellStyle1.Format = "d";
+            dataGridViewCellStyle1.NullValue = null;
+            this.columnDay.DefaultCellStyle = dataGridViewCellStyle1;
+            this.columnDay.HeaderText = "日期";
+            this.columnDay.Name = "columnDay";
+            this.columnDay.ReadOnly = true;
+            this.columnDay.Width = 92;
+            // 
+            // columnMoney
+            // 
+            this.columnMoney.DataPropertyName = "Money";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Format = "N2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.columnMoney.DefaultCellStyle = dataGridViewCellStyle2;
+            this.columnMoney.HeaderText = "金額";
+            this.columnMoney.Name = "columnMoney";
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "TitleCode";
+            this.dataGridViewTextBoxColumn3.DataSource = this.accountingTitleBindingSource;
+            this.dataGridViewTextBoxColumn3.DisplayMember = "Name";
+            this.dataGridViewTextBoxColumn3.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.dataGridViewTextBoxColumn3.HeaderText = "科目";
+            this.dataGridViewTextBoxColumn3.MaxDropDownItems = 16;
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewTextBoxColumn3.ValueMember = "TitleCode";
+            this.dataGridViewTextBoxColumn3.Width = 140;
             // 
             // accountingTitleBindingSource
             // 
             this.accountingTitleBindingSource.DataMember = "AccountingTitle";
             this.accountingTitleBindingSource.DataSource = this.vEDataSet;
             this.accountingTitleBindingSource.Filter = "";
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "Note";
+            this.dataGridViewTextBoxColumn5.HeaderText = "Note";
+            this.dataGridViewTextBoxColumn5.MaxInputLength = 20;
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.Width = 320;
+            // 
+            // columnTotal
+            // 
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.Format = "N2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.columnTotal.DefaultCellStyle = dataGridViewCellStyle3;
+            this.columnTotal.HeaderText = "餘額";
+            this.columnTotal.Name = "columnTotal";
+            this.columnTotal.ReadOnly = true;
+            this.columnTotal.Width = 116;
             // 
             // calendar
             // 
@@ -291,18 +374,6 @@
             // 
             this.cBankAccountForComboBoxBindingSource.DataSource = typeof(VoucherExpense.CBankAccountForComboBox);
             // 
-            // bankDetailTableAdapter
-            // 
-            this.bankDetailTableAdapter.ClearBeforeFill = true;
-            // 
-            // accountingTitleTableAdapter
-            // 
-            this.accountingTitleTableAdapter.ClearBeforeFill = true;
-            // 
-            // bankAccountTableAdapter
-            // 
-            this.bankAccountTableAdapter.ClearBeforeFill = true;
-            // 
             // checkBoxSort
             // 
             this.checkBoxSort.AutoSize = true;
@@ -313,90 +384,6 @@
             this.checkBoxSort.Text = "按日期排序";
             this.checkBoxSort.UseVisualStyleBackColor = true;
             this.checkBoxSort.CheckedChanged += new System.EventHandler(this.checkBoxSort_CheckedChanged);
-            // 
-            // columnID
-            // 
-            this.columnID.DataPropertyName = "ID";
-            this.columnID.HeaderText = "ID";
-            this.columnID.MinimumWidth = 2;
-            this.columnID.Name = "columnID";
-            this.columnID.ReadOnly = true;
-            this.columnID.Width = 2;
-            // 
-            // columnAccount
-            // 
-            this.columnAccount.DataPropertyName = "BankID";
-            this.columnAccount.DataSource = this.bankAccountBindingSource;
-            this.columnAccount.DisplayMember = "ShowName";
-            this.columnAccount.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.columnAccount.HeaderText = "帳戶";
-            this.columnAccount.Name = "columnAccount";
-            this.columnAccount.ReadOnly = true;
-            this.columnAccount.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.columnAccount.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.columnAccount.ValueMember = "ID";
-            this.columnAccount.Width = 92;
-            // 
-            // columnIsCredit
-            // 
-            this.columnIsCredit.DataPropertyName = "IsCredit";
-            this.columnIsCredit.HeaderText = "付";
-            this.columnIsCredit.Name = "columnIsCredit";
-            this.columnIsCredit.Width = 45;
-            // 
-            // columnDay
-            // 
-            this.columnDay.DataPropertyName = "Day";
-            dataGridViewCellStyle1.Format = "d";
-            dataGridViewCellStyle1.NullValue = null;
-            this.columnDay.DefaultCellStyle = dataGridViewCellStyle1;
-            this.columnDay.HeaderText = "日期";
-            this.columnDay.Name = "columnDay";
-            this.columnDay.ReadOnly = true;
-            this.columnDay.Width = 92;
-            // 
-            // columnMoney
-            // 
-            this.columnMoney.DataPropertyName = "Money";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "N2";
-            dataGridViewCellStyle2.NullValue = null;
-            this.columnMoney.DefaultCellStyle = dataGridViewCellStyle2;
-            this.columnMoney.HeaderText = "金額";
-            this.columnMoney.Name = "columnMoney";
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "TitleCode";
-            this.dataGridViewTextBoxColumn3.DataSource = this.accountingTitleBindingSource;
-            this.dataGridViewTextBoxColumn3.DisplayMember = "Name";
-            this.dataGridViewTextBoxColumn3.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.dataGridViewTextBoxColumn3.HeaderText = "科目";
-            this.dataGridViewTextBoxColumn3.MaxDropDownItems = 16;
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridViewTextBoxColumn3.ValueMember = "TitleCode";
-            this.dataGridViewTextBoxColumn3.Width = 140;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "Note";
-            this.dataGridViewTextBoxColumn5.HeaderText = "Note";
-            this.dataGridViewTextBoxColumn5.MaxInputLength = 20;
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.Width = 320;
-            // 
-            // columnTotal
-            // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "N2";
-            dataGridViewCellStyle3.NullValue = null;
-            this.columnTotal.DefaultCellStyle = dataGridViewCellStyle3;
-            this.columnTotal.HeaderText = "餘額";
-            this.columnTotal.Name = "columnTotal";
-            this.columnTotal.ReadOnly = true;
-            this.columnTotal.Width = 116;
             // 
             // FormBankDetail
             // 
@@ -415,7 +402,6 @@
             this.Name = "FormBankDetail";
             this.Text = "銀行帳戶明細";
             this.Load += new System.EventHandler(this.FormBankDetail_Load);
-            this.SizeChanged += new System.EventHandler(this.FormBankDetail_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.bankDetailBindingNavigator)).EndInit();
             this.bankDetailBindingNavigator.ResumeLayout(false);
             this.bankDetailBindingNavigator.PerformLayout();
@@ -434,7 +420,6 @@
 
         private VEDataSet vEDataSet;
         private System.Windows.Forms.BindingSource bankDetailBindingSource;
-        private VoucherExpense.VEDataSetTableAdapters.BankDetailTableAdapter bankDetailTableAdapter;
         private System.Windows.Forms.BindingNavigator bankDetailBindingNavigator;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
@@ -449,9 +434,7 @@
         private System.Windows.Forms.ToolStripButton bankDetailBindingNavigatorSaveItem;
         private System.Windows.Forms.DataGridView bankDetailDataGridView;
         private System.Windows.Forms.BindingSource accountingTitleBindingSource;
-        private VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter accountingTitleTableAdapter;
         private System.Windows.Forms.BindingSource bankAccountBindingSource;
-        private VoucherExpense.VEDataSetTableAdapters.BankAccountTableAdapter bankAccountTableAdapter;
         private System.Windows.Forms.MonthCalendar calendar;
         private System.Windows.Forms.ComboBox comboBoxMonth;
         private System.Windows.Forms.ComboBox cbSelectBank;

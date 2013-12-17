@@ -725,7 +725,7 @@ namespace VoucherExpense
             cellID.Value = Guid.NewGuid();
         }
 
-        private void voucherDataGridView_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        private void voucherDataGridView_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)                            
         {
             DataGridView view = (DataGridView)sender;
             DataGridViewRow row = view.Rows[e.RowIndex];

@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +15,8 @@ namespace VoucherExpense
         {
             InitializeComponent();
         }
+
+
         bool ischecked = false;
         private void shipmentBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
@@ -103,16 +105,13 @@ namespace VoucherExpense
 
                 // TODO: 这行代码将数据加载到表“vEDataSet.Operator”中。您可以根据需要移动或删除它。
                 this.operatorTableAdapter.Fill(this.vEDataSet.Operator);
-
-                // TODO: 这行代码将数据加载到表“bakeryOrderSet.Product”中。您可以根据需要移动或删除它。
-                this.productTableAdapter.Fill(this.bakeryOrderSet.Product);
                 // TODO: 这行代码将数据加载到表“bakeryOrderSet.Product”中。您可以根据需要移动或删除它。
                 this.productTableAdapter.Fill(this.bakeryOrderSet.Product);
                 // TODO: 这行代码将数据加载到表“sQLVEDataSet.ShipmentDetail”中。您可以根据需要移动或删除它。
                 this.shipmentDetailTableAdapter.Fill(this.sQLVEDataSet.ShipmentDetail);
                 // TODO: 这行代码将数据加载到表“sQLVEDataSet.Shipment”中。您可以根据需要移动或删除它。
                 this.shipmentTableAdapter.Fill(this.sQLVEDataSet.Shipment);
-                this.supplierTableAdapter.Fill(this.sQLVEDataSet.Supplier);
+                this.customerTableAdapter.Fill(this.sQLVEDataSet.Customer);
                 // var operatorrow=vEDataSet.Operator.Select("OperatorID='" + MyFunction.OperatorID + "'");
                 var opertatorrow = from row in vEDataSet.Operator where row.OperatorID == MyFunction.OperatorID select row;
                 var ro = opertatorrow.First();
@@ -276,7 +275,7 @@ namespace VoucherExpense
                 color = Color.DarkCyan;
             else if ((e.RowIndex % 2) != 0)
                 color = Color.Azure;
-            else
+            else 
                 color = Color.White;
             row.DefaultCellStyle.BackColor = color;
         }
@@ -298,7 +297,7 @@ namespace VoucherExpense
 
             if (removed)
             {//废除单
-                supplierComboBox.Enabled = false;
+                customerComboBox.Enabled = false;
                 dateTimePicker1.Enabled = false;
                 shipTimeTextBox.Enabled = false;
                 shipCodeTextBox.Enabled = false;
@@ -310,7 +309,7 @@ namespace VoucherExpense
             {
                 if (m_edit)
                 {
-                    supplierComboBox.Enabled = true;
+                    customerComboBox.Enabled = true;
                     dateTimePicker1.Enabled = true;
                     shipTimeTextBox.Enabled = true;
                     shipCodeTextBox.Enabled = true;
@@ -324,7 +323,7 @@ namespace VoucherExpense
             }
             if (ischecked)//已核
             {
-                supplierComboBox.Enabled = false;
+                customerComboBox.Enabled = false;
                 dateTimePicker1.Enabled = false;
                 shipTimeTextBox.Enabled = false;
                 shipCodeTextBox.Enabled = false;
@@ -354,7 +353,7 @@ namespace VoucherExpense
                 if (m_edit) { removedCheckBox.Enabled = true; }
                 else
                 {
-                    supplierComboBox.Enabled = true;
+                    customerComboBox.Enabled = true;
                     dateTimePicker1.Enabled = true;
                     shipTimeTextBox.Enabled = true;
                     shipCodeTextBox.Enabled = true;
@@ -371,19 +370,6 @@ namespace VoucherExpense
             else
                 color = Color.White;
             row.DefaultCellStyle.BackColor = color;
-        }
-
-        private void shipmentDetailDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-            DataGridView view = (DataGridView)sender;
-            if (e.RowIndex < 0) return;
-            if (e.ColumnIndex < 0)
-            {
-                MessageBox.Show("ShipmentDetail第" + e.RowIndex.ToString() + "行錯誤:" + e.Exception.Message);
-                return;
-            }
-            DataGridViewCell cell = view.Rows[e.RowIndex].Cells[e.ColumnIndex];
-            MessageBox.Show(string.Format("ShipmentDetail on Row{0} Col[{1}]:{2}", e.RowIndex, view.Columns[e.ColumnIndex].Name, e.Exception.Message));
         }
 
         private void shipmentDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -423,178 +409,78 @@ namespace VoucherExpense
                 }
             this.shipmentDataGridView.Focus();
         }
-        List<ShipmentPrint> m_print = new List<ShipmentPrint>();
         private void tsbtPrint_Click(object sender, EventArgs e)
         {
-            m_print.Clear();
-            Font font = new Font("新宋体", 15, GraphicsUnit.Pixel);
-            Brush brush = new SolidBrush(Color.Black);
-
-            ShipmentPrint print = new ShipmentPrint();
-            print.PrintContent = "客户 " + supplierComboBox.Text + " 出货时间:" + shipTimeTextBox.Text + "总金额 " + costTextBox.Text + "凭证号 " + shipCodeTextBox.Text + "顺序 " + iDLabel1.Text;
-            print.PrintFont = font;
-            print.PrintBrush = brush;
-            print.PrintStartX = 40;
-            print.PrintStartY = 50;
-            m_print.Add(print);
-            print = new ShipmentPrint();
-            print.PrintContent = "名称：";
-            print.PrintFont = font;
-            print.PrintBrush = brush;
-            print.PrintStartX = 50;
-            print.PrintStartY = 70;
-            m_print.Add(print);
-            print = new ShipmentPrint();
-            print.PrintContent = "数量：";
-            print.PrintFont = font;
-            print.PrintBrush = brush;
-            print.PrintStartX = 165;
-            print.PrintStartY = 70;
-            m_print.Add(print);
-            print = new ShipmentPrint();
-            print.PrintContent = "金额：";
-            print.PrintFont = font;
-            print.PrintBrush = brush;
-            print.PrintStartX = 290;
-            print.PrintStartY = 70;
-            m_print.Add(print);
-            int y = 70;
-            //for (int i = 0; i < shipmentDetailDataGridView.Rows.Count; i++)
-            //{
-            //    y = y + 30;
-            //  ShipmentPrint print1 = new ShipmentPrint();
-            //print1.PrintContent = shipmentDetailDataGridView.Rows[i].Cells["dgvColumnProductID"].ToString();
-            //    print1.PrintFont = font;
-            //    print1.PrintBrush = brush;
-            //    print1.PrintStartX = 50;
-            //    print1.PrintStartY = y;
-            //    m_print.Add(print1);
-            //    print1 = new ShipmentPrint();
-            //    print1.PrintContent = shipmentDetailDataGridView.Rows[i].Cells["dgvColumnVolume"].Value.ToString();
-            //    print1.PrintFont = font;
-            //    print1.PrintBrush = brush;
-            //    print1.PrintStartX = 165;
-            //    print1.PrintStartY = y;
-            //    m_print.Add(print1);
-            //    print1 = new ShipmentPrint();
-            //    print1.PrintContent = shipmentDetailDataGridView.Rows[i].Cells["dgvCostColumn"].Value.ToString();
-            //    print1.PrintFont = font;
-            //    print1.PrintBrush = brush;
-            //    print1.PrintStartX = 290;
-            //    print1.PrintStartY = y;
-            //    m_print.Add(print1);
-            //}
-            DataRowView dv = shipmentBindingSource.Current as DataRowView;
-            SQLVEDataSet.ShipmentRow row = dv.Row as SQLVEDataSet.ShipmentRow;
-            SQLVEDataSet.ShipmentDetailRow[] DetailRows= row.GetShipmentDetailRows();
-            foreach (var item in DetailRows)
+            DataRowView rowview=shipmentBindingSource.Current as DataRowView;
+            SQLVEDataSet.ShipmentRow row = rowview.Row as SQLVEDataSet.ShipmentRow;
+            var  customerrows =from ro in sQLVEDataSet.Customer where(ro.CustomerID==row.Customer) select ro;
+            var customerrow=customerrows.First();
+            Shipmentprint smp = new Shipmentprint();
+            smp.ShipmentNumber = row.ID.ToString();
+            smp.ContactPeople = customerrow.ContactPeople;
+            smp.CustomerName = customerrow.Name;
+            smp.ShipAddress = customerrow.Address;
+            smp.ContactPhone = customerrow.Telephone;
+            smp.EntryTime = row.LastUpdated.ToString("yyyyMMdd");
+            smp.ShipTime = row.ShipTime.ToString("yyyyMMdd");
+            var shipmetdetailrows=row.GetShipmentDetailRows();
+            if(shipmetdetailrows.Count()==0)
+                return ;
+            List<List<Shipmentdetailprint>> lists = new List<List<Shipmentdetailprint>>();
+            int inttemp=shipmetdetailrows.Count()/12;
+            for (int j = 0; j <=inttemp; j++)
             {
-                y = y + 30;
-                ShipmentPrint print1 = new ShipmentPrint();
-                var  productrow=from ro in bakeryOrderSet.Product where (ro.ProductID==item.ProductID) select ro;
-                print1.PrintContent =productrow.First().Name .ToString();
-                print1.PrintFont = font;
-                print1.PrintBrush = brush;
-                print1.PrintStartX = 50;
-                print1.PrintStartY = y;
-                m_print.Add(print1);
-                print1 = new ShipmentPrint();
-                if(!item.IsVolumeNull())
-                print1.PrintContent = item.Volume.ToString();
-                print1.PrintFont = font;
-                print1.PrintBrush = brush;
-                print1.PrintStartX = 165;
-                print1.PrintStartY = y;
-                m_print.Add(print1);
-                print1 = new ShipmentPrint();
-                if (!item.IsCostNull())
-                print1.PrintContent = item.Cost.ToString();
-                print1.PrintFont = font;
-                print1.PrintBrush = brush;
-                print1.PrintStartX = 290;
-                print1.PrintStartY = y;
-                m_print.Add(print1);
-                
+
+                List<Shipmentdetailprint> listshipmentdetail = new List<Shipmentdetailprint>();
+                for (int i = j*12; i < shipmetdetailrows.Count(); i++)
+                {
+                    if (i < (j + 1) * 12)
+                    {
+                        
+                   
+                    var temrow = shipmetdetailrows[i];
+                    var productrow = from r in bakeryOrderSet.Product where (r.ProductID == temrow.ProductID) select r;
+
+                    Shipmentdetailprint smdp = new Shipmentdetailprint();
+                    smdp.Num = (i + 1) / 12+1;
+                    smdp.NumCount = inttemp+1;
+                    smdp.ProductName = productrow.First().Name;
+                    smdp.Unit = productrow.First().Unit;
+                    // smdp.ProductSpecifications = productrow.First().ProductSpecificatiions;规格
+                    smdp.Volum = temrow.Volume;
+                    listshipmentdetail.Add(smdp); 
+                    }
+                }
+                lists.Add(listshipmentdetail);
             }
-            pD.Print();
+            smp.ShipmentDetileProduct = lists;
+            FormShipmentPrint form = new FormShipmentPrint(smp);
+            form.Show();
         }
-
-        private void pD_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
-        {
-            if (m_print == null)
-                return;
-            foreach (var item in m_print)
-            {
-                e.Graphics.DrawString(item.PrintContent, item.PrintFont, item.PrintBrush, item.PrintStartX, item.PrintStartY);
-            }
-
-        }
-
         private void costTextBox_TextChanged(object sender, EventArgs e)
         {
 
         }
-
         private void costTextBox_Validated(object sender, EventArgs e)
         {
 
         }
 
+        private void shipmentDetailDataGridView_DataError_1(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            DataGridView view = (DataGridView)sender;
+            if (e.RowIndex < 0) return;
+            if (e.ColumnIndex < 0)
+            {
+                MessageBox.Show("ShipmentDetail第" + e.RowIndex.ToString() + "行錯誤:" + e.Exception.Message);
+                return;
+            }
+            DataGridViewCell cell = view.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            MessageBox.Show(string.Format("ShipmentDetail on Row{0} Col[{1}]:{2}", e.RowIndex, view.Columns[e.ColumnIndex].Name, e.Exception.Message));
+        }
+
 
     }
-    //void print()
-    //{
-    //    print dt = new DataTable("printdt");
-    //    printdt.Columns.Add("内容", Type.GetType("System.String"));
-    //    printdt.Columns.Add("居左", Type.GetType("System.Int32"));
-    //    printdt.Columns.Add("居上", Type.GetType("System.Int32"));
-    //    if (this.listBox1.Items.Count == 0)
-    //    {
-    //        return;
-    //    }
-    //    int x = 0;
-    //    int y = 0;//距离顶端距离
-    //    for (int i = 0; i < this.listBox1.Items.Count; i++)
-    //    {
-    //        string s = this.listBox1.Items[i].ToString();
-    //        str = s.Split(new char[] { '(', ')' });
-    //        //查询数据
-
-    //        var selectShiptmentrow = sQLVEDataSet.Shipment.Select("Supplier='" + str[1] + "'and entrytime>=#" + Convert.ToDateTime(str[3]) + "#and entrytime<=#" + Convert.ToDateTime(str[5]) + "#");
-    //        foreach (var item in selectShiptmentrow)
-    //        {
-    //            y = y + 30;
-    //            printdt.Rows.Add(new object[] { "客户：" + str[0] + "   凭证号：" + item["ShipCode"] + "    出货时间：" + ((DateTime)item["shipTime"]).ToShortDateString() + "    总金额" + item[3], 20, y });//
-    //            y = y + 20;
-    //            printdt.Rows.Add(new object[] { "名称", 35, y });
-    //            printdt.Rows.Add(new object[] { "数量", 155, y });
-    //            printdt.Rows.Add(new object[] { "金额", 275, y });
-    //            var selectShipmentdetailrow = sQLVEDataSet.ShipmentDetail.Select("shipmentid='" + item["id"].ToString() + "'");
-    //            foreach (var item1 in selectShipmentdetailrow)
-    //            {
-    //                var productrow = bakeryOrderSet.Product.Select("ProductID='" + item1["ProductID"].ToString() + "'");
-    //                if (productrow == null)
-    //                    break;
-    //                y = y + 20;
-    //                printdt.Rows.Add(new object[] { productrow[0]["Name"], 35, y });
-    //                printdt.Rows.Add(new object[] { item1["Volume"], 155, y });
-    //                printdt.Rows.Add(new object[] { item1["Cost"], 275, y });
-    //            }
-    //        }
-
-    //    }
-    //    pD.Print();
-    //}
-    class ShipmentPrint
-    {
-        public string PrintContent { get; set; }
-        public Font PrintFont { get; set; }
-        public Brush PrintBrush { get; set; }
-        public int PrintStartX { get; set; }
-        public int PrintStartY { get; set; }
-
-    }
-
 
 
 }

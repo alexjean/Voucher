@@ -218,6 +218,12 @@
     <Compile Include="FormCashierAuthen.Designer.cs">
       <DependentUpon>FormCashierAuthen.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormCustomer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCustomer.Designer.cs">
+      <DependentUpon>FormCustomer.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormDateRange.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -362,17 +368,17 @@
     <Compile Include="FormShipment.Designer.cs">
       <DependentUpon>FormShipment.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormShipmentPrint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormShipmentPrint.Designer.cs">
+      <DependentUpon>FormShipmentPrint.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormShrink.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormShrink.Designer.cs">
       <DependentUpon>FormShrink.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormSupplier.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormSupplier.Designer.cs">
-      <DependentUpon>FormSupplier.cs</DependentUpon>
     </Compile>
     <Compile Include="FormTitleSetup.cs">
       <SubType>Form</SubType>
@@ -482,6 +488,9 @@
     <EmbeddedResource Include="FormCashierAuthen.resx">
       <DependentUpon>FormCashierAuthen.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormCustomer.resx">
+      <DependentUpon>FormCustomer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormDateRange.resx">
       <SubType>Designer</SubType>
       <DependentUpon>FormDateRange.cs</DependentUpon>
@@ -565,11 +574,11 @@
     <EmbeddedResource Include="FormShipment.resx">
       <DependentUpon>FormShipment.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormShipmentPrint.resx">
+      <DependentUpon>FormShipmentPrint.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormShrink.resx">
       <DependentUpon>FormShrink.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormSupplier.resx">
-      <DependentUpon>FormSupplier.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormTitleSetup.resx">
       <DependentUpon>FormTitleSetup.cs</DependentUpon>
@@ -774,6 +783,8 @@
     <None Include="Resources\LogoVI.jpg" />
     <None Include="Resources\Company_Back.jpg" />
     <Content Include="Resources\Requests.png" />
+    <None Include="Resources\shipment.png" />
+    <None Include="Resources\shipment1.png" />
     <Content Include="VoucherExpense.mdb" />
   </ItemGroup>
   <ItemGroup>

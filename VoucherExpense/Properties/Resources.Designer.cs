@@ -95,6 +95,13 @@ namespace VoucherExpense.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap shipment1 {
+            get {
+                object obj = ResourceManager.GetObject("shipment1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static byte[] VoucherExpense {
             get {
                 object obj = ResourceManager.GetObject("VoucherExpense", resourceCulture);

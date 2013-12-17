@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormBillList));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -60,9 +60,9 @@
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.tSBtEndit = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.dateTimetoolStripCbB = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.dateTimetoolStripCbB = new System.Windows.Forms.ToolStripComboBox();
             this.paymenMethodsTextBox = new System.Windows.Forms.TextBox();
             this.moneyAaTextBox = new System.Windows.Forms.TextBox();
             this.moneyATextBox = new System.Windows.Forms.TextBox();
@@ -93,6 +93,8 @@
             this.requestsTableAdapter = new VoucherExpense.VEDataSetTableAdapters.RequestsTableAdapter();
             this.pD = new System.Drawing.Printing.PrintDocument();
             this.apartmentTableAdapter1 = new VoucherExpense.VEDataSetTableAdapters.ApartmentTableAdapter();
+            this.sqlveDataSet = new VoucherExpense.SQLVEDataSet();
+            this.requestsSQLTableAdapter = new VoucherExpense.SQLVEDataSetTableAdapters.RequestsTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -103,6 +105,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.requestsBindingNavigator)).BeginInit();
             this.requestsBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.requestsDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sqlveDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -279,7 +282,7 @@
             this.requestsBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.requestsBindingNavigator.Name = "requestsBindingNavigator";
             this.requestsBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.requestsBindingNavigator.Size = new System.Drawing.Size(487, 25);
+            this.requestsBindingNavigator.Size = new System.Drawing.Size(456, 25);
             this.requestsBindingNavigator.TabIndex = 10;
             this.requestsBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -297,7 +300,7 @@
             // 
             this.bindingNavigatorCountItem.Enabled = false;
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(32, 26);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(32, 22);
             this.bindingNavigatorCountItem.Text = "/ {0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
@@ -307,7 +310,7 @@
             this.bindingNavigatorMoveFirstItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveFirstItem.Image")));
             this.bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
             this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(23, 26);
+            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorMoveFirstItem.Text = "移到最前面";
             // 
             // bindingNavigatorMovePreviousItem
@@ -316,13 +319,13 @@
             this.bindingNavigatorMovePreviousItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMovePreviousItem.Image")));
             this.bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
             this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(23, 26);
+            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorMovePreviousItem.Text = "移到上一個";
             // 
             // bindingNavigatorSeparator
             // 
             this.bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
-            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 29);
+            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 25);
             // 
             // bindingNavigatorPositionItem
             // 
@@ -337,7 +340,7 @@
             // bindingNavigatorSeparator1
             // 
             this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
-            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 29);
+            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // bindingNavigatorMoveNextItem
             // 
@@ -345,7 +348,7 @@
             this.bindingNavigatorMoveNextItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveNextItem.Image")));
             this.bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
             this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(23, 26);
+            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorMoveNextItem.Text = "移到下一個";
             // 
             // bindingNavigatorMoveLastItem
@@ -354,13 +357,13 @@
             this.bindingNavigatorMoveLastItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveLastItem.Image")));
             this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
             this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 26);
+            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorMoveLastItem.Text = "移到最後面";
             // 
             // bindingNavigatorSeparator2
             // 
             this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
-            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 29);
+            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // requestsBindingNavigatorSaveItem
             // 
@@ -368,7 +371,7 @@
             this.requestsBindingNavigatorSaveItem.Enabled = false;
             this.requestsBindingNavigatorSaveItem.Image = ((System.Drawing.Image)(resources.GetObject("requestsBindingNavigatorSaveItem.Image")));
             this.requestsBindingNavigatorSaveItem.Name = "requestsBindingNavigatorSaveItem";
-            this.requestsBindingNavigatorSaveItem.Size = new System.Drawing.Size(23, 26);
+            this.requestsBindingNavigatorSaveItem.Size = new System.Drawing.Size(23, 22);
             this.requestsBindingNavigatorSaveItem.Text = "儲存資料";
             this.requestsBindingNavigatorSaveItem.Click += new System.EventHandler(this.requestsBindingNavigatorSaveItem_Click);
             // 
@@ -378,19 +381,19 @@
             this.列印PToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("列印PToolStripButton.Image")));
             this.列印PToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.列印PToolStripButton.Name = "列印PToolStripButton";
-            this.列印PToolStripButton.Size = new System.Drawing.Size(23, 26);
+            this.列印PToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.列印PToolStripButton.Text = "列印(&P)";
             this.列印PToolStripButton.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 29);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 29);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
             // 
             // tSBtEndit
             // 
@@ -398,25 +401,14 @@
             this.tSBtEndit.Image = ((System.Drawing.Image)(resources.GetObject("tSBtEndit.Image")));
             this.tSBtEndit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tSBtEndit.Name = "tSBtEndit";
-            this.tSBtEndit.Size = new System.Drawing.Size(36, 26);
+            this.tSBtEndit.Size = new System.Drawing.Size(36, 22);
             this.tSBtEndit.Text = "编辑";
             this.tSBtEndit.Click += new System.EventHandler(this.tSBtEndit_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 29);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 29);
-            // 
-            // toolStripLabel1
-            // 
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(44, 26);
-            this.toolStripLabel1.Text = "日期：";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // dateTimetoolStripCbB
             // 
@@ -435,8 +427,19 @@
             "十一",
             "十二"});
             this.dateTimetoolStripCbB.Name = "dateTimetoolStripCbB";
-            this.dateTimetoolStripCbB.Size = new System.Drawing.Size(75, 29);
+            this.dateTimetoolStripCbB.Size = new System.Drawing.Size(75, 25);
             this.dateTimetoolStripCbB.SelectedIndexChanged += new System.EventHandler(this.dateTimetoolStripCbB_SelectedIndexChanged);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(44, 22);
+            this.toolStripLabel1.Text = "日期：";
             // 
             // paymenMethodsTextBox
             // 
@@ -533,22 +536,22 @@
             // 
             this.requestsDataGridView.AllowUserToAddRows = false;
             this.requestsDataGridView.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.requestsDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.requestsDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.requestsDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.requestsDataGridView.AutoGenerateColumns = false;
             this.requestsDataGridView.BackgroundColor = System.Drawing.Color.White;
             this.requestsDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("PMingLiU", 12F);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.requestsDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("PMingLiU", 12F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.requestsDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.requestsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.requestsDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dgvColRequestsID,
@@ -575,7 +578,7 @@
             this.requestsDataGridView.RowHeadersVisible = false;
             this.requestsDataGridView.RowTemplate.Height = 23;
             this.requestsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.requestsDataGridView.Size = new System.Drawing.Size(1165, 266);
+            this.requestsDataGridView.Size = new System.Drawing.Size(1165, 265);
             this.requestsDataGridView.TabIndex = 0;
             this.requestsDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.requestsDataGridView_DataError);
             this.requestsDataGridView.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.requestsDataGridView_RowPostPaint);
@@ -744,6 +747,15 @@
             // 
             this.apartmentTableAdapter1.ClearBeforeFill = true;
             // 
+            // sqlveDataSet
+            // 
+            this.sqlveDataSet.DataSetName = "SQLVEDataSet";
+            this.sqlveDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // requestsSQLTableAdapter
+            // 
+            this.requestsSQLTableAdapter.ClearBeforeFill = true;
+            // 
             // FormBillList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -767,6 +779,7 @@
             this.requestsBindingNavigator.ResumeLayout(false);
             this.requestsBindingNavigator.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.requestsDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sqlveDataSet)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -834,6 +847,8 @@
         private System.Windows.Forms.TextBox billingDateTextBox;
         private VEDataSetTableAdapters.ApartmentTableAdapter apartmentTableAdapter1;
         private System.Windows.Forms.TextBox textBox1;
+        private SQLVEDataSet sqlveDataSet;
+        private SQLVEDataSetTableAdapters.RequestsTableAdapter requestsSQLTableAdapter;
 
 
 

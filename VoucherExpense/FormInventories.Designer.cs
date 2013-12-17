@@ -916,7 +916,7 @@
             this.tableAdapterManager.ProductScrappedTableAdapter = null;
             this.tableAdapterManager.ShipmentDetailTableAdapter = null;
             this.tableAdapterManager.ShipmentTableAdapter = null;
-            this.tableAdapterManager.SupplierTableAdapter = null;
+            this.tableAdapterManager.CustomerTableAdapter = null;
             this.tableAdapterManager.UpdateOrder = VoucherExpense.SQLVEDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // inventoryDetailTableAdapter1

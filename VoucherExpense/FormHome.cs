@@ -447,7 +447,7 @@ namespace VoucherExpense
 
         private void 客户ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PopupOrRun("FormSupplier", typeof(FormSupplier));
+            PopupOrRun("FormSupplier", typeof(FormCustomer));
         }
 
         private void 出货MenuItem_Click(object sender, EventArgs e)

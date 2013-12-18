@@ -65,9 +65,7 @@ namespace VoucherExpense
             this.operatorTableAdapter.Update(this.vEDataSet.Operator);
             this.vEDataSet.Operator.AcceptChanges();
 #endif
-
         }
-
         private void FormOperator_Load(object sender, EventArgs e)
         {
             try

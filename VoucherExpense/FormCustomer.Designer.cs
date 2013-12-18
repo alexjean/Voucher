@@ -1,6 +1,6 @@
 ﻿namespace VoucherExpense
 {
-    partial class FormSupplier
+    partial class FormCustomer
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.Label supplierIDLabel;
+            System.Windows.Forms.Label customerIDLabel;
             System.Windows.Forms.Label nameLabel;
             System.Windows.Forms.Label fullNameLabel;
             System.Windows.Forms.Label contactPeopleLabel;
@@ -39,12 +39,12 @@
             System.Windows.Forms.Label noteLabel;
             System.Windows.Forms.Label hideLabel;
             System.Windows.Forms.Label lastUpdatedLabel;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSupplier));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCustomer));
             this.sQLVEDataSet = new VoucherExpense.SQLVEDataSet();
-            this.supplierBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.supplierTableAdapter = new VoucherExpense.SQLVEDataSetTableAdapters.SupplierTableAdapter();
+            this.customerBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.customerTableAdapter = new VoucherExpense.SQLVEDataSetTableAdapters.CustomerTableAdapter();
             this.tableAdapterManager = new VoucherExpense.SQLVEDataSetTableAdapters.TableAdapterManager();
-            this.supplierBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
+            this.customerBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
@@ -56,19 +56,14 @@
             this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.supplierBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
-            this.supplierDataGridView = new System.Windows.Forms.DataGridView();
-            this.ColumnSupplierID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.customerBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
+            this.customerDataGridView = new System.Windows.Forms.DataGridView();
+            this.ColumnCustomerID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.supplierIDTextBox = new System.Windows.Forms.TextBox();
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.fullNameTextBox = new System.Windows.Forms.TextBox();
             this.contactPeopleTextBox = new System.Windows.Forms.TextBox();
@@ -77,8 +72,9 @@
             this.addressTextBox = new System.Windows.Forms.TextBox();
             this.noteTextBox = new System.Windows.Forms.TextBox();
             this.hideCheckBox = new System.Windows.Forms.CheckBox();
-            this.lastUpdatedTextBox = new System.Windows.Forms.TextBox();
-            supplierIDLabel = new System.Windows.Forms.Label();
+            this.lastUpdatedLabel1 = new System.Windows.Forms.Label();
+            this.customerIDLabel2 = new System.Windows.Forms.Label();
+            customerIDLabel = new System.Windows.Forms.Label();
             nameLabel = new System.Windows.Forms.Label();
             fullNameLabel = new System.Windows.Forms.Label();
             contactPeopleLabel = new System.Windows.Forms.Label();
@@ -89,25 +85,25 @@
             hideLabel = new System.Windows.Forms.Label();
             lastUpdatedLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.sQLVEDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.supplierBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.supplierBindingNavigator)).BeginInit();
-            this.supplierBindingNavigator.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.supplierDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.customerBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.customerBindingNavigator)).BeginInit();
+            this.customerBindingNavigator.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.customerDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
-            // supplierIDLabel
+            // customerIDLabel
             // 
-            supplierIDLabel.AutoSize = true;
-            supplierIDLabel.Location = new System.Drawing.Point(610, 76);
-            supplierIDLabel.Name = "supplierIDLabel";
-            supplierIDLabel.Size = new System.Drawing.Size(44, 16);
-            supplierIDLabel.TabIndex = 2;
-            supplierIDLabel.Text = "内码:";
+            customerIDLabel.AutoSize = true;
+            customerIDLabel.Location = new System.Drawing.Point(610, 56);
+            customerIDLabel.Name = "customerIDLabel";
+            customerIDLabel.Size = new System.Drawing.Size(44, 16);
+            customerIDLabel.TabIndex = 2;
+            customerIDLabel.Text = "内码:";
             // 
             // nameLabel
             // 
             nameLabel.AutoSize = true;
-            nameLabel.Location = new System.Drawing.Point(610, 115);
+            nameLabel.Location = new System.Drawing.Point(610, 101);
             nameLabel.Name = "nameLabel";
             nameLabel.Size = new System.Drawing.Size(44, 16);
             nameLabel.TabIndex = 4;
@@ -116,7 +112,7 @@
             // fullNameLabel
             // 
             fullNameLabel.AutoSize = true;
-            fullNameLabel.Location = new System.Drawing.Point(610, 158);
+            fullNameLabel.Location = new System.Drawing.Point(610, 146);
             fullNameLabel.Name = "fullNameLabel";
             fullNameLabel.Size = new System.Drawing.Size(44, 16);
             fullNameLabel.TabIndex = 6;
@@ -125,7 +121,7 @@
             // contactPeopleLabel
             // 
             contactPeopleLabel.AutoSize = true;
-            contactPeopleLabel.Location = new System.Drawing.Point(610, 202);
+            contactPeopleLabel.Location = new System.Drawing.Point(610, 191);
             contactPeopleLabel.Name = "contactPeopleLabel";
             contactPeopleLabel.Size = new System.Drawing.Size(60, 16);
             contactPeopleLabel.TabIndex = 8;
@@ -134,7 +130,7 @@
             // telephoneLabel
             // 
             telephoneLabel.AutoSize = true;
-            telephoneLabel.Location = new System.Drawing.Point(610, 243);
+            telephoneLabel.Location = new System.Drawing.Point(610, 236);
             telephoneLabel.Name = "telephoneLabel";
             telephoneLabel.Size = new System.Drawing.Size(44, 16);
             telephoneLabel.TabIndex = 10;
@@ -143,7 +139,7 @@
             // gSMLabel
             // 
             gSMLabel.AutoSize = true;
-            gSMLabel.Location = new System.Drawing.Point(610, 275);
+            gSMLabel.Location = new System.Drawing.Point(610, 281);
             gSMLabel.Name = "gSMLabel";
             gSMLabel.Size = new System.Drawing.Size(44, 16);
             gSMLabel.TabIndex = 12;
@@ -152,7 +148,7 @@
             // addressLabel
             // 
             addressLabel.AutoSize = true;
-            addressLabel.Location = new System.Drawing.Point(610, 309);
+            addressLabel.Location = new System.Drawing.Point(610, 326);
             addressLabel.Name = "addressLabel";
             addressLabel.Size = new System.Drawing.Size(44, 16);
             addressLabel.TabIndex = 14;
@@ -161,7 +157,7 @@
             // noteLabel
             // 
             noteLabel.AutoSize = true;
-            noteLabel.Location = new System.Drawing.Point(610, 345);
+            noteLabel.Location = new System.Drawing.Point(610, 371);
             noteLabel.Name = "noteLabel";
             noteLabel.Size = new System.Drawing.Size(44, 16);
             noteLabel.TabIndex = 16;
@@ -170,7 +166,7 @@
             // hideLabel
             // 
             hideLabel.AutoSize = true;
-            hideLabel.Location = new System.Drawing.Point(610, 414);
+            hideLabel.Location = new System.Drawing.Point(610, 455);
             hideLabel.Name = "hideLabel";
             hideLabel.Size = new System.Drawing.Size(44, 16);
             hideLabel.TabIndex = 18;
@@ -179,29 +175,30 @@
             // lastUpdatedLabel
             // 
             lastUpdatedLabel.AutoSize = true;
-            lastUpdatedLabel.Location = new System.Drawing.Point(610, 462);
+            lastUpdatedLabel.Location = new System.Drawing.Point(610, 491);
             lastUpdatedLabel.Name = "lastUpdatedLabel";
-            lastUpdatedLabel.Size = new System.Drawing.Size(56, 16);
+            lastUpdatedLabel.Size = new System.Drawing.Size(60, 16);
             lastUpdatedLabel.TabIndex = 20;
-            lastUpdatedLabel.Text = "更新日";
+            lastUpdatedLabel.Text = "更新日:";
             // 
             // sQLVEDataSet
             // 
             this.sQLVEDataSet.DataSetName = "SQLVEDataSet";
             this.sQLVEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // supplierBindingSource
+            // customerBindingSource
             // 
-            this.supplierBindingSource.DataMember = "Supplier";
-            this.supplierBindingSource.DataSource = this.sQLVEDataSet;
+            this.customerBindingSource.DataMember = "Customer";
+            this.customerBindingSource.DataSource = this.sQLVEDataSet;
             // 
-            // supplierTableAdapter
+            // customerTableAdapter
             // 
-            this.supplierTableAdapter.ClearBeforeFill = true;
+            this.customerTableAdapter.ClearBeforeFill = true;
             // 
             // tableAdapterManager
             // 
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.CustomerTableAdapter = this.customerTableAdapter;
             this.tableAdapterManager.InventoryDetailTableAdapter = null;
             this.tableAdapterManager.InventoryProductsTableAdapter = null;
             this.tableAdapterManager.InventoryTableAdapter = null;
@@ -209,17 +206,16 @@
             this.tableAdapterManager.ProductScrappedTableAdapter = null;
             this.tableAdapterManager.ShipmentDetailTableAdapter = null;
             this.tableAdapterManager.ShipmentTableAdapter = null;
-            this.tableAdapterManager.SupplierTableAdapter = this.supplierTableAdapter;
             this.tableAdapterManager.UpdateOrder = VoucherExpense.SQLVEDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
-            // supplierBindingNavigator
+            // customerBindingNavigator
             // 
-            this.supplierBindingNavigator.AddNewItem = this.bindingNavigatorAddNewItem;
-            this.supplierBindingNavigator.BindingSource = this.supplierBindingSource;
-            this.supplierBindingNavigator.CountItem = this.bindingNavigatorCountItem;
-            this.supplierBindingNavigator.DeleteItem = this.bindingNavigatorDeleteItem;
-            this.supplierBindingNavigator.Dock = System.Windows.Forms.DockStyle.None;
-            this.supplierBindingNavigator.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.customerBindingNavigator.AddNewItem = this.bindingNavigatorAddNewItem;
+            this.customerBindingNavigator.BindingSource = this.customerBindingSource;
+            this.customerBindingNavigator.CountItem = this.bindingNavigatorCountItem;
+            this.customerBindingNavigator.DeleteItem = this.bindingNavigatorDeleteItem;
+            this.customerBindingNavigator.Dock = System.Windows.Forms.DockStyle.None;
+            this.customerBindingNavigator.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bindingNavigatorMoveFirstItem,
             this.bindingNavigatorMovePreviousItem,
             this.bindingNavigatorSeparator,
@@ -231,17 +227,18 @@
             this.bindingNavigatorSeparator2,
             this.bindingNavigatorAddNewItem,
             this.bindingNavigatorDeleteItem,
-            this.supplierBindingNavigatorSaveItem});
-            this.supplierBindingNavigator.Location = new System.Drawing.Point(605, 6);
-            this.supplierBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
-            this.supplierBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
-            this.supplierBindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
-            this.supplierBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
-            this.supplierBindingNavigator.Name = "supplierBindingNavigator";
-            this.supplierBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.supplierBindingNavigator.Size = new System.Drawing.Size(275, 25);
-            this.supplierBindingNavigator.TabIndex = 0;
-            this.supplierBindingNavigator.Text = "bindingNavigator1";
+            this.customerBindingNavigatorSaveItem});
+            this.customerBindingNavigator.Location = new System.Drawing.Point(588, 3);
+            this.customerBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
+            this.customerBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
+            this.customerBindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
+            this.customerBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
+            this.customerBindingNavigator.Name = "customerBindingNavigator";
+            this.customerBindingNavigator.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
+            this.customerBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
+            this.customerBindingNavigator.Size = new System.Drawing.Size(330, 25);
+            this.customerBindingNavigator.TabIndex = 0;
+            this.customerBindingNavigator.Text = "bindingNavigator1";
             // 
             // bindingNavigatorAddNewItem
             // 
@@ -251,7 +248,7 @@
             this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorAddNewItem.Text = "新添";
-            this.bindingNavigatorAddNewItem.Click += new System.EventHandler(this.bindingNavigatorAddNewItem_Click);
+            this.bindingNavigatorAddNewItem.Click += new System.EventHandler(this.bindingNavigatorAddNewItem_Click_1);
             // 
             // bindingNavigatorCountItem
             // 
@@ -297,7 +294,7 @@
             this.bindingNavigatorPositionItem.AccessibleName = "位置";
             this.bindingNavigatorPositionItem.AutoSize = false;
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
-            this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
+            this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(73, 23);
             this.bindingNavigatorPositionItem.Text = "0";
             this.bindingNavigatorPositionItem.ToolTipText = "当前位置";
             // 
@@ -329,44 +326,43 @@
             this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
             this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
-            // supplierBindingNavigatorSaveItem
+            // customerBindingNavigatorSaveItem
             // 
-            this.supplierBindingNavigatorSaveItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.supplierBindingNavigatorSaveItem.Name = "supplierBindingNavigatorSaveItem";
-            this.supplierBindingNavigatorSaveItem.Size = new System.Drawing.Size(23, 22);
-            this.supplierBindingNavigatorSaveItem.Text = "保存数据";
-            this.supplierBindingNavigatorSaveItem.Click += new System.EventHandler(this.supplierBindingNavigatorSaveItem_Click);
+            this.customerBindingNavigatorSaveItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.customerBindingNavigatorSaveItem.Image = ((System.Drawing.Image)(resources.GetObject("customerBindingNavigatorSaveItem.Image")));
+            this.customerBindingNavigatorSaveItem.Name = "customerBindingNavigatorSaveItem";
+            this.customerBindingNavigatorSaveItem.Size = new System.Drawing.Size(23, 22);
+            this.customerBindingNavigatorSaveItem.Text = "保存数据";
+            this.customerBindingNavigatorSaveItem.Click += new System.EventHandler(this.customerBindingNavigatorSaveItem_Click);
             // 
-            // supplierDataGridView
+            // customerDataGridView
             // 
-            this.supplierDataGridView.AutoGenerateColumns = false;
-            this.supplierDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
-            this.supplierDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.supplierDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColumnSupplierID,
+            this.customerDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.customerDataGridView.AutoGenerateColumns = false;
+            this.customerDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
+            this.customerDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.customerDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ColumnCustomerID,
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn4,
             this.dataGridViewTextBoxColumn5,
-            this.dataGridViewTextBoxColumn6,
-            this.dataGridViewTextBoxColumn7,
-            this.dataGridViewTextBoxColumn8,
-            this.dataGridViewTextBoxColumn9,
             this.dataGridViewCheckBoxColumn1});
-            this.supplierDataGridView.DataSource = this.supplierBindingSource;
-            this.supplierDataGridView.Location = new System.Drawing.Point(-2, 1);
-            this.supplierDataGridView.Name = "supplierDataGridView";
-            this.supplierDataGridView.RowTemplate.Height = 23;
-            this.supplierDataGridView.Size = new System.Drawing.Size(572, 522);
-            this.supplierDataGridView.TabIndex = 1;
-            this.supplierDataGridView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.supplierDataGridView_CellBeginEdit);
+            this.customerDataGridView.DataSource = this.customerBindingSource;
+            this.customerDataGridView.Location = new System.Drawing.Point(0, 3);
+            this.customerDataGridView.Name = "customerDataGridView";
+            this.customerDataGridView.RowTemplate.Height = 23;
+            this.customerDataGridView.Size = new System.Drawing.Size(572, 522);
+            this.customerDataGridView.TabIndex = 1;
+            this.customerDataGridView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.customerDataGridView_CellBeginEdit);
             // 
-            // ColumnSupplierID
+            // ColumnCustomerID
             // 
-            this.ColumnSupplierID.DataPropertyName = "SupplierID";
-            this.ColumnSupplierID.HeaderText = "内码";
-            this.ColumnSupplierID.Name = "ColumnSupplierID";
-            this.ColumnSupplierID.Width = 65;
+            this.ColumnCustomerID.DataPropertyName = "CustomerID";
+            this.ColumnCustomerID.HeaderText = "内码";
+            this.ColumnCustomerID.Name = "ColumnCustomerID";
+            this.ColumnCustomerID.Width = 80;
             // 
             // dataGridViewTextBoxColumn2
             // 
@@ -379,6 +375,7 @@
             this.dataGridViewTextBoxColumn3.DataPropertyName = "ContactPeople";
             this.dataGridViewTextBoxColumn3.HeaderText = "联络人";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.Width = 90;
             // 
             // dataGridViewTextBoxColumn4
             // 
@@ -392,136 +389,104 @@
             this.dataGridViewTextBoxColumn5.HeaderText = "手机";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "Address";
-            this.dataGridViewTextBoxColumn6.HeaderText = "Address";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.DataPropertyName = "Note";
-            this.dataGridViewTextBoxColumn7.HeaderText = "Note";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            this.dataGridViewTextBoxColumn7.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.DataPropertyName = "LastUpdated";
-            this.dataGridViewTextBoxColumn8.HeaderText = "LastUpdated";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            this.dataGridViewTextBoxColumn8.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.DataPropertyName = "FullName";
-            this.dataGridViewTextBoxColumn9.HeaderText = "FullName";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            this.dataGridViewTextBoxColumn9.Visible = false;
-            // 
             // dataGridViewCheckBoxColumn1
             // 
             this.dataGridViewCheckBoxColumn1.DataPropertyName = "Hide";
-            this.dataGridViewCheckBoxColumn1.FillWeight = 50F;
             this.dataGridViewCheckBoxColumn1.HeaderText = "隐";
             this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
             this.dataGridViewCheckBoxColumn1.Width = 50;
             // 
-            // supplierIDTextBox
-            // 
-            this.supplierIDTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.supplierIDTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.supplierIDTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplierBindingSource, "SupplierID", true));
-            this.supplierIDTextBox.Location = new System.Drawing.Point(675, 76);
-            this.supplierIDTextBox.Name = "supplierIDTextBox";
-            this.supplierIDTextBox.Size = new System.Drawing.Size(66, 20);
-            this.supplierIDTextBox.TabIndex = 3;
-            // 
             // nameTextBox
             // 
-            this.nameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplierBindingSource, "Name", true));
-            this.nameTextBox.Location = new System.Drawing.Point(675, 112);
+            this.nameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.customerBindingSource, "Name", true));
+            this.nameTextBox.Location = new System.Drawing.Point(669, 95);
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(233, 27);
             this.nameTextBox.TabIndex = 5;
             // 
             // fullNameTextBox
             // 
-            this.fullNameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplierBindingSource, "FullName", true));
-            this.fullNameTextBox.Location = new System.Drawing.Point(675, 156);
+            this.fullNameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.customerBindingSource, "FullName", true));
+            this.fullNameTextBox.Location = new System.Drawing.Point(669, 140);
             this.fullNameTextBox.Name = "fullNameTextBox";
             this.fullNameTextBox.Size = new System.Drawing.Size(233, 27);
             this.fullNameTextBox.TabIndex = 7;
             // 
             // contactPeopleTextBox
             // 
-            this.contactPeopleTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplierBindingSource, "ContactPeople", true));
-            this.contactPeopleTextBox.Location = new System.Drawing.Point(675, 198);
+            this.contactPeopleTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.customerBindingSource, "ContactPeople", true));
+            this.contactPeopleTextBox.Location = new System.Drawing.Point(669, 185);
             this.contactPeopleTextBox.Name = "contactPeopleTextBox";
             this.contactPeopleTextBox.Size = new System.Drawing.Size(233, 27);
             this.contactPeopleTextBox.TabIndex = 9;
             // 
             // telephoneTextBox
             // 
-            this.telephoneTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplierBindingSource, "Telephone", true));
-            this.telephoneTextBox.Location = new System.Drawing.Point(675, 238);
+            this.telephoneTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.customerBindingSource, "Telephone", true));
+            this.telephoneTextBox.Location = new System.Drawing.Point(669, 230);
             this.telephoneTextBox.Name = "telephoneTextBox";
             this.telephoneTextBox.Size = new System.Drawing.Size(233, 27);
             this.telephoneTextBox.TabIndex = 11;
             // 
             // gSMTextBox
             // 
-            this.gSMTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplierBindingSource, "GSM", true));
-            this.gSMTextBox.Location = new System.Drawing.Point(675, 271);
+            this.gSMTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.customerBindingSource, "GSM", true));
+            this.gSMTextBox.Location = new System.Drawing.Point(669, 275);
             this.gSMTextBox.Name = "gSMTextBox";
             this.gSMTextBox.Size = new System.Drawing.Size(233, 27);
             this.gSMTextBox.TabIndex = 13;
             // 
             // addressTextBox
             // 
-            this.addressTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplierBindingSource, "Address", true));
-            this.addressTextBox.Location = new System.Drawing.Point(675, 307);
+            this.addressTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.customerBindingSource, "Address", true));
+            this.addressTextBox.Location = new System.Drawing.Point(669, 320);
             this.addressTextBox.Name = "addressTextBox";
             this.addressTextBox.Size = new System.Drawing.Size(233, 27);
             this.addressTextBox.TabIndex = 15;
             // 
             // noteTextBox
             // 
-            this.noteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplierBindingSource, "Note", true));
-            this.noteTextBox.Location = new System.Drawing.Point(675, 347);
+            this.noteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.customerBindingSource, "Note", true));
+            this.noteTextBox.Location = new System.Drawing.Point(669, 365);
             this.noteTextBox.Multiline = true;
             this.noteTextBox.Name = "noteTextBox";
-            this.noteTextBox.Size = new System.Drawing.Size(233, 61);
+            this.noteTextBox.Size = new System.Drawing.Size(233, 60);
             this.noteTextBox.TabIndex = 17;
             // 
             // hideCheckBox
             // 
-            this.hideCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.supplierBindingSource, "Hide", true));
-            this.hideCheckBox.Location = new System.Drawing.Point(675, 413);
+            this.hideCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.customerBindingSource, "Hide", true));
+            this.hideCheckBox.Location = new System.Drawing.Point(687, 452);
             this.hideCheckBox.Name = "hideCheckBox";
-            this.hideCheckBox.Size = new System.Drawing.Size(24, 24);
+            this.hideCheckBox.Size = new System.Drawing.Size(52, 24);
             this.hideCheckBox.TabIndex = 19;
             this.hideCheckBox.UseVisualStyleBackColor = true;
             // 
-            // lastUpdatedTextBox
+            // lastUpdatedLabel1
             // 
-            this.lastUpdatedTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.lastUpdatedTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lastUpdatedTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplierBindingSource, "LastUpdated", true));
-            this.lastUpdatedTextBox.Location = new System.Drawing.Point(675, 456);
-            this.lastUpdatedTextBox.Name = "lastUpdatedTextBox";
-            this.lastUpdatedTextBox.Size = new System.Drawing.Size(231, 20);
-            this.lastUpdatedTextBox.TabIndex = 23;
+            this.lastUpdatedLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.customerBindingSource, "LastUpdated", true));
+            this.lastUpdatedLabel1.Location = new System.Drawing.Point(711, 491);
+            this.lastUpdatedLabel1.Name = "lastUpdatedLabel1";
+            this.lastUpdatedLabel1.Size = new System.Drawing.Size(100, 23);
+            this.lastUpdatedLabel1.TabIndex = 21;
             // 
-            // FormSupplier
+            // customerIDLabel2
+            // 
+            this.customerIDLabel2.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.customerBindingSource, "CustomerID", true));
+            this.customerIDLabel2.Location = new System.Drawing.Point(666, 56);
+            this.customerIDLabel2.Name = "customerIDLabel2";
+            this.customerIDLabel2.Size = new System.Drawing.Size(100, 23);
+            this.customerIDLabel2.TabIndex = 22;
+            // 
+            // FormCustomer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(950, 525);
-            this.Controls.Add(this.lastUpdatedTextBox);
+            this.ClientSize = new System.Drawing.Size(981, 527);
+            this.Controls.Add(this.customerIDLabel2);
             this.Controls.Add(lastUpdatedLabel);
+            this.Controls.Add(this.lastUpdatedLabel1);
             this.Controls.Add(hideLabel);
             this.Controls.Add(this.hideCheckBox);
             this.Controls.Add(noteLabel);
@@ -538,21 +503,20 @@
             this.Controls.Add(this.fullNameTextBox);
             this.Controls.Add(nameLabel);
             this.Controls.Add(this.nameTextBox);
-            this.Controls.Add(supplierIDLabel);
-            this.Controls.Add(this.supplierIDTextBox);
-            this.Controls.Add(this.supplierDataGridView);
-            this.Controls.Add(this.supplierBindingNavigator);
+            this.Controls.Add(customerIDLabel);
+            this.Controls.Add(this.customerDataGridView);
+            this.Controls.Add(this.customerBindingNavigator);
             this.Font = new System.Drawing.Font("PMingLiU", 12F);
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "FormSupplier";
+            this.Name = "FormCustomer";
             this.Text = "客户";
-            this.Load += new System.EventHandler(this.FormsupplierLoad);
+            this.Load += new System.EventHandler(this.FormCustomer_Load);
             ((System.ComponentModel.ISupportInitialize)(this.sQLVEDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.supplierBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.supplierBindingNavigator)).EndInit();
-            this.supplierBindingNavigator.ResumeLayout(false);
-            this.supplierBindingNavigator.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.supplierDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.customerBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.customerBindingNavigator)).EndInit();
+            this.customerBindingNavigator.ResumeLayout(false);
+            this.customerBindingNavigator.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.customerDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -561,10 +525,10 @@
         #endregion
 
         private SQLVEDataSet sQLVEDataSet;
-        private System.Windows.Forms.BindingSource supplierBindingSource;
-        private SQLVEDataSetTableAdapters.SupplierTableAdapter supplierTableAdapter;
+        private System.Windows.Forms.BindingSource customerBindingSource;
+        private SQLVEDataSetTableAdapters.CustomerTableAdapter customerTableAdapter;
         private SQLVEDataSetTableAdapters.TableAdapterManager tableAdapterManager;
-        private System.Windows.Forms.BindingNavigator supplierBindingNavigator;
+        private System.Windows.Forms.BindingNavigator customerBindingNavigator;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorDeleteItem;
@@ -576,9 +540,8 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveNextItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
-        private System.Windows.Forms.ToolStripButton supplierBindingNavigatorSaveItem;
-        private System.Windows.Forms.DataGridView supplierDataGridView;
-        private System.Windows.Forms.TextBox supplierIDTextBox;
+        private System.Windows.Forms.ToolStripButton customerBindingNavigatorSaveItem;
+        private System.Windows.Forms.DataGridView customerDataGridView;
         private System.Windows.Forms.TextBox nameTextBox;
         private System.Windows.Forms.TextBox fullNameTextBox;
         private System.Windows.Forms.TextBox contactPeopleTextBox;
@@ -587,16 +550,13 @@
         private System.Windows.Forms.TextBox addressTextBox;
         private System.Windows.Forms.TextBox noteTextBox;
         private System.Windows.Forms.CheckBox hideCheckBox;
-        private System.Windows.Forms.TextBox lastUpdatedTextBox;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnSupplierID;
+        private System.Windows.Forms.Label lastUpdatedLabel1;
+        private System.Windows.Forms.Label customerIDLabel2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCustomerID;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
     }
 }

@@ -21,20 +21,23 @@ namespace VoucherExpense
         string Apartmentname="";
        // bool  StateIsEndit = false;//状态是否编辑
         private void FormBillList_Load(object sender, EventArgs e)
-        {   
-            this.requestsTableAdapter.Connection = MapPath.VEConnection;
-            this.apartmentTableAdapter1.Connection = MapPath.VEConnection;
-#if (UseSQLServer)
+        {
+
+#if (UseSQLServer)  
+            // TODO: 这行代码将数据加载到表“damaiDataSet.Apartment”中。您可以根据需要移动或删除它。
+            this.apartmentTableAdapter.Fill(this.damaiDataSet.Apartment);
 
             // TODO: 这行代码将数据加载到表“sqlveDataSet1.Requests”中。您可以根据需要移动或删除它。
             this.requestsSQLTableAdapter.Fill(this.sqlveDataSet.Requests);
 #else
-
+            this.requestsTableAdapter.Connection = MapPath.VEConnection;
+            this.apartmentTableAdapter1.Connection = MapPath.VEConnection;
             // TODO: 這行程式碼會將資料載入 'vEDataSet.Requests' 資料表。您可以視需要進行移動或移除。
-            this.requestsTableAdapter.Fill(this.vEDataSet.Requests);
+            this.requestsTableAdapter.Fill(this.vEDataSet.Requests); 
+            this.apartmentTableAdapter1.Fill(this.vEDataSet.Apartment);
 #endif        
             this.requestsBindingSource.Sort = "requestsid desc";
-            this.apartmentTableAdapter1.Fill(this.vEDataSet.Apartment);
+           
             //var apartment=vEDataSet.Apartment[0];
             //Apartmentname= apartment.ApartmentAllName;
             if (vEDataSet.Apartment.Rows.Count != 0)

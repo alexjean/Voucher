@@ -213,7 +213,7 @@
             dataGridViewCellStyle9.Format = "N4";
             dataGridViewCellStyle9.NullValue = null;
             this.PerScrap.DefaultCellStyle = dataGridViewCellStyle9;
-            this.PerScrap.HeaderText = "%";
+            this.PerScrap.HeaderText = "";
             this.PerScrap.Name = "PerScrap";
             this.PerScrap.Width = 80;
             // 
@@ -233,7 +233,7 @@
             dataGridViewCellStyle11.Format = "N4";
             dataGridViewCellStyle11.NullValue = null;
             this.PerSold.DefaultCellStyle = dataGridViewCellStyle11;
-            this.PerSold.HeaderText = "%";
+            this.PerSold.HeaderText = "";
             this.PerSold.Name = "PerSold";
             this.PerSold.Width = 80;
             // 
@@ -253,7 +253,7 @@
             dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
             dataGridViewCellStyle13.Format = "N4";
             this.PerShrink.DefaultCellStyle = dataGridViewCellStyle13;
-            this.PerShrink.HeaderText = "%";
+            this.PerShrink.HeaderText = "";
             this.PerShrink.Name = "PerShrink";
             this.PerShrink.Width = 80;
             // 

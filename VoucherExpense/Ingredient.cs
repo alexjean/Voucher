@@ -7,13 +7,19 @@ using System.Drawing;
 using System.Collections.Generic;
 using System.Linq;
 #if UseSQLServer
-using MyDataSet = VoucherExpense.DamaiDataSet;
-using MyIngredientRow = VoucherExpense.DamaiDataSet.IngredientRow;
-using MyIngredientTable = VoucherExpense.DamaiDataSet.IngredientDataTable;
+using MyDataSet             = VoucherExpense.DamaiDataSet;
+using MyIngredientRow       = VoucherExpense.DamaiDataSet.IngredientRow;
+using MyIngredientTable     = VoucherExpense.DamaiDataSet.IngredientDataTable;
+using MyIngredientAdapter   = VoucherExpense.DamaiDataSetTableAdapters.IngredientTableAdapter;
+using MyVoucherAdapter      = VoucherExpense.DamaiDataSetTableAdapters.VoucherTableAdapter;
+using MyVoucherDetailAdapter= VoucherExpense.DamaiDataSetTableAdapters.VoucherDetailTableAdapter;
 #else
-using MyDataSet = VoucherExpense.VEDataSet;
-using MyIngredientRow = VoucherExpense.VEDataSet.IngredientRow;
-using MyIngredientTable = VoucherExpense.VEDataSet.IngredientDataTable;
+using MyDataSet             = VoucherExpense.VEDataSet;
+using MyIngredientRow       = VoucherExpense.VEDataSet.IngredientRow;
+using MyIngredientTable     = VoucherExpense.VEDataSet.IngredientDataTable;
+using MyIngredientAdapter   = VoucherExpense.VEDataSetTableAdapters.IngredientTableAdapter;
+using MyVoucherAdapter      = VoucherExpense.VEDataSetTableAdapters.VoucherTableAdapter;
+using MyVoucherDetailAdapter= VoucherExpense.VEDataSetTableAdapters.VoucherDetailTableAdapter;
 #endif
 
 namespace VoucherExpense
@@ -30,28 +36,19 @@ namespace VoucherExpense
         private string m_PhotoPath = "Photos\\Ingredients\\";
         private List<CNameIDForComboBox> m_VendorList = new List<CNameIDForComboBox>();
 
-#if UseSQLServer
-        DamaiDataSetTableAdapters.IngredientTableAdapter    IngredientAdapter   = new DamaiDataSetTableAdapters.IngredientTableAdapter();
-        DamaiDataSetTableAdapters.VoucherTableAdapter       VoucherAdapter      = new DamaiDataSetTableAdapters.VoucherTableAdapter();
-        DamaiDataSetTableAdapters.VoucherDetailTableAdapter VoucherDetailAdapter= new DamaiDataSetTableAdapters.VoucherDetailTableAdapter();
+        MyIngredientAdapter IngredientAdapter       = new MyIngredientAdapter();
+        MyVoucherAdapter    VoucherAdapter          = new MyVoucherAdapter();
+        MyVoucherDetailAdapter VoucherDetailAdapter = new MyVoucherDetailAdapter();
         private void Ingredient_Load(object sender, EventArgs e)
         {
-            IngredientBindingSource.DataSource      = m_DataSet;
-            vendorBindingSource.DataSource          = m_DataSet;
+            IngredientBindingSource.DataSource = m_DataSet;
+            vendorBindingSource.DataSource = m_DataSet;
             accountingTitleBindingSource.DataSource = m_DataSet;
 
+#if UseSQLServer
             var vendorAdapter = new DamaiDataSetTableAdapters.VendorTableAdapter();
             var accountingTitleAdapter = new DamaiDataSetTableAdapters.AccountingTitleTableAdapter();
 #else
-        VEDataSetTableAdapters.IngredientTableAdapter    IngredientAdapter   = new VEDataSetTableAdapters.IngredientTableAdapter();
-        VEDataSetTableAdapters.VoucherTableAdapter       VoucherAdapter      = new VEDataSetTableAdapters.VoucherTableAdapter();
-        VEDataSetTableAdapters.VoucherDetailTableAdapter VoucherDetailAdapter= new VEDataSetTableAdapters.VoucherDetailTableAdapter();
-        private void Ingredient_Load(object sender, EventArgs e)
-        {
-            IngredientBindingSource.DataSource      = m_DataSet;
-            vendorBindingSource.DataSource          = m_DataSet;
-            accountingTitleBindingSource.DataSource = m_DataSet;
-
             var vendorAdapter          = new VEDataSetTableAdapters.VendorTableAdapter();
             var accountingTitleAdapter = new VEDataSetTableAdapters.AccountingTitleTableAdapter();
             vendorAdapter.Connection           = MapPath.VEConnection;

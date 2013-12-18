@@ -169,7 +169,7 @@ namespace VoucherExpense
                 var a0 = damaiDataSet.Apartment[0];
                 foreach (var a in damaiDataSet.Apartment)
                 {
-                    if (a.IsCurrent)  // SQL資料庫己規定Not NULL, 沒有IsCurrentNull()
+                    if ((!a.IsIsCurrentNull()) && a.IsCurrent)  
                     {
                         a0 = a;
                         break;

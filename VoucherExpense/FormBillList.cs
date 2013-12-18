@@ -7,7 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing.Printing;
-
+#if UseSQLServer
+using MyDataSet         = VoucherExpense.DamaiDataSet;
+using MyRequestsAdapter = VoucherExpense.DamaiDataSetTableAdapters.RequestsTableAdapter;
+using MyRequestsRow     = VoucherExpense.DamaiDataSet.RequestsRow;
+#else
+using MyDataSet         = VoucherExpense.VEDataSet;
+using MyRequestsAdapter = VoucherExpense.VEDataSetTableAdapters.RequestsTableAdapter;
+using MyRequestsRow     = VoucherExpense.VEDataSet.RequestsRow;
+#endif
 namespace VoucherExpense
 {
     public partial class FormBillList : Form
@@ -20,30 +28,28 @@ namespace VoucherExpense
         HardwareConfig Config = new HardwareConfig();
         string Apartmentname="";
        // bool  StateIsEndit = false;//状态是否编辑
+        MyDataSet m_DataSet = new MyDataSet();
+        MyRequestsAdapter RequestsAdapter=new MyRequestsAdapter();
         private void FormBillList_Load(object sender, EventArgs e)
         {
-
-#if (UseSQLServer)  
-            // TODO: 这行代码将数据加载到表“damaiDataSet.Apartment”中。您可以根据需要移动或删除它。
-            this.apartmentTableAdapter.Fill(this.damaiDataSet.Apartment);
-
-            // TODO: 这行代码将数据加载到表“sqlveDataSet1.Requests”中。您可以根据需要移动或删除它。
-            this.requestsSQLTableAdapter.Fill(this.sqlveDataSet.Requests);
+            requestsBindingSource.DataSource = m_DataSet;
+#if (UseSQLServer)
+            var apartmentAdapter = new VoucherExpense.DamaiDataSetTableAdapters.ApartmentTableAdapter();
 #else
-            this.requestsTableAdapter.Connection = MapPath.VEConnection;
-            this.apartmentTableAdapter1.Connection = MapPath.VEConnection;
-            // TODO: 這行程式碼會將資料載入 'vEDataSet.Requests' 資料表。您可以視需要進行移動或移除。
-            this.requestsTableAdapter.Fill(this.vEDataSet.Requests); 
-            this.apartmentTableAdapter1.Fill(this.vEDataSet.Apartment);
-#endif        
+            var apartmentAdapter = new VoucherExpense.VEDataSetTableAdapters.ApartmentTableAdapter();
+            apartmentAdapter.Connection = MapPath.VEConnection;
+            RequestsAdapter.Connection  = MapPath.VEConnection;
+#endif
+            apartmentAdapter.Fill(m_DataSet.Apartment);
+            RequestsAdapter.Fill(m_DataSet.Requests);
             this.requestsBindingSource.Sort = "requestsid desc";
            
             //var apartment=vEDataSet.Apartment[0];
             //Apartmentname= apartment.ApartmentAllName;
-            if (vEDataSet.Apartment.Rows.Count != 0)
+            if (m_DataSet.Apartment.Rows.Count != 0)
             {
-                var a0 = vEDataSet.Apartment[0];
-                foreach (var a in vEDataSet.Apartment)
+                var a0 = m_DataSet.Apartment[0];
+                foreach (var a in m_DataSet.Apartment)
                 {
                     if (!a.IsIsCurrentNull() && a.IsCurrent)
                     {
@@ -64,7 +70,9 @@ namespace VoucherExpense
             pD.PrinterSettings = ps;
             dateTimetoolStripCbB.SelectedIndex = 1;   
         }
-        VEDataSet.RequestsRow Addrow;
+
+
+        MyRequestsRow Addrow;
         string intToint6(int num, int numlength)
         {
             string number = num.ToString();
@@ -106,16 +114,9 @@ namespace VoucherExpense
         private void requestsBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         { 
             IsEnabled(false);//资料设置为不可编辑
-#if (UseSQLServer)
            this.requestsBindingSource.EndEdit();
-           this.requestsSQLTableAdapter.Update(sqlveDataSet.Requests);
-           this.requestsSQLTableAdapter.Fill(this.sqlveDataSet.Requests);
-
-#else
-            this.requestsBindingSource.EndEdit();
-            this.requestsTableAdapter.Update(vEDataSet.Requests);
-            this.requestsTableAdapter.Fill(this.vEDataSet.Requests);
-#endif
+           RequestsAdapter.Update(m_DataSet.Requests);
+           RequestsAdapter.Fill  (m_DataSet.Requests);
             this.bindingNavigatorAddNewItem.Enabled = true;
             this.requestsBindingNavigatorSaveItem.Enabled = false;
             this.requestsDataGridView.Enabled = true;
@@ -139,10 +140,10 @@ namespace VoucherExpense
         string CurrentList; string tems = ""; string strtemp = "";
         void newRequests()//创建新单数据
         {
-#if(UseSQLServer)
+
             int maxID = 0;
             int maxCode = 0;
-            this.requestsSQLTableAdapter.Fill(this.sqlveDataSet.Requests);
+            RequestsAdapter.Fill(m_DataSet.Requests);
             int tem = dateTimetoolStripCbB.SelectedIndex;
             int tems =Convert.ToInt32(DateTime.Now.ToString("MM"));
             if (tem != tems &&tem >0)//打印非当月的单子
@@ -150,7 +151,7 @@ namespace VoucherExpense
 
                 if (MessageBox.Show("确定打印" + dateTimetoolStripCbB.Text + "的请款单?", "Confirm Message", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
-                    foreach (sqlveDataSet.RequestsRow item in sqlveDataSet.Requests)
+                    foreach (var item in m_DataSet.Requests)
                     {
                         if (item.RequestsID > maxID)
                         {
@@ -195,8 +196,7 @@ namespace VoucherExpense
             }
             else
             {
-
-                foreach (sqlveDataSet.RequestsRow item in sqlveDataSet.Requests)
+                foreach (var item in m_DataSet.Requests)
                 {
                     if (item.RequestsID > maxID)
                     {
@@ -217,7 +217,7 @@ namespace VoucherExpense
                     maxCode = Convert.ToInt32(datetime + "000");
                 }
             }
-                Addrow = sqlveDataSet.Requests.NewRequestsRow();
+                Addrow = m_DataSet.Requests.NewRequestsRow();
                 Addrow.RequestsID = maxID + 1;
                 CurrentId = maxID + 1;
                 Addrow.ListNumber = maxCode + 1;
@@ -241,115 +241,9 @@ namespace VoucherExpense
                 Addrow.IsCancel = false;
                 Addrow.CreateTime = DateTime.Now;
                 Addrow.EndEdit();
-                sqlveDataSet.Requests.Rows.Add(Addrow);
-                this.requestsSQLTableAdapter.Update(sqlveDataSet.Requests);
-                this.requestsSQLTableAdapter.Fill(this.sqlveDataSet.Requests);
-#else
-            int maxID = 0;
-            int maxCode = 0;
-            this.requestsTableAdapter.Fill(this.vEDataSet.Requests);
-            int tem = dateTimetoolStripCbB.SelectedIndex;
-            int tems =Convert.ToInt32(DateTime.Now.ToString("MM"));
-            if (tem != tems &&tem >0)//打印非当月的单子
-            {                    string datetime = DateTime.Now.ToString("yyMM");
-
-                if (MessageBox.Show("确定打印" + dateTimetoolStripCbB.Text + "的请款单?", "Confirm Message", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.OK)
-                {
-                    foreach (VEDataSet.RequestsRow item in vEDataSet.Requests)
-                    {
-                        if (item.RequestsID > maxID)
-                        {
-                            maxID = item.RequestsID;
-                        }
-
-                        strtemp = item.ListNumber.ToString().Substring(2, 2);
-                        if (Convert.ToInt32(strtemp) != tem)//只比较选定月份相同的单号
-                        {
-
-                        }
-                        else
-                        {
-                            if (tem < 10)
-                            {
-                                maxCode = Convert.ToInt32(datetime.Remove(2) + "0" + tem + "000");
-                            }
-                            else
-                            {
-                                maxCode = Convert.ToInt32(datetime.Remove(2) + tem + "000");
-                            }
-                            if (Convert.ToInt32(item.ListNumber) > maxCode)
-                            {
-                                maxCode = Convert.ToInt32(item.ListNumber);
-                            }
-                        }
-                    }
-                    if (maxCode == 0)
-                    {
-                        if (tem<10)
-                        {
-                            maxCode=Convert.ToInt32(datetime.Remove(2)+"0"+tem+ "000");
-                        }
-                        else
-                        {
-                            maxCode = Convert.ToInt32(datetime.Remove(2) + tem + "000");
-                        }
-                    }
-
-                }
-                else { return; }
-            }
-            else
-            {
-
-                foreach (VEDataSet.RequestsRow item in vEDataSet.Requests)
-                {
-                    if (item.RequestsID > maxID)
-                    {
-                        maxID = item.RequestsID;
-                    }
-                    if (Convert.ToInt32(item.ListNumber) > maxCode)
-                    {
-                        maxCode = Convert.ToInt32(item.ListNumber);
-                    }
-                }
-
-                string datetime = DateTime.Now.ToString("yyMM");
-                string maxcode = "0";
-                if (maxCode > 0)
-                    maxcode = maxCode.ToString().Remove(4);
-                if (Convert.ToInt32(datetime) > Convert.ToInt32(maxcode))
-                {
-                    maxCode = Convert.ToInt32(datetime + "000");
-                }
-            }
-                Addrow = vEDataSet.Requests.NewRequestsRow();
-                Addrow.RequestsID = maxID + 1;
-                CurrentId = maxID + 1;
-                Addrow.ListNumber = maxCode + 1;
-                CurrentList = (maxCode + 1).ToString();
-                listNumberTextBox.Text = (maxCode + 1).ToString();
-                listNumberTextBox.Text = Addrow.ListNumber.ToString();
-                Addrow.SetAccountNull();
-                Addrow.OperatorID = MyFunction.OperatorID;
-                Addrow.SetDepartmentNull();
-                Addrow.SetApplicantNull();
-                Addrow.SetRequestsUseNull();
-                Addrow.SetUintNameNull();
-                Addrow.SetBankOfDepositNull();
-                Addrow.SetMoneyAaNull();
-                Addrow.SetMoneyANull();
-                Addrow.SetPaymenMethodsNull();
-                Addrow.SetHandoverPoepleNull();
-                Addrow.SetBillingDateNull();
-                Addrow.SetDateOfPaymentNull();
-                Addrow.IsLock = false;
-                Addrow.IsCancel = false;
-                Addrow.CreateTime = DateTime.Now;
-                Addrow.EndEdit();
-                vEDataSet.Requests.Rows.Add(Addrow);
-                this.requestsTableAdapter.Update(vEDataSet.Requests);
-                this.requestsTableAdapter.Fill(this.vEDataSet.Requests);
-#endif
+                m_DataSet.Requests.Rows.Add(Addrow);
+                RequestsAdapter.Update(m_DataSet.Requests);
+                RequestsAdapter.Fill(m_DataSet.Requests);
         }
         bool isEmpty=false;
         private void pd_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
@@ -452,7 +346,7 @@ namespace VoucherExpense
         private void isCancelCheckBox_Click(object sender, EventArgs e)
         {
             this.requestsBindingSource.EndEdit();
-            this.requestsTableAdapter.Update(vEDataSet.Requests);
+            RequestsAdapter.Update(m_DataSet.Requests);
             // this.requestsTableAdapter.Fill(this.vEDataSet.Requests);
         }
         private void requestsDataGridView_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)

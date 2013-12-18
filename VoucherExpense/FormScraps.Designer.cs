@@ -43,10 +43,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.vEDataSet = new VoucherExpense.VEDataSet();
             this.productScrappedBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.productScrappedTableAdapter = new VoucherExpense.VEDataSetTableAdapters.ProductScrappedTableAdapter();
             this.productScrappedBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.productScrappedBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.sQLVEDataSet = new VoucherExpense.SQLVEDataSet();
+            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.bindingNavigatorPositionItem = new System.Windows.Forms.ToolStripTextBox();
@@ -67,7 +66,6 @@
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.operatorBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.productScrappedDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.productScrappedDetailTableAdapter = new VoucherExpense.VEDataSetTableAdapters.ProductScrappedDetailTableAdapter();
             this.dgvScrappedDetail = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -81,13 +79,9 @@
             this.productScrappedDetailBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.btnEvaluate = new System.Windows.Forms.Button();
             this.chBoxHide = new System.Windows.Forms.CheckBox();
-            this.productTableAdapter = new VoucherExpense.BakeryOrderSetTableAdapters.ProductTableAdapter();
-            this.operatorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
             this.soldValueTextBox = new System.Windows.Forms.TextBox();
             this.ingredientsCostTextBox = new System.Windows.Forms.TextBox();
             this.scrappedDateDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.productScrappedTableAdapter1 = new VoucherExpense.SQLVEDataSetTableAdapters.ProductScrappedTableAdapter();
-            this.productScrappedDetailTableAdapter1 = new VoucherExpense.SQLVEDataSetTableAdapters.ProductScrappedDetailTableAdapter();
             soldValueLabel = new System.Windows.Forms.Label();
             ingredientsCostLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
@@ -95,7 +89,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.productScrappedBindingNavigator)).BeginInit();
             this.productScrappedBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.productScrappedBindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sQLVEDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductScrapped)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cNameIDForComboBoxBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).BeginInit();
@@ -143,10 +137,6 @@
             this.productScrappedBindingSource.DataMember = "ProductScrapped";
             this.productScrappedBindingSource.DataSource = this.vEDataSet;
             // 
-            // productScrappedTableAdapter
-            // 
-            this.productScrappedTableAdapter.ClearBeforeFill = true;
-            // 
             // productScrappedBindingNavigator
             // 
             this.productScrappedBindingNavigator.AddNewItem = null;
@@ -169,25 +159,25 @@
             this.productScrappedBindingNavigator.MovePreviousItem = null;
             this.productScrappedBindingNavigator.Name = "productScrappedBindingNavigator";
             this.productScrappedBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.productScrappedBindingNavigator.Size = new System.Drawing.Size(177, 25);
+            this.productScrappedBindingNavigator.Size = new System.Drawing.Size(174, 25);
             this.productScrappedBindingNavigator.TabIndex = 2;
             this.productScrappedBindingNavigator.Text = "bindingNavigator1";
             // 
             // productScrappedBindingSource1
             // 
             this.productScrappedBindingSource1.DataMember = "ProductScrapped";
-            this.productScrappedBindingSource1.DataSource = this.sQLVEDataSet;
+            this.productScrappedBindingSource1.DataSource = this.damaiDataSet;
             // 
-            // sQLVEDataSet
+            // damaiDataSet
             // 
-            this.sQLVEDataSet.DataSetName = "SQLVEDataSet";
-            this.sQLVEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.damaiDataSet.DataSetName = "DamaiDataSet";
+            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(32, 22);
-            this.bindingNavigatorCountItem.Text = "/ {0}";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 22);
+            this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
             // bindingNavigatorSeparator
@@ -258,7 +248,7 @@
             this.dataGridViewTextBoxColumn8,
             this.dataGridViewTextBoxColumn7,
             this.dataGridViewTextBoxColumn3});
-            this.dgvProductScrapped.DataSource = this.productScrappedBindingSource1;
+            this.dgvProductScrapped.DataSource = this.productScrappedBindingSource;
             this.dgvProductScrapped.Location = new System.Drawing.Point(0, 28);
             this.dgvProductScrapped.Name = "dgvProductScrapped";
             this.dgvProductScrapped.RowHeadersWidth = 24;
@@ -372,10 +362,6 @@
             this.productScrappedDetailBindingSource.DataSource = this.productScrappedBindingSource;
             this.productScrappedDetailBindingSource.Filter = "";
             // 
-            // productScrappedDetailTableAdapter
-            // 
-            this.productScrappedDetailTableAdapter.ClearBeforeFill = true;
-            // 
             // dgvScrappedDetail
             // 
             this.dgvScrappedDetail.AllowUserToAddRows = false;
@@ -395,7 +381,7 @@
             this.ColumnVolume,
             this.dataGridViewTextBoxColumn13,
             this.dataGridViewTextBoxColumn14});
-            this.dgvScrappedDetail.DataSource = this.productScrappedDetailBindingSource1;
+            this.dgvScrappedDetail.DataSource = this.productScrappedDetailBindingSource;
             this.dgvScrappedDetail.Location = new System.Drawing.Point(456, 81);
             this.dgvScrappedDetail.Name = "dgvScrappedDetail";
             this.dgvScrappedDetail.RowHeadersWidth = 24;
@@ -521,18 +507,10 @@
             this.chBoxHide.UseVisualStyleBackColor = true;
             this.chBoxHide.CheckedChanged += new System.EventHandler(this.chBoxHide_CheckedChanged);
             // 
-            // productTableAdapter
-            // 
-            this.productTableAdapter.ClearBeforeFill = true;
-            // 
-            // operatorTableAdapter
-            // 
-            this.operatorTableAdapter.ClearBeforeFill = true;
-            // 
             // soldValueTextBox
             // 
             this.soldValueTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.soldValueTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productScrappedBindingSource1, "SoldValue", true));
+            this.soldValueTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productScrappedBindingSource, "SoldValue", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N1"));
             this.soldValueTextBox.Location = new System.Drawing.Point(515, 47);
             this.soldValueTextBox.Name = "soldValueTextBox";
             this.soldValueTextBox.ReadOnly = true;
@@ -543,7 +521,7 @@
             // ingredientsCostTextBox
             // 
             this.ingredientsCostTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.ingredientsCostTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productScrappedBindingSource1, "IngredientsCost", true));
+            this.ingredientsCostTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productScrappedBindingSource, "IngredientsCost", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N1"));
             this.ingredientsCostTextBox.Location = new System.Drawing.Point(678, 47);
             this.ingredientsCostTextBox.Name = "ingredientsCostTextBox";
             this.ingredientsCostTextBox.ReadOnly = true;
@@ -553,20 +531,12 @@
             // 
             // scrappedDateDateTimePicker
             // 
-            this.scrappedDateDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.productScrappedBindingSource1, "ScrappedDate", true));
+            this.scrappedDateDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.productScrappedBindingSource, "ScrappedDate", true));
             this.scrappedDateDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.scrappedDateDateTimePicker.Location = new System.Drawing.Point(515, 9);
             this.scrappedDateDateTimePicker.Name = "scrappedDateDateTimePicker";
             this.scrappedDateDateTimePicker.Size = new System.Drawing.Size(97, 27);
             this.scrappedDateDateTimePicker.TabIndex = 77;
-            // 
-            // productScrappedTableAdapter1
-            // 
-            this.productScrappedTableAdapter1.ClearBeforeFill = true;
-            // 
-            // productScrappedDetailTableAdapter1
-            // 
-            this.productScrappedDetailTableAdapter1.ClearBeforeFill = true;
             // 
             // FormScraps
             // 
@@ -585,7 +555,7 @@
             this.Controls.Add(this.dgvProductScrapped);
             this.Controls.Add(this.productScrappedBindingNavigator);
             this.Controls.Add(this.label1);
-            this.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormScraps";
             this.Text = "報癈 試吃 登記表";
@@ -597,7 +567,7 @@
             this.productScrappedBindingNavigator.ResumeLayout(false);
             this.productScrappedBindingNavigator.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.productScrappedBindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sQLVEDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductScrapped)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cNameIDForComboBoxBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).EndInit();
@@ -616,7 +586,6 @@
         private System.Windows.Forms.Label label1;
         private VEDataSet vEDataSet;
         private System.Windows.Forms.BindingSource productScrappedBindingSource;
-        private VEDataSetTableAdapters.ProductScrappedTableAdapter productScrappedTableAdapter;
         private System.Windows.Forms.BindingNavigator productScrappedBindingNavigator;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
@@ -627,23 +596,17 @@
         private System.Windows.Forms.ToolStripButton productScrappedBindingNavigatorSaveItem;
         private System.Windows.Forms.DataGridView dgvProductScrapped;
         private System.Windows.Forms.BindingSource productScrappedDetailBindingSource;
-        private VEDataSetTableAdapters.ProductScrappedDetailTableAdapter productScrappedDetailTableAdapter;
         private System.Windows.Forms.DataGridView dgvScrappedDetail;
         private System.Windows.Forms.Button btnEvaluate;
         private System.Windows.Forms.CheckBox chBoxHide;
         private BakeryOrderSet bakeryOrderSet;
-        private BakeryOrderSetTableAdapters.ProductTableAdapter productTableAdapter;
         private System.Windows.Forms.BindingSource operatorBindingSource;
-        private VEDataSetTableAdapters.OperatorTableAdapter operatorTableAdapter;
         private System.Windows.Forms.BindingSource cNameIDForComboBoxBindingSource;
         private System.Windows.Forms.BindingSource productBindingSource;
         private System.Windows.Forms.TextBox soldValueTextBox;
         private System.Windows.Forms.TextBox ingredientsCostTextBox;
         private System.Windows.Forms.DateTimePicker scrappedDateDateTimePicker;
-        private SQLVEDataSet sQLVEDataSet;
         private System.Windows.Forms.BindingSource productScrappedBindingSource1;
-        private SQLVEDataSetTableAdapters.ProductScrappedTableAdapter productScrappedTableAdapter1;
-        private SQLVEDataSetTableAdapters.ProductScrappedDetailTableAdapter productScrappedDetailTableAdapter1;
         private System.Windows.Forms.BindingSource productScrappedDetailBindingSource1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
@@ -661,5 +624,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewTextBoxColumn3;
+        private DamaiDataSet damaiDataSet;
     }
 }

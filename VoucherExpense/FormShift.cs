@@ -7,6 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
+#if UseSQLServer
+using MyDataSet = VoucherExpense.DamaiDataSet;
+using MyShiftTable = VoucherExpense.DamaiDataSet.ShiftTableDataTable;
+using MyShiftDetailTable = VoucherExpense.DamaiDataSet.ShiftDetailDataTable;
+using MyShiftAdapter = VoucherExpense.DamaiDataSetTableAdapters.ShiftTableTableAdapter;
+using MyShiftRow = VoucherExpense.DamaiDataSet.ShiftTableRow;
+#else
+using MyDataSet = VoucherExpense.VEDataSet;
+using MyShiftTable = VoucherExpense.VEDataSet.ShiftTableDataTable;
+using MyShiftDetailTable = VoucherExpense.VEDataSet.ShiftDetailDataTable;
+using MyShiftAdapter = VoucherExpense.VEDataSetTableAdapters.ShiftTableTableAdapter;
+using MyShiftRow = VoucherExpense.VEDataSet.ShiftTableRow;
+#endif
 
 namespace VoucherExpense
 {
@@ -53,25 +66,35 @@ namespace VoucherExpense
         List<CShiftCode> m_ShiftCodeList = new List<CShiftCode>();
         const string strDay = "Day";
 
+        MyDataSet m_DataSet = new MyDataSet();
+        MyShiftAdapter ShiftAdapter = new MyShiftAdapter();
         private void FormShift_Load(object sender, EventArgs e)
         {
-            this.shiftTableTableAdapter.Connection  = MapPath.VEConnection;
-            this.shiftDetailTableAdapter.Connection = MapPath.VEConnection;
-            this.hRTableAdapter.Connection          = MapPath.VEConnection;
-            this.operatorTableAdapter.Connection    = MapPath.VEConnection;
-
+            SetupBindingSource();
+#if UseSQLServer
+            var shiftDetailAdapter  = new VoucherExpense.DamaiDataSetTableAdapters.ShiftDetailTableAdapter();
+            var hRAdapter           = new VoucherExpense.DamaiDataSetTableAdapters.HRTableAdapter();
+            var operatorAdapter     = new VoucherExpense.DamaiDataSetTableAdapters.OperatorTableAdapter();
+#else
+            var shiftDetailAdapter  = new VoucherExpense.VEDataSetTableAdapters.ShiftDetailTableAdapter();
+            var hRAdapter           = new VoucherExpense.VEDataSetTableAdapters.HRTableAdapter();
+            var operatorAdapter     = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
+            ShiftAdapter.Connection       = MapPath.VEConnection;
+            shiftDetailAdapter.Connection = MapPath.VEConnection;
+            hRAdapter.Connection          = MapPath.VEConnection;
+            operatorAdapter.Connection    = MapPath.VEConnection;
+#endif
             try
             {
-                this.shiftTableTableAdapter.Fill(this.vEDataSet.ShiftTable);
-                this.shiftDetailTableAdapter.Fill(    vEDataSet.ShiftDetail);
-                this.hRTableAdapter.Fill        (this.vEDataSet.HR);
-                this.operatorTableAdapter.Fill  (this.vEDataSet.Operator);
+                ShiftAdapter.Fill      (m_DataSet.ShiftTable);
+                shiftDetailAdapter.Fill(m_DataSet.ShiftDetail);
+                hRAdapter.Fill         (m_DataSet.HR);
+                operatorAdapter.Fill   (m_DataSet.Operator);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Ex:" + ex.Message);
             }
-            //comboBoxApartment.DataSource = GetApartmentList();
             m_MonthList.Add(new CMonthForCombo(0," "));
             for (int mon = 1; mon <= 12; mon++)
                 m_MonthList.Add(new CMonthForCombo(mon,mon.ToString()+"月"));
@@ -90,24 +113,12 @@ namespace VoucherExpense
             columnLocked.ReadOnly = !MyFunction.LockHR;
         }
 
-        //List<CNameIDForComboBox> GetApartmentList()
-        //{
-        //    List<CNameIDForComboBox> list = new List<CNameIDForComboBox>();
-        //    if (vEDataSet.Apartment.Rows.Count > 1)               // 多於一個才有全部這個選項
-        //    {
-        //        list.Add(new CNameIDForComboBox(0, " "));
-        //        comboBoxApartment.Enabled = true;
-        //    }
-        //    else
-        //        comboBoxApartment.Enabled = false;
-        //    foreach (VEDataSet.ApartmentRow row in vEDataSet.Apartment)
-        //    {
-        //        if (row.IsApartmentNameNull()) continue;
-        //        list.Add(new CNameIDForComboBox(row.ApartmentID, row.ApartmentName));
-        //    }
-        //    return list;
-        //}
-
+        void SetupBindingSource()
+        {
+            shiftTableBindingSource.DataSource = m_DataSet;
+            hRBindingSource.DataSource = m_DataSet;
+            operatorBindingSource.DataSource = m_DataSet;
+        }
 
         private void comboBoxMonth_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -165,10 +176,8 @@ namespace VoucherExpense
                 return;
             }
             this.dgvShift.EndEdit();    // 這行一加,現有RowState一定變成Modified (經查是photo惹的禍)
-//            this.dgvShiftDetail.EndEdit();
-            VEDataSet.ShiftTableDataTable  table  = (VEDataSet.ShiftTableDataTable )vEDataSet.ShiftTable.GetChanges();
-            VEDataSet.ShiftDetailDataTable detail = null;
-            //            VEDataSet.ShiftDetailDataTable detail = (VEDataSet.ShiftDetailDataTable)vEDataSet.ShiftDetail.GetChanges();
+            var  table  = (MyShiftTable )m_DataSet.ShiftTable.GetChanges();
+            MyShiftDetailTable detail = null;
             if (table == null && detail == null)
             {
                 MessageBox.Show("沒有改動任何資料! 不用存");
@@ -177,7 +186,7 @@ namespace VoucherExpense
             // 設定修改人及修改日期
             if (table != null)
             {
-                foreach (VEDataSet.ShiftTableRow r in table)
+                foreach (var r in table)
                     if (r.RowState != DataRowState.Deleted)
                     {
                         r.BeginEdit();
@@ -185,23 +194,17 @@ namespace VoucherExpense
                         r.LastUpdated = DateTime.Now;
                         r.EndEdit();
                     }
-                vEDataSet.ShiftTable.Merge(table);
+                m_DataSet.ShiftTable.Merge(table);
                 try
                 {
-                    this.shiftTableTableAdapter.Update(this.vEDataSet.ShiftTable);
+                    ShiftAdapter.Update(m_DataSet.ShiftTable);
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("更新時出錯,原因:" + ex.Message);
                 }
-                vEDataSet.ShiftTable.AcceptChanges();
+                m_DataSet.ShiftTable.AcceptChanges();
             }
-        //    if (detail != null)
-        //    {
-        //        vEDataSet.ShiftDetail.Merge(detail);
-        //        this.shiftDetailTableAdapter.Update(vEDataSet.ShiftDetail);
-        //        vEDataSet.ShiftDetail.AcceptChanges();
-        //    }
         }
 
         //private void dgvShiftDetail_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
@@ -217,13 +220,14 @@ namespace VoucherExpense
             if (dgvShift.SelectedCells.Count <= 0) return;
             DataGridViewRow dgvRow = dgvShift.SelectedCells[0].OwningRow;
             DataRowView     rowView=dgvRow.DataBoundItem as DataRowView;   // 指到BindingSource
-            VEDataSet.ShiftTableRow row = rowView.Row as VEDataSet.ShiftTableRow;
-            if (row.Locked)
+            var row = rowView.Row as MyShiftRow;
+            if ((!row.IsLockedNull()) && row.Locked)
             {
                 MessageBox.Show("己核可無法刪除!");
                 return;
             }
-            VEDataSet.ShiftDetailRow[] details = row.GetShiftDetailRows();
+            var details = row.GetShiftDetailRows();   
+//            var details = from r in m_DataSet.ShiftDetail where r.ShiftID == row.ShiftID select r;
             if (details.Count() != 0)
             {
                 MessageBox.Show("此班表己經有員工,不能刪除!");
@@ -247,7 +251,7 @@ namespace VoucherExpense
             }
             DataGridViewRow dgvRow = dgvShift.SelectedCells[0].OwningRow;
             DataRowView rowView = dgvRow.DataBoundItem as DataRowView;
-            VEDataSet.ShiftTableRow row = rowView.Row as VEDataSet.ShiftTableRow;
+            var row = rowView.Row as MyShiftRow;
             if (row.IsTableMonthNull() || row.TableMonth<1)
             {
                 MessageBox.Show("請設定月份!");
@@ -258,7 +262,7 @@ namespace VoucherExpense
                 MessageBox.Show("請輸入該表名稱!");
                 return;
             }
-            Form form = new FormShiftDetail(vEDataSet,row,m_ShiftCodeList);
+            Form form = new FormShiftDetail(m_DataSet,row,m_ShiftCodeList);
             form.ShowDialog();
         }
 

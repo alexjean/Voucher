@@ -35,21 +35,19 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.comboBoxMonth = new System.Windows.Forms.ComboBox();
             this.dgViewMonthlyPay = new System.Windows.Forms.DataGridView();
+            this.venderIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.vendorBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.vEDataSet = new VoucherExpense.VEDataSet();
+            this.orderCountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.moneyDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cMonthlyPayBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.textBoxTotal = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.vendorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.VendorTableAdapter();
-            this.voucherTableAdapter = new VoucherExpense.VEDataSetTableAdapters.VoucherTableAdapter();
             this.labelWarning1 = new System.Windows.Forms.Label();
             this.labelWarning2 = new System.Windows.Forms.Label();
             this.btnPrint = new System.Windows.Forms.Button();
             this.printDocument = new System.Drawing.Printing.PrintDocument();
             this.btnIncludeTotal = new System.Windows.Forms.Button();
-            this.venderIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.orderCountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.moneyDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgViewMonthlyPay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vendorBindingSource)).BeginInit();
@@ -118,6 +116,20 @@
             this.dgViewMonthlyPay.Size = new System.Drawing.Size(453, 537);
             this.dgViewMonthlyPay.TabIndex = 61;
             // 
+            // venderIDDataGridViewTextBoxColumn
+            // 
+            this.venderIDDataGridViewTextBoxColumn.DataPropertyName = "VenderID";
+            this.venderIDDataGridViewTextBoxColumn.DataSource = this.vendorBindingSource;
+            this.venderIDDataGridViewTextBoxColumn.DisplayMember = "Name";
+            this.venderIDDataGridViewTextBoxColumn.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.venderIDDataGridViewTextBoxColumn.HeaderText = "廠商";
+            this.venderIDDataGridViewTextBoxColumn.Name = "venderIDDataGridViewTextBoxColumn";
+            this.venderIDDataGridViewTextBoxColumn.ReadOnly = true;
+            this.venderIDDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.venderIDDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.venderIDDataGridViewTextBoxColumn.ValueMember = "VendorID";
+            this.venderIDDataGridViewTextBoxColumn.Width = 160;
+            // 
             // vendorBindingSource
             // 
             this.vendorBindingSource.DataMember = "Vendor";
@@ -127,6 +139,29 @@
             // 
             this.vEDataSet.DataSetName = "VEDataSet";
             this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // orderCountDataGridViewTextBoxColumn
+            // 
+            this.orderCountDataGridViewTextBoxColumn.DataPropertyName = "OrderCount";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Format = "N0";
+            dataGridViewCellStyle2.NullValue = null;
+            this.orderCountDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            this.orderCountDataGridViewTextBoxColumn.HeaderText = "核可單數";
+            this.orderCountDataGridViewTextBoxColumn.Name = "orderCountDataGridViewTextBoxColumn";
+            this.orderCountDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // moneyDataGridViewTextBoxColumn
+            // 
+            this.moneyDataGridViewTextBoxColumn.DataPropertyName = "Money";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.Format = "N1";
+            dataGridViewCellStyle3.NullValue = null;
+            this.moneyDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            this.moneyDataGridViewTextBoxColumn.HeaderText = "金額";
+            this.moneyDataGridViewTextBoxColumn.Name = "moneyDataGridViewTextBoxColumn";
+            this.moneyDataGridViewTextBoxColumn.ReadOnly = true;
+            this.moneyDataGridViewTextBoxColumn.Width = 140;
             // 
             // cMonthlyPayBindingSource
             // 
@@ -150,14 +185,6 @@
             this.label2.Size = new System.Drawing.Size(40, 16);
             this.label2.TabIndex = 62;
             this.label2.Text = "小計";
-            // 
-            // vendorTableAdapter
-            // 
-            this.vendorTableAdapter.ClearBeforeFill = true;
-            // 
-            // voucherTableAdapter
-            // 
-            this.voucherTableAdapter.ClearBeforeFill = true;
             // 
             // labelWarning1
             // 
@@ -203,43 +230,6 @@
             this.btnIncludeTotal.UseVisualStyleBackColor = true;
             this.btnIncludeTotal.Click += new System.EventHandler(this.btnIncludeTotal_Click);
             // 
-            // venderIDDataGridViewTextBoxColumn
-            // 
-            this.venderIDDataGridViewTextBoxColumn.DataPropertyName = "VenderID";
-            this.venderIDDataGridViewTextBoxColumn.DataSource = this.vendorBindingSource;
-            this.venderIDDataGridViewTextBoxColumn.DisplayMember = "Name";
-            this.venderIDDataGridViewTextBoxColumn.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.venderIDDataGridViewTextBoxColumn.HeaderText = "廠商";
-            this.venderIDDataGridViewTextBoxColumn.Name = "venderIDDataGridViewTextBoxColumn";
-            this.venderIDDataGridViewTextBoxColumn.ReadOnly = true;
-            this.venderIDDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.venderIDDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.venderIDDataGridViewTextBoxColumn.ValueMember = "VendorID";
-            this.venderIDDataGridViewTextBoxColumn.Width = 160;
-            // 
-            // orderCountDataGridViewTextBoxColumn
-            // 
-            this.orderCountDataGridViewTextBoxColumn.DataPropertyName = "OrderCount";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "N0";
-            dataGridViewCellStyle2.NullValue = null;
-            this.orderCountDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
-            this.orderCountDataGridViewTextBoxColumn.HeaderText = "核可單數";
-            this.orderCountDataGridViewTextBoxColumn.Name = "orderCountDataGridViewTextBoxColumn";
-            this.orderCountDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // moneyDataGridViewTextBoxColumn
-            // 
-            this.moneyDataGridViewTextBoxColumn.DataPropertyName = "Money";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "N1";
-            dataGridViewCellStyle3.NullValue = null;
-            this.moneyDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
-            this.moneyDataGridViewTextBoxColumn.HeaderText = "金額";
-            this.moneyDataGridViewTextBoxColumn.Name = "moneyDataGridViewTextBoxColumn";
-            this.moneyDataGridViewTextBoxColumn.ReadOnly = true;
-            this.moneyDataGridViewTextBoxColumn.Width = 140;
-            // 
             // FormMonthlyPay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -279,8 +269,6 @@
         private System.Windows.Forms.BindingSource cMonthlyPayBindingSource;
         private VEDataSet vEDataSet;
         private System.Windows.Forms.BindingSource vendorBindingSource;
-        private VoucherExpense.VEDataSetTableAdapters.VendorTableAdapter vendorTableAdapter;
-        private VoucherExpense.VEDataSetTableAdapters.VoucherTableAdapter voucherTableAdapter;
         private System.Windows.Forms.Label labelWarning1;
         private System.Windows.Forms.Label labelWarning2;
         private System.Windows.Forms.Button btnPrint;

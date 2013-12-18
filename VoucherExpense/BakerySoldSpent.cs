@@ -7,7 +7,24 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 using System.IO;
-
+using System.Linq;
+#if UseSQLServer
+using MyDataSet         = VoucherExpense.DamaiDataSet;
+using MyVoucherTable    = VoucherExpense.DamaiDataSet.VoucherDataTable;
+using MyOrderSet        = VoucherExpense.DamaiDataSet;
+using MyOrderTable      = VoucherExpense.DamaiDataSet.OrderDataTable;
+using MyOrderItemTable  = VoucherExpense.DamaiDataSet.OrderItemDataTable;
+using MyOrderAdapter    = VoucherExpense.DamaiDataSetTableAdapters.OrderTableAdapter;
+using MyOrderItemAdapter= VoucherExpense.DamaiDataSetTableAdapters.OrderItemTableAdapter;
+#else
+using MyDataSet         = VoucherExpense.VEDataSet;
+using MyVoucherTable    = VoucherExpense.VEDataSet.VoucherDataTable;
+using MyOrderSet        = VoucherExpense.BakeryOrderSet;
+using MyOrderTable      = VoucherExpense.BakeryOrderSet.OrderDataTable;
+using MyOrderItemTable  = VoucherExpense.BakeryOrderSet.OrderItemDataTable;
+using MyOrderAdapter    = VoucherExpense.BakeryOrderSetTableAdapters.OrderTableAdapter;
+using MyOrderItemAdapter= VoucherExpense.BakeryOrderSetTableAdapters.OrderItemTableAdapter;
+#endif
 namespace VoucherExpense
 {
     public partial class BakerySoldSpent : Form
@@ -20,6 +37,58 @@ namespace VoucherExpense
         public BakerySoldSpent()
         {
             InitializeComponent();
+        }
+
+        MyDataSet m_DataSet=new MyDataSet();
+        MyOrderSet m_OrderSet;
+        private void SaleSpendRatio_Load(object sender, EventArgs e)
+        {
+#if (UseSQLServer)
+            m_OrderSet=m_DataSet;
+            SetupBindingSource();
+            var productAdapter       = new VoucherExpense.DamaiDataSetTableAdapters.ProductTableAdapter();
+            var ingredientAdapter    = new VoucherExpense.DamaiDataSetTableAdapters.IngredientTableAdapter();
+            var voucherAdapter       = new VoucherExpense.DamaiDataSetTableAdapters.VoucherTableAdapter();
+            var voucherDetailAdapter = new VoucherExpense.DamaiDataSetTableAdapters.VoucherDetailTableAdapter();
+#else
+            m_OrderSet=new VoucherExpense.BakeryOrderSet();
+            SetupBindingSource();
+            var productAdapter       = new VoucherExpense.BakeryOrderSetTableAdapters.ProductTableAdapter();
+            var ingredientAdapter    = new VoucherExpense.VEDataSetTableAdapters.IngredientTableAdapter();
+            var voucherAdapter       = new VoucherExpense.VEDataSetTableAdapters.VoucherTableAdapter();
+            var voucherDetailAdapter = new VoucherExpense.VEDataSetTableAdapters.VoucherDetailTableAdapter();
+
+            m_OrderAdapter.Connection           = MapPath.BakeryConnection;
+            m_OrderItemAdapter.Connection       = MapPath.BakeryConnection;
+            productAdapter.Connection           = MapPath.BakeryConnection;
+            ingredientAdapter.Connection   = MapPath.VEConnection;
+            voucherAdapter.Connection      = MapPath.VEConnection;
+            voucherDetailAdapter.Connection= MapPath.VEConnection;
+#endif
+            try
+            {
+                productAdapter.Fill      (m_OrderSet.Product);
+                ingredientAdapter.Fill   (m_DataSet.Ingredient);
+                voucherAdapter.Fill      (m_DataSet.Voucher);
+                voucherDetailAdapter.Fill(m_DataSet.VoucherDetail);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("資料庫讀取錯誤<" + ex.Message + ">, 後續操作無法進行!");
+                Close();
+                return;
+            }
+            cSaleItemBindingSource.DataSource = m_SaleList;
+            this.dgViewSale.DataSource = cSaleItemBindingSource;
+            stockItemBindingSource.DataSource = m_StockList;
+            this.dgViewStock.DataSource = stockItemBindingSource;
+            Reload();
+        }
+
+        void SetupBindingSource()
+        {
+            productBindingSource.DataSource = m_OrderSet;
+            ingredientBindingSource.DataSource = m_DataSet;
         }
 
         void SetEditMode(bool flag)
@@ -94,15 +163,12 @@ namespace VoucherExpense
             }
         }
 
-
-
         OrderAdapter m_OrderAdapter = new OrderAdapter();
         OrderItemAdapter m_OrderItemAdapter = new OrderItemAdapter();
-
-        class OrderAdapter : BakeryOrderSetTableAdapters.OrderTableAdapter
+        class OrderAdapter : MyOrderAdapter
         {
             string SaveStr;
-            public int FillBySelectStr(BakeryOrderSet.OrderDataTable dataTable, string SelectStr)
+            public int FillBySelectStr(MyOrderTable dataTable, string SelectStr)
             {
                 SaveStr = base.CommandCollection[0].CommandText;
                 base.CommandCollection[0].CommandText = SelectStr;
@@ -111,10 +177,10 @@ namespace VoucherExpense
                 return result;
             }
         }
-        class OrderItemAdapter : BakeryOrderSetTableAdapters.OrderItemTableAdapter
+        class OrderItemAdapter : MyOrderItemAdapter
         {
             string SaveStr;
-            public int FillBySelectStr(BakeryOrderSet.OrderItemDataTable dataTable, string SelectStr)
+            public int FillBySelectStr(MyOrderItemTable dataTable, string SelectStr)
             {
                 SaveStr = base.CommandCollection[0].CommandText;
                 base.CommandCollection[0].CommandText = SelectStr;
@@ -142,12 +208,17 @@ namespace VoucherExpense
         void LoadData(int month, int from, int to)
         {
             string sql;
+#if UseSQLServer
+            sql = "Where (Floor(ID/1000000)>=" + DateStr(month, from)
+                + " And Floor(ID/1000000)<=" + DateStr(month, to) + ")";
+#else
+            sql = "Where (INT(ID/1000000)>=" + DateStr(month, from)
+                + " And INT(ID/1000000)<=" + DateStr(month, to) + ")";
+#endif
             try
             {
-               sql = "Where (INT(ID/1000000)>=" + DateStr(month, from)
-                   + " And INT(ID/1000000)<=" + DateStr(month, to) + ")";
-                m_OrderAdapter.FillBySelectStr(bakeryOrderSet.Order, "Select * From [Order] " + sql + " Order by ID");
-                m_OrderItemAdapter.FillBySelectStr(bakeryOrderSet.OrderItem, "Select * From [OrderItem] " + sql);
+                m_OrderAdapter.FillBySelectStr(m_OrderSet.Order, "Select * From [Order] " + sql + " Order by ID");
+                m_OrderItemAdapter.FillBySelectStr(m_OrderSet.OrderItem, "Select * From [OrderItem] " + sql);
             }
             catch (Exception ex)
             {
@@ -175,11 +246,11 @@ namespace VoucherExpense
                 m.Volume = 0;
             }
             bool[] debug = new bool[count];   // items code會重複, 不知為何 ,只好用此辦法
-            foreach (BakeryOrderSet.OrderRow row in bakeryOrderSet.Order)
+            foreach (var row in m_OrderSet.Order)
             {
-                BakeryOrderSet.OrderItemRow[] items = row.GetOrderItemRows();
+                var items = row.GetOrderItemRows();
                 for (int i = 0; i < count; i++) debug[i] = false;
-                foreach (BakeryOrderSet.OrderItemRow it in items)
+                foreach (var it in items)
                 {
                     for (int i = 0; i < m_SaleList.Count; i++)
                     {
@@ -212,9 +283,9 @@ namespace VoucherExpense
             List<CStockItem> list = new List<CStockItem>();
             foreach (CStockItem item in m_StockList)
                 list.Add(new CStockItem(item.IngredientID));
-            VEDataSet.VoucherDataTable voucher = new VEDataSet.VoucherDataTable();
+            var voucher = new MyVoucherTable();
             int count = 0, checkedCount = 0;
-            foreach (VEDataSet.VoucherRow vr in vEDataSet.Voucher)
+            foreach (var vr in m_DataSet.Voucher)
             {
                 if (vr.IsStockTimeNull()) continue;
                 if (month != 0)
@@ -224,13 +295,13 @@ namespace VoucherExpense
                 if (vr.StockTime.Year != MyFunction.IntHeaderYear) continue;
                 if (!vr.IsRemovedNull())
                     if (vr.Removed) continue;
-                VEDataSet.VoucherRow row = voucher.NewVoucherRow();
+                var row = voucher.NewVoucherRow();
                 row.ItemArray = vr.ItemArray;
                 voucher.AddVoucherRow(row);
                 count++;
                 if (vr.Locked) checkedCount++;
                 decimal checkSum = 0;
-                foreach (VEDataSet.VoucherDetailRow dr in vr.GetVoucherDetailRows())
+                foreach (var dr in vr.GetVoucherDetailRows())
                 {
                     if (dr.IsIngredientIDNull()) continue;
 
@@ -265,37 +336,6 @@ namespace VoucherExpense
             foreach (CStockItem p in list)
                 sum += p.TotalCost;
             return sum;
-        }
-
-        private void SaleSpendRatio_Load(object sender, EventArgs e)
-        {
-            // 位於 CalcSaleList.cs
-            m_OrderAdapter.Connection = MapPath.BakeryConnection;
-            m_OrderItemAdapter.Connection = MapPath.BakeryConnection;
-            productTableAdapter.Connection = MapPath.BakeryConnection;
-
-            ingredientTableAdapter.Connection = MapPath.VEConnection;
-            voucherTableAdapter.Connection = MapPath.VEConnection;
-            voucherDetailTableAdapter.Connection = MapPath.VEConnection;
-
-            try
-            {
-                ingredientTableAdapter.Fill(vEDataSet.Ingredient);
-                productTableAdapter.Fill   (bakeryOrderSet.Product);
-                this.voucherTableAdapter.Fill(vEDataSet.Voucher);
-                this.voucherDetailTableAdapter.Fill(vEDataSet.VoucherDetail);
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show("資料庫讀取錯誤<"+ex.Message+">, 後續操作無法進行!");
-                Close();
-                return;
-            }
-            cSaleItemBindingSource.DataSource = m_SaleList;
-            this.dgViewSale.DataSource = cSaleItemBindingSource;
-            stockItemBindingSource.DataSource = m_StockList;
-            this.dgViewStock.DataSource = stockItemBindingSource;
-            Reload();
         }
 
         private void dgViewSale_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -337,7 +377,7 @@ namespace VoucherExpense
                 return;
             }
             textBoxName.Text = tableName;
-            int code;
+            int id;
             XmlNode sale = root.SelectSingleNode("Product");
             XmlNode stock = root.SelectSingleNode("Ingredient");
             m_SaleList = new List<CSaleItem>();
@@ -345,17 +385,17 @@ namespace VoucherExpense
             foreach (XmlNode node in sale.ChildNodes)
             {
                 if (node.Name!="ProductID") continue;
-                code=0;
+                id=0;
                 try
                 {
-                    code=Convert.ToInt32(node.InnerText);
+                    id=Convert.ToInt32(node.InnerText);
                 }
                 catch{ continue; }
-                if (code<=0) continue;
-                CSaleItem m = new CSaleItem(code);
-                foreach (BakeryOrderSet.ProductRow row in this.bakeryOrderSet.Product)
+                if (id<=0) continue;
+                CSaleItem m = new CSaleItem(id);
+                foreach (var row in m_OrderSet.Product)
                 {
-                    if (row.Code == code)
+                    if (row.ProductID == id)
                     {
                         if (!row.IsPriceNull())
                             m.Price = (decimal)row.Price;
@@ -371,14 +411,21 @@ namespace VoucherExpense
             foreach (XmlNode node in stock.ChildNodes)
             {
                 if (node.Name != "IngredientID") continue;
-                code = 0;
+                id = 0;
                 try
                 {
-                    code = Convert.ToInt32(node.InnerText);
+                    id = Convert.ToInt32(node.InnerText);
                 }
                 catch { continue; }
-                if (code <= 0) continue;
-                m_StockList.Add(new CStockItem(code));
+                if (id <= 0) continue;
+                CStockItem si = new CStockItem(id);
+                var ings = from r in m_DataSet.Ingredient where r.IngredientID == id select r;
+                if (ings.Count() > 0)
+                {
+                    if (!ings.First().IsUnitNull())
+                        si.Unit = ings.First().Unit;
+                }
+                m_StockList.Add(si);
             }
             int mon = comboBoxMonth.SelectedIndex;
             if (mon > 0 && mon <= 12)

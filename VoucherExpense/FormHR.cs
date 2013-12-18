@@ -8,6 +8,21 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Drawing.Drawing2D;
+#if UseSQLServer
+using MyDataSet         = VoucherExpense.DamaiDataSet;
+using MyHRTable         = VoucherExpense.DamaiDataSet.HRDataTable;
+using MyHRDetailTable   = VoucherExpense.DamaiDataSet.HRDetailDataTable;
+using MyHRAdapter       = VoucherExpense.DamaiDataSetTableAdapters.HRTableAdapter;
+using MyHRDetailAdapter = VoucherExpense.DamaiDataSetTableAdapters.HRDetailTableAdapter;
+using MyHRRow           = VoucherExpense.DamaiDataSet.HRRow;
+#else
+using MyDataSet         = VoucherExpense.VEDataSet;
+using MyHRTable         = VoucherExpense.VEDataSet.HRDataTable;
+using MyHRDetailTable   = VoucherExpense.VEDataSet.HRDetailDataTable;
+using MyHRAdapter       = VoucherExpense.VEDataSetTableAdapters.HRTableAdapter;
+using MyHRDetailAdapter = VoucherExpense.VEDataSetTableAdapters.HRDetailTableAdapter;
+using MyHRRow           = VoucherExpense.VEDataSet.HRRow;
+#endif
 
 namespace VoucherExpense
 {
@@ -16,6 +31,53 @@ namespace VoucherExpense
         public FormHR()
         {
             InitializeComponent();
+        }
+
+        MyDataSet m_DataSet = new MyDataSet();
+        MyHRAdapter HRAdapter = new MyHRAdapter();
+        MyHRDetailAdapter HRDetailAdapter = new MyHRDetailAdapter();
+        private void FormHR_Load(object sender, EventArgs e)
+        {
+            SetupBindingSource();
+#if UseSQLServer
+            dgvHRDetail.DataSource = fKHRDetailHRBindingSource;
+
+            var operatorAdapter  = new VoucherExpense.DamaiDataSetTableAdapters.OperatorTableAdapter();
+            var apartmentAdapter = new VoucherExpense.DamaiDataSetTableAdapters.ApartmentTableAdapter();
+#else
+            dgvHRDetail.DataSource = hRHRDetailBindingSource;
+            var operatorAdapter  = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
+            var apartmentAdapter = new VoucherExpense.VEDataSetTableAdapters.ApartmentTableAdapter();
+            operatorAdapter.Connection  = MapPath.VEConnection;
+            apartmentAdapter.Connection = MapPath.VEConnection;
+            HRAdapter.Connection        = MapPath.VEConnection;
+            HRDetailAdapter.Connection  = MapPath.VEConnection;
+#endif
+            Try(() => operatorAdapter.Fill (m_DataSet.Operator));
+            Try(() => apartmentAdapter.Fill(m_DataSet.Apartment));
+            Try(() => HRAdapter.Fill       (m_DataSet.HR));
+            Try(() => HRDetailAdapter.Fill (m_DataSet.HRDetail));
+            MyFunction.SetFieldLength(dgvHR      , m_DataSet.HR);
+            MyFunction.SetFieldLength(dgvHRDetail, m_DataSet.HRDetail);
+            MyFunction.SetControlLengthFromDB(this, m_DataSet.HR);
+            checkBoxShowAll.Checked = false;
+        }
+
+        void Try(Action action)
+        {
+            try { action(); }
+            catch (Exception ex) { MessageBox.Show("ex:" + ex.Message);  }
+        }
+
+        void SetupBindingSource()
+        {
+            apartmentBindingSource.DataSource = m_DataSet;
+            operatorBindingSource.DataSource  = m_DataSet;
+            operatorBindingSource1.DataSource = m_DataSet;
+            operatorBindingSource2.DataSource = m_DataSet;
+            hRBindingSource.DataSource = m_DataSet;
+            hRBindingSource1.DataSource = m_DataSet;     // hRBindingSource1只拿來當模版不使用,因為有_CurrentChanged也要掛麻煩
+            fKHRDetailHRBindingSource.DataSource = hRBindingSource;
         }
 
         private void hRBindingNavigatorSaveItem_Click(object sender, EventArgs e)
@@ -27,8 +89,8 @@ namespace VoucherExpense
             }
             this.hRBindingSource.EndEdit();    // 這行一加,現有RowState一定變成Modified (經查是photo惹的禍)
             this.hRHRDetailBindingSource.EndEdit();
-            VEDataSet.HRDataTable table = (VEDataSet.HRDataTable)vEDataSet.HR.GetChanges();
-            VEDataSet.HRDetailDataTable detail = (VEDataSet.HRDetailDataTable)vEDataSet.HRDetail.GetChanges();
+            var table   = (MyHRTable)m_DataSet.HR.GetChanges();
+            var detail  = (MyHRDetailTable)m_DataSet.HRDetail.GetChanges();
             if (table == null && detail == null)
             {
                 MessageBox.Show("沒有改動任何資料! 不用存");
@@ -37,7 +99,7 @@ namespace VoucherExpense
             // 設定修改人及修改日期
             if (table != null)
             {
-                foreach (VEDataSet.HRRow r in table)
+                foreach (var r in table)
                     if (r.RowState != DataRowState.Deleted)
                     {
                         r.BeginEdit();
@@ -45,45 +107,21 @@ namespace VoucherExpense
                         r.LastUpdated = DateTime.Now;
                         r.EndEdit();
                     }
-                vEDataSet.HR.Merge(table);
-                try
-                {
-                    this.hRTableAdapter.Update(this.vEDataSet.HR);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Ex:" + ex.Message);
-                }
-                vEDataSet.HR.AcceptChanges();
+                m_DataSet.HR.Merge(table);
+                Try(() => HRAdapter.Update(m_DataSet.HR));
+                m_DataSet.HR.AcceptChanges();
             }
             if (detail != null)
             {
-                vEDataSet.HRDetail.Merge(detail);
-                this.hRDetailTableAdapter.Update(vEDataSet.HRDetail);
-                vEDataSet.HRDetail.AcceptChanges();
+                m_DataSet.HRDetail.Merge(detail);
+                Try(() => HRDetailAdapter.Update(m_DataSet.HRDetail));
+                m_DataSet.HRDetail.AcceptChanges();
             }
-        }
-
-        private void FormHR_Load(object sender, EventArgs e)
-        {
-            operatorTableAdapter.Connection  = MapPath.VEConnection;
-            apartmentTableAdapter.Connection = MapPath.VEConnection;
-            hRTableAdapter.Connection        = MapPath.VEConnection;
-            hRDetailTableAdapter.Connection  = MapPath.VEConnection;
-
-            try { operatorTableAdapter.Fill(this.vEDataSet.Operator); }   catch(Exception ex) { MessageBox.Show("ex:" + ex.Message); }
-            try { apartmentTableAdapter.Fill(this.vEDataSet.Apartment); } catch(Exception ex) { MessageBox.Show("ex:" + ex.Message); }
-            try { hRTableAdapter.Fill(this.vEDataSet.HR); }               catch(Exception ex) { MessageBox.Show("ex:" + ex.Message); }
-            try { hRDetailTableAdapter.Fill(this.vEDataSet.HRDetail); }   catch(Exception ex) { MessageBox.Show("ex:" + ex.Message); }
-            MyFunction.SetFieldLength(hRDataGridView, vEDataSet.HR);
-            MyFunction.SetFieldLength(hRDetailDataGridView, vEDataSet.HRDetail);
-            MyFunction.SetControlLengthFromDB(this,vEDataSet.HR);
-            checkBoxShowAll.Checked = false;
         }
 
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
-            MyFunction.AddNewItem(this.hRDataGridView, "columnEmployeeID", "EmployeeID", vEDataSet.HR);
+            MyFunction.AddNewItem(this.dgvHR, "columnEmployeeID", "EmployeeID", m_DataSet.HR);
             this.hRBindingSource.ResetBindings(false);
         }
 
@@ -119,7 +157,7 @@ namespace VoucherExpense
             photoPictureBox.Image=newbmp;
             // PictureBox DataBinding時,那個DataRow的RowState不比對資料永遠是Modified,所以只好手工Binding
             DataRowView rowView = hRBindingSource.Current as DataRowView;
-            VEDataSet.HRRow row = rowView.Row as VEDataSet.HRRow;
+            var row = rowView.Row as MyHRRow;
             MemoryStream stream = new MemoryStream();
             newbmp.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
             row.Photo = stream.ToArray();
@@ -157,7 +195,7 @@ namespace VoucherExpense
         {
             NoticeCellValueChanged = true;
             int  iRow = e.RowIndex;
-            DataGridView view = hRDetailDataGridView;
+            DataGridView view = dgvHRDetail;
             if (iColApproved < 0)
             {
                 DataGridViewColumn col = view.Columns[colApproved];
@@ -190,7 +228,7 @@ namespace VoucherExpense
             // PictureBox DataBinding時,那個DataRow的RowState不比對資料永遠是Modified,所以只好手工Binding
             BindingSource source = sender as BindingSource;
             DataRowView rowView = source.Current as DataRowView;
-            VEDataSet.HRRow row = rowView.Row as VEDataSet.HRRow;
+            var row = rowView.Row as MyHRRow;
             if (row == null || row.IsPhotoNull())
             {
                 photoPictureBox.Image = null;

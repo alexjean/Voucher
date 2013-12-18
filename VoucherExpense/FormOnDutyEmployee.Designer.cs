@@ -29,10 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.vEDataSet = new VoucherExpense.VEDataSet();
             this.comboBoxMonth = new System.Windows.Forms.ComboBox();
-            this.onDutyDataTableAdapter = new VoucherExpense.VEDataSetTableAdapters.OnDutyDataTableAdapter();
             this.labelName = new System.Windows.Forms.Label();
             this.ckBoxShowAll = new System.Windows.Forms.CheckBox();
             this.btnImport = new System.Windows.Forms.Button();
@@ -40,27 +39,22 @@
             this.btnConfirmTrans = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.dgvOnDutyEmployee = new System.Windows.Forms.DataGridView();
-            this.apartmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.hRBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.hRTableAdapter = new VoucherExpense.VEDataSetTableAdapters.HRTableAdapter();
-            this.apartmentTableAdapter = new VoucherExpense.VEDataSetTableAdapters.ApartmentTableAdapter();
-            this.comboBoxApartment = new System.Windows.Forms.ComboBox();
-            this.cNameIDForComboBoxBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.btnExcel = new System.Windows.Forms.Button();
             this.employeeIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EmployeeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fingerprintmachine = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FingerPintNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.InPosition = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.ColumnApartmentID = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.apartmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.hRBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnExcel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOnDutyEmployee)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.apartmentBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hRBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cNameIDForComboBoxBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // vEDataSet
@@ -92,10 +86,6 @@
             this.comboBoxMonth.Size = new System.Drawing.Size(71, 24);
             this.comboBoxMonth.TabIndex = 54;
             this.comboBoxMonth.SelectedIndexChanged += new System.EventHandler(this.comboBoxMonth_SelectedIndexChanged);
-            // 
-            // onDutyDataTableAdapter
-            // 
-            this.onDutyDataTableAdapter.ClearBeforeFill = true;
             // 
             // labelName
             // 
@@ -156,8 +146,8 @@
             this.dgvOnDutyEmployee.AllowUserToDeleteRows = false;
             this.dgvOnDutyEmployee.AllowUserToOrderColumns = true;
             this.dgvOnDutyEmployee.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
-            this.dgvOnDutyEmployee.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Azure;
+            this.dgvOnDutyEmployee.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvOnDutyEmployee.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvOnDutyEmployee.AutoGenerateColumns = false;
@@ -181,74 +171,6 @@
             this.dgvOnDutyEmployee.TabIndex = 1;
             this.dgvOnDutyEmployee.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvOnDutyEmployee_DataError);
             this.dgvOnDutyEmployee.SelectionChanged += new System.EventHandler(this.dgvOnDutyEmployee_SelectionChanged);
-            // 
-            // apartmentBindingSource
-            // 
-            this.apartmentBindingSource.DataMember = "Apartment";
-            this.apartmentBindingSource.DataSource = this.vEDataSet;
-            // 
-            // hRBindingSource
-            // 
-            this.hRBindingSource.DataMember = "HR";
-            this.hRBindingSource.DataSource = this.vEDataSet;
-            // 
-            // checkedListBox1
-            // 
-            this.checkedListBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkedListBox1.BackColor = System.Drawing.Color.Azure;
-            this.checkedListBox1.CheckOnClick = true;
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(457, 30);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(445, 620);
-            this.checkedListBox1.TabIndex = 55;
-            // 
-            // panel1
-            // 
-            this.panel1.AutoSize = true;
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 652);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(904, 0);
-            this.panel1.TabIndex = 61;
-            // 
-            // hRTableAdapter
-            // 
-            this.hRTableAdapter.ClearBeforeFill = true;
-            // 
-            // apartmentTableAdapter
-            // 
-            this.apartmentTableAdapter.ClearBeforeFill = true;
-            // 
-            // comboBoxApartment
-            // 
-            this.comboBoxApartment.DataSource = this.cNameIDForComboBoxBindingSource;
-            this.comboBoxApartment.DisplayMember = "Name";
-            this.comboBoxApartment.DropDownHeight = 216;
-            this.comboBoxApartment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxApartment.FormattingEnabled = true;
-            this.comboBoxApartment.IntegralHeight = false;
-            this.comboBoxApartment.Location = new System.Drawing.Point(0, 3);
-            this.comboBoxApartment.Name = "comboBoxApartment";
-            this.comboBoxApartment.Size = new System.Drawing.Size(108, 24);
-            this.comboBoxApartment.TabIndex = 62;
-            this.comboBoxApartment.ValueMember = "ID";
-            // 
-            // cNameIDForComboBoxBindingSource
-            // 
-            this.cNameIDForComboBoxBindingSource.DataSource = typeof(VoucherExpense.CNameIDForComboBox);
-            // 
-            // btnExcel
-            // 
-            this.btnExcel.Location = new System.Drawing.Point(277, 2);
-            this.btnExcel.Name = "btnExcel";
-            this.btnExcel.Size = new System.Drawing.Size(75, 26);
-            this.btnExcel.TabIndex = 63;
-            this.btnExcel.Text = "Excel";
-            this.btnExcel.UseVisualStyleBackColor = true;
-            this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
             // 
             // employeeIDDataGridViewTextBoxColumn
             // 
@@ -300,6 +222,11 @@
             this.ColumnApartmentID.ReadOnly = true;
             this.ColumnApartmentID.ValueMember = "ApartmentID";
             // 
+            // apartmentBindingSource
+            // 
+            this.apartmentBindingSource.DataMember = "Apartment";
+            this.apartmentBindingSource.DataSource = this.vEDataSet;
+            // 
             // Title
             // 
             this.Title.DataPropertyName = "Title";
@@ -307,13 +234,49 @@
             this.Title.Name = "Title";
             this.Title.ReadOnly = true;
             // 
+            // hRBindingSource
+            // 
+            this.hRBindingSource.DataMember = "HR";
+            this.hRBindingSource.DataSource = this.vEDataSet;
+            // 
+            // checkedListBox1
+            // 
+            this.checkedListBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkedListBox1.BackColor = System.Drawing.Color.Azure;
+            this.checkedListBox1.CheckOnClick = true;
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Location = new System.Drawing.Point(457, 30);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.Size = new System.Drawing.Size(445, 620);
+            this.checkedListBox1.TabIndex = 55;
+            // 
+            // panel1
+            // 
+            this.panel1.AutoSize = true;
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Location = new System.Drawing.Point(0, 652);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(904, 0);
+            this.panel1.TabIndex = 61;
+            // 
+            // btnExcel
+            // 
+            this.btnExcel.Location = new System.Drawing.Point(277, 2);
+            this.btnExcel.Name = "btnExcel";
+            this.btnExcel.Size = new System.Drawing.Size(75, 26);
+            this.btnExcel.TabIndex = 63;
+            this.btnExcel.Text = "Excel";
+            this.btnExcel.UseVisualStyleBackColor = true;
+            this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
+            // 
             // FormOnDutyEmployee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(904, 652);
             this.Controls.Add(this.btnExcel);
-            this.Controls.Add(this.comboBoxApartment);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.dgvOnDutyEmployee);
             this.Controls.Add(this.checkedListBox1);
@@ -323,7 +286,7 @@
             this.Controls.Add(this.ckBoxShowAll);
             this.Controls.Add(this.labelName);
             this.Controls.Add(this.comboBoxMonth);
-            this.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormOnDutyEmployee";
             this.Text = "上傳考勤至電腦";
@@ -332,7 +295,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvOnDutyEmployee)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.apartmentBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.hRBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cNameIDForComboBoxBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -342,7 +304,6 @@
 
         private VEDataSet vEDataSet;
         private System.Windows.Forms.ComboBox comboBoxMonth;
-        private VoucherExpense.VEDataSetTableAdapters.OnDutyDataTableAdapter onDutyDataTableAdapter;
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.CheckBox ckBoxShowAll;
         private System.Windows.Forms.Button btnImport;
@@ -353,11 +314,7 @@
         private System.Windows.Forms.CheckedListBox checkedListBox1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.BindingSource hRBindingSource;
-        private VEDataSetTableAdapters.HRTableAdapter hRTableAdapter;
         private System.Windows.Forms.BindingSource apartmentBindingSource;
-        private VEDataSetTableAdapters.ApartmentTableAdapter apartmentTableAdapter;
-        private System.Windows.Forms.ComboBox comboBoxApartment;
-        private System.Windows.Forms.BindingSource cNameIDForComboBoxBindingSource;
         private System.Windows.Forms.Button btnExcel;
         private System.Windows.Forms.DataGridViewTextBoxColumn employeeIDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn EmployeeName;

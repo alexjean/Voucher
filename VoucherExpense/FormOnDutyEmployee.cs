@@ -7,6 +7,15 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
+#if UseSQLServer
+using MyDataSet=VoucherExpense.DamaiDataSet;
+using MyHRRow = VoucherExpense.DamaiDataSet.HRRow;
+using MyOnDutyDataAdapter = VoucherExpense.DamaiDataSetTableAdapters.OnDutyDataTableAdapter;
+#else
+using MyDataSet=VoucherExpense.VEDataSet;
+using MyHRRow = VoucherExpense.VEDataSet.HRRow;
+using MyOnDutyDataAdapter = VoucherExpense.VEDataSetTableAdapters.OnDutyDataTableAdapter;
+#endif
 
 namespace VoucherExpense
 {
@@ -17,18 +26,26 @@ namespace VoucherExpense
             InitializeComponent();
         }
 
-
+        MyDataSet m_DataSet = new MyDataSet();
+        MyOnDutyDataAdapter OnDutyDataAdapter = new MyOnDutyDataAdapter();
         private void FormOnDutyEmployee_Load(object sender, EventArgs e)
         {
-            this.apartmentTableAdapter.Connection   = MapPath.VEConnection;
-            this.hRTableAdapter.Connection          = MapPath.VEConnection;
-            this.onDutyDataTableAdapter.Connection  = MapPath.VEConnection;
-
+            SetupBindingSource();
+#if UseSQLServer
+            var apartmentAdapter    = new VoucherExpense.DamaiDataSetTableAdapters.ApartmentTableAdapter();
+            var HRAdapter           = new VoucherExpense.DamaiDataSetTableAdapters.HRTableAdapter();
+#else
+            var apartmentAdapter    = new VoucherExpense.VEDataSetTableAdapters.ApartmentTableAdapter();
+            var HRAdapter           = new VoucherExpense.VEDataSetTableAdapters.HRTableAdapter();
+            apartmentAdapter.Connection   = MapPath.VEConnection;
+            HRAdapter.Connection          = MapPath.VEConnection;
+            OnDutyDataAdapter.Connection  = MapPath.VEConnection;
+#endif
             try
             {
-                this.apartmentTableAdapter.Fill(this.vEDataSet.Apartment);
-                this.hRTableAdapter.Fill(this.vEDataSet.HR);
-                this.onDutyDataTableAdapter.Fill(this.vEDataSet.OnDutyData);
+                apartmentAdapter.Fill   (m_DataSet.Apartment);
+                HRAdapter.Fill          (m_DataSet.HR);
+                OnDutyDataAdapter.Fill  (m_DataSet.OnDutyData);
             }
             catch (Exception ex)
             {
@@ -38,35 +55,41 @@ namespace VoucherExpense
             if (index<0) index=0;
             this.comboBoxMonth.SelectedIndex = index;
             ckBoxShowAll_CheckedChanged(null,null);
-            comboBoxApartment.DataSource = GetApartmentList();
+            //comboBoxApartment.DataSource = GetApartmentList();
         }
 
-        List<CNameIDForComboBox> GetApartmentList()
+        void SetupBindingSource()
         {
-            List<CNameIDForComboBox> list = new List<CNameIDForComboBox>();
-            if (vEDataSet.Apartment.Rows.Count > 1)               // 多於一個才有全部這個選項
-            {
-                list.Add(new CNameIDForComboBox(0, " "));
-                comboBoxApartment.Enabled = true;
-            }
-            else
-                comboBoxApartment.Enabled = false;
-            foreach (VEDataSet.ApartmentRow row in vEDataSet.Apartment)
-            {
-                if (row.IsApartmentNameNull()) continue;
-                list.Add(new CNameIDForComboBox(row.ApartmentID, row.ApartmentName));
-            }
-            return list;
+            hRBindingSource.DataSource = m_DataSet;
+            apartmentBindingSource.DataSource = m_DataSet;
         }
+
+        //List<CNameIDForComboBox> GetApartmentList()
+        //{
+        //    List<CNameIDForComboBox> list = new List<CNameIDForComboBox>();
+        //    if (m_DataSet.Apartment.Rows.Count > 1)               // 多於一個才有全部這個選項
+        //    {
+        //        list.Add(new CNameIDForComboBox(0, " "));
+        //        comboBoxApartment.Enabled = true;
+        //    }
+        //    else
+        //        comboBoxApartment.Enabled = false;
+        //    foreach (var row in m_DataSet.Apartment)
+        //    {
+        //        if (row.IsApartmentNameNull()) continue;
+        //        list.Add(new CNameIDForComboBox(row.ApartmentID, row.ApartmentName));
+        //    }
+        //    return list;
+        //}
 
         private void dgvOnDutyEmployee_SelectionChanged(object sender, EventArgs e)
         {
             DataGridView view=sender as DataGridView;
-            VEDataSet.HRRow hRRow;
+            MyHRRow hRRow;
             try
             {
                 DataRowView rv=view.CurrentRow.DataBoundItem as DataRowView;
-                hRRow = rv.Row as VEDataSet.HRRow;
+                hRRow = rv.Row as MyHRRow;
             }
             catch
             {
@@ -86,9 +109,11 @@ namespace VoucherExpense
 
             int d, h;
            // VEDataSet.OnDutyDataRow[] rows=hRRow.GetOnDutyDataRows();
-
-            VEDataSet.OnDutyDataRow[] rows = (VEDataSet.OnDutyDataRow[])vEDataSet.OnDutyData.Select("Fingerprintmachine=" + hRRow.Fingerprintmachine + "and " + "OnDutyCode=" + hRRow.FingerPintNo);
-            foreach (VEDataSet.OnDutyDataRow row in rows)
+            //VEDataSet.OnDutyDataRow[] rows = (VEDataSet.OnDutyDataRow[])vEDataSet.OnDutyData.Select("Fingerprintmachine=" + hRRow.Fingerprintmachine + "and " + "OnDutyCode=" + hRRow.FingerPintNo);
+            var rows = from r in m_DataSet.OnDutyData 
+                       where (r.Fingerprintmachine == hRRow.Fingerprintmachine) && (r.OnDutyCode == hRRow.FingerPintNo)
+                       select r;
+            foreach (var row in rows)
             {
                 try
                 {
@@ -204,12 +229,12 @@ namespace VoucherExpense
                             continue;
                         }
                     }
-                    VEDataSet.OnDutyDataRow row = vEDataSet.OnDutyData.NewOnDutyDataRow();
+                    var row = m_DataSet.OnDutyData.NewOnDutyDataRow();
                     row.ID = (++max);
                     row.OnDutyCode = code;
                     row.TimeMark = dt;
                     row.Fingerprintmachine = Convert.ToInt16(machineno);
-                    vEDataSet.OnDutyData.AddOnDutyDataRow(row);
+                    m_DataSet.OnDutyData.AddOnDutyDataRow(row);
                     success++;
                 }
                 catch { error++; }
@@ -217,8 +242,8 @@ namespace VoucherExpense
                 Application.DoEvents();
             }
             // Adapter.Update
-            onDutyDataTableAdapter.Update(vEDataSet.OnDutyData);
-            vEDataSet.OnDutyData.AcceptChanges();
+            OnDutyDataAdapter.Update(m_DataSet.OnDutyData);
+            m_DataSet.OnDutyData.AcceptChanges();
             btnConfirmTrans.Visible=false;
             progressBar1.Visible = false;
             labelName.Text="轉檔完成" ;

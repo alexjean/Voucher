@@ -413,6 +413,7 @@ namespace VoucherExpense
         public decimal Volume { get; set; }
         public decimal TotalCost { get; set; }
         public decimal UnitCost { get; set; }
+        public string Unit { get; set; }
         public int OrderCount { get; set; }
     }
 

@@ -36,20 +36,14 @@
             this.operatorBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.vEDataSet = new VoucherExpense.VEDataSet();
             this.shiftTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.shiftTableTableAdapter = new VoucherExpense.VEDataSetTableAdapters.ShiftTableTableAdapter();
             this.shiftTableBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
             this.儲存SToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.shiftDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.shiftDetailTableAdapter = new VoucherExpense.VEDataSetTableAdapters.ShiftDetailTableAdapter();
-            this.operatorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
             this.btnModify = new System.Windows.Forms.Button();
-            this.shiftTableShiftDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.hRBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.hRTableAdapter = new VoucherExpense.VEDataSetTableAdapters.HRTableAdapter();
             this.btnSaveCodeConfig = new System.Windows.Forms.Button();
             this.dgvConfigShiftCode = new System.Windows.Forms.DataGridView();
             this.columnCode = new System.Windows.Forms.DataGridViewComboBoxColumn();
@@ -71,8 +65,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.shiftTableBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.shiftTableBindingNavigator)).BeginInit();
             this.shiftTableBindingNavigator.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.shiftDetailBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.shiftTableShiftDetailBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hRBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvConfigShiftCode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cCodeForComboBindingSource)).BeginInit();
@@ -99,10 +91,6 @@
             // 
             this.shiftTableBindingSource.DataMember = "ShiftTable";
             this.shiftTableBindingSource.DataSource = this.vEDataSet;
-            // 
-            // shiftTableTableAdapter
-            // 
-            this.shiftTableTableAdapter.ClearBeforeFill = true;
             // 
             // shiftTableBindingNavigator
             // 
@@ -171,18 +159,6 @@
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
-            // shiftDetailBindingSource
-            // 
-            this.shiftDetailBindingSource.DataMember = "ShiftTableShiftDetail";
-            // 
-            // shiftDetailTableAdapter
-            // 
-            this.shiftDetailTableAdapter.ClearBeforeFill = true;
-            // 
-            // operatorTableAdapter
-            // 
-            this.operatorTableAdapter.ClearBeforeFill = true;
-            // 
             // btnModify
             // 
             this.btnModify.Location = new System.Drawing.Point(225, 1);
@@ -193,19 +169,10 @@
             this.btnModify.UseVisualStyleBackColor = true;
             this.btnModify.Click += new System.EventHandler(this.btnModify_Click);
             // 
-            // shiftTableShiftDetailBindingSource
-            // 
-            this.shiftTableShiftDetailBindingSource.DataMember = "ShiftTableShiftDetail";
-            this.shiftTableShiftDetailBindingSource.DataSource = this.shiftTableBindingSource;
-            // 
             // hRBindingSource
             // 
             this.hRBindingSource.DataMember = "HR";
             this.hRBindingSource.DataSource = this.vEDataSet;
-            // 
-            // hRTableAdapter
-            // 
-            this.hRTableAdapter.ClearBeforeFill = true;
             // 
             // btnSaveCodeConfig
             // 
@@ -388,8 +355,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.shiftTableBindingNavigator)).EndInit();
             this.shiftTableBindingNavigator.ResumeLayout(false);
             this.shiftTableBindingNavigator.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.shiftDetailBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.shiftTableShiftDetailBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.hRBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvConfigShiftCode)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cCodeForComboBindingSource)).EndInit();
@@ -404,23 +369,17 @@
         #endregion
 
         private VEDataSet vEDataSet;
-        private VEDataSetTableAdapters.ShiftTableTableAdapter shiftTableTableAdapter;
         private System.Windows.Forms.BindingNavigator shiftTableBindingNavigator;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorDeleteItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton 儲存SToolStripButton;
-        private System.Windows.Forms.BindingSource shiftDetailBindingSource;
-        private VEDataSetTableAdapters.ShiftDetailTableAdapter shiftDetailTableAdapter;
         private System.Windows.Forms.BindingSource operatorBindingSource;
-        private VEDataSetTableAdapters.OperatorTableAdapter operatorTableAdapter;
         private System.Windows.Forms.BindingSource cMonthForComboBindingSource;
         private System.Windows.Forms.BindingSource shiftTableBindingSource;
         private System.Windows.Forms.Button btnModify;
-        private System.Windows.Forms.BindingSource shiftTableShiftDetailBindingSource;
         private System.Windows.Forms.BindingSource hRBindingSource;
-        private VEDataSetTableAdapters.HRTableAdapter hRTableAdapter;
         private System.Windows.Forms.Button btnSaveCodeConfig;
         private System.Windows.Forms.DataGridView dgvConfigShiftCode;
         private System.Windows.Forms.BindingSource cCodeForComboBindingSource;

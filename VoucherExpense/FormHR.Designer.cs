@@ -52,11 +52,10 @@
             System.Windows.Forms.Label salaryLabel;
             System.Windows.Forms.Label fingerprintmachineLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormHR));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.vEDataSet = new VoucherExpense.VEDataSet();
             this.hRBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.hRTableAdapter = new VoucherExpense.VEDataSetTableAdapters.HRTableAdapter();
             this.hRBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -69,13 +68,15 @@
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.hRBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
-            this.hRDataGridView = new System.Windows.Forms.DataGridView();
+            this.dgvHR = new System.Windows.Forms.DataGridView();
             this.columnEmployeeID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewCheckBoxColumn2 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ApartmentID = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.apartmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.hRBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             this.employeeIDTextBox = new System.Windows.Forms.TextBox();
             this.employeeCodeTextBox = new System.Windows.Forms.TextBox();
             this.employeeNameTextBox = new System.Windows.Forms.TextBox();
@@ -95,10 +96,10 @@
             this.emergencyTelTextBox = new System.Windows.Forms.TextBox();
             this.fingerPintNoTextBox = new System.Windows.Forms.TextBox();
             this.lastUpdatedTextBox = new System.Windows.Forms.TextBox();
-            this.hRDetailTableAdapter = new VoucherExpense.VEDataSetTableAdapters.HRDetailTableAdapter();
-            this.hRDetailDataGridView = new System.Windows.Forms.DataGridView();
-            this.columnDetailID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvHRDetail = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnLastUpdated = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnDetailID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnApproved = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.columnContent = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnEffectiveDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -106,21 +107,19 @@
             this.operatorBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.columnApprover = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.operatorBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
-            this.columnLastUpdated = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.hRHRDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.apartmentTableAdapter = new VoucherExpense.VEDataSetTableAdapters.ApartmentTableAdapter();
             this.photoPictureBox = new System.Windows.Forms.PictureBox();
             this.btnPhoto = new System.Windows.Forms.Button();
             this.apartmentIDComboBox = new System.Windows.Forms.ComboBox();
             this.bankAccoutTextBox = new System.Windows.Forms.TextBox();
             this.keyinIDComboBox = new System.Windows.Forms.ComboBox();
             this.operatorBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.operatorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
             this.salaryTextBox = new System.Windows.Forms.TextBox();
             this.checkBoxShowAll = new System.Windows.Forms.CheckBox();
             this.birthdayTextBox = new System.Windows.Forms.TextBox();
             this.checkBoxIsApplier = new System.Windows.Forms.CheckBox();
             this.fingerprintmachineComboBox = new System.Windows.Forms.ComboBox();
+            this.fKHRDetailHRBindingSource = new System.Windows.Forms.BindingSource(this.components);
             employeeIDLabel = new System.Windows.Forms.Label();
             employeeCodeLabel = new System.Windows.Forms.Label();
             employeeNameLabel = new System.Windows.Forms.Label();
@@ -147,14 +146,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.hRBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hRBindingNavigator)).BeginInit();
             this.hRBindingNavigator.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.hRDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvHR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.apartmentBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.hRDetailDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.hRBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvHRDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hRHRDetailBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.photoPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fKHRDetailHRBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // employeeIDLabel
@@ -367,10 +369,6 @@
             this.hRBindingSource.Filter = "InPosition";
             this.hRBindingSource.CurrentChanged += new System.EventHandler(this.hRBindingSource_CurrentChanged);
             // 
-            // hRTableAdapter
-            // 
-            this.hRTableAdapter.ClearBeforeFill = true;
-            // 
             // hRBindingNavigator
             // 
             this.hRBindingNavigator.AddNewItem = this.bindingNavigatorAddNewItem;
@@ -392,14 +390,14 @@
             this.bindingNavigatorSeparator2,
             this.bindingNavigatorAddNewItem,
             this.hRBindingNavigatorSaveItem});
-            this.hRBindingNavigator.Location = new System.Drawing.Point(722, 2);
+            this.hRBindingNavigator.Location = new System.Drawing.Point(725, 2);
             this.hRBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.hRBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
             this.hRBindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
             this.hRBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.hRBindingNavigator.Name = "hRBindingNavigator";
             this.hRBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.hRBindingNavigator.Size = new System.Drawing.Size(252, 25);
+            this.hRBindingNavigator.Size = new System.Drawing.Size(249, 25);
             this.hRBindingNavigator.TabIndex = 0;
             this.hRBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -416,8 +414,8 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(32, 22);
-            this.bindingNavigatorCountItem.Text = "/ {0}";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 22);
+            this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
             // bindingNavigatorMoveFirstItem
@@ -489,40 +487,40 @@
             this.hRBindingNavigatorSaveItem.Text = "儲存資料";
             this.hRBindingNavigatorSaveItem.Click += new System.EventHandler(this.hRBindingNavigatorSaveItem_Click);
             // 
-            // hRDataGridView
+            // dgvHR
             // 
-            this.hRDataGridView.AllowUserToAddRows = false;
-            this.hRDataGridView.AllowUserToDeleteRows = false;
-            this.hRDataGridView.AllowUserToResizeRows = false;
-            this.hRDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dgvHR.AllowUserToAddRows = false;
+            this.dgvHR.AllowUserToDeleteRows = false;
+            this.dgvHR.AllowUserToResizeRows = false;
+            this.dgvHR.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.hRDataGridView.AutoGenerateColumns = false;
-            this.hRDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.hRDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.hRDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.hRDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvHR.AutoGenerateColumns = false;
+            this.dgvHR.BackgroundColor = System.Drawing.Color.SeaShell;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvHR.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvHR.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvHR.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.columnEmployeeID,
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewCheckBoxColumn2,
             this.dataGridViewTextBoxColumn11,
             this.ApartmentID});
-            this.hRDataGridView.DataSource = this.hRBindingSource;
-            this.hRDataGridView.EnableHeadersVisualStyles = false;
-            this.hRDataGridView.Location = new System.Drawing.Point(0, 2);
-            this.hRDataGridView.Name = "hRDataGridView";
-            this.hRDataGridView.RowHeadersVisible = false;
-            this.hRDataGridView.RowTemplate.Height = 24;
-            this.hRDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.hRDataGridView.Size = new System.Drawing.Size(354, 926);
-            this.hRDataGridView.TabIndex = 1;
-            this.hRDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.hRDataGridView_DataError);
+            this.dgvHR.DataSource = this.hRBindingSource;
+            this.dgvHR.EnableHeadersVisualStyles = false;
+            this.dgvHR.Location = new System.Drawing.Point(0, 2);
+            this.dgvHR.Name = "dgvHR";
+            this.dgvHR.RowHeadersVisible = false;
+            this.dgvHR.RowTemplate.Height = 24;
+            this.dgvHR.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dgvHR.Size = new System.Drawing.Size(354, 654);
+            this.dgvHR.TabIndex = 1;
+            this.dgvHR.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.hRDataGridView_DataError);
             // 
             // columnEmployeeID
             // 
@@ -570,6 +568,16 @@
             // 
             this.apartmentBindingSource.DataMember = "Apartment";
             this.apartmentBindingSource.DataSource = this.vEDataSet;
+            // 
+            // hRBindingSource1
+            // 
+            this.hRBindingSource1.DataMember = "HR";
+            this.hRBindingSource1.DataSource = this.damaiDataSet;
+            // 
+            // damaiDataSet
+            // 
+            this.damaiDataSet.DataSetName = "DamaiDataSet";
+            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // employeeIDTextBox
             // 
@@ -734,48 +742,36 @@
             this.lastUpdatedTextBox.Size = new System.Drawing.Size(147, 27);
             this.lastUpdatedTextBox.TabIndex = 45;
             // 
-            // hRDetailTableAdapter
+            // dgvHRDetail
             // 
-            this.hRDetailTableAdapter.ClearBeforeFill = true;
-            // 
-            // hRDetailDataGridView
-            // 
-            this.hRDetailDataGridView.AllowUserToOrderColumns = true;
-            this.hRDetailDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dgvHRDetail.AllowUserToOrderColumns = true;
+            this.dgvHRDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.hRDetailDataGridView.AutoGenerateColumns = false;
-            this.hRDetailDataGridView.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.hRDetailDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.hRDetailDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.columnDetailID,
+            this.dgvHRDetail.AutoGenerateColumns = false;
+            this.dgvHRDetail.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.dgvHRDetail.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvHRDetail.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn4,
+            this.columnLastUpdated,
+            this.columnDetailID,
             this.columnApproved,
             this.columnContent,
             this.columnEffectiveDate,
             this.columnApplier,
-            this.columnApprover,
-            this.columnLastUpdated});
-            this.hRDetailDataGridView.DataSource = this.hRHRDetailBindingSource;
-            this.hRDetailDataGridView.Location = new System.Drawing.Point(361, 425);
-            this.hRDetailDataGridView.Name = "hRDetailDataGridView";
-            this.hRDetailDataGridView.RowHeadersWidth = 25;
-            this.hRDetailDataGridView.RowTemplate.Height = 24;
-            this.hRDetailDataGridView.Size = new System.Drawing.Size(613, 456);
-            this.hRDetailDataGridView.TabIndex = 45;
-            this.hRDetailDataGridView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.hRDetailDataGridView_CellBeginEdit);
-            this.hRDetailDataGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.hRDetailDataGridView_CellValueChanged);
-            this.hRDetailDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.hRDetailDataGridView_DataError);
-            this.hRDetailDataGridView.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.hRDetailDataGridView_DefaultValuesNeeded);
-            this.hRDetailDataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.hRDetailDataGridView_UserDeletingRow);
-            // 
-            // columnDetailID
-            // 
-            this.columnDetailID.DataPropertyName = "ID";
-            this.columnDetailID.HeaderText = "ID";
-            this.columnDetailID.Name = "columnDetailID";
-            this.columnDetailID.ReadOnly = true;
-            this.columnDetailID.Visible = false;
+            this.columnApprover});
+            this.dgvHRDetail.DataSource = this.hRHRDetailBindingSource;
+            this.dgvHRDetail.Location = new System.Drawing.Point(361, 425);
+            this.dgvHRDetail.Name = "dgvHRDetail";
+            this.dgvHRDetail.RowHeadersWidth = 25;
+            this.dgvHRDetail.RowTemplate.Height = 24;
+            this.dgvHRDetail.Size = new System.Drawing.Size(613, 231);
+            this.dgvHRDetail.TabIndex = 45;
+            this.dgvHRDetail.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.hRDetailDataGridView_CellBeginEdit);
+            this.dgvHRDetail.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.hRDetailDataGridView_CellValueChanged);
+            this.dgvHRDetail.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.hRDetailDataGridView_DataError);
+            this.dgvHRDetail.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.hRDetailDataGridView_DefaultValuesNeeded);
+            this.dgvHRDetail.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.hRDetailDataGridView_UserDeletingRow);
             // 
             // dataGridViewTextBoxColumn4
             // 
@@ -785,6 +781,21 @@
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
             this.dataGridViewTextBoxColumn4.Width = 2;
+            // 
+            // columnLastUpdated
+            // 
+            this.columnLastUpdated.DataPropertyName = "LastUpdated";
+            this.columnLastUpdated.HeaderText = "更新";
+            this.columnLastUpdated.Name = "columnLastUpdated";
+            this.columnLastUpdated.ReadOnly = true;
+            // 
+            // columnDetailID
+            // 
+            this.columnDetailID.DataPropertyName = "ID";
+            this.columnDetailID.HeaderText = "ID";
+            this.columnDetailID.Name = "columnDetailID";
+            this.columnDetailID.ReadOnly = true;
+            this.columnDetailID.Visible = false;
             // 
             // columnApproved
             // 
@@ -803,9 +814,9 @@
             // columnEffectiveDate
             // 
             this.columnEffectiveDate.DataPropertyName = "EffectiveDate";
-            dataGridViewCellStyle4.Format = "d";
-            dataGridViewCellStyle4.NullValue = null;
-            this.columnEffectiveDate.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Format = "d";
+            dataGridViewCellStyle2.NullValue = null;
+            this.columnEffectiveDate.DefaultCellStyle = dataGridViewCellStyle2;
             this.columnEffectiveDate.HeaderText = "生效日";
             this.columnEffectiveDate.Name = "columnEffectiveDate";
             // 
@@ -848,21 +859,10 @@
             this.operatorBindingSource2.DataMember = "Operator";
             this.operatorBindingSource2.DataSource = this.vEDataSet;
             // 
-            // columnLastUpdated
-            // 
-            this.columnLastUpdated.DataPropertyName = "LastUpdated";
-            this.columnLastUpdated.HeaderText = "更新";
-            this.columnLastUpdated.Name = "columnLastUpdated";
-            this.columnLastUpdated.ReadOnly = true;
-            // 
             // hRHRDetailBindingSource
             // 
             this.hRHRDetailBindingSource.DataMember = "HR_HRDetail";
             this.hRHRDetailBindingSource.DataSource = this.hRBindingSource;
-            // 
-            // apartmentTableAdapter
-            // 
-            this.apartmentTableAdapter.ClearBeforeFill = true;
             // 
             // photoPictureBox
             // 
@@ -925,10 +925,6 @@
             this.operatorBindingSource.DataMember = "Operator";
             this.operatorBindingSource.DataSource = this.vEDataSet;
             // 
-            // operatorTableAdapter
-            // 
-            this.operatorTableAdapter.ClearBeforeFill = true;
-            // 
             // salaryTextBox
             // 
             this.salaryTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.hRBindingSource, "Salary", true));
@@ -983,12 +979,17 @@
             this.fingerprintmachineComboBox.Size = new System.Drawing.Size(147, 24);
             this.fingerprintmachineComboBox.TabIndex = 54;
             // 
+            // fKHRDetailHRBindingSource
+            // 
+            this.fKHRDetailHRBindingSource.DataMember = "FK_HRDetail_HR";
+            this.fKHRDetailHRBindingSource.DataSource = this.hRBindingSource1;
+            // 
             // FormHR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(226)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(983, 882);
+            this.ClientSize = new System.Drawing.Size(983, 657);
             this.Controls.Add(fingerprintmachineLabel);
             this.Controls.Add(this.fingerprintmachineComboBox);
             this.Controls.Add(this.checkBoxIsApplier);
@@ -1002,7 +1003,7 @@
             this.Controls.Add(this.apartmentIDComboBox);
             this.Controls.Add(this.btnPhoto);
             this.Controls.Add(this.photoPictureBox);
-            this.Controls.Add(this.hRDetailDataGridView);
+            this.Controls.Add(this.dgvHRDetail);
             this.Controls.Add(this.lastUpdatedTextBox);
             this.Controls.Add(fingerPintNoLabel);
             this.Controls.Add(this.fingerPintNoTextBox);
@@ -1039,11 +1040,11 @@
             this.Controls.Add(this.emergencyTelTextBox);
             this.Controls.Add(lastUpdatedLabel);
             this.Controls.Add(keyinIDLabel);
-            this.Controls.Add(this.hRDataGridView);
+            this.Controls.Add(this.dgvHR);
             this.Controls.Add(this.hRBindingNavigator);
             this.Controls.Add(bloodTypeLabel);
             this.Controls.Add(genderLabel);
-            this.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormHR";
             this.Text = "人事資料卡";
@@ -1053,14 +1054,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.hRBindingNavigator)).EndInit();
             this.hRBindingNavigator.ResumeLayout(false);
             this.hRBindingNavigator.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.hRDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvHR)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.apartmentBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.hRDetailDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.hRBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvHRDetail)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.hRHRDetailBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.photoPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fKHRDetailHRBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1070,7 +1074,6 @@
 
         private VEDataSet vEDataSet;
         private System.Windows.Forms.BindingSource hRBindingSource;
-        private VEDataSetTableAdapters.HRTableAdapter hRTableAdapter;
         private System.Windows.Forms.BindingNavigator hRBindingNavigator;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
@@ -1083,7 +1086,7 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.ToolStripButton hRBindingNavigatorSaveItem;
-        private System.Windows.Forms.DataGridView hRDataGridView;
+        private System.Windows.Forms.DataGridView dgvHR;
         private System.Windows.Forms.TextBox employeeIDTextBox;
         private System.Windows.Forms.TextBox employeeCodeTextBox;
         private System.Windows.Forms.TextBox employeeNameTextBox;
@@ -1103,27 +1106,20 @@
         private System.Windows.Forms.TextBox emergencyTelTextBox;
         private System.Windows.Forms.TextBox fingerPintNoTextBox;
         private System.Windows.Forms.TextBox lastUpdatedTextBox;
-        private VEDataSetTableAdapters.HRDetailTableAdapter hRDetailTableAdapter;
-        private System.Windows.Forms.DataGridView hRDetailDataGridView;
+        private System.Windows.Forms.DataGridView dgvHRDetail;
         private System.Windows.Forms.BindingSource hRHRDetailBindingSource;
         private System.Windows.Forms.BindingSource apartmentBindingSource;
-        private VEDataSetTableAdapters.ApartmentTableAdapter apartmentTableAdapter;
         private System.Windows.Forms.PictureBox photoPictureBox;
         private System.Windows.Forms.Button btnPhoto;
         private System.Windows.Forms.ComboBox apartmentIDComboBox;
         private System.Windows.Forms.TextBox bankAccoutTextBox;
         private System.Windows.Forms.ComboBox keyinIDComboBox;
         private System.Windows.Forms.BindingSource operatorBindingSource;
-        private VEDataSetTableAdapters.OperatorTableAdapter operatorTableAdapter;
         private System.Windows.Forms.BindingSource operatorBindingSource1;
         private System.Windows.Forms.BindingSource operatorBindingSource2;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnDetailID;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewCheckBoxColumn columnApproved;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnContent;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnEffectiveDate;
-        private System.Windows.Forms.DataGridViewComboBoxColumn columnApplier;
-        private System.Windows.Forms.DataGridViewComboBoxColumn columnApprover;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnLastUpdated;
         private System.Windows.Forms.TextBox salaryTextBox;
         private System.Windows.Forms.CheckBox checkBoxShowAll;
@@ -1135,5 +1131,12 @@
         private System.Windows.Forms.TextBox birthdayTextBox;
         private System.Windows.Forms.CheckBox checkBoxIsApplier;
         private System.Windows.Forms.ComboBox fingerprintmachineComboBox;
+        private DamaiDataSet damaiDataSet;
+        private System.Windows.Forms.BindingSource hRBindingSource1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnContent;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnEffectiveDate;
+        private System.Windows.Forms.DataGridViewComboBoxColumn columnApplier;
+        private System.Windows.Forms.DataGridViewComboBoxColumn columnApprover;
+        private System.Windows.Forms.BindingSource fKHRDetailHRBindingSource;
     }
 }

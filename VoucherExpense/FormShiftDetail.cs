@@ -7,18 +7,32 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
+#if UseSQLServer
+using MyDataSet          = VoucherExpense.DamaiDataSet;
+using MyHRRow            = VoucherExpense.DamaiDataSet.HRRow;
+using MyShiftRow         = VoucherExpense.DamaiDataSet.ShiftTableRow;
+using MyShiftDetailRow   = VoucherExpense.DamaiDataSet.ShiftDetailRow;
+using MyShiftDetailTable = VoucherExpense.DamaiDataSet.ShiftDetailDataTable;
+#else
+using MyDataSet         = VoucherExpense.VEDataSet;
+using MyHRRow           = VoucherExpense.VEDataSet.HRRow;
+using MyShiftRow        = VoucherExpense.VEDataSet.ShiftTableRow;
+using MyShiftDetailRow  = VoucherExpense.VEDataSet.ShiftDetailRow;
+using MyShiftDetailTable= VoucherExpense.VEDataSet.ShiftDetailDataTable;
+#endif
 namespace VoucherExpense
 {
     public partial class FormShiftDetail : Form
     {
-        VEDataSet vEDataSet;
-        VEDataSet.ShiftTableRow Row;
+        MyDataSet m_DataSet;
+        MyShiftRow Row;
         int       m_DayCount;
         DayOfWeek m_DayOfWeek;
         List<CShiftCode> m_ShiftCodeList;
-        public FormShiftDetail(VEDataSet dataSet,VEDataSet.ShiftTableRow row,List<CShiftCode> list)
+
+        public FormShiftDetail(MyDataSet dataSet,MyShiftRow row,List<CShiftCode> list)
         {
-            vEDataSet = dataSet;
+            m_DataSet = dataSet;
             Row = row;
             m_ShiftCodeList = list;
             InitializeComponent();
@@ -53,7 +67,7 @@ namespace VoucherExpense
                 return;
             }
 
-            foreach (VEDataSet.HRRow hr in vEDataSet.HR)
+            foreach (var hr in m_DataSet.HR)
             {
                 if (hr.IsInPositionNull() || (!hr.InPosition)) continue;
                 checkedListBoxEmployee.Items.Add(new tempHR(hr.EmployeeID,hr.EmployeeName));
@@ -62,9 +76,10 @@ namespace VoucherExpense
             int mon = Row.TableMonth;
             m_DayCount = MyFunction.DayCountOfMonth(mon);
             m_DayOfWeek = (new DateTime(MyFunction.IntHeaderYear, mon, 1)).DayOfWeek;
-            VEDataSet.ShiftDetailRow[] rows = Row.GetShiftDetailRows();
+            var rows = Row.GetShiftDetailRows(); 
+//            var rows = from r in m_DataSet.ShiftDetail where r.ShiftID == Row.ShiftID select r;
             if (rows.Count() != 0) listBoxHelp.Visible = false;
-            foreach (VEDataSet.ShiftDetailRow ro in rows)
+            foreach (var ro in rows)
             {
                 tempHR hr=null;
                 foreach(object o in checkedListBoxEmployee.Items)
@@ -78,7 +93,7 @@ namespace VoucherExpense
                 }
                 if (hr == null)
                 {
-                    foreach (VEDataSet.HRRow h in vEDataSet.HR)              // 找不在職的
+                    foreach (var h in m_DataSet.HR)              // 找不在職的
                     {
                         if (h.IsInPositionNull() || h.InPosition) continue;  // InPosition 己經在m_HRList
                         if (h.EmployeeID != ro.EmpolyeeID) continue;
@@ -342,7 +357,7 @@ namespace VoucherExpense
             Close();
         }
 
-        void PanelData2ShiftDetail(tempHR hr, VEDataSet.ShiftDetailRow detail)
+        void PanelData2ShiftDetail(tempHR hr, MyShiftDetailRow detail)
         {
             detail.EmpolyeeID = hr.ID;
             Panel pan = hr.Pan;
@@ -377,7 +392,7 @@ namespace VoucherExpense
             detail.RealHours = hr.iDownTotal;
         }
 
-        void ShiftDetail2PanelData(VEDataSet.ShiftDetailRow detail, tempHR hr)
+        void ShiftDetail2PanelData(MyShiftDetailRow detail, tempHR hr)
         {
             Panel pan = hr.Pan;
             string panName = pan.Name;
@@ -419,10 +434,10 @@ namespace VoucherExpense
                 MessageBox.Show("此單己核定,無法存檔!");
                 return;
             }
-            VEDataSet.ShiftDetailRow[] details = Row.GetShiftDetailRows();
+            var details = Row.GetShiftDetailRows();
             int i = 0;
             int count = m_HRList.Count;
-            foreach (VEDataSet.ShiftDetailRow detail in details)
+            foreach (var detail in details)
             {
                 if (i >= count)
                     detail.Delete();
@@ -435,20 +450,25 @@ namespace VoucherExpense
             }
             for (; i < count; i++)
             {
-                VEDataSet.ShiftDetailRow detail = vEDataSet.ShiftDetail.NewShiftDetailRow();
+                var detail = m_DataSet.ShiftDetail.NewShiftDetailRow();
                 detail.ID = Guid.NewGuid();
                 detail.SetParentRow(Row);
                 tempHR hr=m_HRList[i];
                 PanelData2ShiftDetail(hr, detail);
-                vEDataSet.ShiftDetail.Rows.Add(detail);
+                m_DataSet.ShiftDetail.Rows.Add(detail);
             }
             try
             {
-                VEDataSet.ShiftDetailDataTable table = vEDataSet.ShiftDetail.GetChanges() as VEDataSet.ShiftDetailDataTable;
-                shiftDetailTableAdapter.Connection = MapPath.VEConnection;
-                shiftDetailTableAdapter.Update(table);
-                vEDataSet.ShiftDetail.Merge(table);
-                vEDataSet.ShiftDetail.AcceptChanges();
+                var table = m_DataSet.ShiftDetail.GetChanges() as MyShiftDetailTable;
+#if UseSQLServer
+                var shiftDetailAdapter = new VoucherExpense.DamaiDataSetTableAdapters.ShiftDetailTableAdapter();
+#else
+                var shiftDetailAdapter = new VoucherExpense.VEDataSetTableAdapters.ShiftDetailTableAdapter();
+                shiftDetailAdapter.Connection = MapPath.VEConnection;
+                shiftDetailAdapter.Update(table);
+#endif
+                m_DataSet.ShiftDetail.Merge(table);
+                m_DataSet.ShiftDetail.AcceptChanges();
             }
             catch(Exception ex)
             {
@@ -474,7 +494,7 @@ namespace VoucherExpense
             Excel.Worksheet sheet;
             Excel.Workbook book;
 
-            VEDataSet.ShiftDetailRow[] details = Row.GetShiftDetailRows();
+            var details = Row.GetShiftDetailRows();
             try
             {
                 excel = new Excel.Application();
@@ -555,14 +575,14 @@ namespace VoucherExpense
 
             i++;
             int beginRow = i;
-            foreach (VEDataSet.ShiftDetailRow ro in details)
+            foreach (var ro in details)
             {
                 string A2 = "A" + (i - 1).ToString();
                 string str="=IF(ISNumber("+A2+"),"+A2+",0)+1";
                 sheet.Cells[i, 1] = str;         // 序号
-                VEDataSet.HRRow hr=null;
+                MyHRRow hr=null;
                 str = "员工" + ro.EmpolyeeID.ToString();
-                foreach(VEDataSet.HRRow h in vEDataSet.HR)
+                foreach(var h in m_DataSet.HR)
                 {
                     if (h.EmployeeID==ro.EmpolyeeID)
                     {

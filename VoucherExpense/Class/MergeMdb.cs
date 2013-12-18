@@ -9,7 +9,7 @@ namespace VoucherExpense
 {
     static class MergeMdb
     {
-        static public void 合併銀行細目(VEDataSet.BankDetailDataTable mergeTable)
+        static public void 合併銀行細目()
         {
             if (MessageBox.Show("現有檔案和你選的檔案內容若有不同,將覆蓋現有內容,確定嗎?", "合併銀行細目", MessageBoxButtons.YesNo) != DialogResult.Yes) return;
             OpenFileDialog dialog = new OpenFileDialog();
@@ -19,6 +19,7 @@ namespace VoucherExpense
             string password = "Voucher";
             password = "Calc" + password + (888).ToString();
             int count = 0;
+            VEDataSet.BankDetailDataTable mergeTable = new VEDataSet.BankDetailDataTable();
             try
             {
                 VEDataSetTableAdapters.BankDetailTableAdapter fromAdapter = new VEDataSetTableAdapters.BankDetailTableAdapter();
@@ -81,7 +82,7 @@ namespace VoucherExpense
             return changed;
         }
 
-        static public void 合併傳票(VEDataSet.AccVoucherDataTable mergeTable)
+        static public void 合併傳票()
         {
             if (MessageBox.Show("現有檔案和你選的檔案內容若有不同,將覆蓋現有內容,確定嗎?", "合併傳票", MessageBoxButtons.YesNo) != DialogResult.Yes) return;
             OpenFileDialog dialog = new OpenFileDialog();
@@ -91,6 +92,7 @@ namespace VoucherExpense
             string password = "Voucher";
             password = "Calc" + password + (888).ToString();
             int count = 0;
+            VEDataSet.AccVoucherDataTable mergeTable = new VEDataSet.AccVoucherDataTable();
             try
             {
                 VEDataSetTableAdapters.AccVoucherTableAdapter fromAdapter = new VEDataSetTableAdapters.AccVoucherTableAdapter();

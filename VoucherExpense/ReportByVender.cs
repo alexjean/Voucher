@@ -6,7 +6,15 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing.Printing;
-
+#if UseSQLServer
+using MyDataSet      = VoucherExpense.DamaiDataSet;
+using MyVoucherTable = VoucherExpense.DamaiDataSet.VoucherDataTable;
+using MyVoucherRow   = VoucherExpense.DamaiDataSet.VoucherRow;
+#else
+using MyDataSet      = VoucherExpense.VEDataSet;
+using MyVoucherTable = VoucherExpense.VEDataSet.VoucherDataTable;
+using MyVoucherRow   = VoucherExpense.VEDataSet.VoucherRow;
+#endif
 namespace VoucherExpense
 {
     public partial class ReportByVender : Form
@@ -17,31 +25,51 @@ namespace VoucherExpense
         }
 
         List<CNameIDForComboBox> vendors = new List<CNameIDForComboBox>();
-   
+
+        MyDataSet m_DataSet = new MyDataSet();
         private void ReportByVender_Load(object sender, EventArgs e)
         {
-            vendorTableAdapter.Connection        = MapPath.VEConnection;
-            voucherTableAdapter.Connection       = MapPath.VEConnection;
-            voucherDetailTableAdapter.Connection = MapPath.VEConnection;
-            IngredientTableAdapter.Connection    = MapPath.VEConnection;
+            SetupBindingSource();
+#if UseSQLServer
+            var vendorAdapter       = new VoucherExpense.DamaiDataSetTableAdapters.VendorTableAdapter();
+            var voucherAdapter      = new VoucherExpense.DamaiDataSetTableAdapters.VoucherTableAdapter();
+            var voucherDetailAdapter= new VoucherExpense.DamaiDataSetTableAdapters.VoucherDetailTableAdapter();
+            var IngredientAdapter   = new VoucherExpense.DamaiDataSetTableAdapters.IngredientTableAdapter();
+#else
+            var vendorAdapter       = new VoucherExpense.VEDataSetTableAdapters.VendorTableAdapter();
+            var voucherAdapter      = new VoucherExpense.VEDataSetTableAdapters.VoucherTableAdapter();
+            var voucherDetailAdapter= new VoucherExpense.VEDataSetTableAdapters.VoucherDetailTableAdapter();
+            var IngredientAdapter   = new VoucherExpense.VEDataSetTableAdapters.IngredientTableAdapter();
+            vendorAdapter.Connection        = MapPath.VEConnection;
+            voucherAdapter.Connection       = MapPath.VEConnection;
+            voucherDetailAdapter.Connection = MapPath.VEConnection;
+            IngredientAdapter.Connection    = MapPath.VEConnection;
+#endif
             try
             {
-                this.vendorTableAdapter.Fill(this.vEDataSet.Vendor);
-                this.voucherTableAdapter.Fill(this.vEDataSet.Voucher);
-                this.voucherDetailTableAdapter.Fill(this.vEDataSet.VoucherDetail);
-                this.IngredientTableAdapter.Fill(this.vEDataSet.Ingredient);
+                vendorAdapter.Fill       (m_DataSet.Vendor);
+                voucherAdapter.Fill      (m_DataSet.Voucher);
+                voucherDetailAdapter.Fill(m_DataSet.VoucherDetail);
+                IngredientAdapter.Fill   (m_DataSet.Ingredient);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("載入資料庫發生錯誤! 原因:" + ex.Message);
             }
             vendors.Add(new CNameIDForComboBox(0, " "));
-            foreach (var v in vEDataSet.Vendor)
+            foreach (var v in m_DataSet.Vendor)
                 vendors.Add(new CNameIDForComboBox(v.VendorID, v.Name));
             vendors.Add(new CNameIDForComboBox(int.MaxValue, "全部"));
             vendorIDComboBox.DataSource = vendors;
             cbBoxMonth.SelectedIndex=DateTime.Now.Month;
             this.voucherDGView.DataSource = null;  // 原本先用了 vEDataSet.Voucher做格式
+        }
+
+        void SetupBindingSource()
+        {
+            voucherBindingSource.DataSource = m_DataSet;
+            voucherDetailBindingSource.DataSource = m_DataSet;
+            IngredientBindingSource.DataSource = m_DataSet;
         }
 
         private void Add2List(SortableBindingList<CIngredient> list,int id, decimal cost, decimal volume)
@@ -72,9 +100,9 @@ namespace VoucherExpense
         {
             if (id <= 0) return;  // 沒有選擇供貨商
             SortableBindingList<CIngredient> list = new SortableBindingList<CIngredient>();
-            VEDataSet.VoucherDataTable voucher = new VEDataSet.VoucherDataTable();
+            var voucher = new MyVoucherTable();
             int count = 0,checkedCount=0;
-            foreach (VEDataSet.VoucherRow vr in vEDataSet.Voucher)
+            foreach (var vr in m_DataSet.Voucher)
             {
                 if (vr.IsStockTimeNull()) continue;
                 if (vr.StockTime.Year != MyFunction.IntHeaderYear) continue;
@@ -96,13 +124,13 @@ namespace VoucherExpense
                 }
                 if (!vr.IsRemovedNull())
                     if (vr.Removed) continue;
-                VEDataSet.VoucherRow row = voucher.NewVoucherRow();
+                var row = voucher.NewVoucherRow();
                 row.ItemArray = vr.ItemArray;
                 voucher.AddVoucherRow(row);
                 count++;
                 if (vr.Locked) checkedCount++;
                 decimal checkSum = 0;
-                foreach (VEDataSet.VoucherDetailRow dr in vr.GetVoucherDetailRows())
+                foreach (var dr in vr.GetVoucherDetailRows())
                 {
                     if (dr.IsIngredientIDNull()) continue;
                     decimal co=0,vo=0;
@@ -245,7 +273,7 @@ namespace VoucherExpense
             foreach (DataGridViewRow dgvRow in voucherDGView.Rows)
             {
                 var rowView = dgvRow.DataBoundItem as DataRowView;
-                var dataRow = rowView.Row as VEDataSet.VoucherRow;
+                var dataRow = rowView.Row as MyVoucherRow;
                 if (!dataRow.IsCostNull()) m_TotalMoney += dataRow.Cost;
             }
             printDocument.Print();

@@ -90,7 +90,6 @@ namespace VoucherExpense
                         if (!it.Enabled) it.Visible = false;
             }
 
-            headerTableAdapter.Connection = MapPath.VEConnection;
  
         }
         /*
@@ -200,23 +199,40 @@ namespace VoucherExpense
 
         private void 鎖定資料庫ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
-            this.headerTableAdapter.Fill(this.vEDataSet.Header);
-            if (vEDataSet.Header.Count==0)
+#if UseSQLServer
+            VoucherExpense.DamaiDataSet DataSet = new DamaiDataSet();
+            var headerAdapter = new VoucherExpense.DamaiDataSetTableAdapters.VEHeaderTableAdapter();
+            headerAdapter.Fill(DataSet.VEHeader);
+            if (DataSet.VEHeader.Count == 0)
             {
-                VEDataSet.HeaderRow row=vEDataSet.Header.NewHeaderRow();
+                var row = DataSet.VEHeader.NewVEHeaderRow();
+                row.Closed = !MyFunction.LockAll;
+                int y = DateTime.Now.Year;
+                row.DataYear = new DateTime(y, 1, 1);
+                DataSet.VEHeader.AddVEHeaderRow(row);
+            }
+            var header = DataSet.VEHeader[0];
+#else
+            VoucherExpense.VEDataSet DataSet = new VEDataSet();
+            var headerAdapter = new VoucherExpense.VEDataSetTableAdapters.HeaderTableAdapter();
+            headerAdapter.Connection = MapPath.VEConnection;
+            headerAdapter.Fill(DataSet.Header);
+            if (DataSet.Header.Count==0)
+            {
+                var row=DataSet.Header.NewHeaderRow();
                 row.Closed=!MyFunction.LockAll;
                 int y=DateTime.Now.Year;
                 row.DataYear=new DateTime(y,1,1);
-                vEDataSet.Header.AddHeaderRow(row);
+                DataSet.Header.AddHeaderRow(row);
             }
-            VEDataSet.HeaderRow header=vEDataSet.Header[0];
+            VEDataSet.HeaderRow header=DataSet.Header[0];
+#endif
             header.BeginEdit();
             header.Closed = !MyFunction.LockAll;
             header.EndEdit();
             try
             {
-                headerTableAdapter.Update(header);
+                headerAdapter.Update(header);
             }
             catch(Exception ex)
             {
@@ -339,11 +355,12 @@ namespace VoucherExpense
             PopupOrRun("Hardware", typeof(FormHardware));
         }
 
-        private void 備份資料庫ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void 同步資料庫ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            HardwareConfig config = new HardwareConfig();
-            config.Load();
-            BackupData.DoBackup(config);
+            // Alex 2013.12.18 改SQL同步,暫時Markout備份部分
+            //HardwareConfig config = new HardwareConfig();
+            //config.Load();
+            //BackupData.DoBackup(config);
         }
 
         private void 考勤MenuItem_Click(object sender, EventArgs e)
@@ -353,12 +370,12 @@ namespace VoucherExpense
 
         private void 合併銀行細目MdbMenuItem_Click(object sender, EventArgs e)
         {
-            MergeMdb.合併銀行細目(vEDataSet.BankDetail);
+            MergeMdb.合併銀行細目();
         }
 
         private void 合併傳票MdbMenuItem_Click(object sender, EventArgs e)
         {
-            MergeMdb.合併傳票(vEDataSet.AccVoucher);
+            MergeMdb.合併傳票();
         }
 
         private void 年初開帳ToolStripMenuItem_Click(object sender, EventArgs e)

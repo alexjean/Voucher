@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Windows.Forms;
+#if UseSQLServer
+using MyDataSet = VoucherExpense.DamaiDataSet;
+#else
+using MyDataSet = VoucherExpense.VEDataSet;
+#endif
 
 namespace VoucherExpense
 {
@@ -13,12 +18,21 @@ namespace VoucherExpense
             InitializeComponent();
         }
 
+        MyDataSet m_DataSet=new MyDataSet();
         private void FormMonthlyPay_Load(object sender, EventArgs e)
         {
-            vendorTableAdapter.Connection   = MapPath.VEConnection;
-            voucherTableAdapter.Connection  = MapPath.VEConnection;
-            this.vendorTableAdapter.Fill(this.vEDataSet.Vendor);
-            this.voucherTableAdapter.Fill(this.vEDataSet.Voucher);
+            vendorBindingSource.DataSource = m_DataSet;
+#if UseSQLServer
+            var vendorAdapter = new VoucherExpense.DamaiDataSetTableAdapters.VendorTableAdapter();
+            var voucherAdapter = new VoucherExpense.DamaiDataSetTableAdapters.VoucherTableAdapter();
+#else
+            var vendorAdapter = new VoucherExpense.VEDataSetTableAdapters.VendorTableAdapter();
+            var voucherAdapter = new VoucherExpense.VEDataSetTableAdapters.VoucherTableAdapter();
+            vendorAdapter.Connection   = MapPath.VEConnection;
+            voucherAdapter.Connection  = MapPath.VEConnection;
+#endif
+            vendorAdapter.Fill (m_DataSet.Vendor);
+            voucherAdapter.Fill(m_DataSet.Voucher);
         }
 
         private void comboBoxMonth_SelectedIndexChanged(object sender, EventArgs e)
@@ -52,7 +66,7 @@ namespace VoucherExpense
         private void Calculate(int month)
         {
             SortableBindingList<CMonthlyPay> list = new SortableBindingList<CMonthlyPay>();
-            foreach (VEDataSet.VoucherRow vr in this.vEDataSet.Voucher)
+            foreach (var vr in this.m_DataSet.Voucher)
             {
                 if (vr.IsStockTimeNull()) continue;
                 if (vr.StockTime.Month != month) continue;

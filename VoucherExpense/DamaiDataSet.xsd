@@ -758,7 +758,7 @@ SELECT DataDate, Closed FROM Header WHERE (DataDate = @DataDate)</CommandText>
               <DbSource ConnectionRef="DamaiConnectionString (Settings)" DbObjectName="Damai.dbo.HR" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>DELETE FROM [dbo].[HR] WHERE (([EmployeeID] = @Original_EmployeeID) AND ((@IsNull_EmployeeCode = 1 AND [EmployeeCode] IS NULL) OR ([EmployeeCode] = @Original_EmployeeCode)) AND ((@IsNull_EmployeeName = 1 AND [EmployeeName] IS NULL) OR ([EmployeeName] = @Original_EmployeeName)) AND ((@IsNull_ApartmentID = 1 AND [ApartmentID] IS NULL) OR ([ApartmentID] = @Original_ApartmentID)) AND ([IsManager] = @Original_IsManager) AND ([InPosition] = @Original_InPosition) AND ((@IsNull_Salary = 1 AND [Salary] IS NULL) OR ([Salary] = @Original_Salary)) AND ((@IsNull_IdNo = 1 AND [IdNo] IS NULL) OR ([IdNo] = @Original_IdNo)) AND ((@IsNull_Birthday = 1 AND [Birthday] IS NULL) OR ([Birthday] = @Original_Birthday)) AND ((@IsNull_Fingerprintmachine = 1 AND [Fingerprintmachine] IS NULL) OR ([Fingerprintmachine] = @Original_Fingerprintmachine)) AND ((@IsNull_FingerPintNo = 1 AND [FingerPintNo] IS NULL) OR ([FingerPintNo] = @Original_FingerPintNo)) AND ((@IsNull_Marriage = 1 AND [Marriage] IS NULL) OR ([Marriage] = @Original_Marriage)) AND ((@IsNull_BloodType = 1 AND [BloodType] IS NULL) OR ([BloodType] = @Original_BloodType)) AND ((@IsNull_Telphone = 1 AND [Telphone] IS NULL) OR ([Telphone] = @Original_Telphone)) AND ((@IsNull_Mobile = 1 AND [Mobile] IS NULL) OR ([Mobile] = @Original_Mobile)) AND ((@IsNull_Gender = 1 AND [Gender] IS NULL) OR ([Gender] = @Original_Gender)) AND ((@IsNull_Address = 1 AND [Address] IS NULL) OR ([Address] = @Original_Address)) AND ((@IsNull_Education = 1 AND [Education] IS NULL) OR ([Education] = @Original_Education)) AND ((@IsNull_Title = 1 AND [Title] IS NULL) OR ([Title] = @Original_Title)) AND ((@IsNull_Contact = 1 AND [Contact] IS NULL) OR ([Contact] = @Original_Contact)) AND ((@IsNull_EmergencyTel = 1 AND [EmergencyTel] IS NULL) OR ([EmergencyTel] = @Original_EmergencyTel)) AND ((@IsNull_LastUpdated = 1 AND [LastUpdated] IS NULL) OR ([LastUpdated] = @Original_LastUpdated)) AND ((@IsNull_KeyinID = 1 AND [KeyinID] IS NULL) OR ([KeyinID] = @Original_KeyinID)) AND ((@IsNull_BankAccout = 1 AND [BankAccout] IS NULL) OR ([BankAccout] = @Original_BankAccout)) AND ([IsApplier] = @Original_IsApplier))</CommandText>
+                    <CommandText>DELETE FROM [HR] WHERE (([EmployeeID] = @Original_EmployeeID) AND ((@IsNull_EmployeeCode = 1 AND [EmployeeCode] IS NULL) OR ([EmployeeCode] = @Original_EmployeeCode)) AND ((@IsNull_EmployeeName = 1 AND [EmployeeName] IS NULL) OR ([EmployeeName] = @Original_EmployeeName)) AND ((@IsNull_ApartmentID = 1 AND [ApartmentID] IS NULL) OR ([ApartmentID] = @Original_ApartmentID)) AND ([IsManager] = @Original_IsManager) AND ((@IsNull_Salary = 1 AND [Salary] IS NULL) OR ([Salary] = @Original_Salary)) AND ((@IsNull_IdNo = 1 AND [IdNo] IS NULL) OR ([IdNo] = @Original_IdNo)) AND ((@IsNull_Birthday = 1 AND [Birthday] IS NULL) OR ([Birthday] = @Original_Birthday)) AND ((@IsNull_Fingerprintmachine = 1 AND [Fingerprintmachine] IS NULL) OR ([Fingerprintmachine] = @Original_Fingerprintmachine)) AND ((@IsNull_FingerPintNo = 1 AND [FingerPintNo] IS NULL) OR ([FingerPintNo] = @Original_FingerPintNo)) AND ((@IsNull_Marriage = 1 AND [Marriage] IS NULL) OR ([Marriage] = @Original_Marriage)) AND ((@IsNull_BloodType = 1 AND [BloodType] IS NULL) OR ([BloodType] = @Original_BloodType)) AND ((@IsNull_Telphone = 1 AND [Telphone] IS NULL) OR ([Telphone] = @Original_Telphone)) AND ((@IsNull_Mobile = 1 AND [Mobile] IS NULL) OR ([Mobile] = @Original_Mobile)) AND ((@IsNull_Gender = 1 AND [Gender] IS NULL) OR ([Gender] = @Original_Gender)) AND ((@IsNull_Address = 1 AND [Address] IS NULL) OR ([Address] = @Original_Address)) AND ((@IsNull_Education = 1 AND [Education] IS NULL) OR ([Education] = @Original_Education)) AND ((@IsNull_Title = 1 AND [Title] IS NULL) OR ([Title] = @Original_Title)) AND ((@IsNull_Contact = 1 AND [Contact] IS NULL) OR ([Contact] = @Original_Contact)) AND ((@IsNull_EmergencyTel = 1 AND [EmergencyTel] IS NULL) OR ([EmergencyTel] = @Original_EmergencyTel)) AND ((@IsNull_LastUpdated = 1 AND [LastUpdated] IS NULL) OR ([LastUpdated] = @Original_LastUpdated)) AND ((@IsNull_KeyinID = 1 AND [KeyinID] IS NULL) OR ([KeyinID] = @Original_KeyinID)) AND ((@IsNull_BankAccout = 1 AND [BankAccout] IS NULL) OR ([BankAccout] = @Original_BankAccout)) AND ([IsApplier] = @Original_IsApplier) AND ((@IsNull_InPosition = 1 AND [InPosition] IS NULL) OR ([InPosition] = @Original_InPosition)))</CommandText>
                     <Parameters>
                       <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_EmployeeID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="EmployeeID" SourceColumnNullMapping="false" SourceVersion="Original" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_EmployeeCode" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="EmployeeCode" SourceColumnNullMapping="true" SourceVersion="Original" />
@@ -768,7 +768,6 @@ SELECT DataDate, Closed FROM Header WHERE (DataDate = @DataDate)</CommandText>
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_ApartmentID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ApartmentID" SourceColumnNullMapping="true" SourceVersion="Original" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_ApartmentID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ApartmentID" SourceColumnNullMapping="false" SourceVersion="Original" />
                       <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Original_IsManager" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="IsManager" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Original_InPosition" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="InPosition" SourceColumnNullMapping="false" SourceVersion="Original" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Salary" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Salary" SourceColumnNullMapping="true" SourceVersion="Original" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_Salary" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Salary" SourceColumnNullMapping="false" SourceVersion="Original" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_IdNo" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="IdNo" SourceColumnNullMapping="true" SourceVersion="Original" />
@@ -806,20 +805,21 @@ SELECT DataDate, Closed FROM Header WHERE (DataDate = @DataDate)</CommandText>
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_BankAccout" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="BankAccout" SourceColumnNullMapping="true" SourceVersion="Original" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_BankAccout" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="BankAccout" SourceColumnNullMapping="false" SourceVersion="Original" />
                       <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Original_IsApplier" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="IsApplier" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_InPosition" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="InPosition" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Original_InPosition" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="InPosition" SourceColumnNullMapping="false" SourceVersion="Original" />
                     </Parameters>
                   </DbCommand>
                 </DeleteCommand>
                 <InsertCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>INSERT INTO [dbo].[HR] ([EmployeeID], [EmployeeCode], [EmployeeName], [ApartmentID], [IsManager], [InPosition], [Salary], [IdNo], [Birthday], [Fingerprintmachine], [FingerPintNo], [Marriage], [BloodType], [Telphone], [Mobile], [Gender], [Photo], [Address], [Education], [Title], [Contact], [EmergencyTel], [LastUpdated], [KeyinID], [BankAccout], [IsApplier]) VALUES (@EmployeeID, @EmployeeCode, @EmployeeName, @ApartmentID, @IsManager, @InPosition, @Salary, @IdNo, @Birthday, @Fingerprintmachine, @FingerPintNo, @Marriage, @BloodType, @Telphone, @Mobile, @Gender, @Photo, @Address, @Education, @Title, @Contact, @EmergencyTel, @LastUpdated, @KeyinID, @BankAccout, @IsApplier);
-SELECT EmployeeID, EmployeeCode, EmployeeName, ApartmentID, IsManager, InPosition, Salary, IdNo, Birthday, Fingerprintmachine, FingerPintNo, Marriage, BloodType, Telphone, Mobile, Gender, Photo, Address, Education, Title, Contact, EmergencyTel, LastUpdated, KeyinID, BankAccout, IsApplier FROM HR WHERE (EmployeeID = @EmployeeID)</CommandText>
+                    <CommandText>INSERT INTO [HR] ([EmployeeID], [EmployeeCode], [EmployeeName], [ApartmentID], [IsManager], [Salary], [IdNo], [Birthday], [Fingerprintmachine], [FingerPintNo], [Marriage], [BloodType], [Telphone], [Mobile], [Gender], [Photo], [Address], [Education], [Title], [Contact], [EmergencyTel], [LastUpdated], [KeyinID], [BankAccout], [IsApplier], [InPosition]) VALUES (@EmployeeID, @EmployeeCode, @EmployeeName, @ApartmentID, @IsManager, @Salary, @IdNo, @Birthday, @Fingerprintmachine, @FingerPintNo, @Marriage, @BloodType, @Telphone, @Mobile, @Gender, @Photo, @Address, @Education, @Title, @Contact, @EmergencyTel, @LastUpdated, @KeyinID, @BankAccout, @IsApplier, @InPosition);
+SELECT EmployeeID, EmployeeCode, EmployeeName, ApartmentID, IsManager, Salary, IdNo, Birthday, Fingerprintmachine, FingerPintNo, Marriage, BloodType, Telphone, Mobile, Gender, Photo, Address, Education, Title, Contact, EmergencyTel, LastUpdated, KeyinID, BankAccout, IsApplier, InPosition FROM HR WHERE (EmployeeID = @EmployeeID)</CommandText>
                     <Parameters>
                       <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@EmployeeID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="EmployeeID" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@EmployeeCode" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="EmployeeCode" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@EmployeeName" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="EmployeeName" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@ApartmentID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ApartmentID" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@IsManager" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="IsManager" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@InPosition" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="InPosition" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Salary" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Salary" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@IdNo" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="IdNo" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Birthday" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="Birthday" SourceColumnNullMapping="false" SourceVersion="Current" />
@@ -840,26 +840,26 @@ SELECT EmployeeID, EmployeeCode, EmployeeName, ApartmentID, IsManager, InPositio
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@KeyinID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="KeyinID" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@BankAccout" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="BankAccout" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@IsApplier" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="IsApplier" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@InPosition" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="InPosition" SourceColumnNullMapping="false" SourceVersion="Current" />
                     </Parameters>
                   </DbCommand>
                 </InsertCommand>
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>SELECT EmployeeID, EmployeeCode, EmployeeName, ApartmentID, IsManager, InPosition, Salary, IdNo, Birthday, Fingerprintmachine, FingerPintNo, Marriage, BloodType, Telphone, Mobile, Gender, Photo, Address, Education, Title, Contact, EmergencyTel, LastUpdated, KeyinID, BankAccout, IsApplier FROM dbo.HR</CommandText>
+                    <CommandText>SELECT EmployeeID, EmployeeCode, EmployeeName, ApartmentID, IsManager, Salary, IdNo, Birthday, Fingerprintmachine, FingerPintNo, Marriage, BloodType, Telphone, Mobile, Gender, Photo, Address, Education, Title, Contact, EmergencyTel, LastUpdated, KeyinID, BankAccout, IsApplier, InPosition FROM HR</CommandText>
                     <Parameters />
                   </DbCommand>
                 </SelectCommand>
                 <UpdateCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>UPDATE [dbo].[HR] SET [EmployeeID] = @EmployeeID, [EmployeeCode] = @EmployeeCode, [EmployeeName] = @EmployeeName, [ApartmentID] = @ApartmentID, [IsManager] = @IsManager, [InPosition] = @InPosition, [Salary] = @Salary, [IdNo] = @IdNo, [Birthday] = @Birthday, [Fingerprintmachine] = @Fingerprintmachine, [FingerPintNo] = @FingerPintNo, [Marriage] = @Marriage, [BloodType] = @BloodType, [Telphone] = @Telphone, [Mobile] = @Mobile, [Gender] = @Gender, [Photo] = @Photo, [Address] = @Address, [Education] = @Education, [Title] = @Title, [Contact] = @Contact, [EmergencyTel] = @EmergencyTel, [LastUpdated] = @LastUpdated, [KeyinID] = @KeyinID, [BankAccout] = @BankAccout, [IsApplier] = @IsApplier WHERE (([EmployeeID] = @Original_EmployeeID) AND ((@IsNull_EmployeeCode = 1 AND [EmployeeCode] IS NULL) OR ([EmployeeCode] = @Original_EmployeeCode)) AND ((@IsNull_EmployeeName = 1 AND [EmployeeName] IS NULL) OR ([EmployeeName] = @Original_EmployeeName)) AND ((@IsNull_ApartmentID = 1 AND [ApartmentID] IS NULL) OR ([ApartmentID] = @Original_ApartmentID)) AND ([IsManager] = @Original_IsManager) AND ([InPosition] = @Original_InPosition) AND ((@IsNull_Salary = 1 AND [Salary] IS NULL) OR ([Salary] = @Original_Salary)) AND ((@IsNull_IdNo = 1 AND [IdNo] IS NULL) OR ([IdNo] = @Original_IdNo)) AND ((@IsNull_Birthday = 1 AND [Birthday] IS NULL) OR ([Birthday] = @Original_Birthday)) AND ((@IsNull_Fingerprintmachine = 1 AND [Fingerprintmachine] IS NULL) OR ([Fingerprintmachine] = @Original_Fingerprintmachine)) AND ((@IsNull_FingerPintNo = 1 AND [FingerPintNo] IS NULL) OR ([FingerPintNo] = @Original_FingerPintNo)) AND ((@IsNull_Marriage = 1 AND [Marriage] IS NULL) OR ([Marriage] = @Original_Marriage)) AND ((@IsNull_BloodType = 1 AND [BloodType] IS NULL) OR ([BloodType] = @Original_BloodType)) AND ((@IsNull_Telphone = 1 AND [Telphone] IS NULL) OR ([Telphone] = @Original_Telphone)) AND ((@IsNull_Mobile = 1 AND [Mobile] IS NULL) OR ([Mobile] = @Original_Mobile)) AND ((@IsNull_Gender = 1 AND [Gender] IS NULL) OR ([Gender] = @Original_Gender)) AND ((@IsNull_Address = 1 AND [Address] IS NULL) OR ([Address] = @Original_Address)) AND ((@IsNull_Education = 1 AND [Education] IS NULL) OR ([Education] = @Original_Education)) AND ((@IsNull_Title = 1 AND [Title] IS NULL) OR ([Title] = @Original_Title)) AND ((@IsNull_Contact = 1 AND [Contact] IS NULL) OR ([Contact] = @Original_Contact)) AND ((@IsNull_EmergencyTel = 1 AND [EmergencyTel] IS NULL) OR ([EmergencyTel] = @Original_EmergencyTel)) AND ((@IsNull_LastUpdated = 1 AND [LastUpdated] IS NULL) OR ([LastUpdated] = @Original_LastUpdated)) AND ((@IsNull_KeyinID = 1 AND [KeyinID] IS NULL) OR ([KeyinID] = @Original_KeyinID)) AND ((@IsNull_BankAccout = 1 AND [BankAccout] IS NULL) OR ([BankAccout] = @Original_BankAccout)) AND ([IsApplier] = @Original_IsApplier));
-SELECT EmployeeID, EmployeeCode, EmployeeName, ApartmentID, IsManager, InPosition, Salary, IdNo, Birthday, Fingerprintmachine, FingerPintNo, Marriage, BloodType, Telphone, Mobile, Gender, Photo, Address, Education, Title, Contact, EmergencyTel, LastUpdated, KeyinID, BankAccout, IsApplier FROM HR WHERE (EmployeeID = @EmployeeID)</CommandText>
+                    <CommandText>UPDATE [HR] SET [EmployeeID] = @EmployeeID, [EmployeeCode] = @EmployeeCode, [EmployeeName] = @EmployeeName, [ApartmentID] = @ApartmentID, [IsManager] = @IsManager, [Salary] = @Salary, [IdNo] = @IdNo, [Birthday] = @Birthday, [Fingerprintmachine] = @Fingerprintmachine, [FingerPintNo] = @FingerPintNo, [Marriage] = @Marriage, [BloodType] = @BloodType, [Telphone] = @Telphone, [Mobile] = @Mobile, [Gender] = @Gender, [Photo] = @Photo, [Address] = @Address, [Education] = @Education, [Title] = @Title, [Contact] = @Contact, [EmergencyTel] = @EmergencyTel, [LastUpdated] = @LastUpdated, [KeyinID] = @KeyinID, [BankAccout] = @BankAccout, [IsApplier] = @IsApplier, [InPosition] = @InPosition WHERE (([EmployeeID] = @Original_EmployeeID) AND ((@IsNull_EmployeeCode = 1 AND [EmployeeCode] IS NULL) OR ([EmployeeCode] = @Original_EmployeeCode)) AND ((@IsNull_EmployeeName = 1 AND [EmployeeName] IS NULL) OR ([EmployeeName] = @Original_EmployeeName)) AND ((@IsNull_ApartmentID = 1 AND [ApartmentID] IS NULL) OR ([ApartmentID] = @Original_ApartmentID)) AND ([IsManager] = @Original_IsManager) AND ((@IsNull_Salary = 1 AND [Salary] IS NULL) OR ([Salary] = @Original_Salary)) AND ((@IsNull_IdNo = 1 AND [IdNo] IS NULL) OR ([IdNo] = @Original_IdNo)) AND ((@IsNull_Birthday = 1 AND [Birthday] IS NULL) OR ([Birthday] = @Original_Birthday)) AND ((@IsNull_Fingerprintmachine = 1 AND [Fingerprintmachine] IS NULL) OR ([Fingerprintmachine] = @Original_Fingerprintmachine)) AND ((@IsNull_FingerPintNo = 1 AND [FingerPintNo] IS NULL) OR ([FingerPintNo] = @Original_FingerPintNo)) AND ((@IsNull_Marriage = 1 AND [Marriage] IS NULL) OR ([Marriage] = @Original_Marriage)) AND ((@IsNull_BloodType = 1 AND [BloodType] IS NULL) OR ([BloodType] = @Original_BloodType)) AND ((@IsNull_Telphone = 1 AND [Telphone] IS NULL) OR ([Telphone] = @Original_Telphone)) AND ((@IsNull_Mobile = 1 AND [Mobile] IS NULL) OR ([Mobile] = @Original_Mobile)) AND ((@IsNull_Gender = 1 AND [Gender] IS NULL) OR ([Gender] = @Original_Gender)) AND ((@IsNull_Address = 1 AND [Address] IS NULL) OR ([Address] = @Original_Address)) AND ((@IsNull_Education = 1 AND [Education] IS NULL) OR ([Education] = @Original_Education)) AND ((@IsNull_Title = 1 AND [Title] IS NULL) OR ([Title] = @Original_Title)) AND ((@IsNull_Contact = 1 AND [Contact] IS NULL) OR ([Contact] = @Original_Contact)) AND ((@IsNull_EmergencyTel = 1 AND [EmergencyTel] IS NULL) OR ([EmergencyTel] = @Original_EmergencyTel)) AND ((@IsNull_LastUpdated = 1 AND [LastUpdated] IS NULL) OR ([LastUpdated] = @Original_LastUpdated)) AND ((@IsNull_KeyinID = 1 AND [KeyinID] IS NULL) OR ([KeyinID] = @Original_KeyinID)) AND ((@IsNull_BankAccout = 1 AND [BankAccout] IS NULL) OR ([BankAccout] = @Original_BankAccout)) AND ([IsApplier] = @Original_IsApplier) AND ((@IsNull_InPosition = 1 AND [InPosition] IS NULL) OR ([InPosition] = @Original_InPosition)));
+SELECT EmployeeID, EmployeeCode, EmployeeName, ApartmentID, IsManager, Salary, IdNo, Birthday, Fingerprintmachine, FingerPintNo, Marriage, BloodType, Telphone, Mobile, Gender, Photo, Address, Education, Title, Contact, EmergencyTel, LastUpdated, KeyinID, BankAccout, IsApplier, InPosition FROM HR WHERE (EmployeeID = @EmployeeID)</CommandText>
                     <Parameters>
                       <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@EmployeeID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="EmployeeID" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@EmployeeCode" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="EmployeeCode" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@EmployeeName" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="EmployeeName" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@ApartmentID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ApartmentID" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@IsManager" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="IsManager" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@InPosition" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="InPosition" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Salary" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Salary" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@IdNo" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="IdNo" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Birthday" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="Birthday" SourceColumnNullMapping="false" SourceVersion="Current" />
@@ -880,6 +880,7 @@ SELECT EmployeeID, EmployeeCode, EmployeeName, ApartmentID, IsManager, InPositio
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@KeyinID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="KeyinID" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@BankAccout" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="BankAccout" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@IsApplier" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="IsApplier" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@InPosition" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="InPosition" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_EmployeeID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="EmployeeID" SourceColumnNullMapping="false" SourceVersion="Original" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_EmployeeCode" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="EmployeeCode" SourceColumnNullMapping="true" SourceVersion="Original" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_EmployeeCode" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="EmployeeCode" SourceColumnNullMapping="false" SourceVersion="Original" />
@@ -888,7 +889,6 @@ SELECT EmployeeID, EmployeeCode, EmployeeName, ApartmentID, IsManager, InPositio
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_ApartmentID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ApartmentID" SourceColumnNullMapping="true" SourceVersion="Original" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_ApartmentID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ApartmentID" SourceColumnNullMapping="false" SourceVersion="Original" />
                       <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Original_IsManager" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="IsManager" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Original_InPosition" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="InPosition" SourceColumnNullMapping="false" SourceVersion="Original" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Salary" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Salary" SourceColumnNullMapping="true" SourceVersion="Original" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_Salary" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Salary" SourceColumnNullMapping="false" SourceVersion="Original" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_IdNo" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="IdNo" SourceColumnNullMapping="true" SourceVersion="Original" />
@@ -926,6 +926,8 @@ SELECT EmployeeID, EmployeeCode, EmployeeName, ApartmentID, IsManager, InPositio
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_BankAccout" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="BankAccout" SourceColumnNullMapping="true" SourceVersion="Original" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_BankAccout" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="BankAccout" SourceColumnNullMapping="false" SourceVersion="Original" />
                       <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Original_IsApplier" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="IsApplier" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_InPosition" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="InPosition" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Original_InPosition" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="InPosition" SourceColumnNullMapping="false" SourceVersion="Original" />
                     </Parameters>
                   </DbCommand>
                 </UpdateCommand>
@@ -937,7 +939,6 @@ SELECT EmployeeID, EmployeeCode, EmployeeName, ApartmentID, IsManager, InPositio
               <Mapping SourceColumn="EmployeeName" DataSetColumn="EmployeeName" />
               <Mapping SourceColumn="ApartmentID" DataSetColumn="ApartmentID" />
               <Mapping SourceColumn="IsManager" DataSetColumn="IsManager" />
-              <Mapping SourceColumn="InPosition" DataSetColumn="InPosition" />
               <Mapping SourceColumn="Salary" DataSetColumn="Salary" />
               <Mapping SourceColumn="IdNo" DataSetColumn="IdNo" />
               <Mapping SourceColumn="Birthday" DataSetColumn="Birthday" />
@@ -958,94 +959,7 @@ SELECT EmployeeID, EmployeeCode, EmployeeName, ApartmentID, IsManager, InPositio
               <Mapping SourceColumn="KeyinID" DataSetColumn="KeyinID" />
               <Mapping SourceColumn="BankAccout" DataSetColumn="BankAccout" />
               <Mapping SourceColumn="IsApplier" DataSetColumn="IsApplier" />
-            </Mappings>
-            <Sources />
-          </TableAdapter>
-          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="HRDetailTableAdapter" GeneratorDataComponentClassName="HRDetailTableAdapter" Name="HRDetail" UserDataComponentName="HRDetailTableAdapter">
-            <MainSource>
-              <DbSource ConnectionRef="DamaiConnectionString (Settings)" DbObjectName="Damai.dbo.HRDetail" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
-                <DeleteCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>DELETE FROM [dbo].[HRDetail] WHERE (([ID] = @Original_ID) AND ([EmployeeID] = @Original_EmployeeID) AND ((@IsNull_Data = 1 AND [Data] IS NULL) OR ([Data] = @Original_Data)) AND ((@IsNull_EffectiveDate = 1 AND [EffectiveDate] IS NULL) OR ([EffectiveDate] = @Original_EffectiveDate)) AND ([Approved] = @Original_Approved) AND ((@IsNull_AppliedID = 1 AND [AppliedID] IS NULL) OR ([AppliedID] = @Original_AppliedID)) AND ((@IsNull_ApprovedID = 1 AND [ApprovedID] IS NULL) OR ([ApprovedID] = @Original_ApprovedID)) AND ((@IsNull_LastUpdated = 1 AND [LastUpdated] IS NULL) OR ([LastUpdated] = @Original_LastUpdated)))</CommandText>
-                    <Parameters>
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Guid" Direction="Input" ParameterName="@Original_ID" Precision="0" ProviderType="UniqueIdentifier" Scale="0" Size="0" SourceColumn="ID" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_EmployeeID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="EmployeeID" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Data" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Data" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_Data" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Data" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_EffectiveDate" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="EffectiveDate" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_EffectiveDate" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="EffectiveDate" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Original_Approved" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="Approved" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_AppliedID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="AppliedID" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_AppliedID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="AppliedID" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_ApprovedID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ApprovedID" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_ApprovedID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ApprovedID" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_LastUpdated" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="LastUpdated" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_LastUpdated" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="LastUpdated" SourceColumnNullMapping="false" SourceVersion="Original" />
-                    </Parameters>
-                  </DbCommand>
-                </DeleteCommand>
-                <InsertCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>INSERT INTO [dbo].[HRDetail] ([ID], [EmployeeID], [Data], [EffectiveDate], [Approved], [AppliedID], [ApprovedID], [LastUpdated]) VALUES (@ID, @EmployeeID, @Data, @EffectiveDate, @Approved, @AppliedID, @ApprovedID, @LastUpdated);
-SELECT ID, EmployeeID, Data, EffectiveDate, Approved, AppliedID, ApprovedID, LastUpdated FROM HRDetail WHERE (ID = @ID)</CommandText>
-                    <Parameters>
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Guid" Direction="Input" ParameterName="@ID" Precision="0" ProviderType="UniqueIdentifier" Scale="0" Size="0" SourceColumn="ID" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@EmployeeID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="EmployeeID" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Data" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Data" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@EffectiveDate" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="EffectiveDate" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Approved" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="Approved" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@AppliedID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="AppliedID" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@ApprovedID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ApprovedID" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@LastUpdated" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="LastUpdated" SourceColumnNullMapping="false" SourceVersion="Current" />
-                    </Parameters>
-                  </DbCommand>
-                </InsertCommand>
-                <SelectCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>SELECT ID, EmployeeID, Data, EffectiveDate, Approved, AppliedID, ApprovedID, LastUpdated FROM dbo.HRDetail</CommandText>
-                    <Parameters />
-                  </DbCommand>
-                </SelectCommand>
-                <UpdateCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>UPDATE [dbo].[HRDetail] SET [ID] = @ID, [EmployeeID] = @EmployeeID, [Data] = @Data, [EffectiveDate] = @EffectiveDate, [Approved] = @Approved, [AppliedID] = @AppliedID, [ApprovedID] = @ApprovedID, [LastUpdated] = @LastUpdated WHERE (([ID] = @Original_ID) AND ([EmployeeID] = @Original_EmployeeID) AND ((@IsNull_Data = 1 AND [Data] IS NULL) OR ([Data] = @Original_Data)) AND ((@IsNull_EffectiveDate = 1 AND [EffectiveDate] IS NULL) OR ([EffectiveDate] = @Original_EffectiveDate)) AND ([Approved] = @Original_Approved) AND ((@IsNull_AppliedID = 1 AND [AppliedID] IS NULL) OR ([AppliedID] = @Original_AppliedID)) AND ((@IsNull_ApprovedID = 1 AND [ApprovedID] IS NULL) OR ([ApprovedID] = @Original_ApprovedID)) AND ((@IsNull_LastUpdated = 1 AND [LastUpdated] IS NULL) OR ([LastUpdated] = @Original_LastUpdated)));
-SELECT ID, EmployeeID, Data, EffectiveDate, Approved, AppliedID, ApprovedID, LastUpdated FROM HRDetail WHERE (ID = @ID)</CommandText>
-                    <Parameters>
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Guid" Direction="Input" ParameterName="@ID" Precision="0" ProviderType="UniqueIdentifier" Scale="0" Size="0" SourceColumn="ID" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@EmployeeID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="EmployeeID" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Data" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Data" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@EffectiveDate" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="EffectiveDate" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Approved" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="Approved" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@AppliedID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="AppliedID" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@ApprovedID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ApprovedID" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@LastUpdated" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="LastUpdated" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Guid" Direction="Input" ParameterName="@Original_ID" Precision="0" ProviderType="UniqueIdentifier" Scale="0" Size="0" SourceColumn="ID" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_EmployeeID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="EmployeeID" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Data" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Data" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_Data" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Data" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_EffectiveDate" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="EffectiveDate" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_EffectiveDate" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="EffectiveDate" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Original_Approved" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="Approved" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_AppliedID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="AppliedID" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_AppliedID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="AppliedID" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_ApprovedID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ApprovedID" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_ApprovedID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ApprovedID" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_LastUpdated" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="LastUpdated" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_LastUpdated" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="LastUpdated" SourceColumnNullMapping="false" SourceVersion="Original" />
-                    </Parameters>
-                  </DbCommand>
-                </UpdateCommand>
-              </DbSource>
-            </MainSource>
-            <Mappings>
-              <Mapping SourceColumn="ID" DataSetColumn="ID" />
-              <Mapping SourceColumn="EmployeeID" DataSetColumn="EmployeeID" />
-              <Mapping SourceColumn="Data" DataSetColumn="Data" />
-              <Mapping SourceColumn="EffectiveDate" DataSetColumn="EffectiveDate" />
-              <Mapping SourceColumn="Approved" DataSetColumn="Approved" />
-              <Mapping SourceColumn="AppliedID" DataSetColumn="AppliedID" />
-              <Mapping SourceColumn="ApprovedID" DataSetColumn="ApprovedID" />
-              <Mapping SourceColumn="LastUpdated" DataSetColumn="LastUpdated" />
+              <Mapping SourceColumn="InPosition" DataSetColumn="InPosition" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -2340,174 +2254,6 @@ SELECT RequestsID, ListNumber, OperatorID, Department, Applicant, RequestsUse, U
             </Mappings>
             <Sources />
           </TableAdapter>
-          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ShiftDetailTableAdapter" GeneratorDataComponentClassName="ShiftDetailTableAdapter" Name="ShiftDetail" UserDataComponentName="ShiftDetailTableAdapter">
-            <MainSource>
-              <DbSource ConnectionRef="DamaiConnectionString (Settings)" DbObjectName="Damai.dbo.ShiftDetail" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
-                <DeleteCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>DELETE FROM [dbo].[ShiftDetail] WHERE (([ID] = @Original_ID) AND ((@IsNull_ShiftID = 1 AND [ShiftID] IS NULL) OR ([ShiftID] = @Original_ShiftID)) AND ((@IsNull_EmpolyeeID = 1 AND [EmpolyeeID] IS NULL) OR ([EmpolyeeID] = @Original_EmpolyeeID)) AND ((@IsNull_ShiftData = 1 AND [ShiftData] IS NULL) OR ([ShiftData] = @Original_ShiftData)) AND ((@IsNull_RealData = 1 AND [RealData] IS NULL) OR ([RealData] = @Original_RealData)) AND ((@IsNull_ShiftHours = 1 AND [ShiftHours] IS NULL) OR ([ShiftHours] = @Original_ShiftHours)) AND ((@IsNull_RealHours = 1 AND [RealHours] IS NULL) OR ([RealHours] = @Original_RealHours)))</CommandText>
-                    <Parameters>
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Guid" Direction="Input" ParameterName="@Original_ID" Precision="0" ProviderType="UniqueIdentifier" Scale="0" Size="0" SourceColumn="ID" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_ShiftID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ShiftID" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Guid" Direction="Input" ParameterName="@Original_ShiftID" Precision="0" ProviderType="UniqueIdentifier" Scale="0" Size="0" SourceColumn="ShiftID" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_EmpolyeeID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="EmpolyeeID" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_EmpolyeeID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="EmpolyeeID" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_ShiftData" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ShiftData" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_ShiftData" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="ShiftData" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_RealData" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="RealData" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_RealData" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="RealData" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_ShiftHours" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ShiftHours" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_ShiftHours" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ShiftHours" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_RealHours" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="RealHours" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_RealHours" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="RealHours" SourceColumnNullMapping="false" SourceVersion="Original" />
-                    </Parameters>
-                  </DbCommand>
-                </DeleteCommand>
-                <InsertCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>INSERT INTO [dbo].[ShiftDetail] ([ID], [ShiftID], [EmpolyeeID], [ShiftData], [RealData], [ShiftHours], [RealHours]) VALUES (@ID, @ShiftID, @EmpolyeeID, @ShiftData, @RealData, @ShiftHours, @RealHours);
-SELECT ID, ShiftID, EmpolyeeID, ShiftData, RealData, ShiftHours, RealHours FROM ShiftDetail WHERE (ID = @ID)</CommandText>
-                    <Parameters>
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Guid" Direction="Input" ParameterName="@ID" Precision="0" ProviderType="UniqueIdentifier" Scale="0" Size="0" SourceColumn="ID" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Guid" Direction="Input" ParameterName="@ShiftID" Precision="0" ProviderType="UniqueIdentifier" Scale="0" Size="0" SourceColumn="ShiftID" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@EmpolyeeID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="EmpolyeeID" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@ShiftData" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="ShiftData" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@RealData" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="RealData" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@ShiftHours" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ShiftHours" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@RealHours" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="RealHours" SourceColumnNullMapping="false" SourceVersion="Current" />
-                    </Parameters>
-                  </DbCommand>
-                </InsertCommand>
-                <SelectCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>SELECT ID, ShiftID, EmpolyeeID, ShiftData, RealData, ShiftHours, RealHours FROM dbo.ShiftDetail</CommandText>
-                    <Parameters />
-                  </DbCommand>
-                </SelectCommand>
-                <UpdateCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>UPDATE [dbo].[ShiftDetail] SET [ID] = @ID, [ShiftID] = @ShiftID, [EmpolyeeID] = @EmpolyeeID, [ShiftData] = @ShiftData, [RealData] = @RealData, [ShiftHours] = @ShiftHours, [RealHours] = @RealHours WHERE (([ID] = @Original_ID) AND ((@IsNull_ShiftID = 1 AND [ShiftID] IS NULL) OR ([ShiftID] = @Original_ShiftID)) AND ((@IsNull_EmpolyeeID = 1 AND [EmpolyeeID] IS NULL) OR ([EmpolyeeID] = @Original_EmpolyeeID)) AND ((@IsNull_ShiftData = 1 AND [ShiftData] IS NULL) OR ([ShiftData] = @Original_ShiftData)) AND ((@IsNull_RealData = 1 AND [RealData] IS NULL) OR ([RealData] = @Original_RealData)) AND ((@IsNull_ShiftHours = 1 AND [ShiftHours] IS NULL) OR ([ShiftHours] = @Original_ShiftHours)) AND ((@IsNull_RealHours = 1 AND [RealHours] IS NULL) OR ([RealHours] = @Original_RealHours)));
-SELECT ID, ShiftID, EmpolyeeID, ShiftData, RealData, ShiftHours, RealHours FROM ShiftDetail WHERE (ID = @ID)</CommandText>
-                    <Parameters>
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Guid" Direction="Input" ParameterName="@ID" Precision="0" ProviderType="UniqueIdentifier" Scale="0" Size="0" SourceColumn="ID" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Guid" Direction="Input" ParameterName="@ShiftID" Precision="0" ProviderType="UniqueIdentifier" Scale="0" Size="0" SourceColumn="ShiftID" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@EmpolyeeID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="EmpolyeeID" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@ShiftData" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="ShiftData" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@RealData" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="RealData" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@ShiftHours" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ShiftHours" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@RealHours" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="RealHours" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Guid" Direction="Input" ParameterName="@Original_ID" Precision="0" ProviderType="UniqueIdentifier" Scale="0" Size="0" SourceColumn="ID" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_ShiftID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ShiftID" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Guid" Direction="Input" ParameterName="@Original_ShiftID" Precision="0" ProviderType="UniqueIdentifier" Scale="0" Size="0" SourceColumn="ShiftID" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_EmpolyeeID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="EmpolyeeID" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_EmpolyeeID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="EmpolyeeID" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_ShiftData" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ShiftData" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_ShiftData" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="ShiftData" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_RealData" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="RealData" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_RealData" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="RealData" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_ShiftHours" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ShiftHours" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_ShiftHours" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ShiftHours" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_RealHours" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="RealHours" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_RealHours" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="RealHours" SourceColumnNullMapping="false" SourceVersion="Original" />
-                    </Parameters>
-                  </DbCommand>
-                </UpdateCommand>
-              </DbSource>
-            </MainSource>
-            <Mappings>
-              <Mapping SourceColumn="ID" DataSetColumn="ID" />
-              <Mapping SourceColumn="ShiftID" DataSetColumn="ShiftID" />
-              <Mapping SourceColumn="EmpolyeeID" DataSetColumn="EmpolyeeID" />
-              <Mapping SourceColumn="ShiftData" DataSetColumn="ShiftData" />
-              <Mapping SourceColumn="RealData" DataSetColumn="RealData" />
-              <Mapping SourceColumn="ShiftHours" DataSetColumn="ShiftHours" />
-              <Mapping SourceColumn="RealHours" DataSetColumn="RealHours" />
-            </Mappings>
-            <Sources />
-          </TableAdapter>
-          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ShiftTableTableAdapter" GeneratorDataComponentClassName="ShiftTableTableAdapter" Name="ShiftTable" UserDataComponentName="ShiftTableTableAdapter">
-            <MainSource>
-              <DbSource ConnectionRef="DamaiConnectionString (Settings)" DbObjectName="Damai.dbo.ShiftTable" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
-                <DeleteCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>DELETE FROM [dbo].[ShiftTable] WHERE (([ShiftID] = @Original_ShiftID) AND ((@IsNull_ApartmentID = 1 AND [ApartmentID] IS NULL) OR ([ApartmentID] = @Original_ApartmentID)) AND ((@IsNull_TableName = 1 AND [TableName] IS NULL) OR ([TableName] = @Original_TableName)) AND ((@IsNull_TableMonth = 1 AND [TableMonth] IS NULL) OR ([TableMonth] = @Original_TableMonth)) AND ((@IsNull_KeyinID = 1 AND [KeyinID] IS NULL) OR ([KeyinID] = @Original_KeyinID)) AND ((@IsNull_LastUpdated = 1 AND [LastUpdated] IS NULL) OR ([LastUpdated] = @Original_LastUpdated)) AND ([Locked] = @Original_Locked))</CommandText>
-                    <Parameters>
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Guid" Direction="Input" ParameterName="@Original_ShiftID" Precision="0" ProviderType="UniqueIdentifier" Scale="0" Size="0" SourceColumn="ShiftID" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_ApartmentID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ApartmentID" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_ApartmentID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ApartmentID" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_TableName" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="TableName" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_TableName" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="TableName" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_TableMonth" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="TableMonth" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_TableMonth" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="TableMonth" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_KeyinID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="KeyinID" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_KeyinID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="KeyinID" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_LastUpdated" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="LastUpdated" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_LastUpdated" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="LastUpdated" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Original_Locked" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="Locked" SourceColumnNullMapping="false" SourceVersion="Original" />
-                    </Parameters>
-                  </DbCommand>
-                </DeleteCommand>
-                <InsertCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>INSERT INTO [dbo].[ShiftTable] ([ShiftID], [ApartmentID], [TableName], [TableMonth], [KeyinID], [LastUpdated], [Locked]) VALUES (@ShiftID, @ApartmentID, @TableName, @TableMonth, @KeyinID, @LastUpdated, @Locked);
-SELECT ShiftID, ApartmentID, TableName, TableMonth, KeyinID, LastUpdated, Locked FROM ShiftTable WHERE (ShiftID = @ShiftID)</CommandText>
-                    <Parameters>
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Guid" Direction="Input" ParameterName="@ShiftID" Precision="0" ProviderType="UniqueIdentifier" Scale="0" Size="0" SourceColumn="ShiftID" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@ApartmentID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ApartmentID" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@TableName" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="TableName" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@TableMonth" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="TableMonth" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@KeyinID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="KeyinID" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@LastUpdated" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="LastUpdated" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Locked" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="Locked" SourceColumnNullMapping="false" SourceVersion="Current" />
-                    </Parameters>
-                  </DbCommand>
-                </InsertCommand>
-                <SelectCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>SELECT ShiftID, ApartmentID, TableName, TableMonth, KeyinID, LastUpdated, Locked FROM dbo.ShiftTable</CommandText>
-                    <Parameters />
-                  </DbCommand>
-                </SelectCommand>
-                <UpdateCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>UPDATE [dbo].[ShiftTable] SET [ShiftID] = @ShiftID, [ApartmentID] = @ApartmentID, [TableName] = @TableName, [TableMonth] = @TableMonth, [KeyinID] = @KeyinID, [LastUpdated] = @LastUpdated, [Locked] = @Locked WHERE (([ShiftID] = @Original_ShiftID) AND ((@IsNull_ApartmentID = 1 AND [ApartmentID] IS NULL) OR ([ApartmentID] = @Original_ApartmentID)) AND ((@IsNull_TableName = 1 AND [TableName] IS NULL) OR ([TableName] = @Original_TableName)) AND ((@IsNull_TableMonth = 1 AND [TableMonth] IS NULL) OR ([TableMonth] = @Original_TableMonth)) AND ((@IsNull_KeyinID = 1 AND [KeyinID] IS NULL) OR ([KeyinID] = @Original_KeyinID)) AND ((@IsNull_LastUpdated = 1 AND [LastUpdated] IS NULL) OR ([LastUpdated] = @Original_LastUpdated)) AND ([Locked] = @Original_Locked));
-SELECT ShiftID, ApartmentID, TableName, TableMonth, KeyinID, LastUpdated, Locked FROM ShiftTable WHERE (ShiftID = @ShiftID)</CommandText>
-                    <Parameters>
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Guid" Direction="Input" ParameterName="@ShiftID" Precision="0" ProviderType="UniqueIdentifier" Scale="0" Size="0" SourceColumn="ShiftID" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@ApartmentID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ApartmentID" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@TableName" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="TableName" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@TableMonth" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="TableMonth" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@KeyinID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="KeyinID" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@LastUpdated" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="LastUpdated" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Locked" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="Locked" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Guid" Direction="Input" ParameterName="@Original_ShiftID" Precision="0" ProviderType="UniqueIdentifier" Scale="0" Size="0" SourceColumn="ShiftID" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_ApartmentID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ApartmentID" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_ApartmentID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ApartmentID" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_TableName" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="TableName" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_TableName" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="TableName" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_TableMonth" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="TableMonth" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_TableMonth" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="TableMonth" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_KeyinID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="KeyinID" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_KeyinID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="KeyinID" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_LastUpdated" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="LastUpdated" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_LastUpdated" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="LastUpdated" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Original_Locked" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="Locked" SourceColumnNullMapping="false" SourceVersion="Original" />
-                    </Parameters>
-                  </DbCommand>
-                </UpdateCommand>
-              </DbSource>
-            </MainSource>
-            <Mappings>
-              <Mapping SourceColumn="ShiftID" DataSetColumn="ShiftID" />
-              <Mapping SourceColumn="ApartmentID" DataSetColumn="ApartmentID" />
-              <Mapping SourceColumn="TableName" DataSetColumn="TableName" />
-              <Mapping SourceColumn="TableMonth" DataSetColumn="TableMonth" />
-              <Mapping SourceColumn="KeyinID" DataSetColumn="KeyinID" />
-              <Mapping SourceColumn="LastUpdated" DataSetColumn="LastUpdated" />
-              <Mapping SourceColumn="Locked" DataSetColumn="Locked" />
-            </Mappings>
-            <Sources />
-          </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="VEHeaderTableAdapter" GeneratorDataComponentClassName="VEHeaderTableAdapter" Name="VEHeader" UserDataComponentName="VEHeaderTableAdapter">
             <MainSource>
               <DbSource ConnectionRef="DamaiConnectionString (Settings)" DbObjectName="Damai.dbo.VEHeader" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
@@ -3215,6 +2961,264 @@ SELECT ID, AccVoucherID, ApplierID, AccVoucherTime, IsDebt0, IsDebt1, IsDebt2, I
             </Mappings>
             <Sources />
           </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="HRDetailTableAdapter" GeneratorDataComponentClassName="HRDetailTableAdapter" Name="HRDetail" UserDataComponentName="HRDetailTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="DamaiConnectionString (Settings)" DbObjectName="Damai.dbo.HRDetail" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [dbo].[HRDetail] WHERE (([ID] = @Original_ID) AND ([EmployeeID] = @Original_EmployeeID) AND ((@IsNull_Data = 1 AND [Data] IS NULL) OR ([Data] = @Original_Data)) AND ((@IsNull_EffectiveDate = 1 AND [EffectiveDate] IS NULL) OR ([EffectiveDate] = @Original_EffectiveDate)) AND ([Approved] = @Original_Approved) AND ((@IsNull_AppliedID = 1 AND [AppliedID] IS NULL) OR ([AppliedID] = @Original_AppliedID)) AND ((@IsNull_ApprovedID = 1 AND [ApprovedID] IS NULL) OR ([ApprovedID] = @Original_ApprovedID)) AND ((@IsNull_LastUpdated = 1 AND [LastUpdated] IS NULL) OR ([LastUpdated] = @Original_LastUpdated)))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Guid" Direction="Input" ParameterName="@Original_ID" Precision="0" ProviderType="UniqueIdentifier" Scale="0" Size="0" SourceColumn="ID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_EmployeeID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="EmployeeID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Data" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Data" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_Data" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Data" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_EffectiveDate" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="EffectiveDate" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_EffectiveDate" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="EffectiveDate" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Original_Approved" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="Approved" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_AppliedID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="AppliedID" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_AppliedID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="AppliedID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_ApprovedID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ApprovedID" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_ApprovedID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ApprovedID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_LastUpdated" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="LastUpdated" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_LastUpdated" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="LastUpdated" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [dbo].[HRDetail] ([ID], [EmployeeID], [Data], [EffectiveDate], [Approved], [AppliedID], [ApprovedID], [LastUpdated]) VALUES (@ID, @EmployeeID, @Data, @EffectiveDate, @Approved, @AppliedID, @ApprovedID, @LastUpdated);
+SELECT ID, EmployeeID, Data, EffectiveDate, Approved, AppliedID, ApprovedID, LastUpdated FROM HRDetail WHERE (ID = @ID)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Guid" Direction="Input" ParameterName="@ID" Precision="0" ProviderType="UniqueIdentifier" Scale="0" Size="0" SourceColumn="ID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@EmployeeID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="EmployeeID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Data" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Data" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@EffectiveDate" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="EffectiveDate" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Approved" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="Approved" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@AppliedID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="AppliedID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@ApprovedID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ApprovedID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@LastUpdated" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="LastUpdated" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT ID, EmployeeID, Data, EffectiveDate, Approved, AppliedID, ApprovedID, LastUpdated FROM dbo.HRDetail</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [dbo].[HRDetail] SET [ID] = @ID, [EmployeeID] = @EmployeeID, [Data] = @Data, [EffectiveDate] = @EffectiveDate, [Approved] = @Approved, [AppliedID] = @AppliedID, [ApprovedID] = @ApprovedID, [LastUpdated] = @LastUpdated WHERE (([ID] = @Original_ID) AND ([EmployeeID] = @Original_EmployeeID) AND ((@IsNull_Data = 1 AND [Data] IS NULL) OR ([Data] = @Original_Data)) AND ((@IsNull_EffectiveDate = 1 AND [EffectiveDate] IS NULL) OR ([EffectiveDate] = @Original_EffectiveDate)) AND ([Approved] = @Original_Approved) AND ((@IsNull_AppliedID = 1 AND [AppliedID] IS NULL) OR ([AppliedID] = @Original_AppliedID)) AND ((@IsNull_ApprovedID = 1 AND [ApprovedID] IS NULL) OR ([ApprovedID] = @Original_ApprovedID)) AND ((@IsNull_LastUpdated = 1 AND [LastUpdated] IS NULL) OR ([LastUpdated] = @Original_LastUpdated)));
+SELECT ID, EmployeeID, Data, EffectiveDate, Approved, AppliedID, ApprovedID, LastUpdated FROM HRDetail WHERE (ID = @ID)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Guid" Direction="Input" ParameterName="@ID" Precision="0" ProviderType="UniqueIdentifier" Scale="0" Size="0" SourceColumn="ID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@EmployeeID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="EmployeeID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Data" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Data" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@EffectiveDate" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="EffectiveDate" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Approved" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="Approved" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@AppliedID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="AppliedID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@ApprovedID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ApprovedID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@LastUpdated" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="LastUpdated" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Guid" Direction="Input" ParameterName="@Original_ID" Precision="0" ProviderType="UniqueIdentifier" Scale="0" Size="0" SourceColumn="ID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_EmployeeID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="EmployeeID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Data" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Data" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_Data" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Data" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_EffectiveDate" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="EffectiveDate" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_EffectiveDate" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="EffectiveDate" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Original_Approved" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="Approved" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_AppliedID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="AppliedID" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_AppliedID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="AppliedID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_ApprovedID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ApprovedID" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_ApprovedID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ApprovedID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_LastUpdated" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="LastUpdated" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_LastUpdated" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="LastUpdated" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="ID" DataSetColumn="ID" />
+              <Mapping SourceColumn="EmployeeID" DataSetColumn="EmployeeID" />
+              <Mapping SourceColumn="Data" DataSetColumn="Data" />
+              <Mapping SourceColumn="EffectiveDate" DataSetColumn="EffectiveDate" />
+              <Mapping SourceColumn="Approved" DataSetColumn="Approved" />
+              <Mapping SourceColumn="AppliedID" DataSetColumn="AppliedID" />
+              <Mapping SourceColumn="ApprovedID" DataSetColumn="ApprovedID" />
+              <Mapping SourceColumn="LastUpdated" DataSetColumn="LastUpdated" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ShiftDetailTableAdapter" GeneratorDataComponentClassName="ShiftDetailTableAdapter" Name="ShiftDetail" UserDataComponentName="ShiftDetailTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="DamaiConnectionString (Settings)" DbObjectName="Damai.dbo.ShiftDetail" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [dbo].[ShiftDetail] WHERE (([ID] = @Original_ID) AND ((@IsNull_ShiftID = 1 AND [ShiftID] IS NULL) OR ([ShiftID] = @Original_ShiftID)) AND ((@IsNull_EmpolyeeID = 1 AND [EmpolyeeID] IS NULL) OR ([EmpolyeeID] = @Original_EmpolyeeID)) AND ((@IsNull_ShiftData = 1 AND [ShiftData] IS NULL) OR ([ShiftData] = @Original_ShiftData)) AND ((@IsNull_RealData = 1 AND [RealData] IS NULL) OR ([RealData] = @Original_RealData)) AND ((@IsNull_ShiftHours = 1 AND [ShiftHours] IS NULL) OR ([ShiftHours] = @Original_ShiftHours)) AND ((@IsNull_RealHours = 1 AND [RealHours] IS NULL) OR ([RealHours] = @Original_RealHours)))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Guid" Direction="Input" ParameterName="@Original_ID" Precision="0" ProviderType="UniqueIdentifier" Scale="0" Size="0" SourceColumn="ID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_ShiftID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ShiftID" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Guid" Direction="Input" ParameterName="@Original_ShiftID" Precision="0" ProviderType="UniqueIdentifier" Scale="0" Size="0" SourceColumn="ShiftID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_EmpolyeeID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="EmpolyeeID" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_EmpolyeeID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="EmpolyeeID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_ShiftData" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ShiftData" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_ShiftData" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="ShiftData" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_RealData" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="RealData" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_RealData" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="RealData" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_ShiftHours" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ShiftHours" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_ShiftHours" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ShiftHours" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_RealHours" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="RealHours" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_RealHours" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="RealHours" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [dbo].[ShiftDetail] ([ID], [ShiftID], [EmpolyeeID], [ShiftData], [RealData], [ShiftHours], [RealHours]) VALUES (@ID, @ShiftID, @EmpolyeeID, @ShiftData, @RealData, @ShiftHours, @RealHours);
+SELECT ID, ShiftID, EmpolyeeID, ShiftData, RealData, ShiftHours, RealHours FROM ShiftDetail WHERE (ID = @ID)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Guid" Direction="Input" ParameterName="@ID" Precision="0" ProviderType="UniqueIdentifier" Scale="0" Size="0" SourceColumn="ID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Guid" Direction="Input" ParameterName="@ShiftID" Precision="0" ProviderType="UniqueIdentifier" Scale="0" Size="0" SourceColumn="ShiftID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@EmpolyeeID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="EmpolyeeID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@ShiftData" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="ShiftData" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@RealData" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="RealData" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@ShiftHours" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ShiftHours" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@RealHours" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="RealHours" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT ID, ShiftID, EmpolyeeID, ShiftData, RealData, ShiftHours, RealHours FROM dbo.ShiftDetail</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [dbo].[ShiftDetail] SET [ID] = @ID, [ShiftID] = @ShiftID, [EmpolyeeID] = @EmpolyeeID, [ShiftData] = @ShiftData, [RealData] = @RealData, [ShiftHours] = @ShiftHours, [RealHours] = @RealHours WHERE (([ID] = @Original_ID) AND ((@IsNull_ShiftID = 1 AND [ShiftID] IS NULL) OR ([ShiftID] = @Original_ShiftID)) AND ((@IsNull_EmpolyeeID = 1 AND [EmpolyeeID] IS NULL) OR ([EmpolyeeID] = @Original_EmpolyeeID)) AND ((@IsNull_ShiftData = 1 AND [ShiftData] IS NULL) OR ([ShiftData] = @Original_ShiftData)) AND ((@IsNull_RealData = 1 AND [RealData] IS NULL) OR ([RealData] = @Original_RealData)) AND ((@IsNull_ShiftHours = 1 AND [ShiftHours] IS NULL) OR ([ShiftHours] = @Original_ShiftHours)) AND ((@IsNull_RealHours = 1 AND [RealHours] IS NULL) OR ([RealHours] = @Original_RealHours)));
+SELECT ID, ShiftID, EmpolyeeID, ShiftData, RealData, ShiftHours, RealHours FROM ShiftDetail WHERE (ID = @ID)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Guid" Direction="Input" ParameterName="@ID" Precision="0" ProviderType="UniqueIdentifier" Scale="0" Size="0" SourceColumn="ID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Guid" Direction="Input" ParameterName="@ShiftID" Precision="0" ProviderType="UniqueIdentifier" Scale="0" Size="0" SourceColumn="ShiftID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@EmpolyeeID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="EmpolyeeID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@ShiftData" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="ShiftData" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@RealData" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="RealData" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@ShiftHours" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ShiftHours" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@RealHours" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="RealHours" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Guid" Direction="Input" ParameterName="@Original_ID" Precision="0" ProviderType="UniqueIdentifier" Scale="0" Size="0" SourceColumn="ID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_ShiftID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ShiftID" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Guid" Direction="Input" ParameterName="@Original_ShiftID" Precision="0" ProviderType="UniqueIdentifier" Scale="0" Size="0" SourceColumn="ShiftID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_EmpolyeeID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="EmpolyeeID" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_EmpolyeeID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="EmpolyeeID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_ShiftData" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ShiftData" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_ShiftData" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="ShiftData" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_RealData" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="RealData" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_RealData" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="RealData" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_ShiftHours" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ShiftHours" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_ShiftHours" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ShiftHours" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_RealHours" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="RealHours" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_RealHours" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="RealHours" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="ID" DataSetColumn="ID" />
+              <Mapping SourceColumn="ShiftID" DataSetColumn="ShiftID" />
+              <Mapping SourceColumn="EmpolyeeID" DataSetColumn="EmpolyeeID" />
+              <Mapping SourceColumn="ShiftData" DataSetColumn="ShiftData" />
+              <Mapping SourceColumn="RealData" DataSetColumn="RealData" />
+              <Mapping SourceColumn="ShiftHours" DataSetColumn="ShiftHours" />
+              <Mapping SourceColumn="RealHours" DataSetColumn="RealHours" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ShiftTableTableAdapter" GeneratorDataComponentClassName="ShiftTableTableAdapter" Name="ShiftTable" UserDataComponentName="ShiftTableTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="DamaiConnectionString (Settings)" DbObjectName="Damai.dbo.ShiftTable" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [dbo].[ShiftTable] WHERE (([ShiftID] = @Original_ShiftID) AND ((@IsNull_ApartmentID = 1 AND [ApartmentID] IS NULL) OR ([ApartmentID] = @Original_ApartmentID)) AND ((@IsNull_TableName = 1 AND [TableName] IS NULL) OR ([TableName] = @Original_TableName)) AND ((@IsNull_TableMonth = 1 AND [TableMonth] IS NULL) OR ([TableMonth] = @Original_TableMonth)) AND ((@IsNull_KeyinID = 1 AND [KeyinID] IS NULL) OR ([KeyinID] = @Original_KeyinID)) AND ((@IsNull_LastUpdated = 1 AND [LastUpdated] IS NULL) OR ([LastUpdated] = @Original_LastUpdated)) AND ((@IsNull_Locked = 1 AND [Locked] IS NULL) OR ([Locked] = @Original_Locked)))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Guid" Direction="Input" ParameterName="@Original_ShiftID" Precision="0" ProviderType="UniqueIdentifier" Scale="0" Size="0" SourceColumn="ShiftID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_ApartmentID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ApartmentID" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_ApartmentID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ApartmentID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_TableName" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="TableName" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_TableName" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="TableName" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_TableMonth" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="TableMonth" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_TableMonth" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="TableMonth" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_KeyinID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="KeyinID" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_KeyinID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="KeyinID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_LastUpdated" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="LastUpdated" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_LastUpdated" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="LastUpdated" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Locked" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Locked" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Original_Locked" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="Locked" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [dbo].[ShiftTable] ([ShiftID], [ApartmentID], [TableName], [TableMonth], [KeyinID], [LastUpdated], [Locked]) VALUES (@ShiftID, @ApartmentID, @TableName, @TableMonth, @KeyinID, @LastUpdated, @Locked);
+SELECT ShiftID, ApartmentID, TableName, TableMonth, KeyinID, LastUpdated, Locked FROM ShiftTable WHERE (ShiftID = @ShiftID)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Guid" Direction="Input" ParameterName="@ShiftID" Precision="0" ProviderType="UniqueIdentifier" Scale="0" Size="0" SourceColumn="ShiftID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@ApartmentID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ApartmentID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@TableName" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="TableName" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@TableMonth" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="TableMonth" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@KeyinID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="KeyinID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@LastUpdated" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="LastUpdated" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Locked" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="Locked" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT ShiftID, ApartmentID, TableName, TableMonth, KeyinID, LastUpdated, Locked FROM dbo.ShiftTable</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [dbo].[ShiftTable] SET [ShiftID] = @ShiftID, [ApartmentID] = @ApartmentID, [TableName] = @TableName, [TableMonth] = @TableMonth, [KeyinID] = @KeyinID, [LastUpdated] = @LastUpdated, [Locked] = @Locked WHERE (([ShiftID] = @Original_ShiftID) AND ((@IsNull_ApartmentID = 1 AND [ApartmentID] IS NULL) OR ([ApartmentID] = @Original_ApartmentID)) AND ((@IsNull_TableName = 1 AND [TableName] IS NULL) OR ([TableName] = @Original_TableName)) AND ((@IsNull_TableMonth = 1 AND [TableMonth] IS NULL) OR ([TableMonth] = @Original_TableMonth)) AND ((@IsNull_KeyinID = 1 AND [KeyinID] IS NULL) OR ([KeyinID] = @Original_KeyinID)) AND ((@IsNull_LastUpdated = 1 AND [LastUpdated] IS NULL) OR ([LastUpdated] = @Original_LastUpdated)) AND ((@IsNull_Locked = 1 AND [Locked] IS NULL) OR ([Locked] = @Original_Locked)));
+SELECT ShiftID, ApartmentID, TableName, TableMonth, KeyinID, LastUpdated, Locked FROM ShiftTable WHERE (ShiftID = @ShiftID)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Guid" Direction="Input" ParameterName="@ShiftID" Precision="0" ProviderType="UniqueIdentifier" Scale="0" Size="0" SourceColumn="ShiftID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@ApartmentID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ApartmentID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@TableName" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="TableName" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@TableMonth" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="TableMonth" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@KeyinID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="KeyinID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@LastUpdated" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="LastUpdated" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Locked" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="Locked" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Guid" Direction="Input" ParameterName="@Original_ShiftID" Precision="0" ProviderType="UniqueIdentifier" Scale="0" Size="0" SourceColumn="ShiftID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_ApartmentID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ApartmentID" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_ApartmentID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ApartmentID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_TableName" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="TableName" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_TableName" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="TableName" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_TableMonth" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="TableMonth" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_TableMonth" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="TableMonth" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_KeyinID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="KeyinID" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_KeyinID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="KeyinID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_LastUpdated" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="LastUpdated" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_LastUpdated" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="LastUpdated" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Locked" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Locked" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Original_Locked" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="Locked" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="ShiftID" DataSetColumn="ShiftID" />
+              <Mapping SourceColumn="ApartmentID" DataSetColumn="ApartmentID" />
+              <Mapping SourceColumn="TableName" DataSetColumn="TableName" />
+              <Mapping SourceColumn="TableMonth" DataSetColumn="TableMonth" />
+              <Mapping SourceColumn="KeyinID" DataSetColumn="KeyinID" />
+              <Mapping SourceColumn="LastUpdated" DataSetColumn="LastUpdated" />
+              <Mapping SourceColumn="Locked" DataSetColumn="Locked" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
         </Tables>
         <Sources />
       </DataSource>
@@ -3487,7 +3491,6 @@ SELECT ID, AccVoucherID, ApplierID, AccVoucherTime, IsDebt0, IsDebt1, IsDebt2, I
               </xs:element>
               <xs:element name="ApartmentID" msprop:Generator_ColumnVarNameInTable="columnApartmentID" msprop:Generator_ColumnPropNameInRow="ApartmentID" msprop:Generator_ColumnPropNameInTable="ApartmentIDColumn" msprop:Generator_UserColumnName="ApartmentID" type="xs:int" minOccurs="0" />
               <xs:element name="IsManager" msprop:Generator_ColumnVarNameInTable="columnIsManager" msprop:Generator_ColumnPropNameInRow="IsManager" msprop:Generator_ColumnPropNameInTable="IsManagerColumn" msprop:Generator_UserColumnName="IsManager" type="xs:boolean" />
-              <xs:element name="InPosition" msprop:Generator_ColumnVarNameInTable="columnInPosition" msprop:Generator_ColumnPropNameInRow="InPosition" msprop:Generator_ColumnPropNameInTable="InPositionColumn" msprop:Generator_UserColumnName="InPosition" type="xs:boolean" />
               <xs:element name="Salary" msprop:Generator_ColumnVarNameInTable="columnSalary" msprop:Generator_ColumnPropNameInRow="Salary" msprop:Generator_ColumnPropNameInTable="SalaryColumn" msprop:Generator_UserColumnName="Salary" type="xs:int" minOccurs="0" />
               <xs:element name="IdNo" msprop:Generator_ColumnVarNameInTable="columnIdNo" msprop:Generator_ColumnPropNameInRow="IdNo" msprop:Generator_ColumnPropNameInTable="IdNoColumn" msprop:Generator_UserColumnName="IdNo" minOccurs="0">
                 <xs:simpleType>
@@ -3580,26 +3583,7 @@ SELECT ID, AccVoucherID, ApplierID, AccVoucherTime, IsDebt0, IsDebt1, IsDebt2, I
                 </xs:simpleType>
               </xs:element>
               <xs:element name="IsApplier" msprop:Generator_ColumnVarNameInTable="columnIsApplier" msprop:Generator_ColumnPropNameInRow="IsApplier" msprop:Generator_ColumnPropNameInTable="IsApplierColumn" msprop:Generator_UserColumnName="IsApplier" type="xs:boolean" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="HRDetail" msprop:Generator_TableClassName="HRDetailDataTable" msprop:Generator_TableVarName="tableHRDetail" msprop:Generator_TablePropName="HRDetail" msprop:Generator_RowDeletingName="HRDetailRowDeleting" msprop:Generator_UserTableName="HRDetail" msprop:Generator_RowChangingName="HRDetailRowChanging" msprop:Generator_RowEvHandlerName="HRDetailRowChangeEventHandler" msprop:Generator_RowDeletedName="HRDetailRowDeleted" msprop:Generator_RowEvArgName="HRDetailRowChangeEvent" msprop:Generator_RowChangedName="HRDetailRowChanged" msprop:Generator_RowClassName="HRDetailRow">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:string" />
-              <xs:element name="EmployeeID" msprop:Generator_ColumnVarNameInTable="columnEmployeeID" msprop:Generator_ColumnPropNameInRow="EmployeeID" msprop:Generator_ColumnPropNameInTable="EmployeeIDColumn" msprop:Generator_UserColumnName="EmployeeID" type="xs:int" />
-              <xs:element name="Data" msprop:Generator_ColumnVarNameInTable="columnData" msprop:Generator_ColumnPropNameInRow="Data" msprop:Generator_ColumnPropNameInTable="DataColumn" msprop:Generator_UserColumnName="Data" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="50" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="EffectiveDate" msprop:Generator_ColumnVarNameInTable="columnEffectiveDate" msprop:Generator_ColumnPropNameInRow="EffectiveDate" msprop:Generator_ColumnPropNameInTable="EffectiveDateColumn" msprop:Generator_UserColumnName="EffectiveDate" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="Approved" msprop:Generator_ColumnVarNameInTable="columnApproved" msprop:Generator_ColumnPropNameInRow="Approved" msprop:Generator_ColumnPropNameInTable="ApprovedColumn" msprop:Generator_UserColumnName="Approved" type="xs:boolean" />
-              <xs:element name="AppliedID" msprop:Generator_ColumnVarNameInTable="columnAppliedID" msprop:Generator_ColumnPropNameInRow="AppliedID" msprop:Generator_ColumnPropNameInTable="AppliedIDColumn" msprop:Generator_UserColumnName="AppliedID" type="xs:int" minOccurs="0" />
-              <xs:element name="ApprovedID" msprop:Generator_ColumnVarNameInTable="columnApprovedID" msprop:Generator_ColumnPropNameInRow="ApprovedID" msprop:Generator_ColumnPropNameInTable="ApprovedIDColumn" msprop:Generator_UserColumnName="ApprovedID" type="xs:int" minOccurs="0" />
-              <xs:element name="LastUpdated" msprop:Generator_ColumnVarNameInTable="columnLastUpdated" msprop:Generator_ColumnPropNameInRow="LastUpdated" msprop:Generator_ColumnPropNameInTable="LastUpdatedColumn" msprop:Generator_UserColumnName="LastUpdated" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="InPosition" msprop:Generator_ColumnVarNameInTable="columnInPosition" msprop:Generator_ColumnPropNameInRow="InPosition" msprop:Generator_ColumnPropNameInTable="InPositionColumn" msprop:Generator_UserColumnName="InPosition" type="xs:boolean" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -3970,50 +3954,6 @@ SELECT ID, AccVoucherID, ApplierID, AccVoucherTime, IsDebt0, IsDebt1, IsDebt2, I
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="ShiftDetail" msprop:Generator_TableClassName="ShiftDetailDataTable" msprop:Generator_TableVarName="tableShiftDetail" msprop:Generator_TablePropName="ShiftDetail" msprop:Generator_RowDeletingName="ShiftDetailRowDeleting" msprop:Generator_UserTableName="ShiftDetail" msprop:Generator_RowChangingName="ShiftDetailRowChanging" msprop:Generator_RowEvHandlerName="ShiftDetailRowChangeEventHandler" msprop:Generator_RowDeletedName="ShiftDetailRowDeleted" msprop:Generator_RowEvArgName="ShiftDetailRowChangeEvent" msprop:Generator_RowChangedName="ShiftDetailRowChanged" msprop:Generator_RowClassName="ShiftDetailRow">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:string" />
-              <xs:element name="ShiftID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" msprop:Generator_ColumnVarNameInTable="columnShiftID" msprop:Generator_ColumnPropNameInRow="ShiftID" msprop:Generator_ColumnPropNameInTable="ShiftIDColumn" msprop:Generator_UserColumnName="ShiftID" type="xs:string" minOccurs="0" />
-              <xs:element name="EmpolyeeID" msprop:Generator_ColumnVarNameInTable="columnEmpolyeeID" msprop:Generator_ColumnPropNameInRow="EmpolyeeID" msprop:Generator_ColumnPropNameInTable="EmpolyeeIDColumn" msprop:Generator_UserColumnName="EmpolyeeID" type="xs:int" minOccurs="0" />
-              <xs:element name="ShiftData" msprop:Generator_ColumnVarNameInTable="columnShiftData" msprop:Generator_ColumnPropNameInRow="ShiftData" msprop:Generator_ColumnPropNameInTable="ShiftDataColumn" msprop:Generator_UserColumnName="ShiftData" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="31" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="RealData" msprop:Generator_ColumnVarNameInTable="columnRealData" msprop:Generator_ColumnPropNameInRow="RealData" msprop:Generator_ColumnPropNameInTable="RealDataColumn" msprop:Generator_UserColumnName="RealData" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="31" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="ShiftHours" msprop:Generator_ColumnVarNameInTable="columnShiftHours" msprop:Generator_ColumnPropNameInRow="ShiftHours" msprop:Generator_ColumnPropNameInTable="ShiftHoursColumn" msprop:Generator_UserColumnName="ShiftHours" type="xs:int" minOccurs="0" />
-              <xs:element name="RealHours" msprop:Generator_ColumnVarNameInTable="columnRealHours" msprop:Generator_ColumnPropNameInRow="RealHours" msprop:Generator_ColumnPropNameInTable="RealHoursColumn" msprop:Generator_UserColumnName="RealHours" type="xs:int" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="ShiftTable" msprop:Generator_TableClassName="ShiftTableDataTable" msprop:Generator_TableVarName="tableShiftTable" msprop:Generator_TablePropName="ShiftTable" msprop:Generator_RowDeletingName="ShiftTableRowDeleting" msprop:Generator_UserTableName="ShiftTable" msprop:Generator_RowChangingName="ShiftTableRowChanging" msprop:Generator_RowEvHandlerName="ShiftTableRowChangeEventHandler" msprop:Generator_RowDeletedName="ShiftTableRowDeleted" msprop:Generator_RowEvArgName="ShiftTableRowChangeEvent" msprop:Generator_RowChangedName="ShiftTableRowChanged" msprop:Generator_RowClassName="ShiftTableRow">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="ShiftID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" msprop:Generator_ColumnVarNameInTable="columnShiftID" msprop:Generator_ColumnPropNameInRow="ShiftID" msprop:Generator_ColumnPropNameInTable="ShiftIDColumn" msprop:Generator_UserColumnName="ShiftID" type="xs:string" />
-              <xs:element name="ApartmentID" msprop:Generator_ColumnVarNameInTable="columnApartmentID" msprop:Generator_ColumnPropNameInRow="ApartmentID" msprop:Generator_ColumnPropNameInTable="ApartmentIDColumn" msprop:Generator_UserColumnName="ApartmentID" type="xs:int" minOccurs="0" />
-              <xs:element name="TableName" msprop:Generator_ColumnVarNameInTable="columnTableName" msprop:Generator_ColumnPropNameInRow="TableName" msprop:Generator_ColumnPropNameInTable="TableNameColumn" msprop:Generator_UserColumnName="TableName" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="10" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TableMonth" msprop:Generator_ColumnVarNameInTable="columnTableMonth" msprop:Generator_ColumnPropNameInRow="TableMonth" msprop:Generator_ColumnPropNameInTable="TableMonthColumn" msprop:Generator_UserColumnName="TableMonth" type="xs:int" minOccurs="0" />
-              <xs:element name="KeyinID" msprop:Generator_ColumnVarNameInTable="columnKeyinID" msprop:Generator_ColumnPropNameInRow="KeyinID" msprop:Generator_ColumnPropNameInTable="KeyinIDColumn" msprop:Generator_UserColumnName="KeyinID" type="xs:int" minOccurs="0" />
-              <xs:element name="LastUpdated" msprop:Generator_ColumnVarNameInTable="columnLastUpdated" msprop:Generator_ColumnPropNameInRow="LastUpdated" msprop:Generator_ColumnPropNameInTable="LastUpdatedColumn" msprop:Generator_UserColumnName="LastUpdated" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="Locked" msprop:Generator_ColumnVarNameInTable="columnLocked" msprop:Generator_ColumnPropNameInRow="Locked" msprop:Generator_ColumnPropNameInTable="LockedColumn" msprop:Generator_UserColumnName="Locked" type="xs:boolean" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element name="VEHeader" msprop:Generator_TableClassName="VEHeaderDataTable" msprop:Generator_TableVarName="tableVEHeader" msprop:Generator_TablePropName="VEHeader" msprop:Generator_RowDeletingName="VEHeaderRowDeleting" msprop:Generator_UserTableName="VEHeader" msprop:Generator_RowChangingName="VEHeaderRowChanging" msprop:Generator_RowEvHandlerName="VEHeaderRowChangeEventHandler" msprop:Generator_RowDeletedName="VEHeaderRowDeleted" msprop:Generator_RowEvArgName="VEHeaderRowChangeEvent" msprop:Generator_RowChangedName="VEHeaderRowChanged" msprop:Generator_RowClassName="VEHeaderRow">
           <xs:complexType>
             <xs:sequence>
@@ -4213,6 +4153,70 @@ SELECT ID, AccVoucherID, ApplierID, AccVoucherTime, IsDebt0, IsDebt1, IsDebt2, I
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="HRDetail" msprop:Generator_TableClassName="HRDetailDataTable" msprop:Generator_TableVarName="tableHRDetail" msprop:Generator_TablePropName="HRDetail" msprop:Generator_RowDeletingName="HRDetailRowDeleting" msprop:Generator_UserTableName="HRDetail" msprop:Generator_RowChangingName="HRDetailRowChanging" msprop:Generator_RowEvHandlerName="HRDetailRowChangeEventHandler" msprop:Generator_RowDeletedName="HRDetailRowDeleted" msprop:Generator_RowEvArgName="HRDetailRowChangeEvent" msprop:Generator_RowChangedName="HRDetailRowChanged" msprop:Generator_RowClassName="HRDetailRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:string" />
+              <xs:element name="EmployeeID" msprop:Generator_ColumnVarNameInTable="columnEmployeeID" msprop:Generator_ColumnPropNameInRow="EmployeeID" msprop:Generator_ColumnPropNameInTable="EmployeeIDColumn" msprop:Generator_UserColumnName="EmployeeID" type="xs:int" />
+              <xs:element name="Data" msprop:Generator_ColumnVarNameInTable="columnData" msprop:Generator_ColumnPropNameInRow="Data" msprop:Generator_ColumnPropNameInTable="DataColumn" msprop:Generator_UserColumnName="Data" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="EffectiveDate" msprop:Generator_ColumnVarNameInTable="columnEffectiveDate" msprop:Generator_ColumnPropNameInRow="EffectiveDate" msprop:Generator_ColumnPropNameInTable="EffectiveDateColumn" msprop:Generator_UserColumnName="EffectiveDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Approved" msprop:Generator_ColumnVarNameInTable="columnApproved" msprop:Generator_ColumnPropNameInRow="Approved" msprop:Generator_ColumnPropNameInTable="ApprovedColumn" msprop:Generator_UserColumnName="Approved" type="xs:boolean" />
+              <xs:element name="AppliedID" msprop:Generator_ColumnVarNameInTable="columnAppliedID" msprop:Generator_ColumnPropNameInRow="AppliedID" msprop:Generator_ColumnPropNameInTable="AppliedIDColumn" msprop:Generator_UserColumnName="AppliedID" type="xs:int" minOccurs="0" />
+              <xs:element name="ApprovedID" msprop:Generator_ColumnVarNameInTable="columnApprovedID" msprop:Generator_ColumnPropNameInRow="ApprovedID" msprop:Generator_ColumnPropNameInTable="ApprovedIDColumn" msprop:Generator_UserColumnName="ApprovedID" type="xs:int" minOccurs="0" />
+              <xs:element name="LastUpdated" msprop:Generator_ColumnVarNameInTable="columnLastUpdated" msprop:Generator_ColumnPropNameInRow="LastUpdated" msprop:Generator_ColumnPropNameInTable="LastUpdatedColumn" msprop:Generator_UserColumnName="LastUpdated" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ShiftDetail" msprop:Generator_TableClassName="ShiftDetailDataTable" msprop:Generator_TableVarName="tableShiftDetail" msprop:Generator_TablePropName="ShiftDetail" msprop:Generator_RowDeletingName="ShiftDetailRowDeleting" msprop:Generator_UserTableName="ShiftDetail" msprop:Generator_RowChangingName="ShiftDetailRowChanging" msprop:Generator_RowEvHandlerName="ShiftDetailRowChangeEventHandler" msprop:Generator_RowDeletedName="ShiftDetailRowDeleted" msprop:Generator_RowEvArgName="ShiftDetailRowChangeEvent" msprop:Generator_RowChangedName="ShiftDetailRowChanged" msprop:Generator_RowClassName="ShiftDetailRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:string" />
+              <xs:element name="ShiftID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" msprop:Generator_ColumnVarNameInTable="columnShiftID" msprop:Generator_ColumnPropNameInRow="ShiftID" msprop:Generator_ColumnPropNameInTable="ShiftIDColumn" msprop:Generator_UserColumnName="ShiftID" type="xs:string" minOccurs="0" />
+              <xs:element name="EmpolyeeID" msprop:Generator_ColumnVarNameInTable="columnEmpolyeeID" msprop:Generator_ColumnPropNameInRow="EmpolyeeID" msprop:Generator_ColumnPropNameInTable="EmpolyeeIDColumn" msprop:Generator_UserColumnName="EmpolyeeID" type="xs:int" minOccurs="0" />
+              <xs:element name="ShiftData" msprop:Generator_ColumnVarNameInTable="columnShiftData" msprop:Generator_ColumnPropNameInRow="ShiftData" msprop:Generator_ColumnPropNameInTable="ShiftDataColumn" msprop:Generator_UserColumnName="ShiftData" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="31" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RealData" msprop:Generator_ColumnVarNameInTable="columnRealData" msprop:Generator_ColumnPropNameInRow="RealData" msprop:Generator_ColumnPropNameInTable="RealDataColumn" msprop:Generator_UserColumnName="RealData" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="31" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ShiftHours" msprop:Generator_ColumnVarNameInTable="columnShiftHours" msprop:Generator_ColumnPropNameInRow="ShiftHours" msprop:Generator_ColumnPropNameInTable="ShiftHoursColumn" msprop:Generator_UserColumnName="ShiftHours" type="xs:int" minOccurs="0" />
+              <xs:element name="RealHours" msprop:Generator_ColumnVarNameInTable="columnRealHours" msprop:Generator_ColumnPropNameInRow="RealHours" msprop:Generator_ColumnPropNameInTable="RealHoursColumn" msprop:Generator_UserColumnName="RealHours" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ShiftTable" msprop:Generator_TableClassName="ShiftTableDataTable" msprop:Generator_TableVarName="tableShiftTable" msprop:Generator_TablePropName="ShiftTable" msprop:Generator_RowDeletingName="ShiftTableRowDeleting" msprop:Generator_UserTableName="ShiftTable" msprop:Generator_RowChangingName="ShiftTableRowChanging" msprop:Generator_RowEvHandlerName="ShiftTableRowChangeEventHandler" msprop:Generator_RowDeletedName="ShiftTableRowDeleted" msprop:Generator_RowEvArgName="ShiftTableRowChangeEvent" msprop:Generator_RowChangedName="ShiftTableRowChanged" msprop:Generator_RowClassName="ShiftTableRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ShiftID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" msprop:Generator_ColumnVarNameInTable="columnShiftID" msprop:Generator_ColumnPropNameInRow="ShiftID" msprop:Generator_ColumnPropNameInTable="ShiftIDColumn" msprop:Generator_UserColumnName="ShiftID" type="xs:string" />
+              <xs:element name="ApartmentID" msprop:Generator_ColumnVarNameInTable="columnApartmentID" msprop:Generator_ColumnPropNameInRow="ApartmentID" msprop:Generator_ColumnPropNameInTable="ApartmentIDColumn" msprop:Generator_UserColumnName="ApartmentID" type="xs:int" minOccurs="0" />
+              <xs:element name="TableName" msprop:Generator_ColumnVarNameInTable="columnTableName" msprop:Generator_ColumnPropNameInRow="TableName" msprop:Generator_ColumnPropNameInTable="TableNameColumn" msprop:Generator_UserColumnName="TableName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TableMonth" msprop:Generator_ColumnVarNameInTable="columnTableMonth" msprop:Generator_ColumnPropNameInRow="TableMonth" msprop:Generator_ColumnPropNameInTable="TableMonthColumn" msprop:Generator_UserColumnName="TableMonth" type="xs:int" minOccurs="0" />
+              <xs:element name="KeyinID" msprop:Generator_ColumnVarNameInTable="columnKeyinID" msprop:Generator_ColumnPropNameInRow="KeyinID" msprop:Generator_ColumnPropNameInTable="KeyinIDColumn" msprop:Generator_UserColumnName="KeyinID" type="xs:int" minOccurs="0" />
+              <xs:element name="LastUpdated" msprop:Generator_ColumnVarNameInTable="columnLastUpdated" msprop:Generator_ColumnPropNameInRow="LastUpdated" msprop:Generator_ColumnPropNameInTable="LastUpdatedColumn" msprop:Generator_UserColumnName="LastUpdated" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Locked" msprop:Generator_ColumnVarNameInTable="columnLocked" msprop:Generator_ColumnPropNameInRow="Locked" msprop:Generator_ColumnPropNameInTable="LockedColumn" msprop:Generator_UserColumnName="Locked" type="xs:boolean" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -4258,10 +4262,6 @@ SELECT ID, AccVoucherID, ApplierID, AccVoucherTime, IsDebt0, IsDebt1, IsDebt2, I
     <xs:unique name="HR_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:HR" />
       <xs:field xpath="mstns:EmployeeID" />
-    </xs:unique>
-    <xs:unique name="HRDetail_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:HRDetail" />
-      <xs:field xpath="mstns:ID" />
     </xs:unique>
     <xs:unique name="Ingredient_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:Ingredient" />
@@ -4311,14 +4311,6 @@ SELECT ID, AccVoucherID, ApplierID, AccVoucherTime, IsDebt0, IsDebt1, IsDebt2, I
       <xs:selector xpath=".//mstns:Requests" />
       <xs:field xpath="mstns:RequestsID" />
     </xs:unique>
-    <xs:unique name="ShiftDetail_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:ShiftDetail" />
-      <xs:field xpath="mstns:ID" />
-    </xs:unique>
-    <xs:unique name="ShiftTable_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:ShiftTable" />
-      <xs:field xpath="mstns:ShiftID" />
-    </xs:unique>
     <xs:unique name="VEHeader_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:VEHeader" />
       <xs:field xpath="mstns:DataYear" />
@@ -4348,14 +4340,28 @@ SELECT ID, AccVoucherID, ApplierID, AccVoucherTime, IsDebt0, IsDebt1, IsDebt2, I
       <xs:selector xpath=".//mstns:AccVoucher" />
       <xs:field xpath="mstns:ID" />
     </xs:unique>
+    <xs:unique name="HRDetail_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:HRDetail" />
+      <xs:field xpath="mstns:ID" />
+    </xs:unique>
+    <xs:unique name="ShiftDetail_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ShiftDetail" />
+      <xs:field xpath="mstns:ID" />
+    </xs:unique>
+    <xs:unique name="ShiftTable_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ShiftTable" />
+      <xs:field xpath="mstns:ShiftID" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="FK_Recipe_RecipeDetail" msdata:parent="Recipe" msdata:child="RecipeDetail" msdata:parentkey="RecipeID" msdata:childkey="RecipeID" msprop:Generator_UserChildTable="RecipeDetail" msprop:Generator_ChildPropName="GetRecipeDetailRows" msprop:Generator_UserParentTable="Recipe" msprop:Generator_UserRelationName="FK_Recipe_RecipeDetail" msprop:Generator_RelationVarName="relationFK_Recipe_RecipeDetail" msprop:Generator_ParentPropName="RecipeRow" />
-      <msdata:Relationship name="FK_Vendor_Voucher" msdata:parent="Vendor" msdata:child="Voucher" msdata:parentkey="VendorID" msdata:childkey="VendorID" msprop:Generator_UserChildTable="Voucher" msprop:Generator_ChildPropName="GetVoucherRows" msprop:Generator_ParentPropName="VendorRow" msprop:Generator_UserRelationName="FK_Vendor_Voucher" msprop:Generator_RelationVarName="relationFK_Vendor_Voucher" msprop:Generator_UserParentTable="Vendor" />
-      <msdata:Relationship name="FK_Ingredient_VoucherDetail" msdata:parent="Ingredient" msdata:child="VoucherDetail" msdata:parentkey="IngredientID" msdata:childkey="IngredientID" msprop:Generator_UserChildTable="VoucherDetail" msprop:Generator_ChildPropName="GetVoucherDetailRows" msprop:Generator_ParentPropName="IngredientRow" msprop:Generator_UserRelationName="FK_Ingredient_VoucherDetail" msprop:Generator_RelationVarName="relationFK_Ingredient_VoucherDetail" msprop:Generator_UserParentTable="Ingredient" />
-      <msdata:Relationship name="FK_Voucher_VoucherDetail" msdata:parent="Voucher" msdata:child="VoucherDetail" msdata:parentkey="ID" msdata:childkey="VoID" msprop:Generator_UserChildTable="VoucherDetail" msprop:Generator_ChildPropName="GetVoucherDetailRows" msprop:Generator_ParentPropName="VoucherRow" msprop:Generator_UserRelationName="FK_Voucher_VoucherDetail" msprop:Generator_RelationVarName="relationFK_Voucher_VoucherDetail" msprop:Generator_UserParentTable="Voucher" />
-      <msdata:Relationship name="FK_Order_OrderItem" msdata:parent="Order" msdata:child="OrderItem" msdata:parentkey="ID" msdata:childkey="ItemID" msprop:Generator_UserChildTable="OrderItem" msprop:Generator_ChildPropName="GetOrderItemRows" msprop:Generator_ParentPropName="OrderRow" msprop:Generator_UserRelationName="FK_Order_OrderItem" msprop:Generator_RelationVarName="relationFK_Order_OrderItem" msprop:Generator_UserParentTable="Order" />
+      <msdata:Relationship name="FK_Recipe_RecipeDetail" msdata:parent="Recipe" msdata:child="RecipeDetail" msdata:parentkey="RecipeID" msdata:childkey="RecipeID" msprop:Generator_UserChildTable="RecipeDetail" msprop:Generator_ChildPropName="GetRecipeDetailRows" msprop:Generator_ParentPropName="RecipeRow" msprop:Generator_UserRelationName="FK_Recipe_RecipeDetail" msprop:Generator_RelationVarName="relationFK_Recipe_RecipeDetail" msprop:Generator_UserParentTable="Recipe" />
+      <msdata:Relationship name="FK_Vendor_Voucher" msdata:parent="Vendor" msdata:child="Voucher" msdata:parentkey="VendorID" msdata:childkey="VendorID" msprop:Generator_UserChildTable="Voucher" msprop:Generator_ChildPropName="GetVoucherRows" msprop:Generator_UserParentTable="Vendor" msprop:Generator_UserRelationName="FK_Vendor_Voucher" msprop:Generator_RelationVarName="relationFK_Vendor_Voucher" msprop:Generator_ParentPropName="VendorRow" />
+      <msdata:Relationship name="FK_Ingredient_VoucherDetail" msdata:parent="Ingredient" msdata:child="VoucherDetail" msdata:parentkey="IngredientID" msdata:childkey="IngredientID" msprop:Generator_UserChildTable="VoucherDetail" msprop:Generator_ChildPropName="GetVoucherDetailRows" msprop:Generator_UserParentTable="Ingredient" msprop:Generator_UserRelationName="FK_Ingredient_VoucherDetail" msprop:Generator_RelationVarName="relationFK_Ingredient_VoucherDetail" msprop:Generator_ParentPropName="IngredientRow" />
+      <msdata:Relationship name="FK_Voucher_VoucherDetail" msdata:parent="Voucher" msdata:child="VoucherDetail" msdata:parentkey="ID" msdata:childkey="VoID" msprop:Generator_UserChildTable="VoucherDetail" msprop:Generator_ChildPropName="GetVoucherDetailRows" msprop:Generator_UserParentTable="Voucher" msprop:Generator_UserRelationName="FK_Voucher_VoucherDetail" msprop:Generator_RelationVarName="relationFK_Voucher_VoucherDetail" msprop:Generator_ParentPropName="VoucherRow" />
+      <msdata:Relationship name="FK_Order_OrderItem" msdata:parent="Order" msdata:child="OrderItem" msdata:parentkey="ID" msdata:childkey="ItemID" msprop:Generator_UserChildTable="OrderItem" msprop:Generator_ChildPropName="GetOrderItemRows" msprop:Generator_UserParentTable="Order" msprop:Generator_UserRelationName="FK_Order_OrderItem" msprop:Generator_RelationVarName="relationFK_Order_OrderItem" msprop:Generator_ParentPropName="OrderRow" />
+      <msdata:Relationship name="FK_HRDetail_HR" msdata:parent="HR" msdata:child="HRDetail" msdata:parentkey="EmployeeID" msdata:childkey="EmployeeID" msprop:Generator_UserChildTable="HRDetail" msprop:Generator_ChildPropName="GetHRDetailRows" msprop:Generator_ParentPropName="HRRow" msprop:Generator_UserRelationName="FK_HRDetail_HR" msprop:Generator_RelationVarName="relationFK_HRDetail_HR" msprop:Generator_UserParentTable="HR" />
+      <msdata:Relationship name="FK_ShiftDetail_ShiftTable" msdata:parent="ShiftTable" msdata:child="ShiftDetail" msdata:parentkey="ShiftID" msdata:childkey="ShiftID" msprop:Generator_UserChildTable="ShiftDetail" msprop:Generator_ChildPropName="GetShiftDetailRows" msprop:Generator_ParentPropName="ShiftTableRow" msprop:Generator_UserRelationName="FK_ShiftDetail_ShiftTable" msprop:Generator_RelationVarName="relationFK_ShiftDetail_ShiftTable" msprop:Generator_UserParentTable="ShiftTable" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

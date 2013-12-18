@@ -99,7 +99,6 @@
             this.cbBoxTable = new System.Windows.Forms.ComboBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.labelMessage = new System.Windows.Forms.Label();
-            this.productTableAdapter = new VoucherExpense.BakeryOrderSetTableAdapters.ProductTableAdapter();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.labelTotal = new System.Windows.Forms.Label();
@@ -603,10 +602,6 @@
             this.labelMessage.Size = new System.Drawing.Size(94, 20);
             this.labelMessage.TabIndex = 79;
             // 
-            // productTableAdapter
-            // 
-            this.productTableAdapter.ClearBeforeFill = true;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -776,7 +771,6 @@
         private System.Windows.Forms.Label labelMessage;
         private System.Windows.Forms.BindingSource cSaleItemBindingSource;
         private System.Windows.Forms.BindingSource productBindingSource;
-        private BakeryOrderSetTableAdapters.ProductTableAdapter productTableAdapter;
         private BakeryOrderSet bakeryOrderSet;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;

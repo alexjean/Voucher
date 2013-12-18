@@ -8,7 +8,19 @@ using System.Windows.Forms;
 using System.Xml;
 using System.IO;
 using System.Linq;
-
+#if UseSQLServer
+using MyOrderSet        = VoucherExpense.DamaiDataSet;
+using MyOrderTable      = VoucherExpense.DamaiDataSet.OrderDataTable;
+using MyOrderItemTable  = VoucherExpense.DamaiDataSet.OrderItemDataTable;
+using MyOrderAdapter    = VoucherExpense.DamaiDataSetTableAdapters.OrderTableAdapter;
+using MyOrderItemAdapter= VoucherExpense.DamaiDataSetTableAdapters.OrderItemTableAdapter; 
+#else
+using MyOrderSet = VoucherExpense.BakeryOrderSet;
+using MyOrderTable      = VoucherExpense.BakeryOrderSet.OrderDataTable;
+using MyOrderItemTable  = VoucherExpense.BakeryOrderSet.OrderItemDataTable;
+using MyOrderAdapter    = VoucherExpense.BakeryOrderSetTableAdapters.OrderTableAdapter;
+using MyOrderItemAdapter= VoucherExpense.BakeryOrderSetTableAdapters.OrderItemTableAdapter; 
+#endif
 namespace VoucherExpense
 {
     public partial class BakerySoldProducts : Form
@@ -21,6 +33,34 @@ namespace VoucherExpense
         public BakerySoldProducts()
         {
             InitializeComponent();
+        }
+
+        MyOrderSet m_OrderSet = new MyOrderSet();
+        private void FormSoldIngredients_Load(object sender, EventArgs e)
+        {
+            productBindingSource.DataSource = m_OrderSet;
+#if UseSQLServer
+            var productAdapter = new VoucherExpense.DamaiDataSetTableAdapters.ProductTableAdapter();
+#else
+            var productAdapter = new VoucherExpense.BakeryOrderSetTableAdapters.ProductTableAdapter();
+            m_OrderAdapter.Connection       = MapPath.BakeryConnection;
+            m_OrderItemAdapter.Connection   = MapPath.BakeryConnection;
+            productAdapter.Connection  = MapPath.BakeryConnection;
+#endif
+            productAdapter.Fill(m_OrderSet.Product);
+
+            cbBoxMonth.Items.Clear();
+            for (int i = 1; i <= 12; i++)
+                cbBoxMonth.Items.Add(i.ToString() + "月");
+            int month = DateTime.Now.Month;
+            cbBoxMonth.SelectedIndex = month - 1;
+
+            cSaleItemBindingSource.DataSource = m_SaleList;
+            this.dgViewSale.DataSource = cSaleItemBindingSource;
+            Reload();
+            if (cbBoxTable.Items.Count > 0)
+                cbBoxTable.SelectedIndex = 0;
+            chBoxShowHour_CheckedChanged(chBoxShowHour, null);
         }
 
         void SetEditMode(bool flag)
@@ -79,28 +119,6 @@ namespace VoucherExpense
         private void dgViewSale_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
 
-        }
-
-        private void FormSoldIngredients_Load(object sender, EventArgs e)
-        {
-            m_OrderAdapter.Connection = MapPath.BakeryConnection;
-            m_OrderItemAdapter.Connection   = MapPath.BakeryConnection;
-            productTableAdapter.Connection  = MapPath.BakeryConnection;
-            productTableAdapter.Fill(bakeryOrderSet.Product);
-
-            cbBoxMonth.Items.Clear();
-            for (int i = 1; i <= 12; i++)
-                cbBoxMonth.Items.Add(i.ToString() + "月");
-            int month = DateTime.Now.Month;
-            cbBoxMonth.SelectedIndex = month - 1;
-
-
-            cSaleItemBindingSource.DataSource = m_SaleList;
-            this.dgViewSale.DataSource = cSaleItemBindingSource;
-            Reload();
-            if (cbBoxTable.Items.Count > 0)
-                cbBoxTable.SelectedIndex = 0;
-            chBoxShowHour_CheckedChanged(chBoxShowHour, null);
         }
 
         private void cbBoxMonth_SelectedIndexChanged(object sender, EventArgs e)
@@ -189,7 +207,7 @@ namespace VoucherExpense
                 catch { continue; }
                 if (productID <= 0) continue;
                 CSaleItem m = new CSaleItem(productID);
-                foreach (BakeryOrderSet.ProductRow row in this.bakeryOrderSet.Product)
+                foreach (var row in m_OrderSet.Product)
                 {
                     if (row.ProductID == productID)
                     {
@@ -260,10 +278,10 @@ namespace VoucherExpense
         OrderAdapter m_OrderAdapter = new OrderAdapter();
         OrderItemAdapter m_OrderItemAdapter = new OrderItemAdapter();
 
-        class OrderAdapter : BakeryOrderSetTableAdapters.OrderTableAdapter
+        class OrderAdapter : MyOrderAdapter
         {
             string SaveStr;
-            public int FillBySelectStr(BakeryOrderSet.OrderDataTable dataTable, string SelectStr)
+            public int FillBySelectStr(MyOrderTable dataTable, string SelectStr)
             {
                 SaveStr = base.CommandCollection[0].CommandText;
                 base.CommandCollection[0].CommandText = SelectStr;
@@ -272,10 +290,10 @@ namespace VoucherExpense
                 return result;
             }
         }
-        class OrderItemAdapter : BakeryOrderSetTableAdapters.OrderItemTableAdapter
+        class OrderItemAdapter : MyOrderItemAdapter
         {
             string SaveStr;
-            public int FillBySelectStr(BakeryOrderSet.OrderItemDataTable dataTable, string SelectStr)
+            public int FillBySelectStr(MyOrderItemTable dataTable, string SelectStr)
             {
                 SaveStr = base.CommandCollection[0].CommandText;
                 base.CommandCollection[0].CommandText = SelectStr;
@@ -321,12 +339,18 @@ namespace VoucherExpense
             string sql;
             try
             {
+#if UseSQLServer
+                sql = "Where (Floor(ID/1000000)>=" + DateStr(month, from)
+                    + " And Floor(ID/1000000)<=" + DateStr(month, to) + ")";
+#else
                 sql = "Where (INT(ID/1000000)>=" + DateStr(month, from)
                     + " And INT(ID/1000000)<=" + DateStr(month, to) + ")";
-                bakeryOrderSet.OrderItem.Rows.Clear();
-                bakeryOrderSet.Order.Rows.Clear();
-                m_OrderAdapter.FillBySelectStr(bakeryOrderSet.Order, "Select * From [Order] " + sql + " Order by ID");
-                m_OrderItemAdapter.FillBySelectStr(bakeryOrderSet.OrderItem, "Select * From [OrderItem] " + sql);
+
+#endif
+                m_OrderSet.OrderItem.Rows.Clear();
+                m_OrderSet.Order.Rows.Clear();
+                m_OrderAdapter.FillBySelectStr      (m_OrderSet.Order, "Select * From [Order] " + sql + " Order by ID");
+                m_OrderItemAdapter.FillBySelectStr  (m_OrderSet.OrderItem, "Select * From [OrderItem] " + sql);
             }
             catch (Exception ex)
             {
@@ -358,18 +382,18 @@ namespace VoucherExpense
             }
             labelMessage.Text = "計算中...";
 
-            InitProgressBar(bakeryOrderSet.Order.Count);
+            InitProgressBar(m_OrderSet.Order.Count);
             Application.DoEvents();
 
             bool[] debug = new bool[count];   // items code會重複, 不知為何 ,只好用此辦法
-            foreach (BakeryOrderSet.OrderRow row in bakeryOrderSet.Order)
+            foreach (var row in m_OrderSet.Order)
             {
                 decimal discountRate=0.88m,deductRate=1m;
                 if (!row.IsDiscountRateNull()) discountRate=row.DiscountRate;
-                BakeryOrderSet.OrderItemRow[] items = row.GetOrderItemRows();
+                var items = row.GetOrderItemRows();
                 for (int i = 0; i < count; i++) debug[i] = false;
                 decimal total = 0;
-                foreach (BakeryOrderSet.OrderItemRow it in items)
+                foreach (var it in items)
                 {
                     if (it.IsProductIDNull()) continue;
                     if (it.Discount)
@@ -382,7 +406,7 @@ namespace VoucherExpense
                 if (total!=0m) deductRate = income  / total;
                 int hr = 0;
                 if (!row.IsPrintTimeNull()) hr=row.PrintTime.Hour;
-                foreach (BakeryOrderSet.OrderItemRow it in items)
+                foreach (var it in items)
                 {
                     if (it.IsProductIDNull()) continue;
                     for (int i = 0; i < m_SaleList.Count; i++)
@@ -478,17 +502,23 @@ namespace VoucherExpense
 
         void Item2Buffer(ByteBuilder Buf, CSaleItem item)
         {
-            int index = productBindingSource.Find("ProductID", item.ProductID);
-            string s="產品"+item.ProductID.ToString();
-            if (index >= 0)
+            string s = "產品" + item.ProductID.ToString();
+            //int index = productBindingSource.Find("ProductID", item.ProductID);
+            //
+            //if (index >= 0)
+            //{
+            //    object o = productBindingSource.DataSource;
+            //    BasicDataSet ds=(BasicDataSet)o;
+            //    BasicDataSet.ProductDataTable t = ds.Product;
+            //    BasicDataSet.ProductRow row = t[index];
+            //    s = row.Name;
+            //}
+            var pr = from r in m_OrderSet.Product where r.ProductID == item.ProductID select r;
+            if (pr.Count() > 0)
             {
-                object o = productBindingSource.DataSource;
-                BasicDataSet ds=(BasicDataSet)o;
-                BasicDataSet.ProductDataTable t = ds.Product;
-                BasicDataSet.ProductRow row = t[index];
-                s = row.Name;
+                if (!pr.First().IsNameNull())
+                    s = pr.First().Name;
             }
-
             int m;
             do
             {
@@ -524,7 +554,6 @@ namespace VoucherExpense
             Buf.SetEncoding(GB2312);
 
             Buf.Append(BorderMode);                                      // 設定列印模式28
-//            Buf.Append("     吴记老锅底大华店\r\n", GB2312);
             Buf.Append("     销售物料统计表\r\n"  , GB2312);
             Buf.Append(NormalMode);                                      // 設定列印模式正常 
 
@@ -556,7 +585,7 @@ namespace VoucherExpense
 
         private void btnAddAllProduct_Click(object sender, EventArgs e)
         {
-            foreach (BakeryOrderSet.ProductRow row in this.bakeryOrderSet.Product)
+            foreach (var row in m_OrderSet.Product)
             {
                 if (row.IsCodeNull()) continue;
                 if (row.Code <= 0)  continue;      // 有代碼才加入
@@ -576,7 +605,6 @@ namespace VoucherExpense
                 m_SaleList.Add(m);
             }
             cSaleItemBindingSource.ResetBindings(false);
-
         }
 
         private void chBoxShowHour_CheckedChanged(object sender, EventArgs e)

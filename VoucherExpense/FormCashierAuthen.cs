@@ -435,6 +435,8 @@ namespace VoucherExpense
 
         string SqlOrder ;    // 資料定義為 MMDDN99999  N POS机号, 店長收資料時,再自動填上        
         string SqlDrawer;    // 資料定義為 MMDDN99999  N POS机号, id最多10萬筆
+        string SqlOrderMdb;
+        string SqlDrawerMdb;
         bool GetCashierData(int posID, string dir,DateTime today)
         {
             string sID = "收銀机<" + posID.ToString() + "> ";
@@ -463,8 +465,8 @@ namespace VoucherExpense
             try
             {
                 Message("讀取本日交易明細!");
-                orderAdapter.FillBySelectStr (posBakerySet.Order       , "Select * From [Order] "       + SqlOrder + " Order by ID");
-                itemAdapter.FillBySelectStr  (posBakerySet.OrderItem   , "Select * From [OrderItem] "   + SqlOrder);
+                orderAdapter.FillBySelectStr (posBakerySet.Order       , "Select * From [Order] "       + SqlOrderMdb + " Order by ID");
+                itemAdapter.FillBySelectStr  (posBakerySet.OrderItem   , "Select * From [OrderItem] "   + SqlOrderMdb);
                 foreach (BakeryOrderSet.OrderRow order in posBakerySet.Order)
                     CopyOrder(order,posID);
                 Message("寫入本地資料庫! 共 "+posBakerySet.Order.Count.ToString()+" 筆");
@@ -482,7 +484,7 @@ namespace VoucherExpense
                 }
 
                 Message("匯入錢箱記錄!");
-                drawerAdapter.FillBySelectStr(posBakerySet.DrawerRecord, "Select * From [DrawerRecord] "+ SqlDrawer);
+                drawerAdapter.FillBySelectStr(posBakerySet.DrawerRecord, "Select * From [DrawerRecord] "+ SqlDrawerMdb);
                 foreach (BakeryOrderSet.DrawerRecordRow drawer in posBakerySet.DrawerRecord)
                 {
                     var mainDrawers = from row in m_OrderSet.DrawerRecord
@@ -541,8 +543,11 @@ namespace VoucherExpense
 #else
             string Floor="INT";
 #endif
-            SqlOrder  = "Where "+Floor+"(ID/1000000)="             + today.Month.ToString("d2") + today.Day.ToString("d2");   // 資料定義為 MMDDN99999  N POS机号,店長收資料時,再自動填上        
-            SqlDrawer = "Where "+Floor+"(DrawerRecordID/1000000)=" + today.Month.ToString("d2") + today.Day.ToString("d2");   // 資料定義為 MMDDN99999  N POS机号, id最多10萬筆
+            string todayStr=today.Month.ToString("d2") + today.Day.ToString("d2");
+            SqlOrder  = "Where "+Floor+"(ID/1000000)="             + todayStr;   // 資料定義為 MMDDN99999  N POS机号,店長收資料時,再自動填上        
+            SqlDrawer = "Where "+Floor+"(DrawerRecordID/1000000)=" + todayStr;   // 資料定義為 MMDDN99999  N POS机号, id最多10萬筆
+            SqlOrderMdb = "Where INT(ID/1000000)=" + todayStr;
+            SqlDrawerMdb = "Where INT(DrawerRecordID/1000000)=" + todayStr;
             try
             {
                 HeaderAdapter.Fill(m_OrderSet.Header);

@@ -39,7 +39,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;Define_Bakery</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;Define_Bakery,UseSQLServer</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
@@ -136,10 +136,6 @@
     </Compile>
     <Compile Include="AccTitleList.cs" />
     <Compile Include="Class\BakeryConfig.cs" />
-    <Compile Include="DamaiDataSet.cs">
-      <DependentUpon>DamaiDataSet.xsd</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="DamaiDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

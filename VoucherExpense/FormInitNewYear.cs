@@ -214,11 +214,37 @@ namespace VoucherExpense
                         MessageBox.Show("複制 [" + name + "] 共"+num.ToString()+"筆!");
                     }
                 }
-                // 建立PrimaryKey ,ForeignKey, AutoIncrement
-
-                MessageBox.Show("建立Primary Key ,Foreign Key未完工! 再執行會錯");
-
-
+                sqlMasterConn.Dispose();
+                // 建立PrimaryKey 
+                Message("建立各表PrimaryKey!");
+                SqlConnection newConn=new SqlConnection(MapPath.SqlConnectString(m_HCfg.SqlServerIP, NewSqlDB, m_HCfg.SqlUserID, m_HCfg.SqlPassword));
+                newConn.Open();
+                sqlCommand.Connection=newConn;
+                string cmdPrifix,cmdMiddle;
+                string cmdPosfix=" ) WITH (PAD_INDEX = OFF,STATISTICS_NORECOMPUTE = OFF,IGNORE_DUP_KEY = OFF,ALLOW_ROW_LOCKS = ON,ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]";
+                foreach (DataTable tab in m_DataSet.Tables)
+                {
+                    cmdPrifix = "ALTER TABLE [dbo].[" + tab.TableName + "] ADD  CONSTRAINT [PK_" + tab.TableName + "] PRIMARY KEY CLUSTERED ( ";
+                    cmdMiddle = "";
+                    foreach (DataColumn col in tab.PrimaryKey)
+                        cmdMiddle +=("["+ col.ColumnName + "] ASC,");
+                    sqlCommand.CommandText = cmdPrifix + cmdMiddle.Substring(0,cmdMiddle.Length-1) + cmdPosfix;
+                    sqlCommand.ExecuteNonQuery();
+                }
+                // 建立Relation,,AutoIncrement
+                foreach (DataRelation fk in m_DataSet.Relations)
+                {
+                    cmdPrifix="ALTER TABLE [dbo].["+fk.ChildTable.TableName+"]  WITH NOCHECK ADD  CONSTRAINT ["+fk.RelationName+"] ";
+                    cmdMiddle = "FOREIGN KEY( [" + fk.ChildColumns[0].ColumnName + "] ) ";
+                    cmdPosfix = "REFERENCES [dbo].["+fk.ParentTable.TableName+"] (["+fk.ParentColumns[0].ColumnName+"])";
+                    if (fk.ChildColumns.Count() != 1 || fk.ParentColumns.Count()!=1)
+                        MessageBox.Show("ForiegnKey:"+fk.RelationName+"超二個欄位,目前系統未支持,請手動修正!");
+                    sqlCommand.CommandText = cmdPrifix + cmdMiddle + cmdPosfix;
+                    sqlCommand.ExecuteNonQuery();
+                    // Constrain Check
+                    sqlCommand.CommandText = "ALTER TABLE [dbo].[" + fk.ChildTable.TableName + "]  CHECK CONSTRAINT [" + fk.RelationName + "] ";
+                    sqlCommand.ExecuteNonQuery();
+                }
                 // 建立Header VEHeader
                 var sqlConn       = new SqlConnection(MapPath.SqlConnectString(m_HCfg.SqlServerIP, NewSqlDB           , m_HCfg.SqlUserID, m_HCfg.SqlPassword));
                 var sourceConn    = new SqlConnection(MapPath.SqlConnectString(m_HCfg.SqlServerIP, m_HCfg.SqlDatabase , m_HCfg.SqlUserID, m_HCfg.SqlPassword));

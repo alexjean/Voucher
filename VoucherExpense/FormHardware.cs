@@ -58,9 +58,11 @@ namespace VoucherExpense
             {
 #if UseSQLServer
                 VEHeaderAdapter.Fill(m_VEHeader);
+                labelDataBase.Text = "資料庫為MsSQL";
 #else
                 VEHeaderAdapter.Connection =    MapPath.VEConnection;
                 VEHeaderAdapter.Fill(m_VEHeader);
+                labelDataBase.Text = "資料庫為Access";
 #endif
             }
             catch (Exception ex)
@@ -85,6 +87,7 @@ namespace VoucherExpense
 
             labelProgramVersion.Text = "程式版本 "+Application.ProductVersion.ToString();
             labelRequiredVersion.Text = "要求版本 " + GetVersion();
+
         }
 
         string GetVersion()
@@ -136,10 +139,6 @@ namespace VoucherExpense
             BackupData.DoBackup(Config);
         }
 
-        private void textBoxPrinter_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void btnUpdateRequiedVersion_Click(object sender, EventArgs e)
         {
@@ -152,6 +151,29 @@ namespace VoucherExpense
                     MessageBox.Show("版本号相同不需更換!");
                     return;
                 }
+#if UseSQLServer
+                string fullDest = Path.GetFullPath(Application.ExecutablePath).ToLower();
+                byte[] zipped=null;
+                byte[] md5 = null;
+                if (MyFunction.CompressFileToBuf(fullDest, out zipped,out md5))
+                {
+                    var programAdapter = new VoucherExpense.DamaiDataSetTableAdapters.ProgramTableAdapter();
+                    var cmd = new System.Data.SqlClient.SqlCommand("DELETE FROM [dbo].[Program] WHERE 1=1");
+                    cmd.Connection = programAdapter.Connection;
+                    programAdapter.Connection.Open();
+                    cmd.ExecuteNonQuery();
+                    var table = new VoucherExpense.DamaiDataSet.ProgramDataTable();
+                    var programRow = table.NewProgramRow();
+                    programRow.ID = Guid.NewGuid();
+                    programRow.ProgramVersion = Application.ProductVersion.Trim();
+                    programRow.UpdatedTime = DateTime.Now;
+                    programRow.ZippedImage = zipped;
+                    programRow.MD5 = md5;
+                    table.AddProgramRow(programRow);
+                    programAdapter.Update(table);    
+                    programAdapter.Connection.Dispose();
+                }
+#endif 
                 header.Version = Application.ProductVersion.Trim();
                 VEHeaderAdapter.Update(m_VEHeader);
                 labelRequiredVersion.Text = "要求版本 " + header.Version;
@@ -161,8 +183,5 @@ namespace VoucherExpense
                 MessageBox.Show("錯誤:" + ex.Message);
             }
         }
-
-
- 
     }
 }

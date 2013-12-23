@@ -193,8 +193,64 @@ namespace VoucherExpense
 
         bool DoUpdate()
         {
-            MessageBox.Show("SQL版自動更版施工中...");
-            return false;
+            this.Cursor = Cursors.WaitCursor;
+            string newExeName = "Manage.exe";
+
+            string fullDest = Path.GetFullPath(Application.ExecutablePath).ToLower();
+            string OldDesktop = "Manage_exe.old";
+            string filePath = Path.GetDirectoryName(Application.ExecutablePath).ToLower();
+            string destPath = filePath + "\\" + newExeName;
+            var programAdapter = new VoucherExpense.DamaiDataSetTableAdapters.ProgramTableAdapter();
+            var table = new VoucherExpense.DamaiDataSet.ProgramDataTable();
+            var row=table.NewProgramRow();
+            byte[] data;
+            try
+            {
+                programAdapter.Fill(table);
+                if (table.Count<=0)
+                {
+                    MessageBox.Show("新版程式不存在! 無法更版");
+                    return false;
+                }
+                row=table[table.Count-1];   // 取最後一個
+                if (row.IsZippedImageNull())
+                {
+                    MessageBox.Show("新版程式長度為0 ! 無法更版");
+                    return false;
+                }
+                byte[] md5 = null;
+                data=MyFunction.Decompress(row.ZippedImage);
+                md5=Encoder.GetMD5(data);
+                for(int i=0;i<15;i++)
+                    if (md5[i]!=row.MD5[i])
+                    {
+                        MessageBox.Show("MD5值不符,不進行更版!");
+                        return false;
+                    }
+                File.Delete(OldDesktop);
+                File.Delete(filePath + "\\" + OldDesktop);                               // 將現在執行檔改名成 OldDesk
+                File.Move(Application.ExecutablePath, filePath + "\\" + OldDesktop);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("原程式備份失敗! 原因:" + ex.Message);
+                return false;
+            }
+            try
+            {
+                if (File.Exists(destPath))
+                    File.Delete(destPath);
+                MyFunction.WriteBufferToFile(data, destPath, data.Length);
+                this.Cursor = Cursors.Arrow;
+                MessageBox.Show("更版完成! 請執行<" + newExeName + ">,舊版備份為<" + OldDesktop + ">");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("新版烤貝或舊版更名過程失敗,原因:" + ex.Message + " 請手動烤貝或更名!新版名<" + newExeName + ">");
+                return false;
+            }
+
         }
 
         private COperator CheckLogin(string UserID, string Password) 

@@ -70,6 +70,7 @@
             this.textBoxSqlUserID = new System.Windows.Forms.TextBox();
             this.textBoxSqlPassword = new System.Windows.Forms.TextBox();
             this.btnSaveSql = new System.Windows.Forms.Button();
+            this.labelDataBase = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -158,7 +159,6 @@
             this.textBoxPrinter.Name = "textBoxPrinter";
             this.textBoxPrinter.Size = new System.Drawing.Size(277, 27);
             this.textBoxPrinter.TabIndex = 6;
-            this.textBoxPrinter.TextChanged += new System.EventHandler(this.textBoxPrinter_TextChanged);
             // 
             // btnFindPrinter
             // 
@@ -370,6 +370,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.labelDataBase);
             this.groupBox2.Controls.Add(this.btnUpdateRequiedVersion);
             this.groupBox2.Controls.Add(this.labelProgramVersion);
             this.groupBox2.Controls.Add(this.labelRequiredVersion);
@@ -500,6 +501,15 @@
             this.btnSaveSql.UseVisualStyleBackColor = true;
             this.btnSaveSql.Click += new System.EventHandler(this.btnSaveSql_Click);
             // 
+            // labelDataBase
+            // 
+            this.labelDataBase.AutoSize = true;
+            this.labelDataBase.Location = new System.Drawing.Point(190, 32);
+            this.labelDataBase.Name = "labelDataBase";
+            this.labelDataBase.Size = new System.Drawing.Size(91, 16);
+            this.labelDataBase.TabIndex = 24;
+            this.labelDataBase.Text = "SQL or MDB";
+            // 
             // FormHardware
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -579,5 +589,6 @@
         private System.Windows.Forms.TextBox textBoxSqlUserID;
         private System.Windows.Forms.TextBox textBoxSqlPassword;
         private System.Windows.Forms.Button btnSaveSql;
+        private System.Windows.Forms.Label labelDataBase;
     }
 }

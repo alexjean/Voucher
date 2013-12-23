@@ -43,9 +43,9 @@ namespace VoucherExpense
 
         private void FormLedger_Load(object sender, EventArgs e)
         {
+            accountingTitleBindingSource.DataSource = m_DataSet;
 #if (UseSQLServer)
             m_OrderSet=m_DataSet;
-            accountingTitleBindingSource.DataSource = m_DataSet;
             try
             {
                 headerAdapter.Fill(m_DataSet.Header);

@@ -416,9 +416,60 @@ namespace VoucherExpense
         static public int IntHeaderMonth = 1;
         static public bool LockAll = true;
 
-        static public bool Decompress(byte[] source, string destination)
+        public static bool CompressFileToBuf(string sourceFile, out byte[] zippedDest,out byte[] md5)
         {
-            if ((source == null) || source.Length < 6) return false;
+            zippedDest = null;
+            md5 = null;
+            if (!File.Exists(sourceFile)) return false;
+            FileStream sourceStream = null;
+            byte[] buffer;
+            try
+            {
+                sourceStream = new FileStream(sourceFile, FileMode.Open, FileAccess.Read, FileShare.Read);
+                buffer = new byte[sourceStream.Length];
+                int checkCounter = sourceStream.Read(buffer, 0, buffer.Length);
+                if (checkCounter != buffer.Length)
+                {
+                    MessageBox.Show(sourceFile + "長度不對!");
+                    return false;
+                }
+            }
+            catch
+            {
+                MessageBox.Show(sourceFile + "讀取失敗!");
+                return false;
+            }
+            finally
+            {
+                if (sourceStream != null) sourceStream.Close();
+            }
+            md5 = Encoder.GetMD5(buffer);
+            MemoryStream destStream = null;
+            GZipStream zipStream = null;
+            bool flag = true;
+            try
+            {
+                destStream = new MemoryStream();
+                zipStream = new GZipStream(destStream, CompressionMode.Compress, true);
+                zipStream.Write(buffer, 0, buffer.Length);
+            }
+            catch
+            {
+                MessageBox.Show( "壓縮 失敗!");
+                flag = false;
+            }
+            if (zipStream != null) zipStream.Close();
+            if (destStream != null)
+            {
+                zippedDest=destStream.ToArray();
+                destStream.Close();
+            }
+            return flag;
+        }
+
+        static public byte[] Decompress(byte[] source)
+        {
+            if ((source == null) || source.Length < 6) return null;
             MemoryStream sourceStream = null;
             GZipStream decompressedStream = null;
             byte[] quarterBuffer = new byte[4];
@@ -446,17 +497,20 @@ namespace VoucherExpense
             catch
             {
                 MessageBox.Show("壓縮來源" + source + "讀取失敗!");
-                return false;
+                return null;
             }
             finally
             {
                 if (sourceStream != null) sourceStream.Close();
                 if (decompressedStream != null) decompressedStream.Close();
             }
-            if (buffer == null) return false;
-            return WriteBufferToFile(buffer, destination, total);
+            if (buffer == null) return null;
+            byte[] newBuf = new byte[total];
+            for(int i=0;i<total;i++) newBuf[i]=buffer[i];
+            return newBuf;
+//            return WriteBufferToFile(buffer, destination, total);
         }
-        static private bool WriteBufferToFile(byte[] buffer, string destination, int total)
+        static public bool WriteBufferToFile(byte[] buffer, string destination, int total)
         {
             FileStream destStream = null;
             bool flag = true;

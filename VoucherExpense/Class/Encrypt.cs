@@ -42,5 +42,14 @@ namespace VoucherExpense
             }
 
             #endregion
+
+
+            public static byte[] GetMD5(byte[] source)
+            {
+                MD5 md5 = new MD5CryptoServiceProvider();
+                return md5.ComputeHash(source);
+            }
     }
+
+
 }

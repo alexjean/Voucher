@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormBankDetail));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.bankDetailBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bankDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -47,7 +47,7 @@
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.bankDetailBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
-            this.bankDetailDataGridView = new System.Windows.Forms.DataGridView();
+            this.dgvBankDetail = new System.Windows.Forms.DataGridView();
             this.columnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnAccount = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.bankAccountBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -67,7 +67,7 @@
             this.bankDetailBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bankDetailBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bankDetailDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvBankDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bankAccountBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cBankAccountForComboBoxBindingSource)).BeginInit();
@@ -199,16 +199,16 @@
             this.bankDetailBindingNavigatorSaveItem.Text = "儲存資料";
             this.bankDetailBindingNavigatorSaveItem.Click += new System.EventHandler(this.bankDetailBindingNavigatorSaveItem_Click);
             // 
-            // bankDetailDataGridView
+            // dgvBankDetail
             // 
-            this.bankDetailDataGridView.AllowUserToAddRows = false;
-            this.bankDetailDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dgvBankDetail.AllowUserToAddRows = false;
+            this.dgvBankDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.bankDetailDataGridView.AutoGenerateColumns = false;
-            this.bankDetailDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
-            this.bankDetailDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.bankDetailDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvBankDetail.AutoGenerateColumns = false;
+            this.dgvBankDetail.BackgroundColor = System.Drawing.Color.SeaShell;
+            this.dgvBankDetail.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvBankDetail.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.columnID,
             this.columnAccount,
             this.columnIsCredit,
@@ -217,17 +217,17 @@
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn5,
             this.columnTotal});
-            this.bankDetailDataGridView.DataSource = this.bankDetailBindingSource;
-            this.bankDetailDataGridView.Location = new System.Drawing.Point(0, 30);
-            this.bankDetailDataGridView.Name = "bankDetailDataGridView";
-            this.bankDetailDataGridView.RowHeadersWidth = 25;
-            this.bankDetailDataGridView.RowTemplate.Height = 24;
-            this.bankDetailDataGridView.Size = new System.Drawing.Size(952, 595);
-            this.bankDetailDataGridView.TabIndex = 1;
-            this.bankDetailDataGridView.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.bankDetailDataGridView_CellMouseDoubleClick);
-            this.bankDetailDataGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.bankDetailDataGridView_DataBindingComplete);
-            this.bankDetailDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.bankDetailDataGridView_DataError);
-            this.bankDetailDataGridView.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.bankDetailDataGridView_RowPrePaint);
+            this.dgvBankDetail.DataSource = this.bankDetailBindingSource;
+            this.dgvBankDetail.Location = new System.Drawing.Point(0, 30);
+            this.dgvBankDetail.Name = "dgvBankDetail";
+            this.dgvBankDetail.RowHeadersWidth = 25;
+            this.dgvBankDetail.RowTemplate.Height = 24;
+            this.dgvBankDetail.Size = new System.Drawing.Size(952, 591);
+            this.dgvBankDetail.TabIndex = 1;
+            this.dgvBankDetail.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.bankDetailDataGridView_CellMouseDoubleClick);
+            this.dgvBankDetail.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.bankDetailDataGridView_DataBindingComplete);
+            this.dgvBankDetail.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.bankDetailDataGridView_DataError);
+            this.dgvBankDetail.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.bankDetailDataGridView_RowPrePaint);
             // 
             // columnID
             // 
@@ -267,9 +267,9 @@
             // columnDay
             // 
             this.columnDay.DataPropertyName = "Day";
-            dataGridViewCellStyle1.Format = "d";
-            dataGridViewCellStyle1.NullValue = null;
-            this.columnDay.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Format = "d";
+            dataGridViewCellStyle4.NullValue = null;
+            this.columnDay.DefaultCellStyle = dataGridViewCellStyle4;
             this.columnDay.HeaderText = "日期";
             this.columnDay.Name = "columnDay";
             this.columnDay.ReadOnly = true;
@@ -278,10 +278,10 @@
             // columnMoney
             // 
             this.columnMoney.DataPropertyName = "Money";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "N2";
-            dataGridViewCellStyle2.NullValue = null;
-            this.columnMoney.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle5.Format = "N2";
+            dataGridViewCellStyle5.NullValue = null;
+            this.columnMoney.DefaultCellStyle = dataGridViewCellStyle5;
             this.columnMoney.HeaderText = "金額";
             this.columnMoney.Name = "columnMoney";
             // 
@@ -315,10 +315,10 @@
             // 
             // columnTotal
             // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "N2";
-            dataGridViewCellStyle3.NullValue = null;
-            this.columnTotal.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle6.Format = "N2";
+            dataGridViewCellStyle6.NullValue = null;
+            this.columnTotal.DefaultCellStyle = dataGridViewCellStyle6;
             this.columnTotal.HeaderText = "餘額";
             this.columnTotal.Name = "columnTotal";
             this.columnTotal.ReadOnly = true;
@@ -395,7 +395,7 @@
             this.Controls.Add(this.cbSelectBank);
             this.Controls.Add(this.comboBoxMonth);
             this.Controls.Add(this.calendar);
-            this.Controls.Add(this.bankDetailDataGridView);
+            this.Controls.Add(this.dgvBankDetail);
             this.Controls.Add(this.bankDetailBindingNavigator);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -407,7 +407,7 @@
             this.bankDetailBindingNavigator.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bankDetailBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bankDetailDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvBankDetail)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bankAccountBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cBankAccountForComboBoxBindingSource)).EndInit();
@@ -432,7 +432,7 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.ToolStripButton bankDetailBindingNavigatorSaveItem;
-        private System.Windows.Forms.DataGridView bankDetailDataGridView;
+        private System.Windows.Forms.DataGridView dgvBankDetail;
         private System.Windows.Forms.BindingSource accountingTitleBindingSource;
         private System.Windows.Forms.BindingSource bankAccountBindingSource;
         private System.Windows.Forms.MonthCalendar calendar;

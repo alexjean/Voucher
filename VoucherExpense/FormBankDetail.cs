@@ -50,15 +50,14 @@ namespace VoucherExpense
             accountingTitleAdapter.Connection  = MapPath.VEConnection;
             bankDetailAdapter.Connection       = MapPath.VEConnection;
 #endif
-
             bankAccountAdapter.Fill(m_DataSet.BankAccount);
             accountingTitleAdapter.Fill(m_DataSet.AccountingTitle);
             bankDetailAdapter.Fill(m_DataSet.BankDetail);
             //accountingTitleBindingSource.Filter = 
             //    "(TitleCode like '1*' or TitleCode like '2*')";
-            int btm = bankDetailBindingNavigator.Bottom + 5;
-            bankDetailDataGridView.Top = btm - Top;
-            bankDetailDataGridView.Height = Height - bankDetailDataGridView.Top - 5;
+            //int btm = bankDetailBindingNavigator.Bottom + 5;
+            //dgvBankDetail.Top = btm - Top;
+            //dgvBankDetail.Height = Height - dgvBankDetail.Top - 5;
 
             calendar.MaxDate = new DateTime(MyFunction.IntHeaderYear, 12, 31);
             calendar.MinDate = new DateTime(MyFunction.IntHeaderYear, 1, 1);
@@ -96,7 +95,7 @@ namespace VoucherExpense
             if (cbSelectBank.Items.Count > 1)
                 cbSelectBank.SelectedIndex = cbSelectBank.Items.Count - 1;
             if (MyFunction.LockAll)
-                bankDetailDataGridView.ReadOnly = true;
+                dgvBankDetail.ReadOnly = true;
 
         }
 
@@ -209,7 +208,7 @@ namespace VoucherExpense
                 BankFilter = "(BankID=" + id.ToString() + ")";       // 這裏有風險 , BankID跳號不依序,均會出錯
             checkBoxSort.Checked = true;
             SetFilter(DayFilter, BankFilter);
-            bankDetailDataGridView.Focus();
+            dgvBankDetail.Focus();
         }
 
         private void comboBoxMonth_SelectedIndexChanged(object sender, EventArgs e)
@@ -229,13 +228,13 @@ namespace VoucherExpense
                 DayFilter = "(Day>=" + m1 + ") AND (Day<=" + m2 + ")";
             }
             SetFilter(DayFilter, BankFilter);
-            bankDetailDataGridView.Focus();
+            dgvBankDetail.Focus();
         }
 
         private void calendar_DateSelected(object sender, DateRangeEventArgs e)
         {
             calendar.Visible = false;
-            DataGridView view = bankDetailDataGridView;
+            DataGridView view = dgvBankDetail;
             DataGridViewCell cell = view.CurrentRow.Cells["columnDay"];
             DateTime day = calendar.SelectionStart;
             if (day.Year != MyFunction.IntHeaderYear)
@@ -250,8 +249,8 @@ namespace VoucherExpense
                 MessageBox.Show("鎖定中,新增無用");
             if (checkBoxSort.Checked)
                 checkBoxSort.Checked = false;
-            MyFunction.AddNewItem(bankDetailDataGridView, "columnID", "ID", m_DataSet.BankDetail);
-            DataGridViewRow row = bankDetailDataGridView.CurrentRow;
+            MyFunction.AddNewItem(dgvBankDetail, "columnID", "ID", m_DataSet.BankDetail);
+            DataGridViewRow row = dgvBankDetail.CurrentRow;
             DataGridViewCell cell = row.Cells["columnAccount"];
             if (cbSelectBank.SelectedIndex < 1)   // 第一個是 全部
             {
@@ -274,7 +273,7 @@ namespace VoucherExpense
         void CalcTotal()
         {
             decimal total = 0;
-            foreach (DataGridViewRow r in bankDetailDataGridView.Rows)
+            foreach (DataGridViewRow r in dgvBankDetail.Rows)
             {
                 DataGridViewCell cell = r.Cells["columnMoney"];
                 if (IsDataWrong(typeof(decimal), cell.Value)) continue;
@@ -285,7 +284,7 @@ namespace VoucherExpense
                 if (IsPay) total -= (decimal)cell.Value;
                 else       total += (decimal)cell.Value;
             }
-            DataGridViewColumn col = bankDetailDataGridView.Columns["columnMoney"];
+            DataGridViewColumn col = dgvBankDetail.Columns["columnMoney"];
             col.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
             col.HeaderCell.Value = total.ToString("f2");
         }

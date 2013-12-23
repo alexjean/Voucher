@@ -119,6 +119,11 @@ namespace VoucherExpense
 
         public void Save()
         {
+            SaveTo(".");
+        }
+
+        public void SaveTo(string dir)
+        {
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(@"<HardwareConfig />");
             XmlNode root = doc.FirstChild;
@@ -137,7 +142,7 @@ namespace VoucherExpense
             UpdateXmlAttribEncrypted(doc, root, "DataSource", "SqlDatabase" , SqlDatabase);
 
             
-            doc.Save(CfgFileName);
+            doc.Save(dir+"\\"+CfgFileName);
         }
 
         protected void UpdateXmlText(XmlDocument xml, XmlNode root, string Name, string Text)

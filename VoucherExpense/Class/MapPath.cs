@@ -29,6 +29,12 @@ namespace VoucherExpense
         {
             return HeadStr + path + TailStr + password; 
         }
+        static public string SqlConnectString(string address, string database, string userID, string password)
+        {
+            return  "Data Source=" + address + ";Initial Catalog=" + database
+                   + ";Persist Security Info=True;User ID=" + userID + ";Password=" + password;
+        }
+
         static public void SetVEConnectionString(string path, string password)
         {
             VEConnection.ConnectionString = HeadStr + path + TailStr + password;

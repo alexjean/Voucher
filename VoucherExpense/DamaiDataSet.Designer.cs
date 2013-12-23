@@ -4313,7 +4313,6 @@ namespace VoucherExpense {
                                 this.columnDataDate}, true));
                 this.columnDataDate.AllowDBNull = false;
                 this.columnDataDate.Unique = true;
-                this.columnClosed.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -15440,11 +15439,28 @@ namespace VoucherExpense {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Closed {
                 get {
-                    return ((bool)(this[this.tableHeader.ClosedColumn]));
+                    try {
+                        return ((bool)(this[this.tableHeader.ClosedColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("資料表 \'Header\' 中資料行 \'Closed\' 的值是 DBNull。", e);
+                    }
                 }
                 set {
                     this[this.tableHeader.ClosedColumn] = value;
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsClosedNull() {
+                return this.IsNull(this.tableHeader.ClosedColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetClosedNull() {
+                this[this.tableHeader.ClosedColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -27082,27 +27098,30 @@ SELECT ID, ExpenseID, ApplierID, ApplyTime, Money, Note, Paid, AuthorizeID, Titl
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[Header] WHERE (([DataDate] = @Original_DataDate) AND ([Closed]" +
-                " = @Original_Closed))";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [Header] WHERE (([DataDate] = @Original_DataDate) AND ((@IsNull_Close" +
+                "d = 1 AND [Closed] IS NULL) OR ([Closed] = @Original_Closed)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_DataDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DataDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Closed", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Closed", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Closed", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Closed", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Header] ([DataDate], [Closed]) VALUES (@DataDate, @Closed);\r\nS" +
-                "ELECT DataDate, Closed FROM Header WHERE (DataDate = @DataDate)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [Header] ([DataDate], [Closed]) VALUES (@DataDate, @Closed);\r\nSELECT " +
+                "DataDate, Closed FROM Header WHERE (DataDate = @DataDate)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DataDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DataDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Closed", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Closed", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[Header] SET [DataDate] = @DataDate, [Closed] = @Closed WHERE (([Dat" +
-                "aDate] = @Original_DataDate) AND ([Closed] = @Original_Closed));\r\nSELECT DataDat" +
-                "e, Closed FROM Header WHERE (DataDate = @DataDate)";
+            this._adapter.UpdateCommand.CommandText = "UPDATE [Header] SET [DataDate] = @DataDate, [Closed] = @Closed WHERE (([DataDate]" +
+                " = @Original_DataDate) AND ((@IsNull_Closed = 1 AND [Closed] IS NULL) OR ([Close" +
+                "d] = @Original_Closed)));\r\nSELECT DataDate, Closed FROM Header WHERE (DataDate =" +
+                " @DataDate)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DataDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DataDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Closed", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Closed", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_DataDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DataDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Closed", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Closed", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Closed", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Closed", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
@@ -27119,7 +27138,7 @@ SELECT ID, ExpenseID, ApplierID, ApplyTime, Money, Note, Paid, AuthorizeID, Titl
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT DataDate, Closed FROM dbo.Header";
+            this._commandCollection[0].CommandText = "SELECT DataDate, Closed FROM Header";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -27180,9 +27199,16 @@ SELECT ID, ExpenseID, ApplierID, ApplyTime, Money, Note, Paid, AuthorizeID, Titl
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(System.DateTime Original_DataDate, bool Original_Closed) {
+        public virtual int Delete(System.DateTime Original_DataDate, global::System.Nullable<bool> Original_Closed) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((System.DateTime)(Original_DataDate));
-            this.Adapter.DeleteCommand.Parameters[1].Value = ((bool)(Original_Closed));
+            if ((Original_Closed.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[2].Value = ((bool)(Original_Closed.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -27203,9 +27229,14 @@ SELECT ID, ExpenseID, ApplierID, ApplyTime, Money, Note, Paid, AuthorizeID, Titl
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(System.DateTime DataDate, bool Closed) {
+        public virtual int Insert(System.DateTime DataDate, global::System.Nullable<bool> Closed) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((System.DateTime)(DataDate));
-            this.Adapter.InsertCommand.Parameters[1].Value = ((bool)(Closed));
+            if ((Closed.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[1].Value = ((bool)(Closed.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -27226,11 +27257,23 @@ SELECT ID, ExpenseID, ApplierID, ApplyTime, Money, Note, Paid, AuthorizeID, Titl
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(System.DateTime DataDate, bool Closed, System.DateTime Original_DataDate, bool Original_Closed) {
+        public virtual int Update(System.DateTime DataDate, global::System.Nullable<bool> Closed, System.DateTime Original_DataDate, global::System.Nullable<bool> Original_Closed) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((System.DateTime)(DataDate));
-            this.Adapter.UpdateCommand.Parameters[1].Value = ((bool)(Closed));
+            if ((Closed.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((bool)(Closed.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
             this.Adapter.UpdateCommand.Parameters[2].Value = ((System.DateTime)(Original_DataDate));
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((bool)(Original_Closed));
+            if ((Original_Closed.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((bool)(Original_Closed.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -27251,7 +27294,7 @@ SELECT ID, ExpenseID, ApplierID, ApplyTime, Money, Note, Paid, AuthorizeID, Titl
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(bool Closed, System.DateTime Original_DataDate, bool Original_Closed) {
+        public virtual int Update(global::System.Nullable<bool> Closed, System.DateTime Original_DataDate, global::System.Nullable<bool> Original_Closed) {
             return this.Update(Original_DataDate, Closed, Original_DataDate, Original_Closed);
         }
     }

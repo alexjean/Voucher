@@ -422,12 +422,12 @@
             this.StockMoneyColumn,
             this.dgvColumnLostMoney});
             this.dgvInventoryDetail.DataSource = this.inventoryDetailBindingSource;
-            this.dgvInventoryDetail.Location = new System.Drawing.Point(0, 32);
+            this.dgvInventoryDetail.Location = new System.Drawing.Point(3, 32);
             this.dgvInventoryDetail.Name = "dgvInventoryDetail";
             this.dgvInventoryDetail.RowHeadersVisible = false;
             this.dgvInventoryDetail.RowHeadersWidth = 25;
             this.dgvInventoryDetail.RowTemplate.Height = 24;
-            this.dgvInventoryDetail.Size = new System.Drawing.Size(653, 611);
+            this.dgvInventoryDetail.Size = new System.Drawing.Size(647, 608);
             this.dgvInventoryDetail.TabIndex = 69;
             this.dgvInventoryDetail.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvInventoryDetail_CellValueChanged);
             this.dgvInventoryDetail.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvInventoryDetail_DataBindingComplete);
@@ -755,11 +755,11 @@
             this.ColumnProductVolume,
             this.costDataGridViewTextBoxColumn});
             this.dgvProducts.DataSource = this.inventoryProductsBindingSource;
-            this.dgvProducts.Location = new System.Drawing.Point(0, 33);
+            this.dgvProducts.Location = new System.Drawing.Point(3, 36);
             this.dgvProducts.Name = "dgvProducts";
             this.dgvProducts.RowHeadersWidth = 24;
             this.dgvProducts.RowTemplate.Height = 24;
-            this.dgvProducts.Size = new System.Drawing.Size(546, 610);
+            this.dgvProducts.Size = new System.Drawing.Size(644, 604);
             this.dgvProducts.TabIndex = 1;
             this.dgvProducts.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProducts_CellValueChanged);
             this.dgvProducts.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvProducts_DataBindingComplete);
@@ -861,8 +861,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(1025, 702);
-            this.Controls.Add(this.checkDayDateTimePicker);
             this.Controls.Add(this.chBoxHide);
+            this.Controls.Add(this.checkDayDateTimePicker);
             this.Controls.Add(this.btnEvaluate);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.tabControl1);

@@ -10,6 +10,37 @@ using System.Xml;
 using System.Drawing.Printing;
 using System.Collections;
 using System.IO;
+#if UseSQLServer
+using MyDataSet         = VoucherExpense.DamaiDataSet;
+using MyOrderSet        = VoucherExpense.DamaiDataSet;
+using MyCashierTable    = VoucherExpense.DamaiDataSet.CashierDataTable;
+using MyHeaderRow       = VoucherExpense.DamaiDataSet.HeaderRow;
+using MyCashierRow      = VoucherExpense.DamaiDataSet.CashierRow;
+using MyOrderRow        = VoucherExpense.DamaiDataSet.OrderRow;
+using MyProductRow      = VoucherExpense.DamaiDataSet.ProductRow;
+using MyHeaderAdapter       = VoucherExpense.DamaiDataSetTableAdapters.HeaderTableAdapter;
+using MyCashierAdapter      = VoucherExpense.DamaiDataSetTableAdapters.CashierTableAdapter;
+using MyProductAdapter      = VoucherExpense.DamaiDataSetTableAdapters.ProductTableAdapter;
+
+using MyOrderAdapter        = VoucherExpense.DamaiOrderAdapter;
+using MyOrderItemAdapter    = VoucherExpense.DamaiOrderItemAdapter;
+using MyDrawerRecordAdapter = VoucherExpense.DamaiDrawerRecordAdapter;
+#else
+using MyDataSet         = VoucherExpense.VEDataSet;
+using MyOrderSet        = VoucherExpense.BakeryOrderSet;
+using MyCashierTable    = VoucherExpense.BakeryOrderSet.CashierDataTable;
+using MyHeaderRow       = VoucherExpense.BakeryOrderSet.HeaderRow;
+using MyCashierRow      = VoucherExpense.BakeryOrderSet.CashierRow;
+using MyOrderRow        = VoucherExpense.BakeryOrderSet.OrderRow;
+using MyProductRow      = VoucherExpense.BakeryOrderSet.ProductRow;
+using MyHeaderAdapter       = VoucherExpense.BakeryOrderSetTableAdapters.HeaderTableAdapter;
+using MyCashierAdapter      = VoucherExpense.BakeryOrderSetTableAdapters.CashierTableAdapter;
+using MyProductAdapter      = VoucherExpense.BakeryOrderSetTableAdapters.ProductTableAdapter;
+
+using MyOrderAdapter        = VoucherExpense.BakeryOrderAdapter;
+using MyOrderItemAdapter    = VoucherExpense.BakeryOrderItemAdapter;
+using MyDrawerRecordAdapter = VoucherExpense.BakeryDrawerRecordAdapter;
+#endif
 
 namespace VoucherExpense
 {
@@ -20,11 +51,73 @@ namespace VoucherExpense
             InitializeComponent();
         }
 
+        // 店長DB
+        MyDataSet m_DataSet = new MyDataSet();
+        MyOrderSet m_OrderSet;
+        MyHeaderAdapter HeaderAdapter       = new MyHeaderAdapter();
+        MyCashierAdapter CashierAdapter     = new MyCashierAdapter();
+        MyOrderAdapter OrderAdapter         = new MyOrderAdapter();
+        MyOrderItemAdapter OrderItemAdapter = new MyOrderItemAdapter();
+        MyDrawerRecordAdapter DrawerAdapter = new MyDrawerRecordAdapter();
+        MyProductAdapter ProductAdapter     = new MyProductAdapter();
+
+        private void FormCashierAuthen_Load(object sender, EventArgs e)
+        {
+#if UseSQLServer
+            HideBackupOption();
+            m_OrderSet = m_DataSet;
+            var operatorAdapter = new VoucherExpense.DamaiDataSetTableAdapters.OperatorTableAdapter();
+#else
+            m_OrderSet = new VoucherExpense.BakeryOrderSet();
+            var operatorAdapter = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
+            operatorAdapter.Connection  = MapPath.VEConnection;
+            HeaderAdapter.Connection    = MapPath.BakeryConnection;
+            OrderAdapter.Connection     = MapPath.BakeryConnection;
+            OrderItemAdapter.Connection = MapPath.BakeryConnection;
+            DrawerAdapter.Connection    = MapPath.BakeryConnection;
+            CashierAdapter.Connection   = MapPath.BakeryConnection;     // cashierTableAdapter宣告位置不同
+            ProductAdapter.Connection   = MapPath.BakeryConnection;
+#endif
+            cashierBindingSource.DataSource  = m_OrderSet;
+            operatorBindingSource.DataSource = m_DataSet;
+            try
+            {
+                operatorAdapter.Fill(m_DataSet.Operator);
+                CashierAdapter.Fill (m_OrderSet.Cashier);
+
+                chBoxOnlyInPosition_CheckedChanged(null, null);
+                DateTime now = DateTime.Now;
+                todayPicker.MinDate = new DateTime(MyFunction.IntHeaderYear, 1, 1);
+                todayPicker.MaxDate = new DateTime(MyFunction.IntHeaderYear, 12, 31);
+                if (now.Date < todayPicker.MinDate) todayPicker.Value = todayPicker.MinDate;
+                else if (now.Date > todayPicker.MaxDate) todayPicker.Value = todayPicker.MaxDate;
+                else todayPicker.Value = now.Date;
+                LoadCfg();
+                BakeryConfig = new BakeryConfig(MapPath.DataDir);
+                LoadBakeryConfig();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("錯誤:" + ex.Message);
+            }
+            m_TextBoxPaths.Add(textBoxPOS1);
+            m_TextBoxPaths.Add(textBoxPOS2);
+            m_TextBoxPaths.Add(textBoxPOS3);
+        }
+
+        void HideBackupOption()
+        {
+            labelBackup.Visible = false;
+            textBoxBackupDir.Visible=false;
+            btnBackupDir.Visible=false;
+        }
+
+
         List<TextBox> m_TextBoxPaths=new List<TextBox>();
         private void cashierBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
-            BakeryOrderSet.CashierDataTable table = MyFunction.SaveCheck<BakeryOrderSet.CashierDataTable>(
-                                            this, cashierBindingSource, bakeryOrderSet.Cashier);
+            MyCashierTable table = MyFunction.SaveCheck<MyCashierTable>(
+                                            this, cashierBindingSource, m_OrderSet.Cashier);
             if (table == null)
             {
                 if (MessageBox.Show("資料沒有修改,仍要傳遞收銀權限至各收銀机嗎?","",MessageBoxButtons.YesNo)!=DialogResult.Yes)
@@ -34,7 +127,7 @@ namespace VoucherExpense
             if (table != null)
             {
                 Message("設定店長本机收銀授權!");
-                foreach (BakeryOrderSet.CashierRow r in table.Rows)
+                foreach (var r in table)
                 {
                     if (r.RowState == DataRowState.Deleted) continue;
                     r.BeginEdit();
@@ -54,9 +147,9 @@ namespace VoucherExpense
                         }
                     }
                 }
-                bakeryOrderSet.Cashier.Merge(table);
-                this.cashierTableAdapter.Update(bakeryOrderSet.Cashier);
-                bakeryOrderSet.Cashier.AcceptChanges();
+                m_OrderSet.Cashier.Merge(table);
+                CashierAdapter.Update(m_OrderSet.Cashier);
+                m_OrderSet.Cashier.AcceptChanges();
             }
             this.cashierBindingSource.ResetBindings(false);
             // 更改收銀机授權,因不知歷史, 用全面覆蓋,反正資料庫小
@@ -67,7 +160,7 @@ namespace VoucherExpense
                 string PosID=(i+1).ToString();
                 Message("設定收銀机<" + PosID + ">");
                 string connStr = MapPath.ConnectString(dir + "\\BakeryOrder.mdb", MapPath.BakeryPass + "Bakery");
-                BakeryOrderSet posBakerySet = new BakeryOrderSet();
+                BakeryOrderSet posBakerySet = new BakeryOrderSet();    // 收銀机使用MDB版
                 System.Data.OleDb.OleDbConnection dbConnection = new System.Data.OleDb.OleDbConnection(connStr);
                 BakeryOrderSetTableAdapters.CashierTableAdapter adapter = new BakeryOrderSetTableAdapters.CashierTableAdapter();
                 adapter.Connection = dbConnection;
@@ -92,32 +185,35 @@ namespace VoucherExpense
                     foreach (BakeryOrderSet.CashierRow pos in posBakerySet.Cashier)
                     {
                         if (pos.CashierID == int.MinValue) continue;    // 是PosID,保留
-                        var cashiers = from row in bakeryOrderSet.Cashier where (row.CashierID == pos.CashierID) select row;
-                        BakeryOrderSet.CashierRow cashier;
+                        var cashiers = from row in m_OrderSet.Cashier where (row.CashierID == pos.CashierID) select row;
+                        MyCashierRow cashier;
                         if (cashiers.Count() <= 0)    // 此記錄店長資料庫不存在
                             pos.Delete();
                         else
                         {
                             cashier = cashiers.First();
                             if (cashier.IsCashierNameNull() || cashier.IsLastUpdatedNull() || pos.IsCashierNameNull() || pos.IsLastUpdatedNull())
-                                pos.ItemArray = cashier.ItemArray;
+                                CopyCashier(cashier, pos);      // pos.ItemArray = cashier.ItemArray;
                             else if ((cashier.CashierName == pos.CashierName) && (pos.LastUpdated > cashier.LastUpdated))   // ID Name相同,POS端還晚,表示修改過密碼
-                            {                                                                                        // 要保留LastUpdated和CashierPassword           
+                            {                                                                                               // 要保留LastUpdated和CashierPassword           
                                 pos.AuthenID = cashier.AuthenID;
                                 pos.InPosition = cashier.InPosition;
                             }
                             else
-                                pos.ItemArray = cashier.ItemArray;
+                            {
+                                //pos.ItemArray = cashier.ItemArray;
+                                CopyCashier(cashier, pos);
+                            }
                         }
                     }
                     // 加入POS裏面沒有的
-                    foreach (BakeryOrderSet.CashierRow cashier in bakeryOrderSet.Cashier)
+                    foreach (var cashier in m_OrderSet.Cashier)
                     {
                         if (cashier.RowState == DataRowState.Deleted) continue;
                         var rows = from row in posBakerySet.Cashier where (row.RowState!=DataRowState.Deleted) && (row.CashierID == cashier.CashierID) select row;
-                        if (rows.Count() > 0) continue;   // 己經存在了
-                        var pos=posBakerySet.Cashier.NewCashierRow();  // 沒有關聯,所以沒必要BeginEdit EndEdit
-                        pos.ItemArray = cashier.ItemArray;
+                        if (rows.Count() > 0) continue;                 // 己經存在了
+                        var pos=posBakerySet.Cashier.NewCashierRow();   // 沒有關聯,所以沒必要BeginEdit EndEdit
+                        CopyCashier(cashier, pos);                      // pos.ItemArray = cashier.ItemArray;
                         posBakerySet.Cashier.AddCashierRow(pos);
                     }
                     adapter.Update(posBakerySet.Cashier);
@@ -130,51 +226,17 @@ namespace VoucherExpense
             Message("收銀授權完成!");
         }
 
-        // 店長DB
-        BakeryOrderSetTableAdapters.HeaderTableAdapter
-                         headerTableAdapter    = new BakeryOrderSetTableAdapters.HeaderTableAdapter();
-        OrderAdapter     orderTableAdapter     = new OrderAdapter();
-        OrderItemAdapter orderItemTableAdapter = new OrderItemAdapter();
-        DrawerRecordAdapter drawerTableAdapter = new DrawerRecordAdapter();
-
-        private void FormCashierAuthen_Load(object sender, EventArgs e)
+        void CopyCashier(MyCashierRow cashier, BakeryOrderSet.CashierRow pos)
         {
-            operatorTableAdapter.Connection = MapPath.VEConnection;
-            headerTableAdapter.Connection    = MapPath.BakeryConnection;
-            orderTableAdapter.Connection     = MapPath.BakeryConnection;
-            orderItemTableAdapter.Connection = MapPath.BakeryConnection;
-            drawerTableAdapter.Connection    = MapPath.BakeryConnection;
-            cashierTableAdapter.Connection   = MapPath.BakeryConnection;     // cashierTableAdapter宣告位置不同
-            try
-            {
-                this.operatorTableAdapter.Fill(this.vEDataSet.Operator);
-                this.cashierTableAdapter.Fill(this.bakeryOrderSet.Cashier);
-                chBoxOnlyInPosition_CheckedChanged(null, null);
-                DateTime now = DateTime.Now;
-                todayPicker.MinDate = new DateTime(MyFunction.IntHeaderYear, 1, 1);
-                todayPicker.MaxDate = new DateTime(MyFunction.IntHeaderYear, 12, 31);
-                if      (now.Date < todayPicker.MinDate) todayPicker.Value = todayPicker.MinDate;
-                else if (now.Date > todayPicker.MaxDate) todayPicker.Value = todayPicker.MaxDate;
-                else                                     todayPicker.Value = now.Date;
-                LoadCfg();
-                BakeryConfig = new BakeryConfig(MapPath.DataDir);
-                LoadBakeryConfig();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("錯誤:" + ex.Message);
-            }
-            m_TextBoxPaths.Add(textBoxPOS1);
-            m_TextBoxPaths.Add(textBoxPOS2);
-            m_TextBoxPaths.Add(textBoxPOS3);
+            pos.ItemArray = cashier.ItemArray;
         }
 
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
-            MyFunction.AddNewItem(dgvCashier, "CashierIDColumn", "CashierID", bakeryOrderSet.Cashier);
+            MyFunction.AddNewItem(dgvCashier, "CashierIDColumn", "CashierID", m_OrderSet.Cashier);
             DataGridViewRow row = dgvCashier.CurrentRow;
             DataRowView rowView = row.DataBoundItem as DataRowView;
-            BakeryOrderSet.CashierRow cashier = rowView.Row as BakeryOrderSet.CashierRow;
+            var cashier = rowView.Row as MyCashierRow;
             cashier.InPosition = true;
             cashier.CashierName = "Cashier"+cashier.CashierID.ToString();
             try
@@ -314,10 +376,10 @@ namespace VoucherExpense
         void CopyOrder(BakeryOrderSet.OrderRow order,int posID)
         {
             int newID = OrderIDWithPOS(order.ID, posID);
-            var mainOrders = from row in bakeryOrderSet.Order
+            var mainOrders = from row in m_OrderSet.Order
                              where row.ID == newID
                              select row;
-            BakeryOrderSet.OrderRow newOrder;
+            MyOrderRow newOrder;
             if (mainOrders.Count() > 0)
             {
                 newOrder = mainOrders.First();
@@ -335,28 +397,28 @@ namespace VoucherExpense
             }
             else
             {
-                newOrder = bakeryOrderSet.Order.NewOrderRow();
+                newOrder = m_OrderSet.Order.NewOrderRow();
                 newOrder.ItemArray = order.ItemArray;
                 newOrder.ID = newID;
-                bakeryOrderSet.Order.AddOrderRow(newOrder);
+                m_OrderSet.Order.AddOrderRow(newOrder);
             }
-            BakeryOrderSet.OrderItemRow[] mainItems=newOrder.GetOrderItemRows();
+            var mainItems=newOrder.GetOrderItemRows();
             int count=mainItems.Count();
             int index=0;
             foreach (BakeryOrderSet.OrderItemRow item in order.GetOrderItemRows())
             {
                 if (index >= count)  // 假設己經按順序,BakeryOrder那裏己經把Index放好
                 {
-                    BakeryOrderSet.OrderItemRow newItem = bakeryOrderSet.OrderItem.NewOrderItemRow();
+                    var newItem = m_OrderSet.OrderItem.NewOrderItemRow();
                     newItem.BeginEdit();
-                    newItem.ItemArray = item.ItemArray;
+                    newItem.ItemArray = item.ItemArray;     // item是MDB來的, newItem是寫入SQL
                     newItem.SetParentRow(newOrder);
                     newItem.EndEdit();
-                    bakeryOrderSet.OrderItem.AddOrderItemRow(newItem);
+                    m_OrderSet.OrderItem.AddOrderItemRow(newItem);
                 }
                 else
                 {
-                    BakeryOrderSet.OrderItemRow oldItem = mainItems[index];
+                    var oldItem = mainItems[index];
                     oldItem.BeginEdit();
                     //                    oldItem.ItemArray = item.ItemArray;
                     if (!item.IsDiscountNull())  oldItem.Discount  = item.Discount;
@@ -392,9 +454,9 @@ namespace VoucherExpense
             BakeryOrderSet posBakerySet = new BakeryOrderSet();
             System.Data.OleDb.OleDbConnection dbConnection   = new System.Data.OleDb.OleDbConnection(connStr);
             // 收銀机DB
-            OrderAdapter        orderAdapter   = new OrderAdapter();
-            OrderItemAdapter    itemAdapter    = new OrderItemAdapter();
-            DrawerRecordAdapter drawerAdapter  = new DrawerRecordAdapter();
+            BakeryOrderAdapter        orderAdapter   = new BakeryOrderAdapter();
+            BakeryOrderItemAdapter    itemAdapter    = new BakeryOrderItemAdapter();
+            BakeryDrawerRecordAdapter drawerAdapter  = new BakeryDrawerRecordAdapter();
             drawerAdapter.Connection    = dbConnection;
             orderAdapter.Connection     = dbConnection;
             itemAdapter.Connection      = dbConnection;
@@ -406,29 +468,29 @@ namespace VoucherExpense
                 foreach (BakeryOrderSet.OrderRow order in posBakerySet.Order)
                     CopyOrder(order,posID);
                 Message("寫入本地資料庫! 共 "+posBakerySet.Order.Count.ToString()+" 筆");
-                orderTableAdapter.Update(bakeryOrderSet.Order);
-                orderItemTableAdapter.Update(bakeryOrderSet.OrderItem);
+                OrderAdapter.Update(m_OrderSet.Order);
+                OrderItemAdapter.Update(m_OrderSet.OrderItem);
                 // 寫入Header
-                var headers = from row in bakeryOrderSet.Header where row.DataDate == today.Date select row;
+                var headers = from row in m_OrderSet.Header where row.DataDate == today.Date select row;
                 if (headers.Count() <=0)   // 無今日資料再加, 是否己封印,呼叫端己檢查
                 {
-                    BakeryOrderSet.HeaderRow header = bakeryOrderSet.Header.NewHeaderRow();
+                    var header = m_OrderSet.Header.NewHeaderRow();
                     header.DataDate = today.Date;
                     header.Closed = false;
-                    bakeryOrderSet.Header.AddHeaderRow(header);
-                    headerTableAdapter.Update(bakeryOrderSet.Header);
+                    m_OrderSet.Header.AddHeaderRow(header);
+                    HeaderAdapter.Update(m_OrderSet.Header);
                 }
 
                 Message("匯入錢箱記錄!");
                 drawerAdapter.FillBySelectStr(posBakerySet.DrawerRecord, "Select * From [DrawerRecord] "+ SqlDrawer);
                 foreach (BakeryOrderSet.DrawerRecordRow drawer in posBakerySet.DrawerRecord)
                 {
-                    var mainDrawers = from row in bakeryOrderSet.DrawerRecord
+                    var mainDrawers = from row in m_OrderSet.DrawerRecord
                                       where row.DrawerRecordID == drawer.DrawerRecordID
                                       select row;
                     if (mainDrawers.Count() > 0)
                     {
-                        BakeryOrderSet.DrawerRecordRow oldDrawer = mainDrawers.First();
+                        var oldDrawer = mainDrawers.First();
                         oldDrawer.BeginEdit();
 //                        oldDrawer.ItemArray = drawer.ItemArray;  // 同一ID不能再指定一次
                         oldDrawer.AssociateOrderID = OrderIDWithPOS(drawer.AssociateOrderID, posID);
@@ -438,15 +500,15 @@ namespace VoucherExpense
                     }
                     else
                     {
-                        BakeryOrderSet.DrawerRecordRow newDrawer = bakeryOrderSet.DrawerRecord.NewDrawerRecordRow();
+                        var newDrawer = m_OrderSet.DrawerRecord.NewDrawerRecordRow();
                         newDrawer.BeginEdit();
                         newDrawer.ItemArray = drawer.ItemArray;
                         newDrawer.AssociateOrderID  = OrderIDWithPOS(drawer.AssociateOrderID, posID);
                         newDrawer.EndEdit();
-                        bakeryOrderSet.DrawerRecord.AddDrawerRecordRow(newDrawer);
+                        m_OrderSet.DrawerRecord.AddDrawerRecordRow(newDrawer);
                     }
                 }
-                drawerTableAdapter.Update(bakeryOrderSet.DrawerRecord);
+                DrawerAdapter.Update(m_OrderSet.DrawerRecord);
                 Message("共 " + posBakerySet.DrawerRecord.Count.ToString()+" 筆");
             }
             catch(Exception ex)
@@ -474,12 +536,17 @@ namespace VoucherExpense
             if (result == DialogResult.Cancel) return;
             ClearMessage();
             Message("載入店長端資料庫!");
-            SqlOrder  = "Where INT(ID/1000000)="             + today.Month.ToString("d2") + today.Day.ToString("d2");   // 資料定義為 MMDDN99999  N POS机号,店長收資料時,再自動填上        
-            SqlDrawer = "Where INT(DrawerRecordID/1000000)=" + today.Month.ToString("d2") + today.Day.ToString("d2");   // 資料定義為 MMDDN99999  N POS机号, id最多10萬筆
+#if (UseSQLServer)
+            string Floor="FLOOR";
+#else
+            string Floor="INT";
+#endif
+            SqlOrder  = "Where "+Floor+"(ID/1000000)="             + today.Month.ToString("d2") + today.Day.ToString("d2");   // 資料定義為 MMDDN99999  N POS机号,店長收資料時,再自動填上        
+            SqlDrawer = "Where "+Floor+"(DrawerRecordID/1000000)=" + today.Month.ToString("d2") + today.Day.ToString("d2");   // 資料定義為 MMDDN99999  N POS机号, id最多10萬筆
             try
             {
-                headerTableAdapter.Fill              (bakeryOrderSet.Header);
-                var headers = from row in bakeryOrderSet.Header where row.DataDate == today.Date select row;
+                HeaderAdapter.Fill(m_OrderSet.Header);
+                var headers = from row in m_OrderSet.Header where row.DataDate == today.Date select row;
                 if (headers.Count() > 0)
                 {
                     var header = headers.First();
@@ -489,9 +556,9 @@ namespace VoucherExpense
                         return;
                     }
                 }
-                orderTableAdapter.FillBySelectStr    (bakeryOrderSet.Order        , "Select * From [Order] "        + SqlOrder + " Order by ID");
-                orderItemTableAdapter.FillBySelectStr(bakeryOrderSet.OrderItem    , "Select * From [OrderItem] "    + SqlOrder );
-                drawerTableAdapter.FillBySelectStr   (bakeryOrderSet.DrawerRecord , "Select * From [DrawerRecord] " + SqlDrawer);
+                OrderAdapter.FillBySelectStr    (m_OrderSet.Order        , "Select * From [Order] "        + SqlOrder + " Order by ID");
+                OrderItemAdapter.FillBySelectStr(m_OrderSet.OrderItem    , "Select * From [OrderItem] "    + SqlOrder );
+                DrawerAdapter.FillBySelectStr   (m_OrderSet.DrawerRecord , "Select * From [DrawerRecord] " + SqlDrawer);
             }
             catch (Exception ex)
             {
@@ -522,10 +589,10 @@ namespace VoucherExpense
         private void btnClosedBackup_Click(object sender, EventArgs e)
         {
             DateTime today = todayPicker.Value;
-            headerTableAdapter.Fill(bakeryOrderSet.Header);
-            var headers = from row in bakeryOrderSet.Header where row.DataDate == today.Date select row;
+            HeaderAdapter.Fill(m_OrderSet.Header);
+            var headers = from row in m_OrderSet.Header where row.DataDate == today.Date select row;
             ClearMessage();
-            BakeryOrderSet.HeaderRow mainHeader = null;
+            MyHeaderRow mainHeader = null;
             if (headers.Count() > 0)
             {
                 mainHeader = headers.First();
@@ -587,13 +654,13 @@ namespace VoucherExpense
             try  
             {
                 mainHeader.Closed = true;
-                headerTableAdapter.Update(bakeryOrderSet.Header);
+                HeaderAdapter.Update(m_OrderSet.Header);
             }
             catch (Exception ex)
             {
                 Message("更新店長封印資訊時,錯誤:" + ex.Message,true);
             }
-            
+#if (!UseSQLServer)             // 當使用SQL Server時不備份
             dir=textBoxBackupDir.Text.Trim();
             if (dir.Length > 0)
             {
@@ -602,7 +669,13 @@ namespace VoucherExpense
                 Message("封印及備份完成！",true);
             }
             else
+#endif
                 Message("封印完成！");
+        }
+
+        void CopyProductRow(MyProductRow fromProduct, BakeryOrderSet.ProductRow toProduct)
+        {
+            toProduct.ItemArray = fromProduct.ItemArray;
         }
 
         private void btnUpdateProduct_Click(object sender, EventArgs e)
@@ -613,7 +686,7 @@ namespace VoucherExpense
 
             try
             {
-                productTableAdapter.Fill(bakeryOrderSet.Product);
+                ProductAdapter.Fill(m_OrderSet.Product);
                 mainFileInfos = mainDirInfo.GetFiles("*.jpg");
             }
             catch (Exception ex)
@@ -640,7 +713,7 @@ namespace VoucherExpense
                     adapter.Fill(posBakerySet.Product);
                     int updated=0,added = 0;
 
-                    foreach (var pr in bakeryOrderSet.Product)
+                    foreach (var pr in m_OrderSet.Product)
                     {
                         var posProducts = from row in posBakerySet.Product where (pr.ProductID==row.ProductID) select row;
                         BakeryOrderSet.ProductRow posProduct;
@@ -648,14 +721,16 @@ namespace VoucherExpense
                         {
                             posProduct = posProducts.First();
                             posProduct.BeginEdit();
-                            posProduct.ItemArray = pr.ItemArray;
+                            CopyProductRow(pr, posProduct);
+                            //posProduct.ItemArray = pr.ItemArray;
                             posProduct.EndEdit();
                             updated++;
                         }
                         else
                         {
                             posProduct = posBakerySet.Product.NewProductRow();
-                            posProduct.ItemArray = pr.ItemArray;
+                            CopyProductRow(pr, posProduct);
+                            //posProduct.ItemArray = pr.ItemArray;
                             posBakerySet.Product.AddProductRow(posProduct);
                             added++;
                         }
@@ -664,7 +739,7 @@ namespace VoucherExpense
                     int deleted = 0;
                     foreach (var pr in posBakerySet.Product)
                     {
-                        var Products = from row in bakeryOrderSet.Product where (pr.ProductID == row.ProductID) select row;
+                        var Products = from row in m_OrderSet.Product where (pr.ProductID == row.ProductID) select row;
                         if (Products.Count() > 0) continue;
                         pr.Delete();
                         deleted++;
@@ -775,7 +850,7 @@ namespace VoucherExpense
                 dir = box.Text.Trim();
                 i++;
                 if (dir.Length <= 0) continue;
-                BakeryConfig bakeryConfig = new BakeryConfig(dir);
+                BakeryConfigMDB bakeryConfig = new BakeryConfigMDB(dir);
                 Message("更新收銀机<" + i.ToString() + "> 印表抬頭設定");
                 xmlContent=PrintConfig2Xml(BakeryConfigName,BakeryTableName,i);
                 bakeryConfig.Save(BakeryConfigName, BakeryTableName,xmlContent);
@@ -838,7 +913,7 @@ namespace VoucherExpense
             cash = credit = coupon = 0;
             averagePerOrder = 0;
             cashiers = new Dictionary<int,decimal>();
-            foreach (BakeryOrderSet.OrderRow Row in bakeryOrderSet.Order.Rows)
+            foreach (var Row in m_OrderSet.Order)
             {
                 int id=Row.CashierID;
                 if (!cashiers.Keys.Contains(id))
@@ -959,7 +1034,7 @@ namespace VoucherExpense
             ClearMessage();
             try
             {
-                headerTableAdapter.Fill(bakeryOrderSet.Header);
+                HeaderAdapter.Fill(m_OrderSet.Header);
             }
             catch (Exception ex)
             {
@@ -968,12 +1043,7 @@ namespace VoucherExpense
             }
             DateTime today = todayPicker.Value.Date;
             m_Revenue = new RevenueCalcBakery(today, 0m);   // 先不管手續費
-#if (UseSQLServer)
-            MessageBox.Show("UseSQLServer未完工!");
-       //     m_Revenue.LoadData(bakeryOrderSet, today.Month, today.Day);
-#else
-            m_Revenue.LoadData(bakeryOrderSet, today.Month, today.Day);
-#endif
+            m_Revenue.LoadData(m_OrderSet, today.Month, today.Day);
             try
             {
                 printDocument1.Print();

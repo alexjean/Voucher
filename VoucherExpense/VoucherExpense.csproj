@@ -136,6 +136,10 @@
     </Compile>
     <Compile Include="AccTitleList.cs" />
     <Compile Include="Class\BakeryConfig.cs" />
+    <Compile Include="DamaiDataSet.cs">
+      <DependentUpon>DamaiDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DamaiDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

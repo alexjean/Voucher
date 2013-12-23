@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.basicDataSet1 = new VoucherExpense.BasicDataSet();
-            this.veDataSet1 = new VoucherExpense.VEDataSet();
             this.chListBoxBasic = new System.Windows.Forms.CheckedListBox();
             this.chListBoxVE = new System.Windows.Forms.CheckedListBox();
             this.labelYear = new System.Windows.Forms.Label();
@@ -38,22 +36,7 @@
             this.labelPath = new System.Windows.Forms.Label();
             this.btnAction = new System.Windows.Forms.Button();
             this.labelMessage = new System.Windows.Forms.Label();
-            this.bakeryOrderSet1 = new VoucherExpense.BakeryOrderSet();
-            this.voucherHeaderAdapter = new VoucherExpense.VEDataSetTableAdapters.HeaderTableAdapter();
-            ((System.ComponentModel.ISupportInitialize)(this.basicDataSet1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.veDataSet1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // basicDataSet1
-            // 
-            this.basicDataSet1.DataSetName = "BasicDataSet";
-            this.basicDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // veDataSet1
-            // 
-            this.veDataSet1.DataSetName = "VEDataSet";
-            this.veDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // chListBoxBasic
             // 
@@ -127,15 +110,6 @@
             this.labelMessage.TabIndex = 8;
             this.labelMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // bakeryOrderSet1
-            // 
-            this.bakeryOrderSet1.DataSetName = "BakeryOrderSet";
-            this.bakeryOrderSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // voucherHeaderAdapter
-            // 
-            this.voucherHeaderAdapter.ClearBeforeFill = true;
-            // 
             // FormInitNewYear
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -155,17 +129,12 @@
             this.Name = "FormInitNewYear";
             this.Text = "起始新年度";
             this.Load += new System.EventHandler(this.FormInitNewYear_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.basicDataSet1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.veDataSet1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private BasicDataSet basicDataSet1;
-        private VEDataSet veDataSet1;
         private System.Windows.Forms.CheckedListBox chListBoxBasic;
         private System.Windows.Forms.CheckedListBox chListBoxVE;
         private System.Windows.Forms.Label labelYear;
@@ -174,7 +143,5 @@
         private System.Windows.Forms.Label labelPath;
         private System.Windows.Forms.Button btnAction;
         private System.Windows.Forms.Label labelMessage;
-        private BakeryOrderSet bakeryOrderSet1;
-        private VEDataSetTableAdapters.HeaderTableAdapter voucherHeaderAdapter;
     }
 }

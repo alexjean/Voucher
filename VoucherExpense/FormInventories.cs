@@ -54,7 +54,7 @@ namespace VoucherExpense
             m_OrderSet = m_DataSet;
             fKInventoryDetailInventoryBindingSource.DataSource = inventoryBindingSource;
             fKInventoryProductsInventoryBindingSource.DataSource = inventoryBindingSource;
-            fKInventoryDetailInventoryBindingSource.Sort         = "IngredientId desc";
+            fKInventoryDetailInventoryBindingSource.Sort         = "IngredientID desc";
 #else
             m_OrderSet=new MyOrderSet();
             inventoryDetailBindingSource.DataSource              = inventoryBindingSource;

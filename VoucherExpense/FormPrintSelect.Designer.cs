@@ -35,11 +35,12 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.veDataSet1 = new VoucherExpense.VEDataSet();
             this.vendorBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.vendorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.VendorTableAdapter();
             this.vendorDataGridView = new System.Windows.Forms.DataGridView();
             this.columnVendorID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnVendorName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgViewUserSelected = new System.Windows.Forms.DataGridView();
+            this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.costDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cSelectedVoucherBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.labelCount = new System.Windows.Forms.Label();
             this.labelSum = new System.Windows.Forms.Label();
@@ -48,8 +49,6 @@
             this.btnSelectAll = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btnPrintUserSelected = new System.Windows.Forms.Button();
-            this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.costDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.veDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vendorBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vendorDataGridView)).BeginInit();
@@ -67,10 +66,6 @@
             this.vendorBindingSource.DataMember = "Vendor";
             this.vendorBindingSource.DataSource = this.veDataSet1;
             this.vendorBindingSource.Filter = "Hide= false";
-            // 
-            // vendorTableAdapter
-            // 
-            this.vendorTableAdapter.ClearBeforeFill = true;
             // 
             // vendorDataGridView
             // 
@@ -151,6 +146,26 @@
             this.dgViewUserSelected.Size = new System.Drawing.Size(166, 458);
             this.dgViewUserSelected.TabIndex = 3;
             // 
+            // iDDataGridViewTextBoxColumn
+            // 
+            this.iDDataGridViewTextBoxColumn.DataPropertyName = "ID";
+            this.iDDataGridViewTextBoxColumn.HeaderText = "";
+            this.iDDataGridViewTextBoxColumn.Name = "iDDataGridViewTextBoxColumn";
+            this.iDDataGridViewTextBoxColumn.ReadOnly = true;
+            this.iDDataGridViewTextBoxColumn.Width = 50;
+            // 
+            // costDataGridViewTextBoxColumn
+            // 
+            this.costDataGridViewTextBoxColumn.DataPropertyName = "Cost";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle4.Format = "N1";
+            dataGridViewCellStyle4.NullValue = null;
+            this.costDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
+            this.costDataGridViewTextBoxColumn.HeaderText = "金額";
+            this.costDataGridViewTextBoxColumn.Name = "costDataGridViewTextBoxColumn";
+            this.costDataGridViewTextBoxColumn.ReadOnly = true;
+            this.costDataGridViewTextBoxColumn.Width = 90;
+            // 
             // cSelectedVoucherBindingSource
             // 
             this.cSelectedVoucherBindingSource.DataSource = typeof(VoucherExpense.Voucher.CSelectedVoucher);
@@ -221,26 +236,6 @@
             this.btnPrintUserSelected.UseVisualStyleBackColor = true;
             this.btnPrintUserSelected.Click += new System.EventHandler(this.btnPrintUserSelected_Click);
             // 
-            // iDDataGridViewTextBoxColumn
-            // 
-            this.iDDataGridViewTextBoxColumn.DataPropertyName = "ID";
-            this.iDDataGridViewTextBoxColumn.HeaderText = "";
-            this.iDDataGridViewTextBoxColumn.Name = "iDDataGridViewTextBoxColumn";
-            this.iDDataGridViewTextBoxColumn.ReadOnly = true;
-            this.iDDataGridViewTextBoxColumn.Width = 50;
-            // 
-            // costDataGridViewTextBoxColumn
-            // 
-            this.costDataGridViewTextBoxColumn.DataPropertyName = "Cost";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.Format = "N1";
-            dataGridViewCellStyle4.NullValue = null;
-            this.costDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
-            this.costDataGridViewTextBoxColumn.HeaderText = "金額";
-            this.costDataGridViewTextBoxColumn.Name = "costDataGridViewTextBoxColumn";
-            this.costDataGridViewTextBoxColumn.ReadOnly = true;
-            this.costDataGridViewTextBoxColumn.Width = 90;
-            // 
             // FormPrintSelect
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -276,7 +271,6 @@
 
         private VEDataSet veDataSet1;
         private System.Windows.Forms.BindingSource vendorBindingSource;
-        private VoucherExpense.VEDataSetTableAdapters.VendorTableAdapter vendorTableAdapter;
         private System.Windows.Forms.DataGridView vendorDataGridView;
         private System.Windows.Forms.DataGridView dgViewUserSelected;
         private System.Windows.Forms.Label labelCount;

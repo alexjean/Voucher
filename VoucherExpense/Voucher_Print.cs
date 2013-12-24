@@ -7,6 +7,11 @@ using System.Drawing;
 using System.Drawing.Printing;
 using System.Windows.Forms;
 using System.Linq;
+#if UseSQLServer
+using MyVoucherRow = VoucherExpense.DamaiDataSet.VoucherRow;
+#else
+using MyVoucherRow = VoucherExpense.VEDataSet.VoucherRow;
+#endif
 namespace VoucherExpense
 {
     public partial class Voucher : Form
@@ -17,8 +22,8 @@ namespace VoucherExpense
             decimal cot;
             public int ID { get { return id; } set { id = value; } }
             public decimal Cost { get { return cot; } set { cot = value; } }
-            public VEDataSet.VoucherRow Voucher;
-            public CSelectedVoucher(int i, decimal d, VEDataSet.VoucherRow voucher) { id = i; cot = d; Voucher = voucher;  }
+            public MyVoucherRow Voucher;
+            public CSelectedVoucher(int i, decimal d, MyVoucherRow voucher) { id = i; cot = d; Voucher = voucher;  }
         }
 
 
@@ -48,7 +53,7 @@ namespace VoucherExpense
                 try
                 {
                     DataRowView rowView = row.DataBoundItem as DataRowView;
-                    VEDataSet.VoucherRow dataRow = rowView.Row as VEDataSet.VoucherRow;
+                    var dataRow = rowView.Row as MyVoucherRow;
                     if (dataRow.IsRemovedNull()) continue;  // 己移除的無法選入 
                     if (dataRow.Removed) continue;
                     decimal cost = dataRow.IsCostNull() ? 0m : dataRow.Cost;
@@ -77,7 +82,7 @@ namespace VoucherExpense
             m_More = -1;
         }
 
-        void OneDetailLine(int x,int y,int CostOffset,VEDataSet.VoucherRow row)
+        void OneDetailLine(int x,int y,int CostOffset,MyVoucherRow row)
         {
             const int IngredientOffset = 100;
             string str;
@@ -88,9 +93,9 @@ namespace VoucherExpense
                                                             m_Graphics.DrawString(str, m_Font, m_Brush, x + CostOffset + 40 - w, y);
             try
             {
-                VEDataSet.VoucherDetailRow[] dRows = row.GetVoucherDetailRows();
+                var dRows = row.GetVoucherDetailRows();
                 str = "";
-                foreach (VEDataSet.VoucherDetailRow r in dRows)
+                foreach (var r in dRows)
                 {
                     if (r.IsVolumeNull()) continue;
                     if (str.Length > 20)
@@ -127,7 +132,7 @@ namespace VoucherExpense
             int mo = more;
             bool NeedMore = false;
 
-            foreach (VEDataSet.VoucherRow row in vEDataSet.Voucher)
+            foreach (MyVoucherRow row in m_DataSet.Voucher)
             {
                 if (row.IsVendorIDNull()) continue;
                 if (row.VendorID != venderID) continue;

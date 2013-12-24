@@ -798,6 +798,8 @@
             // 
             this.dgVolumeColumn.DataPropertyName = "Volume";
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Format = "N1";
+            dataGridViewCellStyle2.NullValue = null;
             this.dgVolumeColumn.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgVolumeColumn.HeaderText = "量";
             this.dgVolumeColumn.Name = "dgVolumeColumn";

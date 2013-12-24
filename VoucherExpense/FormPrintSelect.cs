@@ -5,32 +5,44 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+#if UseSQLServer
+using MyDataSet = VoucherExpense.DamaiDataSet;
+#else
+using MyDataSet = VoucherExpense.VEDataSet;
+#endif
 
 namespace VoucherExpense
 {
     public partial class FormPrintSelect : Form
     {
         Voucher m_FormVoucher = null;
+        MyDataSet m_DataSet = new MyDataSet();
         public FormPrintSelect(Voucher form)
         {
             m_FormVoucher = form;
             InitializeComponent();
         }
 
-        private void vendorBindingNavigatorSaveItem_Click(object sender, EventArgs e)
-        {
-            this.Validate();
-            this.vendorBindingSource.EndEdit();
-            this.vendorTableAdapter.Update(this.veDataSet1.Vendor);
+        //private void vendorBindingNavigatorSaveItem_Click(object sender, EventArgs e)
+        //{
+        //    this.Validate();
+        //    this.vendorBindingSource.EndEdit();
+        //    vendorAdapter.Update(m_DataSet.Vendor);
 
-        }
+        //}
 
         private void FormPrintSelect_Load(object sender, EventArgs e)
         {
+            vendorBindingSource.DataSource = m_DataSet;
+#if UseSQLServer
+            var vendorAdapter = new VoucherExpense.DamaiDataSetTableAdapters.VendorTableAdapter();
+#else
+            vendorAdapter.Connection = MapPath.VEConnection;
+            var vendorAdapter = new VoucherExpense.VEDataSetTableAdapters.VendorTableAdapter();
+#endif
             try
             {
-                vendorTableAdapter.Connection = MapPath.VEConnection;
-                this.vendorTableAdapter.Fill(this.veDataSet1.Vendor);
+                vendorAdapter.Fill(m_DataSet.Vendor);
             }
             catch (Exception ex)
             {

@@ -155,6 +155,7 @@ namespace VoucherExpense
                 string fullDest = Path.GetFullPath(Application.ExecutablePath).ToLower();
                 byte[] zipped=null;
                 byte[] md5 = null;
+                string ver = Application.ProductVersion.Trim();
                 if (MyFunction.CompressFileToBuf(fullDest, out zipped,out md5))
                 {
                     var programAdapter = new VoucherExpense.DamaiDataSetTableAdapters.ProgramTableAdapter();
@@ -165,16 +166,18 @@ namespace VoucherExpense
                     var table = new VoucherExpense.DamaiDataSet.ProgramDataTable();
                     var programRow = table.NewProgramRow();
                     programRow.ID = Guid.NewGuid();
-                    programRow.ProgramVersion = Application.ProductVersion.Trim();
+                    programRow.ProgramVersion = ver;
                     programRow.UpdatedTime = DateTime.Now;
                     programRow.ZippedImage = zipped;
                     programRow.MD5 = md5;
                     table.AddProgramRow(programRow);
+                    labelRequiredVersion.Text = "正在上傳 " + ver;
+                    Application.DoEvents();
                     programAdapter.Update(table);    
                     programAdapter.Connection.Dispose();
                 }
 #endif 
-                header.Version = Application.ProductVersion.Trim();
+                header.Version = ver;
                 VEHeaderAdapter.Update(m_VEHeader);
                 labelRequiredVersion.Text = "要求版本 " + header.Version;
             }

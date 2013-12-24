@@ -1,6 +1,6 @@
 <HardwareConfig>
   <ComPort Name="COM1" />
   <ReceiptPrinter Name="Zonerich AB-58MK USB" />
-  <DotPrinter Name="\\ICE-PC\EPSON LQ-730K ESC/P 2" />
-  <DataSource IsServer="YES" DataDir="iF5Gv7apuvy1S7+2GcxPangTLBhtZs2nGFYk2VbuNLF9KTsviUvuopq2/wMj6hOAQXgVfkuf4WI=" UserName="+msv2SiT4cnOh0vu0ZSo2g==" Password="kwrFJBHWCb/vYrNF4d4o1Mkniu8Hevi5" BackupDir="FdYkUPCPJ/0jxpsAbGAR0xKn+Xz2F7/VJAbM0Zf39EiG9S/L4plieg==" SqlServerIP="1NptfGSR0PQ7we7zv/iQcSQE2+TSq6H8bWuUfYBs+lU=" SqlUserID="/cZbbTXHBYkOXasXBnl7LP8vE8nsIEOfIwYmjGHJurE=" SqlPassword="cCsauyIuKESO+YocYe3GILceac2pUUrqubNVPwcDOp8=" SqlDatabase="IDObpp3YRGnKVAEnPTHlyQ==" />
+  <DotPrinter Name="" />
+  <DataSource IsServer="YES" DataDir="EPRT+YCj5fNrqGtQkgdrFxd/qclQ1i9AIGGO3PrxJw7O0j/wt/ai9WQ00/4AOhzu/6JgQw8gCtM=" UserName="sZM/bLSyqv0j4SXhyzDavo1sJn8QGahl" Password="wS4zmgr+ahF21XXsgXwKYhRDYDrg0cz9" BackupDir="Pkce2PnPHlY=" SqlServerIP="AFXlqYNQx/sv8gyskSG3Fo++DyhIJWDW" SqlUserID="yFiE/KqBxfg=" SqlPassword="cCsauyIuKESO+YocYe3GILceac2pUUrqubNVPwcDOp8=" SqlDatabase="IDObpp3YRGnKVAEnPTHlyQ==" />
 </HardwareConfig>

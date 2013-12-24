@@ -37,8 +37,8 @@ namespace VoucherExpense
 #if UseSQLServer
             var vendorAdapter = new VoucherExpense.DamaiDataSetTableAdapters.VendorTableAdapter();
 #else
-            vendorAdapter.Connection = MapPath.VEConnection;
             var vendorAdapter = new VoucherExpense.VEDataSetTableAdapters.VendorTableAdapter();
+            vendorAdapter.Connection = MapPath.VEConnection;
 #endif
             try
             {

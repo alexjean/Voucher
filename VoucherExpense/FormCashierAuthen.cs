@@ -393,13 +393,27 @@ namespace VoucherExpense
                 if (!order.IsIncomeNull())      newOrder.Income     = order.Income;
                 if (!order.IsPayByNull())       newOrder.PayBy      = order.PayBy;
                 if (!order.IsPrintTimeNull())   newOrder.PrintTime  = order.PrintTime;
+                if (!order.IsOldIDNull())       newOrder.OldID      = order.OldID;
+                if (!order.IsRCashierIDNull())  newOrder.RCashierID = order.RCashierID;
                 newOrder.EndEdit();
             }
             else
             {
                 newOrder = m_OrderSet.Order.NewOrderRow();
-                newOrder.ItemArray = order.ItemArray;
+                newOrder.BeginEdit();
+               // newOrder.ItemArray = order.ItemArray;
+                if (!order.IsBranchIDNull())    newOrder.BranchID   = order.BranchID;
+                if (!order.IsCashierIDNull())   newOrder.CashierID  = order.CashierID;
+                if (!order.IsDeductNull())      newOrder.Deduct     = order.Deduct;
+                if (!order.IsDeletedNull())     newOrder.Deleted    = order.Deleted;
+                if (!order.IsDiscountRateNull()) newOrder.DiscountRate = order.DiscountRate;
+                if (!order.IsIncomeNull())      newOrder.Income     = order.Income;
+                if (!order.IsPayByNull())       newOrder.PayBy      = order.PayBy;
+                if (!order.IsPrintTimeNull())   newOrder.PrintTime  = order.PrintTime;
+                if (!order.IsOldIDNull())       newOrder.OldID      = order.OldID;
+                if (!order.IsRCashierIDNull())  newOrder.RCashierID = order.RCashierID;
                 newOrder.ID = newID;
+                newOrder.EndEdit();
                 m_OrderSet.Order.AddOrderRow(newOrder);
             }
             var mainItems=newOrder.GetOrderItemRows();
@@ -411,7 +425,16 @@ namespace VoucherExpense
                 {
                     var newItem = m_OrderSet.OrderItem.NewOrderItemRow();
                     newItem.BeginEdit();
-                    newItem.ItemArray = item.ItemArray;     // item是MDB來的, newItem是寫入SQL
+                    //newItem.ItemArray = item.ItemArray;     // item是MDB來的, newItem是寫入SQL
+                    if (!item.IsProductIDNull()) newItem.ProductID  = item.ProductID;
+                    if (!item.IsNoNull())        newItem.No         = item.No;
+                    if (!item.IsPriceNull())     newItem.Price      = item.Price;
+                    if (!item.IsDiscountNull())  newItem.Discount   = item.Discount;
+                    newItem.ID      = newOrder.ID;
+                    newItem.Index = (short)index;
+#if UseSQLServer
+                    newItem.ItemID = newOrder.ID;
+#endif
                     newItem.SetParentRow(newOrder);
                     newItem.EndEdit();
                     m_OrderSet.OrderItem.AddOrderItemRow(newItem);
@@ -504,8 +527,11 @@ namespace VoucherExpense
                     {
                         var newDrawer = m_OrderSet.DrawerRecord.NewDrawerRecordRow();
                         newDrawer.BeginEdit();
-                        newDrawer.ItemArray = drawer.ItemArray;
+                        //newDrawer.ItemArray = drawer.ItemArray;
                         newDrawer.AssociateOrderID  = OrderIDWithPOS(drawer.AssociateOrderID, posID);
+                        if (!drawer.IsCashierIDNull()) newDrawer.CashierID = drawer.CashierID;
+                        if (!drawer.IsOpenTimeNull())  newDrawer.OpenTime  = drawer.OpenTime;
+                        newDrawer.DrawerRecordID = drawer.DrawerRecordID;
                         newDrawer.EndEdit();
                         m_OrderSet.DrawerRecord.AddDrawerRecordRow(newDrawer);
                     }

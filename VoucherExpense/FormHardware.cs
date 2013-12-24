@@ -151,11 +151,12 @@ namespace VoucherExpense
                     MessageBox.Show("版本号相同不需更換!");
                     return;
                 }
+                string ver = Application.ProductVersion.Trim();
 #if UseSQLServer
                 string fullDest = Path.GetFullPath(Application.ExecutablePath).ToLower();
                 byte[] zipped=null;
                 byte[] md5 = null;
-                string ver = Application.ProductVersion.Trim();
+                
                 if (MyFunction.CompressFileToBuf(fullDest, out zipped,out md5))
                 {
                     var programAdapter = new VoucherExpense.DamaiDataSetTableAdapters.ProgramTableAdapter();

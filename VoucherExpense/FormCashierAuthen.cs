@@ -373,6 +373,20 @@ namespace VoucherExpense
             }
         }
 
+        void CopyOrderRow(BakeryOrderSet.OrderRow order, MyOrderRow newOrder)
+        {
+            if (!order.IsBranchIDNull())    newOrder.BranchID   = order.BranchID;
+            if (!order.IsCashierIDNull())   newOrder.CashierID  = order.CashierID;
+            if (!order.IsDeductNull())      newOrder.Deduct     = order.Deduct;
+            if (!order.IsDeletedNull())     newOrder.Deleted    = order.Deleted;
+            if (!order.IsDiscountRateNull()) newOrder.DiscountRate = order.DiscountRate;
+            if (!order.IsIncomeNull())      newOrder.Income     = order.Income;
+            if (!order.IsPayByNull())       newOrder.PayBy      = order.PayBy;
+            if (!order.IsPrintTimeNull())   newOrder.PrintTime  = order.PrintTime;
+            if (!order.IsOldIDNull())       newOrder.OldID      = order.OldID;
+            if (!order.IsRCashierIDNull())  newOrder.RCashierID = order.RCashierID;
+        }
+
         void CopyOrder(BakeryOrderSet.OrderRow order,int posID)
         {
             int newID = OrderIDWithPOS(order.ID, posID);
@@ -385,16 +399,7 @@ namespace VoucherExpense
                 newOrder = mainOrders.First();
                 newOrder.BeginEdit();
 //                newOrder.ItemArray = order.ItemArray;   // ID應該是相同的
-                if (!order.IsBranchIDNull())    newOrder.BranchID   = order.BranchID;
-                if (!order.IsCashierIDNull())   newOrder.CashierID  = order.CashierID;
-                if (!order.IsDeductNull())      newOrder.Deduct     = order.Deduct;
-                if (!order.IsDeletedNull())     newOrder.Deleted    = order.Deleted;
-                if (!order.IsDiscountRateNull()) newOrder.DiscountRate = order.DiscountRate;
-                if (!order.IsIncomeNull())      newOrder.Income     = order.Income;
-                if (!order.IsPayByNull())       newOrder.PayBy      = order.PayBy;
-                if (!order.IsPrintTimeNull())   newOrder.PrintTime  = order.PrintTime;
-                if (!order.IsOldIDNull())       newOrder.OldID      = order.OldID;
-                if (!order.IsRCashierIDNull())  newOrder.RCashierID = order.RCashierID;
+                CopyOrderRow(order, newOrder);
                 newOrder.EndEdit();
             }
             else
@@ -402,16 +407,7 @@ namespace VoucherExpense
                 newOrder = m_OrderSet.Order.NewOrderRow();
                 newOrder.BeginEdit();
                // newOrder.ItemArray = order.ItemArray;
-                if (!order.IsBranchIDNull())    newOrder.BranchID   = order.BranchID;
-                if (!order.IsCashierIDNull())   newOrder.CashierID  = order.CashierID;
-                if (!order.IsDeductNull())      newOrder.Deduct     = order.Deduct;
-                if (!order.IsDeletedNull())     newOrder.Deleted    = order.Deleted;
-                if (!order.IsDiscountRateNull()) newOrder.DiscountRate = order.DiscountRate;
-                if (!order.IsIncomeNull())      newOrder.Income     = order.Income;
-                if (!order.IsPayByNull())       newOrder.PayBy      = order.PayBy;
-                if (!order.IsPrintTimeNull())   newOrder.PrintTime  = order.PrintTime;
-                if (!order.IsOldIDNull())       newOrder.OldID      = order.OldID;
-                if (!order.IsRCashierIDNull())  newOrder.RCashierID = order.RCashierID;
+                CopyOrderRow(order, newOrder);
                 newOrder.ID = newID;
                 newOrder.EndEdit();
                 m_OrderSet.Order.AddOrderRow(newOrder);
@@ -704,9 +700,18 @@ namespace VoucherExpense
                 Message("封印完成！");
         }
 
+
         void CopyProductRow(MyProductRow fromProduct, BakeryOrderSet.ProductRow toProduct)
-        {
-            toProduct.ItemArray = fromProduct.ItemArray;
+        {   // ProductID不在此拷貝
+            if (!fromProduct.IsCodeNull())  toProduct.Code  = fromProduct.Code;
+            if (!fromProduct.IsClassNull()) toProduct.Class = fromProduct.Class;
+            if (!fromProduct.IsNameNull())  toProduct.Name  = fromProduct.Name;
+            if (!fromProduct.IsPriceNull()) toProduct.Price = fromProduct.Price;
+            if (!fromProduct.IsMenuXNull()) toProduct.MenuX = fromProduct.MenuX;
+            if (!fromProduct.IsMenuYNull()) toProduct.MenuY = fromProduct.MenuY;
+            if (!fromProduct.IsUnitNull())  toProduct.Unit  = fromProduct.Unit;
+            if (!fromProduct.IsTitleCodeNull()) toProduct.TitleCode = fromProduct.TitleCode;
+            if (!fromProduct.IsEvaluatedCostNull()) toProduct.EvaluatedCost = fromProduct.EvaluatedCost;
         }
 
         private void btnUpdateProduct_Click(object sender, EventArgs e)
@@ -760,7 +765,10 @@ namespace VoucherExpense
                         else
                         {
                             posProduct = posBakerySet.Product.NewProductRow();
+                            posProduct.BeginEdit();
                             CopyProductRow(pr, posProduct);
+                            posProduct.ProductID = pr.ProductID;
+                            posProduct.EndEdit();
                             //posProduct.ItemArray = pr.ItemArray;
                             posBakerySet.Product.AddProductRow(posProduct);
                             added++;

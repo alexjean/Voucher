@@ -172,7 +172,7 @@ namespace VoucherExpense
                     programRow.ZippedImage = zipped;
                     programRow.MD5 = md5;
                     table.AddProgramRow(programRow);
-                    labelRequiredVersion.Text = "正在上傳 " + ver;
+                    labelRequiredVersion.Text = ver+" 正在上傳";
                     Application.DoEvents();
                     programAdapter.Update(table);    
                     programAdapter.Connection.Dispose();

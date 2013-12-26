@@ -5,6 +5,15 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+#if UseSQLServer
+using MyDataSet = VoucherExpense.DamaiDataSet;
+using MyBankDetailAdapter = VoucherExpense.DamaiDataSetTableAdapters.BankDetailTableAdapter;
+using MyBankDetailTable = VoucherExpense.DamaiDataSet.BankDetailDataTable;
+#else
+using MyDataSet = VoucherExpense.VEDataSet;
+using MyBankDetailAdapter = VoucherExpense.VEDataSetTableAdapters.BankDetailTableAdapter;
+using MyBankDetailTable = VoucherExpense.VEDataSet.BankDetailDataTable;
+#endif
 
 namespace VoucherExpense
 {
@@ -19,25 +28,27 @@ namespace VoucherExpense
         bool m_CloseForm = false;
         ExcelLib excel = null;
 
+        MyDataSet m_DataSet = new MyDataSet();
+        MyBankDetailAdapter BankDetailAdapter = new MyBankDetailAdapter();
 
-        private void MakeBankAccountComboBox()
-        {
-            this.bankAccountTableAdapter.Fill(this.veDataSet1.BankAccount);
-            List<CBankAccountForComboBox> list = new List<CBankAccountForComboBox>();
-            CBankAccountForComboBox acc = new CBankAccountForComboBox();
-            list.Add(acc);
-            foreach (VEDataSet.BankAccountRow r in veDataSet1.BankAccount)
-            {
-                if (r.ID != 1)   // ID 1是給零用金的特殊帳號
-                {
-                    acc = new CBankAccountForComboBox();
-                    acc.Name = r.ShowName;
-                    acc.ID   = r.ID;
-                    list.Add(acc);
-                }
-            }
-            cbBankAccount.DataSource = list;
-        }
+        //private void MakeBankAccountComboBox()
+        //{
+        //    BankAccountAdapter.Fill(this.m_DataSet.BankAccount);
+        //    List<CBankAccountForComboBox> list = new List<CBankAccountForComboBox>();
+        //    CBankAccountForComboBox acc = new CBankAccountForComboBox();
+        //    list.Add(acc);
+        //    foreach (var r in m_DataSet.BankAccount)
+        //    {
+        //        if (r.ID != 1)   // ID 1是給零用金的特殊帳號
+        //        {
+        //            acc = new CBankAccountForComboBox();
+        //            acc.Name = r.ShowName;
+        //            acc.ID   = r.ID;
+        //            list.Add(acc);
+        //        }
+        //    }
+        //    cbBankAccount.DataSource = list;
+        //}
 
         private void FormImportBankExcel_Load(object sender, EventArgs e)
         {
@@ -67,9 +78,29 @@ namespace VoucherExpense
                 MessageBox.Show("轉換Excel表過程出錯! 是否沒有安裝Excel或 Microsoft.Office.Interop.Excel.dll不存在!");
                 m_CloseForm = true;
             }
-            bankDetailTableAdapter.Connection  = MapPath.VEConnection;
-            bankAccountTableAdapter.Connection = MapPath.VEConnection;    //必需在 MakeBankAccountComboBox()之前
-            MakeBankAccountComboBox();
+#if (UseSQLServer)
+            var bankAccountAdapter = new VoucherExpense.DamaiDataSetTableAdapters.BankAccountTableAdapter();
+#else
+            var bankAccountAdapter = new VoucherExpense.VEDataSetTableAdapters.BankAccountTableAdapter();
+            BankDetailAdapter.Connection  = MapPath.VEConnection;
+            bankAccountAdapter.Connection = MapPath.VEConnection;    //必需在 MakeBankAccountComboBox()之前
+#endif
+            //            MakeBankAccountComboBox();
+            bankAccountAdapter.Fill(this.m_DataSet.BankAccount);
+            List<CBankAccountForComboBox> list = new List<CBankAccountForComboBox>();
+            CBankAccountForComboBox acc = new CBankAccountForComboBox();
+            list.Add(acc);
+            foreach (var r in m_DataSet.BankAccount)
+            {
+                if (r.ID != 1)   // ID 1是給零用金的特殊帳號
+                {
+                    acc = new CBankAccountForComboBox();
+                    acc.Name = r.ShowName;
+                    acc.ID = r.ID;
+                    list.Add(acc);
+                }
+            }
+            cbBankAccount.DataSource = list;
         }
 
         int indexDate = 0;
@@ -263,7 +294,7 @@ namespace VoucherExpense
                 MessageBox.Show("請選擇有資料的xls表!");
                 return;
             }
-            this.bankDetailTableAdapter.Fill(this.veDataSet1.BankDetail);
+            BankDetailAdapter.Fill(m_DataSet.BankDetail);
 
             CBankAccountForComboBox acc = new CBankAccountForComboBox();
             
@@ -277,18 +308,18 @@ namespace VoucherExpense
                 return;
             }
             int maxId = 1;
-            foreach (VEDataSet.BankDetailRow r in veDataSet1.BankDetail)
+            foreach (var r in m_DataSet.BankDetail)
                 if (r.ID > maxId) maxId = r.ID;
 
             int count=0;
-            VEDataSet.BankDetailDataTable table = new VEDataSet.BankDetailDataTable();
+            var table = new MyBankDetailTable();
 
             int maxNoteLen = table.NoteColumn.MaxLength;
           
             foreach (CBankDetail d in m_ImportDataList)
             {
                 count++;
-                foreach (VEDataSet.BankDetailRow r in veDataSet1.BankDetail)
+                foreach (var r in m_DataSet.BankDetail)
                 {
                     if (r.BankID != acc.ID) continue;
                     if (r.Day != d.Date) continue;
@@ -302,7 +333,7 @@ namespace VoucherExpense
                     break;
                 }
                 
-                VEDataSet.BankDetailRow row = table.NewBankDetailRow();
+                var row = table.NewBankDetailRow();
                 maxId++;
                 row.ID = maxId;
                 row.BankID = acc.ID;
@@ -335,7 +366,7 @@ namespace VoucherExpense
                 MessageBox.Show("沒有新資料加入,不需要存!");
                 return;
             }
-            this.bankDetailTableAdapter.Update(table);
+            BankDetailAdapter.Update(table);
             btnConvert.Enabled = false;
             MessageBox.Show("成功轉入<"+acc.Name+"> 共"+count.ToString()+"筆資料!");
         }

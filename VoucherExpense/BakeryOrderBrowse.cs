@@ -351,13 +351,15 @@ namespace VoucherExpense
             lvItems.Columns[1].Text = "ID " + PureIDStr(order.ID) + (order.Deleted ? " deleted" : "");
             lvItems.Columns[2].Text = count.ToString();
             lvItems.Columns[3].Text = total.ToString("N0");
-            if (!order.IsDeductNull())
-            {
-                total -= order.Deduct;
-            }
+
             labelReturned.Visible = false;
             if (!order.IsIncomeNull())
             {
+                if (!order.IsDeductNull())
+                {
+                    if (order.Income < 0) total += order.Deduct;
+                    else                  total -= order.Deduct;
+                }
                 decimal income = Math.Round(order.Income, 2);
                 if (total != order.Income)
                 {

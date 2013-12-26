@@ -467,6 +467,12 @@ namespace VoucherExpense
             return flag;
         }
 
+        public static bool Decompress(byte[] source,string fName)
+        {
+            byte[] dest=Decompress(source);
+            return WriteBufferToFile(dest, fName, dest.Length);
+        }
+
         static public byte[] Decompress(byte[] source)
         {
             if ((source == null) || source.Length < 6) return null;

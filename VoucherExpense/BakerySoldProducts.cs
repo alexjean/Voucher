@@ -536,9 +536,7 @@ namespace VoucherExpense
 
         string LoadConfigPrinterName()
         {
-            HardwareConfig cfg = new HardwareConfig();
-            cfg.Load();
-            return cfg.PrinterName ?? "Zonerich AB-58MK USB";
+            return MyFunction.HardwareCfg.PrinterName ?? "Zonerich AB-58MK USB";
         }
 
         Encoding GB2312 = Encoding.GetEncoding("GB2312");

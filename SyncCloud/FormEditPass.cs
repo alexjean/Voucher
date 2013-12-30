@@ -52,15 +52,11 @@ namespace SyncCloud
             m_Cfg.Save();
         }
 
-        string SqlConnectString(string address, string database, string userID, string password)
-        {
-            return "Data Source=" + address + ";Initial Catalog=" + database
-                   + ";Persist Security Info=True;User ID=" + userID + ";Password=" + password;
-        }
+
 
         private void btnTestLocal_Click(object sender, EventArgs e)
         {
-            string connStr = SqlConnectString(tbxLocalServer.Text.Trim(), tbxLocalDb.Text.Trim()
+            string connStr = DB.SqlConnectString(tbxLocalServer.Text.Trim(), tbxLocalDb.Text.Trim()
                                             , tbxLocalUserId.Text.Trim(), tbxLocalPassword.Text.Trim());
             SqlConnection conn = new SqlConnection(connStr);
             try
@@ -79,7 +75,7 @@ namespace SyncCloud
 
         private void btnTestCloud_Click(object sender, EventArgs e)
         {
-            string connStr = SqlConnectString(tbxCloudServer.Text.Trim(), tbxCloudDb.Text.Trim()
+            string connStr = DB.SqlConnectString(tbxCloudServer.Text.Trim(), tbxCloudDb.Text.Trim()
                                 , tbxCloudUserId.Text.Trim(), tbxCloudPassword.Text.Trim());
             SqlConnection conn = new SqlConnection(connStr);
             try

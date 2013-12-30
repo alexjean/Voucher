@@ -17,9 +17,11 @@ namespace VoucherExpense
 {
     public partial class FormHardware : Form
     {
+        HardwareConfig Config;
         public FormHardware()
         {
             InitializeComponent();
+            Config = MyFunction.HardwareCfg;
         }
 
         private void btnFindPrinter_Click(object sender, EventArgs e)
@@ -49,7 +51,6 @@ namespace VoucherExpense
             SetIsServer(!box.Checked);
         }
 
-        HardwareConfig Config = new HardwareConfig();
         MyVEHeaderTable m_VEHeader = new MyVEHeaderTable();
         MyVEHeaderAdapter VEHeaderAdapter = new MyVEHeaderAdapter();
         private void FormHardware_Load(object sender, EventArgs e)
@@ -69,15 +70,16 @@ namespace VoucherExpense
             {
                 MessageBox.Show("程式錯誤!:" + ex.Message);
             }
-            Config.Load();
-            cbBoxRS232.Text       = Config.ComPortName;
-            textBoxPrinter.Text   = Config.PrinterName;
-            textBoxDotPrinter.Text = Config.DotPrinterName;
-            ckBoxIsServer.Checked = Config.IsServer;
-            textBoxDataDir.Text = Config.DataDir;
-            textBoxUserName.Text  = Config.UserName;
-            textBoxPassword.Text  = Config.Password;
-            textBoxBackupDir.Text = Config.BackupDir;
+//            Config.Load();
+            cbBoxRS232.Text         = Config.ComPortName;
+            textBoxProfileName.Text = Config.ProfileName;
+            textBoxPrinter.Text     = Config.PrinterName;
+            textBoxDotPrinter.Text  = Config.DotPrinterName;
+            ckBoxIsServer.Checked   = Config.IsServer;
+            textBoxDataDir.Text     = Config.DataDir;
+            textBoxUserName.Text    = Config.UserName;
+            textBoxPassword.Text    = Config.Password;
+            textBoxBackupDir.Text   = Config.BackupDir;
 
             textBoxSqlServerIP.Text = Config.SqlServerIP;
             textBoxSqlDatabase.Text = Config.SqlDatabase;
@@ -103,14 +105,15 @@ namespace VoucherExpense
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            Config.ComPortName= cbBoxRS232.Text;
-            Config.PrinterName= textBoxPrinter.Text;
-            Config.DotPrinterName = textBoxDotPrinter.Text;
-            Config.IsServer = ckBoxIsServer.Checked;
-            Config.DataDir    = textBoxDataDir.Text.Trim();
-            Config.UserName   = textBoxUserName.Text.Trim();
-            Config.Password   = textBoxPassword.Text.Trim();
-            Config.BackupDir  = textBoxBackupDir.Text.Trim();
+            Config.ProfileName = textBoxProfileName.Text.Trim();
+            Config.ComPortName = cbBoxRS232.Text.Trim();
+            Config.PrinterName = textBoxPrinter.Text.Trim();
+            Config.DotPrinterName = textBoxDotPrinter.Text.Trim();
+            Config.IsServer    = ckBoxIsServer.Checked;
+            Config.DataDir     = textBoxDataDir.Text.Trim();
+            Config.UserName    = textBoxUserName.Text.Trim();
+            Config.Password    = textBoxPassword.Text.Trim();
+            Config.BackupDir   = textBoxBackupDir.Text.Trim();
             Config.Save();
             MessageBox.Show("Mdb及備份設定 存檔完成! 重新啟動程式後, 設定方生效.");
         }
@@ -118,6 +121,7 @@ namespace VoucherExpense
 
         private void btnSaveSql_Click(object sender, EventArgs e)
         {
+            Config.ProfileName = textBoxProfileName.Text.Trim();
             Config.SqlServerIP = textBoxSqlServerIP.Text.Trim();
             Config.SqlDatabase = textBoxSqlDatabase.Text.Trim();
             Config.SqlUserID   = textBoxSqlUserID.Text.Trim();

@@ -58,6 +58,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.labelDataBase = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.textBoxSqlServerIP = new System.Windows.Forms.TextBox();
@@ -70,7 +71,7 @@
             this.textBoxSqlUserID = new System.Windows.Forms.TextBox();
             this.textBoxSqlPassword = new System.Windows.Forms.TextBox();
             this.btnSaveSql = new System.Windows.Forms.Button();
-            this.labelDataBase = new System.Windows.Forms.Label();
+            this.textBoxProfileName = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -381,6 +382,15 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "版本要求";
             // 
+            // labelDataBase
+            // 
+            this.labelDataBase.AutoSize = true;
+            this.labelDataBase.Location = new System.Drawing.Point(190, 32);
+            this.labelDataBase.Name = "labelDataBase";
+            this.labelDataBase.Size = new System.Drawing.Size(91, 16);
+            this.labelDataBase.TabIndex = 24;
+            this.labelDataBase.Text = "SQL or MDB";
+            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.textBoxBackupDir);
@@ -411,7 +421,7 @@
             // 
             // textBoxSqlServerIP
             // 
-            this.textBoxSqlServerIP.Location = new System.Drawing.Point(106, 29);
+            this.textBoxSqlServerIP.Location = new System.Drawing.Point(106, 42);
             this.textBoxSqlServerIP.Name = "textBoxSqlServerIP";
             this.textBoxSqlServerIP.Size = new System.Drawing.Size(277, 27);
             this.textBoxSqlServerIP.TabIndex = 2;
@@ -419,7 +429,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(30, 34);
+            this.label7.Location = new System.Drawing.Point(30, 47);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(65, 16);
             this.label7.TabIndex = 8;
@@ -427,7 +437,7 @@
             // 
             // textBoxSqlDatabase
             // 
-            this.textBoxSqlDatabase.Location = new System.Drawing.Point(106, 85);
+            this.textBoxSqlDatabase.Location = new System.Drawing.Point(106, 75);
             this.textBoxSqlDatabase.Name = "textBoxSqlDatabase";
             this.textBoxSqlDatabase.Size = new System.Drawing.Size(277, 27);
             this.textBoxSqlDatabase.TabIndex = 9;
@@ -435,7 +445,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(30, 88);
+            this.label8.Location = new System.Drawing.Point(30, 78);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(56, 16);
             this.label8.TabIndex = 10;
@@ -443,6 +453,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.textBoxProfileName);
             this.groupBox4.Controls.Add(this.label9);
             this.groupBox4.Controls.Add(this.label10);
             this.groupBox4.Controls.Add(this.textBoxSqlUserID);
@@ -501,14 +512,12 @@
             this.btnSaveSql.UseVisualStyleBackColor = true;
             this.btnSaveSql.Click += new System.EventHandler(this.btnSaveSql_Click);
             // 
-            // labelDataBase
+            // textBoxProfileName
             // 
-            this.labelDataBase.AutoSize = true;
-            this.labelDataBase.Location = new System.Drawing.Point(190, 32);
-            this.labelDataBase.Name = "labelDataBase";
-            this.labelDataBase.Size = new System.Drawing.Size(91, 16);
-            this.labelDataBase.TabIndex = 24;
-            this.labelDataBase.Text = "SQL or MDB";
+            this.textBoxProfileName.Location = new System.Drawing.Point(106, 0);
+            this.textBoxProfileName.Name = "textBoxProfileName";
+            this.textBoxProfileName.Size = new System.Drawing.Size(169, 27);
+            this.textBoxProfileName.TabIndex = 19;
             // 
             // FormHardware
             // 
@@ -590,5 +599,6 @@
         private System.Windows.Forms.TextBox textBoxSqlPassword;
         private System.Windows.Forms.Button btnSaveSql;
         private System.Windows.Forms.Label labelDataBase;
+        private System.Windows.Forms.TextBox textBoxProfileName;
     }
 }

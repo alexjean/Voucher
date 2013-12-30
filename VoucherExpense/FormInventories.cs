@@ -684,7 +684,7 @@ namespace VoucherExpense
                 DateTime prevDate=new DateTime(MyFunction.IntHeaderYear-1,12,31);
                 if (prev!=null) prevDate=prev.CheckDay.Date;     // 盤點日當天的進貨單,都計入是本期的
                 var vouchers = from vo in m_DataSet.Voucher
-                               where(!vo.IsStockTimeNull()) && (vo.StockTime.Date > prevDate) && (vo.StockTime.Date <= curr.CheckDay.Date) && (!vo.Removed)
+                               where(!vo.IsStockTimeNull()) && (vo.StockTime.Date > prevDate) && (vo.StockTime.Date <= curr.CheckDay.Date) && (vo.IsRemovedNull() || (!vo.Removed))
                                orderby vo.StockTime descending
                                select vo;
                 // 計算本期進貨

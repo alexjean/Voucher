@@ -21,9 +21,11 @@ namespace VoucherExpense
 {
     public partial class FormInitNewYear : Form
     {
+        HardwareConfig m_HCfg;
         public FormInitNewYear()
         {
             InitializeComponent();
+            m_HCfg = MyFunction.HardwareCfg;
         }
 
         List<string> GetTableName(DataSet ds)
@@ -39,7 +41,6 @@ namespace VoucherExpense
         MyDataSet m_DataSet = new MyDataSet();
         MyOrderSet m_OrderSet;
         string NewSqlDB = "Daimai";
-        HardwareConfig m_HCfg = new HardwareConfig();
         private void FormInitNewYear_Load(object sender, EventArgs e)
         {
             try
@@ -54,7 +55,6 @@ namespace VoucherExpense
                 veHeaderAdapter.Connection = MapPath.VEConnection;
                 veHeaderAdapter.Fill(m_DataSet.Header);
 #endif
-                m_HCfg.Load();
             }
             catch
             {
@@ -161,15 +161,18 @@ namespace VoucherExpense
 
         private void btnAction_Click(object sender, EventArgs e)
         {
-            if (Directory.Exists(m_Dir))
-            {
-                MessageBox.Show("目錄" + m_Dir + " 己經存在!");
-                return;
-            }
             try
             {
-                Message("建立目錄");
-                Directory.CreateDirectory(m_Dir);
+                if (Directory.Exists(m_Dir))
+                {
+                    if (MessageBox.Show("目錄" + m_Dir + " 己經存在! 仍要繼續?", "", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                        return;
+                }
+                else
+                {
+                    Message("建立目錄");
+                    Directory.CreateDirectory(m_Dir);
+                }
                 Message("建立新年度的" + HardwareConfig.CfgFileName);
                 string backupStr = m_HCfg.SqlDatabase;
                 m_HCfg.SqlDatabase = NewSqlDB;
@@ -184,34 +187,39 @@ namespace VoucherExpense
                 sqlMasterConn.Open();
                 sqlCommand.Connection = sqlMasterConn;
                 int num = (int)sqlCommand.ExecuteScalar();
+                bool createNew = true;
                 if (num > 0)
                 {
-                    MessageBox.Show("己經存在[" + NewSqlDB + "], 無法新建!");
-                    return;
+                    if (MessageBox.Show("己經存在[" + NewSqlDB + "], 將不新建及複制,只檢查PK及FK.仍要繼續嗎?","",MessageBoxButtons.YesNo)!=DialogResult.Yes)
+                        return;
+                    createNew = false;
                 }
-                // 建立 DataBase
-                sqlCommand = sqlMasterConn.CreateCommand();
-                sqlCommand.CommandText = "CREATE DATABASE [" + NewSqlDB + "]";
-                num = sqlCommand.ExecuteNonQuery();
-                // 建立所有的空Table
-                List<string> list = GetTableName(m_DataSet);    // 懶得寫SqlCommand,直接重DataSet定義抓
-                string destDB="["+NewSqlDB+"].[dbo].[";
-                string sourDB="["+m_HCfg.SqlDatabase+"].[dbo].[";
-                foreach(string name in list)
+                if (createNew)
                 {
-                    string cmd="select * into " + destDB + name + "] from " + sourDB + name + "]";
-                    var results = from string s in chListBoxVE.CheckedItems where s == name select s;
-                    if (results.Count() <= 0)
+                    // 建立 DataBase
+                    sqlCommand = sqlMasterConn.CreateCommand();
+                    sqlCommand.CommandText = "CREATE DATABASE [" + NewSqlDB + "]";
+                    num = sqlCommand.ExecuteNonQuery();
+                    // 建立所有的空Table
+                    List<string> list = GetTableName(m_DataSet);    // 懶得寫SqlCommand,直接重DataSet定義抓
+                    string destDB = "[" + NewSqlDB + "].[dbo].[";
+                    string sourDB = "[" + m_HCfg.SqlDatabase + "].[dbo].[";
+                    foreach (string name in list)
                     {
-                        sqlCommand.CommandText = cmd + " where 1=0";    // 只建立結構,不帶主Key及FK
-                        sqlCommand.ExecuteNonQuery();
-                        Message("建立空 [" + name + "]");
-                    }
-                    else
-                    {
-                        sqlCommand.CommandText = cmd + " where 1=1";    // 建立結構,也Copy資料
-                        num=sqlCommand.ExecuteNonQuery();
-                        MessageBox.Show("複制 [" + name + "] 共"+num.ToString()+"筆!");
+                        string cmd = "select * into " + destDB + name + "] from " + sourDB + name + "]";
+                        var results = from string s in chListBoxVE.CheckedItems where s == name select s;
+                        if (results.Count() <= 0)
+                        {
+                            sqlCommand.CommandText = cmd + " where 1=0";    // 只建立結構,不帶主Key及FK
+                            sqlCommand.ExecuteNonQuery();
+                            Message("建立空 [" + name + "]");
+                        }
+                        else
+                        {
+                            sqlCommand.CommandText = cmd + " where 1=1";    // 建立結構,也Copy資料
+                            num = sqlCommand.ExecuteNonQuery();
+                            MessageBox.Show("複制 [" + name + "] 共" + num.ToString() + "筆!");
+                        }
                     }
                 }
                 sqlMasterConn.Dispose();
@@ -224,12 +232,24 @@ namespace VoucherExpense
                 string cmdPosfix=" ) WITH (PAD_INDEX = OFF,STATISTICS_NORECOMPUTE = OFF,IGNORE_DUP_KEY = OFF,ALLOW_ROW_LOCKS = ON,ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]";
                 foreach (DataTable tab in m_DataSet.Tables)
                 {
-                    cmdPrifix = "ALTER TABLE [dbo].[" + tab.TableName + "] ADD  CONSTRAINT [PK_" + tab.TableName + "] PRIMARY KEY CLUSTERED ( ";
-                    cmdMiddle = "";
-                    foreach (DataColumn col in tab.PrimaryKey)
-                        cmdMiddle +=("["+ col.ColumnName + "] ASC,");
-                    sqlCommand.CommandText = cmdPrifix + cmdMiddle.Substring(0,cmdMiddle.Length-1) + cmdPosfix;
-                    sqlCommand.ExecuteNonQuery();
+                    sqlCommand.CommandText = "Select * from sys.indexes where object_id=object_id('" + tab.TableName + "') and is_primary_key=1";
+                    num = 0;
+                    object o=sqlCommand.ExecuteScalar();
+                    if (o != null && !o.Equals(DBNull.Value))
+                        num = (int)o;
+                    if (num > 0)
+                    {
+                        MessageBox.Show("[" + tab.TableName + "] 己經存在主Key,將不新建主Key,請自行檢查是否正確!");
+                    }
+                    else
+                    {
+                        cmdPrifix = "ALTER TABLE [dbo].[" + tab.TableName + "] ADD  CONSTRAINT [PK_" + tab.TableName + "] PRIMARY KEY CLUSTERED ( ";
+                        cmdMiddle = "";
+                        foreach (DataColumn col in tab.PrimaryKey)
+                            cmdMiddle += ("[" + col.ColumnName + "] ASC,");
+                        sqlCommand.CommandText = cmdPrifix + cmdMiddle.Substring(0, cmdMiddle.Length - 1) + cmdPosfix;
+                        sqlCommand.ExecuteNonQuery();
+                    }
                 }
                 // 建立Relation,,AutoIncrement
                 foreach (DataRelation fk in m_DataSet.Relations)

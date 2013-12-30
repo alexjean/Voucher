@@ -61,7 +61,6 @@
             this.labelDeduct = new System.Windows.Forms.Label();
             this.labelDeductLabel = new System.Windows.Forms.Label();
             this.labelReturned = new System.Windows.Forms.Label();
-            this.productTableAdapter = new VoucherExpense.BakeryOrderSetTableAdapters.ProductTableAdapter();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStatics)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hourStaticsBindingSource)).BeginInit();
@@ -357,10 +356,6 @@
             this.labelReturned.Text = "退貨號";
             this.labelReturned.Visible = false;
             // 
-            // productTableAdapter
-            // 
-            this.productTableAdapter.ClearBeforeFill = true;
-            // 
             // BakeryOrderBrowse
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -407,7 +402,6 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelTotal;
-        private BakeryOrderSetTableAdapters.ProductTableAdapter productTableAdapter;
         private System.Windows.Forms.ComboBox cbBoxDay;
         private System.Windows.Forms.ComboBox cbBoxMonth;
         private System.Windows.Forms.Label labelDeduct;

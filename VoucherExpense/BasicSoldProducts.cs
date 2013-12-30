@@ -491,8 +491,7 @@ namespace VoucherExpense
 
         string LoadConfigPrinterName()
         {
-            HardwareConfig cfg = new HardwareConfig();
-            cfg.Load();
+            HardwareConfig cfg = MyFunction.HardwareCfg;
             return cfg.PrinterName ?? "Zonerich AB-58MK USB";
         }
 

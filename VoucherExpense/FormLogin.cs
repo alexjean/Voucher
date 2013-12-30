@@ -15,15 +15,9 @@ namespace VoucherExpense
         HardwareConfig m_Cfg;
         MapPath m_MapPath;
         string m_BranchName="麥麥麥達人";
-        public FormLogin()
-        {
-            string EncryptedPasword = "mpwfCblfsz";   // loveBakery
-            string password = "";
-            foreach (char c in EncryptedPasword) password += (char)(c - 1);
-            global::VoucherExpense.Properties.Settings.Default.BakeryOrderConnectionString += password;
 
-            HardwareConfig cfg = new HardwareConfig();
-            cfg.Load();
+        void SetGlobalConnectionString(HardwareConfig cfg)
+        {
             global::VoucherExpense.Properties.Settings.Default.SqlVeConnectionString =
                    "Data Source=" + cfg.SqlServerIP
                   + ";Initial Catalog=" + cfg.SqlDatabase
@@ -35,8 +29,17 @@ namespace VoucherExpense
                   + ";Initial Catalog=" + cfg.SqlDatabase
                   + ";Persist Security Info=True;User ID=" + cfg.SqlUserID
                   + ";Password=" + cfg.SqlPassword;
+        }
+        public FormLogin()
+        {
+            string EncryptedPasword = "mpwfCblfsz";   // loveBakery
+            string password = "";
+            foreach (char c in EncryptedPasword) password += (char)(c - 1);
+            global::VoucherExpense.Properties.Settings.Default.BakeryOrderConnectionString += password;
 
-            m_Cfg = cfg;
+            HardwareConfig cfg = new HardwareConfig();
+            cfg.Load();
+            SetGlobalConnectionString(m_Cfg = cfg);
             InitializeComponent();
             ShowLogin(false);
 #if (!UseSQLServer)
@@ -45,6 +48,16 @@ namespace VoucherExpense
             m_MapPath = new MapPath(timer1, progressBar1,cfg);
 #endif
         }
+
+        private void FormLogin_Load(object sender, EventArgs e)
+        {
+            List<string> list=new List<string>();
+            foreach(var profile in m_Cfg.ProfileList)
+                list.Add(profile.profileName);
+            cbxProfile.DataSource = list;
+
+        }
+
 
         private void ShowLogin(bool Yes)
         {
@@ -67,7 +80,7 @@ namespace VoucherExpense
             if (e.Y < Top) return;
             if (e.Y > Bottom) return;
             ShowLogin(true);
-            ReadTable();
+            ReadTable();        //  要防一開始就Call cbxProfile_SelectedIndexChanged
             ErrorCount = 0;
             textBoxUserID.Focus();
         }
@@ -316,14 +329,17 @@ namespace VoucherExpense
                 btnLogin.Enabled = true;
             }
 
-            operatorTableAdapter1.Connection =  MapPath.VEConnection;
-            headerTableAdapter1.Connection =    MapPath.VEConnection;
-            apartmentTableAdapter1.Connection = MapPath.VEConnection;
+            var operatorAdapter     = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
+            var headerAdapter       = new VoucherExpense.VEDataSetTableAdapters.HeaderTableAdapter();
+            var apartmentAdapter    = new VoucherExpense.VEDataSetTableAdapters.ApartmentTableAdapter();
+            operatorAdapter.Connection  = MapPath.VEConnection;
+            headerAdapter.Connection    = MapPath.VEConnection;
+            apartmentAdapter.Connection = MapPath.VEConnection;
             try
             {
-                operatorTableAdapter1.Fill(veDataSet1.Operator);
-                headerTableAdapter1.Fill(veDataSet1.Header);
-                apartmentTableAdapter1.Fill(veDataSet1.Apartment);
+                operatorAdapter.Fill(veDataSet1.Operator);
+                headerAdapter.Fill(veDataSet1.Header);
+                apartmentAdapter.Fill(veDataSet1.Apartment);
             }
             catch(Exception ex)
             {
@@ -496,8 +512,9 @@ namespace VoucherExpense
 
         private void FormLogin_Shown(object sender, EventArgs e)
         {
+            this.cbxProfile.SelectedIndexChanged += new System.EventHandler(this.cbxProfile_SelectedIndexChanged);     // 防止未顯示就去Call
 #if DEBUG
-            if (!m_Cfg.IsServer) 
+            if (!m_Cfg.IsServer)
                 System.Threading.Thread.Sleep(250);   // 給 WinExec一點時間,執行完 Net Use * /Delete /Yes
             ShowLogin(true);
             ReadTable();
@@ -505,13 +522,34 @@ namespace VoucherExpense
             if (row != null)
             {
                 GetHeaderYear();
-                Form Home = new FormHome(row, m_Cfg,m_BranchName);
+                Form Home = new FormHome(row, m_Cfg, m_BranchName);
                 Visible = false;
                 Home.ShowDialog();
                 Close();
             }
 #endif
         }
+
+        private void cbxProfile_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox box = sender as ComboBox;
+            string profileName=box.SelectedItem.ToString();
+            Cursor = Cursors.WaitCursor;
+            Application.DoEvents();
+            foreach (HardwareProfile p in m_Cfg.ProfileList)
+            {
+                if (p.profileName == profileName)
+                {
+                    m_Cfg.SetDefaultAs(p);
+                    SetGlobalConnectionString(m_Cfg);
+                    ReadTable();
+                    break;
+                }
+            }
+            Cursor = Cursors.Arrow;
+            textBoxUserID.Focus();
+        }
+
 
  
     }

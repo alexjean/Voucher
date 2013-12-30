@@ -36,13 +36,11 @@
             this.labelUserID = new System.Windows.Forms.Label();
             this.labelPassword = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbxProfile = new System.Windows.Forms.ComboBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.btnLogin = new System.Windows.Forms.Button();
-            this.operatorTableAdapter1 = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
             this.veDataSet1 = new VoucherExpense.VEDataSet();
-            this.headerTableAdapter1 = new VoucherExpense.VEDataSetTableAdapters.HeaderTableAdapter();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.apartmentTableAdapter1 = new VoucherExpense.VEDataSetTableAdapters.ApartmentTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.veDataSet1)).BeginInit();
@@ -62,7 +60,7 @@
             // textBoxUserID
             // 
             this.textBoxUserID.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBoxUserID.Location = new System.Drawing.Point(41, 78);
+            this.textBoxUserID.Location = new System.Drawing.Point(39, 113);
             this.textBoxUserID.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxUserID.Name = "textBoxUserID";
             this.textBoxUserID.Size = new System.Drawing.Size(148, 27);
@@ -71,7 +69,7 @@
             // textBoxPassword
             // 
             this.textBoxPassword.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBoxPassword.Location = new System.Drawing.Point(41, 166);
+            this.textBoxPassword.Location = new System.Drawing.Point(39, 187);
             this.textBoxPassword.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.PasswordChar = '*';
@@ -81,7 +79,7 @@
             // labelUserID
             // 
             this.labelUserID.AutoSize = true;
-            this.labelUserID.Location = new System.Drawing.Point(47, 58);
+            this.labelUserID.Location = new System.Drawing.Point(45, 93);
             this.labelUserID.Name = "labelUserID";
             this.labelUserID.Size = new System.Drawing.Size(40, 16);
             this.labelUserID.TabIndex = 3;
@@ -91,7 +89,7 @@
             // labelPassword
             // 
             this.labelPassword.AutoSize = true;
-            this.labelPassword.Location = new System.Drawing.Point(47, 146);
+            this.labelPassword.Location = new System.Drawing.Point(45, 167);
             this.labelPassword.Name = "labelPassword";
             this.labelPassword.Size = new System.Drawing.Size(40, 16);
             this.labelPassword.TabIndex = 4;
@@ -100,6 +98,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cbxProfile);
             this.groupBox1.Controls.Add(this.progressBar1);
             this.groupBox1.Controls.Add(this.labelPassword);
             this.groupBox1.Controls.Add(this.labelUserID);
@@ -113,6 +112,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "請登入";
             // 
+            // cbxProfile
+            // 
+            this.cbxProfile.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.cbxProfile.FormattingEnabled = true;
+            this.cbxProfile.ItemHeight = 20;
+            this.cbxProfile.Location = new System.Drawing.Point(39, 41);
+            this.cbxProfile.Name = "cbxProfile";
+            this.cbxProfile.Size = new System.Drawing.Size(148, 28);
+            this.cbxProfile.TabIndex = 7;
+            // 
             // progressBar1
             // 
             this.progressBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -125,7 +134,7 @@
             // btnLogin
             // 
             this.btnLogin.AutoSize = true;
-            this.btnLogin.Location = new System.Drawing.Point(74, 234);
+            this.btnLogin.Location = new System.Drawing.Point(72, 244);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(75, 26);
             this.btnLogin.TabIndex = 5;
@@ -133,22 +142,10 @@
             this.btnLogin.UseVisualStyleBackColor = true;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
-            // operatorTableAdapter1
-            // 
-            this.operatorTableAdapter1.ClearBeforeFill = true;
-            // 
             // veDataSet1
             // 
             this.veDataSet1.DataSetName = "VEDataSet";
             this.veDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // headerTableAdapter1
-            // 
-            this.headerTableAdapter1.ClearBeforeFill = true;
-            // 
-            // apartmentTableAdapter1
-            // 
-            this.apartmentTableAdapter1.ClearBeforeFill = true;
             // 
             // FormLogin
             // 
@@ -164,6 +161,7 @@
             this.Name = "FormLogin";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Load += new System.EventHandler(this.FormLogin_Load);
             this.Shown += new System.EventHandler(this.FormLogin_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox1.ResumeLayout(false);
@@ -182,11 +180,9 @@
         private System.Windows.Forms.Label labelPassword;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnLogin;
-        private VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter operatorTableAdapter1;
         private VEDataSet veDataSet1;
-        private VoucherExpense.VEDataSetTableAdapters.HeaderTableAdapter headerTableAdapter1;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Timer timer1;
-        private VEDataSetTableAdapters.ApartmentTableAdapter apartmentTableAdapter1;
+        private System.Windows.Forms.ComboBox cbxProfile;
     }
 }

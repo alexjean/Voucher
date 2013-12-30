@@ -32,7 +32,7 @@ namespace VoucherExpense
 
             Operator=Op;
             MyFunction.OperatorID=Op.OperatorID;
-            m_Config = cfg;
+            MyFunction.HardwareCfg=m_Config = cfg;
             m_BranchName = branchName;
             SetFormTitle();
 

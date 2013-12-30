@@ -40,22 +40,7 @@ namespace VoucherExpense
 
     static class MyFunction
     {
-/*
-        #region OleDB Connection
-        static public OleDbConnection VEConnection    = new OleDbConnection(global::VoucherExpense.Properties.Settings.Default.VoucherExpenseConnectionString);
-        static public OleDbConnection BasicConnection = new OleDbConnection(global::VoucherExpense.Properties.Settings.Default.BasicDataConnectionString);
-        const string HeadStr="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=";
-        const string TailStr=";Persist Security Info=True;Jet OLEDB:Database Password=";
-        static public void SetVEConnectionString(string path,string password)
-        {
-            VEConnection.ConnectionString = HeadStr + path + TailStr + password;
-        }
-        static public void SetBasicConnectionString(string path,string password)
-        {
-            BasicConnection.ConnectionString = HeadStr + path + TailStr + password;
-        }
-        #endregion
-*/
+
         #region Validating Function
         static public bool UintValidate(string intStr)
         {
@@ -159,7 +144,7 @@ namespace VoucherExpense
             if (str[0] == '-') str = str.Substring(1);
             foreach (char c in str)
             {
-                if (!char.IsDigit(c))
+                if (!char.IsDigit(c) && c!=',')
                 {
                     if (c == '.')
                     {
@@ -415,6 +400,7 @@ namespace VoucherExpense
         static public int IntHeaderYear = 2008;
         static public int IntHeaderMonth = 1;
         static public bool LockAll = true;
+        static public HardwareConfig HardwareCfg = null;
 
         public static bool CompressFileToBuf(string sourceFile, out byte[] zippedDest,out byte[] md5)
         {

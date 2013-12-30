@@ -182,7 +182,5 @@ namespace SyncCloud
 
             node.Attributes.Append(att);
         }
-
-
     }
 }

@@ -3,12 +3,34 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 using System.IO;
+using System.Windows.Forms;
 
 namespace VoucherExpense
 {
+
+    public class HardwareProfile
+    {
+        public string profileName;
+
+        public string printerName;
+        public string comPortName;
+        public string dataDir;
+        public string userName;
+        public string password;
+        public bool isServer;
+        public string backupDir;
+        public string dotPrinterName;
+
+        public string sqlServerIP;
+        public string sqlDatabase;
+        public string sqlUserID;
+        public string sqlPassword;
+    }
+
     public class HardwareConfig
     {
         public static string CfgFileName = "HardwareCfg.xml";
+        public string ProfileName;
         public string PrinterName;
         public string ComPortName;
         public string DataDir;
@@ -23,6 +45,8 @@ namespace VoucherExpense
         public string SqlUserID;
         public string SqlPassword;
 
+        public List<HardwareProfile> ProfileList = null;
+        public HardwareProfile ActiveProfile = null;
 
         public string MaskDataDir()
         {
@@ -42,6 +66,11 @@ namespace VoucherExpense
         public HardwareConfig()
         {
             IsServer = true;
+        }
+
+        public List<string> GetProfileList()
+        {
+            return new List<string>();
         }
 
         void GetAttrib(XmlNode node,string attrib,ref string name)
@@ -84,6 +113,70 @@ namespace VoucherExpense
             }
         }
 
+        public void LoadToProfile(XmlNode node,HardwareProfile curr)
+        {
+            GetAttrib(node.SelectSingleNode("ComPort")       , "Name", ref curr.comPortName);
+            GetAttrib(node.SelectSingleNode("ReceiptPrinter"), "Name", ref curr.printerName);
+            GetAttrib(node.SelectSingleNode("DotPrinter")    , "Name", ref curr.dotPrinterName);
+
+            XmlNode Server = node.SelectSingleNode("DataSource");
+            if (Server != null)
+            {
+                string str = "";
+                GetAttrib(Server, "IsServer", ref str);
+                if (str != null && str.ToUpper() == "NO") curr.isServer = false;
+                else curr.isServer = true;
+                GetEncryptedAttrib(Server, "DataDir"    , ref curr.dataDir);
+                GetEncryptedAttrib(Server, "UserName"   , ref curr.userName);
+                GetEncryptedAttrib(Server, "Password"   , ref curr.password);
+                GetEncryptedAttrib(Server, "BackupDir"  , ref curr.backupDir);
+
+                GetEncryptedAttrib(Server, "SqlServerIP", ref curr.sqlServerIP);
+                GetEncryptedAttrib(Server, "SqlUserID"  , ref curr.sqlUserID);
+                GetEncryptedAttrib(Server, "SqlPassword", ref curr.sqlPassword);
+                GetEncryptedAttrib(Server, "SqlDatabase", ref curr.sqlDatabase);
+            }
+        }
+
+        public void SetDefaultAs(HardwareProfile curr)
+        {
+            if (curr == null) return;
+            ActiveProfile = curr;
+            ProfileName =curr.profileName;
+            PrinterName =curr.printerName;
+            ComPortName =curr.comPortName;
+            DataDir     =curr.dataDir;
+            UserName    =curr.userName;
+            Password    =curr.password;
+            IsServer    =curr.isServer;
+            BackupDir   =curr.backupDir;
+            DotPrinterName=curr.dotPrinterName;
+
+            SqlServerIP =curr.sqlServerIP;
+            SqlDatabase =curr.sqlDatabase;
+            SqlUserID   =curr.sqlUserID;
+            SqlPassword =curr.sqlPassword;
+        }
+
+        public void SaveDefaultTo(HardwareProfile curr)
+        {
+            if (curr == null) return;
+            curr.profileName = ProfileName;
+            curr.printerName = PrinterName;
+            curr.comPortName = ComPortName;
+            curr.dataDir     = DataDir;
+            curr.userName    = UserName;
+            curr.password    = Password;
+            curr.isServer    = IsServer;
+            curr.backupDir   = BackupDir;
+            curr.dotPrinterName = DotPrinterName;
+
+            curr.sqlServerIP = SqlServerIP;
+            curr.sqlDatabase = SqlDatabase;
+            curr.sqlUserID   = SqlUserID;
+            curr.sqlPassword = SqlPassword;
+        }
+
         public void Load()
         {
             try
@@ -91,28 +184,39 @@ namespace VoucherExpense
                 XmlDocument doc = new XmlDocument();
                 doc.Load(CfgFileName);
                 XmlNode root = doc.DocumentElement;
-                GetAttrib(root.SelectSingleNode("ComPort")       ,"Name", ref ComPortName);
-                GetAttrib(root.SelectSingleNode("ReceiptPrinter"),"Name", ref PrinterName);
-                GetAttrib(root.SelectSingleNode("DotPrinter")    ,"Name", ref DotPrinterName);
-
-
-                XmlNode Server = root.SelectSingleNode("DataSource");
-                if (Server != null)
+                if (root.Name == "HardwareConfig")     // 舊版的,只有一個Profile
                 {
-                    string str = "";
-                    GetAttrib(Server, "IsServer", ref str);
-                    if (str != null && str.ToUpper() == "NO") IsServer = false;
-                    else IsServer = true;
-                    GetEncryptedAttrib(Server, "DataDir", ref DataDir);
-                    GetEncryptedAttrib(Server, "UserName", ref UserName);
-                    GetEncryptedAttrib(Server, "Password", ref Password);
-                    GetEncryptedAttrib(Server, "BackupDir", ref BackupDir);
-
-                    GetEncryptedAttrib(Server, "SqlServerIP", ref SqlServerIP);
-                    GetEncryptedAttrib(Server, "SqlUserID"  , ref SqlUserID  );
-                    GetEncryptedAttrib(Server, "SqlPassword", ref SqlPassword);
-                    GetEncryptedAttrib(Server, "SqlDatabase", ref SqlDatabase);
+                    ProfileList = new List<HardwareProfile>();
+                    HardwareProfile curr = new HardwareProfile();
+                    curr.profileName = "預設值";
+                    LoadToProfile(root, curr);
+                    SetDefaultAs(curr);
+                    ProfileList.Add(curr);
+                    ActiveProfile = curr;
                 }
+                else if (root.Name == "HardwareProfile")
+                {
+                    ProfileList = new List<HardwareProfile>();
+                    foreach (XmlNode node in root.ChildNodes)
+                    {
+                        if (node.Name == "Profile")
+                        {
+                            HardwareProfile curr = new HardwareProfile();
+                            curr.profileName = "預設值";
+                            GetAttrib(node, "Name", ref curr.profileName);
+                            LoadToProfile(node, curr);
+                            ProfileList.Add(curr);
+                        }
+                    }
+                    if (ProfileList.Count > 0)
+                    {
+                        ActiveProfile = ProfileList[0];
+                        SetDefaultAs(ActiveProfile);
+                    }
+                }
+                else
+                    MessageBox.Show("未知的HardwareCfg.xml格式!");
+
             }
             catch { }
         }
@@ -122,26 +226,38 @@ namespace VoucherExpense
             SaveTo(".");
         }
 
+        private void SaveToNode(XmlDocument doc,XmlNode node, HardwareProfile curr)
+        {
+            UpdateXmlAttrib(doc, node, "ComPort"        , "Name", curr.comPortName);
+            UpdateXmlAttrib(doc, node, "ReceiptPrinter" , "Name", curr.printerName);
+            UpdateXmlAttrib(doc, node, "DotPrinter"     , "Name", curr.dotPrinterName);
+            UpdateXmlAttrib(doc, node, "DataSource"     , "IsServer", (IsServer ? "YES" : "NO"));
+            UpdateXmlAttribEncrypted(doc, node, "DataSource", "DataDir"     , curr.dataDir);
+            UpdateXmlAttribEncrypted(doc, node, "DataSource", "UserName"    , curr.userName);
+            UpdateXmlAttribEncrypted(doc, node, "DataSource", "Password"    , curr.password);
+            UpdateXmlAttribEncrypted(doc, node, "DataSource", "BackupDir"   , curr.backupDir);
+
+            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlServerIP" , curr.sqlServerIP);
+            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlUserID"   , curr.sqlUserID);
+            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlPassword" , curr.sqlPassword);
+            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlDatabase" , curr.sqlDatabase);
+        }
+
         public void SaveTo(string dir)
         {
+            SaveDefaultTo(ActiveProfile);
             XmlDocument doc = new XmlDocument();
-            doc.LoadXml(@"<HardwareConfig />");
+            doc.LoadXml(@"<HardwareProfile />");
             XmlNode root = doc.FirstChild;
-            UpdateXmlAttrib(doc, root, "ComPort"       , "Name" , ComPortName);
-            UpdateXmlAttrib(doc, root, "ReceiptPrinter", "Name" , PrinterName);
-            UpdateXmlAttrib(doc, root, "DotPrinter"    , "Name" , DotPrinterName);
-            UpdateXmlAttrib(doc, root, "DataSource", "IsServer", (IsServer ? "YES" : "NO"));
-            UpdateXmlAttribEncrypted(doc, root, "DataSource", "DataDir", DataDir);
-            UpdateXmlAttribEncrypted(doc, root, "DataSource", "UserName", UserName);
-            UpdateXmlAttribEncrypted(doc, root, "DataSource", "Password", Password);
-            UpdateXmlAttribEncrypted(doc, root, "DataSource", "BackupDir", BackupDir);
-
-            UpdateXmlAttribEncrypted(doc, root, "DataSource", "SqlServerIP" , SqlServerIP);
-            UpdateXmlAttribEncrypted(doc, root, "DataSource", "SqlUserID"   , SqlUserID  );
-            UpdateXmlAttribEncrypted(doc, root, "DataSource", "SqlPassword" , SqlPassword);
-            UpdateXmlAttribEncrypted(doc, root, "DataSource", "SqlDatabase" , SqlDatabase);
-
-            
+            foreach(var profile in ProfileList)
+            {
+                XmlNode node = doc.CreateElement("Profile");
+                root.AppendChild(node);
+                XmlAttribute att = doc.CreateAttribute("Name");
+                att.Value = profile.profileName;
+                node.Attributes.Append(att);
+                SaveToNode(doc, node, profile);
+            }
             doc.Save(dir+"\\"+CfgFileName);
         }
 
@@ -157,7 +273,7 @@ namespace VoucherExpense
             node.AppendChild(text);
         }
 
-        protected void UpdateXmlAttrib(XmlDocument xml, XmlNode root, string Name, string Attrib, string Value)
+        protected XmlNode UpdateXmlAttrib(XmlDocument xml, XmlNode root, string Name, string Attrib, string Value)
         {
             XmlNode node = root.SelectSingleNode(Name);
             if (node == null)
@@ -168,6 +284,7 @@ namespace VoucherExpense
             XmlAttribute att = xml.CreateAttribute(Attrib);
             att.Value = Value;
             node.Attributes.Append(att);
+            return node;
         }
 
         protected void UpdateXmlAttribEncrypted(XmlDocument xml, XmlNode root, string Name, string Attrib, string Value)

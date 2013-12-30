@@ -130,21 +130,22 @@ namespace VoucherExpense
         {
 
 #if UseSQLServer
-            var productSQLAdapter = new DamaiDataSetTableAdapters.ProductTableAdapter();
+            var productAdapter = new DamaiDataSetTableAdapters.ProductTableAdapter();
             try
             {
-                productSQLAdapter.Fill(m_OrderSet.Product);
+                productAdapter.Fill(m_OrderSet.Product);
             }
 #else
-            this.productTableAdapter.Connection = MapPath.BakeryConnection;
+            var productAdapter = new BakeryOrderSetTableAdapters.ProductTableAdapter();
+            productAdapter.Connection           = MapPath.BakeryConnection;
             m_OrderTableAdapter.Connection      = MapPath.BakeryConnection;
             m_OrderItemTableAdapter.Connection  = MapPath.BakeryConnection;
             m_DrawerReocrdAdapter.Connection    = MapPath.BakeryConnection;
             try
             {
-                this.productTableAdapter.Fill(m_OrderSet.Product);
+                productAdapter.Fill(m_OrderSet.Product);
             }
-#endif 
+#endif
             catch (Exception ex)
             {
                 MessageBox.Show("載入烘焙產品表時出錯,原因:" + ex.Message);

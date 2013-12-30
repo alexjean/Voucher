@@ -25,6 +25,7 @@ using MyProductAdapter      = VoucherExpense.DamaiDataSetTableAdapters.ProductTa
 using MyOrderAdapter        = VoucherExpense.DamaiOrderAdapter;
 using MyOrderItemAdapter    = VoucherExpense.DamaiOrderItemAdapter;
 using MyDrawerRecordAdapter = VoucherExpense.DamaiDrawerRecordAdapter;
+using System.Security.Cryptography;
 #else
 using MyDataSet         = VoucherExpense.VEDataSet;
 using MyOrderSet        = VoucherExpense.BakeryOrderSet;
@@ -40,6 +41,7 @@ using MyProductAdapter      = VoucherExpense.BakeryOrderSetTableAdapters.Product
 using MyOrderAdapter        = VoucherExpense.BakeryOrderAdapter;
 using MyOrderItemAdapter    = VoucherExpense.BakeryOrderItemAdapter;
 using MyDrawerRecordAdapter = VoucherExpense.BakeryDrawerRecordAdapter;
+using System.Security.Cryptography;
 #endif
 
 namespace VoucherExpense
@@ -373,18 +375,61 @@ namespace VoucherExpense
             }
         }
 
+        MD5 m_MD5 = new MD5CryptoServiceProvider();
         void CopyOrderRow(BakeryOrderSet.OrderRow order, MyOrderRow newOrder)
         {
-            if (!order.IsBranchIDNull())    newOrder.BranchID   = order.BranchID;
-            if (!order.IsCashierIDNull())   newOrder.CashierID  = order.CashierID;
-            if (!order.IsDeductNull())      newOrder.Deduct     = order.Deduct;
-            if (!order.IsDeletedNull())     newOrder.Deleted    = order.Deleted;
-            if (!order.IsDiscountRateNull()) newOrder.DiscountRate = order.DiscountRate;
-            if (!order.IsIncomeNull())      newOrder.Income     = order.Income;
-            if (!order.IsPayByNull())       newOrder.PayBy      = order.PayBy;
-            if (!order.IsPrintTimeNull())   newOrder.PrintTime  = order.PrintTime;
+            string str = "";
+            if (!order.IsBranchIDNull())
+            {
+                newOrder.BranchID = order.BranchID;
+                str += order.BranchID.ToString();
+            }
+            if (!order.IsCashierIDNull())
+            {
+                newOrder.CashierID = order.CashierID;
+                str += order.CashierID.ToString();
+            }
+            if (!order.IsDeductNull())
+            {
+                newOrder.Deduct = order.Deduct;
+                str += order.Deduct.ToString("N2");
+            }
+            if (!order.IsDeletedNull())
+            {
+                newOrder.Deleted = order.Deleted;
+                if (newOrder.Deleted) str += '1';     // SQL的bit是0 1
+                else                  str += '0';
+            }
+            if (!order.IsDiscountRateNull())
+            {
+                newOrder.DiscountRate = order.DiscountRate;    
+                str += order.DiscountRate.ToString("N2");  // decimal都被CAST成二位小數
+            }
+            if (!order.IsIncomeNull())
+            {
+                newOrder.Income = order.Income;
+                str += order.Income.ToString("N2");
+            }
+            if (!order.IsPayByNull())
+            {
+                newOrder.PayBy = order.PayBy;
+                str+= order.PayBy.ToString();
+            }
+            if (!order.IsPrintTimeNull())
+            {
+                newOrder.PrintTime = order.PrintTime;           
+                DateTime t = order.PrintTime;
+                str += t.ToString("yyyy-MM-dd hh:mm:ss");      // SQL CAST時是直接去million second
+            }
             if (!order.IsOldIDNull())       newOrder.OldID      = order.OldID;
             if (!order.IsRCashierIDNull())  newOrder.RCashierID = order.RCashierID;
+            str += newOrder.OldID.ToString();        // 這二個在SQL裏是NotNULL
+            str += newOrder.RCashierID.ToString();  
+            // 計算MD5
+#if (UseSQLServer)
+            byte[] md5 = m_MD5.ComputeHash(Encoding.Unicode.GetBytes(str));
+            newOrder.MD5 = md5;
+#endif 
         }
 
         void CopyOrder(BakeryOrderSet.OrderRow order,int posID)
@@ -583,6 +628,7 @@ namespace VoucherExpense
                         return;
                     }
                 }
+                // Order及OrderItem的MD5由AP處理, Drawer不用MD5,忽略刪除記錄的同步
                 OrderAdapter.FillBySelectStr    (m_OrderSet.Order        , "Select * From [Order] "        + SqlOrder + " Order by ID");
                 OrderItemAdapter.FillBySelectStr(m_OrderSet.OrderItem    , "Select * From [OrderItem] "    + SqlOrder );
                 DrawerAdapter.FillBySelectStr   (m_OrderSet.DrawerRecord , "Select * From [DrawerRecord] " + SqlDrawer);

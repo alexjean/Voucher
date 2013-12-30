@@ -25,7 +25,7 @@ namespace VoucherExpense
             InitializeComponent();
         }
         Image image;
-        HardwareConfig Config = new HardwareConfig();
+        HardwareConfig Config ;
         string Apartmentname="";
        // bool  StateIsEndit = false;//状态是否编辑
         MyDataSet m_DataSet = new MyDataSet();
@@ -64,7 +64,7 @@ namespace VoucherExpense
             }
             textBox1.Text = Apartmentname;
             //设定打印机
-            Config.Load();
+            Config = MyFunction.HardwareCfg;
             PrinterSettings ps = new PrinterSettings();
             ps.PrinterName = Config.DotPrinterName;
             pD.PrinterSettings = ps;
@@ -318,7 +318,7 @@ namespace VoucherExpense
             }
             if (!this.bindingNavigatorAddNewItem.Enabled)
             {
-                MessageBox.Show("单子正在编辑！");
+                MessageBox.Show("单子正在编辑！有单未保存, 先按保存");
                 return;
             }  
            // string y = "#" + MyFunction.HeaderYear + "/";

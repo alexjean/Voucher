@@ -149,12 +149,12 @@ namespace VoucherExpense
                 e.HasMorePages = false;
             }
         }
-        HardwareConfig Config = new HardwareConfig();
+        HardwareConfig Config;
         private void button1_Click(object sender, EventArgs e)
         {
             try
             {
-                Config.Load();
+                Config = MyFunction.HardwareCfg;
                 PrinterSettings ps = new PrinterSettings();
                 ps.PrinterName = Config.DotPrinterName;
                 pD.PrinterSettings = ps;

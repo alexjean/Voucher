@@ -136,7 +136,7 @@ namespace VoucherExpense
                     r.LastUpdated = DateTime.Now;
                     r.AuthenID = MyFunction.OperatorID;
                     r.EndEdit();
-                    if (r.CashierPassword.Length < 5) Message("==>收銀員 " + r.CashierID.ToString() + " 密碼太短,無法登入!");
+                    if (r.IsCashierPasswordNull() || r.CashierPassword.Length < 5) Message("==>收銀員 " + r.CashierID.ToString() + " 密碼太短,無法登入!");
                     else
                     {
                         foreach (char c in r.CashierPassword)

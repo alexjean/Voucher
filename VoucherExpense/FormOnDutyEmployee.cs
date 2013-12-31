@@ -195,7 +195,7 @@ namespace VoucherExpense
             progressBar1.Maximum = data.Length+1;       // +1 nothing buf for safe
             progressBar1.Step = 1;
             progressBar1.Visible = true;
-            foreach (VEDataSet.OnDutyDataRow r in vEDataSet.OnDutyData)
+            foreach (var r in m_DataSet.OnDutyData)
                 if (r.ID > max) max = r.ID;
             foreach (string s in data)
             {
@@ -209,7 +209,7 @@ namespace VoucherExpense
                     if (!int.TryParse(l[2], out code)) continue;
                     if (!DateTime.TryParse(l[5]+" "+l[6],out dt)) continue;
                     if (dt.Year != MyFunction.IntHeaderYear) continue;       // 不是今年的資料,不收錄
-                    var linqRow = from lr in vEDataSet.OnDutyData
+                    var linqRow = from lr in m_DataSet.OnDutyData
                                   where (lr.TimeMark.Date == dt.Date && lr.TimeMark.Hour == dt.Hour && lr.TimeMark.Minute == dt.Minute && lr.OnDutyCode == code && lr.Fingerprintmachine == machineno)
                                   select lr.RowState;
                     if (linqRow.Count() > 0)

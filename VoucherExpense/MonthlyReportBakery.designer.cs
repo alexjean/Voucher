@@ -319,7 +319,7 @@
             // 
             // labelCash
             // 
-            this.labelCash.Location = new System.Drawing.Point(184, 6);
+            this.labelCash.Location = new System.Drawing.Point(184, 7);
             this.labelCash.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelCash.Name = "labelCash";
             this.labelCash.Size = new System.Drawing.Size(67, 16);
@@ -337,7 +337,7 @@
             // 
             // labelRevenue
             // 
-            this.labelRevenue.Location = new System.Drawing.Point(96, 6);
+            this.labelRevenue.Location = new System.Drawing.Point(96, 7);
             this.labelRevenue.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelRevenue.Name = "labelRevenue";
             this.labelRevenue.Size = new System.Drawing.Size(71, 16);
@@ -357,7 +357,7 @@
             // 
             // labelCreditNet
             // 
-            this.labelCreditNet.Location = new System.Drawing.Point(901, 5);
+            this.labelCreditNet.Location = new System.Drawing.Point(901, 7);
             this.labelCreditNet.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelCreditNet.Name = "labelCreditNet";
             this.labelCreditNet.Size = new System.Drawing.Size(79, 16);
@@ -366,7 +366,7 @@
             // 
             // labelCreditFee
             // 
-            this.labelCreditFee.Location = new System.Drawing.Point(978, 9);
+            this.labelCreditFee.Location = new System.Drawing.Point(978, 7);
             this.labelCreditFee.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelCreditFee.Name = "labelCreditFee";
             this.labelCreditFee.Size = new System.Drawing.Size(90, 16);
@@ -375,7 +375,7 @@
             // 
             // labelFeeRate
             // 
-            this.labelFeeRate.Location = new System.Drawing.Point(1076, 10);
+            this.labelFeeRate.Location = new System.Drawing.Point(1076, 7);
             this.labelFeeRate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelFeeRate.Name = "labelFeeRate";
             this.labelFeeRate.Size = new System.Drawing.Size(65, 16);

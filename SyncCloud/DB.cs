@@ -18,14 +18,14 @@ namespace SyncCloud
 
         public static bool GetDeletedVersion(SqlConnection conn,out int maxID)
         {
-            SqlCommand cmd = new SqlCommand("SELECT MAX(DeletedID) from dbo.SyncDeletedVersion where 1=1", conn);
+            SqlCommand cmd = new SqlCommand("SELECT MAX(DeletedID) from dbo.SyncUpdatedVersion where 1=1", conn);
             maxID = -1;
             try
             {
                 object obj = cmd.ExecuteScalar();
                 if (obj == DBNull.Value)
                 {
-                    cmd.CommandText = "INSERT INTO dbo.SyncDeletedVersion (DeletedID,Locked) VALUES(0,1)";
+                    cmd.CommandText = "INSERT INTO dbo.SyncUpdatedVersion (DeletedID,Locked) VALUES(0,1)";
                     cmd.ExecuteNonQuery();
                     maxID = 0;
                     return true;                          // 是空的
@@ -43,7 +43,7 @@ namespace SyncCloud
             }
             catch (Exception ex)
             {
-                MessageBox.Show("取得<刪除版本号>出錯,原因:" + ex.Message);
+                MessageBox.Show("取得<更新版本号>出錯,原因:" + ex.Message);
                 return false;
             }
         }
@@ -70,18 +70,88 @@ namespace SyncCloud
             return list;
         }
 
-        static public void CheckSyncTable(SqlConnection conn)
+        static public bool CheckSyncTable(SqlConnection conn,string briefName)
         {
+Retry:
             SqlCommand cmd = new SqlCommand("dbo.uspCheckSyncTable", conn);
             cmd.CommandType = CommandType.StoredProcedure;
             try
             {
                 object obj = cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch (SqlException ex)
+            {
+                if (ex.Number == 0xafc)
+                {
+                    if (MessageBox.Show(briefName+"沒有找到預存程序"+"[uspCheckSyncTable],是否建立?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        if (CreateStoredProcedure(StoredProcedureName.uspCheckSynTable, conn))
+                            goto Retry;
+                    }
+                }
+                else
+                    MessageBox.Show("呼叫uspCheckSynctable時出錯,原因:" + ex.Message);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("呼叫uspCheckSynctable時出錯,原因:" + ex.Message);
             }
+            return false;
+        }
+
+        public enum StoredProcedureName { uspCheckSynTable };
+        static public bool CreateStoredProcedure(StoredProcedureName name,SqlConnection conn)
+        {
+            StringBuilder sb=new StringBuilder();
+            string cmdTxt;
+            switch (name)
+            {
+                case StoredProcedureName.uspCheckSynTable:
+                     sb=new StringBuilder("CREATE PROCEDURE [dbo].[uspCheckSyncTable] AS\r\n");
+                     sb.AppendLine("BEGIN");
+                     sb.AppendLine("Declare @tableName nvarchar(50)");
+                     sb.AppendLine("DECLARE @program nvarchar(512)");
+	                 sb.AppendLine("DECLARE @maxID int");
+	                 sb.AppendLine("DECLARE @result int");
+	                 sb.AppendLine("SET NOCOUNT ON");
+	                 sb.AppendLine("DECLARE My_Cursor Cursor");
+	                 sb.AppendLine("FOR (Select SO.name from sysobjects SO where SO.xtype ='U' and SO.status>= 0) ORDER BY SO.name");
+	                 sb.AppendLine("OPEN My_Cursor");
+	                 sb.AppendLine("FETCH NEXT FROM My_Cursor INTO @tableName");
+	                 sb.AppendLine("WHILE @@FETCH_STATUS =0");
+	                 sb.AppendLine("BEGIN");
+		             sb.AppendLine("    IF (@tableName not like 'Order%') and (@tableName not like 'Sync%') and (@tableName<>'DrawerRecord') and (@tableName not like '%Detail')");
+                     sb.AppendLine("    BEGIN");
+			         sb.AppendLine("    SET @result=(SELECT Count(Name) from SyncTable where Name=@tableName)");
+			         sb.AppendLine("    IF (@result<=0)");
+			         sb.AppendLine("        BEGIN");
+			         sb.AppendLine("        Set @maxID=ISNULL((SELECT MAX(TableID) from SyncTable),0)+1");
+				     sb.AppendLine("        INSERT INTO [dbo].[SyncTable] ([TableID],[Name]) Values(@maxID,@tableName)");
+			         sb.AppendLine("        END");
+		             sb.AppendLine("    END");
+		             sb.AppendLine("    FETCH NEXT FROM My_Cursor INTO @tableName");
+	                 sb.AppendLine("END");
+	                 sb.AppendLine("CLOSE My_Cursor");
+	                 sb.AppendLine("DEALLOCATE My_Cursor");
+                     sb.AppendLine("END");
+                     cmdTxt=sb.ToString();
+                     break;
+                default: MessageBox.Show("不知名字的Stored Procedure 程式錯誤!");
+                         return false;
+            }
+            try
+            {
+                SqlCommand sc=new SqlCommand(cmdTxt,conn);
+                sc.ExecuteNonQuery();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("創建Stored Procedure<"+name.ToString()+">失敗,原因:"+ex.Message);
+                return false;
+            }
+            return true;
+
         }
 
         static public bool SameStruct(string TableName, SqlConnection DB1, SqlConnection DB2)
@@ -138,7 +208,68 @@ namespace SyncCloud
             return true;
         }
 
+        static string PrimaryKeyStandardOption=" WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY] ) ON [PRIMARY]";
+        public enum SyncDataTable { SyncUpdatedVersion ,SyncTable,SyncMD5Old};
+        static public bool CreateDataTable(SyncDataTable tableName,SqlConnection conn)
+        {
+            string cmdStr;
+            string name = tableName.ToString();
+            switch (tableName)
+            {
+                case SyncDataTable.SyncUpdatedVersion:
+                    cmdStr = "CREATE TABLE [dbo].[SyncUpdatedVersion] (";
+                    cmdStr += "  [DeletedID] [int] NOT NULL,[Locked] [bit],";
+                    cmdStr += "  CONSTRAINT [PK_Sync_UpdatedVersion] PRIMARY KEY CLUSTERED ( [DeletedID] ASC )" + PrimaryKeyStandardOption;
+                    break;
+                case SyncDataTable.SyncTable:
+                    cmdStr = "CREATE TABLE [dbo].[SyncTable] (";
+                    cmdStr+= "  [TableID] [int] NOT NULL,";
+	                cmdStr+= "  [Name] [nvarchar](50) NOT NULL,";
+	                cmdStr+= "  [MD5] [uniqueidentifier] NULL,";
+	                cmdStr+= "  [RecordCount] [int] NULL,";
+	                cmdStr+= "  [PKIsInt] [bit] NULL,";
+                    cmdStr+= "  [PKCast] [sysname] NULL,";
+	                cmdStr+= "  [CastMethod] [varchar](max) NULL,";
+                    cmdStr+= "  [RelationForeignKeyName] [nvarchar](50) NULL,";
+                    cmdStr += "  CONSTRAINT [PK_SyncTable] PRIMARY KEY CLUSTERED ( [TableID] ASC )" + PrimaryKeyStandardOption;
+                    break;
+                case SyncDataTable.SyncMD5Old:
+                    cmdStr = "CREATE TABLE [dbo].[SyncMD5Old](";
+	                cmdStr+= "  [ID] [uniqueidentifier] NOT NULL,";
+	                cmdStr+= "  [TableID] [int] NULL,";
+	                cmdStr+= "  [PKInt] [int] NULL,";
+	                cmdStr+= "  [PKUUID] [uniqueidentifier] NULL,";
+	                cmdStr+= "  [MD5] [binary](16) NULL,";
+                    cmdStr+= "  CONSTRAINT [PK_SyncMD5Old] PRIMARY KEY CLUSTERED ( [ID] ASC )"+ PrimaryKeyStandardOption;
+                    break;
+                default:
+                    MessageBox.Show("不知TableName[" + name + "] 程式錯誤!");
+                    return false;
+            }
+            SqlCommand cmd = new SqlCommand(cmdStr, conn);
+            try
+            {
+                object obj = cmd.ExecuteScalar();
+                if (obj!=null)   
+                {
+                    MessageBox.Show("創建Sync用資料表["+name+"]出錯!");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("創建Sync用資料表["+name+"]出錯,原因:" + ex.Message);
+                return false;
+            }
+            return true;
+        }
 
+        static public bool AskCreateDataTable(string prefix, SyncDataTable tableName, SqlConnection conn)
+        {
+            if (MessageBox.Show(prefix+"必需有["+tableName.ToString()+"]資料表! 要創建嗎?", "", MessageBoxButtons.YesNo) != DialogResult.Yes) return false;
+            if (!CreateDataTable(tableName, conn)) return false;
+            return true;
+        }
 
     }
 }

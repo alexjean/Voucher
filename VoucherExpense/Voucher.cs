@@ -98,7 +98,6 @@ namespace VoucherExpense
             dateTimePicker1.MinDate = new DateTime(MyFunction.IntHeaderYear, 1, 1);
         }
 
-
         void SetupBindingSource()
         {
             voucherBindingSource.DataSource                 = m_DataSet;

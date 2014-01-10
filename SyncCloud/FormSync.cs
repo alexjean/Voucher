@@ -35,6 +35,7 @@ namespace SyncCloud
         {
             try
             {
+                Message("開啟本地資料庫!");
                 LocalServer = new SqlConnection(DB.SqlConnectString(m_Cfg.LocalServer, m_Cfg.LocalDatabase, m_Cfg.LocalUserId, m_Cfg.LocalPassword));
                 LocalServer.Open();
             }
@@ -46,6 +47,7 @@ namespace SyncCloud
             }
             try
             {
+                Message("開啟雲端資料庫!");
                 CloudServer = new SqlConnection(DB.SqlConnectString(m_Cfg.CloudServer, m_Cfg.CloudDatabase, m_Cfg.CloudUserId, m_Cfg.CloudPassword));
                 CloudServer.Open();
             }
@@ -58,50 +60,78 @@ namespace SyncCloud
             return true;
         }
 
+        void Message(string msg)
+        {
+            listBoxMessage.Items.Add(msg);
+            Application.DoEvents();
+        }
 
-
-   
         private void btnSync_Click(object sender, EventArgs e)
         {
+            
             if (!ConnectBothServer()) return;                         // 連本机 連雲端
             List<string> LocalList = DB.GetTablesName(LocalServer);   // 本机所有TableName
             List<string> CloudList = DB.GetTablesName(CloudServer);
-            if (!CloudList.Contains("SyncDeletedVersion"))
+            if (!CloudList.Contains("SyncUpdatedVersion"))
             {
-                MessageBox.Show("雲端必需有[SyncDeleledVersion]資料表! 程式版本和雲資料庫版本不符!");
+                if (!DB.AskCreateDataTable("雲端", DB.SyncDataTable.SyncUpdatedVersion, CloudServer))
+                    return;
+            }
+            if (!LocalList.Contains("SyncTable"))
+            {
+                if (!DB.AskCreateDataTable("本地", DB.SyncDataTable.SyncTable, LocalServer))
+                    return;
+            }
+            if (!CloudList.Contains("SyncTable"))
+            {
+                if (!DB.AskCreateDataTable("雲端", DB.SyncDataTable.SyncTable, CloudServer))
+                    return;
+            }
+            int updatedVersion;
+            if (!DB.GetDeletedVersion(CloudServer, out updatedVersion))  // 雲端Deleted的版本号
+            {
+                MessageBox.Show("無法取得或鎖定雲端己更新版本号!");
                 return;
             }
-            int deletedVersion;
-            if (!DB.GetDeletedVersion(CloudServer, out deletedVersion))  // 雲端Deleted的版本号
+            Message("雲端己更新版本号為<"+updatedVersion.ToString()+">");
+            Message("=================================");
+            for (int i = LocalList.Count - 1; i >= 0; i--) 
             {
-                MessageBox.Show("無法取得或鎖定雲端刪除号!");
-                return;
-            }
-            foreach (string local in LocalList)
-            {
-                string str;
+                string local=LocalList[i];
                 if (CloudList.Contains(local))
                 {
-
-                    if (DB.SameStruct(local, LocalServer, CloudServer))
-                        str = "Same      "+local;
-                    else
-                        str = "Different "+local;
+                    if (!DB.SameStruct(local, LocalServer, CloudServer))
+                    {
+                        Message("不同    " + local);
+                        if (local.Length > 4 && local.Substring(0, 4) == "Sync")
+                        {
+                            MessageBox.Show("Table[Sync*] 為同步所需檔案,不可不同,同步停止!");
+                            return;
+                        }
+                        LocalList.RemoveAt(i);
+                    }
                 }
-                else    str = "---------- "+local;
-                listBoxMessage.Items.Add(str);
-                Application.DoEvents();
+                else
+                {
+                    Message("雲端無 " + local);
+                    LocalList.RemoveAt(i);
+                }
             }
+            Message("============ 以上資料庫將不進行同步!");
             // 鎖定同步
             // 檢查SyncTable存在
-            DB.CheckSyncTable(LocalServer);
-            DB.CheckSyncTable(CloudServer);
+            if (!DB.CheckSyncTable(LocalServer,"本地")) return;
+            if (!DB.CheckSyncTable(CloudServer,"雲端")) return;
 
             // 比對 MD5Old 找出Deleted
             if (!LocalList.Contains("SyncMD5Old"))   // SyncMD5Old不存在
             {
-                MessageBox.Show("資料表[SyncMD5Old]不存在,程式和資料庫版本不符!");
-                return;
+                if (!DB.AskCreateDataTable("本地", DB.SyncDataTable.SyncMD5Old, LocalServer))
+                    return;
+            }
+            else
+            {   // 找出MD5Old和現有Record的不同
+                
             }
 
             // 記錄 Deleted 到雲端資料庫,記錄為(雲端Deleted版本号+1), 刪除雲端相對記錄

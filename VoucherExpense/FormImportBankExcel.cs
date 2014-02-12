@@ -151,9 +151,11 @@ namespace VoucherExpense
             indexCredit = 2;
             indexNote = cols.Count - 1;
             int i;
+            string s;
             for (i = 0; i < cols.Count; i++)
             {
-                if (cols[i].ColumnName.Contains("日期"))
+                s = cols[i].ColumnName;
+                if (s.Contains("日期") || s.Contains("交易日"))
                 {
                     indexDate = i;
                     break;
@@ -161,7 +163,8 @@ namespace VoucherExpense
             }
             for (i = 0; i < cols.Count; i++)
             {
-                if (cols[i].ColumnName.Contains("支出"))
+                s = cols[i].ColumnName;
+                if (s.Contains("支出") || s.Contains("借方"))
                 {
                     indexDebt = i;
                     break;
@@ -169,7 +172,8 @@ namespace VoucherExpense
             }
             for (i = 0; i < cols.Count; i++)
             {
-                if (cols[i].ColumnName.Contains("存入"))
+                s = cols[i].ColumnName;
+                if (s.Contains("存入") || s.Contains("贷方"))
                 {
                     indexCredit = i;
                     break;
@@ -177,7 +181,8 @@ namespace VoucherExpense
             }
             for (i = 0; i < cols.Count; i++)
             {
-                if (cols[i].ColumnName.Contains("摘要"))
+                s = cols[i].ColumnName;
+                if (s.Contains("摘要"))
                 {
                     indexNote = i;
                     break;
@@ -213,11 +218,17 @@ namespace VoucherExpense
             {
                 CBankDetail d = new CBankDetail();
                 decimal dec;
+                DateTime date;
                 try
                 {
                     string s = row[indexDate].ToString().Trim();
                     if (s.Length == 0) continue;    // 這個比try快的多, 日期錯,不列入計算行數
-                    d.Date = Convert.ToDateTime(s);
+                    if (!TryConvertDateTime(s, out date))
+                    {
+                        error++;
+                        continue;
+                    }
+                    else d.Date = date;
                     s = row[indexDebt].ToString().Trim();
                     if (s.Length != 0)
                         if (!Decimal.TryParse(s, out dec)) d.Debt = 0;
@@ -231,7 +242,10 @@ namespace VoucherExpense
                     list.Add(d);
                     correct++;
                 }
-                catch { error++; }
+                catch
+                {
+                    error++; 
+                }
             }
             ShowWarning(list.Count==0);
             dgViewImport.DataSource = list;
@@ -240,6 +254,33 @@ namespace VoucherExpense
             Application.DoEvents();
             MessageBox.Show("共成功 " + correct.ToString() + "筆! 失敗 " + error.ToString() + "筆!");
 
+        }
+
+        bool TryConvertDateTime(string s, out DateTime da)
+        {
+            da = DateTime.MinValue;
+            if (s == null || s.Length == 0) return false;
+            bool allDigit = true;
+            foreach (char c in s)
+            {
+                if (Char.IsDigit(c)) continue;
+                allDigit = false;
+                break;
+            }
+            try
+            {
+                if (s.Length == 8 && allDigit && s[0]=='2' && s[1]=='0')     // 測試是否 20140101格式, 21世紀適用
+                {
+                    int y = Convert.ToInt32(s.Substring(0, 4));
+                    int m = Convert.ToInt32(s.Substring(4, 2));
+                    int d = Convert.ToInt32(s.Substring(6, 2));
+                    da = new DateTime(y, m, d);
+                }
+                else da = Convert.ToDateTime(s);
+                return true;
+            }
+            catch{  }
+            return false;
         }
 
         private void FormImportBankExcel_Shown(object sender, EventArgs e)

@@ -1049,7 +1049,7 @@ namespace VoucherExpense
 
 
         const int LinePerPage = 50;
-        const int NoPerBlock = 40;
+        const int NoPerBlock = 38;
         const int BlockWidth = 330;
 
         private void printDocument_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
@@ -1075,23 +1075,24 @@ namespace VoucherExpense
             y = outter.Top + 2 * height;
             // DrawRectangle
             Pen pen = SystemPens.WindowText;
-            int h = height * NoPerBlock + height;
+            int h = height * (NoPerBlock-7) + height;      // 不用到全頁,為了折成5吋高傳票
             int half = height + height * NoPerBlock / 2;
             int w = BlockWidth;
             int x1 = inner.Left;
             for (; x1 <= inner.Left + BlockWidth ; x1 += BlockWidth)
                     m_Graphics.DrawRectangle(pen, new Rectangle(x1, y - 2, w, h));   // 方框寬w 高h
             x1 = inner.Left;
-            DrawStr("收銀對帳單浮貼處", x1, y);
-            DrawStr("刷卡收銀單浮貼處", x1 + BlockWidth, y);
             int y2 = half;
-            DrawStr("刷卡日結單浮貼處", x1, y2);
+            DrawStr("收銀對帳單浮貼處"        , x1, y);
+            DrawStr("銀行回單附於本表後方"    , x1, y2 - height);
+            DrawStr("異常單說明"             , x1, y2);
             x1 = inner.Left + BlockWidth;
-            DrawStr("異常單說明", x1, y2);
+            DrawStr("刷卡日結單浮貼處"              , x1, y);
+            DrawStr("以下數字若有手寫修改,需在旁簽名", x1, y2 - height);
             DrawLine(inner.Left, y2, inner.Left + w*2, y2);  // 中間橫線
 
-            y2 = y2 + height * 9;
-            DrawLine(x1, y2 - 2, x1 + w, y2 - 2);   // 統計那格上方那條橫線
+            //y2 = y2 + height * 9;
+            //DrawLine(x1, y2 - 2, x1 + w, y2 - 2);   // 統計那格上方那條橫線
             DrawStatics(x1, y2, height, w);
 
             y2 = y2 + height * 7;

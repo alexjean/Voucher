@@ -82,6 +82,26 @@ namespace BakeryOrder
             return "";
         }
 
+        string PrintLine(BakeryOrderSet.OrderRow order)
+        {
+            int id = order.ID % 100000;
+            decimal income = 0;
+            if (!order.IsIncomeNull())  income = order.Income;
+            DateTime printTime= new DateTime(2013, 10, 31);
+            if (!order.IsPrintTimeNull()) printTime = order.PrintTime;
+            string str=id.ToString("d3") + " " + printTime.ToString("HH:mm:ss") + " " + income.ToString("f0").PadLeft(3);
+            string addNote = "";
+            if (!order.IsDeletedNull() && order.Deleted) addNote += "删";
+            else if (!order.IsPayByNull())
+            {
+                if      (order.PayBy == "B") addNote += "卡";
+                else if (order.PayBy == "C") addNote += "券";
+            }
+            if (income < 0) addNote+="退";
+            if (addNote.Length == 0) addNote = "  ";
+            return str+addNote;
+        }
+
         void Print()
         {
             byte[] BorderMode = new byte[] { 0x1c, 0x21, 0x28 };
@@ -90,81 +110,75 @@ namespace BakeryOrder
 
             ByteBuilder Buf = new ByteBuilder(4096);
             Buf.DefaultEncoding = Encoding.GetEncoding("GB2312");
-            //            Buf.Append(BorderMode);                                      // 設定列印模式28
+            //            Buf.Append(BorderMode);                                  // 設定列印模式28
             Buf.Append(NormalMode);                                      // 設定列印模式正常 
 
             Buf.Append(m_Printer.Title+"对帐明细\r\n");
             Buf.AppendPadRight("时间:" + DateTime.Now.ToString("yy/MM/dd HH:mm"), 19);
-            string cashierIDName = m_CashierID.ToString("d03") + "  " + CashierName(m_CashierID);
+            string cashierIDName = m_CashierID.ToString("d03") + " " + CashierName(m_CashierID);
             Buf.Append("\r\n收银: " + cashierIDName + "\r\n");
             Buf.Append(NormalMode);                                      // 設定列印模式正常 
-            Buf.Append("- - - - - - - - - - - - - - - -\r\n");
-            int count = 0;
-            int deletedCount = 0, payByBCount = 0, payByCCount = 0,returnedCount=0;
-            decimal total = 0m;
-            
-            DateTime first=new DateTime(2050,10,31);
-            DateTime last =new DateTime(2012,10,31);
+            Buf.Append("- - - - - - - - - - - - - - - - - - - -\r\n");
+            bool odd = false;
             foreach (var order in m_BakeryOrderSet.Order)
             {
                 if (order.RowState == DataRowState.Deleted) continue;
-                if (order.CashierID == m_CashierID)
+                if (order.CashierID != m_CashierID) continue;
+                bool shouldPrint = false;
+                if (!order.IsIncomeNull() && order.Income <= 0)     shouldPrint = true;     // 收入為0 和退單的要印出
+                if (!order.IsDeletedNull() && order.Deleted)        shouldPrint = true;     // 刪單的要印出
+                if (!order.IsPayByNull())
                 {
-                    int id = order.ID % 100000;
-                    bool shouldPrint = false;
-                    decimal income = 0;
-                    if (!order.IsIncomeNull())
-                    {
-                        income = order.Income;
-                        if (income < 0)
-                            returnedCount++;
-                        if (income <= 0) shouldPrint = true;
-                    }
-                    if (!order.IsDeletedNull() && order.Deleted)
-                    {
-                        shouldPrint = true;    // 刪單的要印出
-                        deletedCount++;
-                    }
-                    if (!order.IsPayByNull())
-                    {
-                        if (order.PayBy == "B" || order.PayBy == "C") shouldPrint = true;    // 刷卡和券的要印出
-                        if (order.PayBy == "B") payByBCount++;
-                        if (order.PayBy == "C") payByCCount++;
-                    }
-                    DateTime printTime = new DateTime(2013, 10, 31);
-                    if (!order.IsPrintTimeNull())
-                    {
-                        printTime = order.PrintTime;
-                        if (order.PrintTime < first) first = printTime;
-                        if (order.PrintTime > last)  last  = printTime;
-                    }
-                    if (shouldPrint)
-                    {
-                        Buf.Append(id.ToString("d3") + " " + printTime.ToString("HH:mm:ss") + " " + income.ToString("f0"));
-                        if (!order.IsDeletedNull() && order.Deleted)
-                            Buf.Append(" 删");
-                        if (!order.IsPayByNull())
-                        {
-                            if (order.PayBy == "B") Buf.Append(" 卡");
-                            else if (order.PayBy == "C") Buf.Append(" 券");
-                        }
-                        if (income < 0) Buf.Append(" 退");
-                        Buf.Append("\r\n");
-                    }
-                    count++;
-                    total += income;
+                    if (order.PayBy == "B" || order.PayBy == "C")   shouldPrint = true;     // 刷卡和券的要印出
+                }
+                if (shouldPrint)
+                {
+                    Buf.Append(PrintLine(order));
+                    if (odd) Buf.Append("\r\n");
+                    else Buf.Append(" | ");
+                    odd = !odd;
                 }
             }
-            Buf.Append("- - - - - - - - - - - - - - - -\r\n");
-            Buf.Append("收银: " + cashierIDName + "\r\n");
-            Buf.Append("首單時間" + first.ToString("HH:mm:ss") + "\r\n");
-            Buf.Append("末單時間" + last.ToString("HH:mm:ss")  + "\r\n");
-            Buf.Append("刷卡 "+payByBCount.ToString()   + " 笔, 用券 " +payByCCount.ToString()+" 笔\r\n");
-            Buf.Append("删单 "+ deletedCount.ToString() + " 笔, 退货 " +returnedCount.ToString() + " 笔\r\n");
-
-            Buf.Append("共 " + count.ToString("d") + " 笔, " + total.ToString("f0") + "元\r\n");
+            if (odd) Buf.Append("\r\n");
+            Buf.Append("- - - - - - - - - - - - - - - - - - - -\r\n");
+            //  計算統計數字
+            int count = 0;
+            int deletedCount = 0, creditCount = 0, couponCount = 0, returnedCount = 0;
+            decimal total = 0m,credit=0m,coupon=0m;
+            DateTime first = new DateTime(2050, 10, 31);
+            DateTime last  = new DateTime(2012, 10, 31);
+            foreach (var order in m_BakeryOrderSet.Order)
+            {
+                if (order.RowState == DataRowState.Deleted) continue;
+                if (order.CashierID != m_CashierID) continue;
+                decimal income = 0;
+                if (!order.IsIncomeNull()) income = order.Income;
+                if (income < 0) returnedCount++;
+                if (!order.IsDeletedNull() && order.Deleted)  deletedCount++;
+                if (!order.IsPayByNull())
+                {
+                    if (order.PayBy == "B") { creditCount++; credit += income; }
+                    if (order.PayBy == "C") { couponCount++; coupon += income; }
+                }
+                if (!order.IsPrintTimeNull())
+                {
+                    if (order.PrintTime < first) first = order.PrintTime;
+                    if (order.PrintTime > last ) last  = order.PrintTime;
+                }
+                count++;
+                total += income;
+            }            
+            Buf.Append("收银 < " + cashierIDName + " >\r\n");
+            Buf.Append("首单時間 " + first.ToString("HH:mm:ss") + "\r\n");
+            Buf.Append("末单時間 " + last.ToString ("HH:mm:ss") + "\r\n");
+            Buf.Append("删单 "+ deletedCount.ToString("d").PadLeft(3) + " 笔, 退货 " +returnedCount.ToString("d").PadLeft(3) +" 笔\r\n");
+            Buf.Append("用券 " + couponCount.ToString("d").PadLeft(3) + " 笔");
+            if (couponCount==0) Buf.Append("\r\n");
+            else                Buf.Append(", " + coupon.ToString("f0").PadLeft(5) + "元\r\n");
+            Buf.Append("刷卡 " + creditCount.ToString("d").PadLeft(3) + " 笔, " + credit.ToString("f0").PadLeft(5) + "元\r\n");
+            Buf.Append("共   " + count.ToString("d").PadLeft(3)       + " 笔, " + total.ToString("f0").PadLeft(5)  + "元\r\n");
             Buf.Append(NormalMode);
-            Buf.Append("* * * * * * * * * * * * * * * *\r\n\r\n\r\n\r\n\r\n\r\n");
+            Buf.Append("* * * * * * * * * * * * * * * * * * * *\r\n\r\n\r\n\r\n\r\n\r\n");
             Buf.Append("\f");
             string str = Buf.ToString();
             //File.WriteAllBytes("Test.txt", Encoding.UTF8.GetBytes(str));

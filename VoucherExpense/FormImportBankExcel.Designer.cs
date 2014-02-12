@@ -35,6 +35,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.dgViewImport = new System.Windows.Forms.DataGridView();
+            this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.debtDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.creditDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.noteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cBankDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.labelWarning2 = new System.Windows.Forms.Label();
             this.labelWarning1 = new System.Windows.Forms.Label();
@@ -49,10 +53,6 @@
             this.cBankAccountForComboBoxBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bankAccountTableAdapter = new VoucherExpense.VEDataSetTableAdapters.BankAccountTableAdapter();
             this.labelWarning3 = new System.Windows.Forms.Label();
-            this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.debtDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.creditDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.noteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgViewImport)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cBankDetailBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.veDataSet1)).BeginInit();
@@ -79,7 +79,7 @@
             // 
             // openFileDialog1
             // 
-            this.openFileDialog1.Filter = "xls檔|*.xls";
+            this.openFileDialog1.Filter = "Excel檔|*.xls*";
             this.openFileDialog1.Title = "使用此功能,此機器需安裝Excel";
             // 
             // dgViewImport
@@ -101,6 +101,39 @@
             this.dgViewImport.RowTemplate.Height = 24;
             this.dgViewImport.Size = new System.Drawing.Size(739, 435);
             this.dgViewImport.TabIndex = 2;
+            // 
+            // dateDataGridViewTextBoxColumn
+            // 
+            this.dateDataGridViewTextBoxColumn.DataPropertyName = "Date";
+            this.dateDataGridViewTextBoxColumn.HeaderText = "日期";
+            this.dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
+            this.dateDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // debtDataGridViewTextBoxColumn
+            // 
+            this.debtDataGridViewTextBoxColumn.DataPropertyName = "Debt";
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.debtDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
+            this.debtDataGridViewTextBoxColumn.HeaderText = "支出";
+            this.debtDataGridViewTextBoxColumn.Name = "debtDataGridViewTextBoxColumn";
+            this.debtDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // creditDataGridViewTextBoxColumn
+            // 
+            this.creditDataGridViewTextBoxColumn.DataPropertyName = "Credit";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.creditDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            this.creditDataGridViewTextBoxColumn.HeaderText = "存入";
+            this.creditDataGridViewTextBoxColumn.Name = "creditDataGridViewTextBoxColumn";
+            this.creditDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // noteDataGridViewTextBoxColumn
+            // 
+            this.noteDataGridViewTextBoxColumn.DataPropertyName = "Note";
+            this.noteDataGridViewTextBoxColumn.HeaderText = "摘要";
+            this.noteDataGridViewTextBoxColumn.Name = "noteDataGridViewTextBoxColumn";
+            this.noteDataGridViewTextBoxColumn.ReadOnly = true;
+            this.noteDataGridViewTextBoxColumn.Width = 320;
             // 
             // cBankDetailBindingSource
             // 
@@ -210,39 +243,6 @@
             this.labelWarning3.Size = new System.Drawing.Size(144, 16);
             this.labelWarning3.TabIndex = 11;
             this.labelWarning3.Text = "按Delete可以刪除行";
-            // 
-            // dateDataGridViewTextBoxColumn
-            // 
-            this.dateDataGridViewTextBoxColumn.DataPropertyName = "Date";
-            this.dateDataGridViewTextBoxColumn.HeaderText = "日期";
-            this.dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
-            this.dateDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // debtDataGridViewTextBoxColumn
-            // 
-            this.debtDataGridViewTextBoxColumn.DataPropertyName = "Debt";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.debtDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
-            this.debtDataGridViewTextBoxColumn.HeaderText = "支出";
-            this.debtDataGridViewTextBoxColumn.Name = "debtDataGridViewTextBoxColumn";
-            this.debtDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // creditDataGridViewTextBoxColumn
-            // 
-            this.creditDataGridViewTextBoxColumn.DataPropertyName = "Credit";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.creditDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
-            this.creditDataGridViewTextBoxColumn.HeaderText = "存入";
-            this.creditDataGridViewTextBoxColumn.Name = "creditDataGridViewTextBoxColumn";
-            this.creditDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // noteDataGridViewTextBoxColumn
-            // 
-            this.noteDataGridViewTextBoxColumn.DataPropertyName = "Note";
-            this.noteDataGridViewTextBoxColumn.HeaderText = "摘要";
-            this.noteDataGridViewTextBoxColumn.Name = "noteDataGridViewTextBoxColumn";
-            this.noteDataGridViewTextBoxColumn.ReadOnly = true;
-            this.noteDataGridViewTextBoxColumn.Width = 320;
             // 
             // FormImportBankExcel
             // 

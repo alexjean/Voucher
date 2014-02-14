@@ -550,6 +550,11 @@ namespace VoucherExpense
             textBoxUserID.Focus();
         }
 
+        private void cbxProfile_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
 
  
     }

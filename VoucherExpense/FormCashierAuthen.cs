@@ -1083,9 +1083,9 @@ namespace VoucherExpense
                     m_Graphics.DrawRectangle(pen, new Rectangle(x1, y - 2, w, h));   // 方框寬w 高h
             x1 = inner.Left;
             int y2 = half;
-            DrawStr("收銀對帳單浮貼處"        , x1, y);
-            DrawStr("銀行回單附於本表後方"    , x1, y2 - height);
-            DrawStr("異常單說明"             , x1, y2);
+            DrawStr("收銀對帳單浮貼處"    , x1, y);
+            DrawStr("銀行回單附於本表後方", x1, y2 - height);
+            DrawStr("異常單說明"         , x1, y2);
             x1 = inner.Left + BlockWidth;
             DrawStr("刷卡日結單浮貼處"              , x1, y);
             DrawStr("以下數字若有手寫修改,需在旁簽名", x1, y2 - height);

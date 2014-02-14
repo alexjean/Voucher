@@ -169,8 +169,8 @@ namespace BakeryOrder
                 total += income;
             }            
             Buf.Append("收银 < " + cashierIDName + " >\r\n");
-            Buf.Append("首单時間 " + first.ToString("HH:mm:ss") + "\r\n");
-            Buf.Append("末单時間 " + last.ToString ("HH:mm:ss") + "\r\n");
+            Buf.Append("首单时间 " + first.ToString("HH:mm:ss") + "\r\n");
+            Buf.Append("末单时间 " + last.ToString("HH:mm:ss") + "\r\n");
             Buf.Append("删单 "+ deletedCount.ToString("d").PadLeft(3) + " 笔, 退货 " +returnedCount.ToString("d").PadLeft(3) +" 笔\r\n");
             Buf.Append("用券 " + couponCount.ToString("d").PadLeft(3) + " 笔");
             if (couponCount==0) Buf.Append("\r\n");

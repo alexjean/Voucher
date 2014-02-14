@@ -121,6 +121,7 @@
             this.cbxProfile.Name = "cbxProfile";
             this.cbxProfile.Size = new System.Drawing.Size(148, 28);
             this.cbxProfile.TabIndex = 7;
+            this.cbxProfile.SelectedIndexChanged += new System.EventHandler(this.cbxProfile_SelectedIndexChanged_1);
             // 
             // progressBar1
             // 

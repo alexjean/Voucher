@@ -39,8 +39,8 @@
             System.Windows.Forms.Label label6;
             System.Windows.Forms.Label label7;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormRecipe));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.labelGross = new System.Windows.Forms.Label();
             this.labelEvaluatedCost = new System.Windows.Forms.Label();
             this.labelPrice = new System.Windows.Forms.Label();
@@ -64,12 +64,12 @@
             this.ColumnSourceID = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.sourceBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.ColumnWeight = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.recipeRecipeDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.fKRecipeRecipeDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.recipeSqlBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.damaiDataSet = new VoucherExpense.DamaiDataSet();
-            this.recipeRecipeDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.textBoxIngredientWeight = new System.Windows.Forms.TextBox();
-            this.pictureBoxRecipe = new System.Windows.Forms.PictureBox();
+            this.photoPictureBox = new System.Windows.Forms.PictureBox();
             this.recipeNameTextBox = new System.Windows.Forms.TextBox();
             this.packageNoTextBox = new System.Windows.Forms.TextBox();
             this.btnExcel = new System.Windows.Forms.Button();
@@ -111,11 +111,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRecipeDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sourceBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.recipeRecipeDetailBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fKRecipeRecipeDetailBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.recipeSqlBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.recipeRecipeDetailBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRecipe)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.photoPictureBox)).BeginInit();
             this.groupBoxProduct.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -360,8 +360,8 @@
             // dgvRecipeDetail
             // 
             this.dgvRecipeDetail.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
-            this.dgvRecipeDetail.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Azure;
+            this.dgvRecipeDetail.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvRecipeDetail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvRecipeDetail.AutoGenerateColumns = false;
@@ -426,13 +426,18 @@
             // ColumnWeight
             // 
             this.ColumnWeight.DataPropertyName = "Weight";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "N1";
-            dataGridViewCellStyle2.NullValue = null;
-            this.ColumnWeight.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle4.Format = "N1";
+            dataGridViewCellStyle4.NullValue = null;
+            this.ColumnWeight.DefaultCellStyle = dataGridViewCellStyle4;
             this.ColumnWeight.HeaderText = "重量-克";
             this.ColumnWeight.Name = "ColumnWeight";
             this.ColumnWeight.Width = 92;
+            // 
+            // recipeRecipeDetailBindingSource
+            // 
+            this.recipeRecipeDetailBindingSource.DataMember = "RecipeRecipeDetail";
+            this.recipeRecipeDetailBindingSource.DataSource = this.recipeBindingSource;
             // 
             // fKRecipeRecipeDetailBindingSource
             // 
@@ -449,11 +454,6 @@
             this.damaiDataSet.DataSetName = "DamaiDataSet";
             this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // recipeRecipeDetailBindingSource
-            // 
-            this.recipeRecipeDetailBindingSource.DataMember = "RecipeRecipeDetail";
-            this.recipeRecipeDetailBindingSource.DataSource = this.recipeBindingSource;
-            // 
             // textBoxIngredientWeight
             // 
             this.textBoxIngredientWeight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
@@ -463,16 +463,16 @@
             this.textBoxIngredientWeight.TabIndex = 12;
             this.textBoxIngredientWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // pictureBoxRecipe
+            // photoPictureBox
             // 
-            this.pictureBoxRecipe.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBoxRecipe.Location = new System.Drawing.Point(162, 32);
-            this.pictureBoxRecipe.Name = "pictureBoxRecipe";
-            this.pictureBoxRecipe.Size = new System.Drawing.Size(384, 256);
-            this.pictureBoxRecipe.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBoxRecipe.TabIndex = 13;
-            this.pictureBoxRecipe.TabStop = false;
-            this.pictureBoxRecipe.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBoxRecipe_MouseClick);
+            this.photoPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.photoPictureBox.Location = new System.Drawing.Point(162, 32);
+            this.photoPictureBox.Name = "photoPictureBox";
+            this.photoPictureBox.Size = new System.Drawing.Size(384, 256);
+            this.photoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.photoPictureBox.TabIndex = 13;
+            this.photoPictureBox.TabStop = false;
+            this.photoPictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBoxRecipe_MouseClick);
             // 
             // recipeNameTextBox
             // 
@@ -735,7 +735,7 @@
             this.Controls.Add(this.btnExcel);
             this.Controls.Add(packageNoLabel);
             this.Controls.Add(recipeNameLabel);
-            this.Controls.Add(this.pictureBoxRecipe);
+            this.Controls.Add(this.photoPictureBox);
             this.Controls.Add(label1);
             this.Controls.Add(this.dgvRecipeDetail);
             this.Controls.Add(this.dgvRecipe);
@@ -758,11 +758,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRecipeDetail)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sourceBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.recipeRecipeDetailBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fKRecipeRecipeDetailBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.recipeSqlBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.recipeRecipeDetailBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRecipe)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.photoPictureBox)).EndInit();
             this.groupBoxProduct.ResumeLayout(false);
             this.groupBoxProduct.PerformLayout();
             this.ResumeLayout(false);
@@ -782,7 +782,7 @@
         private System.Windows.Forms.ComboBox finalProductIDComboBox;
         private System.Windows.Forms.DataGridView dgvRecipeDetail;
         private System.Windows.Forms.TextBox textBoxIngredientWeight;
-        private System.Windows.Forms.PictureBox pictureBoxRecipe;
+        private System.Windows.Forms.PictureBox photoPictureBox;
         private System.Windows.Forms.TextBox recipeNameTextBox;
         private System.Windows.Forms.TextBox packageNoTextBox;
         private BakeryOrderSet bakeryOrderSet;

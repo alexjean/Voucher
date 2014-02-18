@@ -88,7 +88,7 @@
             this.lvItems.HideSelection = false;
             this.lvItems.Location = new System.Drawing.Point(1, 0);
             this.lvItems.Name = "lvItems";
-            this.lvItems.Size = new System.Drawing.Size(226, 398);
+            this.lvItems.Size = new System.Drawing.Size(234, 398);
             this.lvItems.TabIndex = 0;
             this.lvItems.UseCompatibleStateImageBehavior = false;
             this.lvItems.View = System.Windows.Forms.View.Details;
@@ -143,11 +143,11 @@
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Right;
             this.tabControl1.Font = new System.Drawing.Font("標楷體", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.tabControl1.ItemSize = new System.Drawing.Size(88, 55);
-            this.tabControl1.Location = new System.Drawing.Point(233, 0);
+            this.tabControl1.Location = new System.Drawing.Point(241, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(791, 768);
+            this.tabControl1.Size = new System.Drawing.Size(783, 768);
             this.tabControl1.TabIndex = 3;
             this.tabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
             // 
@@ -158,7 +158,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 4);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(783, 705);
+            this.tabPage1.Size = new System.Drawing.Size(775, 705);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "面包";
             // 
@@ -168,7 +168,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 4);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(783, 705);
+            this.tabPage2.Size = new System.Drawing.Size(769, 705);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "饮料西点";
             // 
@@ -194,7 +194,7 @@
             // 
             this.pictureBoxOrdered.Location = new System.Drawing.Point(1, 465);
             this.pictureBoxOrdered.Name = "pictureBoxOrdered";
-            this.pictureBoxOrdered.Size = new System.Drawing.Size(226, 169);
+            this.pictureBoxOrdered.Size = new System.Drawing.Size(240, 160);
             this.pictureBoxOrdered.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBoxOrdered.TabIndex = 7;
             this.pictureBoxOrdered.TabStop = false;

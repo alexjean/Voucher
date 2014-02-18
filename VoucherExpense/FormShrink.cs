@@ -14,7 +14,7 @@ using MyOrderItemAdapter= VoucherExpense.DamaiDataSetTableAdapters.OrderItemTabl
 using MyInventoryRow    = VoucherExpense.DamaiDataSet.InventoryRow;
 #else
 using MyDataSet         = VoucherExpense.VEDataSet;
-using MyOrderSet        = VoucherExpense.BakeryOrderSet.OrderDataTable;
+using MyOrderSet        = VoucherExpense.BakeryOrderSet;
 using MyOrderAdapter    = VoucherExpense.BakeryOrderSetTableAdapters.OrderTableAdapter;
 using MyOrderItemAdapter= VoucherExpense.BakeryOrderSetTableAdapters.OrderItemTableAdapter;
 using MyInventoryRow    = VoucherExpense.VEDataSet.InventoryRow;

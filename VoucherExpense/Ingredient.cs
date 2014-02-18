@@ -33,22 +33,25 @@ namespace VoucherExpense
 
         MyDataSet m_DataSet = new MyDataSet();
 
-        private string m_PhotoPath = "Photos\\Ingredients\\";
         private List<CNameIDForComboBox> m_VendorList = new List<CNameIDForComboBox>();
 
         MyIngredientAdapter IngredientAdapter       = new MyIngredientAdapter();
         MyVoucherAdapter    VoucherAdapter          = new MyVoucherAdapter();
         MyVoucherDetailAdapter VoucherDetailAdapter = new MyVoucherDetailAdapter();
+
+
         private void Ingredient_Load(object sender, EventArgs e)
         {
             IngredientBindingSource.DataSource = m_DataSet;
             vendorBindingSource.DataSource = m_DataSet;
             accountingTitleBindingSource.DataSource = m_DataSet;
-
+            m_PhotoDirectoryExist = Directory.Exists(PhotoPath());
 #if UseSQLServer
+            photoPictureBox.Visible = true;
             var vendorAdapter = new DamaiDataSetTableAdapters.VendorTableAdapter();
             var accountingTitleAdapter = new DamaiDataSetTableAdapters.AccountingTitleTableAdapter();
 #else
+            photoPictureBox.Visible = m_PhotoDirectoryExist;
             var vendorAdapter          = new VEDataSetTableAdapters.VendorTableAdapter();
             var accountingTitleAdapter = new VEDataSetTableAdapters.AccountingTitleTableAdapter();
             vendorAdapter.Connection           = MapPath.VEConnection;
@@ -76,8 +79,8 @@ namespace VoucherExpense
 
             MyFunction.SetFieldLength(dgvIngredient, m_DataSet.Ingredient);
             MyFunction.SetControlLengthFromDB(this, m_DataSet.Ingredient);
-            photoPictureBox.Visible = Directory.Exists(m_PhotoPath);
         }
+
 
         private void IngredientBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
@@ -119,7 +122,6 @@ namespace VoucherExpense
             }
             try
             {
-                //                this.IngredientTableAdapter.Update(table);
                 m_DataSet.Ingredient.Merge(table);
                 this.IngredientAdapter.Update(m_DataSet.Ingredient);
                 m_DataSet.Ingredient.AcceptChanges();
@@ -184,27 +186,202 @@ namespace VoucherExpense
                 MessageBox.Show("DataGridView的<食材內碼>不正確!");
         }
 
-        string CurrentPhotoPath()
+        #region ============ Photo相關程序 ====================================
+        bool m_PhotoDirectoryExist = false;
+        public class MyPhotoAdapter : DamaiDataSetTableAdapters.PhotosTableAdapter
+        {
+            string SaveStr;
+            public int FillBySelectStr(DamaiDataSet.PhotosDataTable dataTable, string SelectStr)
+            {
+                ClearBeforeFill = false;
+                SaveStr = base.CommandCollection[0].CommandText;
+                base.CommandCollection[0].CommandText = SelectStr;
+                int result = Fill(dataTable);
+                base.CommandCollection[0].CommandText = SaveStr;
+                return result;
+            }
+        }
+        MyPhotoAdapter PhotoAdapter = new MyPhotoAdapter();
+
+        string PhotoPath() { return MapPath.DataDir + "Photos\\Ingredients\\";  }
+
+        int CurrentPhotoID()
         {
             DataRowView rowView = IngredientBindingSource.Current as DataRowView;
-            if (rowView == null) return null;
+            if (rowView == null) return -1;
             var row = rowView.Row as MyIngredientRow;
-            if (row.RowState == DataRowState.Detached)
+            try
             {
-                try
-                {
-                    if (row.IngredientID <= 0) return null;
-                }
-                catch 
-                {
-                    return null;
-                }
+                if (row.IngredientID <= 0) return -1;
             }
-            return m_PhotoPath + row.IngredientID.ToString() + ".jpg";
+            catch { return -1; }
+            return row.IngredientID;
+        }
+        string CurrentPhotoPath()
+        {
+            int id = CurrentPhotoID();
+            if (id < 0) return null;
+            return PhotoPath() + id.ToString() + ".jpg";
         }
 
+        bool ShowPhotoFile(string path)
+        {
+            if (!photoPictureBox.Visible) return false;
+            if (path != null && File.Exists(path))
+            {
+                photoPictureBox.ImageLocation = path;
+                return true;
+            }
+            else
+            {
+                photoPictureBox.Image = null;
+                photoPictureBox.ImageLocation = null;
+                return false;
+            }
+        }
+
+
+        private void SavePicture()
+        {
+            DialogResult result = openFileDialog1.ShowDialog();
+            if (result != DialogResult.OK) return;
+            string ext = Path.GetExtension(openFileDialog1.FileName).ToLower();
+            if (ext != ".jpg")
+            {
+                MessageBox.Show("對不起!只接受jpg檔");
+                return;
+            }
+#if (UseSQLServer)
+            int ingredientID = CurrentPhotoID();
+            if (ingredientID < 0)
+            {
+                MessageBox.Show("無法取得本筆食材 IngredientID , 無法繼續存檔!");
+                return;
+            }
+            var photos = from r in m_DataSet.Photos where r.PhotoID == ingredientID && r.TableID == (short)PhotoTableID.Ingredient select r;
+            MyDataSet.PhotosRow photo = null;
+            if (photos.Count() > 0) photo = photos.First();
+            SavePhotoFileToDB(openFileDialog1.FileName, ingredientID, (short)PhotoTableID.Ingredient, 240, 240, photo);
+#else
+            string path = CurrentPhotoPath();
+            if (path == null) return;
+            try
+            {
+                Bitmap img = (Bitmap)(Bitmap.FromFile(openFileDialog1.FileName));
+                Bitmap shrank = MyFunction.ShrinkBitmap(img, 1280, 1024);    // 考量POS机螢幕,所以縮至1280*1024
+                shrank.Save(path, System.Drawing.Imaging.ImageFormat.Jpeg);
+                photoPictureBox.ImageLocation = path;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("存食材照片<" + path.ToString() + ">時出錯!原因:" + ex.Message);
+            }
+#endif
+        }
+
+        private void photoPictureBox_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (!photoPictureBox.Visible) return;
+            if (e.Button == MouseButtons.Right)
+            {
+                SavePicture();
+                return;
+            }
+#if (!UseSQLServer)       // 使用SQLServer時,沒有大圖
+            if (LocationSave.X == 0)
+            {
+                SizeSave = photoPictureBox.Size;
+                LocationSave = photoPictureBox.Location;
+            }
+            if (photoPictureBox.Location.X == 0)
+            {
+                photoPictureBox.Location = LocationSave;
+                photoPictureBox.Size = SizeSave;
+            }
+            else
+            {
+                photoPictureBox.Location = new Point(0, 0);
+                photoPictureBox.Size = this.Size;
+                photoPictureBox.BringToFront();
+            }
+        }
         Size SizeSave = new Size(0, 0);
         Point LocationSave = new Point(0, 0);
+#else
+        }
+
+        void ShowPhotoDB(MyDataSet.PhotosRow row)
+        {
+            MemoryStream stream = new MemoryStream(row.Photo);
+            Image bmp = Image.FromStream(stream);
+            photoPictureBox.Image = bmp;
+        }
+
+        private void SavePhotoFileToDB(string fileName, int id, short tableID, int width, int height, MyDataSet.PhotosRow photo) // photo==null 就新增
+        {
+            Cursor = Cursors.WaitCursor;
+            try
+            {
+                Bitmap img = (Bitmap)(Bitmap.FromFile(fileName));
+                Bitmap shrank = MyFunction.ShrinkBitmap(img, width, height);    // 使用SQLServer時,只存縮圖以節省網路傳輸時間, 產品統一尺寸 W240 H160
+                MemoryStream stream = new MemoryStream();
+                shrank.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                if (photo == null)
+                {
+                    photo = m_DataSet.Photos.NewPhotosRow();
+                    photo.TableID = tableID;
+                    photo.PhotoID = id;
+                    photo.Photo = stream.ToArray();
+                    photo.UpdatedTime = DateTime.Now;
+                    m_DataSet.Photos.AddPhotosRow(photo);
+                }
+                else
+                {
+                    photo.Photo = stream.ToArray();
+                    photo.UpdatedTime = DateTime.Now;
+                }
+                PhotoAdapter.Update(m_DataSet.Photos);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("存食材照片<" + id.ToString() + ">時出錯!原因:" + ex.Message);
+            }
+            Cursor = Cursors.Arrow;
+        }
+
+
+        void TryShowPhoto(int id, short tableID, string name, int width, int height)
+        {
+            if (id < 0) return;
+            // 先找m_DataSet裏有沒有
+            var photos = from r in m_DataSet.Photos where r.PhotoID == id && r.TableID == tableID select r;
+            if (photos.Count() <= 0)
+            {
+                // 再從資料庫找找看
+                string sqlStr = "Select * From Photos Where PhotoID=" + id.ToString() + "And TableID=" + tableID.ToString();
+                int n = PhotoAdapter.FillBySelectStr(m_DataSet.Photos, sqlStr);
+                photos = from r in m_DataSet.Photos where r.PhotoID == id && r.TableID == tableID select r;
+                if (photos.Count() > 0)
+                {
+                    ShowPhotoDB(photos.First());
+                    return;
+                }
+                if (!m_PhotoDirectoryExist)
+                {
+                    photoPictureBox.Image = null;
+                    return;
+                }
+                // 照片資料庫中不存在,找找當前目錄中有沒有
+                string path = CurrentPhotoPath();
+                if (!ShowPhotoFile(path)) return;    // 若有圖,就存到資料庫中
+                SavePhotoFileToDB(path, id, tableID, width, height, null);
+                return;
+            }
+            else
+                ShowPhotoDB(photos.First());
+        }
+#endif
+        #endregion
 
         private void IngredientBindingSource_CurrentChanged(object sender, EventArgs e)
         {
@@ -228,18 +405,18 @@ namespace VoucherExpense
                 vendorIDComboBox.SelectedItem = vendor;
             }
             CalcCostPerGram();
+            // 手動載入Photo
             if (!photoPictureBox.Visible) return;
+#if (UseSQLServer)
+            TryShowPhoto(CurrentPhotoID(), (int)PhotoTableID.Ingredient, "食材", 240, 240);
+#else
             if (photoPictureBox.Location.X == 0)
             {
                 photoPictureBox.Location = LocationSave;
                 photoPictureBox.Size = SizeSave;
             }
-            string path = CurrentPhotoPath();
-            if (path!=null && File.Exists(path))
-                photoPictureBox.ImageLocation = path;
-            else
-                photoPictureBox.ImageLocation = null;
-
+            ShowPhotoFile(CurrentPhotoPath());
+#endif
         }
 
 
@@ -313,58 +490,7 @@ namespace VoucherExpense
 
         }
 
-        private void SavePicture()
-        {
-            DialogResult result = openFileDialog1.ShowDialog();
-            if (result != DialogResult.OK) return;
-            string ext = Path.GetExtension(openFileDialog1.FileName).ToLower();
-            if (ext != ".jpg")
-            {
-                MessageBox.Show("對不起!只接受jpg檔");
-                return;
-            }
-            string path = CurrentPhotoPath();
-            if (path == null) return;
-//            File.Copy(openFileDialog1.FileName, path, true);
-            try
-            {
-                Bitmap img = (Bitmap)(Bitmap.FromFile(openFileDialog1.FileName));
-                Bitmap shrank = MyFunction.ShrinkBitmap(img, 1280, 1024);    // 考量POS机螢幕,所以縮至1280*1024
-                shrank.Save(path, System.Drawing.Imaging.ImageFormat.Jpeg);
-                photoPictureBox.ImageLocation = path;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("存圖形<" + path.ToString() + ">時出錯!原因:" + ex.Message);
-            }
-        }
 
-        private void photoPictureBox_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (!photoPictureBox.Visible) return;
-            if (e.Button == MouseButtons.Right)
-            {
-                SavePicture();
-                return;
-            }
-            if (LocationSave.X == 0)
-            {
-                SizeSave = photoPictureBox.Size;
-                LocationSave = photoPictureBox.Location;
-            }
-            if (photoPictureBox.Location.X == 0)
-            {
-                photoPictureBox.Location = LocationSave;
-                photoPictureBox.Size = SizeSave;
-            }
-            else
-            {
-                photoPictureBox.Location = new Point(0, 0);
-                photoPictureBox.Size = this.Size;
-                photoPictureBox.BringToFront();
-            }
-
-        }
 
         private void vendorIDComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {

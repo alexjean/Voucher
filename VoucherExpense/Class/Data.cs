@@ -532,4 +532,6 @@ namespace VoucherExpense
         public bool LockShipment { get; set; }
     }
 
+    public enum PhotoTableID { Ingredient = 1, Product = 2, Recipe = 3 }
+
 }

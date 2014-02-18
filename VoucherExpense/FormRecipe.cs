@@ -51,12 +51,14 @@ namespace VoucherExpense
             {
                 
                 recipeBindingSource.DataSource = m_DataSet;
+                m_PhotoDirectoryExist = Directory.Exists(PhotoPath());
 #if UseSQLServer  // fKRecipeRecipeDetailBindingSource,damaiDataSet recipeSqlBindingSource創來抄的, 實際上沒用到
                 fKRecipeRecipeDetailBindingSource.DataSource = recipeBindingSource;
                 dgvRecipeDetail.DataSource = fKRecipeRecipeDetailBindingSource;
                 productBindingSource.DataSource = m_DataSet;
                 productAdapter.Fill(m_DataSet.Product);
 #else
+                //photoPictureBox.Visible = m_PhotoDirectoryExist;
                 recipeRecipeDetailBindingSource.DataSource = recipeBindingSource;
                 dgvRecipeDetail.DataSource = recipeRecipeDetailBindingSource;
                 productBindingSource.DataSource = bakeryOrderSet;
@@ -278,11 +280,189 @@ namespace VoucherExpense
         }
         #endregion
 
+        #region ========================== Photo相關程序 ==================================
+        bool m_PhotoDirectoryExist = false;
+        public class MyPhotoAdapter : DamaiDataSetTableAdapters.PhotosTableAdapter
+        {
+            string SaveStr;
+            public int FillBySelectStr(DamaiDataSet.PhotosDataTable dataTable, string SelectStr)
+            {
+                ClearBeforeFill = false;
+                SaveStr = base.CommandCollection[0].CommandText;
+                base.CommandCollection[0].CommandText = SelectStr;
+                int result = Fill(dataTable);
+                base.CommandCollection[0].CommandText = SaveStr;
+                return result;
+            }
+        }
+        MyPhotoAdapter PhotoAdapter = new MyPhotoAdapter();
+
+        string PhotoPath() { return MapPath.DataDir + "Photos\\Recipes\\"; } 
+
+        int CurrentPhotoID()
+        {
+            DataRowView rowView = recipeBindingSource.Current as DataRowView;
+            if (rowView == null) return -1;
+            var row = rowView.Row as MyRecipeRow;
+            try
+            {
+                if (row.RecipeID <= 0) return -1;
+            }
+            catch { return -1; }
+            return row.RecipeID;
+        }
+
+        string CurrentPhotoPath()
+        {
+            int id = CurrentPhotoID();
+            if (id < 0) return null;
+            return PhotoPath() + id.ToString() + ".jpg";
+        }
+
+        bool ShowPhotoFile(string path)
+        {
+            if (!photoPictureBox.Visible) return false;
+            if (path != null && File.Exists(path))
+            {
+                photoPictureBox.ImageLocation = path;
+                return true;
+            }
+            else
+            {
+                photoPictureBox.Image = null;
+                photoPictureBox.ImageLocation = null;
+                return false;
+            }
+        }
+
+
+        private void SavePicture()
+        {
+            DialogResult result = openFileDialog1.ShowDialog();
+            if (result != DialogResult.OK) return;
+            string ext = Path.GetExtension(openFileDialog1.FileName).ToLower();
+            if (ext != ".jpg")
+            {
+                MessageBox.Show("對不起!只接受jpg檔");
+                return;
+            }
+#if (UseSQLServer)
+            int recipeID = CurrentPhotoID();
+            if (recipeID < 0)
+            {
+                MessageBox.Show("無法取得本筆配方 RecipeID , 無法繼續存檔!");
+                return;
+            }
+            var photos = from r in m_DataSet.Photos where r.PhotoID == recipeID && r.TableID == (short)PhotoTableID.Recipe select r;
+            MyDataSet.PhotosRow photo = null;
+            if (photos.Count() > 0) photo = photos.First();
+            SavePhotoFileToDB(openFileDialog1.FileName, recipeID, (short)PhotoTableID.Recipe, 384, 256, photo);
+#else
+            string path = CurrentPhotoPath();
+            if (path == null) return;
+            try
+            {
+                Bitmap img = (Bitmap)(Bitmap.FromFile(openFileDialog1.FileName));
+                Bitmap shrank = MyFunction.ShrinkBitmap(img, 384, 256);    
+                shrank.Save(path, System.Drawing.Imaging.ImageFormat.Jpeg);
+                photoPictureBox.ImageLocation = path;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("存配方照片<" + path.ToString() + ">時出錯!原因:" + ex.Message);
+            }
+#endif
+        }
+
+        private void pictureBoxRecipe_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button != MouseButtons.Right) return;
+            SavePicture();
+        }
+
+#if (UseSQLServer)
+        void ShowPhotoDB(MyDataSet.PhotosRow row)
+        {
+            MemoryStream stream = new MemoryStream(row.Photo);
+            Image bmp = Image.FromStream(stream);
+            photoPictureBox.Image = bmp;
+        }
+
+        private void SavePhotoFileToDB(string fileName, int id, short tableID, int width, int height, MyDataSet.PhotosRow photo) // photo==null 就新增
+        {
+            Cursor = Cursors.WaitCursor;
+            try
+            {
+                Bitmap img = (Bitmap)(Bitmap.FromFile(fileName));
+                Bitmap shrank = MyFunction.ShrinkBitmap(img, width, height);    // 使用SQLServer時,只存縮圖以節省網路傳輸時間, 產品統一尺寸 W240 H160
+                MemoryStream stream = new MemoryStream();
+                shrank.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                if (photo == null)
+                {
+                    photo = m_DataSet.Photos.NewPhotosRow();
+                    photo.TableID = tableID;
+                    photo.PhotoID = id;
+                    photo.Photo = stream.ToArray();
+                    photo.UpdatedTime = DateTime.Now;
+                    m_DataSet.Photos.AddPhotosRow(photo);
+                }
+                else
+                {
+                    photo.Photo = stream.ToArray();
+                    photo.UpdatedTime = DateTime.Now;
+                }
+                PhotoAdapter.Update(m_DataSet.Photos);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("存配方照片<" + id.ToString() + ">時出錯!原因:" + ex.Message);
+            }
+            Cursor = Cursors.Arrow;
+        }
+
+
+        void TryShowPhoto(int id, short tableID, string name, int width, int height)
+        {
+            if (id < 0) return;
+            // 先找m_DataSet裏有沒有
+            var photos = from r in m_DataSet.Photos where r.PhotoID == id && r.TableID == tableID select r;
+            if (photos.Count() <= 0)
+            {
+                // 再從資料庫找找看
+                string sqlStr = "Select * From Photos Where PhotoID=" + id.ToString() + "And TableID=" + tableID.ToString();
+                int n = PhotoAdapter.FillBySelectStr(m_DataSet.Photos, sqlStr);
+                photos = from r in m_DataSet.Photos where r.PhotoID == id && r.TableID == tableID select r;
+                if (photos.Count() > 0)
+                {
+                    ShowPhotoDB(photos.First());
+                    return;
+                }
+                if (!m_PhotoDirectoryExist)
+                {
+                    photoPictureBox.Image = null;
+                    return;
+                }
+                // 照片資料庫中不存在,找找當前目錄中有沒有
+                string path = CurrentPhotoPath();
+                if (!ShowPhotoFile(path)) return;    // 若有圖,就存到資料庫中
+                SavePhotoFileToDB(path, id, tableID, width, height, null);
+                return;
+            }
+            else
+                ShowPhotoDB(photos.First());
+        }
+#endif
+        #endregion
+
         private void recipeBindingSource_CurrentChanged(object sender, EventArgs e)
         {
             if (m_ProductList == null || m_ProductList.Count <= 0) return;
             ShowProductName();
-            ShowCurrentPicture();
+#if (UseSQLServer)
+            TryShowPhoto(CurrentPhotoID(), (short)PhotoTableID.Recipe, "配方", 384, 256);
+#else
+            ShowPhotoFile(CurrentPhotoPath());
+#endif
             CalcWeight();
             UpdateRtf();
             BindingRtf();
@@ -290,13 +470,9 @@ namespace VoucherExpense
 
         // BindingSource.BindingComplete 有幾個Control Bind就會呼叫幾次,不能用,第一次只好放在Form_Show內顯示
         private void FormRecipe_Shown(object sender, EventArgs e)
-        {
-            if (m_ProductList == null || m_ProductList.Count <= 0) return;
-            // 參照Ingredient.cs解法和這裏不同
-            ShowProductName();     // 第一次Shown時, finalProductIDComboBox.SelectedValue會被改成0, 先在這Shown就可以搶蓋回來, @@"
-            ShowCurrentPicture();
-            CalcWeight();
-            BindingRtf();
+        {   // 參照Ingredient.cs解法和這裏不同
+            // 第一次Shown時, finalProductIDComboBox.SelectedValue會被改成0, 先在這Shown就可以搶蓋回來, @@"  
+            recipeBindingSource_CurrentChanged(null, null);
             m_DataSet.Recipe.AcceptChanges();  // 不知為何第一次進來,第一筆就被當做有改過,所以加了這行.可能用rtf的副作用
         }
 
@@ -328,69 +504,6 @@ namespace VoucherExpense
             MessageBox.Show("row" + rowIndex.ToString() + " column<" + name + "> ex:" + e.Exception.Message);
         }
 
-        bool m_DirChecked = false;
-        string CurrentPhotoPath()
-        {
-            string RecipePhotoPath = MapPath.DataDir+"Photos\\Recipes\\";
-            DataRowView rowView = this.recipeBindingSource.Current as DataRowView;
-            if (rowView == null) return null;
-            var row = rowView.Row as MyRecipeRow;
-            if (row.RowState == DataRowState.Deleted) return null;
-            if (row.RowState == DataRowState.Detached )    //  新增時, RecipeID有時沒有值,會Exception
-            {
-                try
-                {
-                    if (row.RecipeID <= 0) return null;
-                }
-                catch { return null; }
-            }
-            if (!m_DirChecked)
-            {
-                if (!Directory.Exists(RecipePhotoPath))
-                    Directory.CreateDirectory(RecipePhotoPath);
-                m_DirChecked = true;
-            }
-            return RecipePhotoPath + row.RecipeID.ToString() + ".jpg";
-        }
-
-        private void ShowCurrentPicture()
-        {
-            string path = CurrentPhotoPath();
-            if (path != null && File.Exists(path))
-                pictureBoxRecipe.ImageLocation = path;
-            else
-                pictureBoxRecipe.ImageLocation = null;
-        }
-
-        private void SavePicture()
-        {
-            string path = CurrentPhotoPath();
-            if (path == null)
-            {
-                MessageBox.Show("沒有當前記錄,請按 '+' 新增資料!");
-                return;          // 沒有當前記錄則不存檔
-            }
-            DialogResult result = openFileDialog1.ShowDialog();
-            if (result != DialogResult.OK) return;
-            string ext = Path.GetExtension(openFileDialog1.FileName).ToLower();
-            if (ext != ".jpg")
-            {
-                MessageBox.Show("對不起!只接受jpg檔");
-                return;
-            }
-            //            File.Copy(openFileDialog1.FileName, path, true);
-            try
-            {
-                Bitmap img = (Bitmap)(Bitmap.FromFile(openFileDialog1.FileName));
-                Bitmap thumbNail = MyFunction.GetThumbnail(img, 256);
-                thumbNail.Save(path,System.Drawing.Imaging.ImageFormat.Jpeg);
-                pictureBoxRecipe.ImageLocation = path;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("存圖形<"+path.ToString()+">時出錯!原因:" + ex.Message);
-            }
-        }
 
         private int m_ColumnWeightIndex = -1;
         int ColumnWeightIndex
@@ -593,11 +706,6 @@ namespace VoucherExpense
             MessageBox.Show(name + " 己刪除,請按存檔更新資料庫");
         }
 
-        private void pictureBoxRecipe_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (e.Button != MouseButtons.Right) return;
-            SavePicture();
-        }
 
         private void packageNoTextBox_Validated(object sender, EventArgs e)
         {

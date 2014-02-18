@@ -759,17 +759,99 @@ namespace VoucherExpense
             if (!fromProduct.IsTitleCodeNull()) toProduct.TitleCode = fromProduct.TitleCode;
             if (!fromProduct.IsEvaluatedCostNull()) toProduct.EvaluatedCost = fromProduct.EvaluatedCost;
         }
+#if (UseSQLServer)
+        public class MyPhotoAdapter : DamaiDataSetTableAdapters.PhotosTableAdapter
+        {
+            string SaveStr;
+            public int FillBySelectStr(DamaiDataSet.PhotosDataTable dataTable, string SelectStr)
+            {
+                ClearBeforeFill = false;
+                SaveStr = base.CommandCollection[0].CommandText;
+                base.CommandCollection[0].CommandText = SelectStr;
+                int result = Fill(dataTable);
+                base.CommandCollection[0].CommandText = SaveStr;
+                return result;
+            }
+        }
+        MyPhotoAdapter PhotoAdapter = new MyPhotoAdapter();
+
+        class MyFileInfo
+        {
+            public string Name;
+            public DateTime CreationTime;
+            public int ProductID;
+        }
+        List<MyFileInfo> GetFileInfoFromPhotosDB(short tableID)
+        {  // 只填檔案名, 時間
+            try
+            {
+                MyDataSet.PhotosDataTable photosDB = new MyDataSet.PhotosDataTable();
+                // 不讀入圖以節省時間
+                PhotoAdapter.FillBySelectStr(photosDB, "Select [TableID],[PhotoID],[UpdatedTime] from [dbo].[Photos] where TableID=" + tableID.ToString());
+                List<MyFileInfo> list = new List<MyFileInfo>();
+                foreach (var row in photosDB)
+                {
+                    MyFileInfo info = new MyFileInfo();
+                    info.ProductID      = row.PhotoID;
+                    info.Name           = row.PhotoID.ToString() + ".jpg";
+                    info.CreationTime   = row.UpdatedTime;
+                    list.Add(info);
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("從資料庫讀取產品照片資訊時出錯,原因:" + ex.Message);
+                return null;
+            }
+        } 
+
+        bool CopyPhotoFromDB(int productID, string destName)
+        {
+            short tableID=(short)PhotoTableID.Product;
+            var photos = from r in m_DataSet.Photos where productID == r.PhotoID && r.TableID == tableID select r;
+            DamaiDataSet.PhotosRow photo;
+            if (photos.Count() > 0) // 有資料直接拿
+                photo = photos.First();
+            else
+            {
+                try
+                {
+                    string sqlStr = "Select * From [dbo].[Photos] where TableID=" + tableID.ToString() + " And PhotoID=" + productID.ToString();
+                    if (PhotoAdapter.FillBySelectStr(m_DataSet.Photos, sqlStr) < 1) return false;
+                    photos = from r in m_DataSet.Photos where productID == r.PhotoID && r.TableID == tableID select r;
+                    if (photos.Count() <= 0) return false;
+                    photo = photos.First();
+                }
+                catch { return false; }
+            }
+            try
+            {
+                Bitmap img = (Bitmap)Image.FromStream(new MemoryStream(photo.Photo));
+                img.Save(destName);
+            }
+            catch { return false; }
+            return true;
+        }
+#endif
 
         private void btnUpdateProduct_Click(object sender, EventArgs e)
         {
             ClearMessage();
-            DirectoryInfo mainDirInfo = new DirectoryInfo(".\\Photos\\Products");
-            FileInfo[] mainFileInfos;
-
+            DirectoryInfo mainDirInfo = new DirectoryInfo(MapPath.DataDir+"Photos\\Products");
+#if (UseSQLServer)
+            List<MyFileInfo> mainFileInfos;
             try
             {
                 ProductAdapter.Fill(m_OrderSet.Product);
-                mainFileInfos = mainDirInfo.GetFiles("*.jpg");
+                mainFileInfos = GetFileInfoFromPhotosDB((short)PhotoTableID.Product);
+#else
+            List<FileInfo> mainFileInfos;
+            try
+            {
+                ProductAdapter.Fill(m_OrderSet.Product);
+                mainFileInfos = mainDirInfo.GetFiles("*.jpg").ToList<FileInfo>();
+#endif
             }
             catch (Exception ex)
             {
@@ -837,36 +919,45 @@ namespace VoucherExpense
                     DirectoryInfo dirInfo = new DirectoryInfo(productsDir);
                     List<FileInfo> fileInfos=dirInfo.GetFiles("*.jpg").ToList<FileInfo>();
                     bool smallExist = Directory.Exists(productsDir + "\\Small");
-                    foreach (FileInfo mainFile in mainFileInfos)
+                    if (mainFileInfos != null)   // 讀取照片檔案出錯了,就不更新
                     {
-                        string name = mainFile.Name;
-                        string destName=productsDir+"\\"+name;
-                        var dests = from fi in fileInfos where (fi.Name == name) select fi;
-                        FileInfo fileInfo;
-                        if (dests.Count() > 0)
+                        foreach (var mainFile in mainFileInfos)
                         {
-                            fileInfo = dests.First();
-                            if (fileInfo.Length == mainFile.Length && fileInfo.CreationTime == mainFile.CreationTime)
+                            string name = mainFile.Name;
+                            string destName = productsDir + "\\" + name;
+                            var dests = from fi in fileInfos where (fi.Name == name) select fi;
+                            FileInfo fileInfo;
+                            if (dests.Count() > 0)
                             {
+                                fileInfo = dests.First();
+                                if (fileInfo.CreationTime == mainFile.CreationTime)
+                                {
+                                    fileInfos.Remove(fileInfo);
+                                    continue;       // 名字,創立時間都相同,視為相同
+                                }
+                                File.Delete(fileInfo.FullName);
                                 fileInfos.Remove(fileInfo);
-                                continue;       // 名字,長度,創立時間都相同,視為相同
+                                updated++;
                             }
-                            File.Delete(fileInfo.FullName);
-                            fileInfos.Remove(fileInfo);
+                            else
+                                added++;
+#if (UseSQLServer)
+                            CopyPhotoFromDB(mainFile.ProductID, destName);
+#else
+                            File.Copy(mainFile.FullName, destName);
+#endif
+                            File.SetCreationTime(destName, mainFile.CreationTime);
+                            if (smallExist) File.Delete(productsDir + "\\Small\\" + name);
                         }
-                        File.Copy(mainFile.FullName, destName);
-                        File.SetCreationTime(destName, mainFile.CreationTime);
-                        if (smallExist) File.Delete(productsDir+"\\Small\\"+name);
-                        updated++;
+                        // 剩下的都要刪掉
+                        foreach (FileInfo fi in fileInfos)
+                        {
+                            File.Delete(fi.FullName);
+                            if (smallExist) File.Delete(productsDir + "\\Small\\" + fi.Name);
+                            deleted++;
+                        }
+                        Message("更新 " + updated.ToString() + "張產品照片,新增 " + added.ToString() + "張,刪除 " + deleted.ToString() + "張");
                     }
-                    // 剩下的都要刪掉
-                    foreach (FileInfo fi in fileInfos)
-                    {
-                        File.Delete(fi.FullName);
-                        if (smallExist) File.Delete(productsDir + "\\Small\\"   + fi.Name);
-                        deleted++;
-                    }
-                    Message("更新 " + updated.ToString() + "張產品照片,刪除 " + deleted.ToString() + "張");
                     Message("---------------------------------------------");
                 }
                 catch (Exception ex)

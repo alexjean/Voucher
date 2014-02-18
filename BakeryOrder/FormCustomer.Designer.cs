@@ -114,9 +114,9 @@
             // 
             // pictureBoxOrdered
             // 
-            this.pictureBoxOrdered.Location = new System.Drawing.Point(23, 478);
+            this.pictureBoxOrdered.Location = new System.Drawing.Point(16, 478);
             this.pictureBoxOrdered.Name = "pictureBoxOrdered";
-            this.pictureBoxOrdered.Size = new System.Drawing.Size(226, 169);
+            this.pictureBoxOrdered.Size = new System.Drawing.Size(240, 160);
             this.pictureBoxOrdered.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBoxOrdered.TabIndex = 8;
             this.pictureBoxOrdered.TabStop = false;

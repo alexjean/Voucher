@@ -39,8 +39,8 @@
             System.Windows.Forms.Label label6;
             System.Windows.Forms.Label label7;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormRecipe));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.labelGross = new System.Windows.Forms.Label();
             this.labelEvaluatedCost = new System.Windows.Forms.Label();
             this.labelPrice = new System.Windows.Forms.Label();
@@ -360,8 +360,8 @@
             // dgvRecipeDetail
             // 
             this.dgvRecipeDetail.AllowUserToResizeRows = false;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Azure;
-            this.dgvRecipeDetail.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
+            this.dgvRecipeDetail.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvRecipeDetail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvRecipeDetail.AutoGenerateColumns = false;
@@ -426,10 +426,10 @@
             // ColumnWeight
             // 
             this.ColumnWeight.DataPropertyName = "Weight";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.Format = "N1";
-            dataGridViewCellStyle4.NullValue = null;
-            this.ColumnWeight.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Format = "N1";
+            dataGridViewCellStyle2.NullValue = null;
+            this.ColumnWeight.DefaultCellStyle = dataGridViewCellStyle2;
             this.ColumnWeight.HeaderText = "重量-克";
             this.ColumnWeight.Name = "ColumnWeight";
             this.ColumnWeight.Width = 92;
@@ -484,7 +484,7 @@
             // 
             // packageNoTextBox
             // 
-            this.packageNoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.recipeBindingSource, "PackageNo", true));
+            this.packageNoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.recipeBindingSource, "PackageNo", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N1"));
             this.packageNoTextBox.Location = new System.Drawing.Point(864, 437);
             this.packageNoTextBox.Name = "packageNoTextBox";
             this.packageNoTextBox.Size = new System.Drawing.Size(46, 27);
@@ -584,7 +584,7 @@
             // 
             // bakedNoTextBox
             // 
-            this.bakedNoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.recipeBindingSource, "BakedNo", true));
+            this.bakedNoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.recipeBindingSource, "BakedNo", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N1"));
             this.bakedNoTextBox.Location = new System.Drawing.Point(864, 404);
             this.bakedNoTextBox.Name = "bakedNoTextBox";
             this.bakedNoTextBox.Size = new System.Drawing.Size(46, 27);

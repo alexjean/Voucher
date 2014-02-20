@@ -140,7 +140,11 @@ namespace VoucherExpense
 
         private void btnBackup_Click(object sender, EventArgs e)
         {
+#if (UseSQLServer)
+            MessageBox.Show("SQL Server版,無備份MDB功能!");      
+#else
             BackupData.DoBackup(Config);
+#endif
         }
 
 

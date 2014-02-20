@@ -675,6 +675,7 @@
     <None Include="Properties\app.manifest" />
     <None Include="Properties\DataSources\BakeryOrderBrowse.HourStatics.datasource" />
     <None Include="Properties\DataSources\CLedgerRow.datasource" />
+    <None Include="Properties\DataSources\FormScraps.CalcScrape.datasource" />
     <None Include="Properties\DataSources\FormShift.CCodeForCombo.datasource" />
     <None Include="Properties\DataSources\FormShift.CHourForCombo.datasource" />
     <None Include="Properties\DataSources\FormShift.CMonthForCombo.datasource" />

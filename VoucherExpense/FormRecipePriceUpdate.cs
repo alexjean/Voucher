@@ -140,7 +140,7 @@ namespace VoucherExpense
         {
             decimal cost=CalcCost(m_PackageNo/m_BakedNo,m_Details, usedRecipes: new List<int>(),show:true);
             labelCost.Text = cost.ToString("N2");
-            labelPackageNo.Text = "烘成 "+m_BakedNo.ToString()+"个,每袋 " + m_PackageNo.ToString()+"个";
+            labelPackageNo.Text = "烘成 "+m_BakedNo.ToString("N1")+"个,每袋 " + m_PackageNo.ToString("N1")+"个";
             Tag = cost;
         }
 

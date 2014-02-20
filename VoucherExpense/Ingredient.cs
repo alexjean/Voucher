@@ -262,6 +262,7 @@ namespace VoucherExpense
             MyDataSet.PhotosRow photo = null;
             if (photos.Count() > 0) photo = photos.First();
             SavePhotoFileToDB(openFileDialog1.FileName, ingredientID, (short)PhotoTableID.Ingredient, 240, 240, photo);
+            ShowPhotoDB(photo);
 #else
             string path = CurrentPhotoPath();
             if (path == null) return;

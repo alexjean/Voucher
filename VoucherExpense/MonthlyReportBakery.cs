@@ -56,6 +56,7 @@ namespace VoucherExpense
             labelFeeRate.Text = FeeRate.ToString() + "%";
         }
 
+        bool running = false;
         void Calc()
         {
             int year = Revenue.Year;
@@ -65,6 +66,8 @@ namespace VoucherExpense
                 MessageBox.Show("所選月份不對!");
                 return;
             }
+            comboBoxMonth.Enabled = false;  // 為避免計算時間過長,使用者重複選取. Reentrant會出錯
+//            Application.DoEvents();
             int count = MyFunction.DayCountOfMonth(month);
             progressBar1.Minimum = 0;
             progressBar1.Maximum = count;
@@ -95,11 +98,12 @@ namespace VoucherExpense
             labelRevenue.Text = total.Revenue.ToString();
             labelCreditFee.Text = total.CreditFee.ToString();
             labelCreditNet.Text = total.CreditNet.ToString();
-
+            comboBoxMonth.Enabled = true;
         }
 
         private void comboBoxMonth_SelectedIndexChanged(object sender, EventArgs e)
         {
+            dgViewMonthly.Focus();
             Calc();
             dgViewMonthly.Focus();
         }
@@ -107,6 +111,12 @@ namespace VoucherExpense
         private void checkBoxUse12_CheckedChanged(object sender, EventArgs e)
         {
             Calc();
+        }
+
+        private void MonthlyReportBakery_Shown(object sender, EventArgs e)
+        {
+            comboBoxMonth.SelectedIndexChanged += new EventHandler(comboBoxMonth_SelectedIndexChanged);   // 為避免表單未顯示前即呼叫
+            comboBoxMonth_SelectedIndexChanged(null, null);
         }
     }
 }

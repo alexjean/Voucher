@@ -56,7 +56,6 @@ namespace VoucherExpense
             SetupBindingSource();
             productScrappedDetailBindingSource1.DataSource=productScrappedBindingSource;
             dgvScrappedDetail.DataSource = this.productScrappedDetailBindingSource1;
-
 #else
             m_OrderSet= new VoucherExpense.BakeryOrderSet();
             var productAdapter  = new VoucherExpense.BakeryOrderSetTableAdapters.ProductTableAdapter();
@@ -78,16 +77,18 @@ namespace VoucherExpense
             {
                 MessageBox.Show("錯誤:" + ex.Message);
             }
-
-            m_TableTypeList.Add(new CNameIDForComboBox(0, " "));
-            m_TableTypeList.Add(new CNameIDForComboBox(1, "日報癈"));
-            m_TableTypeList.Add(new CNameIDForComboBox(2, "試吃"));
-            m_TableTypeList.Add(new CNameIDForComboBox(3, "其他"));
+            List<string> scrapeTypeList=new List<string>{" ","日報癈","試吃","其他"};
+            int i=0;
+            foreach(string s in scrapeTypeList)
+                m_TableTypeList.Add(new CNameIDForComboBox(i++,s));
+            checkBox1.Text = scrapeTypeList[1];
+            checkBox2.Text = scrapeTypeList[2];
+            checkBox3.Text = scrapeTypeList[3];
+            fromPicker.MaxDate  = toPicker.MaxDate = new DateTime(MyFunction.IntHeaderYear, 12, 31);
+            toPicker.MinDate    = toPicker.MinDate = new DateTime(MyFunction.IntHeaderYear, 1 , 1 );
             cNameIDForComboBoxBindingSource.DataSource = m_TableTypeList;
-
             ColumnLocked.ReadOnly = !MyFunction.LockInventory;
         }
-
 
         private void productScrappedBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
@@ -212,7 +213,6 @@ namespace VoucherExpense
                     return;
                 }
             }
-
         }
 
         private void chBoxHide_CheckedChanged(object sender, EventArgs e)
@@ -228,7 +228,6 @@ namespace VoucherExpense
             else
                 this.productScrappedDetailBindingSource.RemoveFilter();
 #endif
-
         }
 
         private void dgvProductScrapped_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -281,9 +280,7 @@ namespace VoucherExpense
             {
                 MessageBox.Show("計算估值時發生錯誤,原因:" + ex.Message);
             }
-
-          
-
+            soldValueTextBox.BackColor = ingredientsCostTextBox.BackColor = this.BackColor;
         }
 
         private void bindingNavigatorDeleteItem_Click(object sender, EventArgs e)
@@ -347,12 +344,17 @@ namespace VoucherExpense
 #endif
         }
 
+        private void FormScraps_Shown(object sender, EventArgs e)
+        {
+            dgvProductScrapped_RowEnter(null, null);
+            dgvProductScrapped.RowEnter+=new DataGridViewCellEventHandler(dgvProductScrapped_RowEnter);   // 為避免為顯示前,不知名的呼叫
+        }
+
         private void dgvProductScrapped_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
             try
             {
-                DataGridView view = sender as DataGridView;
-                DataGridViewRow dgvRow = view.Rows[e.RowIndex];
+                DataGridViewRow dgvRow = dgvProductScrapped.Rows[e.RowIndex];
                 DataRowView rowView = dgvRow.DataBoundItem as DataRowView;
                 var dataRow = rowView.Row as MyProductScrappedRow;
                 if (dataRow.IsLockedNull())
@@ -361,6 +363,24 @@ namespace VoucherExpense
                     SetDetailLocked(false);
                 }
                 else { SetDetailLocked(dataRow.Locked); }
+                var details=dataRow.GetProductScrappedDetailRows();
+                decimal sum = 0,value=0,cost=0;
+                foreach (var de in details)
+                    if (!de.IsVolumeNull())
+                    {
+                        sum += de.Volume;
+                        if (!de.IsPriceNull())         value += (de.Volume * de.Price);
+                        if (!de.IsEvaluatedCostNull()) cost  += (de.Volume * de.EvaluatedCost);
+                    }
+                volumeTextBox.Text          = sum.ToString("N1");
+                soldValueTextBox.Text       = value.ToString("N1");
+                ingredientsCostTextBox.Text = cost.ToString("N2");
+                if ((!dataRow.IsSoldValueNull()) && (value != dataRow.SoldValue))
+                     soldValueTextBox.BackColor       = Color.Red;
+                else soldValueTextBox.BackColor       = this.BackColor;
+                if ((!dataRow.IsIngredientsCostNull()) && cost != dataRow.IngredientsCost)
+                     ingredientsCostTextBox.BackColor = Color.Red;
+                else ingredientsCostTextBox.BackColor = this.BackColor;
             }
             catch { };
             chBoxHide_CheckedChanged(null, null);
@@ -414,8 +434,10 @@ namespace VoucherExpense
 
         private void FormScraps_FormClosing(object sender, FormClosingEventArgs e)
         {
+            dgvProductScrapped.RowEnter-= new DataGridViewCellEventHandler(dgvProductScrapped_RowEnter);
             dgvScrappedDetail.Visible = false;
             dgvProductScrapped.Visible = false;
+            dgvCalc.Visible = false;
         }
 
         private void dgvScrappedDetail_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -448,6 +470,67 @@ namespace VoucherExpense
             //        }
             //    }
             //}
+        }
+
+        public class CalcScrape
+        {
+            public int ProductID     { get; set; }
+            public decimal Volume    { get; set; }
+            public decimal Cost      { get; set; }
+            public decimal SoldValue { get; set; }
+            public CalcScrape(int id) { ProductID = id; }
+        }
+        private void btnCalc_Click(object sender, EventArgs e)
+        {
+            if (fromPicker.Value > toPicker.Value)
+            {
+                MessageBox.Show("啟始日期不能大於結束日期!");
+                return;
+            }
+            DateTime from=fromPicker.Value;
+            DateTime to  =toPicker.Value;
+            Dictionary<int, CalcScrape> dic = new Dictionary<int, CalcScrape>();
+            if (checkBox1.Checked) DoCalcScrape(from, to, 1, ref dic);
+            if (checkBox2.Checked) DoCalcScrape(from, to, 2, ref dic);
+            if (checkBox3.Checked) DoCalcScrape(from, to, 3, ref dic);
+            SortableBindingList<CalcScrape> list = new SortableBindingList<CalcScrape>();
+            decimal volume=0, cost=0, soldValue=0;
+            foreach (var v in dic.Values)
+                if (v.Volume > 0)
+                {
+                    volume    += v.Volume;
+                    cost      += v.Cost;
+                    soldValue += v.SoldValue;
+                    list.Add(v);
+                }
+            txBoxVolume.Text    = volume.ToString("N1");
+            txBoxSoldValue.Text = soldValue.ToString("N1");
+            txBoxCost.Text = cost.ToString("N2");
+            dgvCalc.DataSource = list;
+
+        }
+
+        void DoCalcScrape(DateTime begin, DateTime end, int reason,ref Dictionary<int,CalcScrape> dic)
+        {
+            var rows = from r in m_DataSet.ProductScrapped
+                       where r.ScrappedDate.Date>=begin.Date && r.ScrappedDate.Date<=end.Date && r.Reason == reason
+                       select r;
+            if (rows.Count()<=0) return;
+            foreach (var row in rows)
+            {
+                var details = row.GetProductScrappedDetailRows();
+                foreach (var d in details)
+                {
+                    CalcScrape scr;
+                    int id = d.ProductID;
+                    if (!dic.ContainsKey(id)) dic.Add(id, new CalcScrape(id));
+                    scr = dic[id];
+                    if (d.IsVolumeNull()) continue;
+                    scr.Volume += d.Volume;
+                    if (!d.IsEvaluatedCostNull()) scr.Cost      += (d.Volume * d.EvaluatedCost);
+                    if (!d.IsPriceNull())         scr.SoldValue += (d.Volume * d.Price);
+                }
+            }
         }
     }
 }

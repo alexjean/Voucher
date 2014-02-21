@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormOperator));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.operatorBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.operatorBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -76,8 +76,6 @@
             this.dataGridViewCheckBoxColumn9 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.IsSuper = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.operatorSQLAdapter = new VoucherExpense.DamaiDataSetTableAdapters.OperatorTableAdapter();
-            this.operatorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingNavigator)).BeginInit();
             this.operatorBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).BeginInit();
@@ -221,8 +219,8 @@
             // 
             this.operatorDataGridView.AllowUserToAddRows = false;
             this.operatorDataGridView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Azure;
-            this.operatorDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
+            this.operatorDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.operatorDataGridView.AutoGenerateColumns = false;
             this.operatorDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
             this.operatorDataGridView.ColumnHeadersHeight = 69;
@@ -461,20 +459,12 @@
             // dataGridViewTextBoxColumn6
             // 
             this.dataGridViewTextBoxColumn6.DataPropertyName = "LastUpdated";
-            dataGridViewCellStyle4.Format = "yy-MM-dd";
-            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Format = "yy-MM-dd";
+            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewTextBoxColumn6.HeaderText = "更新";
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             this.dataGridViewTextBoxColumn6.ReadOnly = true;
             this.dataGridViewTextBoxColumn6.Width = 76;
-            // 
-            // operatorSQLAdapter
-            // 
-            this.operatorSQLAdapter.ClearBeforeFill = true;
-            // 
-            // operatorTableAdapter
-            // 
-            this.operatorTableAdapter.ClearBeforeFill = true;
             // 
             // FormOperator
             // 
@@ -546,7 +536,5 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn IsSuper;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private DamaiDataSet damaiDataSet;
-        private DamaiDataSetTableAdapters.OperatorTableAdapter operatorSQLAdapter;
-        private VEDataSetTableAdapters.OperatorTableAdapter operatorTableAdapter;
     }
 }

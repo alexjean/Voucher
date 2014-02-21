@@ -270,7 +270,7 @@ namespace VoucherExpense
                 var sourceConn    = new SqlConnection(MapPath.SqlConnectString(m_HCfg.SqlServerIP, m_HCfg.SqlDatabase , m_HCfg.SqlUserID, m_HCfg.SqlPassword));
 
                 m_OrderSet.Header.Clear();
-                var row1 = m_OrderSet.Header.AddHeaderRow(new DateTime(m_Year , 1, 1), false);
+                var row1 = m_OrderSet.Header.AddHeaderRow(new DateTime(m_Year , 1, 1), false,0);
                 var adapterBa = new VoucherExpense.DamaiDataSetTableAdapters.HeaderTableAdapter();
                 adapterBa.Connection = sqlConn;
                 adapterBa.Update(row1);
@@ -293,7 +293,7 @@ namespace VoucherExpense
                     MessageBox.Show("空白" + IncomeMdb + "建立失敗,無法繼續!");   return;
                 }
                 m_OrderSet.Header.Clear();
-                var row1 = m_OrderSet.Header.AddHeaderRow(new DateTime(m_Year , 1, 1), false);
+                var row1 = m_OrderSet.Header.AddHeaderRow(new DateTime(m_Year , 1, 1), false);    
                 var adapterBa = new VoucherExpense.BakeryOrderSetTableAdapters.HeaderTableAdapter();
                 adapterBa.Connection = incomeConn;
                 adapterBa.Update(row1);

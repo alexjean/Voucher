@@ -29,39 +29,24 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgViewMonthly = new System.Windows.Forms.DataGridView();
-            this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.revenueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cashDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.creditCardDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Coupond = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.orderCountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.avePerPersonDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Deduct = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ReturnedCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ReturnedMoney = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DeletedCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DeletedMoney = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreditNet = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreditFee = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.monthlyReportDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bakeryOrderSet = new VoucherExpense.BakeryOrderSet();
             this.comboBoxMonth = new System.Windows.Forms.ComboBox();
@@ -73,6 +58,21 @@
             this.labelCreditNet = new System.Windows.Forms.Label();
             this.labelCreditFee = new System.Windows.Forms.Label();
             this.labelFeeRate = new System.Windows.Forms.Label();
+            this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.revenueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cashDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.creditCardDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Coupond = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.orderCountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.avePerPersonDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Deduct = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ReturnedCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ReturnedMoney = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreditNet = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreditFee = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DeletedCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DeletedMoney = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgViewMonthly)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.monthlyReportDataBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).BeginInit();
@@ -82,21 +82,21 @@
             // 
             this.dgViewMonthly.AllowUserToAddRows = false;
             this.dgViewMonthly.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle18.BackColor = System.Drawing.Color.Azure;
-            this.dgViewMonthly.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
+            this.dgViewMonthly.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgViewMonthly.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgViewMonthly.AutoGenerateColumns = false;
             this.dgViewMonthly.BackgroundColor = System.Drawing.Color.SeaShell;
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle19.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgViewMonthly.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgViewMonthly.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgViewMonthly.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgViewMonthly.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dateDataGridViewTextBoxColumn,
@@ -109,10 +109,10 @@
             this.Deduct,
             this.ReturnedCount,
             this.ReturnedMoney,
-            this.DeletedCount,
-            this.DeletedMoney,
             this.CreditNet,
             this.CreditFee,
+            this.DeletedCount,
+            this.DeletedMoney,
             this.Column1});
             this.dgViewMonthly.DataSource = this.monthlyReportDataBindingSource;
             this.dgViewMonthly.Location = new System.Drawing.Point(0, 34);
@@ -122,159 +122,8 @@
             this.dgViewMonthly.RowHeadersWidth = 25;
             this.dgViewMonthly.RowTemplate.Height = 24;
             this.dgViewMonthly.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgViewMonthly.Size = new System.Drawing.Size(1141, 410);
+            this.dgViewMonthly.Size = new System.Drawing.Size(1154, 410);
             this.dgViewMonthly.TabIndex = 0;
-            // 
-            // dateDataGridViewTextBoxColumn
-            // 
-            this.dateDataGridViewTextBoxColumn.DataPropertyName = "DayAndWeekDay";
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle20.NullValue = null;
-            this.dateDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle20;
-            this.dateDataGridViewTextBoxColumn.HeaderText = "日期";
-            this.dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
-            this.dateDataGridViewTextBoxColumn.ReadOnly = true;
-            this.dateDataGridViewTextBoxColumn.Width = 64;
-            // 
-            // revenueDataGridViewTextBoxColumn
-            // 
-            this.revenueDataGridViewTextBoxColumn.DataPropertyName = "Revenue";
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.revenueDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle21;
-            this.revenueDataGridViewTextBoxColumn.HeaderText = "營收";
-            this.revenueDataGridViewTextBoxColumn.Name = "revenueDataGridViewTextBoxColumn";
-            this.revenueDataGridViewTextBoxColumn.ReadOnly = true;
-            this.revenueDataGridViewTextBoxColumn.Width = 80;
-            // 
-            // cashDataGridViewTextBoxColumn
-            // 
-            this.cashDataGridViewTextBoxColumn.DataPropertyName = "Cash";
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.cashDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle22;
-            this.cashDataGridViewTextBoxColumn.HeaderText = "現金";
-            this.cashDataGridViewTextBoxColumn.Name = "cashDataGridViewTextBoxColumn";
-            this.cashDataGridViewTextBoxColumn.ReadOnly = true;
-            this.cashDataGridViewTextBoxColumn.Width = 80;
-            // 
-            // creditCardDataGridViewTextBoxColumn
-            // 
-            this.creditCardDataGridViewTextBoxColumn.DataPropertyName = "CreditCard";
-            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.creditCardDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle23;
-            this.creditCardDataGridViewTextBoxColumn.HeaderText = "刷卡";
-            this.creditCardDataGridViewTextBoxColumn.Name = "creditCardDataGridViewTextBoxColumn";
-            this.creditCardDataGridViewTextBoxColumn.ReadOnly = true;
-            this.creditCardDataGridViewTextBoxColumn.Width = 80;
-            // 
-            // Coupond
-            // 
-            this.Coupond.DataPropertyName = "Coupond";
-            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Coupond.DefaultCellStyle = dataGridViewCellStyle24;
-            this.Coupond.HeaderText = "券";
-            this.Coupond.Name = "Coupond";
-            this.Coupond.ReadOnly = true;
-            this.Coupond.Width = 80;
-            // 
-            // orderCountDataGridViewTextBoxColumn
-            // 
-            this.orderCountDataGridViewTextBoxColumn.DataPropertyName = "OrderCount";
-            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.orderCountDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle25;
-            this.orderCountDataGridViewTextBoxColumn.HeaderText = "單數";
-            this.orderCountDataGridViewTextBoxColumn.Name = "orderCountDataGridViewTextBoxColumn";
-            this.orderCountDataGridViewTextBoxColumn.ReadOnly = true;
-            this.orderCountDataGridViewTextBoxColumn.Width = 64;
-            // 
-            // avePerPersonDataGridViewTextBoxColumn
-            // 
-            this.avePerPersonDataGridViewTextBoxColumn.DataPropertyName = "AvePerPerson";
-            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.avePerPersonDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle26;
-            this.avePerPersonDataGridViewTextBoxColumn.HeaderText = "人均";
-            this.avePerPersonDataGridViewTextBoxColumn.Name = "avePerPersonDataGridViewTextBoxColumn";
-            this.avePerPersonDataGridViewTextBoxColumn.ReadOnly = true;
-            this.avePerPersonDataGridViewTextBoxColumn.Width = 64;
-            // 
-            // Deduct
-            // 
-            this.Deduct.DataPropertyName = "Deduct";
-            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Deduct.DefaultCellStyle = dataGridViewCellStyle27;
-            this.Deduct.HeaderText = "优惠";
-            this.Deduct.Name = "Deduct";
-            this.Deduct.ReadOnly = true;
-            this.Deduct.Width = 64;
-            // 
-            // ReturnedCount
-            // 
-            this.ReturnedCount.DataPropertyName = "ReturnedCount";
-            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.ReturnedCount.DefaultCellStyle = dataGridViewCellStyle28;
-            this.ReturnedCount.HeaderText = "退單";
-            this.ReturnedCount.Name = "ReturnedCount";
-            this.ReturnedCount.ReadOnly = true;
-            this.ReturnedCount.Width = 64;
-            // 
-            // ReturnedMoney
-            // 
-            this.ReturnedMoney.DataPropertyName = "ReturnedMoney";
-            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.ReturnedMoney.DefaultCellStyle = dataGridViewCellStyle29;
-            this.ReturnedMoney.HeaderText = "退金額";
-            this.ReturnedMoney.Name = "ReturnedMoney";
-            this.ReturnedMoney.ReadOnly = true;
-            this.ReturnedMoney.Width = 80;
-            // 
-            // DeletedCount
-            // 
-            this.DeletedCount.DataPropertyName = "DeletedCount";
-            dataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.DeletedCount.DefaultCellStyle = dataGridViewCellStyle30;
-            this.DeletedCount.HeaderText = "癈單";
-            this.DeletedCount.Name = "DeletedCount";
-            this.DeletedCount.ReadOnly = true;
-            this.DeletedCount.Width = 64;
-            // 
-            // DeletedMoney
-            // 
-            this.DeletedMoney.DataPropertyName = "DeletedMoney";
-            dataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.DeletedMoney.DefaultCellStyle = dataGridViewCellStyle31;
-            this.DeletedMoney.HeaderText = "癈金額";
-            this.DeletedMoney.Name = "DeletedMoney";
-            this.DeletedMoney.ReadOnly = true;
-            this.DeletedMoney.Width = 80;
-            // 
-            // CreditNet
-            // 
-            this.CreditNet.DataPropertyName = "CreditNet";
-            dataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.CreditNet.DefaultCellStyle = dataGridViewCellStyle32;
-            this.CreditNet.HeaderText = "刷卡淨收";
-            this.CreditNet.Name = "CreditNet";
-            this.CreditNet.ReadOnly = true;
-            // 
-            // CreditFee
-            // 
-            this.CreditFee.DataPropertyName = "CreditFee";
-            dataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.CreditFee.DefaultCellStyle = dataGridViewCellStyle33;
-            this.CreditFee.HeaderText = "手續費";
-            this.CreditFee.Name = "CreditFee";
-            this.CreditFee.ReadOnly = true;
-            this.CreditFee.Width = 80;
-            // 
-            // Column1
-            // 
-            this.Column1.DataPropertyName = "Date";
-            dataGridViewCellStyle34.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle34.Format = "dd";
-            this.Column1.DefaultCellStyle = dataGridViewCellStyle34;
-            this.Column1.HeaderText = "日期";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Width = 64;
             // 
             // monthlyReportDataBindingSource
             // 
@@ -350,7 +199,7 @@
             this.progressBar1.Location = new System.Drawing.Point(0, 317);
             this.progressBar1.Margin = new System.Windows.Forms.Padding(4);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(1141, 40);
+            this.progressBar1.Size = new System.Drawing.Size(1154, 40);
             this.progressBar1.TabIndex = 7;
             this.progressBar1.Visible = false;
             // 
@@ -381,12 +230,163 @@
             this.labelFeeRate.TabIndex = 10;
             this.labelFeeRate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // dateDataGridViewTextBoxColumn
+            // 
+            this.dateDataGridViewTextBoxColumn.DataPropertyName = "DayAndWeekDay";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.NullValue = null;
+            this.dateDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dateDataGridViewTextBoxColumn.HeaderText = "日期";
+            this.dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
+            this.dateDataGridViewTextBoxColumn.ReadOnly = true;
+            this.dateDataGridViewTextBoxColumn.Width = 64;
+            // 
+            // revenueDataGridViewTextBoxColumn
+            // 
+            this.revenueDataGridViewTextBoxColumn.DataPropertyName = "Revenue";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.revenueDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
+            this.revenueDataGridViewTextBoxColumn.HeaderText = "營收";
+            this.revenueDataGridViewTextBoxColumn.Name = "revenueDataGridViewTextBoxColumn";
+            this.revenueDataGridViewTextBoxColumn.ReadOnly = true;
+            this.revenueDataGridViewTextBoxColumn.Width = 80;
+            // 
+            // cashDataGridViewTextBoxColumn
+            // 
+            this.cashDataGridViewTextBoxColumn.DataPropertyName = "Cash";
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.cashDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle5;
+            this.cashDataGridViewTextBoxColumn.HeaderText = "現金";
+            this.cashDataGridViewTextBoxColumn.Name = "cashDataGridViewTextBoxColumn";
+            this.cashDataGridViewTextBoxColumn.ReadOnly = true;
+            this.cashDataGridViewTextBoxColumn.Width = 80;
+            // 
+            // creditCardDataGridViewTextBoxColumn
+            // 
+            this.creditCardDataGridViewTextBoxColumn.DataPropertyName = "CreditCard";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.creditCardDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle6;
+            this.creditCardDataGridViewTextBoxColumn.HeaderText = "刷卡";
+            this.creditCardDataGridViewTextBoxColumn.Name = "creditCardDataGridViewTextBoxColumn";
+            this.creditCardDataGridViewTextBoxColumn.ReadOnly = true;
+            this.creditCardDataGridViewTextBoxColumn.Width = 80;
+            // 
+            // Coupond
+            // 
+            this.Coupond.DataPropertyName = "Coupond";
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Coupond.DefaultCellStyle = dataGridViewCellStyle7;
+            this.Coupond.HeaderText = "券";
+            this.Coupond.Name = "Coupond";
+            this.Coupond.ReadOnly = true;
+            this.Coupond.Width = 80;
+            // 
+            // orderCountDataGridViewTextBoxColumn
+            // 
+            this.orderCountDataGridViewTextBoxColumn.DataPropertyName = "OrderCount";
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.orderCountDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle8;
+            this.orderCountDataGridViewTextBoxColumn.HeaderText = "單數";
+            this.orderCountDataGridViewTextBoxColumn.Name = "orderCountDataGridViewTextBoxColumn";
+            this.orderCountDataGridViewTextBoxColumn.ReadOnly = true;
+            this.orderCountDataGridViewTextBoxColumn.Width = 64;
+            // 
+            // avePerPersonDataGridViewTextBoxColumn
+            // 
+            this.avePerPersonDataGridViewTextBoxColumn.DataPropertyName = "AvePerPerson";
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.avePerPersonDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle9;
+            this.avePerPersonDataGridViewTextBoxColumn.HeaderText = "人均";
+            this.avePerPersonDataGridViewTextBoxColumn.Name = "avePerPersonDataGridViewTextBoxColumn";
+            this.avePerPersonDataGridViewTextBoxColumn.ReadOnly = true;
+            this.avePerPersonDataGridViewTextBoxColumn.Width = 64;
+            // 
+            // Deduct
+            // 
+            this.Deduct.DataPropertyName = "Deduct";
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Deduct.DefaultCellStyle = dataGridViewCellStyle10;
+            this.Deduct.HeaderText = "优惠";
+            this.Deduct.Name = "Deduct";
+            this.Deduct.ReadOnly = true;
+            this.Deduct.Width = 64;
+            // 
+            // ReturnedCount
+            // 
+            this.ReturnedCount.DataPropertyName = "ReturnedCount";
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.ReturnedCount.DefaultCellStyle = dataGridViewCellStyle11;
+            this.ReturnedCount.HeaderText = "退單";
+            this.ReturnedCount.Name = "ReturnedCount";
+            this.ReturnedCount.ReadOnly = true;
+            this.ReturnedCount.Width = 64;
+            // 
+            // ReturnedMoney
+            // 
+            this.ReturnedMoney.DataPropertyName = "ReturnedMoney";
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.ReturnedMoney.DefaultCellStyle = dataGridViewCellStyle12;
+            this.ReturnedMoney.HeaderText = "退金額";
+            this.ReturnedMoney.Name = "ReturnedMoney";
+            this.ReturnedMoney.ReadOnly = true;
+            this.ReturnedMoney.Width = 80;
+            // 
+            // CreditNet
+            // 
+            this.CreditNet.DataPropertyName = "CreditNet";
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.CreditNet.DefaultCellStyle = dataGridViewCellStyle13;
+            this.CreditNet.HeaderText = "刷卡淨收";
+            this.CreditNet.Name = "CreditNet";
+            this.CreditNet.ReadOnly = true;
+            // 
+            // CreditFee
+            // 
+            this.CreditFee.DataPropertyName = "CreditFee";
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.CreditFee.DefaultCellStyle = dataGridViewCellStyle14;
+            this.CreditFee.HeaderText = "手續費";
+            this.CreditFee.Name = "CreditFee";
+            this.CreditFee.ReadOnly = true;
+            this.CreditFee.Width = 80;
+            // 
+            // DeletedCount
+            // 
+            this.DeletedCount.DataPropertyName = "DeletedCount";
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.DeletedCount.DefaultCellStyle = dataGridViewCellStyle15;
+            this.DeletedCount.HeaderText = "癈單";
+            this.DeletedCount.Name = "DeletedCount";
+            this.DeletedCount.ReadOnly = true;
+            this.DeletedCount.Width = 64;
+            // 
+            // DeletedMoney
+            // 
+            this.DeletedMoney.DataPropertyName = "DeletedMoney";
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.DeletedMoney.DefaultCellStyle = dataGridViewCellStyle16;
+            this.DeletedMoney.HeaderText = "癈金額";
+            this.DeletedMoney.Name = "DeletedMoney";
+            this.DeletedMoney.ReadOnly = true;
+            this.DeletedMoney.Width = 80;
+            // 
+            // Column1
+            // 
+            this.Column1.DataPropertyName = "Date";
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle17.Format = "dd";
+            this.Column1.DefaultCellStyle = dataGridViewCellStyle17;
+            this.Column1.HeaderText = "日期";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 64;
+            // 
             // MonthlyReportBakery
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(226)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(1141, 444);
+            this.ClientSize = new System.Drawing.Size(1154, 444);
             this.Controls.Add(this.labelFeeRate);
             this.Controls.Add(this.labelCreditFee);
             this.Controls.Add(this.labelCreditNet);
@@ -434,10 +434,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Deduct;
         private System.Windows.Forms.DataGridViewTextBoxColumn ReturnedCount;
         private System.Windows.Forms.DataGridViewTextBoxColumn ReturnedMoney;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DeletedCount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DeletedMoney;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreditNet;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreditFee;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DeletedCount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DeletedMoney;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
     }
 }

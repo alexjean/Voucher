@@ -117,36 +117,36 @@ namespace VoucherExpense
 #endif
         {
             COperator op = new COperator();
-            op.EditAccountingTitle = r.EditAccountingTitle;
-            op.EditBank = r.EditBank;
-            op.EditEmployee = r.EditEmployee;
-            op.EditExpense = r.EditExpense;
-            op.EditIngredient = r.EditIngredient;
-            op.EditInventory = r.EditInventory;
-            op.EditOnDuty = r.EditOnDuty;
-            op.EditOperator = r.EditOperator;
-            op.EditProduct = r.EditProduct;
-            op.EditRecipe = r.EditRecipe;
-            op.EditSalary = r.EditSalary;
-            op.EditShipment = r.EditShipment;
-            op.EditVendor = r.EditVendor;
-            op.EditVoucher = r.EditVoucher;
-            op.IsManager = r.IsManager;
-            op.IsSuper = r.IsSuper;
-            op.LockAccVoucher = r.LockAccVoucher;
-            op.LockExpense = r.LockExpense;
-            op.LockHR = r.LockHR;
-            op.LockInventory = r.LockInventory;
-            op.LockShipment = r.LockShipment;
-            op.LockVoucher = r.LockVoucher;
+            if (!r.IsEditAccountingTitleNull())     op.EditAccountingTitle = r.EditAccountingTitle;
+            if (!r.IsEditBankNull())                op.EditBank = r.EditBank;
+            if (!r.IsEditEmployeeNull())            op.EditEmployee = r.EditEmployee;
+            if (!r.IsEditExpenseNull())             op.EditExpense = r.EditExpense;
+            if (!r.IsEditIngredientNull())          op.EditIngredient = r.EditIngredient;
+            if (!r.IsEditInventoryNull())           op.EditInventory = r.EditInventory;
+            if (!r.IsEditOnDutyNull())              op.EditOnDuty = r.EditOnDuty;
+            if (!r.IsEditOperatorNull())            op.EditOperator = r.EditOperator;
+            if (!r.IsEditProductNull())             op.EditProduct = r.EditProduct;
+            if (!r.IsEditRecipeNull())              op.EditRecipe = r.EditRecipe;
+            if (!r.IsEditSalaryNull())              op.EditSalary = r.EditSalary;
+            if (!r.IsEditShipmentNull())            op.EditShipment = r.EditShipment;
+            if (!r.IsEditVendorNull())              op.EditVendor = r.EditVendor;
+            if (!r.IsEditVoucherNull())             op.EditVoucher = r.EditVoucher;
+            if (!r.IsIsManagerNull())               op.IsManager = r.IsManager;
+            if (!r.IsIsSuperNull())                 op.IsSuper = r.IsSuper;
+            if (!r.IsLockAccVoucherNull())          op.LockAccVoucher = r.LockAccVoucher;
+            if (!r.IsLockExpenseNull())             op.LockExpense = r.LockExpense;
+            if (!r.IsLockHRNull())                  op.LockHR = r.LockHR;
+            if (!r.IsLockInventoryNull())           op.LockInventory = r.LockInventory;
+            if (!r.IsLockShipmentNull())            op.LockShipment = r.LockShipment;
+            if (!r.IsLockVoucherNull())             op.LockVoucher = r.LockVoucher;
+            if (!r.IsRevenueOperateNull())          op.RevenueOperate = r.RevenueOperate;
+            if (!r.IsStopAccountNull())             op.StopAccount = r.StopAccount;
             op.LoginName = r.LoginName;
             if (r.IsNameNull())
                 op.Name = "操作員" + r.OperatorID.ToString();   
             else 
                 op.Name = r.Name;
             op.OperatorID = r.OperatorID;
-            op.RevenueOperate = r.RevenueOperate;
-            op.StopAccount = r.StopAccount;
             return op;
         }
 
@@ -284,7 +284,7 @@ namespace VoucherExpense
                 {
                     if (r.Password.CompareTo(Password) == 0)
                     {
-                        if (r.StopAccount)
+                        if (!r.IsStopAccountNull() && r.StopAccount)
                         {
                             MessageBox.Show("此帳號己經停用!");
                             return null;

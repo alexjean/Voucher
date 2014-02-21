@@ -3,6 +3,16 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
+#if (UseSQLServer)
+using MyOperatorRow = VoucherExpense.DamaiDataSet.OperatorRow;
+using MyDataSet = VoucherExpense.DamaiDataSet;
+using MyOperatorTable = VoucherExpense.DamaiDataSet.OperatorDataTable;
+#else
+using MyOperatorRow = VoucherExpense.VEDataSet.OperatorRow;
+using MyDataSet = VoucherExpense.VEDataSet;
+using MyOperatorTable = VoucherExpense.VEDataSet.OperatorDataTable;
+#endif
+
 namespace VoucherExpense
 {
     public partial class FormOperator : Form
@@ -12,13 +22,18 @@ namespace VoucherExpense
             InitializeComponent();
         }
 
+        MyDataSet m_DataSet = new MyDataSet();
+#if (UseSQLServer)
+        VoucherExpense.DamaiDataSetTableAdapters.OperatorTableAdapter operatorAdapter = new DamaiDataSetTableAdapters.OperatorTableAdapter();
+#else
+        VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter operatorAdapter = new VEDataSetTableAdapters.OperatorTableAdapter();
+#endif
+
         private void operatorBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
-#if (UseSQLServer)
-            DamaiDataSet.OperatorDataTable table = MyFunction.SaveCheck<DamaiDataSet.OperatorDataTable>(
-                                                        this, operatorBindingSource, damaiDataSet.Operator);
+            var table = MyFunction.SaveCheck<MyOperatorTable>(this, operatorBindingSource, m_DataSet.Operator);
             if (table == null) return;
-            foreach (DamaiDataSet.OperatorRow r in table.Rows)
+            foreach (var r in table)
             {
                 if (r.RowState == DataRowState.Deleted) continue;
                 r.BeginEdit();
@@ -36,50 +51,21 @@ namespace VoucherExpense
                 r.Password = r.LoginName;
                 r.EndEdit();
             }
-            damaiDataSet.Operator.Merge(table);
-            this.operatorSQLAdapter.Update(this.damaiDataSet.Operator);
-            this.damaiDataSet.Operator.AcceptChanges();
-#else
-            VEDataSet.OperatorDataTable table = MyFunction.SaveCheck<VEDataSet.OperatorDataTable>(
-                                                        this, operatorBindingSource, vEDataSet.Operator);
-            if (table == null) return;
-            foreach (VEDataSet.OperatorRow r in table.Rows)
-            {
-                if (r.RowState == DataRowState.Deleted) continue;
-                r.BeginEdit();
-                r.LastUpdated = DateTime.Now;
-                // 初次密碼設為和帳號相同 
-                if (!r.IsPasswordNull())
-                {
-                    string str = r.Password.ToString().Trim();
-                    if (str != "")
-                    {
-                        r.EndEdit();
-                        continue;
-                    }
-                }
-                r.Password = r.LoginName;
-                r.EndEdit();
-            }
-            vEDataSet.Operator.Merge(table);
-            this.operatorTableAdapter.Update(this.vEDataSet.Operator);
-            this.vEDataSet.Operator.AcceptChanges();
-#endif
+            m_DataSet.Operator.Merge(table);
+            this.operatorAdapter.Update(m_DataSet.Operator);
+            m_DataSet.Operator.AcceptChanges();
         }
         private void FormOperator_Load(object sender, EventArgs e)
         {
+            operatorBindingSource.DataSource = m_DataSet;
             try
             {
-#if (UseSQLServer)
-                this.operatorBindingSource.DataSource = damaiDataSet;
-                this.operatorSQLAdapter.Fill(this.damaiDataSet.Operator);
-                MyFunction.SetFieldLength(operatorDataGridView, damaiDataSet.Operator);
-#else
-                this.operatorBindingSource.DataSource = vEDataSet;
-                operatorTableAdapter.Connection = MapPath.VEConnection;
-                this.operatorTableAdapter.Fill(this.vEDataSet.Operator);
-                MyFunction.SetFieldLength(operatorDataGridView, vEDataSet.Operator);
+#if (!UseSQLServer)
+                operatorAdapter.Connection = MapPath.VEConnection;
 #endif
+                this.operatorBindingSource.DataSource = m_DataSet;
+                this.operatorAdapter.Fill(m_DataSet.Operator);
+                MyFunction.SetFieldLength(operatorDataGridView, m_DataSet.Operator);
             }
             catch (Exception ex)
             {
@@ -167,14 +153,9 @@ namespace VoucherExpense
 
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
-#if (UseSQLServer)
-            MyFunction.AddNewItem(operatorDataGridView, "operatorID", "operatorID", damaiDataSet.Operator);
-#else
-            MyFunction.AddNewItem(operatorDataGridView,"operatorID","operatorID",vEDataSet.Operator);
-#endif
+            MyFunction.AddNewItem(operatorDataGridView, "operatorID", "operatorID", m_DataSet.Operator);
             DataGridViewRow row = operatorDataGridView.CurrentRow;
             row.Cells["LoginName"].Value = "Name" + row.Cells["operatorID"].Value.ToString();
         }
-
     }
 }

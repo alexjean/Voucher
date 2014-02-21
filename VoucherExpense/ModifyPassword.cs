@@ -5,6 +5,13 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+#if (UseSQLServer)
+using MyDataSet = VoucherExpense.DamaiDataSet;
+using MyOperatorRow = VoucherExpense.DamaiDataSet.OperatorRow;
+#else
+using MyDataSet = VoucherExpense.VEDataSet;
+using MyOperatorRow = VoucherExpense.VEDataSet.OperatorRow;
+#endif
 
 namespace VoucherExpense
 {
@@ -15,12 +22,20 @@ namespace VoucherExpense
             InitializeComponent();
         }
 
+        MyDataSet m_DataSet = new MyDataSet();
+#if (UseSQLServer)
+        VoucherExpense.DamaiDataSetTableAdapters.OperatorTableAdapter operatorAdapter = new DamaiDataSetTableAdapters.OperatorTableAdapter();
         private void ModifyPassword_Load(object sender, EventArgs e)
         {
-            cashierTableAdapter.Connection = MapPath.VEConnection;
+#else
+        VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter operatorAdapter=new VEDataSetTableAdapters.OperatorTableAdapter();
+        private void ModifyPassword_Load(object sender, EventArgs e)
+        {
+            operatorAdapter.Connection = MapPath.VEConnection;
+#endif
             try
             {
-                cashierTableAdapter.Fill(BakeryOrderSet.Operator);
+                operatorAdapter.Fill(m_DataSet.Operator);
             }
             catch
             {
@@ -36,10 +51,10 @@ namespace VoucherExpense
             MessageBox.Show("己取消,密碼未更改!");
         }
 
-        private VEDataSet.OperatorRow GetRecord()
+        private MyOperatorRow GetRecord()
         {
             int id = MyFunction.OperatorID;
-            foreach (VEDataSet.OperatorRow r in BakeryOrderSet.Operator.Rows)
+            foreach (var r in m_DataSet.Operator)
             {
                 if (r.OperatorID == id) return r;
             }
@@ -65,7 +80,7 @@ namespace VoucherExpense
                 MessageBox.Show("不要玩了!新舊密碼都一樣");
                 return;
             }
-            VEDataSet.OperatorRow row = GetRecord();
+            var row = GetRecord();
             if (row==null)
             {
                 MessageBox.Show("對不起!系統發生錯誤,找不到你的密碼!");
@@ -82,7 +97,7 @@ namespace VoucherExpense
                 row.BeginEdit();
                 row.Password=newPass;
                 row.EndEdit();
-                cashierTableAdapter.Update(row);
+                operatorAdapter.Update(row);
             }
             catch(Exception ex)
             {

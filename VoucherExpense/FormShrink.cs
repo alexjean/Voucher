@@ -198,17 +198,14 @@ namespace VoucherExpense
            //m_OrderItemAdapter.FillBySelectStr(OrderItem, "Select * From [OrderItem] " + sqlstr + " Order by ID");
            m_OrderSet.OrderItem.Clear();
            m_OrderSet.Order.Clear();
-           try
+           //try  // 讓上一級處理
            {
                Message("載入"+duration+"售出單...");
                m_OrderAdapter.FillBySelectStr(m_OrderSet.Order, "Select * From [Order] " + sqlstr + " Order by ID");
                Message("載入" + duration + "售出明細...");
                m_OrderItemAdapter.FillBySelectStr(m_OrderSet.OrderItem, "Select * From [OrderItem] " + sqlstr + " Order by ID");
            }
-           catch (Exception ex)
-           {
-               MessageBox.Show(ex.Message);
-           }
+           //catch (Exception ex) { MessageBox.Show(ex.Message); }
            Message("開始計算" + duration + "銷售品總成本...");
            progressBar1.Visible = true;
            progressBar1.Maximum = m_OrderSet.Order.Count + 1;

@@ -540,10 +540,7 @@ namespace VoucherExpense
                 var headers = from row in m_OrderSet.Header where row.DataDate == today.Date select row;
                 if (headers.Count() <=0)   // 無今日資料再加, 是否己封印,呼叫端己檢查
                 {
-                    var header = m_OrderSet.Header.NewHeaderRow();
-                    header.DataDate = today.Date;
-                    header.Closed = false;
-                    m_OrderSet.Header.AddHeaderRow(header);
+                    m_OrderSet.Header.AddHeaderRow(today.Date,false,0);
                     HeaderAdapter.Update(m_OrderSet.Header);
                 }
 
@@ -710,10 +707,7 @@ namespace VoucherExpense
                     }
                     else
                     {
-                        posHeader = posBakerySet.Header.NewHeaderRow();
-                        posHeader.DataDate = today.Date;
-                        posHeader.Closed = true;
-                        posBakerySet.Header.AddHeaderRow(posHeader);
+                        posBakerySet.Header.AddHeaderRow(today.Date,true);
                     }
                     adapter.Update(posBakerySet.Header);
                 }
@@ -726,6 +720,12 @@ namespace VoucherExpense
             Message("封印店長端 <"+today.ToShortDateString()+"> 營收資料!");
             try  
             {
+                var revenue = new RevenueCalcBakery(today, 0m);   // 先不管手續費, 這里只要總營收
+                revenue.LoadData(m_OrderSet, today.Month, today.Day);
+                var s=revenue.Statics(m_OrderSet);
+#if (UseSQLServer)
+                mainHeader.Revenue = s.Revenue;
+#endif
                 mainHeader.Closed = true;
                 HeaderAdapter.Update(m_OrderSet.Header);
             }
@@ -1219,7 +1219,7 @@ namespace VoucherExpense
                 return;
             }
             DateTime today = todayPicker.Value.Date;
-            m_Revenue = new RevenueCalcBakery(today, 0m);   // 先不管手續費
+            m_Revenue = new RevenueCalcBakery(today, 0m);   // 先不管手續費,日報表不用印
             m_Revenue.LoadData(m_OrderSet, today.Month, today.Day);
             try
             {

@@ -68,7 +68,7 @@ namespace VoucherExpense
             PrinterSettings ps = new PrinterSettings();
             ps.PrinterName = Config.DotPrinterName;
             pD.PrinterSettings = ps;
-            dateTimetoolStripCbB.SelectedIndex = 1;   
+            dateTimetoolStripCbB.SelectedIndex = DateTime.Now.Month;   
         }
 
 
@@ -115,8 +115,16 @@ namespace VoucherExpense
         { 
             IsEnabled(false);//资料设置为不可编辑
            this.requestsBindingSource.EndEdit();
-           RequestsAdapter.Update(m_DataSet.Requests);
-           RequestsAdapter.Fill  (m_DataSet.Requests);
+           try
+           {
+               RequestsAdapter.Update(m_DataSet.Requests);
+           }
+           catch (Exception ex)
+           {
+               MessageBox.Show("存請款單錯誤:" + ex.Message);
+           }
+           requestsBindingSource.ResetBindings(false);
+           //RequestsAdapter.Fill  (m_DataSet.Requests);
             this.bindingNavigatorAddNewItem.Enabled = true;
             this.requestsBindingNavigatorSaveItem.Enabled = false;
             this.requestsDataGridView.Enabled = true;
@@ -442,5 +450,8 @@ namespace VoucherExpense
             MessageBox.Show("第" + row.ToString() + "行,第" + col.ToString() + "欄資料" + e.Exception.Message);
             e.Cancel = true;
         }
+
+ 
+      
     }
 }

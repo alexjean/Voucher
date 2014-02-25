@@ -471,5 +471,10 @@ namespace VoucherExpense
         {
             PopupOrRun("FormShipment", typeof(FormShipment));
         }
+
+        private void 单据ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

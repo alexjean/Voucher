@@ -513,11 +513,12 @@
             this.单据ToolStripMenuItem.Name = "单据ToolStripMenuItem";
             this.单据ToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.单据ToolStripMenuItem.Text = "单据";
+            this.单据ToolStripMenuItem.Click += new System.EventHandler(this.单据ToolStripMenuItem_Click);
             // 
             // 请款单ToolStripMenuItem
             // 
             this.请款单ToolStripMenuItem.Name = "请款单ToolStripMenuItem";
-            this.请款单ToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.请款单ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.请款单ToolStripMenuItem.Text = "请款单";
             this.请款单ToolStripMenuItem.Click += new System.EventHandler(this.请款单ToolStripMenuItem_Click);
             // 

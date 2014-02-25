@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormBillList));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -449,7 +449,7 @@
             // moneyAaTextBox
             // 
             this.moneyAaTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.moneyAaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.requestsBindingSource, "MoneyAa", true));
+            this.moneyAaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.requestsBindingSource, "MoneyAa", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.moneyAaTextBox.Enabled = false;
             this.moneyAaTextBox.Location = new System.Drawing.Point(452, 266);
             this.moneyAaTextBox.Name = "moneyAaTextBox";
@@ -470,7 +470,7 @@
             // accountTextBox
             // 
             this.accountTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.accountTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.requestsBindingSource, "PaymenMethods", true));
+            this.accountTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.requestsBindingSource, "Account", true));
             this.accountTextBox.Enabled = false;
             this.accountTextBox.Location = new System.Drawing.Point(452, 241);
             this.accountTextBox.Name = "accountTextBox";
@@ -500,6 +500,7 @@
             // requestsUseTextBox
             // 
             this.requestsUseTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.requestsUseTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.requestsBindingSource, "RequestsUse", true));
             this.requestsUseTextBox.Enabled = false;
             this.requestsUseTextBox.Location = new System.Drawing.Point(33, 156);
             this.requestsUseTextBox.Multiline = true;
@@ -531,22 +532,22 @@
             // 
             this.requestsDataGridView.AllowUserToAddRows = false;
             this.requestsDataGridView.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.requestsDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.requestsDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.requestsDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.requestsDataGridView.AutoGenerateColumns = false;
             this.requestsDataGridView.BackgroundColor = System.Drawing.Color.White;
             this.requestsDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("新細明體", 12F);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.requestsDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("新細明體", 12F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.requestsDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.requestsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.requestsDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dgvColRequestsID,
@@ -573,7 +574,7 @@
             this.requestsDataGridView.RowHeadersVisible = false;
             this.requestsDataGridView.RowTemplate.Height = 23;
             this.requestsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.requestsDataGridView.Size = new System.Drawing.Size(1165, 263);
+            this.requestsDataGridView.Size = new System.Drawing.Size(1165, 258);
             this.requestsDataGridView.TabIndex = 0;
             this.requestsDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.requestsDataGridView_DataError);
             this.requestsDataGridView.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.requestsDataGridView_RowPostPaint);

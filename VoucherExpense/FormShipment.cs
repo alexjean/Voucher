@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
+using System.Data.SqlClient;
 namespace VoucherExpense
 {
     public partial class FormShipment : Form
@@ -45,10 +45,7 @@ namespace VoucherExpense
                 foreach (SQLVEDataSet.ShipmentRow r in table)
                     if (r.RowState != DataRowState.Deleted)
                     {
-                        //if (r.IsStockTimeNull())
-                        //{r.time
-                        //    MessageBox.Show("進貨單<" + r.ID.ToString() + ">沒有日期,不顯示在某單月,只顯示在全年度!");
-                        //}
+
                         r.BeginEdit();
                         if (!ischecked)
                         {
@@ -98,11 +95,11 @@ namespace VoucherExpense
         bool m_check = false;
         private void FormShipment_Load(object sender, EventArgs e)
         {
-            // TODO: 这行代码将数据加载到表“vEDataSet.AccountingTitle”中。您可以根据需要移动或删除它。
-            this.accountingTitleTableAdapter.Fill(this.vEDataSet.AccountingTitle);
             try
             {
-
+                this.apartmentTableAdapter.Fill(this.damaiDataSet.Apartment);
+                // TODO: 这行代码将数据加载到表“vEDataSet.AccountingTitle”中。您可以根据需要移动或删除它。
+                this.accountingTitleTableAdapter.Fill(this.vEDataSet.AccountingTitle);
                 // TODO: 这行代码将数据加载到表“vEDataSet.Operator”中。您可以根据需要移动或删除它。
                 this.operatorTableAdapter.Fill(this.vEDataSet.Operator);
                 // TODO: 这行代码将数据加载到表“bakeryOrderSet.Product”中。您可以根据需要移动或删除它。
@@ -123,6 +120,10 @@ namespace VoucherExpense
 
                 MessageBox.Show("出货界面加载时出现异常" + ex.ToString());
             }
+            if (MyFunction.IntHeaderYear != DateTime.Now.Year)
+                comboBoxMonth.SelectedIndex = comboBoxMonth.Items.Count - 1;
+            else
+                comboBoxMonth.SelectedIndex = DateTime.Now.Month;
         }
 
         private void shipmentDetailDataGridView_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
@@ -151,12 +152,14 @@ namespace VoucherExpense
             if (i > 0)
             {
                 this.iDLabel1.Text = i.ToString();
+                
                 //removedCheckBox.Checked = false;                           // 只有對DateTime的Binding會受影響, bool不會,所以可以放ResetBindings前  
                 //checkedCheckBox.Checked = false;
                 this.shipmentBindingSource.ResetBindings(false);           // 這行加了會把stockTimeTextBox.Text和entryTimeTextBox.Text給清成空白,所以放前面
                 this.shipmentDetailBindingSource.ResetBindings(false);   // 有id了,可以刷新下面的detail表
                 removedCheckBox.Checked = false;
                 checkedCheckBox.Checked = false;
+                this.shipCodeTextBox.Text = GetShipCode(month);
                 // 初始時間, 放在ResetBindings後面
                 int year = MyFunction.IntHeaderYear;
                 DateTime t = DateTime.Now;
@@ -165,8 +168,50 @@ namespace VoucherExpense
                 disableDateTimePicker = false;
                 // 有選月份時,先強設日期,否則在當月看不到
                 DateTime stockTime = new DateTime(year, month, MyFunction.DayCountOfMonth(month));   // 資料月份,設成該月最後一天
-                //stockTimeTextBox.Text = stockTime.ToShortDateString();
-                MessageBox.Show("請設成正確出货日期!");
+                shipTimeTextBox.Text = stockTime.ToShortDateString();
+            }
+            
+        }
+
+        /// <summary>
+        /// 凭证号
+        /// </summary>
+        /// <param name="month">指定月份</param>
+
+        string GetShipCode(int month)
+        {
+            string currentYear = MyFunction.IntHeaderYear.ToString().Substring(2, 2);
+            string currentMaxYear = MyFunction.IntHeaderYear.ToString().Substring(2, 2);
+            if (month.ToString().Length > 1)
+            {
+                currentYear += month.ToString() + "001";
+                currentMaxYear += month.ToString() + "999";
+            }
+            else
+            {
+                currentYear += "0" + month.ToString() + "001";
+                currentMaxYear += "0" + month.ToString() + "999";
+            }
+           // this.shipmentTableAdapter.Fill(this.sQLVEDataSet.Shipment);
+            //var shipment = this.sQLVEDataSet.Shipment.Select("shipcode>" + currentYear);//指定月份的最大所以先筛选指定月份的数据
+            //var dt = shipment.CopyToDataTable();
+            //var sdt = dt as SQLVEDataSet.ShipmentDataTable;
+            var shipmentrows = from r in this.sQLVEDataSet.Shipment where (r.ShipCode >= Convert.ToInt32(currentYear) || r.ShipCode < Convert.ToInt32(currentMaxYear)) orderby r.ShipCode descending select r;
+            if (shipmentrows.ToArray().Length>0)
+            {
+                var shipmentrow = shipmentrows.First<SQLVEDataSet.ShipmentRow>();
+                if (shipmentrow == null)
+                {
+                    return currentYear;
+                }
+                else
+                {
+                    return (shipmentrow.ShipCode+1).ToString();
+                }
+            }
+            else
+            {
+                return currentYear;
             }
         }
         private bool disableDateTimePicker = false;
@@ -361,15 +406,25 @@ namespace VoucherExpense
                     shipmentDetailDataGridView.Enabled = true;
                     removedCheckBox.Enabled = false;
                 }
+            }   
+            if (ischecked)
+            {
+                row.ReadOnly=true;
             }
             Color color;
             if (removed)
+            {
                 color = Color.DarkCyan;
-            else if ((e.RowIndex % 2) != 0)
-                color = Color.Azure;
+                row.ReadOnly = true;
+            }
             else
-                color = Color.White;
-            row.DefaultCellStyle.BackColor = color;
+            {
+                if ((e.RowIndex % 2) != 0)
+                    color = Color.Azure;
+                else
+                    color = Color.White;
+                row.DefaultCellStyle.BackColor = color;
+            }         
         }
 
         private void shipmentDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -411,30 +466,49 @@ namespace VoucherExpense
         }
         private void tsbtPrint_Click(object sender, EventArgs e)
         {
+            string apartmentName = "";
+            if (this.damaiDataSet.Apartment.Rows.Count != 0)
+            {
+                var a0 = this.damaiDataSet.Apartment[0];
+                foreach (var a in this.damaiDataSet.Apartment)
+                {
+                    if (!a.IsIsCurrentNull() && a.IsCurrent)
+                    {
+                        a0 = a;
+                        break;
+                    }
+                }
+                if (a0.IsApartmentNameNull())
+                    apartmentName = a0.ApartmentAllName;
+                else
+                    apartmentName = a0.ApartmentAllName;
+            }
             DataRowView rowview=shipmentBindingSource.Current as DataRowView;
             SQLVEDataSet.ShipmentRow row = rowview.Row as SQLVEDataSet.ShipmentRow;
             var  customerrows =from ro in sQLVEDataSet.Customer where(ro.CustomerID==row.Customer) select ro;
             var customerrow=customerrows.First();
             Shipmentprint smp = new Shipmentprint();
-            smp.ShipmentNumber = row.ID.ToString();
+            smp.ApartmentName = apartmentName;
+            smp.ShipmentNumber = row.ShipCode.ToString();
             smp.ContactPeople = customerrow.ContactPeople;
             smp.CustomerName = customerrow.Name;
             smp.ShipAddress = customerrow.Address;
             smp.ContactPhone = customerrow.Telephone;
             smp.EntryTime = row.LastUpdated.ToString("yyyyMMdd");
             smp.ShipTime = row.ShipTime.ToString("yyyyMMdd");
+            smp.CostAllCount = row.Cost;
             var shipmetdetailrows=row.GetShipmentDetailRows();
             if(shipmetdetailrows.Count()==0)
                 return ;
             List<List<Shipmentdetailprint>> lists = new List<List<Shipmentdetailprint>>();
-            int inttemp=shipmetdetailrows.Count()/12;
+            int inttemp=shipmetdetailrows.Count()/15;
             for (int j = 0; j <=inttemp; j++)
             {
 
                 List<Shipmentdetailprint> listshipmentdetail = new List<Shipmentdetailprint>();
-                for (int i = j*12; i < shipmetdetailrows.Count(); i++)
+                for (int i = j*14; i < shipmetdetailrows.Count(); i++)
                 {
-                    if (i < (j + 1) * 12)
+                    if (i < (j + 1) * 14)
                     {
                         
                    
@@ -442,12 +516,13 @@ namespace VoucherExpense
                     var productrow = from r in bakeryOrderSet.Product where (r.ProductID == temrow.ProductID) select r;
 
                     Shipmentdetailprint smdp = new Shipmentdetailprint();
-                    smdp.Num = (i + 1) / 12+1;
-                    smdp.NumCount = inttemp+1;
+                    smdp.PageNumCount = inttemp+1;
                     smdp.ProductName = productrow.First().Name;
+                    smdp.ProductCode = productrow.First().Code;
                     smdp.Unit = productrow.First().Unit;
-                    // smdp.ProductSpecifications = productrow.First().ProductSpecificatiions;规格
+                    smdp.Cost = productrow.First().Price;
                     smdp.Volum = temrow.Volume;
+                    smdp.AllCost = temrow.Cost;
                     listshipmentdetail.Add(smdp); 
                     }
                 }

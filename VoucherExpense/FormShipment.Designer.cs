@@ -43,6 +43,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormShipment));
             this.comboBox2 = new System.Windows.Forms.ComboBox();
@@ -75,10 +76,10 @@
             this.customerComboBox = new System.Windows.Forms.ComboBox();
             this.customerBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.shipmentDataGridView = new System.Windows.Forms.DataGridView();
-            this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Removed = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.shipCodeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.customerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.customerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.costDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.shipTimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Checked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -105,6 +106,8 @@
             this.accountingTitleTableAdapter = new VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter();
             this.operatorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
             this.pD = new System.Drawing.Printing.PrintDocument();
+            this.apartmentTableAdapter = new VoucherExpense.DamaiDataSetTableAdapters.ApartmentTableAdapter();
+            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             keyinIDLabel = new System.Windows.Forms.Label();
             checkedIDLabel = new System.Windows.Forms.Label();
             iDLabel = new System.Windows.Forms.Label();
@@ -128,6 +131,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.shipmentDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.shipmentBindingNavigator)).BeginInit();
             this.shipmentBindingNavigator.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // keyinIDLabel
@@ -286,6 +290,7 @@
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(17, 27);
             this.dateTimePicker1.TabIndex = 80;
+            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // comboBoxMonth
             // 
@@ -475,7 +480,7 @@
             // 
             // costTextBox
             // 
-            this.costTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.shipmentBindingSource, "Cost", true));
+            this.costTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.shipmentBindingSource, "Cost", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.costTextBox.Location = new System.Drawing.Point(566, 111);
             this.costTextBox.Name = "costTextBox";
             this.costTextBox.Size = new System.Drawing.Size(123, 27);
@@ -534,7 +539,7 @@
             this.shipmentDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.shipmentDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.shipmentDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.iDDataGridViewTextBoxColumn,
+            this.ColumnID,
             this.Removed,
             this.shipCodeDataGridViewTextBoxColumn,
             this.customerDataGridViewTextBoxColumn,
@@ -549,9 +554,9 @@
             this.shipmentDataGridView.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.shipmentDataGridView.RowHeadersVisible = false;
             this.shipmentDataGridView.RowHeadersWidth = 25;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.shipmentDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.shipmentDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.shipmentDataGridView.RowTemplate.Height = 23;
             this.shipmentDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.shipmentDataGridView.Size = new System.Drawing.Size(444, 694);
@@ -560,12 +565,12 @@
             this.shipmentDataGridView.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.shipmentDataGridView_RowEnter);
             this.shipmentDataGridView.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.shipmentDataGridView_RowPrePaint);
             // 
-            // iDDataGridViewTextBoxColumn
+            // ColumnID
             // 
-            this.iDDataGridViewTextBoxColumn.DataPropertyName = "ID";
-            this.iDDataGridViewTextBoxColumn.HeaderText = "顺序";
-            this.iDDataGridViewTextBoxColumn.Name = "iDDataGridViewTextBoxColumn";
-            this.iDDataGridViewTextBoxColumn.Width = 50;
+            this.ColumnID.DataPropertyName = "ID";
+            this.ColumnID.HeaderText = "顺序";
+            this.ColumnID.Name = "ColumnID";
+            this.ColumnID.Width = 50;
             // 
             // Removed
             // 
@@ -584,12 +589,22 @@
             // customerDataGridViewTextBoxColumn
             // 
             this.customerDataGridViewTextBoxColumn.DataPropertyName = "Customer";
+            this.customerDataGridViewTextBoxColumn.DataSource = this.customerBindingSource;
+            this.customerDataGridViewTextBoxColumn.DisplayMember = "Name";
+            this.customerDataGridViewTextBoxColumn.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
             this.customerDataGridViewTextBoxColumn.HeaderText = "客户";
             this.customerDataGridViewTextBoxColumn.Name = "customerDataGridViewTextBoxColumn";
+            this.customerDataGridViewTextBoxColumn.ReadOnly = true;
+            this.customerDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.customerDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.customerDataGridViewTextBoxColumn.ValueMember = "CustomerID";
             // 
             // costDataGridViewTextBoxColumn
             // 
             this.costDataGridViewTextBoxColumn.DataPropertyName = "Cost";
+            dataGridViewCellStyle5.Format = "N1";
+            dataGridViewCellStyle5.NullValue = null;
+            this.costDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle5;
             this.costDataGridViewTextBoxColumn.HeaderText = "总计";
             this.costDataGridViewTextBoxColumn.Name = "costDataGridViewTextBoxColumn";
             this.costDataGridViewTextBoxColumn.Width = 90;
@@ -606,6 +621,7 @@
             this.Checked.DataPropertyName = "Checked";
             this.Checked.HeaderText = "核";
             this.Checked.Name = "Checked";
+            this.Checked.ReadOnly = true;
             this.Checked.Width = 30;
             // 
             // shipmentBindingNavigator
@@ -638,7 +654,7 @@
             this.shipmentBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.shipmentBindingNavigator.Name = "shipmentBindingNavigator";
             this.shipmentBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.shipmentBindingNavigator.Size = new System.Drawing.Size(367, 25);
+            this.shipmentBindingNavigator.Size = new System.Drawing.Size(336, 25);
             this.shipmentBindingNavigator.TabIndex = 58;
             this.shipmentBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -650,6 +666,7 @@
             this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorAddNewItem.Text = "新添";
+            this.bindingNavigatorAddNewItem.Click += new System.EventHandler(this.bindingNavigatorAddNewItem_Click);
             // 
             // bindingNavigatorCountItem
             // 
@@ -760,6 +777,7 @@
             this.tableAdapterManager.InventoryTableAdapter = null;
             this.tableAdapterManager.ProductScrappedDetailTableAdapter = null;
             this.tableAdapterManager.ProductScrappedTableAdapter = null;
+            this.tableAdapterManager.RequestsTableAdapter = null;
             this.tableAdapterManager.ShipmentDetailTableAdapter = this.shipmentDetailTableAdapter;
             this.tableAdapterManager.ShipmentTableAdapter = this.shipmentTableAdapter;
             this.tableAdapterManager.UpdateOrder = VoucherExpense.SQLVEDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
@@ -783,6 +801,15 @@
             // operatorTableAdapter
             // 
             this.operatorTableAdapter.ClearBeforeFill = true;
+            // 
+            // apartmentTableAdapter
+            // 
+            this.apartmentTableAdapter.ClearBeforeFill = true;
+            // 
+            // damaiDataSet
+            // 
+            this.damaiDataSet.DataSetName = "DamaiDataSet";
+            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // FormShipment
             // 
@@ -834,6 +861,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.shipmentBindingNavigator)).EndInit();
             this.shipmentBindingNavigator.ResumeLayout(false);
             this.shipmentBindingNavigator.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -887,13 +915,6 @@
         private System.Windows.Forms.BindingSource operatorBindingSource;
         private VEDataSetTableAdapters.OperatorTableAdapter operatorTableAdapter;
         private System.Drawing.Printing.PrintDocument pD;
-        private System.Windows.Forms.DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Removed;
-        private System.Windows.Forms.DataGridViewTextBoxColumn shipCodeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn customerDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn costDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn shipTimeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Checked;
         private System.Windows.Forms.DataGridViewTextBoxColumn detailColumnID;
         private System.Windows.Forms.DataGridViewTextBoxColumn shipmentIDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn dgvColumnProductID;
@@ -901,5 +922,14 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn ProductID;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvCostColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn dgvColumnTitleCode;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnID;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Removed;
+        private System.Windows.Forms.DataGridViewTextBoxColumn shipCodeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewComboBoxColumn customerDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn costDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn shipTimeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Checked;
+        private DamaiDataSetTableAdapters.ApartmentTableAdapter apartmentTableAdapter;
+        private DamaiDataSet damaiDataSet;
     }
 }

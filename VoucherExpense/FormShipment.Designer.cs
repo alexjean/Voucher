@@ -808,7 +808,7 @@
             // 
             // damaiDataSet
             // 
-            this.damaiDataSet.DataSetName = "DamaiDataSet";
+            this.damaiDataSet.DataSetName = "932";
             this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // FormShipment

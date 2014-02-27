@@ -95,57 +95,6 @@ namespace BakeryOrder
         //    Close();
         //}
 
-        //private void FormCheckout_Load(object sender, EventArgs e)
-        //{
-        //    Location = new Point(m_X, m_Y);
-        //    labelTotal.Text = m_Total.ToString();
-        //    labelIncome.Text = m_Total.ToString();
-
-        //    btnNumber0.Click += btnNumberX_Click;
-        //    btnNumber1.Click += btnNumberX_Click;
-        //    btnNumber2.Click += btnNumberX_Click;
-        //    btnNumber3.Click += btnNumberX_Click;
-        //    btnNumber4.Click += btnNumberX_Click;
-        //    btnNumber5.Click += btnNumberX_Click;
-        //    btnNumber6.Click += btnNumberX_Click;
-        //    btnNumber7.Click += btnNumberX_Click;
-        //    btnNumber8.Click += btnNumberX_Click;
-        //    btnNumber9.Click += btnNumberX_Click;
-        //    btnNumber100.Click += btnNumberX_Click;
-        //}
-
-        //void SetButtonVisualStyleExcept(Button btn)
-        //{
-        //    btnCard.UseVisualStyleBackColor = true;
-        //    btnCash.UseVisualStyleBackColor = true;
-        //    btnCoupon.UseVisualStyleBackColor = true;
-        //    btn.UseVisualStyleBackColor = false;
-        //}
-
-        //private void btnCash_Click(object sender, EventArgs e)
-        //{
-        //    SetButtonVisualStyleExcept(sender as Button);
-        //    labelCashGot.Visible = labelChange.Visible = true;
-        //    m_PayBy = 'A';  // 請參照FormCashier的 Dictionary<char,string> DicPayBy
-        //    textBoxCashGot.Enabled = true;
-        //}
-
-        //private void btnCard_Click(object sender, EventArgs e)
-        //{
-        //    SetButtonVisualStyleExcept(sender as Button);
-        //    labelCashGot.Visible=labelChange.Visible = false;
-        //    m_PayBy = 'B';
-        //    textBoxCashGot.Enabled = false;
-        //}
-
-        //private void btnCoupon_Click(object sender, EventArgs e)
-        //{
-        //    SetButtonVisualStyleExcept(sender as Button);
-        //    labelCashGot.Visible = labelChange.Visible = false;
-        //    m_PayBy = 'C';
-        //    textBoxCashGot.Enabled = false;
-        //}
-
 
         TextBox m_Current = null;
         private void btnNumberX_Click(object sender, EventArgs e)
@@ -293,29 +242,29 @@ namespace BakeryOrder
             }
         }
 
-        private void tBDateY_TextChanged(object sender, EventArgs e)
-        {
-            if (tBDateY.TextLength == tBDateY.MaxLength)
-            {
-                tBDateM.Focus(); oldordertext();
-            }
-        }
+        //private void tBDateY_TextChanged(object sender, EventArgs e)
+        //{
+        //    if (tBDateY.TextLength == tBDateY.MaxLength)
+        //    {
+        //        tBDateM.Focus(); oldordertext();
+        //    }
+        //}
 
-        private void tBDateM_TextChanged(object sender, EventArgs e)
-        {
-            if (tBDateM.TextLength == tBDateM.MaxLength)
-            {
-                tBDateD.Focus(); oldordertext();
-            }
-        }
+        //private void tBDateM_TextChanged(object sender, EventArgs e)
+        //{
+        //    if (tBDateM.TextLength == tBDateM.MaxLength)
+        //    {
+        //        tBDateD.Focus(); oldordertext();
+        //    }
+        //}
 
-        private void tBDateD_TextChanged(object sender, EventArgs e)
-        {
-            if (tBDateD.TextLength == tBDateD.MaxLength)
-            {
-                tBPosId.Focus(); oldordertext();
-            }
-        }
+        //private void tBDateD_TextChanged(object sender, EventArgs e)
+        //{
+        //    if (tBDateD.TextLength == tBDateD.MaxLength)
+        //    {
+        //        tBPosId.Focus(); oldordertext();
+        //    }
+        //}
 
         private void tBDateY_Enter(object sender, EventArgs e)
         {
@@ -369,6 +318,37 @@ namespace BakeryOrder
         private void tBNo_TextChanged(object sender, EventArgs e)
         {
             oldordertext();
+        }
+
+        private void btnCash_Click(object sender, EventArgs e)
+        {
+            SetButtonVisualStyleExcept(sender as Button);
+            //labelCashGot.Visible = labelChange.Visible = true;
+            m_PayBy = 'A';  // 請參照FormCashier的 Dictionary<char,string> DicPayBy
+            //textBoxCashGot.Enabled = true;
+        }
+
+        private void btnCard_Click(object sender, EventArgs e)
+        {
+            SetButtonVisualStyleExcept(sender as Button);
+           // labelCashGot.Visible = labelChange.Visible = false;
+            m_PayBy = 'B';
+           // textBoxCashGot.Enabled = false;
+        }
+
+        private void btnCoupon_Click(object sender, EventArgs e)
+        {
+            SetButtonVisualStyleExcept(sender as Button);
+            //labelCashGot.Visible = labelChange.Visible = false;
+            m_PayBy = 'C';
+            //textBoxCashGot.Enabled = false;
+        }
+        void SetButtonVisualStyleExcept(Button btn)
+        {
+            btnCard.UseVisualStyleBackColor = true;
+            btnCash.UseVisualStyleBackColor = true;
+            btnCoupon.UseVisualStyleBackColor = true;
+            btn.UseVisualStyleBackColor = false;
         }
     }
 }

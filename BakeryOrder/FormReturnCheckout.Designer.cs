@@ -555,6 +555,7 @@
             // btnCoupon
             // 
             this.btnCoupon.BackColor = System.Drawing.Color.SeaShell;
+            this.btnCoupon.Enabled = false;
             this.btnCoupon.Location = new System.Drawing.Point(257, 51);
             this.btnCoupon.Name = "btnCoupon";
             this.btnCoupon.Size = new System.Drawing.Size(75, 33);

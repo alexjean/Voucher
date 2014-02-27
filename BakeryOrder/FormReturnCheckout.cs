@@ -242,30 +242,6 @@ namespace BakeryOrder
             }
         }
 
-        //private void tBDateY_TextChanged(object sender, EventArgs e)
-        //{
-        //    if (tBDateY.TextLength == tBDateY.MaxLength)
-        //    {
-        //        tBDateM.Focus(); oldordertext();
-        //    }
-        //}
-
-        //private void tBDateM_TextChanged(object sender, EventArgs e)
-        //{
-        //    if (tBDateM.TextLength == tBDateM.MaxLength)
-        //    {
-        //        tBDateD.Focus(); oldordertext();
-        //    }
-        //}
-
-        //private void tBDateD_TextChanged(object sender, EventArgs e)
-        //{
-        //    if (tBDateD.TextLength == tBDateD.MaxLength)
-        //    {
-        //        tBPosId.Focus(); oldordertext();
-        //    }
-        //}
-
         private void tBDateY_Enter(object sender, EventArgs e)
         {
             if (m_Current != sender)
@@ -326,6 +302,7 @@ namespace BakeryOrder
             //labelCashGot.Visible = labelChange.Visible = true;
             m_PayBy = 'A';  // 請參照FormCashier的 Dictionary<char,string> DicPayBy
             //textBoxCashGot.Enabled = true;
+            dateTimePicker1.Enabled = true;
         }
 
         private void btnCard_Click(object sender, EventArgs e)
@@ -334,6 +311,8 @@ namespace BakeryOrder
            // labelCashGot.Visible = labelChange.Visible = false;
             m_PayBy = 'B';
            // textBoxCashGot.Enabled = false;
+            dateTimePicker1.Value = DateTime.Now.Date;
+            dateTimePicker1.Enabled = false;
         }
 
         private void btnCoupon_Click(object sender, EventArgs e)

@@ -59,15 +59,9 @@
             this.checkedCheckBox = new System.Windows.Forms.CheckBox();
             this.removedCheckBox = new System.Windows.Forms.CheckBox();
             this.shipmentDetailDataGridView = new System.Windows.Forms.DataGridView();
-            this.detailColumnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.shipmentIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvColumnProductID = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bakeryOrderSet = new VoucherExpense.BakeryOrderSet();
-            this.dgvColumnVolume = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProductID = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dgvCostColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvColumnTitleCode = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.accountingTitleBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.shipmentDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.costTextBox = new System.Windows.Forms.TextBox();
@@ -108,6 +102,18 @@
             this.pD = new System.Drawing.Printing.PrintDocument();
             this.apartmentTableAdapter = new VoucherExpense.DamaiDataSetTableAdapters.ApartmentTableAdapter();
             this.damaiDataSet = new VoucherExpense.DamaiDataSet();
+            this.shipmentTableAdapter1 = new VoucherExpense.DamaiDataSetTableAdapters.ShipmentTableAdapter();
+            this.operatorTableAdapter1 = new VoucherExpense.DamaiDataSetTableAdapters.OperatorTableAdapter();
+            this.accountingTitleTableAdapter1 = new VoucherExpense.DamaiDataSetTableAdapters.AccountingTitleTableAdapter();
+            this.customerTableAdapter1 = new VoucherExpense.DamaiDataSetTableAdapters.CustomerTableAdapter();
+            this.productTableAdapter1 = new VoucherExpense.DamaiDataSetTableAdapters.ProductTableAdapter();
+            this.dgvColumnTitleCode = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.dgvCostColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvColumnVolume = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvColumnProductID = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.shipmentIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.detailColumnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.shipmentDetailTableAdapter1 = new VoucherExpense.DamaiDataSetTableAdapters.ShipmentDetailTableAdapter();
             keyinIDLabel = new System.Windows.Forms.Label();
             checkedIDLabel = new System.Windows.Forms.Label();
             iDLabel = new System.Windows.Forms.Label();
@@ -249,7 +255,7 @@
             // shipmentBindingSource
             // 
             this.shipmentBindingSource.DataMember = "Shipment";
-            this.shipmentBindingSource.DataSource = this.sQLVEDataSet;
+            this.shipmentBindingSource.DataSource = this.damaiDataSet;
             // 
             // sQLVEDataSet
             // 
@@ -259,7 +265,7 @@
             // operatorBindingSource
             // 
             this.operatorBindingSource.DataMember = "Operator";
-            this.operatorBindingSource.DataSource = this.vEDataSet;
+            this.operatorBindingSource.DataSource = this.damaiDataSet;
             // 
             // vEDataSet
             // 
@@ -371,7 +377,6 @@
             this.shipmentDetailDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.shipmentDetailDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.detailColumnID,
-            this.shipmentIDDataGridViewTextBoxColumn,
             this.dgvColumnProductID,
             this.dgvColumnVolume,
             this.ProductID,
@@ -392,50 +397,16 @@
             this.shipmentDetailDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.shipmentDetailDataGridView_DataError_1);
             this.shipmentDetailDataGridView.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.shipmentDetailDataGridView_DefaultValuesNeeded);
             // 
-            // detailColumnID
-            // 
-            this.detailColumnID.DataPropertyName = "ID";
-            this.detailColumnID.HeaderText = "ID";
-            this.detailColumnID.Name = "detailColumnID";
-            this.detailColumnID.Visible = false;
-            // 
-            // shipmentIDDataGridViewTextBoxColumn
-            // 
-            this.shipmentIDDataGridViewTextBoxColumn.DataPropertyName = "ShipmentID";
-            this.shipmentIDDataGridViewTextBoxColumn.HeaderText = "ShipmentID";
-            this.shipmentIDDataGridViewTextBoxColumn.Name = "shipmentIDDataGridViewTextBoxColumn";
-            this.shipmentIDDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // dgvColumnProductID
-            // 
-            this.dgvColumnProductID.DataPropertyName = "ProductID";
-            this.dgvColumnProductID.DataSource = this.productBindingSource;
-            this.dgvColumnProductID.DisplayMember = "Name";
-            this.dgvColumnProductID.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.dgvColumnProductID.HeaderText = "产品";
-            this.dgvColumnProductID.Name = "dgvColumnProductID";
-            this.dgvColumnProductID.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvColumnProductID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dgvColumnProductID.ValueMember = "ProductID";
-            this.dgvColumnProductID.Width = 140;
-            // 
             // productBindingSource
             // 
             this.productBindingSource.DataMember = "Product";
-            this.productBindingSource.DataSource = this.bakeryOrderSet;
+            this.productBindingSource.DataSource = this.damaiDataSet;
             this.productBindingSource.Filter = "Code>0";
             // 
             // bakeryOrderSet
             // 
             this.bakeryOrderSet.DataSetName = "BakeryOrderSet";
             this.bakeryOrderSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // dgvColumnVolume
-            // 
-            this.dgvColumnVolume.DataPropertyName = "Volume";
-            this.dgvColumnVolume.HeaderText = "数量";
-            this.dgvColumnVolume.Name = "dgvColumnVolume";
-            this.dgvColumnVolume.Width = 80;
             // 
             // ProductID
             // 
@@ -450,28 +421,10 @@
             this.ProductID.ValueMember = "ProductID";
             this.ProductID.Width = 40;
             // 
-            // dgvCostColumn
-            // 
-            this.dgvCostColumn.DataPropertyName = "Cost";
-            this.dgvCostColumn.HeaderText = "金额";
-            this.dgvCostColumn.Name = "dgvCostColumn";
-            // 
-            // dgvColumnTitleCode
-            // 
-            this.dgvColumnTitleCode.DataPropertyName = "TitleCode";
-            this.dgvColumnTitleCode.DataSource = this.accountingTitleBindingSource;
-            this.dgvColumnTitleCode.DisplayMember = "Name";
-            this.dgvColumnTitleCode.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.dgvColumnTitleCode.HeaderText = "会计科目";
-            this.dgvColumnTitleCode.Name = "dgvColumnTitleCode";
-            this.dgvColumnTitleCode.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvColumnTitleCode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dgvColumnTitleCode.ValueMember = "TitleCode";
-            // 
             // accountingTitleBindingSource
             // 
             this.accountingTitleBindingSource.DataMember = "AccountingTitle";
-            this.accountingTitleBindingSource.DataSource = this.vEDataSet;
+            this.accountingTitleBindingSource.DataSource = this.damaiDataSet;
             // 
             // shipmentDetailBindingSource
             // 
@@ -517,7 +470,7 @@
             // customerBindingSource
             // 
             this.customerBindingSource.DataMember = "Customer";
-            this.customerBindingSource.DataSource = this.sQLVEDataSet;
+            this.customerBindingSource.DataSource = this.damaiDataSet;
             // 
             // shipmentDataGridView
             // 
@@ -811,6 +764,82 @@
             this.damaiDataSet.DataSetName = "932";
             this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
+            // shipmentTableAdapter1
+            // 
+            this.shipmentTableAdapter1.ClearBeforeFill = true;
+            // 
+            // operatorTableAdapter1
+            // 
+            this.operatorTableAdapter1.ClearBeforeFill = true;
+            // 
+            // accountingTitleTableAdapter1
+            // 
+            this.accountingTitleTableAdapter1.ClearBeforeFill = true;
+            // 
+            // customerTableAdapter1
+            // 
+            this.customerTableAdapter1.ClearBeforeFill = true;
+            // 
+            // productTableAdapter1
+            // 
+            this.productTableAdapter1.ClearBeforeFill = true;
+            // 
+            // dgvColumnTitleCode
+            // 
+            this.dgvColumnTitleCode.DataPropertyName = "TitleCode";
+            this.dgvColumnTitleCode.DataSource = this.accountingTitleBindingSource;
+            this.dgvColumnTitleCode.DisplayMember = "Name";
+            this.dgvColumnTitleCode.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.dgvColumnTitleCode.HeaderText = "会计科目";
+            this.dgvColumnTitleCode.Name = "dgvColumnTitleCode";
+            this.dgvColumnTitleCode.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvColumnTitleCode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dgvColumnTitleCode.ValueMember = "TitleCode";
+            // 
+            // dgvCostColumn
+            // 
+            this.dgvCostColumn.DataPropertyName = "Cost";
+            this.dgvCostColumn.HeaderText = "金额";
+            this.dgvCostColumn.Name = "dgvCostColumn";
+            // 
+            // dgvColumnVolume
+            // 
+            this.dgvColumnVolume.DataPropertyName = "Volume";
+            this.dgvColumnVolume.HeaderText = "数量";
+            this.dgvColumnVolume.Name = "dgvColumnVolume";
+            this.dgvColumnVolume.Width = 80;
+            // 
+            // dgvColumnProductID
+            // 
+            this.dgvColumnProductID.DataPropertyName = "ProductID";
+            this.dgvColumnProductID.DataSource = this.productBindingSource;
+            this.dgvColumnProductID.DisplayMember = "Name";
+            this.dgvColumnProductID.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.dgvColumnProductID.HeaderText = "产品";
+            this.dgvColumnProductID.Name = "dgvColumnProductID";
+            this.dgvColumnProductID.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvColumnProductID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dgvColumnProductID.ValueMember = "ProductID";
+            this.dgvColumnProductID.Width = 140;
+            // 
+            // shipmentIDDataGridViewTextBoxColumn
+            // 
+            this.shipmentIDDataGridViewTextBoxColumn.DataPropertyName = "ShipmentID";
+            this.shipmentIDDataGridViewTextBoxColumn.HeaderText = "ShipmentID";
+            this.shipmentIDDataGridViewTextBoxColumn.Name = "shipmentIDDataGridViewTextBoxColumn";
+            this.shipmentIDDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // detailColumnID
+            // 
+            this.detailColumnID.DataPropertyName = "ID";
+            this.detailColumnID.HeaderText = "ID";
+            this.detailColumnID.Name = "detailColumnID";
+            this.detailColumnID.Visible = false;
+            // 
+            // shipmentDetailTableAdapter1
+            // 
+            this.shipmentDetailTableAdapter1.ClearBeforeFill = true;
+            // 
             // FormShipment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -915,13 +944,7 @@
         private System.Windows.Forms.BindingSource operatorBindingSource;
         private VEDataSetTableAdapters.OperatorTableAdapter operatorTableAdapter;
         private System.Drawing.Printing.PrintDocument pD;
-        private System.Windows.Forms.DataGridViewTextBoxColumn detailColumnID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn shipmentIDDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewComboBoxColumn dgvColumnProductID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvColumnVolume;
         private System.Windows.Forms.DataGridViewComboBoxColumn ProductID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvCostColumn;
-        private System.Windows.Forms.DataGridViewComboBoxColumn dgvColumnTitleCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnID;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Removed;
         private System.Windows.Forms.DataGridViewTextBoxColumn shipCodeDataGridViewTextBoxColumn;
@@ -931,5 +954,17 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn Checked;
         private DamaiDataSetTableAdapters.ApartmentTableAdapter apartmentTableAdapter;
         private DamaiDataSet damaiDataSet;
+        private DamaiDataSetTableAdapters.ShipmentTableAdapter shipmentTableAdapter1;
+        private DamaiDataSetTableAdapters.OperatorTableAdapter operatorTableAdapter1;
+        private DamaiDataSetTableAdapters.AccountingTitleTableAdapter accountingTitleTableAdapter1;
+        private DamaiDataSetTableAdapters.CustomerTableAdapter customerTableAdapter1;
+        private DamaiDataSetTableAdapters.ProductTableAdapter productTableAdapter1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn detailColumnID;
+        private System.Windows.Forms.DataGridViewComboBoxColumn dgvColumnProductID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvColumnVolume;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvCostColumn;
+        private System.Windows.Forms.DataGridViewComboBoxColumn dgvColumnTitleCode;
+        private System.Windows.Forms.DataGridViewTextBoxColumn shipmentIDDataGridViewTextBoxColumn;
+        private DamaiDataSetTableAdapters.ShipmentDetailTableAdapter shipmentDetailTableAdapter1;
     }
 }

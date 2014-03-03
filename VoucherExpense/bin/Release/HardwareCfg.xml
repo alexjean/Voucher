@@ -38,7 +38,7 @@
   <Profile Name="开发数据库">
     <ComPort Name="COM1" />
     <ReceiptPrinter Name="Zonerich AB-58MK USB" />
-    <DotPrinter Name="\\SMILE-PC\EPSON LQ-730K ESC/P 2" />
+    <DotPrinter Name="Microsoft XPS Document Writer" />
     <DataSource IsServer="YES" DataDir="EPRT+YCj5fNrqGtQkgdrFxd/qclQ1i9AIGGO3PrxJw7O0j/wt/ai9WQ00/4AOhzu/6JgQw8gCtM=" UserName="sZM/bLSyqv0j4SXhyzDavo1sJn8QGahl" Password="wS4zmgr+ahF21XXsgXwKYhRDYDrg0cz9" BackupDir="Pkce2PnPHlY=" SqlServerIP="1NptfGSR0PQ7we7zv/iQcSQE2+TSq6H8KlFodj7j6TM=" SqlUserID="yFiE/KqBxfg=" SqlPassword="Q6BLFTtgWs2MHHgjjvTmfg==" SqlDatabase="IDObpp3YRGmQPyKzhkKQ6J5AXOREjfmO" />
   </Profile>
 </HardwareProfile>

@@ -33,8 +33,11 @@ namespace VoucherExpense
             this.shipmentBindingSource.EndEdit();
             this.shipmentDetailBindingSource.EndEdit();
 
-            SQLVEDataSet.ShipmentDataTable table = (SQLVEDataSet.ShipmentDataTable)sQLVEDataSet.Shipment.GetChanges();
-            SQLVEDataSet.ShipmentDetailDataTable detail = (SQLVEDataSet.ShipmentDetailDataTable)sQLVEDataSet.ShipmentDetail.GetChanges();
+            //SQLVEDataSet.ShipmentDataTable table = (SQLVEDataSet.ShipmentDataTable)sQLVEDataSet.Shipment.GetChanges();
+            //SQLVEDataSet.ShipmentDetailDataTable detail = (SQLVEDataSet.ShipmentDetailDataTable)sQLVEDataSet.ShipmentDetail.GetChanges();
+
+            DamaiDataSet.ShipmentDataTable table = (DamaiDataSet.ShipmentDataTable)damaiDataSet.Shipment.GetChanges();
+            DamaiDataSet.ShipmentDetailDataTable detail = (DamaiDataSet.ShipmentDetailDataTable)damaiDataSet.ShipmentDetail.GetChanges();
             if (table == null && detail == null)
             {
                 MessageBox.Show("沒有改動任何資料! 不用存");
@@ -42,7 +45,8 @@ namespace VoucherExpense
             }
             if (table != null)
             {
-                foreach (SQLVEDataSet.ShipmentRow r in table)
+                //foreach (SQLVEDataSet.ShipmentRow r in table)
+                foreach (DamaiDataSet.ShipmentRow r in table)
                     if (r.RowState != DataRowState.Deleted)
                     {
 
@@ -61,9 +65,12 @@ namespace VoucherExpense
                     }
                 try
                 {
-                    sQLVEDataSet.Shipment.Merge(table);
-                    this.shipmentTableAdapter.Update(this.sQLVEDataSet.Shipment);
-                    sQLVEDataSet.Shipment.AcceptChanges();
+                    //sQLVEDataSet.Shipment.Merge(table);
+                    //this.shipmentTableAdapter.Update(this.sQLVEDataSet.Shipment);
+                    //sQLVEDataSet.Shipment.AcceptChanges();
+                    damaiDataSet.Shipment.Merge(table);
+                    this.shipmentTableAdapter1.Update(this.damaiDataSet.Shipment);
+                    damaiDataSet.Shipment.AcceptChanges();
                 }
                 catch (Exception ex)
                 {
@@ -79,9 +86,12 @@ namespace VoucherExpense
             {
                 try
                 {
-                    sQLVEDataSet.ShipmentDetail.Merge(detail);
-                    shipmentDetailTableAdapter.Update(sQLVEDataSet.ShipmentDetail);
-                    sQLVEDataSet.ShipmentDetail.AcceptChanges();
+                    //sQLVEDataSet.ShipmentDetail.Merge(detail);
+                    //shipmentDetailTableAdapter.Update(sQLVEDataSet.ShipmentDetail);
+                    //sQLVEDataSet.ShipmentDetail.AcceptChanges();
+                    damaiDataSet.ShipmentDetail.Merge(detail);
+                    shipmentDetailTableAdapter1.Update(damaiDataSet.ShipmentDetail);
+                    damaiDataSet.ShipmentDetail.AcceptChanges();
                 }
                 catch (Exception ex)
                 {
@@ -89,35 +99,48 @@ namespace VoucherExpense
                 }
             }
 
-
         }
         bool m_edit = false;
         bool m_check = false;
         private void FormShipment_Load(object sender, EventArgs e)
         {
+            // TODO: 这行代码将数据加载到表“damaiDataSet.ShipmentDetail”中。您可以根据需要移动或删除它。
+            this.shipmentDetailTableAdapter1.Fill(this.damaiDataSet.ShipmentDetail);
+            // TODO: 这行代码将数据加载到表“damaiDataSet.ShipmentDetail”中。您可以根据需要移动或删除它。
+            this.shipmentDetailTableAdapter1.Fill(this.damaiDataSet.ShipmentDetail);
+            // TODO: 这行代码将数据加载到表“damaiDataSet.Product”中。您可以根据需要移动或删除它。
+            this.productTableAdapter1.Fill(this.damaiDataSet.Product);
+            // TODO: 这行代码将数据加载到表“damaiDataSet.Customer”中。您可以根据需要移动或删除它。
+            this.customerTableAdapter1.Fill(this.damaiDataSet.Customer);
+            // TODO: 这行代码将数据加载到表“damaiDataSet.AccountingTitle”中。您可以根据需要移动或删除它。
+            this.accountingTitleTableAdapter1.Fill(this.damaiDataSet.AccountingTitle);
+            // TODO: 这行代码将数据加载到表“damaiDataSet.Operator”中。您可以根据需要移动或删除它。
+            this.operatorTableAdapter1.Fill(this.damaiDataSet.Operator);
+            // TODO: 这行代码将数据加载到表“damaiDataSet.Shipment”中。您可以根据需要移动或删除它。
+            this.shipmentTableAdapter1.Fill(this.damaiDataSet.Shipment);
             try
             {
                 this.apartmentTableAdapter.Fill(this.damaiDataSet.Apartment);
                 // TODO: 这行代码将数据加载到表“vEDataSet.AccountingTitle”中。您可以根据需要移动或删除它。
-                this.accountingTitleTableAdapter.Fill(this.vEDataSet.AccountingTitle);
+             //   this.accountingTitleTableAdapter.Fill(this.vEDataSet.AccountingTitle);
                 // TODO: 这行代码将数据加载到表“vEDataSet.Operator”中。您可以根据需要移动或删除它。
-                this.operatorTableAdapter.Fill(this.vEDataSet.Operator);
+             //   this.operatorTableAdapter.Fill(this.vEDataSet.Operator);
                 // TODO: 这行代码将数据加载到表“bakeryOrderSet.Product”中。您可以根据需要移动或删除它。
-                this.productTableAdapter.Fill(this.bakeryOrderSet.Product);
+               // this.productTableAdapter.Fill(this.bakeryOrderSet.Product);
                 // TODO: 这行代码将数据加载到表“sQLVEDataSet.ShipmentDetail”中。您可以根据需要移动或删除它。
-                this.shipmentDetailTableAdapter.Fill(this.sQLVEDataSet.ShipmentDetail);
+            //    this.shipmentDetailTableAdapter.Fill(this.sQLVEDataSet.ShipmentDetail);
                 // TODO: 这行代码将数据加载到表“sQLVEDataSet.Shipment”中。您可以根据需要移动或删除它。
-                this.shipmentTableAdapter.Fill(this.sQLVEDataSet.Shipment);
-                this.customerTableAdapter.Fill(this.sQLVEDataSet.Customer);
+             //   this.shipmentTableAdapter.Fill(this.sQLVEDataSet.Shipment);
+               // this.customerTableAdapter.Fill(this.sQLVEDataSet.Customer);
                 // var operatorrow=vEDataSet.Operator.Select("OperatorID='" + MyFunction.OperatorID + "'");
-                var opertatorrow = from row in vEDataSet.Operator where row.OperatorID == MyFunction.OperatorID select row;
+              //  var opertatorrow = from row in vEDataSet.Operator where row.OperatorID == MyFunction.OperatorID select row;
+                var opertatorrow = from row in damaiDataSet.Operator where row.OperatorID == MyFunction.OperatorID select row;
                 var ro = opertatorrow.First();
                 m_edit = ro.EditShipment;
                 m_check = ro.LockShipment;
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show("出货界面加载时出现异常" + ex.ToString());
             }
             if (MyFunction.IntHeaderYear != DateTime.Now.Year)
@@ -147,7 +170,9 @@ namespace VoucherExpense
             }
 
             //            int count=this.voucherBindingNavigator.PositionItem.
-            int ma = MyFunction.MaxNoInDB("ID", sQLVEDataSet.Shipment);
+            //int ma = MyFunction.MaxNoInDB("ID", sQLVEDataSet.Shipment);
+            //int i = MyFunction.SetCellMaxNo("ColumnID", shipmentDataGridView, ma);
+            int ma = MyFunction.MaxNoInDB("ID", damaiDataSet.Shipment);
             int i = MyFunction.SetCellMaxNo("ColumnID", shipmentDataGridView, ma);
             if (i > 0)
             {
@@ -170,7 +195,6 @@ namespace VoucherExpense
                 DateTime stockTime = new DateTime(year, month, MyFunction.DayCountOfMonth(month));   // 資料月份,設成該月最後一天
                 shipTimeTextBox.Text = stockTime.ToShortDateString();
             }
-            
         }
 
         /// <summary>
@@ -196,10 +220,12 @@ namespace VoucherExpense
             //var shipment = this.sQLVEDataSet.Shipment.Select("shipcode>" + currentYear);//指定月份的最大所以先筛选指定月份的数据
             //var dt = shipment.CopyToDataTable();
             //var sdt = dt as SQLVEDataSet.ShipmentDataTable;
-            var shipmentrows = from r in this.sQLVEDataSet.Shipment where (r.ShipCode >= Convert.ToInt32(currentYear) || r.ShipCode < Convert.ToInt32(currentMaxYear)) orderby r.ShipCode descending select r;
+            //var shipmentrows = from r in this.sQLVEDataSet.Shipment where (r.ShipCode >= Convert.ToInt32(currentYear) || r.ShipCode < Convert.ToInt32(currentMaxYear)) orderby r.ShipCode descending select r;
+            var shipmentrows = from r in this.damaiDataSet.Shipment where (r.ShipCode >= Convert.ToInt32(currentYear) || r.ShipCode < Convert.ToInt32(currentMaxYear)) orderby r.ShipCode descending select r;
             if (shipmentrows.ToArray().Length>0)
             {
-                var shipmentrow = shipmentrows.First<SQLVEDataSet.ShipmentRow>();
+                //var shipmentrow = shipmentrows.First<SQLVEDataSet.ShipmentRow>();
+                var shipmentrow = shipmentrows.First<DamaiDataSet.ShipmentRow>();
                 if (shipmentrow == null)
                 {
                     return currentYear;
@@ -241,10 +267,12 @@ namespace VoucherExpense
                 {
                     //string str="ID="+code.ToString();
                     //VEDataSet.IngredientRow[] row = (VEDataSet.IngredientRow[])vEDataSet.Ingredient.Select(str);
-                    var rows = from row in bakeryOrderSet.Product where (row.ProductID == productID) select row;
+                   // var rows = from row in bakeryOrderSet.Product where (row.ProductID == productID) select row;
+                    var rows = from row in damaiDataSet.Product where (row.ProductID == productID) select row;
                     if (rows.Count() > 0)
                     {
-                        BakeryOrderSet.ProductRow row = rows.First();
+                       // BakeryOrderSet.ProductRow row = rows.First();
+                        DamaiDataSet.ProductRow row = rows.First();
                         if (!row.IsTitleCodeNull())
                             dgRow.Cells["dgvColumnTitleCode"].Value = row.TitleCode;
                     }
@@ -261,13 +289,18 @@ namespace VoucherExpense
                     if (costCell.Value == null) return;
                     if (costCell.Value != DBNull.Value) return;         // Cost有資料時就不改
                     DataRowView rowView = dgRow.DataBoundItem as DataRowView;
-                    SQLVEDataSet.ShipmentDetailRow shipmentDetailRow = rowView.Row as SQLVEDataSet.ShipmentDetailRow;
+                    //SQLVEDataSet.ShipmentDetailRow shipmentDetailRow = rowView.Row as SQLVEDataSet.ShipmentDetailRow;
+                    DamaiDataSet.ShipmentDetailRow shipmentDetailRow = rowView.Row as DamaiDataSet.ShipmentDetailRow;
                     // 查出食材表中相對應記錄
-                    var rows = from ro in bakeryOrderSet.Product
+                    //var rows = from ro in bakeryOrderSet.Product
+                    //           where (ro.ProductID == shipmentDetailRow.ProductID)
+                    //           select ro;
+                    var rows = from ro in damaiDataSet.Product
                                where (ro.ProductID == shipmentDetailRow.ProductID)
                                select ro;
                     if (rows.Count() <= 0) return;
-                    BakeryOrderSet.ProductRow row = rows.First();
+                    //BakeryOrderSet.ProductRow row = rows.First();
+                    DamaiDataSet.ProductRow row = rows.First();
                     if (row.IsPriceNull()) return;
                     if (row.Price <= 0) return;                      // 參考價不合理
                     costCell.Value = shipmentDetailRow.Volume * (decimal)row.Price;
@@ -484,9 +517,54 @@ namespace VoucherExpense
                     apartmentName = a0.ApartmentAllName;
             }
             DataRowView rowview=shipmentBindingSource.Current as DataRowView;
-            SQLVEDataSet.ShipmentRow row = rowview.Row as SQLVEDataSet.ShipmentRow;
-            var  customerrows =from ro in sQLVEDataSet.Customer where(ro.CustomerID==row.Customer) select ro;
-            var customerrow=customerrows.First();
+            //SQLVEDataSet.ShipmentRow row = rowview.Row as SQLVEDataSet.ShipmentRow;
+            //var  customerrows =from ro in sQLVEDataSet.Customer where(ro.CustomerID==row.Customer) select ro;
+            //var customerrow=customerrows.First();
+            //Shipmentprint smp = new Shipmentprint();
+            //smp.ApartmentName = apartmentName;
+            //smp.ShipmentNumber = row.ShipCode.ToString();
+            //smp.ContactPeople = customerrow.ContactPeople;
+            //smp.CustomerName = customerrow.Name;
+            //smp.ShipAddress = customerrow.Address;
+            //smp.ContactPhone = customerrow.Telephone;
+            //smp.EntryTime = row.LastUpdated.ToString("yyyyMMdd");
+            //smp.ShipTime = row.ShipTime.ToString("yyyyMMdd");
+            //smp.CostAllCount = row.Cost;
+            //var shipmetdetailrows=row.GetShipmentDetailRows();
+            //if(shipmetdetailrows.Count()==0)
+            //    return ;
+            //List<List<Shipmentdetailprint>> lists = new List<List<Shipmentdetailprint>>();
+            //int inttemp=shipmetdetailrows.Count()/15;
+            //for (int j = 0; j <=inttemp; j++)
+            //{
+
+            //    List<Shipmentdetailprint> listshipmentdetail = new List<Shipmentdetailprint>();
+            //    for (int i = j*14; i < shipmetdetailrows.Count(); i++)
+            //    {
+            //        if (i < (j + 1) * 14)
+            //        {              
+            //        var temrow = shipmetdetailrows[i];
+            //        var productrow = from r in bakeryOrderSet.Product where (r.ProductID == temrow.ProductID) select r;
+
+            //        Shipmentdetailprint smdp = new Shipmentdetailprint();
+            //        smdp.PageNumCount = inttemp+1;
+            //        smdp.ProductName = productrow.First().Name;
+            //        smdp.ProductCode = productrow.First().Code;
+            //        smdp.Unit = productrow.First().Unit;
+            //        smdp.Cost = productrow.First().Price;
+            //        smdp.Volum = temrow.Volume;
+            //        smdp.AllCost = temrow.Cost;
+            //        listshipmentdetail.Add(smdp); 
+            //        }
+            //    }
+            //    lists.Add(listshipmentdetail);
+            //}
+            //smp.ShipmentDetileProduct = lists;
+            //FormShipmentPrint form = new FormShipmentPrint(smp);
+            //form.Show();
+            DamaiDataSet.ShipmentRow row = rowview.Row as DamaiDataSet.ShipmentRow;
+            var customerrows = from ro in damaiDataSet.Customer where (ro.CustomerID == row.Customer) select ro;
+            var customerrow = customerrows.First();
             Shipmentprint smp = new Shipmentprint();
             smp.ApartmentName = apartmentName;
             smp.ShipmentNumber = row.ShipCode.ToString();
@@ -497,33 +575,31 @@ namespace VoucherExpense
             smp.EntryTime = row.LastUpdated.ToString("yyyyMMdd");
             smp.ShipTime = row.ShipTime.ToString("yyyyMMdd");
             smp.CostAllCount = row.Cost;
-            var shipmetdetailrows=row.GetShipmentDetailRows();
-            if(shipmetdetailrows.Count()==0)
-                return ;
+            var shipmetdetailrows = row.GetShipmentDetailRows();
+            if (shipmetdetailrows.Count() == 0)
+                return;
             List<List<Shipmentdetailprint>> lists = new List<List<Shipmentdetailprint>>();
-            int inttemp=shipmetdetailrows.Count()/15;
-            for (int j = 0; j <=inttemp; j++)
+            int inttemp = shipmetdetailrows.Count() / 15;
+            for (int j = 0; j <= inttemp; j++)
             {
-
+                     
                 List<Shipmentdetailprint> listshipmentdetail = new List<Shipmentdetailprint>();
-                for (int i = j*14; i < shipmetdetailrows.Count(); i++)
+                for (int i = j * 14; i < shipmetdetailrows.Count(); i++)
                 {
                     if (i < (j + 1) * 14)
                     {
-                        
-                   
-                    var temrow = shipmetdetailrows[i];
-                    var productrow = from r in bakeryOrderSet.Product where (r.ProductID == temrow.ProductID) select r;
+                        var temrow = shipmetdetailrows[i];
+                        var productrow = from r in damaiDataSet.Product where (r.ProductID == temrow.ProductID) select r;
 
-                    Shipmentdetailprint smdp = new Shipmentdetailprint();
-                    smdp.PageNumCount = inttemp+1;
-                    smdp.ProductName = productrow.First().Name;
-                    smdp.ProductCode = productrow.First().Code;
-                    smdp.Unit = productrow.First().Unit;
-                    smdp.Cost = productrow.First().Price;
-                    smdp.Volum = temrow.Volume;
-                    smdp.AllCost = temrow.Cost;
-                    listshipmentdetail.Add(smdp); 
+                        Shipmentdetailprint smdp = new Shipmentdetailprint();
+                        smdp.PageNumCount = inttemp + 1;
+                        smdp.ProductName = productrow.First().Name;
+                        smdp.ProductCode = productrow.First().Code;
+                        smdp.Unit = productrow.First().Unit;
+                        smdp.Cost = productrow.First().Price;
+                        smdp.Volum = temrow.Volume;
+                        smdp.AllCost = temrow.Cost;
+                        listshipmentdetail.Add(smdp);
                     }
                 }
                 lists.Add(listshipmentdetail);

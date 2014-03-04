@@ -68,7 +68,11 @@ namespace VoucherExpense
             PrinterSettings ps = new PrinterSettings();
             ps.PrinterName = Config.DotPrinterName;
             pD.PrinterSettings = ps;
-            dateTimetoolStripCbB.SelectedIndex = DateTime.Now.Month;   
+            dateTimetoolStripCbB.SelectedIndex = DateTime.Now.Month;
+            if (MyFunction.IntHeaderYear != DateTime.Now.Year)
+                dateTimetoolStripCbB.SelectedIndex = dateTimetoolStripCbB.Items.Count - 1;
+            else
+                dateTimetoolStripCbB.SelectedIndex = DateTime.Now.Month;
         }
 
 
@@ -451,7 +455,10 @@ namespace VoucherExpense
             e.Cancel = true;
         }
 
- 
-      
+        private void pD_QueryPageSettings(object sender, QueryPageSettingsEventArgs e)
+        {
+            e.PageSettings.PaperSize = new System.Drawing.Printing.PaperSize("", 850, 552);
+            e.PageSettings.Margins = new Margins(0, 0, 0, 0);
+        }     
     }
 }

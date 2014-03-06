@@ -1,40 +1,4 @@
-<HardwareProfile>
-  <Profile Name="麥達人13年">
-    <ComPort Name="COM1" />
-    <ReceiptPrinter Name="Zonerich AB-58MK USB" />
-    <DotPrinter Name="" />
-    <DataSource IsServer="YES" DataDir="EPRT+YCj5fNrqGtQkgdrFxd/qclQ1i9AIGGO3PrxJw7O0j/wt/ai9WQ00/4AOhzu/6JgQw8gCtM=" UserName="sZM/bLSyqv0j4SXhyzDavo1sJn8QGahl" Password="wS4zmgr+ahF21XXsgXwKYhRDYDrg0cz9" BackupDir="Pkce2PnPHlY=" SqlServerIP="1NptfGSR0PQ7we7zv/iQcSQE2+TSq6H8i84eoEz4YFo=" SqlUserID="/cZbbTXHBYkOXasXBnl7LP8vE8nsIEOfIwYmjGHJurE=" SqlPassword="cCsauyIuKESO+YocYe3GILceac2pUUrqubNVPwcDOp8=" SqlDatabase="F7UxJv/enQm+csGGp3BY9plP+MFB2nF91eh/c5T6qxU=" />
-  </Profile>
-  <Profile Name="麥達人14年">
-    <ComPort Name="COM1" />
-    <ReceiptPrinter Name="Zonerich AB-58MK USB" />
-    <DotPrinter Name="" />
-    <DataSource IsServer="YES" DataDir="EPRT+YCj5fNrqGtQkgdrFxd/qclQ1i9AIGGO3PrxJw7O0j/wt/ai9WQ00/4AOhzu/6JgQw8gCtM=" UserName="sZM/bLSyqv0j4SXhyzDavo1sJn8QGahl" Password="wS4zmgr+ahF21XXsgXwKYhRDYDrg0cz9" BackupDir="Pkce2PnPHlY=" SqlServerIP="1NptfGSR0PQ7we7zv/iQcSQE2+TSq6H8i84eoEz4YFo=" SqlUserID="/cZbbTXHBYkOXasXBnl7LP8vE8nsIEOfIwYmjGHJurE=" SqlPassword="cCsauyIuKESO+YocYe3GILceac2pUUrqubNVPwcDOp8=" SqlDatabase="F7UxJv/enQm+csGGp3BY9k+lNQ/JkR4SIqfE1C1LpuU=" />
-  </Profile>
-  <Profile Name="京一店13年">
-    <ComPort Name="COM1" />
-    <ReceiptPrinter Name="Zonerich AB-58MK USB" />
-    <DotPrinter Name="" />
-    <DataSource IsServer="YES" DataDir="EPRT+YCj5fNrqGtQkgdrFxd/qclQ1i9AIGGO3PrxJw7O0j/wt/ai9WQ00/4AOhzu/6JgQw8gCtM=" UserName="sZM/bLSyqv0j4SXhyzDavo1sJn8QGahl" Password="wS4zmgr+ahF21XXsgXwKYhRDYDrg0cz9" BackupDir="Pkce2PnPHlY=" SqlServerIP="1NptfGSR0PQ7we7zv/iQcQ74sx6YD5ZRmYAyNLJA/rQ=" SqlUserID="yFiE/KqBxfg=" SqlPassword="cCsauyIuKESO+YocYe3GILceac2pUUrqubNVPwcDOp8=" SqlDatabase="IDObpp3YRGnKVAEnPTHlyQ==" />
-  </Profile>
-  <Profile Name="京一店14年">
-    <ComPort Name="COM1" />
-    <ReceiptPrinter Name="Zonerich AB-58MK USB" />
-    <DotPrinter Name="" />
-    <DataSource IsServer="YES" DataDir="EPRT+YCj5fNrqGtQkgdrFxd/qclQ1i9AIGGO3PrxJw7O0j/wt/ai9WQ00/4AOhzu/6JgQw8gCtM=" UserName="sZM/bLSyqv0j4SXhyzDavo1sJn8QGahl" Password="wS4zmgr+ahF21XXsgXwKYhRDYDrg0cz9" BackupDir="Pkce2PnPHlY=" SqlServerIP="1NptfGSR0PQ7we7zv/iQcQ74sx6YD5ZRmYAyNLJA/rQ=" SqlUserID="yFiE/KqBxfg=" SqlPassword="cCsauyIuKESO+YocYe3GILceac2pUUrqubNVPwcDOp8=" SqlDatabase="IDObpp3YRGmQPyKzhkKQ6J5AXOREjfmO" />
-  </Profile>
-  <Profile Name="京央厨">
-    <ComPort Name="COM1" />
-    <ReceiptPrinter Name="Zonerich AB-58MK USB" />
-    <DotPrinter Name="" />
-    <DataSource IsServer="YES" DataDir="EPRT+YCj5fNrqGtQkgdrFxd/qclQ1i9AIGGO3PrxJw7O0j/wt/ai9WQ00/4AOhzu/6JgQw8gCtM=" UserName="sZM/bLSyqv0j4SXhyzDavo1sJn8QGahl" Password="wS4zmgr+ahF21XXsgXwKYhRDYDrg0cz9" BackupDir="Pkce2PnPHlY=" SqlServerIP="1NptfGSR0PQ7we7zv/iQcSQE2+TSq6H8i84eoEz4YFo=" SqlUserID="/cZbbTXHBYkOXasXBnl7LP8vE8nsIEOfIwYmjGHJurE=" SqlPassword="cCsauyIuKESO+YocYe3GILceac2pUUrqubNVPwcDOp8=" SqlDatabase="j5aX472fW6tYvbQbJFkEaLNo8vOIB6MgGa/xgCD0l/4=" />
-  </Profile>
-  <Profile Name="京二店">
-    <ComPort Name="COM1" />
-    <ReceiptPrinter Name="Zonerich AB-58MK USB" />
-    <DotPrinter Name="" />
-    <DataSource IsServer="YES" DataDir="EPRT+YCj5fNrqGtQkgdrFxd/qclQ1i9AIGGO3PrxJw7O0j/wt/ai9WQ00/4AOhzu/6JgQw8gCtM=" UserName="sZM/bLSyqv0j4SXhyzDavo1sJn8QGahl" Password="wS4zmgr+ahF21XXsgXwKYhRDYDrg0cz9" BackupDir="Pkce2PnPHlY=" SqlServerIP="1NptfGSR0PQ7we7zv/iQcSQE2+TSq6H8i84eoEz4YFo=" SqlUserID="/cZbbTXHBYkOXasXBnl7LP8vE8nsIEOfIwYmjGHJurE=" SqlPassword="cCsauyIuKESO+YocYe3GILceac2pUUrqubNVPwcDOp8=" SqlDatabase="zqvN9W3gPGLdORe6v6j05w1OCHxEUgDC" />
-  </Profile>
+﻿<HardwareProfile>
   <Profile Name="开发数据库">
     <ComPort Name="COM1" />
     <ReceiptPrinter Name="Zonerich AB-58MK USB" />

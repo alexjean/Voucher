@@ -563,6 +563,11 @@ namespace VoucherExpense
             //FormShipmentPrint form = new FormShipmentPrint(smp);
             //form.Show();
             DamaiDataSet.ShipmentRow row = rowview.Row as DamaiDataSet.ShipmentRow;
+            if (row.IsCustomerNull())
+            {
+                MessageBox.Show("客户不能为空！");
+                return;
+            }
             var customerrows = from ro in damaiDataSet.Customer where (ro.CustomerID == row.Customer) select ro;
             var customerrow = customerrows.First();
             Shipmentprint smp = new Shipmentprint();

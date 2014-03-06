@@ -84,9 +84,10 @@
             this.grossTextBox = new System.Windows.Forms.TextBox();
             this.grossPercentTextBox = new System.Windows.Forms.TextBox();
             this.btnExcel = new System.Windows.Forms.Button();
-            this.titleCodeComboBox = new System.Windows.Forms.ComboBox();
+            this.titleCodeCB = new System.Windows.Forms.ComboBox();
             this.accountingTitleBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.vEDataSet = new VoucherExpense.VEDataSet();
+            this.productTableAdapter = new VoucherExpense.BakeryOrderSetTableAdapters.ProductTableAdapter();
             codeLabel = new System.Windows.Forms.Label();
             classLabel = new System.Windows.Forms.Label();
             nameLabel = new System.Windows.Forms.Label();
@@ -426,7 +427,7 @@
             this.bindingNavigator.MovePreviousItem = null;
             this.bindingNavigator.Name = "bindingNavigator";
             this.bindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.bindingNavigator.Size = new System.Drawing.Size(226, 27);
+            this.bindingNavigator.Size = new System.Drawing.Size(229, 27);
             this.bindingNavigator.TabIndex = 17;
             this.bindingNavigator.Text = "bindingNavigator1";
             // 
@@ -443,8 +444,8 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 24);
-            this.bindingNavigatorCountItem.Text = "/{0}";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(32, 24);
+            this.bindingNavigatorCountItem.Text = "/ {0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
             // bindingNavigatorMoveFirstItem
@@ -502,7 +503,7 @@
             // DeletetoolStripButton
             // 
             this.DeletetoolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.DeletetoolStripButton.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.DeletetoolStripButton.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.DeletetoolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("DeletetoolStripButton.Image")));
             this.DeletetoolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.DeletetoolStripButton.Name = "DeletetoolStripButton";
@@ -598,17 +599,18 @@
             this.btnExcel.UseVisualStyleBackColor = true;
             this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
             // 
-            // titleCodeComboBox
+            // titleCodeCB
             // 
-            this.titleCodeComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productBindingSource, "TitleCode", true));
-            this.titleCodeComboBox.DataSource = this.accountingTitleBindingSource;
-            this.titleCodeComboBox.DisplayMember = "Name";
-            this.titleCodeComboBox.FormattingEnabled = true;
-            this.titleCodeComboBox.Location = new System.Drawing.Point(728, 292);
-            this.titleCodeComboBox.Name = "titleCodeComboBox";
-            this.titleCodeComboBox.Size = new System.Drawing.Size(105, 24);
-            this.titleCodeComboBox.TabIndex = 27;
-            this.titleCodeComboBox.ValueMember = "TitleCode";
+            this.titleCodeCB.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.productBindingSource, "TitleCode", true));
+            this.titleCodeCB.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.accountingTitleBindingSource, "Name", true));
+            this.titleCodeCB.DataSource = this.accountingTitleBindingSource;
+            this.titleCodeCB.DisplayMember = "Name";
+            this.titleCodeCB.FormattingEnabled = true;
+            this.titleCodeCB.Location = new System.Drawing.Point(728, 292);
+            this.titleCodeCB.Name = "titleCodeCB";
+            this.titleCodeCB.Size = new System.Drawing.Size(105, 24);
+            this.titleCodeCB.TabIndex = 27;
+            this.titleCodeCB.ValueMember = "TitleCode";
             // 
             // accountingTitleBindingSource
             // 
@@ -620,6 +622,10 @@
             this.vEDataSet.DataSetName = "VEDataSet";
             this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
+            // productTableAdapter
+            // 
+            this.productTableAdapter.ClearBeforeFill = true;
+            // 
             // EditBakeryProduct
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -628,7 +634,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(951, 645);
             this.Controls.Add(titleCodeLabel);
-            this.Controls.Add(this.titleCodeComboBox);
+            this.Controls.Add(this.titleCodeCB);
             this.Controls.Add(this.btnExcel);
             this.Controls.Add(this.grossPercentTextBox);
             this.Controls.Add(this.grossTextBox);
@@ -654,7 +660,7 @@
             this.Controls.Add(this.menuXTextBox);
             this.Controls.Add(menuYLabel);
             this.Controls.Add(this.menuYTextBox);
-            this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "EditBakeryProduct";
             this.Text = "產品表";
@@ -715,8 +721,9 @@
         private System.Windows.Forms.TextBox grossTextBox;
         private System.Windows.Forms.TextBox grossPercentTextBox;
         private System.Windows.Forms.Button btnExcel;
-        private System.Windows.Forms.ComboBox titleCodeComboBox;
+        private System.Windows.Forms.ComboBox titleCodeCB;
         private VEDataSet vEDataSet;
         private System.Windows.Forms.BindingSource accountingTitleBindingSource;
+        private BakeryOrderSetTableAdapters.ProductTableAdapter productTableAdapter;
     }
 }

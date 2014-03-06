@@ -530,6 +530,7 @@ namespace VoucherExpense
         public bool LockInventory { get; set; }
         public bool EditShipment { get; set; }
         public bool LockShipment { get; set; }
+        public bool EditCustomer { get; set; }
     }
 
     public enum PhotoTableID { Ingredient = 1, Product = 2, Recipe = 3 }

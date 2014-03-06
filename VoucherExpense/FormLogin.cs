@@ -141,6 +141,7 @@ namespace VoucherExpense
             if (!r.IsLockVoucherNull())             op.LockVoucher = r.LockVoucher;
             if (!r.IsRevenueOperateNull())          op.RevenueOperate = r.RevenueOperate;
             if (!r.IsStopAccountNull())             op.StopAccount = r.StopAccount;
+            if (!r.IsEditCustomerNull())            op.EditCustomer = r.EditCustomer;
             op.LoginName = r.LoginName;
             if (r.IsNameNull())
                 op.Name = "操作員" + r.OperatorID.ToString();   

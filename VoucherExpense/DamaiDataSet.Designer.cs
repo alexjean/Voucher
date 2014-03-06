@@ -14255,6 +14255,8 @@ namespace VoucherExpense {
             
             private global::System.Data.DataColumn columnLockShipment;
             
+            private global::System.Data.DataColumn columnEditCustomer;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public OperatorDataTable() {
@@ -14522,6 +14524,14 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn EditCustomerColumn {
+                get {
+                    return this.columnEditCustomer;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -14586,7 +14596,8 @@ namespace VoucherExpense {
                         System.DateTime LastUpdated, 
                         bool LockInventory, 
                         bool EditShipment, 
-                        bool LockShipment) {
+                        bool LockShipment, 
+                        bool EditCustomer) {
                 OperatorRow rowOperatorRow = ((OperatorRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         OperatorID,
@@ -14617,7 +14628,8 @@ namespace VoucherExpense {
                         LastUpdated,
                         LockInventory,
                         EditShipment,
-                        LockShipment};
+                        LockShipment,
+                        EditCustomer};
                 rowOperatorRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowOperatorRow);
                 return rowOperatorRow;
@@ -14676,6 +14688,7 @@ namespace VoucherExpense {
                 this.columnLockInventory = base.Columns["LockInventory"];
                 this.columnEditShipment = base.Columns["EditShipment"];
                 this.columnLockShipment = base.Columns["LockShipment"];
+                this.columnEditCustomer = base.Columns["EditCustomer"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -14739,6 +14752,8 @@ namespace VoucherExpense {
                 base.Columns.Add(this.columnEditShipment);
                 this.columnLockShipment = new global::System.Data.DataColumn("LockShipment", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnLockShipment);
+                this.columnEditCustomer = new global::System.Data.DataColumn("EditCustomer", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEditCustomer);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnOperatorID}, true));
                 this.columnOperatorID.AllowDBNull = false;
@@ -24409,6 +24424,22 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool EditCustomer {
+                get {
+                    try {
+                        return ((bool)(this[this.tableOperator.EditCustomerColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("表“Operator”中列“EditCustomer”的值为 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tableOperator.EditCustomerColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsStopAccountNull() {
                 return this.IsNull(this.tableOperator.StopAccountColumn);
             }
@@ -24741,6 +24772,18 @@ namespace VoucherExpense {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetLockShipmentNull() {
                 this[this.tableOperator.LockShipmentColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsEditCustomerNull() {
+                return this.IsNull(this.tableOperator.EditCustomerColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetEditCustomerNull() {
+                this[this.tableOperator.EditCustomerColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -44740,7 +44783,7 @@ SELECT ID, ExpenseID, ApplierID, ApplyTime, Money, Note, Paid, AuthorizeID, Titl
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[Product] WHERE (([ProductID] = @Original_ProductID) AND ((@IsNull_Code = 1 AND [Code] IS NULL) OR ([Code] = @Original_Code)) AND ((@IsNull_Class = 1 AND [Class] IS NULL) OR ([Class] = @Original_Class)) AND ((@IsNull_Name = 1 AND [Name] IS NULL) OR ([Name] = @Original_Name)) AND ((@IsNull_Price = 1 AND [Price] IS NULL) OR ([Price] = @Original_Price)) AND ((@IsNull_MenuX = 1 AND [MenuX] IS NULL) OR ([MenuX] = @Original_MenuX)) AND ((@IsNull_MenuY = 1 AND [MenuY] IS NULL) OR ([MenuY] = @Original_MenuY)) AND ((@IsNull_EvaluatedCost = 1 AND [EvaluatedCost] IS NULL) OR ([EvaluatedCost] = @Original_EvaluatedCost)) AND ((@IsNull_Unit = 1 AND [Unit] IS NULL) OR ([Unit] = @Original_Unit)) AND ((@IsNull_TitleCode = 1 AND [TitleCode] IS NULL) OR ([TitleCode] = @Original_TitleCode)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [Product] WHERE (([ProductID] = @Original_ProductID) AND ((@IsNull_Code = 1 AND [Code] IS NULL) OR ([Code] = @Original_Code)) AND ((@IsNull_Class = 1 AND [Class] IS NULL) OR ([Class] = @Original_Class)) AND ((@IsNull_Name = 1 AND [Name] IS NULL) OR ([Name] = @Original_Name)) AND ((@IsNull_Price = 1 AND [Price] IS NULL) OR ([Price] = @Original_Price)) AND ((@IsNull_MenuX = 1 AND [MenuX] IS NULL) OR ([MenuX] = @Original_MenuX)) AND ((@IsNull_MenuY = 1 AND [MenuY] IS NULL) OR ([MenuY] = @Original_MenuY)) AND ((@IsNull_EvaluatedCost = 1 AND [EvaluatedCost] IS NULL) OR ([EvaluatedCost] = @Original_EvaluatedCost)) AND ((@IsNull_Unit = 1 AND [Unit] IS NULL) OR ([Unit] = @Original_Unit)) AND ((@IsNull_TitleCode = 1 AND [TitleCode] IS NULL) OR ([TitleCode] = @Original_TitleCode)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ProductID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ProductID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Code", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Code", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
@@ -44763,7 +44806,7 @@ SELECT ID, ExpenseID, ApplierID, ApplyTime, Money, Note, Paid, AuthorizeID, Titl
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TitleCode", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TitleCode", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[Product] ([ProductID], [Code], [Class], [Name], [Price], [MenuX], [MenuY], [EvaluatedCost], [Unit], [TitleCode]) VALUES (@ProductID, @Code, @Class, @Name, @Price, @MenuX, @MenuY, @EvaluatedCost, @Unit, @TitleCode);
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [Product] ([ProductID], [Code], [Class], [Name], [Price], [MenuX], [MenuY], [EvaluatedCost], [Unit], [TitleCode]) VALUES (@ProductID, @Code, @Class, @Name, @Price, @MenuX, @MenuY, @EvaluatedCost, @Unit, @TitleCode);
 SELECT ProductID, Code, Class, Name, Price, MenuX, MenuY, EvaluatedCost, Unit, TitleCode FROM Product WHERE (ProductID = @ProductID)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ProductID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ProductID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -44778,7 +44821,7 @@ SELECT ProductID, Code, Class, Name, Price, MenuX, MenuY, EvaluatedCost, Unit, T
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TitleCode", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TitleCode", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Product] SET [ProductID] = @ProductID, [Code] = @Code, [Class] = @Class, [Name] = @Name, [Price] = @Price, [MenuX] = @MenuX, [MenuY] = @MenuY, [EvaluatedCost] = @EvaluatedCost, [Unit] = @Unit, [TitleCode] = @TitleCode WHERE (([ProductID] = @Original_ProductID) AND ((@IsNull_Code = 1 AND [Code] IS NULL) OR ([Code] = @Original_Code)) AND ((@IsNull_Class = 1 AND [Class] IS NULL) OR ([Class] = @Original_Class)) AND ((@IsNull_Name = 1 AND [Name] IS NULL) OR ([Name] = @Original_Name)) AND ((@IsNull_Price = 1 AND [Price] IS NULL) OR ([Price] = @Original_Price)) AND ((@IsNull_MenuX = 1 AND [MenuX] IS NULL) OR ([MenuX] = @Original_MenuX)) AND ((@IsNull_MenuY = 1 AND [MenuY] IS NULL) OR ([MenuY] = @Original_MenuY)) AND ((@IsNull_EvaluatedCost = 1 AND [EvaluatedCost] IS NULL) OR ([EvaluatedCost] = @Original_EvaluatedCost)) AND ((@IsNull_Unit = 1 AND [Unit] IS NULL) OR ([Unit] = @Original_Unit)) AND ((@IsNull_TitleCode = 1 AND [TitleCode] IS NULL) OR ([TitleCode] = @Original_TitleCode)));
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [Product] SET [ProductID] = @ProductID, [Code] = @Code, [Class] = @Class, [Name] = @Name, [Price] = @Price, [MenuX] = @MenuX, [MenuY] = @MenuY, [EvaluatedCost] = @EvaluatedCost, [Unit] = @Unit, [TitleCode] = @TitleCode WHERE (([ProductID] = @Original_ProductID) AND ((@IsNull_Code = 1 AND [Code] IS NULL) OR ([Code] = @Original_Code)) AND ((@IsNull_Class = 1 AND [Class] IS NULL) OR ([Class] = @Original_Class)) AND ((@IsNull_Name = 1 AND [Name] IS NULL) OR ([Name] = @Original_Name)) AND ((@IsNull_Price = 1 AND [Price] IS NULL) OR ([Price] = @Original_Price)) AND ((@IsNull_MenuX = 1 AND [MenuX] IS NULL) OR ([MenuX] = @Original_MenuX)) AND ((@IsNull_MenuY = 1 AND [MenuY] IS NULL) OR ([MenuY] = @Original_MenuY)) AND ((@IsNull_EvaluatedCost = 1 AND [EvaluatedCost] IS NULL) OR ([EvaluatedCost] = @Original_EvaluatedCost)) AND ((@IsNull_Unit = 1 AND [Unit] IS NULL) OR ([Unit] = @Original_Unit)) AND ((@IsNull_TitleCode = 1 AND [TitleCode] IS NULL) OR ([TitleCode] = @Original_TitleCode)));
 SELECT ProductID, Code, Class, Name, Price, MenuX, MenuY, EvaluatedCost, Unit, TitleCode FROM Product WHERE (ProductID = @ProductID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ProductID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ProductID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -44826,7 +44869,7 @@ SELECT ProductID, Code, Class, Name, Price, MenuX, MenuY, EvaluatedCost, Unit, T
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT ProductID, Code, Class, Name, Price, MenuX, MenuY, EvaluatedCost, Unit, Ti" +
-                "tleCode FROM dbo.Product";
+                "tleCode FROM Product";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -46251,46 +46294,48 @@ SELECT TableID, PhotoID, Photo, UpdatedTime FROM Photos WHERE (PhotoID = @PhotoI
             tableMapping.ColumnMappings.Add("LockInventory", "LockInventory");
             tableMapping.ColumnMappings.Add("EditShipment", "EditShipment");
             tableMapping.ColumnMappings.Add("LockShipment", "LockShipment");
+            tableMapping.ColumnMappings.Add("EditCustomer", "EditCustomer");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[Operator] WHERE (([OperatorID] = @Original_OperatorID) AND ((@" +
-                "IsNull_StopAccount = 1 AND [StopAccount] IS NULL) OR ([StopAccount] = @Original_" +
-                "StopAccount)) AND ((@IsNull_LoginName = 1 AND [LoginName] IS NULL) OR ([LoginNam" +
-                "e] = @Original_LoginName)) AND ((@IsNull_Password = 1 AND [Password] IS NULL) OR" +
-                " ([Password] = @Original_Password)) AND ((@IsNull_Name = 1 AND [Name] IS NULL) O" +
-                "R ([Name] = @Original_Name)) AND ((@IsNull_EditOperator = 1 AND [EditOperator] I" +
-                "S NULL) OR ([EditOperator] = @Original_EditOperator)) AND ((@IsNull_EditVendor =" +
-                " 1 AND [EditVendor] IS NULL) OR ([EditVendor] = @Original_EditVendor)) AND ((@Is" +
-                "Null_EditIngredient = 1 AND [EditIngredient] IS NULL) OR ([EditIngredient] = @Or" +
-                "iginal_EditIngredient)) AND ((@IsNull_EditRecipe = 1 AND [EditRecipe] IS NULL) O" +
-                "R ([EditRecipe] = @Original_EditRecipe)) AND ((@IsNull_EditProduct = 1 AND [Edit" +
-                "Product] IS NULL) OR ([EditProduct] = @Original_EditProduct)) AND ((@IsNull_Edit" +
-                "Employee = 1 AND [EditEmployee] IS NULL) OR ([EditEmployee] = @Original_EditEmpl" +
-                "oyee)) AND ((@IsNull_EditAccountingTitle = 1 AND [EditAccountingTitle] IS NULL) " +
-                "OR ([EditAccountingTitle] = @Original_EditAccountingTitle)) AND ((@IsNull_EditVo" +
-                "ucher = 1 AND [EditVoucher] IS NULL) OR ([EditVoucher] = @Original_EditVoucher))" +
-                " AND ((@IsNull_LockVoucher = 1 AND [LockVoucher] IS NULL) OR ([LockVoucher] = @O" +
-                "riginal_LockVoucher)) AND ((@IsNull_LockExpense = 1 AND [LockExpense] IS NULL) O" +
-                "R ([LockExpense] = @Original_LockExpense)) AND ((@IsNull_LockAccVoucher = 1 AND " +
-                "[LockAccVoucher] IS NULL) OR ([LockAccVoucher] = @Original_LockAccVoucher)) AND " +
-                "((@IsNull_EditExpense = 1 AND [EditExpense] IS NULL) OR ([EditExpense] = @Origin" +
-                "al_EditExpense)) AND ((@IsNull_EditBank = 1 AND [EditBank] IS NULL) OR ([EditBan" +
-                "k] = @Original_EditBank)) AND ((@IsNull_EditOnDuty = 1 AND [EditOnDuty] IS NULL)" +
-                " OR ([EditOnDuty] = @Original_EditOnDuty)) AND ((@IsNull_EditSalary = 1 AND [Edi" +
-                "tSalary] IS NULL) OR ([EditSalary] = @Original_EditSalary)) AND ((@IsNull_LockHR" +
-                " = 1 AND [LockHR] IS NULL) OR ([LockHR] = @Original_LockHR)) AND ((@IsNull_EditI" +
-                "nventory = 1 AND [EditInventory] IS NULL) OR ([EditInventory] = @Original_EditIn" +
-                "ventory)) AND ((@IsNull_RevenueOperate = 1 AND [RevenueOperate] IS NULL) OR ([Re" +
-                "venueOperate] = @Original_RevenueOperate)) AND ((@IsNull_IsSuper = 1 AND [IsSupe" +
-                "r] IS NULL) OR ([IsSuper] = @Original_IsSuper)) AND ((@IsNull_IsManager = 1 AND " +
-                "[IsManager] IS NULL) OR ([IsManager] = @Original_IsManager)) AND ((@IsNull_LastU" +
-                "pdated = 1 AND [LastUpdated] IS NULL) OR ([LastUpdated] = @Original_LastUpdated)" +
-                ") AND ((@IsNull_LockInventory = 1 AND [LockInventory] IS NULL) OR ([LockInventor" +
-                "y] = @Original_LockInventory)) AND ((@IsNull_EditShipment = 1 AND [EditShipment]" +
-                " IS NULL) OR ([EditShipment] = @Original_EditShipment)) AND ((@IsNull_LockShipme" +
-                "nt = 1 AND [LockShipment] IS NULL) OR ([LockShipment] = @Original_LockShipment))" +
-                ")";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [Operator] WHERE (([OperatorID] = @Original_OperatorID) AND ((@IsNull" +
+                "_StopAccount = 1 AND [StopAccount] IS NULL) OR ([StopAccount] = @Original_StopAc" +
+                "count)) AND ((@IsNull_LoginName = 1 AND [LoginName] IS NULL) OR ([LoginName] = @" +
+                "Original_LoginName)) AND ((@IsNull_Password = 1 AND [Password] IS NULL) OR ([Pas" +
+                "sword] = @Original_Password)) AND ((@IsNull_Name = 1 AND [Name] IS NULL) OR ([Na" +
+                "me] = @Original_Name)) AND ((@IsNull_EditOperator = 1 AND [EditOperator] IS NULL" +
+                ") OR ([EditOperator] = @Original_EditOperator)) AND ((@IsNull_EditVendor = 1 AND" +
+                " [EditVendor] IS NULL) OR ([EditVendor] = @Original_EditVendor)) AND ((@IsNull_E" +
+                "ditIngredient = 1 AND [EditIngredient] IS NULL) OR ([EditIngredient] = @Original" +
+                "_EditIngredient)) AND ((@IsNull_EditRecipe = 1 AND [EditRecipe] IS NULL) OR ([Ed" +
+                "itRecipe] = @Original_EditRecipe)) AND ((@IsNull_EditProduct = 1 AND [EditProduc" +
+                "t] IS NULL) OR ([EditProduct] = @Original_EditProduct)) AND ((@IsNull_EditEmploy" +
+                "ee = 1 AND [EditEmployee] IS NULL) OR ([EditEmployee] = @Original_EditEmployee))" +
+                " AND ((@IsNull_EditAccountingTitle = 1 AND [EditAccountingTitle] IS NULL) OR ([E" +
+                "ditAccountingTitle] = @Original_EditAccountingTitle)) AND ((@IsNull_EditVoucher " +
+                "= 1 AND [EditVoucher] IS NULL) OR ([EditVoucher] = @Original_EditVoucher)) AND (" +
+                "(@IsNull_LockVoucher = 1 AND [LockVoucher] IS NULL) OR ([LockVoucher] = @Origina" +
+                "l_LockVoucher)) AND ((@IsNull_LockExpense = 1 AND [LockExpense] IS NULL) OR ([Lo" +
+                "ckExpense] = @Original_LockExpense)) AND ((@IsNull_LockAccVoucher = 1 AND [LockA" +
+                "ccVoucher] IS NULL) OR ([LockAccVoucher] = @Original_LockAccVoucher)) AND ((@IsN" +
+                "ull_EditExpense = 1 AND [EditExpense] IS NULL) OR ([EditExpense] = @Original_Edi" +
+                "tExpense)) AND ((@IsNull_EditBank = 1 AND [EditBank] IS NULL) OR ([EditBank] = @" +
+                "Original_EditBank)) AND ((@IsNull_EditOnDuty = 1 AND [EditOnDuty] IS NULL) OR ([" +
+                "EditOnDuty] = @Original_EditOnDuty)) AND ((@IsNull_EditSalary = 1 AND [EditSalar" +
+                "y] IS NULL) OR ([EditSalary] = @Original_EditSalary)) AND ((@IsNull_LockHR = 1 A" +
+                "ND [LockHR] IS NULL) OR ([LockHR] = @Original_LockHR)) AND ((@IsNull_EditInvento" +
+                "ry = 1 AND [EditInventory] IS NULL) OR ([EditInventory] = @Original_EditInventor" +
+                "y)) AND ((@IsNull_RevenueOperate = 1 AND [RevenueOperate] IS NULL) OR ([RevenueO" +
+                "perate] = @Original_RevenueOperate)) AND ((@IsNull_IsSuper = 1 AND [IsSuper] IS " +
+                "NULL) OR ([IsSuper] = @Original_IsSuper)) AND ((@IsNull_IsManager = 1 AND [IsMan" +
+                "ager] IS NULL) OR ([IsManager] = @Original_IsManager)) AND ((@IsNull_LastUpdated" +
+                " = 1 AND [LastUpdated] IS NULL) OR ([LastUpdated] = @Original_LastUpdated)) AND " +
+                "((@IsNull_LockInventory = 1 AND [LockInventory] IS NULL) OR ([LockInventory] = @" +
+                "Original_LockInventory)) AND ((@IsNull_EditShipment = 1 AND [EditShipment] IS NU" +
+                "LL) OR ([EditShipment] = @Original_EditShipment)) AND ((@IsNull_LockShipment = 1" +
+                " AND [LockShipment] IS NULL) OR ([LockShipment] = @Original_LockShipment)) AND (" +
+                "(@IsNull_EditCustomer = 1 AND [EditCustomer] IS NULL) OR ([EditCustomer] = @Orig" +
+                "inal_EditCustomer)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_OperatorID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OperatorID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_StopAccount", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StopAccount", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
@@ -46349,10 +46394,12 @@ SELECT TableID, PhotoID, Photo, UpdatedTime FROM Photos WHERE (PhotoID = @PhotoI
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_EditShipment", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "EditShipment", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_LockShipment", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LockShipment", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LockShipment", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LockShipment", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_EditCustomer", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "EditCustomer", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_EditCustomer", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "EditCustomer", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[Operator] ([OperatorID], [StopAccount], [LoginName], [Password], [Name], [EditOperator], [EditVendor], [EditIngredient], [EditRecipe], [EditProduct], [EditEmployee], [EditAccountingTitle], [EditVoucher], [LockVoucher], [LockExpense], [LockAccVoucher], [EditExpense], [EditBank], [EditOnDuty], [EditSalary], [LockHR], [EditInventory], [RevenueOperate], [IsSuper], [IsManager], [LastUpdated], [LockInventory], [EditShipment], [LockShipment]) VALUES (@OperatorID, @StopAccount, @LoginName, @Password, @Name, @EditOperator, @EditVendor, @EditIngredient, @EditRecipe, @EditProduct, @EditEmployee, @EditAccountingTitle, @EditVoucher, @LockVoucher, @LockExpense, @LockAccVoucher, @EditExpense, @EditBank, @EditOnDuty, @EditSalary, @LockHR, @EditInventory, @RevenueOperate, @IsSuper, @IsManager, @LastUpdated, @LockInventory, @EditShipment, @LockShipment);
-SELECT OperatorID, StopAccount, LoginName, Password, Name, EditOperator, EditVendor, EditIngredient, EditRecipe, EditProduct, EditEmployee, EditAccountingTitle, EditVoucher, LockVoucher, LockExpense, LockAccVoucher, EditExpense, EditBank, EditOnDuty, EditSalary, LockHR, EditInventory, RevenueOperate, IsSuper, IsManager, LastUpdated, LockInventory, EditShipment, LockShipment FROM Operator WHERE (OperatorID = @OperatorID)";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [Operator] ([OperatorID], [StopAccount], [LoginName], [Password], [Name], [EditOperator], [EditVendor], [EditIngredient], [EditRecipe], [EditProduct], [EditEmployee], [EditAccountingTitle], [EditVoucher], [LockVoucher], [LockExpense], [LockAccVoucher], [EditExpense], [EditBank], [EditOnDuty], [EditSalary], [LockHR], [EditInventory], [RevenueOperate], [IsSuper], [IsManager], [LastUpdated], [LockInventory], [EditShipment], [LockShipment], [EditCustomer]) VALUES (@OperatorID, @StopAccount, @LoginName, @Password, @Name, @EditOperator, @EditVendor, @EditIngredient, @EditRecipe, @EditProduct, @EditEmployee, @EditAccountingTitle, @EditVoucher, @LockVoucher, @LockExpense, @LockAccVoucher, @EditExpense, @EditBank, @EditOnDuty, @EditSalary, @LockHR, @EditInventory, @RevenueOperate, @IsSuper, @IsManager, @LastUpdated, @LockInventory, @EditShipment, @LockShipment, @EditCustomer);
+SELECT OperatorID, StopAccount, LoginName, Password, Name, EditOperator, EditVendor, EditIngredient, EditRecipe, EditProduct, EditEmployee, EditAccountingTitle, EditVoucher, LockVoucher, LockExpense, LockAccVoucher, EditExpense, EditBank, EditOnDuty, EditSalary, LockHR, EditInventory, RevenueOperate, IsSuper, IsManager, LastUpdated, LockInventory, EditShipment, LockShipment, EditCustomer FROM Operator WHERE (OperatorID = @OperatorID)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@OperatorID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OperatorID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@StopAccount", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StopAccount", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -46383,61 +46430,63 @@ SELECT OperatorID, StopAccount, LoginName, Password, Name, EditOperator, EditVen
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LockInventory", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LockInventory", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@EditShipment", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "EditShipment", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LockShipment", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LockShipment", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@EditCustomer", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "EditCustomer", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[Operator] SET [OperatorID] = @OperatorID, [StopAccount] = @StopAcco" +
-                "unt, [LoginName] = @LoginName, [Password] = @Password, [Name] = @Name, [EditOper" +
-                "ator] = @EditOperator, [EditVendor] = @EditVendor, [EditIngredient] = @EditIngre" +
-                "dient, [EditRecipe] = @EditRecipe, [EditProduct] = @EditProduct, [EditEmployee] " +
-                "= @EditEmployee, [EditAccountingTitle] = @EditAccountingTitle, [EditVoucher] = @" +
-                "EditVoucher, [LockVoucher] = @LockVoucher, [LockExpense] = @LockExpense, [LockAc" +
-                "cVoucher] = @LockAccVoucher, [EditExpense] = @EditExpense, [EditBank] = @EditBan" +
-                "k, [EditOnDuty] = @EditOnDuty, [EditSalary] = @EditSalary, [LockHR] = @LockHR, [" +
-                "EditInventory] = @EditInventory, [RevenueOperate] = @RevenueOperate, [IsSuper] =" +
-                " @IsSuper, [IsManager] = @IsManager, [LastUpdated] = @LastUpdated, [LockInventor" +
-                "y] = @LockInventory, [EditShipment] = @EditShipment, [LockShipment] = @LockShipm" +
-                "ent WHERE (([OperatorID] = @Original_OperatorID) AND ((@IsNull_StopAccount = 1 A" +
-                "ND [StopAccount] IS NULL) OR ([StopAccount] = @Original_StopAccount)) AND ((@IsN" +
-                "ull_LoginName = 1 AND [LoginName] IS NULL) OR ([LoginName] = @Original_LoginName" +
-                ")) AND ((@IsNull_Password = 1 AND [Password] IS NULL) OR ([Password] = @Original" +
-                "_Password)) AND ((@IsNull_Name = 1 AND [Name] IS NULL) OR ([Name] = @Original_Na" +
-                "me)) AND ((@IsNull_EditOperator = 1 AND [EditOperator] IS NULL) OR ([EditOperato" +
-                "r] = @Original_EditOperator)) AND ((@IsNull_EditVendor = 1 AND [EditVendor] IS N" +
-                "ULL) OR ([EditVendor] = @Original_EditVendor)) AND ((@IsNull_EditIngredient = 1 " +
-                "AND [EditIngredient] IS NULL) OR ([EditIngredient] = @Original_EditIngredient)) " +
-                "AND ((@IsNull_EditRecipe = 1 AND [EditRecipe] IS NULL) OR ([EditRecipe] = @Origi" +
-                "nal_EditRecipe)) AND ((@IsNull_EditProduct = 1 AND [EditProduct] IS NULL) OR ([E" +
-                "ditProduct] = @Original_EditProduct)) AND ((@IsNull_EditEmployee = 1 AND [EditEm" +
-                "ployee] IS NULL) OR ([EditEmployee] = @Original_EditEmployee)) AND ((@IsNull_Edi" +
-                "tAccountingTitle = 1 AND [EditAccountingTitle] IS NULL) OR ([EditAccountingTitle" +
-                "] = @Original_EditAccountingTitle)) AND ((@IsNull_EditVoucher = 1 AND [EditVouch" +
-                "er] IS NULL) OR ([EditVoucher] = @Original_EditVoucher)) AND ((@IsNull_LockVouch" +
-                "er = 1 AND [LockVoucher] IS NULL) OR ([LockVoucher] = @Original_LockVoucher)) AN" +
-                "D ((@IsNull_LockExpense = 1 AND [LockExpense] IS NULL) OR ([LockExpense] = @Orig" +
-                "inal_LockExpense)) AND ((@IsNull_LockAccVoucher = 1 AND [LockAccVoucher] IS NULL" +
-                ") OR ([LockAccVoucher] = @Original_LockAccVoucher)) AND ((@IsNull_EditExpense = " +
-                "1 AND [EditExpense] IS NULL) OR ([EditExpense] = @Original_EditExpense)) AND ((@" +
-                "IsNull_EditBank = 1 AND [EditBank] IS NULL) OR ([EditBank] = @Original_EditBank)" +
-                ") AND ((@IsNull_EditOnDuty = 1 AND [EditOnDuty] IS NULL) OR ([EditOnDuty] = @Ori" +
-                "ginal_EditOnDuty)) AND ((@IsNull_EditSalary = 1 AND [EditSalary] IS NULL) OR ([E" +
-                "ditSalary] = @Original_EditSalary)) AND ((@IsNull_LockHR = 1 AND [LockHR] IS NUL" +
-                "L) OR ([LockHR] = @Original_LockHR)) AND ((@IsNull_EditInventory = 1 AND [EditIn" +
-                "ventory] IS NULL) OR ([EditInventory] = @Original_EditInventory)) AND ((@IsNull_" +
-                "RevenueOperate = 1 AND [RevenueOperate] IS NULL) OR ([RevenueOperate] = @Origina" +
-                "l_RevenueOperate)) AND ((@IsNull_IsSuper = 1 AND [IsSuper] IS NULL) OR ([IsSuper" +
-                "] = @Original_IsSuper)) AND ((@IsNull_IsManager = 1 AND [IsManager] IS NULL) OR " +
-                "([IsManager] = @Original_IsManager)) AND ((@IsNull_LastUpdated = 1 AND [LastUpda" +
-                "ted] IS NULL) OR ([LastUpdated] = @Original_LastUpdated)) AND ((@IsNull_LockInve" +
-                "ntory = 1 AND [LockInventory] IS NULL) OR ([LockInventory] = @Original_LockInven" +
-                "tory)) AND ((@IsNull_EditShipment = 1 AND [EditShipment] IS NULL) OR ([EditShipm" +
-                "ent] = @Original_EditShipment)) AND ((@IsNull_LockShipment = 1 AND [LockShipment" +
-                "] IS NULL) OR ([LockShipment] = @Original_LockShipment)));\r\nSELECT OperatorID, S" +
-                "topAccount, LoginName, Password, Name, EditOperator, EditVendor, EditIngredient," +
-                " EditRecipe, EditProduct, EditEmployee, EditAccountingTitle, EditVoucher, LockVo" +
-                "ucher, LockExpense, LockAccVoucher, EditExpense, EditBank, EditOnDuty, EditSalar" +
-                "y, LockHR, EditInventory, RevenueOperate, IsSuper, IsManager, LastUpdated, LockI" +
-                "nventory, EditShipment, LockShipment FROM Operator WHERE (OperatorID = @Operator" +
-                "ID)";
+            this._adapter.UpdateCommand.CommandText = "UPDATE [Operator] SET [OperatorID] = @OperatorID, [StopAccount] = @StopAccount, [" +
+                "LoginName] = @LoginName, [Password] = @Password, [Name] = @Name, [EditOperator] " +
+                "= @EditOperator, [EditVendor] = @EditVendor, [EditIngredient] = @EditIngredient," +
+                " [EditRecipe] = @EditRecipe, [EditProduct] = @EditProduct, [EditEmployee] = @Edi" +
+                "tEmployee, [EditAccountingTitle] = @EditAccountingTitle, [EditVoucher] = @EditVo" +
+                "ucher, [LockVoucher] = @LockVoucher, [LockExpense] = @LockExpense, [LockAccVouch" +
+                "er] = @LockAccVoucher, [EditExpense] = @EditExpense, [EditBank] = @EditBank, [Ed" +
+                "itOnDuty] = @EditOnDuty, [EditSalary] = @EditSalary, [LockHR] = @LockHR, [EditIn" +
+                "ventory] = @EditInventory, [RevenueOperate] = @RevenueOperate, [IsSuper] = @IsSu" +
+                "per, [IsManager] = @IsManager, [LastUpdated] = @LastUpdated, [LockInventory] = @" +
+                "LockInventory, [EditShipment] = @EditShipment, [LockShipment] = @LockShipment, [" +
+                "EditCustomer] = @EditCustomer WHERE (([OperatorID] = @Original_OperatorID) AND (" +
+                "(@IsNull_StopAccount = 1 AND [StopAccount] IS NULL) OR ([StopAccount] = @Origina" +
+                "l_StopAccount)) AND ((@IsNull_LoginName = 1 AND [LoginName] IS NULL) OR ([LoginN" +
+                "ame] = @Original_LoginName)) AND ((@IsNull_Password = 1 AND [Password] IS NULL) " +
+                "OR ([Password] = @Original_Password)) AND ((@IsNull_Name = 1 AND [Name] IS NULL)" +
+                " OR ([Name] = @Original_Name)) AND ((@IsNull_EditOperator = 1 AND [EditOperator]" +
+                " IS NULL) OR ([EditOperator] = @Original_EditOperator)) AND ((@IsNull_EditVendor" +
+                " = 1 AND [EditVendor] IS NULL) OR ([EditVendor] = @Original_EditVendor)) AND ((@" +
+                "IsNull_EditIngredient = 1 AND [EditIngredient] IS NULL) OR ([EditIngredient] = @" +
+                "Original_EditIngredient)) AND ((@IsNull_EditRecipe = 1 AND [EditRecipe] IS NULL)" +
+                " OR ([EditRecipe] = @Original_EditRecipe)) AND ((@IsNull_EditProduct = 1 AND [Ed" +
+                "itProduct] IS NULL) OR ([EditProduct] = @Original_EditProduct)) AND ((@IsNull_Ed" +
+                "itEmployee = 1 AND [EditEmployee] IS NULL) OR ([EditEmployee] = @Original_EditEm" +
+                "ployee)) AND ((@IsNull_EditAccountingTitle = 1 AND [EditAccountingTitle] IS NULL" +
+                ") OR ([EditAccountingTitle] = @Original_EditAccountingTitle)) AND ((@IsNull_Edit" +
+                "Voucher = 1 AND [EditVoucher] IS NULL) OR ([EditVoucher] = @Original_EditVoucher" +
+                ")) AND ((@IsNull_LockVoucher = 1 AND [LockVoucher] IS NULL) OR ([LockVoucher] = " +
+                "@Original_LockVoucher)) AND ((@IsNull_LockExpense = 1 AND [LockExpense] IS NULL)" +
+                " OR ([LockExpense] = @Original_LockExpense)) AND ((@IsNull_LockAccVoucher = 1 AN" +
+                "D [LockAccVoucher] IS NULL) OR ([LockAccVoucher] = @Original_LockAccVoucher)) AN" +
+                "D ((@IsNull_EditExpense = 1 AND [EditExpense] IS NULL) OR ([EditExpense] = @Orig" +
+                "inal_EditExpense)) AND ((@IsNull_EditBank = 1 AND [EditBank] IS NULL) OR ([EditB" +
+                "ank] = @Original_EditBank)) AND ((@IsNull_EditOnDuty = 1 AND [EditOnDuty] IS NUL" +
+                "L) OR ([EditOnDuty] = @Original_EditOnDuty)) AND ((@IsNull_EditSalary = 1 AND [E" +
+                "ditSalary] IS NULL) OR ([EditSalary] = @Original_EditSalary)) AND ((@IsNull_Lock" +
+                "HR = 1 AND [LockHR] IS NULL) OR ([LockHR] = @Original_LockHR)) AND ((@IsNull_Edi" +
+                "tInventory = 1 AND [EditInventory] IS NULL) OR ([EditInventory] = @Original_Edit" +
+                "Inventory)) AND ((@IsNull_RevenueOperate = 1 AND [RevenueOperate] IS NULL) OR ([" +
+                "RevenueOperate] = @Original_RevenueOperate)) AND ((@IsNull_IsSuper = 1 AND [IsSu" +
+                "per] IS NULL) OR ([IsSuper] = @Original_IsSuper)) AND ((@IsNull_IsManager = 1 AN" +
+                "D [IsManager] IS NULL) OR ([IsManager] = @Original_IsManager)) AND ((@IsNull_Las" +
+                "tUpdated = 1 AND [LastUpdated] IS NULL) OR ([LastUpdated] = @Original_LastUpdate" +
+                "d)) AND ((@IsNull_LockInventory = 1 AND [LockInventory] IS NULL) OR ([LockInvent" +
+                "ory] = @Original_LockInventory)) AND ((@IsNull_EditShipment = 1 AND [EditShipmen" +
+                "t] IS NULL) OR ([EditShipment] = @Original_EditShipment)) AND ((@IsNull_LockShip" +
+                "ment = 1 AND [LockShipment] IS NULL) OR ([LockShipment] = @Original_LockShipment" +
+                ")) AND ((@IsNull_EditCustomer = 1 AND [EditCustomer] IS NULL) OR ([EditCustomer]" +
+                " = @Original_EditCustomer)));\r\nSELECT OperatorID, StopAccount, LoginName, Passwo" +
+                "rd, Name, EditOperator, EditVendor, EditIngredient, EditRecipe, EditProduct, Edi" +
+                "tEmployee, EditAccountingTitle, EditVoucher, LockVoucher, LockExpense, LockAccVo" +
+                "ucher, EditExpense, EditBank, EditOnDuty, EditSalary, LockHR, EditInventory, Rev" +
+                "enueOperate, IsSuper, IsManager, LastUpdated, LockInventory, EditShipment, LockS" +
+                "hipment, EditCustomer FROM Operator WHERE (OperatorID = @OperatorID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@OperatorID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OperatorID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@StopAccount", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StopAccount", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -46468,6 +46517,7 @@ SELECT OperatorID, StopAccount, LoginName, Password, Name, EditOperator, EditVen
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LockInventory", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LockInventory", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@EditShipment", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "EditShipment", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LockShipment", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LockShipment", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@EditCustomer", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "EditCustomer", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_OperatorID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OperatorID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_StopAccount", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StopAccount", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_StopAccount", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StopAccount", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
@@ -46525,6 +46575,8 @@ SELECT OperatorID, StopAccount, LoginName, Password, Name, EditOperator, EditVen
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_EditShipment", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "EditShipment", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_LockShipment", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LockShipment", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LockShipment", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LockShipment", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_EditCustomer", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "EditCustomer", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_EditCustomer", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "EditCustomer", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -46540,7 +46592,7 @@ SELECT OperatorID, StopAccount, LoginName, Password, Name, EditOperator, EditVen
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = @"SELECT OperatorID, StopAccount, LoginName, Password, Name, EditOperator, EditVendor, EditIngredient, EditRecipe, EditProduct, EditEmployee, EditAccountingTitle, EditVoucher, LockVoucher, LockExpense, LockAccVoucher, EditExpense, EditBank, EditOnDuty, EditSalary, LockHR, EditInventory, RevenueOperate, IsSuper, IsManager, LastUpdated, LockInventory, EditShipment, LockShipment FROM dbo.Operator";
+            this._commandCollection[0].CommandText = @"SELECT OperatorID, StopAccount, LoginName, Password, Name, EditOperator, EditVendor, EditIngredient, EditRecipe, EditProduct, EditEmployee, EditAccountingTitle, EditVoucher, LockVoucher, LockExpense, LockAccVoucher, EditExpense, EditBank, EditOnDuty, EditSalary, LockHR, EditInventory, RevenueOperate, IsSuper, IsManager, LastUpdated, LockInventory, EditShipment, LockShipment, EditCustomer FROM Operator";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -46630,7 +46682,8 @@ SELECT OperatorID, StopAccount, LoginName, Password, Name, EditOperator, EditVen
                     global::System.Nullable<global::System.DateTime> Original_LastUpdated, 
                     global::System.Nullable<bool> Original_LockInventory, 
                     global::System.Nullable<bool> Original_EditShipment, 
-                    global::System.Nullable<bool> Original_LockShipment) {
+                    global::System.Nullable<bool> Original_LockShipment, 
+                    global::System.Nullable<bool> Original_EditCustomer) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_OperatorID));
             if ((Original_StopAccount.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
@@ -46856,6 +46909,14 @@ SELECT OperatorID, StopAccount, LoginName, Password, Name, EditOperator, EditVen
                 this.Adapter.DeleteCommand.Parameters[55].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[56].Value = global::System.DBNull.Value;
             }
+            if ((Original_EditCustomer.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[57].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[58].Value = ((bool)(Original_EditCustomer.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[57].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[58].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -46905,7 +46966,8 @@ SELECT OperatorID, StopAccount, LoginName, Password, Name, EditOperator, EditVen
                     global::System.Nullable<global::System.DateTime> LastUpdated, 
                     global::System.Nullable<bool> LockInventory, 
                     global::System.Nullable<bool> EditShipment, 
-                    global::System.Nullable<bool> LockShipment) {
+                    global::System.Nullable<bool> LockShipment, 
+                    global::System.Nullable<bool> EditCustomer) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(OperatorID));
             if ((StopAccount.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[1].Value = ((bool)(StopAccount.Value));
@@ -47075,6 +47137,12 @@ SELECT OperatorID, StopAccount, LoginName, Password, Name, EditOperator, EditVen
             else {
                 this.Adapter.InsertCommand.Parameters[28].Value = global::System.DBNull.Value;
             }
+            if ((EditCustomer.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[29].Value = ((bool)(EditCustomer.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[29].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -47125,6 +47193,7 @@ SELECT OperatorID, StopAccount, LoginName, Password, Name, EditOperator, EditVen
                     global::System.Nullable<bool> LockInventory, 
                     global::System.Nullable<bool> EditShipment, 
                     global::System.Nullable<bool> LockShipment, 
+                    global::System.Nullable<bool> EditCustomer, 
                     int Original_OperatorID, 
                     global::System.Nullable<bool> Original_StopAccount, 
                     string Original_LoginName, 
@@ -47153,7 +47222,8 @@ SELECT OperatorID, StopAccount, LoginName, Password, Name, EditOperator, EditVen
                     global::System.Nullable<global::System.DateTime> Original_LastUpdated, 
                     global::System.Nullable<bool> Original_LockInventory, 
                     global::System.Nullable<bool> Original_EditShipment, 
-                    global::System.Nullable<bool> Original_LockShipment) {
+                    global::System.Nullable<bool> Original_LockShipment, 
+                    global::System.Nullable<bool> Original_EditCustomer) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(OperatorID));
             if ((StopAccount.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[1].Value = ((bool)(StopAccount.Value));
@@ -47323,230 +47393,244 @@ SELECT OperatorID, StopAccount, LoginName, Password, Name, EditOperator, EditVen
             else {
                 this.Adapter.UpdateCommand.Parameters[28].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[29].Value = ((int)(Original_OperatorID));
-            if ((Original_StopAccount.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[30].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[31].Value = ((bool)(Original_StopAccount.Value));
+            if ((EditCustomer.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[29].Value = ((bool)(EditCustomer.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[30].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[31].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[29].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[30].Value = ((int)(Original_OperatorID));
+            if ((Original_StopAccount.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[31].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[32].Value = ((bool)(Original_StopAccount.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[31].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[32].Value = global::System.DBNull.Value;
             }
             if ((Original_LoginName == null)) {
-                this.Adapter.UpdateCommand.Parameters[32].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[33].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[33].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[34].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[32].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[33].Value = ((string)(Original_LoginName));
+                this.Adapter.UpdateCommand.Parameters[33].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[34].Value = ((string)(Original_LoginName));
             }
             if ((Original_Password == null)) {
-                this.Adapter.UpdateCommand.Parameters[34].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[35].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[35].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[36].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[34].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[35].Value = ((string)(Original_Password));
+                this.Adapter.UpdateCommand.Parameters[35].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[36].Value = ((string)(Original_Password));
             }
             if ((Original_Name == null)) {
-                this.Adapter.UpdateCommand.Parameters[36].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[37].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[37].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[38].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[36].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[37].Value = ((string)(Original_Name));
+                this.Adapter.UpdateCommand.Parameters[37].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[38].Value = ((string)(Original_Name));
             }
             if ((Original_EditOperator.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[38].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[39].Value = ((bool)(Original_EditOperator.Value));
+                this.Adapter.UpdateCommand.Parameters[39].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[40].Value = ((bool)(Original_EditOperator.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[38].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[39].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[39].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[40].Value = global::System.DBNull.Value;
             }
             if ((Original_EditVendor.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[40].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[41].Value = ((bool)(Original_EditVendor.Value));
+                this.Adapter.UpdateCommand.Parameters[41].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[42].Value = ((bool)(Original_EditVendor.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[40].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[41].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[41].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[42].Value = global::System.DBNull.Value;
             }
             if ((Original_EditIngredient.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[42].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[43].Value = ((bool)(Original_EditIngredient.Value));
+                this.Adapter.UpdateCommand.Parameters[43].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[44].Value = ((bool)(Original_EditIngredient.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[42].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[43].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[43].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[44].Value = global::System.DBNull.Value;
             }
             if ((Original_EditRecipe.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[44].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[45].Value = ((bool)(Original_EditRecipe.Value));
+                this.Adapter.UpdateCommand.Parameters[45].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[46].Value = ((bool)(Original_EditRecipe.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[44].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[45].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[45].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[46].Value = global::System.DBNull.Value;
             }
             if ((Original_EditProduct.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[46].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[47].Value = ((bool)(Original_EditProduct.Value));
+                this.Adapter.UpdateCommand.Parameters[47].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[48].Value = ((bool)(Original_EditProduct.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[46].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[47].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[47].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[48].Value = global::System.DBNull.Value;
             }
             if ((Original_EditEmployee.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[48].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[49].Value = ((bool)(Original_EditEmployee.Value));
+                this.Adapter.UpdateCommand.Parameters[49].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[50].Value = ((bool)(Original_EditEmployee.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[48].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[49].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[49].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[50].Value = global::System.DBNull.Value;
             }
             if ((Original_EditAccountingTitle.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[50].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[51].Value = ((bool)(Original_EditAccountingTitle.Value));
+                this.Adapter.UpdateCommand.Parameters[51].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[52].Value = ((bool)(Original_EditAccountingTitle.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[50].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[51].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[51].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[52].Value = global::System.DBNull.Value;
             }
             if ((Original_EditVoucher.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[52].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[53].Value = ((bool)(Original_EditVoucher.Value));
+                this.Adapter.UpdateCommand.Parameters[53].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[54].Value = ((bool)(Original_EditVoucher.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[52].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[53].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[53].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[54].Value = global::System.DBNull.Value;
             }
             if ((Original_LockVoucher.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[54].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[55].Value = ((bool)(Original_LockVoucher.Value));
+                this.Adapter.UpdateCommand.Parameters[55].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[56].Value = ((bool)(Original_LockVoucher.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[54].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[55].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[55].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[56].Value = global::System.DBNull.Value;
             }
             if ((Original_LockExpense.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[56].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[57].Value = ((bool)(Original_LockExpense.Value));
+                this.Adapter.UpdateCommand.Parameters[57].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[58].Value = ((bool)(Original_LockExpense.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[56].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[57].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[57].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[58].Value = global::System.DBNull.Value;
             }
             if ((Original_LockAccVoucher.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[58].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[59].Value = ((bool)(Original_LockAccVoucher.Value));
+                this.Adapter.UpdateCommand.Parameters[59].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[60].Value = ((bool)(Original_LockAccVoucher.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[58].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[59].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[59].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[60].Value = global::System.DBNull.Value;
             }
             if ((Original_EditExpense.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[60].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[61].Value = ((bool)(Original_EditExpense.Value));
+                this.Adapter.UpdateCommand.Parameters[61].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[62].Value = ((bool)(Original_EditExpense.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[60].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[61].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[61].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[62].Value = global::System.DBNull.Value;
             }
             if ((Original_EditBank.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[62].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[63].Value = ((bool)(Original_EditBank.Value));
+                this.Adapter.UpdateCommand.Parameters[63].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[64].Value = ((bool)(Original_EditBank.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[62].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[63].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[63].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[64].Value = global::System.DBNull.Value;
             }
             if ((Original_EditOnDuty.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[64].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[65].Value = ((bool)(Original_EditOnDuty.Value));
+                this.Adapter.UpdateCommand.Parameters[65].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[66].Value = ((bool)(Original_EditOnDuty.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[64].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[65].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[65].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[66].Value = global::System.DBNull.Value;
             }
             if ((Original_EditSalary.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[66].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[67].Value = ((bool)(Original_EditSalary.Value));
+                this.Adapter.UpdateCommand.Parameters[67].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[68].Value = ((bool)(Original_EditSalary.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[66].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[67].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[67].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[68].Value = global::System.DBNull.Value;
             }
             if ((Original_LockHR.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[68].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[69].Value = ((bool)(Original_LockHR.Value));
+                this.Adapter.UpdateCommand.Parameters[69].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[70].Value = ((bool)(Original_LockHR.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[68].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[69].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[69].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[70].Value = global::System.DBNull.Value;
             }
             if ((Original_EditInventory.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[70].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[71].Value = ((bool)(Original_EditInventory.Value));
+                this.Adapter.UpdateCommand.Parameters[71].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[72].Value = ((bool)(Original_EditInventory.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[70].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[71].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[71].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[72].Value = global::System.DBNull.Value;
             }
             if ((Original_RevenueOperate.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[72].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[73].Value = ((bool)(Original_RevenueOperate.Value));
+                this.Adapter.UpdateCommand.Parameters[73].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[74].Value = ((bool)(Original_RevenueOperate.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[72].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[73].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[73].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[74].Value = global::System.DBNull.Value;
             }
             if ((Original_IsSuper.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[74].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[75].Value = ((bool)(Original_IsSuper.Value));
+                this.Adapter.UpdateCommand.Parameters[75].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[76].Value = ((bool)(Original_IsSuper.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[74].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[75].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[75].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[76].Value = global::System.DBNull.Value;
             }
             if ((Original_IsManager.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[76].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[77].Value = ((bool)(Original_IsManager.Value));
+                this.Adapter.UpdateCommand.Parameters[77].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[78].Value = ((bool)(Original_IsManager.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[76].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[77].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[77].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[78].Value = global::System.DBNull.Value;
             }
             if ((Original_LastUpdated.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[78].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[79].Value = ((System.DateTime)(Original_LastUpdated.Value));
+                this.Adapter.UpdateCommand.Parameters[79].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[80].Value = ((System.DateTime)(Original_LastUpdated.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[78].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[79].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[79].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[80].Value = global::System.DBNull.Value;
             }
             if ((Original_LockInventory.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[80].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[81].Value = ((bool)(Original_LockInventory.Value));
+                this.Adapter.UpdateCommand.Parameters[81].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[82].Value = ((bool)(Original_LockInventory.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[80].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[81].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[81].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[82].Value = global::System.DBNull.Value;
             }
             if ((Original_EditShipment.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[82].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[83].Value = ((bool)(Original_EditShipment.Value));
+                this.Adapter.UpdateCommand.Parameters[83].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[84].Value = ((bool)(Original_EditShipment.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[82].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[83].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[83].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[84].Value = global::System.DBNull.Value;
             }
             if ((Original_LockShipment.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[84].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[85].Value = ((bool)(Original_LockShipment.Value));
+                this.Adapter.UpdateCommand.Parameters[85].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[86].Value = ((bool)(Original_LockShipment.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[84].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[85].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[85].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[86].Value = global::System.DBNull.Value;
+            }
+            if ((Original_EditCustomer.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[87].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[88].Value = ((bool)(Original_EditCustomer.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[87].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[88].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -47597,6 +47681,7 @@ SELECT OperatorID, StopAccount, LoginName, Password, Name, EditOperator, EditVen
                     global::System.Nullable<bool> LockInventory, 
                     global::System.Nullable<bool> EditShipment, 
                     global::System.Nullable<bool> LockShipment, 
+                    global::System.Nullable<bool> EditCustomer, 
                     int Original_OperatorID, 
                     global::System.Nullable<bool> Original_StopAccount, 
                     string Original_LoginName, 
@@ -47625,8 +47710,9 @@ SELECT OperatorID, StopAccount, LoginName, Password, Name, EditOperator, EditVen
                     global::System.Nullable<global::System.DateTime> Original_LastUpdated, 
                     global::System.Nullable<bool> Original_LockInventory, 
                     global::System.Nullable<bool> Original_EditShipment, 
-                    global::System.Nullable<bool> Original_LockShipment) {
-            return this.Update(Original_OperatorID, StopAccount, LoginName, Password, Name, EditOperator, EditVendor, EditIngredient, EditRecipe, EditProduct, EditEmployee, EditAccountingTitle, EditVoucher, LockVoucher, LockExpense, LockAccVoucher, EditExpense, EditBank, EditOnDuty, EditSalary, LockHR, EditInventory, RevenueOperate, IsSuper, IsManager, LastUpdated, LockInventory, EditShipment, LockShipment, Original_OperatorID, Original_StopAccount, Original_LoginName, Original_Password, Original_Name, Original_EditOperator, Original_EditVendor, Original_EditIngredient, Original_EditRecipe, Original_EditProduct, Original_EditEmployee, Original_EditAccountingTitle, Original_EditVoucher, Original_LockVoucher, Original_LockExpense, Original_LockAccVoucher, Original_EditExpense, Original_EditBank, Original_EditOnDuty, Original_EditSalary, Original_LockHR, Original_EditInventory, Original_RevenueOperate, Original_IsSuper, Original_IsManager, Original_LastUpdated, Original_LockInventory, Original_EditShipment, Original_LockShipment);
+                    global::System.Nullable<bool> Original_LockShipment, 
+                    global::System.Nullable<bool> Original_EditCustomer) {
+            return this.Update(Original_OperatorID, StopAccount, LoginName, Password, Name, EditOperator, EditVendor, EditIngredient, EditRecipe, EditProduct, EditEmployee, EditAccountingTitle, EditVoucher, LockVoucher, LockExpense, LockAccVoucher, EditExpense, EditBank, EditOnDuty, EditSalary, LockHR, EditInventory, RevenueOperate, IsSuper, IsManager, LastUpdated, LockInventory, EditShipment, LockShipment, EditCustomer, Original_OperatorID, Original_StopAccount, Original_LoginName, Original_Password, Original_Name, Original_EditOperator, Original_EditVendor, Original_EditIngredient, Original_EditRecipe, Original_EditProduct, Original_EditEmployee, Original_EditAccountingTitle, Original_EditVoucher, Original_LockVoucher, Original_LockExpense, Original_LockAccVoucher, Original_EditExpense, Original_EditBank, Original_EditOnDuty, Original_EditSalary, Original_LockHR, Original_EditInventory, Original_RevenueOperate, Original_IsSuper, Original_IsManager, Original_LastUpdated, Original_LockInventory, Original_EditShipment, Original_LockShipment, Original_EditCustomer);
         }
     }
     

@@ -57,6 +57,7 @@ namespace VoucherExpense
             basic.DropDownItems["傳票設定MenuItem"].Visible = Op.LockAccVoucher && Op.EditAccountingTitle;  // 核傳票+編修科目
             basic.DropDownItems["年初開帳MenuItem"].Visible = Op.IsSuper;
             basic.DropDownItems["編修部門MenuItem"].Visible = Op.IsSuper;
+            basic.DropDownItems["客户MenuItem"].Visible = Op.EditCustomer;
             會計MenuItem.Enabled = Op.EditAccountingTitle;
             轉帳傳票MenuItem.Enabled = Op.EditAccountingTitle;                                              // 傳票和會計科目
 
@@ -464,7 +465,7 @@ namespace VoucherExpense
 
         private void 客户ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PopupOrRun("FormSupplier", typeof(FormCustomer));
+            PopupOrRun("FormCustomer", typeof(FormCustomer));
         }
 
         private void 出货MenuItem_Click(object sender, EventArgs e)

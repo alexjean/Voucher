@@ -54,6 +54,7 @@
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewCheckBoxColumn2 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.EditCustomer = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewCheckBoxColumn3 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.EditRecipe = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.EditProduct = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -137,8 +138,8 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 24);
-            this.bindingNavigatorCountItem.Text = "/{0}";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(32, 24);
+            this.bindingNavigatorCountItem.Text = "/ {0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
             // bindingNavigatorMoveFirstItem
@@ -231,6 +232,7 @@
             this.dataGridViewTextBoxColumn5,
             this.dataGridViewCheckBoxColumn1,
             this.dataGridViewCheckBoxColumn2,
+            this.EditCustomer,
             this.dataGridViewCheckBoxColumn3,
             this.EditRecipe,
             this.EditProduct,
@@ -307,6 +309,13 @@
             this.dataGridViewCheckBoxColumn2.HeaderText = "供應商";
             this.dataGridViewCheckBoxColumn2.Name = "dataGridViewCheckBoxColumn2";
             this.dataGridViewCheckBoxColumn2.Width = 32;
+            // 
+            // EditCustomer
+            // 
+            this.EditCustomer.DataPropertyName = "EditCustomer";
+            this.EditCustomer.HeaderText = "客户";
+            this.EditCustomer.Name = "EditCustomer";
+            this.EditCustomer.Width = 32;
             // 
             // dataGridViewCheckBoxColumn3
             // 
@@ -473,7 +482,7 @@
             this.ClientSize = new System.Drawing.Size(951, 510);
             this.Controls.Add(this.operatorDataGridView);
             this.Controls.Add(this.operatorBindingNavigator);
-            this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormOperator";
             this.Text = "帳號權限";
@@ -507,12 +516,14 @@
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.ToolStripButton operatorBindingNavigatorSaveItem;
         private System.Windows.Forms.DataGridView operatorDataGridView;
+        private DamaiDataSet damaiDataSet;
         private System.Windows.Forms.DataGridViewTextBoxColumn OperatorID;
         private System.Windows.Forms.DataGridViewCheckBoxColumn StopAccount;
         private System.Windows.Forms.DataGridViewTextBoxColumn LoginName;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn2;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn EditCustomer;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn3;
         private System.Windows.Forms.DataGridViewCheckBoxColumn EditRecipe;
         private System.Windows.Forms.DataGridViewCheckBoxColumn EditProduct;
@@ -535,6 +546,5 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn9;
         private System.Windows.Forms.DataGridViewCheckBoxColumn IsSuper;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private DamaiDataSet damaiDataSet;
     }
 }

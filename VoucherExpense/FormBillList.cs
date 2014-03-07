@@ -279,7 +279,7 @@ namespace VoucherExpense
                 List<TextBox> ctxts = GetCTextBoxes(this.panel1);
                 foreach (TextBox ctxt in ctxts)
                 {
-                    g1.DrawString(ctxt.Text, font, brush, 2 * ctxt.Location.X, 2 * ctxt.Location.Y + 10);
+                    g1.DrawString(ctxt.Text, font, brush, 2 * (ctxt.Location.X-5), 2 * ctxt.Location.Y + 10);
                 }
 
             }

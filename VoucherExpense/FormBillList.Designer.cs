@@ -32,6 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormBillList));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -73,6 +75,7 @@
             this.applicantTextBox = new System.Windows.Forms.TextBox();
             this.departmentTextBox = new System.Windows.Forms.TextBox();
             this.requestsDataGridView = new System.Windows.Forms.DataGridView();
+            this.pD = new System.Drawing.Printing.PrintDocument();
             this.dgvColRequestsID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvColOperatorID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -90,7 +93,6 @@
             this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.IsCancel = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.pD = new System.Drawing.Printing.PrintDocument();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -175,6 +177,7 @@
             this.dateOfPaymentTextBox.Name = "dateOfPaymentTextBox";
             this.dateOfPaymentTextBox.Size = new System.Drawing.Size(161, 23);
             this.dateOfPaymentTextBox.TabIndex = 30;
+            this.dateOfPaymentTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // requestsBindingSource
             // 
@@ -196,6 +199,7 @@
             this.billingDateTextBox.Name = "billingDateTextBox";
             this.billingDateTextBox.Size = new System.Drawing.Size(87, 23);
             this.billingDateTextBox.TabIndex = 29;
+            this.billingDateTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // isCancelCheckBox
             // 
@@ -451,10 +455,11 @@
             this.moneyAaTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.moneyAaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.requestsBindingSource, "MoneyAa", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.moneyAaTextBox.Enabled = false;
-            this.moneyAaTextBox.Location = new System.Drawing.Point(452, 266);
+            this.moneyAaTextBox.Location = new System.Drawing.Point(435, 266);
             this.moneyAaTextBox.Name = "moneyAaTextBox";
-            this.moneyAaTextBox.Size = new System.Drawing.Size(89, 20);
+            this.moneyAaTextBox.Size = new System.Drawing.Size(107, 20);
             this.moneyAaTextBox.TabIndex = 22;
+            this.moneyAaTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.moneyAaTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.moneyAaTextBox_Validating);
             // 
             // moneyATextBox
@@ -574,11 +579,16 @@
             this.requestsDataGridView.RowHeadersVisible = false;
             this.requestsDataGridView.RowTemplate.Height = 23;
             this.requestsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.requestsDataGridView.Size = new System.Drawing.Size(1165, 257);
+            this.requestsDataGridView.Size = new System.Drawing.Size(1165, 256);
             this.requestsDataGridView.TabIndex = 0;
             this.requestsDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.requestsDataGridView_DataError);
             this.requestsDataGridView.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.requestsDataGridView_RowPostPaint);
             this.requestsDataGridView.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.requestsDataGridView_RowPrePaint);
+            // 
+            // pD
+            // 
+            this.pD.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.pd_PrintPage);
+            this.pD.QueryPageSettings += new System.Drawing.Printing.QueryPageSettingsEventHandler(this.pD_QueryPageSettings);
             // 
             // dgvColRequestsID
             // 
@@ -636,6 +646,8 @@
             // 
             this.dataGridViewTextBoxColumn14.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.dataGridViewTextBoxColumn14.DataPropertyName = "BillingDate";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn14.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewTextBoxColumn14.HeaderText = "请款日期";
             this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
             this.dataGridViewTextBoxColumn14.ReadOnly = true;
@@ -680,6 +692,10 @@
             // 
             this.dataGridViewTextBoxColumn11.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.dataGridViewTextBoxColumn11.DataPropertyName = "MoneyAa";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle4.Format = "N2";
+            dataGridViewCellStyle4.NullValue = null;
+            this.dataGridViewTextBoxColumn11.DefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridViewTextBoxColumn11.FillWeight = 70F;
             this.dataGridViewTextBoxColumn11.HeaderText = "金额";
             this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
@@ -704,6 +720,7 @@
             this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
             this.dataGridViewTextBoxColumn13.ReadOnly = true;
             this.dataGridViewTextBoxColumn13.Visible = false;
+            this.dataGridViewTextBoxColumn13.Width = 81;
             // 
             // dataGridViewTextBoxColumn15
             // 
@@ -730,11 +747,6 @@
             this.IsCancel.Name = "IsCancel";
             this.IsCancel.ReadOnly = true;
             this.IsCancel.Width = 46;
-            // 
-            // pD
-            // 
-            this.pD.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.pd_PrintPage);
-            this.pD.QueryPageSettings += new System.Drawing.Printing.QueryPageSettingsEventHandler(this.pD_QueryPageSettings);
             // 
             // FormBillList
             // 
@@ -804,6 +816,9 @@
         private System.Windows.Forms.CheckBox isCancelCheckBox;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripButton tSBtEndit;
+        private System.Windows.Forms.TextBox dateOfPaymentTextBox;
+        private System.Windows.Forms.TextBox billingDateTextBox;
+        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvColRequestsID;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvColOperatorID;
@@ -821,9 +836,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
         private System.Windows.Forms.DataGridViewCheckBoxColumn IsCancel;
-        private System.Windows.Forms.TextBox dateOfPaymentTextBox;
-        private System.Windows.Forms.TextBox billingDateTextBox;
-        private System.Windows.Forms.TextBox textBox1;
 
 
 

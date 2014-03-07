@@ -568,6 +568,11 @@ namespace VoucherExpense
                 MessageBox.Show("客户不能为空！");
                 return;
             }
+            if (row.IsCostNull())
+            {
+                MessageBox.Show("总金额为空！");
+                return;
+            }
             var customerrows = from ro in damaiDataSet.Customer where (ro.CustomerID == row.Customer) select ro;
             var customerrow = customerrows.First();
             Shipmentprint smp = new Shipmentprint();
@@ -595,15 +600,39 @@ namespace VoucherExpense
                     {
                         var temrow = shipmetdetailrows[i];
                         var productrow = from r in damaiDataSet.Product where (r.ProductID == temrow.ProductID) select r;
-
+                        var productfirst = productrow.First();
                         Shipmentdetailprint smdp = new Shipmentdetailprint();
                         smdp.PageNumCount = inttemp + 1;
                         smdp.ProductName = productrow.First().Name;
                         smdp.ProductCode = productrow.First().Code;
-                        smdp.Unit = productrow.First().Unit;
-                        smdp.Cost = productrow.First().Price;
+                        if (productfirst.IsUnitNull())
+                        {
+                            smdp.Unit = "";
+                        }
+                        else
+                        {
+                            smdp.Unit = productrow.First().Unit;
+                        }
+                        if (productfirst.IsPriceNull())
+                        {
+                            MessageBox.Show("产品"+productfirst.Name+"所在行资料不全无法打印");
+                            return;
+                        }
+                        else
+                        {
+                            smdp.Cost = productrow.First().Price;
+                        }
                         smdp.Volum = temrow.Volume;
-                        smdp.AllCost = temrow.Cost;
+                        if (temrow.IsCostNull())
+                        {
+                            MessageBox.Show("产品" + productfirst.Name + "所在行资料不全无法打印");
+                            return;
+                        }
+                        else
+                        {
+                            smdp.AllCost = temrow.Cost;
+                            
+                        }
                         listshipmentdetail.Add(smdp);
                     }
                 }

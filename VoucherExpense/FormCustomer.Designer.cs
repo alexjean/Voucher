@@ -204,6 +204,7 @@
             this.tableAdapterManager.InventoryTableAdapter = null;
             this.tableAdapterManager.ProductScrappedDetailTableAdapter = null;
             this.tableAdapterManager.ProductScrappedTableAdapter = null;
+            this.tableAdapterManager.RequestsTableAdapter = null;
             this.tableAdapterManager.ShipmentDetailTableAdapter = null;
             this.tableAdapterManager.ShipmentTableAdapter = null;
             this.tableAdapterManager.UpdateOrder = VoucherExpense.SQLVEDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
@@ -265,6 +266,7 @@
             this.bindingNavigatorDeleteItem.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorDeleteItem.Text = "删除";
+            this.bindingNavigatorDeleteItem.Visible = false;
             // 
             // bindingNavigatorMoveFirstItem
             // 

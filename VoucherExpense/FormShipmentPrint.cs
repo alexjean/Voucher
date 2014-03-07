@@ -137,7 +137,15 @@ namespace VoucherExpense
                         tp.Controls.Add(productname);
 
                         Label danwei = new Label();
-                        danwei.Text = item1.Unit;
+                        if (item1.Unit==null)
+                        {
+                            danwei.Text = item1.Unit;
+                        }
+                        else
+	{
+danwei.Text = item1.Unit;
+	}
+                        
                         danwei.Font = new Font("宋体", 10);
                         danwei.Location = new Point(315, y);
                         danwei.BackColor = Color.Transparent;

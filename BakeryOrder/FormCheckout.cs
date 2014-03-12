@@ -31,7 +31,7 @@ namespace BakeryOrder
         private void btnPayCheck_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
-            if (m_PayBy == 'A')
+            if (m_PayBy == 'A'|| m_PayBy=='D' || m_PayBy=='E')
                 Tag = m_MoneyGot;
             else if (m_PayBy == 'B' || m_PayBy=='C')  // 刷卡及券沒有 實收
                 Tag = 0;
@@ -184,6 +184,18 @@ namespace BakeryOrder
         private void FormCheckout_Shown(object sender, EventArgs e)
         {
             textBoxCashGot.Focus();
+        }
+
+        private void btZhekou85_Click(object sender, EventArgs e)
+        {
+            textBoxDeduct.Text = ((int)(m_Total *(decimal)(1-0.85))).ToString();
+            m_PayBy ='D';
+        }
+
+        private void btZhekou88_Click(object sender, EventArgs e)
+        {
+            textBoxDeduct.Text = ((int)(m_Total * (decimal)(1 - 0.88))).ToString();
+            m_PayBy = 'E';
         }
 
 

@@ -739,6 +739,11 @@ namespace BakeryOrder
             Buf.Append("小计:        " + d2str(no, 7) + d2str(discount, 12) + "\r\n");
             if ((!CurrentOrder.IsDeductNull()) && (CurrentOrder.Deduct != 0))
             {
+                if(CurrentOrder.PayBy=="D")
+                {
+                    Buf.Append("打折:              ");
+                    Buf.Append(d2str(discount*0.85, 12)+"\r\n");
+                }
                 Buf.Append("优惠:              ");
                 Buf.Append(d2str((double)-CurrentOrder.Deduct, 13) + "\r\n");
                 Buf.Append("应收:   ========>  ");

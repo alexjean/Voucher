@@ -63,6 +63,9 @@
             this.btnCalc = new System.Windows.Forms.Button();
             this.btZhekou85 = new System.Windows.Forms.Button();
             this.btZhekou88 = new System.Windows.Forms.Button();
+            this.btZhekou8 = new System.Windows.Forms.Button();
+            this.labelDiscount = new System.Windows.Forms.Label();
+            this.labelzhekou = new System.Windows.Forms.Label();
             this.panelLogin.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -316,7 +319,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("DFKai-SB", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label8.Location = new System.Drawing.Point(42, 317);
+            this.label8.Location = new System.Drawing.Point(42, 334);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(54, 21);
             this.label8.TabIndex = 18;
@@ -326,7 +329,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("DFKai-SB", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label1.Location = new System.Drawing.Point(42, 179);
+            this.label1.Location = new System.Drawing.Point(42, 157);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(54, 21);
             this.label1.TabIndex = 19;
@@ -336,7 +339,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("DFKai-SB", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label4.Location = new System.Drawing.Point(42, 218);
+            this.label4.Location = new System.Drawing.Point(42, 196);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(54, 21);
             this.label4.TabIndex = 20;
@@ -347,7 +350,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("DFKai-SB", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label5.ForeColor = System.Drawing.Color.Red;
-            this.label5.Location = new System.Drawing.Point(42, 358);
+            this.label5.Location = new System.Drawing.Point(42, 375);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(54, 21);
             this.label5.TabIndex = 21;
@@ -358,7 +361,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("DFKai-SB", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label6.ForeColor = System.Drawing.Color.Red;
-            this.label6.Location = new System.Drawing.Point(42, 255);
+            this.label6.Location = new System.Drawing.Point(42, 291);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(54, 21);
             this.label6.TabIndex = 22;
@@ -368,7 +371,7 @@
             // 
             this.labelTotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.labelTotal.Font = new System.Drawing.Font("DFKai-SB", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.labelTotal.Location = new System.Drawing.Point(127, 173);
+            this.labelTotal.Location = new System.Drawing.Point(127, 151);
             this.labelTotal.Name = "labelTotal";
             this.labelTotal.Size = new System.Drawing.Size(104, 32);
             this.labelTotal.TabIndex = 23;
@@ -378,7 +381,7 @@
             // 
             this.labelDeduct.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.labelDeduct.Font = new System.Drawing.Font("DFKai-SB", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.labelDeduct.Location = new System.Drawing.Point(127, 212);
+            this.labelDeduct.Location = new System.Drawing.Point(127, 190);
             this.labelDeduct.Name = "labelDeduct";
             this.labelDeduct.Size = new System.Drawing.Size(104, 32);
             this.labelDeduct.TabIndex = 24;
@@ -388,7 +391,7 @@
             // 
             this.labelIncome.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.labelIncome.Font = new System.Drawing.Font("DFKai-SB", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.labelIncome.Location = new System.Drawing.Point(127, 249);
+            this.labelIncome.Location = new System.Drawing.Point(127, 285);
             this.labelIncome.Name = "labelIncome";
             this.labelIncome.Size = new System.Drawing.Size(104, 32);
             this.labelIncome.TabIndex = 25;
@@ -398,7 +401,7 @@
             // 
             this.labelCashGot.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.labelCashGot.Font = new System.Drawing.Font("DFKai-SB", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.labelCashGot.Location = new System.Drawing.Point(127, 311);
+            this.labelCashGot.Location = new System.Drawing.Point(127, 328);
             this.labelCashGot.Name = "labelCashGot";
             this.labelCashGot.Size = new System.Drawing.Size(104, 32);
             this.labelCashGot.TabIndex = 26;
@@ -408,7 +411,7 @@
             // 
             this.labelChange.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.labelChange.Font = new System.Drawing.Font("DFKai-SB", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.labelChange.Location = new System.Drawing.Point(127, 352);
+            this.labelChange.Location = new System.Drawing.Point(127, 369);
             this.labelChange.Name = "labelChange";
             this.labelChange.Size = new System.Drawing.Size(104, 32);
             this.labelChange.TabIndex = 27;
@@ -417,7 +420,7 @@
             // btnCalc
             // 
             this.btnCalc.BackColor = System.Drawing.Color.Azure;
-            this.btnCalc.Location = new System.Drawing.Point(256, 233);
+            this.btnCalc.Location = new System.Drawing.Point(256, 247);
             this.btnCalc.Name = "btnCalc";
             this.btnCalc.Size = new System.Drawing.Size(87, 151);
             this.btnCalc.TabIndex = 28;
@@ -428,24 +431,55 @@
             // btZhekou85
             // 
             this.btZhekou85.BackColor = System.Drawing.Color.SeaShell;
-            this.btZhekou85.Location = new System.Drawing.Point(167, 115);
+            this.btZhekou85.Location = new System.Drawing.Point(146, 98);
             this.btZhekou85.Name = "btZhekou85";
-            this.btZhekou85.Size = new System.Drawing.Size(64, 23);
+            this.btZhekou85.Size = new System.Drawing.Size(64, 38);
             this.btZhekou85.TabIndex = 29;
-            this.btZhekou85.Text = "8.5折";
+            this.btZhekou85.Text = "85折";
             this.btZhekou85.UseVisualStyleBackColor = true;
             this.btZhekou85.Click += new System.EventHandler(this.btZhekou85_Click);
             // 
             // btZhekou88
             // 
             this.btZhekou88.BackColor = System.Drawing.Color.SeaShell;
-            this.btZhekou88.Location = new System.Drawing.Point(248, 115);
+            this.btZhekou88.Location = new System.Drawing.Point(239, 98);
             this.btZhekou88.Name = "btZhekou88";
-            this.btZhekou88.Size = new System.Drawing.Size(64, 23);
+            this.btZhekou88.Size = new System.Drawing.Size(64, 38);
             this.btZhekou88.TabIndex = 30;
-            this.btZhekou88.Text = "8.8折";
+            this.btZhekou88.Text = "88折";
             this.btZhekou88.UseVisualStyleBackColor = true;
             this.btZhekou88.Click += new System.EventHandler(this.btZhekou88_Click);
+            // 
+            // btZhekou8
+            // 
+            this.btZhekou8.BackColor = System.Drawing.Color.SeaShell;
+            this.btZhekou8.Location = new System.Drawing.Point(57, 98);
+            this.btZhekou8.Name = "btZhekou8";
+            this.btZhekou8.Size = new System.Drawing.Size(64, 38);
+            this.btZhekou8.TabIndex = 31;
+            this.btZhekou8.Text = "8折";
+            this.btZhekou8.UseVisualStyleBackColor = true;
+            this.btZhekou8.Click += new System.EventHandler(this.btZhekou8_Click);
+            // 
+            // labelDiscount
+            // 
+            this.labelDiscount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelDiscount.Font = new System.Drawing.Font("DFKai-SB", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.labelDiscount.Location = new System.Drawing.Point(127, 232);
+            this.labelDiscount.Name = "labelDiscount";
+            this.labelDiscount.Size = new System.Drawing.Size(104, 32);
+            this.labelDiscount.TabIndex = 33;
+            this.labelDiscount.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelzhekou
+            // 
+            this.labelzhekou.AutoSize = true;
+            this.labelzhekou.Font = new System.Drawing.Font("DFKai-SB", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.labelzhekou.Location = new System.Drawing.Point(42, 238);
+            this.labelzhekou.Name = "labelzhekou";
+            this.labelzhekou.Size = new System.Drawing.Size(54, 21);
+            this.labelzhekou.TabIndex = 32;
+            this.labelzhekou.Text = "折扣";
             // 
             // FormCheckout
             // 
@@ -453,6 +487,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(749, 550);
+            this.Controls.Add(this.labelDiscount);
+            this.Controls.Add(this.labelzhekou);
+            this.Controls.Add(this.btZhekou8);
             this.Controls.Add(this.btZhekou88);
             this.Controls.Add(this.btnCalc);
             this.Controls.Add(this.labelChange);
@@ -523,5 +560,8 @@
         private System.Windows.Forms.Button btnCalc;
         private System.Windows.Forms.Button btZhekou88;
         private System.Windows.Forms.Button btZhekou85;
+        private System.Windows.Forms.Button btZhekou8;
+        private System.Windows.Forms.Label labelDiscount;
+        private System.Windows.Forms.Label labelzhekou;
     }
 }

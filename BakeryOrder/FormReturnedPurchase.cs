@@ -715,7 +715,7 @@ namespace BakeryOrder
                 int id;
                 id = (m_PosID % 10) + now.Month * 1000 + now.Day * 10;
                 order.ID = id * 100000 + maxID + 1;
-                order.DiscountRate = 0.9m;
+                order.DiscountRate = 1m;
                 order.Income = (decimal)CalcTotal();
                 order.CashierID = m_CashierID;
                 order.RCashierID = m_CashierID1;

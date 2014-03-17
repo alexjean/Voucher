@@ -143,8 +143,8 @@ namespace BakeryOrder
             Buf.Append("- - - - - - - - - - - - - - - - - - - -\r\n");
             //  計算統計數字
             int count = 0;
-            int deletedCount = 0, creditCount = 0, couponCount = 0, returnedCount = 0;
-            decimal total = 0m,credit=0m,coupon=0m;
+            int deletedCount = 0, creditCount = 0, couponCount = 0, returnedCount = 0, cashCount = 0;
+            decimal total = 0m, credit = 0m, coupon = 0m, cash = 0m;
             DateTime first = new DateTime(2050, 10, 31);
             DateTime last  = new DateTime(2012, 10, 31);
             foreach (var order in m_BakeryOrderSet.Order)
@@ -157,6 +157,7 @@ namespace BakeryOrder
                 if (!order.IsDeletedNull() && order.Deleted)  deletedCount++;
                 if (!order.IsPayByNull())
                 {
+                    if (order.PayBy=="A") { cashCount++; cash += income; }
                     if (order.PayBy == "B") { creditCount++; credit += income; }
                     if (order.PayBy == "C") { couponCount++; coupon += income; }
                 }
@@ -176,12 +177,13 @@ namespace BakeryOrder
             if (couponCount==0) Buf.Append("\r\n");
             else                Buf.Append(", " + coupon.ToString("f0").PadLeft(5) + "元\r\n");
             Buf.Append("刷卡 " + creditCount.ToString("d").PadLeft(3) + " 笔, " + credit.ToString("f0").PadLeft(5) + "元\r\n");
+            Buf.Append("现金 " + cashCount.ToString("d").PadLeft(3) + " 笔, " + cash.ToString("f0").PadLeft(5) + "元\r\n");
             Buf.Append("共   " + count.ToString("d").PadLeft(3)       + " 笔, " + total.ToString("f0").PadLeft(5)  + "元\r\n");
             Buf.Append(NormalMode);
             Buf.Append("* * * * * * * * * * * * * * * * * * * *\r\n\r\n\r\n\r\n\r\n\r\n");
             Buf.Append("\f");
             string str = Buf.ToString();
-            //File.WriteAllBytes("Test.txt", Encoding.UTF8.GetBytes(str));
+            File.WriteAllBytes("Test.txt", Encoding.UTF8.GetBytes(str));
             RawPrint.SendManagedBytes(m_Printer.PrinterName, Buf.ToBytes());
             RawPrint.SendManagedBytes(m_Printer.PrinterName, CutPaper);
         }
@@ -192,7 +194,7 @@ namespace BakeryOrder
             Print();
         }
 
-        HardwareConfig Config = new HardwareConfig();
+        HardwareConfig Config = new HardwareConfig();               
         private void btnSetupPrinter_Click(object sender, EventArgs e)
         {
             if (printDialog1.ShowDialog() == DialogResult.OK)

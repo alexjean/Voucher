@@ -633,7 +633,7 @@ namespace BakeryOrder
                 int id;
                 id = (m_PosID % 10) + now.Month * 1000 + now.Day * 10;
                 order.ID = id * 100000 + maxID + 1;
-                order.DiscountRate = 0.9m;
+                order.DiscountRate = 1m;
                 order.Income = (decimal)CalcTotal();
                 order.CashierID = m_CashierID;
                 order.Deleted = false;
@@ -737,20 +737,42 @@ namespace BakeryOrder
             }
             Buf.Append("- - - - - - - - - - - - - - - -\r\n");
             Buf.Append("小计:        " + d2str(no, 7) + d2str(discount, 12) + "\r\n");
+            if ((!CurrentOrder.IsDiscountRateNull())&&CurrentOrder.DiscountRate < 1)
+            {
+                string temp = CurrentOrder.DiscountRate.ToString();
+                Buf.Append("打"+temp.Remove(0,2)+"折:  ");
+                Buf.Append(d2str(discount, 4));
+                Buf.Append("* "+temp+"=");
+                Buf.Append(d2str(discount * (double)CurrentOrder.DiscountRate, 10) + "\r\n");
+            }
             if ((!CurrentOrder.IsDeductNull()) && (CurrentOrder.Deduct != 0))
             {
-                if(CurrentOrder.PayBy=="D")
-                {
-                    Buf.Append("打折:              ");
-                    Buf.Append(d2str(discount*0.85, 12)+"\r\n");
-                }
+                //if(CurrentOrder.PayBy=="D")
+                //{
+                //    Buf.Append("打85折:  ");
+                //    Buf.Append(d2str(discount,4));
+                //    Buf.Append("* 0.85=");  
+                //    Buf.Append(d2str(discount*0.85, 10)+"\r\n");
+                //}
+                //if (CurrentOrder.PayBy == "E")
+                //{
+                //    Buf.Append("打88折:  ");
+                //    Buf.Append(d2str(discount, 4));
+                //    Buf.Append("* 0.88=");
+                //    Buf.Append(d2str(discount * 0.88, 10) + "\r\n");
+                //}
+
                 Buf.Append("优惠:              ");
                 Buf.Append(d2str((double)-CurrentOrder.Deduct, 13) + "\r\n");
+                //Buf.Append("应收:   ========>  ");
+                //Buf.Append(d2str((double)CurrentOrder.Income, 13) + "\r\n");
+            }
+            if (((!CurrentOrder.IsDeductNull()) && (CurrentOrder.Deduct != 0))
+                || ((!CurrentOrder.IsDiscountRateNull()) && CurrentOrder.DiscountRate < 1))
+            {
                 Buf.Append("应收:   ========>  ");
                 Buf.Append(d2str((double)CurrentOrder.Income, 13) + "\r\n");
             }
-
-
             if (moneyGot > 0)
             {
                 Buf.Append("        实收             "); Buf.Append(d2str(moneyGot, 7) + "\r\n");
@@ -966,7 +988,7 @@ namespace BakeryOrder
                         if (Row.Index < count && (ItemRows[Row.Index] == null))   // 有重複的,以第一個為準
                             ItemRows[Row.Index] = Row;
                         else
-                            ItemDeleted.Add(Row);
+                            ItemDeleted.Add(Row); 
                     }
                 }
                 int i = 0;

@@ -330,9 +330,9 @@ namespace VoucherExpense
             #region ====== 計算營業額 ======
             Message("計算營業額");
             AccTitle cashIncome = AccTitleList.Find(Setup.CashIncome, NewList.Revenues, NewList.defaultIncome);     // 營收 現金
-            AccTitle creditIncome = AccTitleList.Find(Setup.CreditIncome, NewList.Revenues, NewList.defaultIncome); // 營收 刷卡
+            AccTitle creditIncome = AccTitleList.Find(Setup.CardIncome, NewList.Revenues, NewList.defaultIncome); // 營收 刷卡
             AccTitle cashReceivable = AccTitleList.Find(Setup.CashReceivable, NewList.Assets, NewList.defaultAsset);
-            AccTitle creditReceivable = AccTitleList.Find(Setup.CreditReceivable, NewList.Assets, NewList.defaultAsset);
+            AccTitle creditReceivable = AccTitleList.Find(Setup.CardReceivable, NewList.Assets, NewList.defaultAsset);
             MonthlyReportData total;
             // 算營業額很耗時, 先檢查是不是要的.分類帳要有每一天營收,要抓CalcRevenue內資料 
             if ((selectedTitleCode == cashIncome.Code) || (selectedTitleCode == creditIncome.Code) || (selectedTitleCode == cashReceivable.Code) || (selectedTitleCode == creditReceivable.Code))

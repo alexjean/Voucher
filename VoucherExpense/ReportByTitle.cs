@@ -326,9 +326,9 @@ namespace VoucherExpense
             #region ====== 計算營業額 ======
             Message("計算營業額");
             AccTitle cash               = AccTitleList.Find(Setup.CashIncome     , NewList.Revenues, NewList.defaultIncome);
-            AccTitle credit             = AccTitleList.Find(Setup.CreditIncome   , NewList.Revenues, NewList.defaultIncome);
+            AccTitle credit             = AccTitleList.Find(Setup.CardIncome   , NewList.Revenues, NewList.defaultIncome);
             AccTitle cashReceivable     = AccTitleList.Find(Setup.CashReceivable , NewList.Assets  , NewList.defaultAsset);
-            AccTitle creditReceivable   = AccTitleList.Find(Setup.CreditReceivable,NewList.Assets  , NewList.defaultAsset);
+            AccTitle creditReceivable   = AccTitleList.Find(Setup.CardReceivable,NewList.Assets  , NewList.defaultAsset);
             MonthlyReportData total;
             for (int m1 = 1; m1 <= 12; m1++)
             {

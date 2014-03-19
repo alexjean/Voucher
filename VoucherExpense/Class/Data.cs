@@ -143,13 +143,15 @@ namespace VoucherExpense
         public string DefaultExpense    { get; set; }
         public string VoucherShouldPay  { get; set; }
         public string CashIncome        { get; set; }
-        public string CreditIncome      { get; set; }
+        public string CardIncome        { get; set; }
         public string CashReceivable    { get; set; }
-        public string CreditReceivable  { get; set; }
-//        public string OwnersEquity      { get; set; }
+        public string CardReceivable    { get; set; }
+
+        public string SoldOnCreditIncome  { get; set; }
+        public string SoldOnCreditReceivable { get; set; }
         private decimal feeRate;
         public decimal FeeRate() { return feeRate; }
-        public string CreditFeeRate     
+        public string CardFeeRate     
         {
             get { return feeRate.ToString(); }
             set 
@@ -174,11 +176,10 @@ namespace VoucherExpense
             DefaultExpense  ="600";
             VoucherShouldPay="203";
             CashIncome      ="403";
-            CreditIncome    ="404";
+            CardIncome    ="404";
             CashReceivable  ="1030";
-            CreditReceivable="1040";
-//            OwnersEquity    ="210";
-            CreditFeeRate   = "1.8";
+            CardReceivable="1040";
+            CardFeeRate   = "1.8";
         }
 
         bool DoSetup(XmlNode root, string nodeName, ref string outValue)
@@ -206,11 +207,12 @@ namespace VoucherExpense
             if (DoSetup(root, "DefaultExpense"  , ref str)) DefaultExpense = str;
             if (DoSetup(root, "CashReceivable"  , ref str)) CashReceivable = str;
             if (DoSetup(root, "CashIncome"      , ref str)) CashIncome = str;
-            if (DoSetup(root, "CreditIncome"    , ref str)) CreditIncome = str;
-            if (DoSetup(root, "CreditReceivable", ref str)) CreditReceivable = str;
+            if (DoSetup(root, "CardIncome"    , ref str)) CardIncome = str;
+            if (DoSetup(root, "CardReceivable", ref str)) CardReceivable = str;
             if (DoSetup(root, "VoucherShouldPay", ref str)) VoucherShouldPay = str;
-//            if (DoSetup(root, "OwnersEquity"    , ref str)) OwnersEquity = str;
-            if (DoSetup(root, "CreditFeeRate"   , ref str)) CreditFeeRate = str;
+            if (DoSetup(root, "CardFeeRate"   , ref str)) CardFeeRate = str;
+            if (DoSetup(root, "SoldOnCreditReceivable", ref str)) SoldOnCreditReceivable = str;
+            if (DoSetup(root, "SoldOnCreditIncome"    , ref str)) SoldOnCreditIncome = str;
             
         }
 
@@ -230,11 +232,12 @@ namespace VoucherExpense
             content += AddSetup("DefaultExpense"    , DefaultExpense      );
             content += AddSetup("CashReceivable"    , CashReceivable      );
             content += AddSetup("CashIncome"        , CashIncome          );
-            content += AddSetup("CreditIncome"      , CreditIncome        );
-            content += AddSetup("CreditReceivable"  , CreditReceivable    );
-            content += AddSetup("VoucherShouldPay"  , VoucherShouldPay    );
-//            content += AddSetup("OwnersEquity"      , OwnersEquity        );
-            content += AddSetup("CreditFeeRate"     , CreditFeeRate       );
+            content += AddSetup("CardIncome"        , CardIncome        );
+            content += AddSetup("CardReceivable"    , CardReceivable    );
+            content += AddSetup("SoldOnCreditIncome"  , SoldOnCreditIncome);
+            content += AddSetup("SoldOnCreditReceivable", SoldOnCreditReceivable);
+            content += AddSetup("VoucherShouldPay", VoucherShouldPay);
+            content += AddSetup("CardFeeRate"     , CardFeeRate       );
             content += "</" + ConfigName + ">";
             if (Cfg.Save(ConfigName, TableName, content)) return true;
             else return false;

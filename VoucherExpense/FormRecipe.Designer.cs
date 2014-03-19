@@ -643,7 +643,7 @@
             // textBoxEvaluatedCost
             // 
             this.textBoxEvaluatedCost.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.textBoxEvaluatedCost.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productBindingSource, "EvaluatedCost", true));
+            this.textBoxEvaluatedCost.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productBindingSource, "EvaluatedCost", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.textBoxEvaluatedCost.Location = new System.Drawing.Point(121, 80);
             this.textBoxEvaluatedCost.Name = "textBoxEvaluatedCost";
             this.textBoxEvaluatedCost.ReadOnly = true;

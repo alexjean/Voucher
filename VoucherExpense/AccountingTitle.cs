@@ -187,8 +187,8 @@ namespace VoucherExpense
         {
             if (Setup.CashIncome == code)       return true;
             if (Setup.CashReceivable == code)   return true;
-            if (Setup.CreditIncome== code)      return true;
-            if (Setup.CreditReceivable == code) return true;
+            if (Setup.CardIncome== code)      return true;
+            if (Setup.CardReceivable == code) return true;
             if (Setup.DefaultAsset == code)     return true;
             if (Setup.DefaultCost == code)      return true;
             if (Setup.DefaultExpense == code)   return true;

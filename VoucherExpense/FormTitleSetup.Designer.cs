@@ -41,7 +41,8 @@
             System.Windows.Forms.Label ownersEquityLabel;
             System.Windows.Forms.Label voucherShouldPayLabel;
             System.Windows.Forms.Label label1;
-            this.titleSetupBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            System.Windows.Forms.Label label2;
+            System.Windows.Forms.Label label3;
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.vEDataSet = new VoucherExpense.VEDataSet();
@@ -55,7 +56,7 @@
             this.creditReceivableComboBox = new System.Windows.Forms.ComboBox();
             this.asset1BindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.creditFeeRateTextBox = new System.Windows.Forms.TextBox();
+            this.cardFeeRateTextBox = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.defaultExpenseComboBox = new System.Windows.Forms.ComboBox();
             this.expenseBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -72,6 +73,12 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.voucherShouldPayComboBox = new System.Windows.Forms.ComboBox();
             this.liabilityTitleBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.cbxSoldOnCredit = new System.Windows.Forms.ComboBox();
+            this.income3BindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.cbxReceivable = new System.Windows.Forms.ComboBox();
+            this.asset3BindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.titleSetupBindingSource = new System.Windows.Forms.BindingSource(this.components);
             cashIncomeLabel = new System.Windows.Forms.Label();
             cashReceivableLabel = new System.Windows.Forms.Label();
             creditIncomeLabel = new System.Windows.Forms.Label();
@@ -84,7 +91,8 @@
             ownersEquityLabel = new System.Windows.Forms.Label();
             voucherShouldPayLabel = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.titleSetupBindingSource)).BeginInit();
+            label2 = new System.Windows.Forms.Label();
+            label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.assetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.incomeBindingSource)).BeginInit();
@@ -100,6 +108,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.ownersEquityBindingSource)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.liabilityTitleBindingSource)).BeginInit();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.income3BindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.asset3BindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.titleSetupBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // cashIncomeLabel
@@ -204,15 +216,29 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(92, 172);
+            label1.Location = new System.Drawing.Point(92, 167);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(85, 16);
             label1.TabIndex = 30;
             label1.Text = "手續費率%";
             // 
-            // titleSetupBindingSource
+            // label2
             // 
-            this.titleSetupBindingSource.DataSource = typeof(VoucherExpense.TitleSetup);
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(17, 33);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(72, 16);
+            label2.TabIndex = 21;
+            label2.Text = "應收貨款";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new System.Drawing.Point(176, 63);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(77, 16);
+            label3.TabIndex = 23;
+            label3.Text = "營收-賖銷";
             // 
             // listBox1
             // 
@@ -244,17 +270,19 @@
             "　手續費部分, 必需另以 \"轉帳傳票\" 手工列明, ",
             "　                          借計<刷卡手續費> 貸計<待入帳刷卡>",
             "",
-            "　進貨單　　　  借計<成本科目>,貸計<應付貨款>"});
+            "　進貨單　　　  借計<成本科目>,貸計<應付貨款>",
+            "",
+            "    出貨單              借計<應收貨款>,貸計<營收-賒銷>"});
             this.listBox1.Location = new System.Drawing.Point(390, 21);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(401, 548);
+            this.listBox1.Size = new System.Drawing.Size(401, 436);
             this.listBox1.TabIndex = 23;
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(172, 547);
+            this.btnSave.Location = new System.Drawing.Point(165, 561);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.Size = new System.Drawing.Size(111, 40);
             this.btnSave.TabIndex = 24;
             this.btnSave.Text = "儲存";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -307,7 +335,7 @@
             // 
             // creditIncomeComboBox
             // 
-            this.creditIncomeComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.titleSetupBindingSource, "CreditIncome", true));
+            this.creditIncomeComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.titleSetupBindingSource, "CardIncome", true));
             this.creditIncomeComboBox.DataSource = this.income1BindingSource;
             this.creditIncomeComboBox.DisplayMember = "Name";
             this.creditIncomeComboBox.FormattingEnabled = true;
@@ -325,7 +353,7 @@
             // 
             // creditReceivableComboBox
             // 
-            this.creditReceivableComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.titleSetupBindingSource, "CreditReceivable", true));
+            this.creditReceivableComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.titleSetupBindingSource, "CardReceivable", true));
             this.creditReceivableComboBox.DataSource = this.asset1BindingSource;
             this.creditReceivableComboBox.DisplayMember = "Name";
             this.creditReceivableComboBox.FormattingEnabled = true;
@@ -344,7 +372,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(label1);
-            this.groupBox1.Controls.Add(this.creditFeeRateTextBox);
+            this.groupBox1.Controls.Add(this.cardFeeRateTextBox);
             this.groupBox1.Controls.Add(this.creditIncomeComboBox);
             this.groupBox1.Controls.Add(this.creditReceivableComboBox);
             this.groupBox1.Controls.Add(cashReceivableLabel);
@@ -358,15 +386,15 @@
             this.groupBox1.Size = new System.Drawing.Size(327, 202);
             this.groupBox1.TabIndex = 29;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "營業收入";
+            this.groupBox1.Text = "POS机營收";
             // 
-            // creditFeeRateTextBox
+            // cardFeeRateTextBox
             // 
-            this.creditFeeRateTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.titleSetupBindingSource, "CreditFeeRate", true));
-            this.creditFeeRateTextBox.Location = new System.Drawing.Point(179, 169);
-            this.creditFeeRateTextBox.Name = "creditFeeRateTextBox";
-            this.creditFeeRateTextBox.Size = new System.Drawing.Size(121, 27);
-            this.creditFeeRateTextBox.TabIndex = 29;
+            this.cardFeeRateTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.titleSetupBindingSource, "CardFeeRate", true));
+            this.cardFeeRateTextBox.Location = new System.Drawing.Point(179, 164);
+            this.cardFeeRateTextBox.Name = "cardFeeRateTextBox";
+            this.cardFeeRateTextBox.Size = new System.Drawing.Size(121, 27);
+            this.cardFeeRateTextBox.TabIndex = 29;
             // 
             // groupBox2
             // 
@@ -501,7 +529,7 @@
             // 
             this.groupBox3.Controls.Add(this.voucherShouldPayComboBox);
             this.groupBox3.Controls.Add(voucherShouldPayLabel);
-            this.groupBox3.Location = new System.Drawing.Point(43, 471);
+            this.groupBox3.Location = new System.Drawing.Point(43, 463);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(327, 70);
             this.groupBox3.TabIndex = 31;
@@ -526,12 +554,66 @@
             this.liabilityTitleBindingSource.DataSource = this.vEDataSet;
             this.liabilityTitleBindingSource.Filter = "TitleCode like \'2*\'";
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.cbxSoldOnCredit);
+            this.groupBox4.Controls.Add(label3);
+            this.groupBox4.Controls.Add(this.cbxReceivable);
+            this.groupBox4.Controls.Add(label2);
+            this.groupBox4.Location = new System.Drawing.Point(390, 463);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(401, 106);
+            this.groupBox4.TabIndex = 32;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "出貨單";
+            // 
+            // cbxSoldOnCredit
+            // 
+            this.cbxSoldOnCredit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.titleSetupBindingSource, "SoldOnCreditIncome", true));
+            this.cbxSoldOnCredit.DataSource = this.income3BindingSource;
+            this.cbxSoldOnCredit.DisplayMember = "Name";
+            this.cbxSoldOnCredit.FormattingEnabled = true;
+            this.cbxSoldOnCredit.Location = new System.Drawing.Point(258, 60);
+            this.cbxSoldOnCredit.Name = "cbxSoldOnCredit";
+            this.cbxSoldOnCredit.Size = new System.Drawing.Size(121, 24);
+            this.cbxSoldOnCredit.TabIndex = 24;
+            this.cbxSoldOnCredit.ValueMember = "TitleCode";
+            // 
+            // income3BindingSource
+            // 
+            this.income3BindingSource.DataMember = "AccountingTitle";
+            this.income3BindingSource.DataSource = this.vEDataSet;
+            this.income3BindingSource.Filter = "TitleCode like \'4*\'";
+            // 
+            // cbxReceivable
+            // 
+            this.cbxReceivable.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.titleSetupBindingSource, "SoldOnCreditReceivable", true));
+            this.cbxReceivable.DataSource = this.asset3BindingSource;
+            this.cbxReceivable.DisplayMember = "Name";
+            this.cbxReceivable.FormattingEnabled = true;
+            this.cbxReceivable.Location = new System.Drawing.Point(99, 30);
+            this.cbxReceivable.Name = "cbxReceivable";
+            this.cbxReceivable.Size = new System.Drawing.Size(121, 24);
+            this.cbxReceivable.TabIndex = 22;
+            this.cbxReceivable.ValueMember = "TitleCode";
+            // 
+            // asset3BindingSource
+            // 
+            this.asset3BindingSource.DataMember = "AccountingTitle";
+            this.asset3BindingSource.DataSource = this.vEDataSet;
+            this.asset3BindingSource.Filter = "TitleCode like \'1*\'";
+            // 
+            // titleSetupBindingSource
+            // 
+            this.titleSetupBindingSource.DataSource = typeof(VoucherExpense.TitleSetup);
+            // 
             // FormTitleSetup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(831, 635);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.groupBox1);
@@ -542,7 +624,6 @@
             this.Name = "FormTitleSetup";
             this.Text = "傳票設定";
             this.Load += new System.EventHandler(this.FormTitleSetup_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.titleSetupBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.assetBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.incomeBindingSource)).EndInit();
@@ -561,13 +642,17 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.liabilityTitleBindingSource)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.income3BindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.asset3BindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.titleSetupBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.BindingSource titleSetupBindingSource;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button btnSave;
         private VEDataSet vEDataSet;
@@ -597,6 +682,12 @@
         private System.Windows.Forms.ComboBox defaultCostComboBox;
         private System.Windows.Forms.BindingSource costBindingSource;
         private System.Windows.Forms.BindingSource income2BindingSource;
-        private System.Windows.Forms.TextBox creditFeeRateTextBox;
+        private System.Windows.Forms.TextBox cardFeeRateTextBox;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.ComboBox cbxSoldOnCredit;
+        private System.Windows.Forms.ComboBox cbxReceivable;
+        private System.Windows.Forms.BindingSource titleSetupBindingSource;
+        private System.Windows.Forms.BindingSource asset3BindingSource;
+        private System.Windows.Forms.BindingSource income3BindingSource;
     }
 }

@@ -149,6 +149,10 @@ namespace VoucherExpense
 
         public string SoldOnCreditIncome  { get; set; }
         public string SoldOnCreditReceivable { get; set; }
+
+        public string AssetIngredients  { get; set; }     // 原材料
+        public string AssetProducts     { get; set; }     // 庫存商品
+
         private decimal feeRate;
         public decimal FeeRate() { return feeRate; }
         public string CardFeeRate     
@@ -207,12 +211,14 @@ namespace VoucherExpense
             if (DoSetup(root, "DefaultExpense"  , ref str)) DefaultExpense = str;
             if (DoSetup(root, "CashReceivable"  , ref str)) CashReceivable = str;
             if (DoSetup(root, "CashIncome"      , ref str)) CashIncome = str;
-            if (DoSetup(root, "CardIncome"    , ref str)) CardIncome = str;
-            if (DoSetup(root, "CardReceivable", ref str)) CardReceivable = str;
+            if (DoSetup(root, "CardIncome"      , ref str)) CardIncome = str;
+            if (DoSetup(root, "CardReceivable"  , ref str)) CardReceivable = str;
             if (DoSetup(root, "VoucherShouldPay", ref str)) VoucherShouldPay = str;
-            if (DoSetup(root, "CardFeeRate"   , ref str)) CardFeeRate = str;
+            if (DoSetup(root, "CardFeeRate"     , ref str)) CardFeeRate = str;
+            if (DoSetup(root, "AssetIngredients", ref str)) AssetIngredients = str;
+            if (DoSetup(root, "AssetProducts"   , ref str)) AssetProducts = str;
             if (DoSetup(root, "SoldOnCreditReceivable", ref str)) SoldOnCreditReceivable = str;
-            if (DoSetup(root, "SoldOnCreditIncome"    , ref str)) SoldOnCreditIncome = str;
+            if (DoSetup(root, "SoldOnCreditIncome", ref str)) SoldOnCreditIncome = str;
             
         }
 
@@ -232,12 +238,14 @@ namespace VoucherExpense
             content += AddSetup("DefaultExpense"    , DefaultExpense      );
             content += AddSetup("CashReceivable"    , CashReceivable      );
             content += AddSetup("CashIncome"        , CashIncome          );
-            content += AddSetup("CardIncome"        , CardIncome        );
-            content += AddSetup("CardReceivable"    , CardReceivable    );
+            content += AddSetup("CardIncome"        , CardIncome          );
+            content += AddSetup("CardReceivable"      , CardReceivable    );
             content += AddSetup("SoldOnCreditIncome"  , SoldOnCreditIncome);
             content += AddSetup("SoldOnCreditReceivable", SoldOnCreditReceivable);
-            content += AddSetup("VoucherShouldPay", VoucherShouldPay);
-            content += AddSetup("CardFeeRate"     , CardFeeRate       );
+            content += AddSetup("VoucherShouldPay"  , VoucherShouldPay    );
+            content += AddSetup("CardFeeRate"       , CardFeeRate         );
+            content += AddSetup("AssetIngredients"  , AssetIngredients    );
+            content += AddSetup("AssetProducts"     , AssetProducts       );
             content += "</" + ConfigName + ">";
             if (Cfg.Save(ConfigName, TableName, content)) return true;
             else return false;

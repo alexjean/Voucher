@@ -49,19 +49,21 @@ namespace VoucherExpense
 
         void SetupBindingSource()
         {
-            assetBindingSource.DataSource = m_DataSet;
-            asset1BindingSource.DataSource = m_DataSet;
-            asset2BindingSource.DataSource = m_DataSet;
-            asset3BindingSource.DataSource = m_DataSet;
-            incomeBindingSource.DataSource = m_DataSet;
-            income1BindingSource.DataSource = m_DataSet;
-            income2BindingSource.DataSource = m_DataSet;
-            income3BindingSource.DataSource = m_DataSet;
-            liabilityTitleBindingSource.DataSource = m_DataSet;
-            liability2BindingSource.DataSource = m_DataSet;
-            ownersEquityBindingSource.DataSource = m_DataSet;
-            costBindingSource.DataSource = m_DataSet;
-            expenseBindingSource.DataSource = m_DataSet;
+            assetDefaultBindingSource.DataSource    = m_DataSet;
+            assetCashBindingSource.DataSource       = m_DataSet;
+            assetCardBindingSource.DataSource       = m_DataSet;
+            assetReceivableBindingSource.DataSource = m_DataSet;
+            assetIngredientsBindingSource.DataSource= m_DataSet;
+            assetProductsBindingSource.DataSource   = m_DataSet;
+            incomeDefaultBindingSource.DataSource   = m_DataSet;
+            incomeCardBindingSource.DataSource      = m_DataSet;
+            incomeCashBindingSource.DataSource      = m_DataSet;
+            incomeSoldOnCreditBindingSource.DataSource      = m_DataSet;
+            liabilityShouldPayTitleBindingSource.DataSource = m_DataSet;
+            liabilityDefaultBindingSource.DataSource= m_DataSet;
+            ownersEquityBindingSource.DataSource    = m_DataSet;
+            costBindingSource.DataSource            = m_DataSet;
+            expenseBindingSource.DataSource         = m_DataSet;
 
         }
     }

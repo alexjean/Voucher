@@ -29,25 +29,23 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.Label keyinIDLabel;
-            System.Windows.Forms.Label checkedIDLabel;
             System.Windows.Forms.Label iDLabel;
             System.Windows.Forms.Label lastUpdatedLabel;
-            System.Windows.Forms.Label checkedLabel;
             System.Windows.Forms.Label removedLabel;
             System.Windows.Forms.Label costLabel;
             System.Windows.Forms.Label shipCodeLabel;
             System.Windows.Forms.Label shipTimeLabel;
             System.Windows.Forms.Label supplierLabel;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.Label productClassLabel;
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormShipment));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.shipmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.damaiDataSet = new VoucherExpense.DamaiDataSet();
@@ -68,9 +66,8 @@
             this.dgvColumnVolume = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProductID = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.dgvCostColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvColumnTitleCode = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.accountingTitleBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.shipmentDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.accountingTitleBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bakeryOrderSet = new VoucherExpense.BakeryOrderSet();
             this.costTextBox = new System.Windows.Forms.TextBox();
             this.shipCodeTextBox = new System.Windows.Forms.TextBox();
@@ -78,6 +75,13 @@
             this.customerComboBox = new System.Windows.Forms.ComboBox();
             this.customerBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.shipmentDataGridView = new System.Windows.Forms.DataGridView();
+            this.ColumnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Removed = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.shipCodeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.customerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.costDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.shipTimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Checked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.shipmentBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -109,23 +113,23 @@
             this.productTableAdapter1 = new VoucherExpense.DamaiDataSetTableAdapters.ProductTableAdapter();
             this.shipmentIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.shipmentDetailTableAdapter1 = new VoucherExpense.DamaiDataSetTableAdapters.ShipmentDetailTableAdapter();
-            this.ColumnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Removed = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.shipCodeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.customerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.costDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.shipTimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Checked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            keyinIDLabel = new System.Windows.Forms.Label();
-            checkedIDLabel = new System.Windows.Forms.Label();
+            this.productBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.tableAdapterManager1 = new VoucherExpense.BakeryOrderSetTableAdapters.TableAdapterManager();
+            this.productClassBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.productClassTableAdapter = new VoucherExpense.DamaiDataSetTableAdapters.ProductClassTableAdapter();
+            this.tableAdapterManager2 = new VoucherExpense.DamaiDataSetTableAdapters.TableAdapterManager();
+            this.productClassComboBox = new System.Windows.Forms.ComboBox();
+            this.checkedLabel = new System.Windows.Forms.Label();
+            this.checkedIDLabel = new System.Windows.Forms.Label();
+            this.keyinIDLabel = new System.Windows.Forms.Label();
             iDLabel = new System.Windows.Forms.Label();
             lastUpdatedLabel = new System.Windows.Forms.Label();
-            checkedLabel = new System.Windows.Forms.Label();
             removedLabel = new System.Windows.Forms.Label();
             costLabel = new System.Windows.Forms.Label();
             shipCodeLabel = new System.Windows.Forms.Label();
             shipTimeLabel = new System.Windows.Forms.Label();
             supplierLabel = new System.Windows.Forms.Label();
+            productClassLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.shipmentBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).BeginInit();
@@ -133,34 +137,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.shipmentDetailDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.shipmentDetailBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.shipmentDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.shipmentBindingNavigator)).BeginInit();
             this.shipmentBindingNavigator.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productClassBindingSource)).BeginInit();
             this.SuspendLayout();
-            // 
-            // keyinIDLabel
-            // 
-            keyinIDLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            keyinIDLabel.AutoSize = true;
-            keyinIDLabel.Location = new System.Drawing.Point(474, 630);
-            keyinIDLabel.Name = "keyinIDLabel";
-            keyinIDLabel.Size = new System.Drawing.Size(44, 16);
-            keyinIDLabel.TabIndex = 78;
-            keyinIDLabel.Text = "输入:";
-            // 
-            // checkedIDLabel
-            // 
-            checkedIDLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            checkedIDLabel.AutoSize = true;
-            checkedIDLabel.Location = new System.Drawing.Point(717, 630);
-            checkedIDLabel.Name = "checkedIDLabel";
-            checkedIDLabel.Size = new System.Drawing.Size(60, 16);
-            checkedIDLabel.TabIndex = 76;
-            checkedIDLabel.Text = "复核人:";
             // 
             // iDLabel
             // 
@@ -175,27 +161,17 @@
             // 
             lastUpdatedLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             lastUpdatedLabel.AutoSize = true;
-            lastUpdatedLabel.Location = new System.Drawing.Point(474, 663);
+            lastUpdatedLabel.Location = new System.Drawing.Point(474, 687);
             lastUpdatedLabel.Name = "lastUpdatedLabel";
             lastUpdatedLabel.Size = new System.Drawing.Size(44, 16);
             lastUpdatedLabel.TabIndex = 72;
             lastUpdatedLabel.Text = "更新:";
             // 
-            // checkedLabel
-            // 
-            checkedLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            checkedLabel.AutoSize = true;
-            checkedLabel.Location = new System.Drawing.Point(717, 601);
-            checkedLabel.Name = "checkedLabel";
-            checkedLabel.Size = new System.Drawing.Size(28, 16);
-            checkedLabel.TabIndex = 70;
-            checkedLabel.Text = "核:";
-            // 
             // removedLabel
             // 
             removedLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             removedLabel.AutoSize = true;
-            removedLabel.Location = new System.Drawing.Point(474, 601);
+            removedLabel.Location = new System.Drawing.Point(474, 625);
             removedLabel.Name = "removedLabel";
             removedLabel.Size = new System.Drawing.Size(44, 16);
             removedLabel.TabIndex = 68;
@@ -237,6 +213,15 @@
             supplierLabel.TabIndex = 60;
             supplierLabel.Text = "客户:";
             // 
+            // productClassLabel
+            // 
+            productClassLabel.AutoSize = true;
+            productClassLabel.Location = new System.Drawing.Point(726, 115);
+            productClassLabel.Name = "productClassLabel";
+            productClassLabel.Size = new System.Drawing.Size(60, 16);
+            productClassLabel.TabIndex = 82;
+            productClassLabel.Text = "出货类:";
+            // 
             // comboBox2
             // 
             this.comboBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -248,7 +233,7 @@
             this.comboBox2.Enabled = false;
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.IntegralHeight = false;
-            this.comboBox2.Location = new System.Drawing.Point(783, 627);
+            this.comboBox2.Location = new System.Drawing.Point(783, 651);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(106, 24);
             this.comboBox2.TabIndex = 82;
@@ -290,7 +275,7 @@
             this.comboBox1.Enabled = false;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.IntegralHeight = false;
-            this.comboBox1.Location = new System.Drawing.Point(524, 627);
+            this.comboBox1.Location = new System.Drawing.Point(533, 651);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(106, 24);
             this.comboBox1.TabIndex = 81;
@@ -343,7 +328,7 @@
             // 
             this.lastUpdatedLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lastUpdatedLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.shipmentBindingSource, "LastUpdated", true));
-            this.lastUpdatedLabel1.Location = new System.Drawing.Point(521, 663);
+            this.lastUpdatedLabel1.Location = new System.Drawing.Point(521, 687);
             this.lastUpdatedLabel1.Name = "lastUpdatedLabel1";
             this.lastUpdatedLabel1.Size = new System.Drawing.Size(137, 23);
             this.lastUpdatedLabel1.TabIndex = 74;
@@ -353,18 +338,19 @@
             this.checkedCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkedCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.shipmentBindingSource, "Checked", true));
             this.checkedCheckBox.Enabled = false;
-            this.checkedCheckBox.Location = new System.Drawing.Point(783, 595);
+            this.checkedCheckBox.Location = new System.Drawing.Point(783, 619);
             this.checkedCheckBox.Name = "checkedCheckBox";
             this.checkedCheckBox.Size = new System.Drawing.Size(20, 24);
             this.checkedCheckBox.TabIndex = 71;
             this.checkedCheckBox.UseVisualStyleBackColor = true;
             this.checkedCheckBox.CheckedChanged += new System.EventHandler(this.checkedCheckBox_CheckedChanged);
+            this.checkedCheckBox.Click += new System.EventHandler(this.checkedCheckBox_Click);
             // 
             // removedCheckBox
             // 
             this.removedCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.removedCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.shipmentBindingSource, "Removed", true));
-            this.removedCheckBox.Location = new System.Drawing.Point(556, 595);
+            this.removedCheckBox.Location = new System.Drawing.Point(556, 619);
             this.removedCheckBox.Name = "removedCheckBox";
             this.removedCheckBox.Size = new System.Drawing.Size(16, 24);
             this.removedCheckBox.TabIndex = 69;
@@ -374,8 +360,8 @@
             // shipmentDetailDataGridView
             // 
             this.shipmentDetailDataGridView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
-            this.shipmentDetailDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.Azure;
+            this.shipmentDetailDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle9;
             this.shipmentDetailDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -387,18 +373,17 @@
             this.dgvColumnProductID,
             this.dgvColumnVolume,
             this.ProductID,
-            this.dgvCostColumn,
-            this.dgvColumnTitleCode});
+            this.dgvCostColumn});
             this.shipmentDetailDataGridView.DataSource = this.shipmentDetailBindingSource;
             this.shipmentDetailDataGridView.ImeMode = System.Windows.Forms.ImeMode.Disable;
             this.shipmentDetailDataGridView.Location = new System.Drawing.Point(445, 154);
             this.shipmentDetailDataGridView.Name = "shipmentDetailDataGridView";
             this.shipmentDetailDataGridView.RowHeadersWidth = 25;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.shipmentDetailDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.shipmentDetailDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle12;
             this.shipmentDetailDataGridView.RowTemplate.Height = 23;
-            this.shipmentDetailDataGridView.Size = new System.Drawing.Size(492, 432);
+            this.shipmentDetailDataGridView.Size = new System.Drawing.Size(494, 456);
             this.shipmentDetailDataGridView.TabIndex = 77;
             this.shipmentDetailDataGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.shipmentDetailDataGridView_CellValueChanged);
             this.shipmentDetailDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.shipmentDetailDataGridView_DataError_1);
@@ -422,7 +407,7 @@
             this.dgvColumnProductID.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvColumnProductID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.dgvColumnProductID.ValueMember = "ProductID";
-            this.dgvColumnProductID.Width = 140;
+            this.dgvColumnProductID.Width = 160;
             // 
             // productBindingSource
             // 
@@ -433,8 +418,8 @@
             // dgvColumnVolume
             // 
             this.dgvColumnVolume.DataPropertyName = "Volume";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dgvColumnVolume.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dgvColumnVolume.DefaultCellStyle = dataGridViewCellStyle10;
             this.dgvColumnVolume.HeaderText = "数量";
             this.dgvColumnVolume.Name = "dgvColumnVolume";
             this.dgvColumnVolume.Width = 80;
@@ -450,39 +435,28 @@
             this.ProductID.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.ProductID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.ProductID.ValueMember = "ProductID";
-            this.ProductID.Width = 40;
+            this.ProductID.Width = 50;
             // 
             // dgvCostColumn
             // 
             this.dgvCostColumn.DataPropertyName = "Cost";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "N2";
-            dataGridViewCellStyle3.NullValue = null;
-            this.dgvCostColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle11.Format = "N2";
+            dataGridViewCellStyle11.NullValue = null;
+            this.dgvCostColumn.DefaultCellStyle = dataGridViewCellStyle11;
             this.dgvCostColumn.HeaderText = "金额";
             this.dgvCostColumn.Name = "dgvCostColumn";
-            // 
-            // dgvColumnTitleCode
-            // 
-            this.dgvColumnTitleCode.DataPropertyName = "TitleCode";
-            this.dgvColumnTitleCode.DataSource = this.accountingTitleBindingSource;
-            this.dgvColumnTitleCode.DisplayMember = "Name";
-            this.dgvColumnTitleCode.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.dgvColumnTitleCode.HeaderText = "会计科目";
-            this.dgvColumnTitleCode.Name = "dgvColumnTitleCode";
-            this.dgvColumnTitleCode.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvColumnTitleCode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dgvColumnTitleCode.ValueMember = "TitleCode";
-            // 
-            // accountingTitleBindingSource
-            // 
-            this.accountingTitleBindingSource.DataMember = "AccountingTitle";
-            this.accountingTitleBindingSource.DataSource = this.damaiDataSet;
+            this.dgvCostColumn.Width = 150;
             // 
             // shipmentDetailBindingSource
             // 
             this.shipmentDetailBindingSource.DataMember = "FK_ShipmentDetail_Shipment";
             this.shipmentDetailBindingSource.DataSource = this.shipmentBindingSource;
+            // 
+            // accountingTitleBindingSource
+            // 
+            this.accountingTitleBindingSource.DataMember = "AccountingTitle";
+            this.accountingTitleBindingSource.DataSource = this.damaiDataSet;
             // 
             // bakeryOrderSet
             // 
@@ -497,6 +471,7 @@
             this.costTextBox.ReadOnly = true;
             this.costTextBox.Size = new System.Drawing.Size(123, 27);
             this.costTextBox.TabIndex = 67;
+            this.costTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // shipCodeTextBox
             // 
@@ -505,6 +480,7 @@
             this.shipCodeTextBox.Name = "shipCodeTextBox";
             this.shipCodeTextBox.Size = new System.Drawing.Size(111, 27);
             this.shipCodeTextBox.TabIndex = 65;
+            this.shipCodeTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // shipTimeTextBox
             // 
@@ -513,6 +489,7 @@
             this.shipTimeTextBox.Name = "shipTimeTextBox";
             this.shipTimeTextBox.Size = new System.Drawing.Size(110, 27);
             this.shipTimeTextBox.TabIndex = 63;
+            this.shipTimeTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // customerComboBox
             // 
@@ -537,18 +514,18 @@
             this.shipmentDataGridView.AllowUserToDeleteRows = false;
             this.shipmentDataGridView.AllowUserToOrderColumns = true;
             this.shipmentDataGridView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Azure;
-            this.shipmentDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.Azure;
+            this.shipmentDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
             this.shipmentDataGridView.AutoGenerateColumns = false;
             this.shipmentDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("PMingLiU", 12F);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.shipmentDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("PMingLiU", 12F);
+            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.shipmentDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
             this.shipmentDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.shipmentDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnID,
@@ -566,16 +543,75 @@
             this.shipmentDataGridView.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.shipmentDataGridView.RowHeadersVisible = false;
             this.shipmentDataGridView.RowHeadersWidth = 25;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.shipmentDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.shipmentDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle16;
             this.shipmentDataGridView.RowTemplate.Height = 23;
             this.shipmentDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.shipmentDataGridView.Size = new System.Drawing.Size(444, 694);
+            this.shipmentDataGridView.Size = new System.Drawing.Size(444, 718);
             this.shipmentDataGridView.TabIndex = 59;
             this.shipmentDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.shipmentDataGridView_DataError);
             this.shipmentDataGridView.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.shipmentDataGridView_RowEnter);
             this.shipmentDataGridView.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.shipmentDataGridView_RowPrePaint);
+            // 
+            // ColumnID
+            // 
+            this.ColumnID.DataPropertyName = "ID";
+            this.ColumnID.HeaderText = "顺序";
+            this.ColumnID.Name = "ColumnID";
+            this.ColumnID.Width = 50;
+            // 
+            // Removed
+            // 
+            this.Removed.DataPropertyName = "Removed";
+            this.Removed.HeaderText = "废除";
+            this.Removed.Name = "Removed";
+            this.Removed.Visible = false;
+            // 
+            // shipCodeDataGridViewTextBoxColumn
+            // 
+            this.shipCodeDataGridViewTextBoxColumn.DataPropertyName = "ShipCode";
+            this.shipCodeDataGridViewTextBoxColumn.HeaderText = "凭证号";
+            this.shipCodeDataGridViewTextBoxColumn.Name = "shipCodeDataGridViewTextBoxColumn";
+            this.shipCodeDataGridViewTextBoxColumn.Width = 70;
+            // 
+            // customerDataGridViewTextBoxColumn
+            // 
+            this.customerDataGridViewTextBoxColumn.DataPropertyName = "Customer";
+            this.customerDataGridViewTextBoxColumn.DataSource = this.customerBindingSource;
+            this.customerDataGridViewTextBoxColumn.DisplayMember = "Name";
+            this.customerDataGridViewTextBoxColumn.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.customerDataGridViewTextBoxColumn.HeaderText = "客户";
+            this.customerDataGridViewTextBoxColumn.Name = "customerDataGridViewTextBoxColumn";
+            this.customerDataGridViewTextBoxColumn.ReadOnly = true;
+            this.customerDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.customerDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.customerDataGridViewTextBoxColumn.ValueMember = "CustomerID";
+            // 
+            // costDataGridViewTextBoxColumn
+            // 
+            this.costDataGridViewTextBoxColumn.DataPropertyName = "Cost";
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle15.Format = "N2";
+            dataGridViewCellStyle15.NullValue = null;
+            this.costDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle15;
+            this.costDataGridViewTextBoxColumn.HeaderText = "总计";
+            this.costDataGridViewTextBoxColumn.Name = "costDataGridViewTextBoxColumn";
+            this.costDataGridViewTextBoxColumn.Width = 90;
+            // 
+            // shipTimeDataGridViewTextBoxColumn
+            // 
+            this.shipTimeDataGridViewTextBoxColumn.DataPropertyName = "ShipTime";
+            this.shipTimeDataGridViewTextBoxColumn.HeaderText = "出货时间";
+            this.shipTimeDataGridViewTextBoxColumn.Name = "shipTimeDataGridViewTextBoxColumn";
+            this.shipTimeDataGridViewTextBoxColumn.Width = 90;
+            // 
+            // Checked
+            // 
+            this.Checked.DataPropertyName = "Checked";
+            this.Checked.HeaderText = "核";
+            this.Checked.Name = "Checked";
+            this.Checked.Width = 30;
             // 
             // shipmentBindingNavigator
             // 
@@ -790,82 +826,140 @@
             // 
             this.shipmentDetailTableAdapter1.ClearBeforeFill = true;
             // 
-            // ColumnID
+            // productBindingSource1
             // 
-            this.ColumnID.DataPropertyName = "ID";
-            this.ColumnID.HeaderText = "顺序";
-            this.ColumnID.Name = "ColumnID";
-            this.ColumnID.Width = 50;
+            this.productBindingSource1.DataMember = "Product";
+            this.productBindingSource1.DataSource = this.bakeryOrderSet;
             // 
-            // Removed
+            // tableAdapterManager1
             // 
-            this.Removed.DataPropertyName = "Removed";
-            this.Removed.HeaderText = "废除";
-            this.Removed.Name = "Removed";
-            this.Removed.Visible = false;
+            this.tableAdapterManager1.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager1.BakeryConfigTableAdapter = null;
+            this.tableAdapterManager1.CashierTableAdapter = null;
+            this.tableAdapterManager1.DrawerRecordTableAdapter = null;
+            this.tableAdapterManager1.HeaderTableAdapter = null;
+            this.tableAdapterManager1.OrderItemTableAdapter = null;
+            this.tableAdapterManager1.OrderTableAdapter = null;
+            this.tableAdapterManager1.ProductTableAdapter = this.productTableAdapter;
+            this.tableAdapterManager1.UpdateOrder = VoucherExpense.BakeryOrderSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
-            // shipCodeDataGridViewTextBoxColumn
+            // productClassBindingSource
             // 
-            this.shipCodeDataGridViewTextBoxColumn.DataPropertyName = "ShipCode";
-            this.shipCodeDataGridViewTextBoxColumn.HeaderText = "凭证号";
-            this.shipCodeDataGridViewTextBoxColumn.Name = "shipCodeDataGridViewTextBoxColumn";
-            this.shipCodeDataGridViewTextBoxColumn.Width = 70;
+            this.productClassBindingSource.DataMember = "ProductClass";
+            this.productClassBindingSource.DataSource = this.damaiDataSet;
+            this.productClassBindingSource.Filter = "";
+            this.productClassBindingSource.Sort = "ID  asc";
             // 
-            // customerDataGridViewTextBoxColumn
+            // productClassTableAdapter
             // 
-            this.customerDataGridViewTextBoxColumn.DataPropertyName = "Customer";
-            this.customerDataGridViewTextBoxColumn.DataSource = this.customerBindingSource;
-            this.customerDataGridViewTextBoxColumn.DisplayMember = "Name";
-            this.customerDataGridViewTextBoxColumn.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.customerDataGridViewTextBoxColumn.HeaderText = "客户";
-            this.customerDataGridViewTextBoxColumn.Name = "customerDataGridViewTextBoxColumn";
-            this.customerDataGridViewTextBoxColumn.ReadOnly = true;
-            this.customerDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.customerDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.customerDataGridViewTextBoxColumn.ValueMember = "CustomerID";
+            this.productClassTableAdapter.ClearBeforeFill = true;
             // 
-            // costDataGridViewTextBoxColumn
+            // tableAdapterManager2
             // 
-            this.costDataGridViewTextBoxColumn.DataPropertyName = "Cost";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle7.Format = "N2";
-            dataGridViewCellStyle7.NullValue = null;
-            this.costDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle7;
-            this.costDataGridViewTextBoxColumn.HeaderText = "总计";
-            this.costDataGridViewTextBoxColumn.Name = "costDataGridViewTextBoxColumn";
-            this.costDataGridViewTextBoxColumn.Width = 90;
+            this.tableAdapterManager2.AccountingTitleTableAdapter = this.accountingTitleTableAdapter1;
+            this.tableAdapterManager2.AccVoucherTableAdapter = null;
+            this.tableAdapterManager2.ApartmentTableAdapter = this.apartmentTableAdapter;
+            this.tableAdapterManager2.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager2.BakeryConfigTableAdapter = null;
+            this.tableAdapterManager2.BankAccountTableAdapter = null;
+            this.tableAdapterManager2.BankDetailTableAdapter = null;
+            this.tableAdapterManager2.CashierTableAdapter = null;
+            this.tableAdapterManager2.ConfigTableAdapter = null;
+            this.tableAdapterManager2.CustomerTableAdapter = this.customerTableAdapter1;
+            this.tableAdapterManager2.DrawerRecordTableAdapter = null;
+            this.tableAdapterManager2.ExpenseTableAdapter = null;
+            this.tableAdapterManager2.HeaderTableAdapter = null;
+            this.tableAdapterManager2.HRDetailTableAdapter = null;
+            this.tableAdapterManager2.HRTableAdapter = null;
+            this.tableAdapterManager2.IngredientTableAdapter = null;
+            this.tableAdapterManager2.InventoryDetailTableAdapter = null;
+            this.tableAdapterManager2.InventoryProductsTableAdapter = null;
+            this.tableAdapterManager2.InventoryTableAdapter = null;
+            this.tableAdapterManager2.OnDutyDataTableAdapter = null;
+            this.tableAdapterManager2.OperatorTableAdapter = this.operatorTableAdapter1;
+            this.tableAdapterManager2.OrderItemTableAdapter = null;
+            this.tableAdapterManager2.OrderTableAdapter = null;
+            this.tableAdapterManager2.PhotosTableAdapter = null;
+            this.tableAdapterManager2.ProductClassTableAdapter = this.productClassTableAdapter;
+            this.tableAdapterManager2.ProductScrappedDetailTableAdapter = null;
+            this.tableAdapterManager2.ProductScrappedTableAdapter = null;
+            this.tableAdapterManager2.ProductTableAdapter = this.productTableAdapter1;
+            this.tableAdapterManager2.ProgramTableAdapter = null;
+            this.tableAdapterManager2.RecipeDetailTableAdapter = null;
+            this.tableAdapterManager2.RecipeTableAdapter = null;
+            this.tableAdapterManager2.RequestsTableAdapter = null;
+            this.tableAdapterManager2.ShiftDetailTableAdapter = null;
+            this.tableAdapterManager2.ShiftTableTableAdapter = null;
+            this.tableAdapterManager2.ShipmentDetailTableAdapter = this.shipmentDetailTableAdapter1;
+            this.tableAdapterManager2.ShipmentTableAdapter = this.shipmentTableAdapter1;
+            this.tableAdapterManager2.UpdateOrder = VoucherExpense.DamaiDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.tableAdapterManager2.VEHeaderTableAdapter = null;
+            this.tableAdapterManager2.VendorTableAdapter = null;
+            this.tableAdapterManager2.VoucherDetailTableAdapter = null;
+            this.tableAdapterManager2.VoucherTableAdapter = null;
             // 
-            // shipTimeDataGridViewTextBoxColumn
+            // productClassComboBox
             // 
-            this.shipTimeDataGridViewTextBoxColumn.DataPropertyName = "ShipTime";
-            this.shipTimeDataGridViewTextBoxColumn.HeaderText = "出货时间";
-            this.shipTimeDataGridViewTextBoxColumn.Name = "shipTimeDataGridViewTextBoxColumn";
-            this.shipTimeDataGridViewTextBoxColumn.Width = 90;
+            this.productClassComboBox.DataSource = this.productClassBindingSource;
+            this.productClassComboBox.DisplayMember = "ProductClass";
+            this.productClassComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.productClassComboBox.FormattingEnabled = true;
+            this.productClassComboBox.Location = new System.Drawing.Point(793, 112);
+            this.productClassComboBox.Name = "productClassComboBox";
+            this.productClassComboBox.Size = new System.Drawing.Size(111, 24);
+            this.productClassComboBox.TabIndex = 83;
+            this.productClassComboBox.ValueMember = "ID";
+            this.productClassComboBox.SelectedValueChanged += new System.EventHandler(this.productClassComboBox_SelectedValueChanged);
             // 
-            // Checked
+            // checkedLabel
             // 
-            this.Checked.DataPropertyName = "Checked";
-            this.Checked.HeaderText = "核";
-            this.Checked.Name = "Checked";
-            this.Checked.Width = 30;
+            this.checkedLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkedLabel.AutoSize = true;
+            this.checkedLabel.Location = new System.Drawing.Point(737, 625);
+            this.checkedLabel.Name = "checkedLabel";
+            this.checkedLabel.Size = new System.Drawing.Size(40, 16);
+            this.checkedLabel.TabIndex = 84;
+            this.checkedLabel.Text = "核：";
+            // 
+            // checkedIDLabel
+            // 
+            this.checkedIDLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkedIDLabel.AutoSize = true;
+            this.checkedIDLabel.Location = new System.Drawing.Point(705, 654);
+            this.checkedIDLabel.Name = "checkedIDLabel";
+            this.checkedIDLabel.Size = new System.Drawing.Size(72, 16);
+            this.checkedIDLabel.TabIndex = 85;
+            this.checkedIDLabel.Text = "审核人：";
+            // 
+            // keyinIDLabel
+            // 
+            this.keyinIDLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.keyinIDLabel.AutoSize = true;
+            this.keyinIDLabel.Location = new System.Drawing.Point(456, 654);
+            this.keyinIDLabel.Name = "keyinIDLabel";
+            this.keyinIDLabel.Size = new System.Drawing.Size(72, 16);
+            this.keyinIDLabel.TabIndex = 86;
+            this.keyinIDLabel.Text = "输入人：";
             // 
             // FormShipment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(936, 694);
+            this.ClientSize = new System.Drawing.Size(938, 718);
+            this.Controls.Add(this.keyinIDLabel);
+            this.Controls.Add(this.checkedIDLabel);
+            this.Controls.Add(this.checkedLabel);
+            this.Controls.Add(productClassLabel);
+            this.Controls.Add(this.productClassComboBox);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.comboBoxMonth);
-            this.Controls.Add(keyinIDLabel);
-            this.Controls.Add(checkedIDLabel);
             this.Controls.Add(iDLabel);
             this.Controls.Add(this.iDLabel1);
             this.Controls.Add(lastUpdatedLabel);
             this.Controls.Add(this.lastUpdatedLabel1);
-            this.Controls.Add(checkedLabel);
             this.Controls.Add(this.checkedCheckBox);
             this.Controls.Add(removedLabel);
             this.Controls.Add(this.removedCheckBox);
@@ -892,14 +986,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.shipmentDetailDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.shipmentDetailBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.shipmentDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.shipmentBindingNavigator)).EndInit();
             this.shipmentBindingNavigator.ResumeLayout(false);
             this.shipmentBindingNavigator.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productClassBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -962,12 +1058,17 @@
         private DamaiDataSetTableAdapters.ProductTableAdapter productTableAdapter1;
         private System.Windows.Forms.DataGridViewTextBoxColumn shipmentIDDataGridViewTextBoxColumn;
         private DamaiDataSetTableAdapters.ShipmentDetailTableAdapter shipmentDetailTableAdapter1;
+        private System.Windows.Forms.BindingSource productBindingSource1;
+        private BakeryOrderSetTableAdapters.TableAdapterManager tableAdapterManager1;
+        private System.Windows.Forms.BindingSource productClassBindingSource;
+        private DamaiDataSetTableAdapters.ProductClassTableAdapter productClassTableAdapter;
+        private DamaiDataSetTableAdapters.TableAdapterManager tableAdapterManager2;
+        private System.Windows.Forms.ComboBox productClassComboBox;
         private System.Windows.Forms.DataGridViewTextBoxColumn detailColumnID;
         private System.Windows.Forms.DataGridViewComboBoxColumn dgvColumnProductID;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvColumnVolume;
         private System.Windows.Forms.DataGridViewComboBoxColumn ProductID;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvCostColumn;
-        private System.Windows.Forms.DataGridViewComboBoxColumn dgvColumnTitleCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnID;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Removed;
         private System.Windows.Forms.DataGridViewTextBoxColumn shipCodeDataGridViewTextBoxColumn;
@@ -975,5 +1076,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn costDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn shipTimeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Checked;
+        private System.Windows.Forms.Label checkedLabel;
+        private System.Windows.Forms.Label checkedIDLabel;
+        private System.Windows.Forms.Label keyinIDLabel;
     }
 }

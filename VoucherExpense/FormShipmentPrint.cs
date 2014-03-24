@@ -206,7 +206,7 @@ danwei.Text = item1.Unit;
                         Label allPageCostCount = new Label();
                         allPageCostCount.Text ="总金额："+ m_shipmentprint.CostAllCount.ToString("0.00");
                         allPageCostCount.Font = new Font("宋体", 10);
-                        allPageCostCount.Location = new Point(548,374);
+                        allPageCostCount.Location = new Point(548,376);
                         allPageCostCount.BackColor = Color.Transparent;
                         allPageCostCount.AutoSize = true;
                         tp.Controls.Add(allPageCostCount);
@@ -214,7 +214,7 @@ danwei.Text = item1.Unit;
                     Label thisPageCostCount = new Label();
                     thisPageCostCount.Text = pageCount.ToString("0.00");
                     thisPageCostCount.Font = new Font("宋体", 10);
-                    thisPageCostCount.Location = new Point(460, 374);
+                    thisPageCostCount.Location = new Point(460, 376);
                     thisPageCostCount.BackColor = Color.Transparent;
                     thisPageCostCount.AutoSize = true;
                     int b = thisPageCostCount.Width;
@@ -269,27 +269,33 @@ danwei.Text = item1.Unit;
         {
            Image image = global::VoucherExpense.Properties.Resources.shipment1;
           // Font font = new Font("宋体", 9); 
-            Brush brush = new SolidBrush(Color.Black);
-            Graphics g1 = Graphics.FromImage(image);
-            b = tabControl1.TabPages.Count;
-            foreach (Control c in tabControl1.TabPages[a].Controls)
-            {             
-                //if (c.Tag.ToString() == "Right")
-                //{
-                //    //PrintNum(g1, c.Font, brush, c.Text, c.Location.X * 2, c.Location.Y * 2);
-                //    SizeF size = g1.MeasureString(c.Text, c.Font);
-                //    g1.DrawString(c.Text, c.Font, brush, new PointF(c.Location.X * 2-(int)size.Width*2, c.Location.Y * 2));
-                //}
-                //else
-                //{
-                    g1.DrawString(c.Text, c.Font, brush,  c.Location.X*2,  c.Location.Y*2 );
-                //}
-            } 
-            g1.DrawString(DateTime.Now.ToString(), new Font("宋体", 7), brush, 565 * 2, 450 * 2);
-            g.DrawImage(image,new Point(0,-5));
+           Brush brush = new SolidBrush(Color.Black); if (a == b)
+           { g.DrawString("", new Font("", 9), brush, new PointF(0, 0)); }
+           else
+           {
+               Graphics g1 = Graphics.FromImage(image);
+               b = tabControl1.TabPages.Count;
+
+               foreach (Control c in tabControl1.TabPages[a].Controls)
+               {
+                   //if (c.Tag.ToString() == "Right")
+                   //{
+                   //    //PrintNum(g1, c.Font, brush, c.Text, c.Location.X * 2, c.Location.Y * 2);
+                   //    SizeF size = g1.MeasureString(c.Text, c.Font);
+                   //    g1.DrawString(c.Text, c.Font, brush, new PointF(c.Location.X * 2-(int)size.Width*2, c.Location.Y * 2));
+                   //}
+                   //else
+                   //{
+                   g1.DrawString(c.Text, c.Font, brush, c.Location.X * 2, c.Location.Y * 2);
+                   //}
+               }
+               g1.DrawString(DateTime.Now.ToString(), new Font("宋体", 7), brush, 565 * 2, 450 * 2);
+               g.DrawImage(image, new Point(0, -5));
+           }
             //g.DrawImage(VoucherExpense.Properties.Resources.shipment1, 0, 0, 800, 510);
             a += 1;
-            if (a < b)
+      
+            if (a < b+1)
             {
                 return true;
             }

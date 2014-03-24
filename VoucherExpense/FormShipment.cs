@@ -104,6 +104,8 @@ namespace VoucherExpense
         bool m_check = false;
         private void FormShipment_Load(object sender, EventArgs e)
         {
+            // TODO: 这行代码将数据加载到表“damaiDataSet.ProductClass”中。您可以根据需要移动或删除它。
+            this.productClassTableAdapter.Fill(this.damaiDataSet.ProductClass);
             // TODO: 这行代码将数据加载到表“damaiDataSet.ShipmentDetail”中。您可以根据需要移动或删除它。
             this.shipmentDetailTableAdapter1.Fill(this.damaiDataSet.ShipmentDetail);
             // TODO: 这行代码将数据加载到表“damaiDataSet.ShipmentDetail”中。您可以根据需要移动或删除它。
@@ -136,8 +138,22 @@ namespace VoucherExpense
               //  var opertatorrow = from row in vEDataSet.Operator where row.OperatorID == MyFunction.OperatorID select row;
                 var opertatorrow = from row in damaiDataSet.Operator where row.OperatorID == MyFunction.OperatorID select row;
                 var ro = opertatorrow.First();
-                m_edit = ro.EditShipment;
-                m_check = ro.LockShipment;
+                if (ro.IsEditShipmentNull())
+                {
+                    m_edit = false;
+                }
+                else
+                {
+                    m_edit = ro.EditShipment;
+                }
+                if (ro.IsLockShipmentNull())
+                {
+                    m_check = false;
+                }
+                else
+                {
+                    m_check = ro.LockShipment;
+                }
             }
             catch (Exception ex)
             {
@@ -147,8 +163,19 @@ namespace VoucherExpense
                 comboBoxMonth.SelectedIndex = comboBoxMonth.Items.Count - 1;
             else
                 comboBoxMonth.SelectedIndex = DateTime.Now.Month;
-        }
+            setVisible(m_check);
 
+        }
+        void setVisible(bool bo)
+        {
+            shipmentDataGridView.Columns["Checked"].Visible = bo;
+            checkedLabel.Visible = bo;
+            checkedCheckBox.Visible = bo;
+            comboBox2.Visible = bo;
+            comboBox1.Visible = bo;
+            keyinIDLabel.Visible = bo;
+            checkedIDLabel.Visible = bo;
+        }
         private void shipmentDetailDataGridView_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
         {
             DataGridViewRow row = e.Row;
@@ -336,7 +363,18 @@ namespace VoucherExpense
 
         private void checkedCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            ischecked = checkedCheckBox.Checked;
+            //if (removedCheckBox.Checked)
+            //{
+            //    if (checkedCheckBox.Checked)
+            //    {
+            //        checkedCheckBox.Checked = false;
+            //    }
+            //    else
+            //    {
+            //        checkedCheckBox.Checked = true;
+            //    }
+            //}
+
         }
 
         private void shipmentDataGridView_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
@@ -344,22 +382,26 @@ namespace VoucherExpense
             DataGridView view = (DataGridView)sender;
             DataGridViewRow row = view.Rows[e.RowIndex];
             DataGridViewCell cell = row.Cells["Removed"];
+            DataGridViewCell cell1 = row.Cells["Checked"];
             if (cell.ValueType != typeof(bool)) return;    // 不應該
             bool removed = false;
             if (cell.Value != null && cell.Value != DBNull.Value)
                 removed = (bool)cell.Value;
             Color color;
             if (removed)
-                color = Color.DarkCyan;
+            { color = Color.DarkGoldenrod;
+            cell1.ReadOnly = true;
+            }
             else if ((e.RowIndex % 2) != 0)
                 color = Color.Azure;
-            else 
+            else
                 color = Color.White;
             row.DefaultCellStyle.BackColor = color;
         }
 
         private void shipmentDataGridView_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
+            productClassComboBox.SelectedValue = 0;
             DataGridView view = (DataGridView)sender;
             DataGridViewRow row = view.Rows[e.RowIndex];
             DataGridViewCell cell = row.Cells["Removed"];
@@ -372,7 +414,6 @@ namespace VoucherExpense
                 removed = (bool)cell.Value;
             if (cell1.Value != null && cell1.Value != DBNull.Value)
                 ischecked = (bool)cell1.Value;
-
             if (removed)
             {//废除单
                 customerComboBox.Enabled = false;
@@ -397,6 +438,7 @@ namespace VoucherExpense
                 }
                 if (m_check)
                     checkedCheckBox.Enabled = true;
+               
 
             }
             if (ischecked)//已核
@@ -664,6 +706,50 @@ namespace VoucherExpense
             MessageBox.Show(string.Format("ShipmentDetail on Row{0} Col[{1}]:{2}", e.RowIndex, view.Columns[e.ColumnIndex].Name, e.Exception.Message));
         }
 
+        private void productClassComboBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+
+            //ComboBox box = (ComboBox)sender;
+            if (productClassComboBox.SelectedValue == null)
+            { return; }
+            SetProductFilter((int)productClassComboBox.SelectedValue);
+        }
+
+        void SetProductFilter(int ProductClassID)
+        {
+            string Select = "code>0 ";
+            if (ProductClassID >0)
+                Select += "and class=" + ProductClassID.ToString();
+            ModifyProductFilterForSafe(Select);
+        }
+        private void ModifyProductFilterForSafe(string Select)
+        {   // 避免出現ComboBox沒有的
+            foreach (DataGridViewRow row in shipmentDetailDataGridView.Rows)
+            {
+                DataGridViewCell cell = row.Cells["dgvColumnProductID"];
+                if (cell == null) continue;
+                if (cell.Value == null) continue;
+                if (cell.Value == DBNull.Value) continue;
+                Select += " OR ProductID=" + cell.Value.ToString();
+            }
+            productBindingSource.Filter = Select;
+        }
+
+        private void checkedCheckBox_Click(object sender, EventArgs e)
+        {
+            if (removedCheckBox.Checked)
+            {
+                MessageBox.Show("废除的单子没必要审核！");
+                if (checkedCheckBox.Checked)
+                {
+                    checkedCheckBox.Checked = false;
+                }
+                else
+                {
+                    checkedCheckBox.Checked = true;
+                }
+            }
+        }
 
     }
 

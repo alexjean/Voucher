@@ -43,6 +43,8 @@ namespace VoucherExpense
 
         private void EditBakeryProduct_Load(object sender, EventArgs e)
         {
+            // TODO: 这行代码将数据加载到表“damaiDataSet.ProductClass”中。您可以根据需要移动或删除它。
+            this.productClassTableAdapter.Fill(this.damaiDataSet.ProductClass);
             var accountingTitleAdapter = new MyAccountingTitleAdapter();
             productBindingSource.DataSource = m_DataSet;
             m_PhotoDirectoryExist = Directory.Exists(PhotoPath());
@@ -368,7 +370,7 @@ namespace VoucherExpense
             codeTextBox.Text = code;
             nameTextBox.Text = "产品" + code;
             priceTextBox.Text = "0";
-            classTextBox.Text = "1";
+            classComboBox.SelectedValue = 1;
             menuXTextBox.Text = "-2";
             menuYTextBox.Text = "0";
         }

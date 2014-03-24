@@ -457,8 +457,8 @@ namespace VoucherExpense
 
         private void pD_QueryPageSettings(object sender, QueryPageSettingsEventArgs e)
         {
-            e.PageSettings.PaperSize = new System.Drawing.Printing.PaperSize("", 850, 552);
-            e.PageSettings.Margins = new Margins(0, 0, 0, 0);
+            //e.PageSettings.PaperSize = new System.Drawing.Printing.PaperSize("", 850, 552);
+            //e.PageSettings.Margins = new Margins(0, 0, 0, 0);
         }     
     }
 }

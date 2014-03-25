@@ -84,6 +84,7 @@
             this.请款单ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.耗料ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.盤點ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.产品类别ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menu1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -118,6 +119,7 @@
             this.食材表MenuItem,
             this.配方表MenuItem,
             this.產品表MenuItem,
+            this.产品类别ToolStripMenuItem,
             this.編修菜單MenuItem,
             this.會計科目MenuItem,
             this.傳票設定MenuItem,
@@ -532,6 +534,13 @@
             this.盤點ToolStripMenuItem.Name = "盤點ToolStripMenuItem";
             this.盤點ToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
             // 
+            // 产品类别ToolStripMenuItem
+            // 
+            this.产品类别ToolStripMenuItem.Name = "产品类别ToolStripMenuItem";
+            this.产品类别ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.产品类别ToolStripMenuItem.Text = "产品类别";
+            this.产品类别ToolStripMenuItem.Click += new System.EventHandler(this.产品类别ToolStripMenuItem_Click);
+            // 
             // FormHome
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -613,6 +622,7 @@
         private System.Windows.Forms.ToolStripMenuItem 请款单ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 客户MenuItem;
         private System.Windows.Forms.ToolStripMenuItem 出货MenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 产品类别ToolStripMenuItem;
 
     }
 }

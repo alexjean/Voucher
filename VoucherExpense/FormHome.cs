@@ -49,6 +49,7 @@ namespace VoucherExpense
             basic.DropDownItems["食材表MenuItem"].Enabled   = Op.EditIngredient;
             basic.DropDownItems["配方表MenuItem"].Enabled   = Op.EditRecipe;
             basic.DropDownItems["產品表MenuItem"].Enabled   = Op.EditProduct;
+            basic.DropDownItems["产品类别ToolStripMenuItem"].Enabled = Op.EditProduct;
             basic.DropDownItems["編修菜單MenuItem"].Enabled = Op.EditProduct;
             basic.DropDownItems["供應商MenuItem"].Enabled   = Op.EditVendor;
             basic.DropDownItems["會計科目MenuItem"].Enabled = Op.EditAccountingTitle;
@@ -476,6 +477,11 @@ namespace VoucherExpense
         private void 单据ToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void 产品类别ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PopupOrRun("EditProductClass", typeof(EditProductClass));
         }
     }
 }

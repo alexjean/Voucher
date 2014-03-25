@@ -170,6 +170,12 @@
     <Compile Include="Class\MergeMdb.cs" />
     <Compile Include="Class\SortableBindingList.cs" />
     <Compile Include="Class\Excel.cs" />
+    <Compile Include="EditProductClass.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditProductClass.Designer.cs">
+      <DependentUpon>EditProductClass.cs</DependentUpon>
+    </Compile>
     <Compile Include="Expense.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -454,6 +460,9 @@
     <EmbeddedResource Include="EditBasicProduct.resx">
       <DependentUpon>EditBasicProduct.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditProductClass.resx">
+      <DependentUpon>EditProductClass.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Expense.resx">
       <SubType>Designer</SubType>

@@ -47,9 +47,12 @@
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.productClassBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.productClassBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
+<<<<<<< local
+            this.dGVColumnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+=======
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.dgvColumnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnClassName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+>>>>>>> other
             ((System.ComponentModel.ISupportInitialize)(this.productClassDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productClassBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
@@ -59,22 +62,17 @@
             // 
             // productClassDataGridView
             // 
-            this.productClassDataGridView.AllowUserToAddRows = false;
-            this.productClassDataGridView.AllowUserToDeleteRows = false;
-            this.productClassDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
             this.productClassDataGridView.AutoGenerateColumns = false;
             this.productClassDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
             this.productClassDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.productClassDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dgvColumnID,
-            this.ColumnClassName});
+            this.dGVColumnID,
+            this.dataGridViewTextBoxColumn2});
             this.productClassDataGridView.DataSource = this.productClassBindingSource;
-            this.productClassDataGridView.Location = new System.Drawing.Point(0, 29);
-            this.productClassDataGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.productClassDataGridView.Location = new System.Drawing.Point(0, 28);
             this.productClassDataGridView.Name = "productClassDataGridView";
             this.productClassDataGridView.RowTemplate.Height = 23;
-            this.productClassDataGridView.Size = new System.Drawing.Size(462, 647);
+            this.productClassDataGridView.Size = new System.Drawing.Size(274, 345);
             this.productClassDataGridView.TabIndex = 1;
             this.productClassDataGridView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.productClassDataGridView_CellBeginEdit);
             // 
@@ -225,7 +223,7 @@
             // 
             // productClassBindingNavigator
             // 
-            this.productClassBindingNavigator.AddNewItem = null;
+            this.productClassBindingNavigator.AddNewItem = this.bindingNavigatorAddNewItem;
             this.productClassBindingNavigator.BindingSource = this.productClassBindingSource;
             this.productClassBindingNavigator.CountItem = this.bindingNavigatorCountItem;
             this.productClassBindingNavigator.DeleteItem = null;
@@ -248,47 +246,48 @@
             this.productClassBindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
             this.productClassBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.productClassBindingNavigator.Name = "productClassBindingNavigator";
-            this.productClassBindingNavigator.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.productClassBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.productClassBindingNavigator.Size = new System.Drawing.Size(1017, 25);
+            this.productClassBindingNavigator.Size = new System.Drawing.Size(678, 25);
             this.productClassBindingNavigator.TabIndex = 0;
             this.productClassBindingNavigator.Text = "bindingNavigator1";
             // 
+<<<<<<< local
+            // dGVColumnID
+=======
             // toolStripButton1
+>>>>>>> other
             // 
+<<<<<<< local
+            this.dGVColumnID.DataPropertyName = "ID";
+            this.dGVColumnID.HeaderText = "编号";
+            this.dGVColumnID.Name = "dGVColumnID";
+=======
             this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton1.Text = "toolStripButton1";
+>>>>>>> other
             // 
-            // dgvColumnID
+<<<<<<< local
+            // dataGridViewTextBoxColumn2
             // 
-            this.dgvColumnID.DataPropertyName = "ID";
-            this.dgvColumnID.HeaderText = "编号";
-            this.dgvColumnID.MaxInputLength = 50;
-            this.dgvColumnID.Name = "dgvColumnID";
-            this.dgvColumnID.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "ProductClass";
+            this.dataGridViewTextBoxColumn2.HeaderText = "产品类别";
+            this.dataGridViewTextBoxColumn2.MaxInputLength = 20;
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
-            // ColumnClassName
-            // 
-            this.ColumnClassName.DataPropertyName = "ProductClass";
-            this.ColumnClassName.HeaderText = "产品类别";
-            this.ColumnClassName.MaxInputLength = 20;
-            this.ColumnClassName.Name = "ColumnClassName";
-            this.ColumnClassName.Width = 300;
-            // 
+=======
+>>>>>>> other
             // EditProductClass
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(1017, 676);
+            this.ClientSize = new System.Drawing.Size(678, 507);
             this.Controls.Add(this.productClassDataGridView);
             this.Controls.Add(this.productClassBindingNavigator);
-            this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "EditProductClass";
             this.Text = "产品类别";
             this.Load += new System.EventHandler(this.EditProductClass_Load);
@@ -322,8 +321,11 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
         private System.Windows.Forms.ToolStripButton productClassBindingNavigatorSaveItem;
         private System.Windows.Forms.BindingNavigator productClassBindingNavigator;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dGVColumnID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+<<<<<<< local
+=======
         private System.Windows.Forms.ToolStripButton toolStripButton1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvColumnID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnClassName;
+>>>>>>> other
     }
 }

@@ -49,6 +49,7 @@
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.productClassBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.productClassBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.productClassDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productClassBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
@@ -70,8 +71,7 @@
             this.productClassDataGridView.RowTemplate.Height = 23;
             this.productClassDataGridView.Size = new System.Drawing.Size(274, 345);
             this.productClassDataGridView.TabIndex = 1;
-            this.productClassDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.productClassDataGridView_DataError);
-            this.productClassDataGridView.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.productClassDataGridView_RowPrePaint);
+            this.productClassDataGridView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.productClassDataGridView_CellBeginEdit);
             // 
             // dGVColumnID
             // 
@@ -89,6 +89,7 @@
             // 
             this.productClassBindingSource.DataMember = "ProductClass";
             this.productClassBindingSource.DataSource = this.damaiDataSet;
+            this.productClassBindingSource.Filter = "ID>0";
             // 
             // damaiDataSet
             // 
@@ -218,6 +219,7 @@
             this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorAddNewItem.Text = "新添";
+            this.bindingNavigatorAddNewItem.Click += new System.EventHandler(this.AddNewItem_Click);
             // 
             // productClassBindingNavigatorSaveItem
             // 
@@ -245,7 +247,8 @@
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorSeparator2,
             this.bindingNavigatorAddNewItem,
-            this.productClassBindingNavigatorSaveItem});
+            this.productClassBindingNavigatorSaveItem,
+            this.toolStripButton1});
             this.productClassBindingNavigator.Location = new System.Drawing.Point(0, 0);
             this.productClassBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.productClassBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
@@ -253,20 +256,29 @@
             this.productClassBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.productClassBindingNavigator.Name = "productClassBindingNavigator";
             this.productClassBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.productClassBindingNavigator.Size = new System.Drawing.Size(468, 25);
+            this.productClassBindingNavigator.Size = new System.Drawing.Size(678, 25);
             this.productClassBindingNavigator.TabIndex = 0;
             this.productClassBindingNavigator.Text = "bindingNavigator1";
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton1.Text = "toolStripButton1";
             // 
             // EditProductClass
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(468, 372);
+            this.ClientSize = new System.Drawing.Size(678, 507);
             this.Controls.Add(this.productClassDataGridView);
             this.Controls.Add(this.productClassBindingNavigator);
             this.Name = "EditProductClass";
-            this.Text = "EditProductClass";
+            this.Text = "产品类别";
             this.Load += new System.EventHandler(this.EditProductClass_Load);
             ((System.ComponentModel.ISupportInitialize)(this.productClassDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productClassBindingSource)).EndInit();
@@ -286,8 +298,6 @@
         private DamaiDataSetTableAdapters.ProductClassTableAdapter productClassTableAdapter;
         private DamaiDataSetTableAdapters.TableAdapterManager tableAdapterManager;
         private System.Windows.Forms.DataGridView productClassDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dGVColumnID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveFirstItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMovePreviousItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator;
@@ -300,5 +310,8 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
         private System.Windows.Forms.ToolStripButton productClassBindingNavigatorSaveItem;
         private System.Windows.Forms.BindingNavigator productClassBindingNavigator;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dGVColumnID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
     }
 }

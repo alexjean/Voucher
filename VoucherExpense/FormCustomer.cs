@@ -29,7 +29,6 @@ namespace VoucherExpense
             {
                 MessageBox.Show("数据更新出现错误" + ex.ToString());
             }
-
         }
 
         private void FormCustomer_Load(object sender, EventArgs e)
@@ -44,7 +43,6 @@ namespace VoucherExpense
                 MessageBox.Show("数据加载出现错误"+ex.ToString());
             }
         }
-
 
         private void customerDataGridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {

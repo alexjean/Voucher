@@ -627,7 +627,6 @@
             // classComboBox
             // 
             this.classComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.productBindingSource, "Class", true));
-            this.classComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productClassBindingSource, "ProductClass", true));
             this.classComboBox.DataSource = this.productClassBindingSource;
             this.classComboBox.DisplayMember = "ProductClass";
             this.classComboBox.FormattingEnabled = true;

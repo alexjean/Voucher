@@ -314,8 +314,7 @@ Retry:
                     cmdStr = "CREATE TABLE [dbo].[SyncMD5Old](";
 	                cmdStr+= "  [ID] [uniqueidentifier] NOT NULL,";
 	                cmdStr+= "  [TableID] [int] NULL,";
-	                cmdStr+= "  [PKInt] [int] NULL,";
-	                cmdStr+= "  [PKUUID] [uniqueidentifier] NULL,";
+                    cmdStr += "  [PrimaryKey] [binary](16) NULL,";
                     cmdStr+= "  [MD5] [binary](16) NULL,";
                     cmdStr+= "  CONSTRAINT [PK_SyncMD5Old] PRIMARY KEY CLUSTERED ( [ID] ASC )"+ PrimaryKeyStandardOption;
                     break;
@@ -323,8 +322,7 @@ Retry:
                     cmdStr = "CREATE TABLE [dbo].[SyncMD5Now](";
                     cmdStr += "  [ID] [uniqueidentifier] NOT NULL,";
                     cmdStr += "  [TableID] [int] NULL,";
-                    cmdStr += "  [PKInt] [int] NULL,";
-                    cmdStr += "  [PKUUID] [uniqueidentifier] NULL,";
+                    cmdStr += "  [PrimaryKey] [binary](16) NULL,";
                     cmdStr += "  [MD5] [binary](16) NULL,";
                     cmdStr += "  CONSTRAINT [PK_SyncMD5Now] PRIMARY KEY CLUSTERED ( [ID] ASC )" + PrimaryKeyStandardOption;
                     break;
@@ -381,8 +379,7 @@ Retry:
         public enum RowStatus { Deleted, New, Changed,Unchanged };
         public class Md5Result
         {
-            public Int64 PrimaryKey;  // Int64.Min 則PK 不為Int
-            public Guid UniqueIdentifier;
+            public byte[] PrimaryKey;  // 一律為 byte[16]
             public byte[] Md5Old;
             public byte[] Md5Now;
             public RowStatus Status;
@@ -406,24 +403,50 @@ Retry:
             return str;
         }
 
+        static void IntToBinary16(int id,ref byte[] pk,int offset)
+        {
+            byte[] bts = BitConverter.GetBytes(id);
+            for (int i = 0; i < 4; i++) pk[i+offset] = bts[i];
+        }
+        static void Int64ToBinary16(Int64 id, ref byte[] pk, int offset)
+        {
+            byte[] bts = BitConverter.GetBytes(id);
+            for (int i = 0; i < 8; i++) pk[i + offset] = bts[i];
+        }
+        static void Int16ToBinary16(Int16 id, ref byte[] pk, int offset)
+        {
+            byte[] bts = BitConverter.GetBytes(id);
+            for (int i = 0; i < 2; i++) pk[i + offset] = bts[i];
+        }
+
+
+        public enum PrimaryKeyType { IntCombined, UniqueIdentifier, DateTime ,String};
         static public  List<Md5Result> CalcCompMd5(string tableName,SqlConnection conn,List<SqlColumnStruct> listStruct,Dictionary<string,int> IDLookupTable)
         {
             // 找出TableID
             if (!IDLookupTable.ContainsKey(tableName)) return null;
             int id = IDLookupTable[tableName];
             // 判斷主Key型態, 主Key中一有Guid就不理Int的部分,故只支援Int有複合主Key
-            bool isPKInt = true;
+//            bool isPKInt = true;
+            PrimaryKeyType PKType = PrimaryKeyType.IntCombined;
             foreach (var col in listStruct)
             {
                 if (col.IsPrimaryKey)
                 {
-                    if (col.DbType == SqlDbType.UniqueIdentifier)
+                    switch (col.DbType)
                     {
-                        isPKInt = false;
-                        break;
+                        case SqlDbType.UniqueIdentifier: PKType = PrimaryKeyType.UniqueIdentifier; break;
+                        case SqlDbType.SmallInt:
+                        case SqlDbType.TinyInt: 
+                        case SqlDbType.BigInt:
+                        case SqlDbType.Int:              PKType = PrimaryKeyType.IntCombined;      break;
+                        case SqlDbType.DateTime:         PKType = PrimaryKeyType.DateTime;         break;
+                        case SqlDbType.NChar:
+                        case SqlDbType.Char:
+                        case SqlDbType.VarChar:
+                        case SqlDbType.NVarChar:         PKType = PrimaryKeyType.String; break;
+                        default:                         return null;    // PrimaryKey不是UUID也不是Int目前無支援
                     }
-                    else if (col.DbType == SqlDbType.Int || col.DbType == SqlDbType.SmallInt || col.DbType == SqlDbType.BigInt || col.DbType== SqlDbType.TinyInt) break;
-                    else return null;     // PrimaryKey不是UUID也不是Int目前無支援
                 }
             }
             // 載入Old
@@ -431,9 +454,7 @@ Retry:
             adapterOld.Connection = conn;
             adapterOld.Adapter.SelectCommand = new SqlCommand("Select * from SyncMd5Old Where TableID=" + id.ToString());
             var tableOld = new DamaiDataSet.SyncMD5OldDataTable();
-            var intResult = new Dictionary<Int64, Md5Result>();
-            var guidResult = new Dictionary<Guid, Md5Result>();
-            //var listResult = new List<Md5Result>();
+            var dicResult = new Dictionary<byte[], Md5Result>();
             try
             {
                 adapterOld.Fill(tableOld);
@@ -442,16 +463,13 @@ Retry:
                     Md5Result result = new Md5Result();
                     result.Md5Old = row.MD5;
                     result.Status = RowStatus.Unchanged;
-                    if (isPKInt)
+                    switch (PKType)
                     {
-                        result.PrimaryKey = row.PKInt;
-                        intResult.Add(result.PrimaryKey, result);
-                    }
-                    else
-                    {
-                        result.PrimaryKey = Int64.MinValue;
-                        result.UniqueIdentifier = row.PKUUID;
-                        guidResult.Add(result.UniqueIdentifier, result);
+                        case PrimaryKeyType.DateTime:
+                        case PrimaryKeyType.IntCombined:
+                        case PrimaryKeyType.String:
+                        case PrimaryKeyType.UniqueIdentifier:  dicResult.Add(result.PrimaryKey, result); break;
+                        default: return null;
                     }
                 }
             }
@@ -468,11 +486,11 @@ Retry:
                     // 填MD5Now入listResult
                     foreach (DataRow row in table.Rows)
                     {
-                        int i = (int)row["ID"];
-                        Int64 pk=(Int64)i;
-                        if (intResult.Keys.Contains(pk))
+                        byte[] pk = new byte[16];
+                        IntToBinary16((int)row["ID"], ref pk, 0);
+                        if (dicResult.Keys.Contains(pk))
                         {
-                            Md5Result val = intResult[pk];
+                            Md5Result val = dicResult[pk];
                             val.Md5Now = (byte[])row["MD5"];
                             if (!val.SameMd5()) val.Status=RowStatus.Changed;
                         }
@@ -483,7 +501,7 @@ Retry:
                             val.Md5Old = null;
                             val.Md5Now = (byte[])row["MD5"];
                             val.Status = RowStatus.New;
-                            intResult.Add(pk, val);
+                            dicResult.Add(pk, val);
                         }
                     }
                 }
@@ -496,11 +514,11 @@ Retry:
                 try
                 {
                     adapterNow.Fill(table);
-                    Int64 pkInt = 0;
-                    Guid pkGuid=Guid.Empty;
                     foreach (DataRow row in table.Rows)
                     {
                         string str = "";
+                        int ofs = 0;
+                        byte[] pk = new byte[16];
                         foreach (SqlColumnStruct st in listStruct)
                         {
                             str += "|";
@@ -508,32 +526,37 @@ Retry:
                             if (obj == null || DBNull.Value == obj) continue; // Null不加入計算MD5
                             if (st.IsPrimaryKey)
                             {
-                                if (isPKInt)
+                                switch (PKType)
                                 {
-                                    if (st.DbType == SqlDbType.UniqueIdentifier) continue; // 不可能,跳過
-                                    else
-                                    {
-                                        switch (st.DbType)
-                                        {   // 所有Int型態的PrimaryKey都手工設置大於0, 此處才能正確
-                                            case SqlDbType.Int:    pkInt    += (pkInt << 32) + (int)obj;   break;    
-                                            case SqlDbType.BigInt: pkInt     = (Int64)obj; break;
-                                            case SqlDbType.TinyInt: pkInt   += (pkInt << 8 ) + (byte)obj;   break;
-                                            case SqlDbType.SmallInt: pkInt  += (pkInt << 16) + (Int16)obj; break;
-                                            default:
-                                                MessageBox.Show("無法辦認的PrimaryKey型態<" + st.DbType.ToString() + "> 欄位[" + st.Name + "]!"); break;
+                                    case PrimaryKeyType.IntCombined:
+                                        if (ofs > 8)
+                                        {
+                                            MessageBox.Show("整數型複合Key,只接受二個!");
+                                            return null;
                                         }
-                                    }
+                                        switch (st.DbType)
+                                        {
+                                            case SqlDbType.Int:     IntToBinary16((int)obj, ref pk, ofs);       break;
+                                            case SqlDbType.BigInt:  Int64ToBinary16((Int64)obj, ref pk, ofs);   break;
+                                            case SqlDbType.TinyInt: pk[ofs] = (byte)obj;                        break;
+                                            case SqlDbType.SmallInt:Int16ToBinary16((Int16)obj, ref pk, ofs);   break;
+                                            default:
+                                                MessageBox.Show("無法辦認的PrimaryKey型態<" + st.DbType.ToString() + "> 欄位[" + st.Name + "]!"); return null;
+                                        }
+                                        ofs += 8;
+                                        break;
+                                    case PrimaryKeyType.UniqueIdentifier:
+                                        pk = ((Guid)obj).ToByteArray();
+                                        break;
+                                    case PrimaryKeyType.DateTime:
+                                        DateTime dt = (DateTime)obj;
+                                        Int64ToBinary16(dt.ToBinary(), ref pk, 0);
+                                        break;
+                                    case PrimaryKeyType.String:
+                                        pk = MD5Provider.ComputeHash(Encoding.Unicode.GetBytes((string)obj));
+                                        break;
+                                    default: return null;
                                 }
-                                else
-                                {
-                                    if (st.DbType == SqlDbType.UniqueIdentifier)
-                                    {
-                                        pkInt = Int64.MinValue;
-                                        pkGuid = (Guid)obj;   // 轉的成嗎???
-                                    }
-                                    else continue;    // PrimaryKey是Int卻有UniqueIdentifier,基本不可能,跳過
-                                }
-
                             }
                             else
                                 switch (st.DbType)
@@ -567,49 +590,26 @@ Retry:
                                 }
                         }
                         byte[] md5 = MD5Provider.ComputeHash(Encoding.Unicode.GetBytes(str));   // 還沒考慮Detail
-                        if (isPKInt)
+                        if (dicResult.Keys.Contains(pk))
                         {
-                            if (intResult.Keys.Contains(pkInt))
-                            {
-                                Md5Result val = intResult[pkInt];
-                                val.Md5Now = md5;
-                                if (!val.SameMd5()) val.Status=RowStatus.Changed;
-                            }
-                            else
-                            {
-                                Md5Result val   = new Md5Result();
-                                val.PrimaryKey  = pkInt;
-                                val.Md5Old      = null;
-                                val.Md5Now      = md5;
-                                val.Status      = RowStatus.New;
-                                intResult.Add(pkInt, val);
-                            }
+                            Md5Result val = dicResult[pk];
+                            val.Md5Now = md5;
+                            if (!val.SameMd5()) val.Status=RowStatus.Changed;
                         }
                         else
                         {
-                            if (guidResult.Keys.Contains(pkGuid))
-                            {
-                                Md5Result val = guidResult[pkGuid];
-                                val.Md5Now = md5;
-                                if (!val.SameMd5()) val.Status = RowStatus.Changed;
-                            }
-                            else
-                            {
-                                Md5Result val = new Md5Result();
-                                val.PrimaryKey = Int64.MinValue;
-                                val.UniqueIdentifier = pkGuid;
-                                val.Md5Old = null;
-                                val.Md5Now = md5;
-                                val.Status = RowStatus.New;
-                                guidResult.Add(pkGuid, val);
-                            }
+                            Md5Result val   = new Md5Result();
+                            val.PrimaryKey  = pk;
+                            val.Md5Old      = null;
+                            val.Md5Now      = md5;
+                            val.Status      = RowStatus.New;
+                            dicResult.Add(pk, val);
                         }
                     }
                 }
                 catch (Exception ex) { throw ex; }
             }
-            if (isPKInt) return intResult.Values.ToList<Md5Result>();
-            return guidResult.Values.ToList<Md5Result>();
+            return dicResult.Values.ToList<Md5Result>();
         }
 
     }

@@ -71,15 +71,30 @@ namespace SyncCloud
             if (!dicStruct.Keys.Contains("SyncTable"))
             {
                 if (!DB.AskCreateDataTable(title, DB.SyncDataTable.SyncTable, conn))
-                    return false;
-                if (!DB.DropTable("SyncMD5Old", conn)) return false;
+                    goto FAIL;
+                if (!DB.DropTable("SyncMD5Old", conn)) goto FAIL;
             }
             if (!DB.CheckSyncTable(conn, title))                 // 檢查SyncTable存在
             {
                 Message(title+"SyncTable檢查失敗!");
-                return false;
+                goto FAIL;
             }
             dicTableID = DB.GetTableID(conn);                   // 分別載入Local及Cloud的存在SyncTable中的TableID
+            return true;
+         FAIL:
+            Message("==============================================");
+            return false;
+        }
+
+        bool DoCheckSyncMD5Old(string title, SqlConnection conn, ref Dictionary<string,List<DB.SqlColumnStruct>> dicStructs)
+        {
+            if (!dicStructs.Keys.Contains("SyncMD5Old"))
+            {
+                if (DB.AskCreateDataTable(title, DB.SyncDataTable.SyncMD5Old, conn))
+                    MessageBox.Show("己創建"+title+"<SyncMD5Old>, 請再執行同步!");
+                Message("======================================================");
+                return false;
+            }
             return true;
         }
 
@@ -97,6 +112,9 @@ namespace SyncCloud
             }
             if (!DoCheckSyncTable("本地", LocalServer, ref StructLocal, ref LocalTableID)) return;
             if (!DoCheckSyncTable("雲端", CloudServer, ref StructCloud, ref CloudTableID)) return;
+            if (!DoCheckSyncMD5Old("本地", LocalServer, ref StructLocal)) return;
+            if (!DoCheckSyncMD5Old("雲端", CloudServer, ref StructCloud)) return;
+
 
             int updatedVersion;
             if (!DB.GetDeletedVersion(CloudServer, out updatedVersion))  // 雲端Deleted的版本号
@@ -143,33 +161,72 @@ namespace SyncCloud
             // 鎖定同步
 
             // 比對 MD5Old 找出Deleted
-            if (!StructLocal.Keys.Contains("SyncMD5Old"))   // SyncMD5Old不存在
+            if (StructLocal.Keys.Contains(DB.SyncDataTable.SyncMD5Now.ToString()))
             {
-                if (!DB.AskCreateDataTable("本地", DB.SyncDataTable.SyncMD5Old, LocalServer))
+                if (MessageBox.Show("系統同步用資料庫SyncMD5Now存在, 要刪除嗎?", "", MessageBoxButtons.YesNo) != DialogResult.Yes)
                     return;
-            }
-            else
-            {
-                if (StructLocal.Keys.Contains(DB.SyncDataTable.SyncMD5Now.ToString()))
-                {
-                    if (MessageBox.Show("系統同步用資料庫SyncMD5Now存在, 要刪除嗎?", "", MessageBoxButtons.YesNo) != DialogResult.Yes)
-                        return;
-                    if (!DB.DropTable(DB.SyncDataTable.SyncMD5Now.ToString(),LocalServer)) return;
+                if (!DB.DropTable(DB.SyncDataTable.SyncMD5Now.ToString(),LocalServer)) return;
 
-                }
-                if (!DB.CreateDataTable(DB.SyncDataTable.SyncMD5Now, LocalServer))
+            }
+            if (!DB.CreateDataTable(DB.SyncDataTable.SyncMD5Now, LocalServer))
+            {
+                Message("無法創建本地端" + DB.SyncDataTable.SyncMD5Now.ToString() + ",可能之前同步當機,請手工排除!");
+                return;
+            }
+            DamaiDataSet.SyncMD5OldDataTable MD5LocalTable = new DamaiDataSet.SyncMD5OldDataTable();
+            DamaiDataSet.SyncMD5OldDataTable MD5CloudTable = new DamaiDataSet.SyncMD5OldDataTable();
+
+            // 找出MD5Old和現有Record的不同
+            foreach(var table in StructLocal)
+            {
+                string tableName=table.Key;
+                if (tableName.StartsWith("Sync")) continue;                            // 同步系統用檔案不用算Md5
+                List<DB.Md5Result> md5Local=DB.CalcCompMd5(tableName, LocalServer,table.Value,LocalTableID);
+                if (md5Local == null)
+                    Message("計算 MD5 <" + tableName + "> 時出錯!");
+                else
+                    Message("計算 MD5 <" + tableName + "> Ok!");
+
+                List<DB.Md5Result> md5Cloud = DB.CalcCompMd5(tableName, CloudServer, table.Value, CloudTableID);  // 這個將來一定要在雲端做,Unchanged就不傳回
+                if (md5Cloud == null)
+                    Message("計算 雲MD5 <" + tableName + "> 時出錯!");
+                else
+                    Message("計算 雲MD5 <" + tableName + "> Ok!");
+
+                var confilcts=from cld in md5Cloud where cld.Status!=DB.RowStatus.Unchanged
+                              join loc in md5Local on cld.PrimaryKey equals loc.PrimaryKey where loc.Status!=DB.RowStatus.Unchanged   // 這行要成立要改 MD5Old的結構成Binary(16)
+                              select cld;
+                foreach (var cf in confilcts)   // 雲端和本地都改的,雲端被蓋
+                    if (cf.Status != DB.RowStatus.Unchanged)
+                        cf.Status = DB.RowStatus.Unchanged;
+
+                              
+
+                foreach (var re in md5Local)
                 {
-                    Message("無法創建本地端" + DB.SyncDataTable.SyncMD5Now.ToString() + ",可能之前同步當機,請手工排除!");
-                    return;
+                    if (re.Status != DB.RowStatus.Unchanged)
+                    {
+                        DamaiDataSet.SyncMD5OldRow row = MD5LocalTable.NewSyncMD5OldRow();
+                        row.ID      = Guid.NewGuid();
+                        row.MD5     = re.Md5Now;
+                        row.PrimaryKey   = re.PrimaryKey;
+                        MD5LocalTable.AddSyncMD5OldRow(row);
+                    }
                 }
-                // 找出MD5Old和現有Record的不同
-                foreach(var table in StructLocal)
+
+                foreach (var re in md5Cloud)
                 {
-                    if (table.Key.StartsWith("Sync")) continue;                            // 同步系統用檔案不用算Md5
-                    List<DB.Md5Result> md5s=DB.CalcCompMd5(table.Key, LocalServer,table.Value,LocalTableID);
-                    if (md5s == null)
-                        Message("計算比較<" +table.Key + "> Md5時出錯!");
+                    if (re.Status != DB.RowStatus.Unchanged)
+                    {
+                        DamaiDataSet.SyncMD5OldRow row = MD5CloudTable.NewSyncMD5OldRow();
+                        row.ID = Guid.NewGuid();
+                        row.MD5 = re.Md5Now;
+                        row.PrimaryKey = re.PrimaryKey;
+                        MD5CloudTable.AddSyncMD5OldRow(row);
+                    }
                 }
+
+
             }
 
             // 記錄 Deleted 到雲端資料庫,記錄為(雲端Deleted版本号+1), 刪除雲端相對記錄
@@ -179,10 +236,13 @@ namespace SyncCloud
 
             // 算出 所有Table MD5Now
             // 比對新舊MD5 找出變更及新增資料 建本地差異表
-            // 呼叫StoredProcedure算雲端的MD5Now (Order OrderItem及Drawer不算)
+            // 算雲端的MD5Now (Order OrderItem及Drawer不算)
+
             // 傳回各表總MD5 及雲端差異表
 
             // 只存在本地差異表抓雲端, 沒有的新建
+
+
             // 己有的 (1 雲MD5和本地MD5同不動 2 雲端的MD5和本地Md5Old相同則蓋雲端 3 沒有1 2就本地蓋雲端)
             
             // 只存在雲端差異表抓本地,沒有的新建

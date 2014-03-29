@@ -98,6 +98,82 @@ namespace SyncCloud
             return true;
         }
 
+        object FindIntKey(byte[] PrimaryKey, int offset,SqlDbType DbType)
+        {
+            switch (DbType)
+            {
+                case SqlDbType.BigInt:      return (object)BitConverter.ToInt64(PrimaryKey, offset); 
+                case SqlDbType.Int:         return (object)BitConverter.ToInt32(PrimaryKey, offset); 
+                case SqlDbType.SmallInt:    return (object)BitConverter.ToInt16(PrimaryKey, offset);
+                case SqlDbType.TinyInt:     return (object)PrimaryKey[offset]; 
+            }
+            return null;
+        }
+
+        DataRow GetRowFromPrimaryKeyBinary16(byte[] PrimaryKey, DataTable table, List<DB.SqlColumnStruct> colStruct)
+        {
+            var Keys=from st in colStruct where st.IsPrimaryKey select st;
+            if (Keys.Count() == 0) return null;
+            try
+            {
+                if (Keys.Count() == 1)
+                {
+                    var key = Keys.First();
+                    var keyType = DB.GetKeyType(key.DbType);
+                    switch (keyType)
+                    {
+                        case DB.PrimaryKeyType.DateTime:         return table.Rows.Find(DateTime.FromBinary(BitConverter.ToInt64(PrimaryKey, 0)));
+                        case DB.PrimaryKeyType.IntCombined:      return table.Rows.Find(FindIntKey(PrimaryKey, 0, key.DbType));
+                        case DB.PrimaryKeyType.UniqueIdentifier: return table.Rows.Find(new Guid(PrimaryKey));
+                        case DB.PrimaryKeyType.String:           return table.Rows.Find(Encoding.Unicode.GetString(PrimaryKey));    // 最多支援8個字的Unicode???
+                    }
+                    return null;
+                }
+                else if (Keys.Count() == 2)
+                {
+                    var key1 = Keys.First();
+                    var key2 = Keys.Last();
+                    var key1Type = DB.GetKeyType(key1.DbType);
+                    var key2Type = DB.GetKeyType(key2.DbType);
+                    if (key1Type != DB.PrimaryKeyType.IntCombined) return null; // 複合Key只支援Int類
+                    if (key2Type != DB.PrimaryKeyType.IntCombined) return null;
+                    object k1 = FindIntKey(PrimaryKey, 0, key1.DbType);
+                    object k2 = FindIntKey(PrimaryKey, 8, key2.DbType);
+                    if (k1 == null || k2 == null) return null;
+                    return table.Rows.Find(new object[2] { k1, k2 });
+                }
+            }
+            catch(Exception ex)
+            {
+                Message("程式或資料錯誤！<GetRowFromPrimaryKeyBinary16>["+table.TableName+"] 原因:" + ex.Message);
+                throw ex;
+            }
+            return null;
+        }
+
+        void CopyRow(DataRow source,DataRow dest,List<DB.SqlColumnStruct> colStruct)
+        {
+            foreach (var col in colStruct)
+                dest[col.Name] = source[col.Name];
+        }
+
+        void UpdateData(string title,string tableName, DataTable table, SqlConnection conn)
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter("Select * From "+tableName,conn);
+            SqlCommandBuilder cb = new SqlCommandBuilder(adapter);
+            try
+            {
+                cb.GetUpdateCommand();
+                cb.GetInsertCommand();
+                cb.GetDeleteCommand();
+                adapter.Update(table);
+            }
+            catch (Exception ex)
+            {
+                Message(title + "寫出<" + tableName + ">錯誤,原因:" + ex.Message);
+            }
+        }
+
         private void btnSync_Click(object sender, EventArgs e)
         {
             if (!ConnectBothServer()) return;                           // 連本机 連雲端
@@ -181,52 +257,137 @@ namespace SyncCloud
             {
                 string tableName=table.Key;
                 if (tableName.StartsWith("Sync")) continue;                            // 同步系統用檔案不用算Md5
-                List<DB.Md5Result> md5Local=DB.CalcCompMd5(tableName, LocalServer,table.Value,LocalTableID);
-                if (md5Local == null)
-                    Message("計算 MD5 <" + tableName + "> 時出錯!");
-                else
-                    Message("計算 MD5 <" + tableName + "> Ok!");
-
-                List<DB.Md5Result> md5Cloud = DB.CalcCompMd5(tableName, CloudServer, table.Value, CloudTableID);  // 這個將來一定要在雲端做,Unchanged就不傳回
-                if (md5Cloud == null)
-                    Message("計算 雲MD5 <" + tableName + "> 時出錯!");
-                else
-                    Message("計算 雲MD5 <" + tableName + "> Ok!");
+                List<DB.SqlColumnStruct> colStruct=table.Value;
+                DataTable tableLocal = new DataTable(tableName);
+                List<DB.Md5Result> md5Local=DB.CalcCompMd5(tableName, LocalServer,colStruct,LocalTableID,ref tableLocal);
+                string msg=("計算MD5<" + tableName + "> ").PadRight(15);
+                if (md5Local == null)  msg+=" 本地出錯,";
+                else                   msg+=" 本地 Ok ,";
+                DataTable tableCloud = new DataTable(tableName);
+                List<DB.Md5Result> md5Cloud = DB.CalcCompMd5(tableName, CloudServer, colStruct, CloudTableID,ref tableCloud);  // 這個將來一定要在雲端做,Unchanged就不傳回
+                if (md5Cloud == null)  msg+=" 雲端出錯!";
+                else                   msg+=" 雲端 Ok !";
+                Message(msg);
 
                 var confilcts=from cld in md5Cloud where cld.Status!=DB.RowStatus.Unchanged
                               join loc in md5Local on cld.PrimaryKey equals loc.PrimaryKey where loc.Status!=DB.RowStatus.Unchanged   // 這行要成立要改 MD5Old的結構成Binary(16)
                               select cld;
                 foreach (var cf in confilcts)   // 雲端和本地都改的,雲端被蓋
                     if (cf.Status != DB.RowStatus.Unchanged)
-                        cf.Status = DB.RowStatus.Unchanged;
-
-                              
-
-                foreach (var re in md5Local)
+                        cf.Status  = DB.RowStatus.Unchanged;
+                if (tableName != "Order")     // Order特殊處理,DB.CalcCompMd5 並未讀入Order
                 {
-                    if (re.Status != DB.RowStatus.Unchanged)
+                    foreach (var re in md5Local)
                     {
-                        DamaiDataSet.SyncMD5OldRow row = MD5LocalTable.NewSyncMD5OldRow();
-                        row.ID      = Guid.NewGuid();
-                        row.MD5     = re.Md5Now;
-                        row.PrimaryKey   = re.PrimaryKey;
-                        MD5LocalTable.AddSyncMD5OldRow(row);
+                        if (re.Status != DB.RowStatus.Unchanged)
+                        {   // 更新本地MD5檔
+                            DamaiDataSet.SyncMD5OldRow row;
+                            if (re.Status == DB.RowStatus.New)
+                            {
+                                row = MD5LocalTable.NewSyncMD5OldRow();
+                                row.ID = Guid.NewGuid();
+                                row.MD5 = re.Md5Now;
+                                row.PrimaryKey = re.PrimaryKey;
+                                MD5LocalTable.AddSyncMD5OldRow(row);
+                            }
+                            else
+                            {
+                                var rows = from r in MD5LocalTable where r.PrimaryKey == re.PrimaryKey select r;
+                                if (rows.Count() > 0)
+                                {
+                                    row = rows.First();
+                                    row.MD5 = re.Md5Now;
+                                }
+                                else
+                                {
+                                    Message("程式有Bug! PrimaryKey<" + DB.Bytes2Hex(re.PrimaryKey) + ">");
+                                    continue;  // 不可能
+                                }
+                            }
+                            // 自本地取資料更新雲端真實檔案
+                            try
+                            {
+                                DataRow localRow = GetRowFromPrimaryKeyBinary16(re.PrimaryKey, tableLocal, colStruct);
+                                DataRow cloudRow = GetRowFromPrimaryKeyBinary16(re.PrimaryKey, tableCloud, colStruct);
+                                switch (re.Status)
+                                {
+                                    case DB.RowStatus.New:
+                                    case DB.RowStatus.Changed:
+                                        if (localRow == null) continue;  // 應該不可能
+                                        if (cloudRow == null)
+                                        {
+                                            cloudRow = tableCloud.NewRow();
+                                            CopyRow(localRow, cloudRow, colStruct);
+                                            tableCloud.Rows.Add(cloudRow);
+                                        }
+                                        else CopyRow(localRow, cloudRow, colStruct);
+                                        break;
+                                    case DB.RowStatus.Deleted:
+                                        if (cloudRow != null) cloudRow.Delete();
+                                        break;
+                                    default: break;
+                                }
+                            }
+                            catch { break; }
+                        }
                     }
+                    UpdateData("雲端", tableName, tableCloud, CloudServer);
                 }
-
-                foreach (var re in md5Cloud)
+                if (tableName != "Order")     // Order特殊處理, 雲端不更新本地
                 {
-                    if (re.Status != DB.RowStatus.Unchanged)
-                    {
-                        DamaiDataSet.SyncMD5OldRow row = MD5CloudTable.NewSyncMD5OldRow();
-                        row.ID = Guid.NewGuid();
-                        row.MD5 = re.Md5Now;
-                        row.PrimaryKey = re.PrimaryKey;
-                        MD5CloudTable.AddSyncMD5OldRow(row);
+                    foreach (var re in md5Cloud)
+                    {   // 更新雲端MD5檔
+                        DamaiDataSet.SyncMD5OldRow row;
+                        if (re.Status == DB.RowStatus.New)
+                        {
+                            row = MD5CloudTable.NewSyncMD5OldRow();
+                            row.ID = Guid.NewGuid();
+                            row.MD5 = re.Md5Now;
+                            row.PrimaryKey = re.PrimaryKey;
+                            MD5CloudTable.AddSyncMD5OldRow(row);
+                        }
+                        else
+                        {
+                            var rows = from r in MD5CloudTable where r.PrimaryKey == re.PrimaryKey select r;
+                            if (rows.Count() > 0)
+                            {
+                                row = rows.First();
+                                row.MD5 = re.Md5Now;
+                            }
+                            else
+                            {
+                                Message("程式有Bug! PrimaryKey<" + DB.Bytes2Hex(re.PrimaryKey) + ">");
+                                continue;  // 不可能
+                            }
+                        }
+                        // 自雲端取資料更新本地真實檔案
+                        try
+                        {
+                            DataRow localRow = GetRowFromPrimaryKeyBinary16(re.PrimaryKey, tableLocal, colStruct);
+                            DataRow cloudRow = GetRowFromPrimaryKeyBinary16(re.PrimaryKey, tableCloud, colStruct);
+                            switch (re.Status)
+                            {
+                                case DB.RowStatus.New:
+                                case DB.RowStatus.Changed:
+                                    if (cloudRow == null) continue;  // 應該不可能
+                                    if (localRow == null)
+                                    {
+                                        localRow = tableLocal.NewRow();
+                                        CopyRow(cloudRow, localRow, colStruct);
+                                        tableCloud.Rows.Add(localRow);
+                                    }
+                                    else CopyRow(cloudRow, localRow, colStruct);
+                                    break;
+                                case DB.RowStatus.Deleted:
+                                    if (localRow != null) localRow.Delete();
+                                    break;
+                                default: break;
+                            }
+                        }
+                        catch { break; }
                     }
+                    UpdateData("本地", tableName, tableLocal, LocalServer);
                 }
-
-
             }
 
             // 記錄 Deleted 到雲端資料庫,記錄為(雲端Deleted版本号+1), 刪除雲端相對記錄

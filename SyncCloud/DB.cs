@@ -395,7 +395,7 @@ Retry:
             }
         }
 
-        static string Bytes2Hex(byte[] bytes)
+        public static string Bytes2Hex(byte[] bytes)
         {
             string str = "";
             foreach (byte b in bytes)
@@ -420,33 +420,40 @@ Retry:
         }
 
 
-        public enum PrimaryKeyType { IntCombined, UniqueIdentifier, DateTime ,String};
-        static public  List<Md5Result> CalcCompMd5(string tableName,SqlConnection conn,List<SqlColumnStruct> listStruct,Dictionary<string,int> IDLookupTable)
+        public enum PrimaryKeyType { IntCombined, UniqueIdentifier, DateTime ,String,Unknown};
+        public static PrimaryKeyType GetKeyType(SqlDbType DbType)
+        {
+            switch (DbType)
+            {
+                case SqlDbType.UniqueIdentifier:
+                                            return PrimaryKeyType.UniqueIdentifier; 
+                case SqlDbType.SmallInt:
+                case SqlDbType.TinyInt:
+                case SqlDbType.BigInt:
+                case SqlDbType.Int:         return PrimaryKeyType.IntCombined; 
+                case SqlDbType.DateTime:    return PrimaryKeyType.DateTime; 
+                case SqlDbType.NChar:
+                case SqlDbType.Char:
+                case SqlDbType.VarChar:
+                case SqlDbType.NVarChar:    return PrimaryKeyType.String; 
+                default: return PrimaryKeyType.Unknown;    
+            }
+        }
+
+        static public  List<Md5Result> CalcCompMd5(string tableName,SqlConnection conn,List<SqlColumnStruct> listStruct,Dictionary<string,int> IDLookupTable,ref DataTable tableNow)
         {
             // 找出TableID
             if (!IDLookupTable.ContainsKey(tableName)) return null;
             int id = IDLookupTable[tableName];
-            // 判斷主Key型態, 主Key中一有Guid就不理Int的部分,故只支援Int有複合主Key
-//            bool isPKInt = true;
+            // 判斷主Key型態
             PrimaryKeyType PKType = PrimaryKeyType.IntCombined;
             foreach (var col in listStruct)
             {
                 if (col.IsPrimaryKey)
                 {
-                    switch (col.DbType)
-                    {
-                        case SqlDbType.UniqueIdentifier: PKType = PrimaryKeyType.UniqueIdentifier; break;
-                        case SqlDbType.SmallInt:
-                        case SqlDbType.TinyInt: 
-                        case SqlDbType.BigInt:
-                        case SqlDbType.Int:              PKType = PrimaryKeyType.IntCombined;      break;
-                        case SqlDbType.DateTime:         PKType = PrimaryKeyType.DateTime;         break;
-                        case SqlDbType.NChar:
-                        case SqlDbType.Char:
-                        case SqlDbType.VarChar:
-                        case SqlDbType.NVarChar:         PKType = PrimaryKeyType.String; break;
-                        default:                         return null;    // PrimaryKey不是UUID也不是Int目前無支援
-                    }
+                    PKType=GetKeyType(col.DbType);
+                    if (PKType == PrimaryKeyType.Unknown) return null;
+                    break;    // 找到第一個就夠了
                 }
             }
             // 載入Old
@@ -510,11 +517,11 @@ Retry:
             else
             {
                 SqlDataAdapter adapterNow = new SqlDataAdapter("Select * From [" + tableName + "]", conn);
-                DataTable table = new DataTable();
+                adapterNow.MissingSchemaAction = MissingSchemaAction.AddWithKey;
                 try
                 {
-                    adapterNow.Fill(table);
-                    foreach (DataRow row in table.Rows)
+                    adapterNow.Fill(tableNow);
+                    foreach (DataRow row in tableNow.Rows)
                     {
                         string str = "";
                         int ofs = 0;
@@ -575,6 +582,7 @@ Retry:
                                     case SqlDbType.SmallMoney:
                                     case SqlDbType.Decimal: str += ((decimal)obj).ToString("N2"); break;
                                     case SqlDbType.Float: str += ((Double)obj).ToString("F4"); break;                      // float目前暫時用N4
+                                    case SqlDbType.Real: str += ((Single)obj).ToString("F4"); break;
                                     case SqlDbType.SmallDateTime:
                                     case SqlDbType.DateTime: str += ((DateTime)obj).ToString("yyyy-MM-dd hh:mm:ss"); break;
                                     case SqlDbType.Binary:
@@ -612,5 +620,50 @@ Retry:
             return dicResult.Values.ToList<Md5Result>();
         }
 
+        public static Type SqlType2CsharpType(SqlDbType sqlType)
+        {
+            switch (sqlType)
+            {
+                case SqlDbType.BigInt: return typeof(Int64);
+                case SqlDbType.Binary: return typeof(Object);
+                case SqlDbType.Bit: return typeof(Boolean);
+                case SqlDbType.Char: return typeof(String);
+                case SqlDbType.DateTime: return typeof(DateTime);
+                case SqlDbType.Decimal: return typeof(Decimal);
+                case SqlDbType.Float: return typeof(Double);
+                case SqlDbType.Image: return typeof(Object);
+                case SqlDbType.Int: return typeof(Int32);
+                case SqlDbType.Money: return typeof(Decimal);
+                case SqlDbType.NChar: return typeof(String);
+                case SqlDbType.NText: return typeof(String);
+                case SqlDbType.NVarChar: return typeof(String);
+                case SqlDbType.Real: return typeof(Single);
+                case SqlDbType.SmallDateTime: return typeof(DateTime);
+                case SqlDbType.SmallInt: return typeof(Int16);
+                case SqlDbType.SmallMoney: return typeof(Decimal);
+                case SqlDbType.Text: return typeof(String);
+                case SqlDbType.Timestamp: return typeof(Object);
+                case SqlDbType.TinyInt: return typeof(Byte);
+                case SqlDbType.Udt: return typeof(Object); //自定义的数据类型
+                case SqlDbType.UniqueIdentifier: return typeof(Object);
+                case SqlDbType.VarBinary: return typeof(Object);
+                case SqlDbType.VarChar: return typeof(String);
+                case SqlDbType.Variant: return typeof(Object);
+                case SqlDbType.Xml: return typeof(Object);
+                default: return null;
+            }
+        }
+
+
+        //public static void CreatePrimaryKey(DataTable table, List<SqlColumnStruct> colStruct)
+        //{
+        //    List<DataColumn> list=new List<DataColumn>();
+        //    foreach(var ke in colStruct)
+        //    {
+        //        if (!ke.IsPrimaryKey) continue;
+        //        list.Add(table.Columns[ke.Name]);
+        //    }
+        //    table.PrimaryKey = list.ToArray();
+        //}
     }
 }

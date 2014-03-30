@@ -180,7 +180,7 @@ Retry:
             public bool IsPrimaryKey=false;
             static public SqlDbType ConvertToDbType(string typeName)
             {
-                int n = (int)(SqlDbType.DateTimeOffset);
+                int n = (int)(SqlDbType.DateTimeOffset);     // DateTimeOffset是最後一個,當作Count來用
                 for(int i=0;i<=n;i++)
                 {
                     SqlDbType t=(SqlDbType)i;
@@ -233,6 +233,24 @@ Retry:
             finally { adapter.Dispose(); primaryAdapter.Dispose(); }
 
             return list;
+        }
+
+        static public bool SameStructWithPK(List<SqlColumnStruct> local, List<SqlColumnStruct> cloud)
+        {
+            if (local.Count != cloud.Count) return false;
+            int count = local.Count;
+            for (int i = 0; i < count; i++)
+            {
+                var l = local[i];
+                var c = cloud[i];
+                if (l.DbType        != c.DbType)        return false;
+                if (l.IsNullable    != c.IsNullable)    return false;
+                if (l.IsPrimaryKey  != c.IsPrimaryKey)  return false;
+                if (l.Length        != c.Length)        return false;
+                if (l.Name          != c.Name)          return false;
+                // TableName不比對
+            }
+            return true;
         }
 
         static public bool SameStruct(string TableName, SqlConnection DB1, SqlConnection DB2)
@@ -440,11 +458,19 @@ Retry:
             }
         }
 
-        static public  List<Md5Result> CalcCompMd5(string tableName,SqlConnection conn,List<SqlColumnStruct> listStruct,Dictionary<string,int> IDLookupTable,ref DataTable tableNow)
+        static public int FindTableID(string tableName, Dictionary<string, int> IDLookupTable)
         {
             // 找出TableID
-            if (!IDLookupTable.ContainsKey(tableName)) return null;
-            int id = IDLookupTable[tableName];
+            if (!IDLookupTable.ContainsKey(tableName)) return int.MinValue;
+            return IDLookupTable[tableName];
+        }
+
+        static public List<Md5Result> CalcCompMd5(string tableName, SqlConnection conn, List<SqlColumnStruct> listStruct, Dictionary<string, int> IDLookupTable,
+                                                    ref DataTable tableNow, ref DamaiDataSet.SyncMD5OldDataTable tableMd5Old)
+        {
+            int tableID = FindTableID(tableName, IDLookupTable);
+            if (tableID == int.MinValue) return null;
+
             // 判斷主Key型態
             PrimaryKeyType PKType = PrimaryKeyType.IntCombined;
             foreach (var col in listStruct)
@@ -459,15 +485,16 @@ Retry:
             // 載入Old
             var adapterOld = new DamaiDataSetTableAdapters.SyncMD5OldTableAdapter();
             adapterOld.Connection = conn;
-            adapterOld.Adapter.SelectCommand = new SqlCommand("Select * from SyncMd5Old Where TableID=" + id.ToString());
-            var tableOld = new DamaiDataSet.SyncMD5OldDataTable();
+            adapterOld.Adapter.SelectCommand = new SqlCommand("Select * from SyncMd5Old Where TableID=" + tableID.ToString());
             var dicResult = new Dictionary<byte[], Md5Result>();
             try
             {
-                adapterOld.Fill(tableOld);
-                foreach (var row in tableOld)
+                adapterOld.Fill(tableMd5Old);
+                foreach (var row in tableMd5Old)
                 {
+                    if (row.MD5 == null || row.MD5 == Convert.DBNull) continue;   // 資料庫內md5是dbnull,不應該
                     Md5Result result = new Md5Result();
+                    result.PrimaryKey = row.PrimaryKey;
                     result.Md5Old = row.MD5;
                     result.Status = RowStatus.Unchanged;
                     switch (PKType)
@@ -654,16 +681,44 @@ Retry:
             }
         }
 
-
-        //public static void CreatePrimaryKey(DataTable table, List<SqlColumnStruct> colStruct)
-        //{
-        //    List<DataColumn> list=new List<DataColumn>();
-        //    foreach(var ke in colStruct)
-        //    {
-        //        if (!ke.IsPrimaryKey) continue;
-        //        list.Add(table.Columns[ke.Name]);
-        //    }
-        //    table.PrimaryKey = list.ToArray();
-        //}
+        public static void UpdateMd5Old(List<Md5Result> changedMd5,int tableID,SqlConnection Conn,DamaiDataSet.SyncMD5OldDataTable table)
+        {
+            string sqlCmd = "Select * from SyncMd5Old Where TableID=" + tableID.ToString();    // 必需和 CalcCompMd5 內一致
+            foreach(var md5 in changedMd5)
+            {
+                if (md5.Status == DB.RowStatus.Unchanged) continue; 
+                var rows = from r in table where r.PrimaryKey == md5.PrimaryKey select r;
+                if (md5.Status == DB.RowStatus.Deleted)
+                {
+                    if (rows.Count() != 0)
+                        foreach (var r in rows) r.Delete();
+                }
+                else
+                {
+                    if (rows.Count() == 0)
+                    {
+                        var row = table.NewSyncMD5OldRow();
+                        row.ID = Guid.NewGuid();
+                        row.MD5 = md5.Md5Now;
+                        row.PrimaryKey = md5.PrimaryKey;
+                        row.TableID = tableID;
+                        table.AddSyncMD5OldRow(row);
+                    }
+                    else
+                    {
+                        var row = rows.First();
+                        row.MD5 = md5.Md5Now;
+                    }
+                }
+            }
+            var adapter = new DamaiDataSetTableAdapters.SyncMD5OldTableAdapter();
+            adapter.Connection = Conn;
+            adapter.Adapter.SelectCommand = new SqlCommand(sqlCmd);
+            try
+            {
+                adapter.Update(table);
+            }
+            catch { }
+        }
     }
 }

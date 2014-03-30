@@ -213,7 +213,8 @@ namespace SyncCloud
                 if (StructCloud.Keys.Contains(local))
                 {
                     StructLocal[local] = DB.GetStruct(local, LocalServer);
-                    if (!DB.SameStruct(local, LocalServer, CloudServer))
+                    StructCloud[local] = DB.GetStruct(local, CloudServer);
+                    if (!DB.SameStructWithPK(StructLocal[local],StructCloud[local]))
                     {
                         Message("不同    " + local);
                         if (local.Length > 4 && local.Substring(0, 4) == "Sync")
@@ -259,108 +260,58 @@ namespace SyncCloud
                 if (tableName.StartsWith("Sync")) continue;                            // 同步系統用檔案不用算Md5
                 List<DB.SqlColumnStruct> colStruct=table.Value;
                 DataTable tableLocal = new DataTable(tableName);
-                List<DB.Md5Result> md5Local=DB.CalcCompMd5(tableName, LocalServer,colStruct,LocalTableID,ref tableLocal);
+                int tableID=DB.FindTableID(tableName,LocalTableID);
+                List<DB.Md5Result> md5ResultLocal=DB.CalcCompMd5(tableName, LocalServer,colStruct,LocalTableID,ref tableLocal,ref MD5LocalTable);
                 string msg=("計算MD5<" + tableName + "> ").PadRight(15);
-                if (md5Local == null)  msg+=" 本地出錯,";
+                if (md5ResultLocal == null)  msg+=" 本地出錯,";
                 else                   msg+=" 本地 Ok ,";
                 DataTable tableCloud = new DataTable(tableName);
-                List<DB.Md5Result> md5Cloud = DB.CalcCompMd5(tableName, CloudServer, colStruct, CloudTableID,ref tableCloud);  // 這個將來一定要在雲端做,Unchanged就不傳回
-                if (md5Cloud == null)  msg+=" 雲端出錯!";
+                List<DB.Md5Result> md5ResultCloud = DB.CalcCompMd5(tableName, CloudServer, colStruct, CloudTableID,ref tableCloud,ref MD5CloudTable);  // 這個將來一定要在雲端做,Unchanged就不傳回
+                if (md5ResultCloud == null)  msg+=" 雲端出錯!";
                 else                   msg+=" 雲端 Ok !";
                 Message(msg);
 
-                var confilcts=from cld in md5Cloud where cld.Status!=DB.RowStatus.Unchanged
-                              join loc in md5Local on cld.PrimaryKey equals loc.PrimaryKey where loc.Status!=DB.RowStatus.Unchanged   // 這行要成立要改 MD5Old的結構成Binary(16)
+                var confilcts=from cld in md5ResultCloud where cld.Status!=DB.RowStatus.Unchanged
+                              join loc in md5ResultLocal on cld.PrimaryKey equals loc.PrimaryKey where loc.Status!=DB.RowStatus.Unchanged   // 這行要成立要改 MD5Old的結構成Binary(16)
                               select cld;
                 foreach (var cf in confilcts)   // 雲端和本地都改的,雲端被蓋
                     if (cf.Status != DB.RowStatus.Unchanged)
                         cf.Status  = DB.RowStatus.Unchanged;
-                if (tableName != "Order")     // Order特殊處理,DB.CalcCompMd5 並未讀入Order
+                if (tableName != "Order")     // Order特殊處理,DB.CalcCompMd5 並未讀入Order,, 雲端不更新本地
                 {
-                    foreach (var re in md5Local)
+                    foreach (var re in md5ResultLocal)
                     {
-                        if (re.Status != DB.RowStatus.Unchanged)
-                        {   // 更新本地MD5檔
-                            DamaiDataSet.SyncMD5OldRow row;
-                            if (re.Status == DB.RowStatus.New)
+                        // 自本地取資料更新雲端真實檔案
+                        try
+                        {
+                            DataRow localRow = GetRowFromPrimaryKeyBinary16(re.PrimaryKey, tableLocal, colStruct);
+                            DataRow cloudRow = GetRowFromPrimaryKeyBinary16(re.PrimaryKey, tableCloud, colStruct);
+                            switch (re.Status)
                             {
-                                row = MD5LocalTable.NewSyncMD5OldRow();
-                                row.ID = Guid.NewGuid();
-                                row.MD5 = re.Md5Now;
-                                row.PrimaryKey = re.PrimaryKey;
-                                MD5LocalTable.AddSyncMD5OldRow(row);
+                                case DB.RowStatus.New:
+                                case DB.RowStatus.Changed:
+                                    if (localRow == null) continue;  // 應該不可能
+                                    if (cloudRow == null)
+                                    {
+                                        cloudRow = tableCloud.NewRow();
+                                        CopyRow(localRow, cloudRow, colStruct);
+                                        tableCloud.Rows.Add(cloudRow);
+                                    }
+                                    else CopyRow(localRow, cloudRow, colStruct);
+                                    break;
+                                case DB.RowStatus.Deleted:
+                                    if (cloudRow != null) cloudRow.Delete();
+                                    break;
+                                default: break;
                             }
-                            else
-                            {
-                                var rows = from r in MD5LocalTable where r.PrimaryKey == re.PrimaryKey select r;
-                                if (rows.Count() > 0)
-                                {
-                                    row = rows.First();
-                                    row.MD5 = re.Md5Now;
-                                }
-                                else
-                                {
-                                    Message("程式有Bug! PrimaryKey<" + DB.Bytes2Hex(re.PrimaryKey) + ">");
-                                    continue;  // 不可能
-                                }
-                            }
-                            // 自本地取資料更新雲端真實檔案
-                            try
-                            {
-                                DataRow localRow = GetRowFromPrimaryKeyBinary16(re.PrimaryKey, tableLocal, colStruct);
-                                DataRow cloudRow = GetRowFromPrimaryKeyBinary16(re.PrimaryKey, tableCloud, colStruct);
-                                switch (re.Status)
-                                {
-                                    case DB.RowStatus.New:
-                                    case DB.RowStatus.Changed:
-                                        if (localRow == null) continue;  // 應該不可能
-                                        if (cloudRow == null)
-                                        {
-                                            cloudRow = tableCloud.NewRow();
-                                            CopyRow(localRow, cloudRow, colStruct);
-                                            tableCloud.Rows.Add(cloudRow);
-                                        }
-                                        else CopyRow(localRow, cloudRow, colStruct);
-                                        break;
-                                    case DB.RowStatus.Deleted:
-                                        if (cloudRow != null) cloudRow.Delete();
-                                        break;
-                                    default: break;
-                                }
-                            }
-                            catch { break; }
                         }
+                        catch { break; }
                     }
                     UpdateData("雲端", tableName, tableCloud, CloudServer);
-                }
-                if (tableName != "Order")     // Order特殊處理, 雲端不更新本地
-                {
-                    foreach (var re in md5Cloud)
-                    {   // 更新雲端MD5檔
-                        DamaiDataSet.SyncMD5OldRow row;
-                        if (re.Status == DB.RowStatus.New)
-                        {
-                            row = MD5CloudTable.NewSyncMD5OldRow();
-                            row.ID = Guid.NewGuid();
-                            row.MD5 = re.Md5Now;
-                            row.PrimaryKey = re.PrimaryKey;
-                            MD5CloudTable.AddSyncMD5OldRow(row);
-                        }
-                        else
-                        {
-                            var rows = from r in MD5CloudTable where r.PrimaryKey == re.PrimaryKey select r;
-                            if (rows.Count() > 0)
-                            {
-                                row = rows.First();
-                                row.MD5 = re.Md5Now;
-                            }
-                            else
-                            {
-                                Message("程式有Bug! PrimaryKey<" + DB.Bytes2Hex(re.PrimaryKey) + ">");
-                                continue;  // 不可能
-                            }
-                        }
-                        // 自雲端取資料更新本地真實檔案
+
+                    // 變更雲端部分
+                    foreach (var re in md5ResultCloud)
+                    {   // 自雲端取資料更新本地真實檔案
                         try
                         {
                             DataRow localRow = GetRowFromPrimaryKeyBinary16(re.PrimaryKey, tableLocal, colStruct);
@@ -387,6 +338,14 @@ namespace SyncCloud
                         catch { break; }
                     }
                     UpdateData("本地", tableName, tableLocal, LocalServer);
+                    var changedLocal=from loc in md5ResultLocal where loc.Status!=DB.RowStatus.Unchanged select loc;
+                    var changedCloud=from cld in md5ResultCloud where cld.Status!=DB.RowStatus.Unchanged select cld;
+                    List<DB.Md5Result> changedList=changedLocal.ToList();
+                    int tableIDLocal=DB.FindTableID(tableName,LocalTableID);
+                    int tableIDCloud=DB.FindTableID(tableName,CloudTableID);
+                    changedList.AddRange(changedCloud);
+                    DB.UpdateMd5Old(changedList,tableIDLocal, LocalServer, MD5LocalTable);
+                    DB.UpdateMd5Old(changedList,tableIDCloud, CloudServer, MD5CloudTable);
                 }
             }
 

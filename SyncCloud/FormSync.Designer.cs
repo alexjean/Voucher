@@ -35,7 +35,7 @@
             // 
             // btnSync
             // 
-            this.btnSync.Location = new System.Drawing.Point(37, 167);
+            this.btnSync.Location = new System.Drawing.Point(32, 167);
             this.btnSync.Name = "btnSync";
             this.btnSync.Size = new System.Drawing.Size(80, 33);
             this.btnSync.TabIndex = 0;
@@ -45,7 +45,7 @@
             // 
             // btnEditPass
             // 
-            this.btnEditPass.Location = new System.Drawing.Point(37, 245);
+            this.btnEditPass.Location = new System.Drawing.Point(32, 245);
             this.btnEditPass.Name = "btnEditPass";
             this.btnEditPass.Size = new System.Drawing.Size(80, 33);
             this.btnEditPass.TabIndex = 1;
@@ -63,14 +63,14 @@
             this.listBoxMessage.ItemHeight = 16;
             this.listBoxMessage.Location = new System.Drawing.Point(141, 2);
             this.listBoxMessage.Name = "listBoxMessage";
-            this.listBoxMessage.Size = new System.Drawing.Size(436, 500);
+            this.listBoxMessage.Size = new System.Drawing.Size(685, 692);
             this.listBoxMessage.TabIndex = 2;
             // 
             // FormSync
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(579, 505);
+            this.ClientSize = new System.Drawing.Size(828, 696);
             this.Controls.Add(this.listBoxMessage);
             this.Controls.Add(this.btnEditPass);
             this.Controls.Add(this.btnSync);

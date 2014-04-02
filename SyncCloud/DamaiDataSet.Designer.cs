@@ -620,9 +620,9 @@ namespace SyncCloud {
             
             private global::System.Data.DataColumn columnTableID;
             
-            private global::System.Data.DataColumn columnMD5;
-            
             private global::System.Data.DataColumn columnPrimaryKey;
+            
+            private global::System.Data.DataColumn columnMD5;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -675,17 +675,17 @@ namespace SyncCloud {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn MD5Column {
+            public global::System.Data.DataColumn PrimaryKeyColumn {
                 get {
-                    return this.columnMD5;
+                    return this.columnPrimaryKey;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn PrimaryKeyColumn {
+            public global::System.Data.DataColumn MD5Column {
                 get {
-                    return this.columnPrimaryKey;
+                    return this.columnMD5;
                 }
             }
             
@@ -726,13 +726,13 @@ namespace SyncCloud {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public SyncMD5OldRow AddSyncMD5OldRow(System.Guid ID, int TableID, byte[] MD5, byte[] PrimaryKey) {
+            public SyncMD5OldRow AddSyncMD5OldRow(System.Guid ID, int TableID, System.Guid PrimaryKey, byte[] MD5) {
                 SyncMD5OldRow rowSyncMD5OldRow = ((SyncMD5OldRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ID,
                         TableID,
-                        MD5,
-                        PrimaryKey};
+                        PrimaryKey,
+                        MD5};
                 rowSyncMD5OldRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSyncMD5OldRow);
                 return rowSyncMD5OldRow;
@@ -764,8 +764,8 @@ namespace SyncCloud {
             internal void InitVars() {
                 this.columnID = base.Columns["ID"];
                 this.columnTableID = base.Columns["TableID"];
-                this.columnMD5 = base.Columns["MD5"];
                 this.columnPrimaryKey = base.Columns["PrimaryKey"];
+                this.columnMD5 = base.Columns["MD5"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -775,10 +775,10 @@ namespace SyncCloud {
                 base.Columns.Add(this.columnID);
                 this.columnTableID = new global::System.Data.DataColumn("TableID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTableID);
+                this.columnPrimaryKey = new global::System.Data.DataColumn("PrimaryKey", typeof(global::System.Guid), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPrimaryKey);
                 this.columnMD5 = new global::System.Data.DataColumn("MD5", typeof(byte[]), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnMD5);
-                this.columnPrimaryKey = new global::System.Data.DataColumn("PrimaryKey", typeof(byte[]), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPrimaryKey);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AllowDBNull = false;
@@ -1045,6 +1045,22 @@ namespace SyncCloud {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public System.Guid PrimaryKey {
+                get {
+                    try {
+                        return ((global::System.Guid)(this[this.tableSyncMD5Old.PrimaryKeyColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("資料表 \'SyncMD5Old\' 中資料行 \'PrimaryKey\' 的值是 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tableSyncMD5Old.PrimaryKeyColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public byte[] MD5 {
                 get {
                     try {
@@ -1056,22 +1072,6 @@ namespace SyncCloud {
                 }
                 set {
                     this[this.tableSyncMD5Old.MD5Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public byte[] PrimaryKey {
-                get {
-                    try {
-                        return ((byte[])(this[this.tableSyncMD5Old.PrimaryKeyColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("資料表 \'SyncMD5Old\' 中資料行 \'PrimaryKey\' 的值是 DBNull。", e);
-                    }
-                }
-                set {
-                    this[this.tableSyncMD5Old.PrimaryKeyColumn] = value;
                 }
             }
             
@@ -1089,18 +1089,6 @@ namespace SyncCloud {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsMD5Null() {
-                return this.IsNull(this.tableSyncMD5Old.MD5Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetMD5Null() {
-                this[this.tableSyncMD5Old.MD5Column] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsPrimaryKeyNull() {
                 return this.IsNull(this.tableSyncMD5Old.PrimaryKeyColumn);
             }
@@ -1109,6 +1097,18 @@ namespace SyncCloud {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetPrimaryKeyNull() {
                 this[this.tableSyncMD5Old.PrimaryKeyColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsMD5Null() {
+                return this.IsNull(this.tableSyncMD5Old.MD5Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetMD5Null() {
+                this[this.tableSyncMD5Old.MD5Column] = global::System.Convert.DBNull;
             }
         }
         
@@ -1696,46 +1696,46 @@ SELECT TableID, Name, MD5, RecordCount FROM SyncTable WHERE (TableID = @TableID)
             tableMapping.DataSetTable = "SyncMD5Old";
             tableMapping.ColumnMappings.Add("ID", "ID");
             tableMapping.ColumnMappings.Add("TableID", "TableID");
-            tableMapping.ColumnMappings.Add("MD5", "MD5");
             tableMapping.ColumnMappings.Add("PrimaryKey", "PrimaryKey");
+            tableMapping.ColumnMappings.Add("MD5", "MD5");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [SyncMD5Old] WHERE (([ID] = @Original_ID) AND ((@IsNull_TableID = 1 AND [TableID] IS NULL) OR ([TableID] = @Original_TableID)) AND ((@IsNull_MD5 = 1 AND [MD5] IS NULL) OR ([MD5] = @Original_MD5)) AND ((@IsNull_PrimaryKey = 1 AND [PrimaryKey] IS NULL) OR ([PrimaryKey] = @Original_PrimaryKey)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[SyncMD5Old] WHERE (([ID] = @Original_ID) AND ((@IsNull_TableID = 1 AND [TableID] IS NULL) OR ([TableID] = @Original_TableID)) AND ((@IsNull_PrimaryKey = 1 AND [PrimaryKey] IS NULL) OR ([PrimaryKey] = @Original_PrimaryKey)) AND ((@IsNull_MD5 = 1 AND [MD5] IS NULL) OR ([MD5] = @Original_MD5)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.UniqueIdentifier, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_TableID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TableID", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TableID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TableID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_PrimaryKey", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PrimaryKey", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PrimaryKey", global::System.Data.SqlDbType.UniqueIdentifier, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PrimaryKey", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_MD5", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MD5", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_MD5", global::System.Data.SqlDbType.Binary, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MD5", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_PrimaryKey", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PrimaryKey", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PrimaryKey", global::System.Data.SqlDbType.Binary, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PrimaryKey", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [SyncMD5Old] ([ID], [TableID], [MD5], [PrimaryKey]) VALUES (@ID, @Tab" +
-                "leID, @MD5, @PrimaryKey);\r\nSELECT ID, TableID, MD5, PrimaryKey FROM SyncMD5Old W" +
-                "HERE (ID = @ID)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[SyncMD5Old] ([ID], [TableID], [PrimaryKey], [MD5]) VALUES (@ID" +
+                ", @TableID, @PrimaryKey, @MD5);\r\nSELECT ID, TableID, PrimaryKey, MD5 FROM SyncMD" +
+                "5Old WHERE (ID = @ID)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.UniqueIdentifier, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TableID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TableID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PrimaryKey", global::System.Data.SqlDbType.UniqueIdentifier, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PrimaryKey", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@MD5", global::System.Data.SqlDbType.Binary, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MD5", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PrimaryKey", global::System.Data.SqlDbType.Binary, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PrimaryKey", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [SyncMD5Old] SET [ID] = @ID, [TableID] = @TableID, [MD5] = @MD5, [PrimaryKey] = @PrimaryKey WHERE (([ID] = @Original_ID) AND ((@IsNull_TableID = 1 AND [TableID] IS NULL) OR ([TableID] = @Original_TableID)) AND ((@IsNull_MD5 = 1 AND [MD5] IS NULL) OR ([MD5] = @Original_MD5)) AND ((@IsNull_PrimaryKey = 1 AND [PrimaryKey] IS NULL) OR ([PrimaryKey] = @Original_PrimaryKey)));
-SELECT ID, TableID, MD5, PrimaryKey FROM SyncMD5Old WHERE (ID = @ID)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[SyncMD5Old] SET [ID] = @ID, [TableID] = @TableID, [PrimaryKey] = @PrimaryKey, [MD5] = @MD5 WHERE (([ID] = @Original_ID) AND ((@IsNull_TableID = 1 AND [TableID] IS NULL) OR ([TableID] = @Original_TableID)) AND ((@IsNull_PrimaryKey = 1 AND [PrimaryKey] IS NULL) OR ([PrimaryKey] = @Original_PrimaryKey)) AND ((@IsNull_MD5 = 1 AND [MD5] IS NULL) OR ([MD5] = @Original_MD5)));
+SELECT ID, TableID, PrimaryKey, MD5 FROM SyncMD5Old WHERE (ID = @ID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.UniqueIdentifier, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TableID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TableID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PrimaryKey", global::System.Data.SqlDbType.UniqueIdentifier, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PrimaryKey", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@MD5", global::System.Data.SqlDbType.Binary, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MD5", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PrimaryKey", global::System.Data.SqlDbType.Binary, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PrimaryKey", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.UniqueIdentifier, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_TableID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TableID", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TableID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TableID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_PrimaryKey", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PrimaryKey", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PrimaryKey", global::System.Data.SqlDbType.UniqueIdentifier, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PrimaryKey", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_MD5", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MD5", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_MD5", global::System.Data.SqlDbType.Binary, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MD5", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_PrimaryKey", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PrimaryKey", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PrimaryKey", global::System.Data.SqlDbType.Binary, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PrimaryKey", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1751,7 +1751,7 @@ SELECT ID, TableID, MD5, PrimaryKey FROM SyncMD5Old WHERE (ID = @ID)";
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, TableID, MD5, PrimaryKey FROM SyncMD5Old";
+            this._commandCollection[0].CommandText = "SELECT ID, TableID, PrimaryKey, MD5 FROM dbo.SyncMD5Old";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -1812,7 +1812,7 @@ SELECT ID, TableID, MD5, PrimaryKey FROM SyncMD5Old WHERE (ID = @ID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(System.Guid Original_ID, global::System.Nullable<int> Original_TableID, byte[] Original_MD5, byte[] Original_PrimaryKey) {
+        public virtual int Delete(System.Guid Original_ID, global::System.Nullable<int> Original_TableID, global::System.Nullable<global::System.Guid> Original_PrimaryKey, byte[] Original_MD5) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((System.Guid)(Original_ID));
             if ((Original_TableID.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
@@ -1822,21 +1822,21 @@ SELECT ID, TableID, MD5, PrimaryKey FROM SyncMD5Old WHERE (ID = @ID)";
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
-            if ((Original_MD5 == null)) {
+            if ((Original_PrimaryKey.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[4].Value = ((System.Guid)(Original_PrimaryKey.Value));
+            }
+            else {
                 this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
-            else {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((byte[])(Original_MD5));
-            }
-            if ((Original_PrimaryKey == null)) {
+            if ((Original_MD5 == null)) {
                 this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[6].Value = ((byte[])(Original_PrimaryKey));
+                this.Adapter.DeleteCommand.Parameters[6].Value = ((byte[])(Original_MD5));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -1858,7 +1858,7 @@ SELECT ID, TableID, MD5, PrimaryKey FROM SyncMD5Old WHERE (ID = @ID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(System.Guid ID, global::System.Nullable<int> TableID, byte[] MD5, byte[] PrimaryKey) {
+        public virtual int Insert(System.Guid ID, global::System.Nullable<int> TableID, global::System.Nullable<global::System.Guid> PrimaryKey, byte[] MD5) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((System.Guid)(ID));
             if ((TableID.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[1].Value = ((int)(TableID.Value));
@@ -1866,17 +1866,17 @@ SELECT ID, TableID, MD5, PrimaryKey FROM SyncMD5Old WHERE (ID = @ID)";
             else {
                 this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
-            if ((MD5 == null)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
+            if ((PrimaryKey.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((System.Guid)(PrimaryKey.Value));
             }
             else {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((byte[])(MD5));
+                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
-            if ((PrimaryKey == null)) {
+            if ((MD5 == null)) {
                 this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((byte[])(PrimaryKey));
+                this.Adapter.InsertCommand.Parameters[3].Value = ((byte[])(MD5));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -1898,7 +1898,7 @@ SELECT ID, TableID, MD5, PrimaryKey FROM SyncMD5Old WHERE (ID = @ID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(System.Guid ID, global::System.Nullable<int> TableID, byte[] MD5, byte[] PrimaryKey, System.Guid Original_ID, global::System.Nullable<int> Original_TableID, byte[] Original_MD5, byte[] Original_PrimaryKey) {
+        public virtual int Update(System.Guid ID, global::System.Nullable<int> TableID, global::System.Nullable<global::System.Guid> PrimaryKey, byte[] MD5, System.Guid Original_ID, global::System.Nullable<int> Original_TableID, global::System.Nullable<global::System.Guid> Original_PrimaryKey, byte[] Original_MD5) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((System.Guid)(ID));
             if ((TableID.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(TableID.Value));
@@ -1906,17 +1906,17 @@ SELECT ID, TableID, MD5, PrimaryKey FROM SyncMD5Old WHERE (ID = @ID)";
             else {
                 this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
-            if ((MD5 == null)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
+            if ((PrimaryKey.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((System.Guid)(PrimaryKey.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((byte[])(MD5));
+                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
-            if ((PrimaryKey == null)) {
+            if ((MD5 == null)) {
                 this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((byte[])(PrimaryKey));
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((byte[])(MD5));
             }
             this.Adapter.UpdateCommand.Parameters[4].Value = ((System.Guid)(Original_ID));
             if ((Original_TableID.HasValue == true)) {
@@ -1927,21 +1927,21 @@ SELECT ID, TableID, MD5, PrimaryKey FROM SyncMD5Old WHERE (ID = @ID)";
                 this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
-            if ((Original_MD5 == null)) {
+            if ((Original_PrimaryKey.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((System.Guid)(Original_PrimaryKey.Value));
+            }
+            else {
                 this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
             }
-            else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((byte[])(Original_MD5));
-            }
-            if ((Original_PrimaryKey == null)) {
+            if ((Original_MD5 == null)) {
                 this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((byte[])(Original_PrimaryKey));
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((byte[])(Original_MD5));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -1963,8 +1963,8 @@ SELECT ID, TableID, MD5, PrimaryKey FROM SyncMD5Old WHERE (ID = @ID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(global::System.Nullable<int> TableID, byte[] MD5, byte[] PrimaryKey, System.Guid Original_ID, global::System.Nullable<int> Original_TableID, byte[] Original_MD5, byte[] Original_PrimaryKey) {
-            return this.Update(Original_ID, TableID, MD5, PrimaryKey, Original_ID, Original_TableID, Original_MD5, Original_PrimaryKey);
+        public virtual int Update(global::System.Nullable<int> TableID, global::System.Nullable<global::System.Guid> PrimaryKey, byte[] MD5, System.Guid Original_ID, global::System.Nullable<int> Original_TableID, global::System.Nullable<global::System.Guid> Original_PrimaryKey, byte[] Original_MD5) {
+            return this.Update(Original_ID, TableID, PrimaryKey, MD5, Original_ID, Original_TableID, Original_PrimaryKey, Original_MD5);
         }
     }
     

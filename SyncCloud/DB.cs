@@ -71,19 +71,50 @@ namespace SyncCloud
             return list;
         }
 
-        public static Dictionary<string, int> GetTableID(SqlConnection conn)
+        public static Dictionary<string, DB.TableInfo> GetTableID(SqlConnection conn)
         {
             var adapter = new SyncCloud.DamaiDataSetTableAdapters.SyncTableTableAdapter();
+            adapter.Connection = conn;
             var table=new SyncCloud.DamaiDataSet.SyncTableDataTable();
-            var dic = new Dictionary<string, int>();
+            var dic = new Dictionary<string,DB.TableInfo>();
             try
             {
                 adapter.Fill(table);
-                foreach (var row in table) dic.Add(row.Name, row.TableID);
+                foreach (var row in table)
+                {
+                    var tableInfo = new TableInfo();
+                    tableInfo.Name = row.Name;
+                    if (!row.IsMD5Null()) tableInfo.MD5=row.MD5;
+                    if (!row.IsRecordCountNull()) tableInfo.RecordCount=row.RecordCount;
+                    tableInfo.TableID = row.TableID;
+                    dic.Add(row.Name, tableInfo);
+                }
                 return dic;
             }
             catch {  }
             return null;
+        }
+
+        public static void UpdateSyncTable(Dictionary<string,DB.TableInfo> dic,SqlConnection conn)
+        {
+            var adapter = new SyncCloud.DamaiDataSetTableAdapters.SyncTableTableAdapter();
+            adapter.Connection = conn;
+            var table = new SyncCloud.DamaiDataSet.SyncTableDataTable();
+            try
+            {
+                adapter.Fill(table);
+                foreach (var row in table)
+                {
+                    DB.TableInfo ti = null;
+                    if (dic.TryGetValue(row.Name, out ti))
+                    {
+                        row.RecordCount = ti.RecordCount;
+                        row.MD5         = ti.MD5;
+                    }
+                }
+                adapter.Update(table);
+            }
+            catch { }
         }
 
         static public bool CheckSyncTable(SqlConnection conn,string briefName)
@@ -332,7 +363,7 @@ Retry:
                     cmdStr = "CREATE TABLE [dbo].[SyncMD5Old](";
 	                cmdStr+= "  [ID] [uniqueidentifier] NOT NULL,";
 	                cmdStr+= "  [TableID] [int] NULL,";
-                    cmdStr += "  [PrimaryKey] [binary](16) NULL,";
+                    cmdStr += "  [PrimaryKey] [uniqueidentifier] NULL,";
                     cmdStr+= "  [MD5] [binary](16) NULL,";
                     cmdStr+= "  CONSTRAINT [PK_SyncMD5Old] PRIMARY KEY CLUSTERED ( [ID] ASC )"+ PrimaryKeyStandardOption;
                     break;
@@ -340,7 +371,7 @@ Retry:
                     cmdStr = "CREATE TABLE [dbo].[SyncMD5Now](";
                     cmdStr += "  [ID] [uniqueidentifier] NOT NULL,";
                     cmdStr += "  [TableID] [int] NULL,";
-                    cmdStr += "  [PrimaryKey] [binary](16) NULL,";
+                    cmdStr += "  [PrimaryKey] [uniqueidentifier] NULL,";
                     cmdStr += "  [MD5] [binary](16) NULL,";
                     cmdStr += "  CONSTRAINT [PK_SyncMD5Now] PRIMARY KEY CLUSTERED ( [ID] ASC )" + PrimaryKeyStandardOption;
                     break;
@@ -397,7 +428,7 @@ Retry:
         public enum RowStatus { Deleted, New, Changed,Unchanged };
         public class Md5Result
         {
-            public byte[] PrimaryKey;  // 一律為 byte[16]
+            public Guid PrimaryKey;  // 一律為 byte[16]
             public byte[] Md5Old;
             public byte[] Md5Now;
             public RowStatus Status;
@@ -411,6 +442,14 @@ Retry:
                     if (Md5Old[i] != Md5Now[i]) return false;
                 return true;
             }
+        }
+
+        public class TableInfo
+        {
+            public string Name;
+            public int TableID;
+            public int RecordCount;
+            public Guid MD5;
         }
 
         public static string Bytes2Hex(byte[] bytes)
@@ -458,14 +497,14 @@ Retry:
             }
         }
 
-        static public int FindTableID(string tableName, Dictionary<string, int> IDLookupTable)
+        static public int FindTableID(string tableName, Dictionary<string, DB.TableInfo> IDLookupTable)
         {
             // 找出TableID
             if (!IDLookupTable.ContainsKey(tableName)) return int.MinValue;
-            return IDLookupTable[tableName];
+            return IDLookupTable[tableName].TableID;
         }
 
-        static public List<Md5Result> CalcCompMd5(string tableName, SqlConnection conn, List<SqlColumnStruct> listStruct, Dictionary<string, int> IDLookupTable,
+        static public Dictionary<Guid,Md5Result> CalcCompMd5(string tableName, SqlConnection conn, List<SqlColumnStruct> listStruct, Dictionary<string, DB.TableInfo> IDLookupTable,
                                                     ref DataTable tableNow, ref DamaiDataSet.SyncMD5OldDataTable tableMd5Old)
         {
             int tableID = FindTableID(tableName, IDLookupTable);
@@ -485,18 +524,25 @@ Retry:
             // 載入Old
             var adapterOld = new DamaiDataSetTableAdapters.SyncMD5OldTableAdapter();
             adapterOld.Connection = conn;
-            adapterOld.Adapter.SelectCommand = new SqlCommand("Select * from SyncMd5Old Where TableID=" + tableID.ToString());
-            var dicResult = new Dictionary<byte[], Md5Result>();
+            var dicResult = new Dictionary<Guid, Md5Result>();
+            byte[] FileMd5Old=null;
             try
             {
-                adapterOld.Fill(tableMd5Old);
+                // Fill的預設動作,因為他會自設SelectCommand,所以只好自己寫一次
+                var SqlCmd = new SqlCommand("Select * from SyncMd5Old Where TableID=" + tableID.ToString() , conn);
+                SqlCmd.CommandType = CommandType.Text;
+                adapterOld.Adapter.SelectCommand = SqlCmd;
+                tableMd5Old.Clear();
+                adapterOld.Adapter.Fill(tableMd5Old);
+                //////////////////////////////////////
                 foreach (var row in tableMd5Old)
                 {
-                    if (row.MD5 == null || row.MD5 == Convert.DBNull) continue;   // 資料庫內md5是dbnull,不應該
+                    if (row.IsMD5Null())        { row.Delete(); continue; }  // 資料庫內md5是dbnull,不應該   
+                    if (row.IsPrimaryKeyNull()) { row.Delete(); continue; }
                     Md5Result result = new Md5Result();
                     result.PrimaryKey = row.PrimaryKey;
                     result.Md5Old = row.MD5;
-                    result.Status = RowStatus.Unchanged;
+                    result.Status = RowStatus.Deleted;
                     switch (PKType)
                     {
                         case PrimaryKeyType.DateTime:
@@ -506,6 +552,7 @@ Retry:
                         default: return null;
                     }
                 }
+
             }
             catch (Exception ex) { throw ex; }
             // 計算New
@@ -520,17 +567,19 @@ Retry:
                     // 填MD5Now入listResult
                     foreach (DataRow row in table.Rows)
                     {
-                        byte[] pk = new byte[16];
-                        IntToBinary16((int)row["ID"], ref pk, 0);
-                        if (dicResult.Keys.Contains(pk))
+                        byte[] bts = new byte[16];
+                        IntToBinary16((int)row["ID"], ref bts, 0);
+                        Guid pk = new Guid(bts);
+                        Md5Result val;
+                        if (dicResult.TryGetValue(pk,out val))
                         {
-                            Md5Result val = dicResult[pk];
                             val.Md5Now = (byte[])row["MD5"];
-                            if (!val.SameMd5()) val.Status=RowStatus.Changed;
+                            if (!val.SameMd5()) val.Status = RowStatus.Changed;
+                            else val.Status = RowStatus.Unchanged;
                         }
                         else
                         {
-                            Md5Result val = new Md5Result();
+                            val = new Md5Result();
                             val.PrimaryKey = pk;
                             val.Md5Old = null;
                             val.Md5Now = (byte[])row["MD5"];
@@ -625,26 +674,35 @@ Retry:
                                 }
                         }
                         byte[] md5 = MD5Provider.ComputeHash(Encoding.Unicode.GetBytes(str));   // 還沒考慮Detail
-                        if (dicResult.Keys.Contains(pk))
+                        Guid pkGuid = new Guid(pk);
+                        Md5Result val;
+                        if (dicResult.TryGetValue(pkGuid, out val))
                         {
-                            Md5Result val = dicResult[pk];
                             val.Md5Now = md5;
-                            if (!val.SameMd5()) val.Status=RowStatus.Changed;
+                            if (!val.SameMd5()) val.Status = RowStatus.Changed;
+                            else                val.Status = RowStatus.Unchanged;
                         }
                         else
                         {
-                            Md5Result val   = new Md5Result();
-                            val.PrimaryKey  = pk;
+                            val   = new Md5Result();
+                            val.PrimaryKey  = pkGuid;
                             val.Md5Old      = null;
                             val.Md5Now      = md5;
                             val.Status      = RowStatus.New;
-                            dicResult.Add(pk, val);
+                            dicResult.Add(pkGuid, val);
                         }
+                    }
+                    // 更新SyncTable內容
+                    DB.TableInfo syncTableRow;
+                    if (IDLookupTable.TryGetValue(tableName, out syncTableRow))
+                    {
+                        syncTableRow.RecordCount = tableNow.Rows.Count;
+                        // syncTableRow.MD5 =  ??? File MD5待寫
                     }
                 }
                 catch (Exception ex) { throw ex; }
             }
-            return dicResult.Values.ToList<Md5Result>();
+            return dicResult;
         }
 
         public static Type SqlType2CsharpType(SqlDbType sqlType)
@@ -683,21 +741,27 @@ Retry:
 
         public static void UpdateMd5Old(List<Md5Result> changedMd5,int tableID,SqlConnection Conn,DamaiDataSet.SyncMD5OldDataTable table)
         {
-            string sqlCmd = "Select * from SyncMd5Old Where TableID=" + tableID.ToString();    // 必需和 CalcCompMd5 內一致
+//            string sqlCmd = "Select * from SyncMd5Old Where TableID=" + tableID.ToString();    // 必需和 CalcCompMd5 內一致
+            var dic = new Dictionary<Guid, DamaiDataSet.SyncMD5OldRow>();  //加速用
+            foreach (var r in table)
+            {
+                if (r.RowState == DataRowState.Deleted) continue;
+                dic.Add(r.PrimaryKey, r);
+            }
             foreach(var md5 in changedMd5)
             {
-                if (md5.Status == DB.RowStatus.Unchanged) continue; 
-                var rows = from r in table where r.PrimaryKey == md5.PrimaryKey select r;
+                if (md5.Status == DB.RowStatus.Unchanged) continue;
+                DamaiDataSet.SyncMD5OldRow row = null;
+                dic.TryGetValue(md5.PrimaryKey, out row);
                 if (md5.Status == DB.RowStatus.Deleted)
                 {
-                    if (rows.Count() != 0)
-                        foreach (var r in rows) r.Delete();
+                    if (row != null) row.Delete();
                 }
                 else
                 {
-                    if (rows.Count() == 0)
+                    if (row == null)
                     {
-                        var row = table.NewSyncMD5OldRow();
+                        row = table.NewSyncMD5OldRow();
                         row.ID = Guid.NewGuid();
                         row.MD5 = md5.Md5Now;
                         row.PrimaryKey = md5.PrimaryKey;
@@ -705,20 +769,18 @@ Retry:
                         table.AddSyncMD5OldRow(row);
                     }
                     else
-                    {
-                        var row = rows.First();
                         row.MD5 = md5.Md5Now;
-                    }
                 }
             }
             var adapter = new DamaiDataSetTableAdapters.SyncMD5OldTableAdapter();
             adapter.Connection = Conn;
-            adapter.Adapter.SelectCommand = new SqlCommand(sqlCmd);
+            //adapter.Adapter.SelectCommand = new SqlCommand(sqlCmd);   // 此行無效,因為Update或Fill的預設動作,都會被蓋掉,看
             try
             {
                 adapter.Update(table);
             }
             catch { }
         }
+
     }
 }

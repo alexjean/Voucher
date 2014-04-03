@@ -84,6 +84,8 @@ namespace SyncCloud
                 {
                     var tableInfo = new TableInfo();
                     tableInfo.Name = row.Name;
+                    tableInfo.ChildName = null;
+                    
                     if (!row.IsMD5Null()) tableInfo.MD5=row.MD5;
                     if (!row.IsRecordCountNull()) tableInfo.RecordCount=row.RecordCount;
                     tableInfo.TableID = row.TableID;
@@ -220,6 +222,15 @@ Retry:
                 }
                 return SqlDbType.Structured;   // 未知型態,指定 Structured
             }
+        }
+
+        static public void GetForeignKey()
+        {
+            //Use [Damai]
+            //select fk.name,fk.object_id,fk.parent_object_id,par_obj.name as parent_object_name,fk.type_desc, fk.referenced_object_id,obj.name
+            //from sys.foreign_keys fk
+            //left join sys.all_objects obj     on fk.referenced_object_id = obj.object_id 
+            //left join sys.all_objects par_obj on fk.parent_object_id     = par_obj.object_id
         }
 
         static public List<SqlColumnStruct> GetStruct(string TableName, SqlConnection Db)
@@ -450,6 +461,9 @@ Retry:
             public int TableID;
             public int RecordCount;
             public Guid MD5;
+            public List<SqlColumnStruct> Struct;
+            public string ChildName;
+            public List<SqlColumnStruct> ChildStruct;
         }
 
         public static string Bytes2Hex(byte[] bytes)
@@ -493,7 +507,7 @@ Retry:
                 case SqlDbType.Char:
                 case SqlDbType.VarChar:
                 case SqlDbType.NVarChar:    return PrimaryKeyType.String; 
-                default: return PrimaryKeyType.Unknown;    
+                default:                    return PrimaryKeyType.Unknown;    
             }
         }
 
@@ -504,23 +518,27 @@ Retry:
             return IDLookupTable[tableName].TableID;
         }
 
-        static public Dictionary<Guid,Md5Result> CalcCompMd5(string tableName, SqlConnection conn, List<SqlColumnStruct> listStruct, Dictionary<string, DB.TableInfo> IDLookupTable,
-                                                    ref DataTable tableNow, ref DamaiDataSet.SyncMD5OldDataTable tableMd5Old)
+        static private PrimaryKeyType GetFirstKeyType(List<SqlColumnStruct> listStruct)
         {
-            int tableID = FindTableID(tableName, IDLookupTable);
-            if (tableID == int.MinValue) return null;
-
-            // 判斷主Key型態
-            PrimaryKeyType PKType = PrimaryKeyType.IntCombined;
             foreach (var col in listStruct)
             {
                 if (col.IsPrimaryKey)
-                {
-                    PKType=GetKeyType(col.DbType);
-                    if (PKType == PrimaryKeyType.Unknown) return null;
-                    break;    // 找到第一個就夠了
-                }
+                    return GetKeyType(col.DbType);  // 找到一個就夠了
             }
+            return PrimaryKeyType.Unknown;
+        }
+
+        static public Dictionary<Guid,Md5Result> CalcCompMd5(DB.TableInfo tableInfo, SqlConnection conn,
+                                                    ref DataTable tableNow, ref DamaiDataSet.SyncMD5OldDataTable tableMd5Old)
+        {
+
+            int tableID = tableInfo.TableID;
+            if (tableID == int.MinValue) return null;
+            string tableName = tableInfo.Name;
+            // 判斷主Key型態
+            List<SqlColumnStruct> listStruct = tableInfo.Struct;
+            PrimaryKeyType PKType = GetFirstKeyType(listStruct);
+            if (PKType == PrimaryKeyType.Unknown) return null;
             // 載入Old
             var adapterOld = new DamaiDataSetTableAdapters.SyncMD5OldTableAdapter();
             adapterOld.Connection = conn;
@@ -594,86 +612,39 @@ Retry:
             {
                 SqlDataAdapter adapterNow = new SqlDataAdapter("Select * From [" + tableName + "]", conn);
                 adapterNow.MissingSchemaAction = MissingSchemaAction.AddWithKey;
+
+                SqlDataAdapter  adapterDetail= null;
+                DataTable       tableDetail  = null;
+                DataRelation    relation     = null;
+                PrimaryKeyType  childType    = PrimaryKeyType.Unknown;
+                List<SqlColumnStruct> childStruct = null;
                 try
                 {
                     adapterNow.Fill(tableNow);
+                    if (tableInfo.ChildName != null)
+                    {
+                        adapterDetail = new SqlDataAdapter("Select * From [" + tableInfo.ChildName + "]", conn);
+                        tableDetail = new DataTable(tableInfo.ChildName);
+                        childStruct = tableInfo.ChildStruct;
+                        childType = GetFirstKeyType(childStruct);
+                        adapterDetail.Fill(tableDetail);
+                        //relation = new DataRelation();
+                    }
                     foreach (DataRow row in tableNow.Rows)
                     {
-                        string str = "";
-                        int ofs = 0;
-                        byte[] pk = new byte[16];
-                        foreach (SqlColumnStruct st in listStruct)
+                        byte[] pk;
+                        StringBuilder strBuilder = Row2Str(row, listStruct,PKType,MD5Provider,out pk);
+                        if (strBuilder == null) return null;
+                        if (relation != null)
                         {
-                            str += "|";
-                            object obj = row[st.Name];
-                            if (obj == null || DBNull.Value == obj) continue; // Null不加入計算MD5
-                            if (st.IsPrimaryKey)
-                            {
-                                switch (PKType)
-                                {
-                                    case PrimaryKeyType.IntCombined:
-                                        if (ofs > 8)
-                                        {
-                                            MessageBox.Show("整數型複合Key,只接受二個!");
-                                            return null;
-                                        }
-                                        switch (st.DbType)
-                                        {
-                                            case SqlDbType.Int:     IntToBinary16((int)obj, ref pk, ofs);       break;
-                                            case SqlDbType.BigInt:  Int64ToBinary16((Int64)obj, ref pk, ofs);   break;
-                                            case SqlDbType.TinyInt: pk[ofs] = (byte)obj;                        break;
-                                            case SqlDbType.SmallInt:Int16ToBinary16((Int16)obj, ref pk, ofs);   break;
-                                            default:
-                                                MessageBox.Show("無法辦認的PrimaryKey型態<" + st.DbType.ToString() + "> 欄位[" + st.Name + "]!"); return null;
-                                        }
-                                        ofs += 8;
-                                        break;
-                                    case PrimaryKeyType.UniqueIdentifier:
-                                        pk = ((Guid)obj).ToByteArray();
-                                        break;
-                                    case PrimaryKeyType.DateTime:
-                                        DateTime dt = (DateTime)obj;
-                                        Int64ToBinary16(dt.ToBinary(), ref pk, 0);
-                                        break;
-                                    case PrimaryKeyType.String:
-                                        pk = MD5Provider.ComputeHash(Encoding.Unicode.GetBytes((string)obj));
-                                        break;
-                                    default: return null;
-                                }
-                            }
-                            else
-                                switch (st.DbType)
-                                {
-                                    case SqlDbType.UniqueIdentifier:
-                                    case SqlDbType.SmallInt:
-                                    case SqlDbType.TinyInt:
-                                    case SqlDbType.BigInt:
-                                    case SqlDbType.Int: str += obj.ToString(); break;
-                                    case SqlDbType.Char:
-                                    case SqlDbType.NChar:
-                                    case SqlDbType.NVarChar:
-                                    case SqlDbType.VarChar: str += obj.ToString(); break;
-                                    case SqlDbType.Bit: str += (bool)obj ? '1' : '0'; break;   // bit被轉成bool
-                                    case SqlDbType.Money:
-                                    case SqlDbType.SmallMoney:
-                                    case SqlDbType.Decimal: str += ((decimal)obj).ToString("N2"); break;
-                                    case SqlDbType.Float: str += ((Double)obj).ToString("F4"); break;                      // float目前暫時用N4
-                                    case SqlDbType.Real: str += ((Single)obj).ToString("F4"); break;
-                                    case SqlDbType.SmallDateTime:
-                                    case SqlDbType.DateTime: str += ((DateTime)obj).ToString("yyyy-MM-dd hh:mm:ss"); break;
-                                    case SqlDbType.Binary:
-                                    case SqlDbType.VarBinary:
-                                    case SqlDbType.Image:
-                                                    byte[] bytes = (byte[])obj;
-                                                    if (bytes.Length <= 32)
-                                                        str += Bytes2Hex(bytes);
-                                                    else
-                                                        str += Bytes2Hex(MD5Provider.ComputeHash((byte[])obj)); break;    // Image算出MD5後轉成string
-                                    default:
-                                        throw new Exception("不支援計算MD5的型別<" + st.DbType.ToString() + "> 欄位[" + st.Name + "]!");
-                                }
+                            DataRow[] childs = row.GetChildRows(relation);
+                            byte[] childPK;
+                            foreach (DataRow child in childs)
+                                strBuilder.Append(Row2Str(child, childStruct, childType, MD5Provider, out childPK));
                         }
-                        byte[] md5 = MD5Provider.ComputeHash(Encoding.Unicode.GetBytes(str));   // 還沒考慮Detail
+
+                            
+                        byte[] md5 = MD5Provider.ComputeHash(Encoding.Unicode.GetBytes(strBuilder.ToString()));   // 還沒考慮Detail
                         Guid pkGuid = new Guid(pk);
                         Md5Result val;
                         if (dicResult.TryGetValue(pkGuid, out val))
@@ -693,16 +664,91 @@ Retry:
                         }
                     }
                     // 更新SyncTable內容
-                    DB.TableInfo syncTableRow;
-                    if (IDLookupTable.TryGetValue(tableName, out syncTableRow))
-                    {
-                        syncTableRow.RecordCount = tableNow.Rows.Count;
-                        // syncTableRow.MD5 =  ??? File MD5待寫
-                    }
+                    tableInfo.RecordCount= tableNow.Rows.Count;
+                    // syncTableRow.MD5 =  ??? File MD5待寫
                 }
                 catch (Exception ex) { throw ex; }
             }
             return dicResult;
+        }
+
+        private static StringBuilder Row2Str(DataRow row,List<SqlColumnStruct> listStruct,PrimaryKeyType PKType,MD5 MD5Provider,out byte[] pk)
+        {
+            StringBuilder str = new StringBuilder("");
+            int ofs = 0;
+            pk = new byte[16];
+            foreach (SqlColumnStruct st in listStruct)
+            {
+                str.Append("|");
+                object obj = row[st.Name];
+                if (obj == null || DBNull.Value == obj) continue; // Null不加入計算MD5
+                if (st.IsPrimaryKey)
+                {
+                    switch (PKType)
+                    {
+                        case PrimaryKeyType.IntCombined:
+                            if (ofs > 8)
+                            {
+                                MessageBox.Show("整數型複合Key,只接受二個!");
+                                return null;
+                            }
+                            switch (st.DbType)
+                            {
+                                case SqlDbType.Int: IntToBinary16((int)obj, ref pk, ofs); break;
+                                case SqlDbType.BigInt: Int64ToBinary16((Int64)obj, ref pk, ofs); break;
+                                case SqlDbType.TinyInt: pk[ofs] = (byte)obj; break;
+                                case SqlDbType.SmallInt: Int16ToBinary16((Int16)obj, ref pk, ofs); break;
+                                default:
+                                    MessageBox.Show("無法辦認的PrimaryKey型態<" + st.DbType.ToString() + "> 欄位[" + st.Name + "]!"); return null;
+                            }
+                            ofs += 8;
+                            break;
+                        case PrimaryKeyType.UniqueIdentifier:
+                            pk = ((Guid)obj).ToByteArray();
+                            break;
+                        case PrimaryKeyType.DateTime:
+                            DateTime dt = (DateTime)obj;
+                            Int64ToBinary16(dt.ToBinary(), ref pk, 0);
+                            break;
+                        case PrimaryKeyType.String:
+                            pk = MD5Provider.ComputeHash(Encoding.Unicode.GetBytes((string)obj));
+                            break;
+                        default: return null;
+                    }
+                }
+                else
+                    switch (st.DbType)
+                    {
+                        case SqlDbType.UniqueIdentifier:
+                        case SqlDbType.SmallInt:
+                        case SqlDbType.TinyInt:
+                        case SqlDbType.BigInt:
+                        case SqlDbType.Int:     str.Append(obj.ToString()); break;
+                        case SqlDbType.Char:
+                        case SqlDbType.NChar:
+                        case SqlDbType.NVarChar:
+                        case SqlDbType.VarChar: str.Append(obj.ToString()); break;
+                        case SqlDbType.Bit:     str.Append((bool)obj ? '1' : '0'); break;   // bit被轉成bool
+                        case SqlDbType.Money:
+                        case SqlDbType.SmallMoney:
+                        case SqlDbType.Decimal: str.Append(((decimal)obj).ToString("N2")); break;
+                        case SqlDbType.Float:   str.Append(((Double)obj).ToString("F4")); break;                      // float目前暫時用N4
+                        case SqlDbType.Real:    str.Append(((Single)obj).ToString("F4")); break;
+                        case SqlDbType.SmallDateTime:
+                        case SqlDbType.DateTime: str.Append(((DateTime)obj).ToString("yyyy-MM-dd hh:mm:ss")); break;
+                        case SqlDbType.Binary:
+                        case SqlDbType.VarBinary:
+                        case SqlDbType.Image:
+                            byte[] bytes = (byte[])obj;
+                            if (bytes.Length <= 32)
+                                str.Append(Bytes2Hex(bytes));
+                            else
+                                str.Append(Bytes2Hex(MD5Provider.ComputeHash((byte[])obj))); break;    // Image算出MD5後轉成string
+                        default:
+                            throw new Exception("不支援計算MD5的型別<" + st.DbType.ToString() + "> 欄位[" + st.Name + "]!");
+                    }
+            }
+            return str;
         }
 
         public static Type SqlType2CsharpType(SqlDbType sqlType)

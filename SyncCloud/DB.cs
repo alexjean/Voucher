@@ -84,7 +84,7 @@ namespace SyncCloud
                 {
                     var tableInfo = new TableInfo();
                     tableInfo.Name = row.Name;
-                    tableInfo.ChildName = null;
+                    tableInfo.Childs = null;
                     
                     if (!row.IsMD5Null()) tableInfo.MD5=row.MD5;
                     if (!row.IsRecordCountNull()) tableInfo.RecordCount=row.RecordCount;
@@ -96,6 +96,8 @@ namespace SyncCloud
             catch {  }
             return null;
         }
+
+
 
         public static void UpdateSyncTable(Dictionary<string,DB.TableInfo> dic,SqlConnection conn)
         {
@@ -170,7 +172,7 @@ Retry:
 	                 sb.AppendLine("FETCH NEXT FROM My_Cursor INTO @tableName");
 	                 sb.AppendLine("WHILE @@FETCH_STATUS =0");
 	                 sb.AppendLine("BEGIN");
-		             sb.AppendLine("    IF (@tableName not like '%Item') and (@tableName not like 'Sync%') and (@tableName not like '%Detail')");
+		             sb.AppendLine("    IF (@tableName='BankDetail') or ((@tableName<>'InventoryProducts') and (@tableName not like '%Item') and (@tableName not like 'Sync%') and (@tableName not like '%Detail'))");
                      sb.AppendLine("    BEGIN");
 			         sb.AppendLine("    SET @result=(SELECT Count(Name) from SyncTable where Name=@tableName)");
 			         sb.AppendLine("    IF (@result<=0)");
@@ -224,15 +226,7 @@ Retry:
             }
         }
 
-        static public void GetForeignKey()
-        {
-            //Use [Damai]
-            //select fk.name,fk.object_id,fk.parent_object_id,par_obj.name as parent_object_name,fk.type_desc, fk.referenced_object_id,obj.name
-            //from sys.foreign_keys fk
-            //left join sys.all_objects obj     on fk.referenced_object_id = obj.object_id 
-            //left join sys.all_objects par_obj on fk.parent_object_id     = par_obj.object_id
-        }
-
+        
         static public List<SqlColumnStruct> GetStruct(string TableName, SqlConnection Db)
         {
             SqlDataAdapter adapter = null,primaryAdapter=null;
@@ -271,10 +265,89 @@ Retry:
                     list.Add(col);
                 }
             }
-            catch (Exception ex) { throw ex;          }
+            catch (Exception ex) { throw ex; }
             finally { adapter.Dispose(); primaryAdapter.Dispose(); }
 
             return list;
+        }
+
+        public class ForeignKey
+        {
+            public string KeyName;
+            public string FatherTable;
+            public string ChildTable;
+            public string FatherKey;
+            public string ChildKey;
+            public string DeleteAction;
+            public string UpdateAction;
+        }
+
+        public static List<ForeignKey> GetForeignKey(SqlConnection conn)
+        {
+            SqlDataAdapter adapter = null;
+            string sql = "select fk.name KeyName,obj.name as FatherTable,fkc.referenced_column_id as FatherColumn,sc.name as FatherColName," +
+                         " par_obj.name as ChildTable,fkc.parent_column_id as ChildColumn,sc1.name as ChildColName,"+
+                         " fk.delete_referential_action_desc as DeleteAction,fk.update_referential_action_desc as UpdateAction" +
+                         " from sys.foreign_keys fk" +
+                         " left join sys.foreign_key_columns fkc on fk.object_id=fkc.constraint_object_id" +
+                         " left join sys.objects obj     on fkc.referenced_object_id = obj.object_id " +
+                         " left join sys.objects par_obj on fkc.parent_object_id     = par_obj.object_id" +
+                         " left join sys.columns sc      on sc.object_id=fkc.referenced_object_id And fkc.referenced_column_id = sc.column_id" +
+                         " left join sys.columns sc1     on sc1.object_id=fkc.parent_object_id And fkc.parent_column_id = sc1.column_id";
+            try
+            {
+                adapter = new SqlDataAdapter(sql, conn);
+                List<ForeignKey> list=new List<ForeignKey>();
+                DataTable table = new DataTable();
+                adapter.Fill(table);
+                foreach(DataRow row in table.Rows)
+                {
+                    ForeignKey fk=new ForeignKey();
+                    fk.KeyName      = (string)row["KeyName"];
+                    fk.FatherTable  = (string)row["FatherTable"];
+                    fk.FatherKey    = (string)row["FatherColName"];
+                    fk.ChildTable   = (string)row["ChildTable"];
+                    fk.ChildKey     = (string)row["ChildColName"];
+                    fk.DeleteAction = (string)row["DeleteAction"];
+                    fk.UpdateAction = (string)row["UpdateAction"];
+                    list.Add(fk);
+                }
+                return list;
+            }
+            catch (Exception ex) {  throw ex;  }
+        }
+
+        static public bool IsForeignKeyDeleteActionCascade(TableInfo info)
+        {
+            if (info == null)               return false;
+            if (info.Childs == null)        return false;
+            if (info.Childs.Count() == 0)   return false;
+            foreach (var child in info.Childs)
+                if (child.DeleteAction.ToUpper() != "CASCADE")
+                    return false;
+            return true;
+        }
+
+        static public bool SameForeignKey(TableInfo local, TableInfo cloud)
+        {
+            if (local == null)
+                return false;
+            if (cloud == null)
+                return false;
+            if (local.Childs == null) return false;
+            if (cloud.Childs == null) return false;
+            if (local.Childs.Count() == 0 && cloud.Childs.Count() != 0) return false;
+            foreach (var info in local.Childs)
+            {
+                var infoCs = from infoC in cloud.Childs where infoC.Name==info.Name select infoC;
+                if (infoCs.Count() == 0) return false;
+                var info1 = infoCs.First();
+                if (info.FatherKey != info1.FatherKey) return false;
+                if (info.ChildKey  != info1.ChildKey ) return false;
+                if (info.UpdateAction != info1.UpdateAction) return false;
+                if (info.DeleteAction != info1.DeleteAction) return false;
+            }
+            return true;
         }
 
         static public bool SameStructWithPK(List<SqlColumnStruct> local, List<SqlColumnStruct> cloud)
@@ -462,8 +535,20 @@ Retry:
             public int RecordCount;
             public Guid MD5;
             public List<SqlColumnStruct> Struct;
-            public string ChildName;
-            public List<SqlColumnStruct> ChildStruct;
+            public List<ChildInfo> Childs;
+        }
+
+        public class ChildInfo
+        {
+            public string Name;
+            public List<SqlColumnStruct> Struct;
+            public string ForeignKeyName;
+            public string FatherKey=null;
+            public string ChildKey=null;
+            public string DeleteAction=null;
+            public string UpdateAction=null;
+            public List<SqlColumnStruct> PrimaryKeys=null;
+            public ChildInfo(string name) { Name = name; }
         }
 
         public static string Bytes2Hex(byte[] bytes)
@@ -528,8 +613,18 @@ Retry:
             return PrimaryKeyType.Unknown;
         }
 
+        class RunningSet
+        {
+            public SqlDataAdapter adapter = null;
+            public DataTable table = null;
+            public DataRelation relation = null;
+            public PrimaryKeyType childType = PrimaryKeyType.Unknown;
+            public DB.ChildInfo childInfo=null;
+            public RunningSet(DB.ChildInfo info) { childInfo = info; }
+        };
+
         static public Dictionary<Guid,Md5Result> CalcCompMd5(DB.TableInfo tableInfo, SqlConnection conn,
-                                                    ref DataTable tableNow, ref DamaiDataSet.SyncMD5OldDataTable tableMd5Old)
+                                                    ref DataSet dataSet, ref DamaiDataSet.SyncMD5OldDataTable tableMd5Old)
         {
 
             int tableID = tableInfo.TableID;
@@ -543,7 +638,7 @@ Retry:
             var adapterOld = new DamaiDataSetTableAdapters.SyncMD5OldTableAdapter();
             adapterOld.Connection = conn;
             var dicResult = new Dictionary<Guid, Md5Result>();
-            byte[] FileMd5Old=null;
+            //byte[] FileMd5Old=null;
             try
             {
                 // Fill的預設動作,因為他會自設SelectCommand,所以只好自己寫一次
@@ -575,15 +670,23 @@ Retry:
             catch (Exception ex) { throw ex; }
             // 計算New
             MD5 MD5Provider = new MD5CryptoServiceProvider();
-            if (tableName.ToLower() == "order")    // [Order]的MD5量大,是由AP計算的
+            SqlDataAdapter adapterNow = new SqlDataAdapter("Select * From [" + tableName + "]", conn);
+            adapterNow.MissingSchemaAction = MissingSchemaAction.AddWithKey;
+
+
+            DataTable tableNow = new DataTable(tableName);   //
+            dataSet.Tables.Add(tableNow);                    //
+            adapterNow.Fill(dataSet, tableName);              // 這三行一定要這樣寫才會自動填 Columns,一定要指定tableName,而且要存在,要不然會新建一個叫'Table'
+
+
+            if (tableName == "Order")    // [Order]的MD5量大,是由AP計算的
             {
-                SqlDataAdapter adapterNow = new SqlDataAdapter("Select [ID],[MD5] From [" + tableName + "]", conn);
                 DataTable table = new DataTable();
                 try
                 {
-                    adapterNow.Fill(table);
+                    adapterNow.Fill(tableNow);
                     // 填MD5Now入listResult
-                    foreach (DataRow row in table.Rows)
+                    foreach (DataRow row in tableNow.Rows)
                     {
                         byte[] bts = new byte[16];
                         IntToBinary16((int)row["ID"], ref bts, 0);
@@ -610,39 +713,38 @@ Retry:
             }
             else
             {
-                SqlDataAdapter adapterNow = new SqlDataAdapter("Select * From [" + tableName + "]", conn);
-                adapterNow.MissingSchemaAction = MissingSchemaAction.AddWithKey;
-
-                SqlDataAdapter  adapterDetail= null;
-                DataTable       tableDetail  = null;
-                DataRelation    relation     = null;
-                PrimaryKeyType  childType    = PrimaryKeyType.Unknown;
-                List<SqlColumnStruct> childStruct = null;
                 try
                 {
-                    adapterNow.Fill(tableNow);
-                    if (tableInfo.ChildName != null)
+                    List<RunningSet> Runnings = new List<RunningSet>();
+                    if (tableInfo.Childs != null)
+                        foreach (var child in tableInfo.Childs)
+                            Runnings.Add(new RunningSet(child));
+
+                    foreach (var run in Runnings)
                     {
-                        adapterDetail = new SqlDataAdapter("Select * From [" + tableInfo.ChildName + "]", conn);
-                        tableDetail = new DataTable(tableInfo.ChildName);
-                        childStruct = tableInfo.ChildStruct;
-                        childType = GetFirstKeyType(childStruct);
-                        adapterDetail.Fill(tableDetail);
-                        //relation = new DataRelation();
+                        ChildInfo info= run.childInfo;
+                        run.adapter   = new SqlDataAdapter("Select * From [" + info.Name + "]", conn);
+                        run.table = new DataTable(info.Name);
+                        dataSet.Tables.Add(run.table);
+                        run.childType = GetFirstKeyType(info.Struct);
+                        run.adapter.Fill(dataSet,info.Name);
+                        run.relation  = new DataRelation(info.ForeignKeyName, tableNow.Columns[info.FatherKey], run.table.Columns[info.ChildKey]);
+                        dataSet.Relations.Add(run.relation);
                     }
+
                     foreach (DataRow row in tableNow.Rows)
                     {
                         byte[] pk;
                         StringBuilder strBuilder = Row2Str(row, listStruct,PKType,MD5Provider,out pk);
                         if (strBuilder == null) return null;
-                        if (relation != null)
+                        foreach (var run in Runnings)
                         {
-                            DataRow[] childs = row.GetChildRows(relation);
+                            if (run.relation == null) continue;
+                            DataRow[] childRows = row.GetChildRows(run.relation);
                             byte[] childPK;
-                            foreach (DataRow child in childs)
-                                strBuilder.Append(Row2Str(child, childStruct, childType, MD5Provider, out childPK));
+                            foreach (DataRow childRow in childRows)
+                                    strBuilder.Append(Row2Str(childRow, run.childInfo.Struct, run.childType, MD5Provider, out childPK));
                         }
-
                             
                         byte[] md5 = MD5Provider.ComputeHash(Encoding.Unicode.GetBytes(strBuilder.ToString()));   // 還沒考慮Detail
                         Guid pkGuid = new Guid(pk);
@@ -694,10 +796,10 @@ Retry:
                             }
                             switch (st.DbType)
                             {
-                                case SqlDbType.Int: IntToBinary16((int)obj, ref pk, ofs); break;
-                                case SqlDbType.BigInt: Int64ToBinary16((Int64)obj, ref pk, ofs); break;
-                                case SqlDbType.TinyInt: pk[ofs] = (byte)obj; break;
-                                case SqlDbType.SmallInt: Int16ToBinary16((Int16)obj, ref pk, ofs); break;
+                                case SqlDbType.Int:      IntToBinary16((int)obj, ref pk, ofs);      break;
+                                case SqlDbType.BigInt:   Int64ToBinary16((Int64)obj, ref pk, ofs);  break;
+                                case SqlDbType.TinyInt:  pk[ofs] = (byte)obj;                       break;
+                                case SqlDbType.SmallInt: Int16ToBinary16((Int16)obj, ref pk, ofs);  break;
                                 default:
                                     MessageBox.Show("無法辦認的PrimaryKey型態<" + st.DbType.ToString() + "> 欄位[" + st.Name + "]!"); return null;
                             }

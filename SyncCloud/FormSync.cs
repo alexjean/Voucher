@@ -25,33 +25,36 @@ namespace SyncCloud
         }
 
 
-        bool ConnectBothServer()
+        SqlConnection ConnectServer(string msg,string server, string database, string userId, string password)
         {
             try
             {
-                ShowStatus("開啟本地資料庫!");
-                LocalServer = new SqlConnection(DB.SqlConnectString(m_Cfg.LocalServer, m_Cfg.LocalDatabase, m_Cfg.LocalUserId, m_Cfg.LocalPassword));
-                LocalServer.Open();
+                SqlConnection conn;
+                ShowStatus("開啟"+msg+"資料庫!");
+                conn = new SqlConnection(DB.SqlConnectString(server, database, userId, password));
+                conn.Open();
+                return conn;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("開啟本地服務器失敗,原因:" + ex.Message);
-                CloudServer = LocalServer = null;
-                return false;
+                MessageBox.Show("開啟"+msg+"服務器失敗,原因:" + ex.Message);
+                return null;
             }
+        }
+
+        bool ConnectBothServer()
+        {
+            LocalServer=ConnectServer("本地",m_Cfg.LocalServer, m_Cfg.LocalDatabase, m_Cfg.LocalUserId, m_Cfg.LocalPassword);
+            if (LocalServer==null) return false;
+            CloudServer=ConnectServer("雲端",m_Cfg.CloudServer, m_Cfg.CloudDatabase, m_Cfg.CloudUserId, m_Cfg.CloudPassword);
+            if (CloudServer != null) return true;
             try
             {
-                ShowStatus("開啟雲端資料庫!");
-                CloudServer = new SqlConnection(DB.SqlConnectString(m_Cfg.CloudServer, m_Cfg.CloudDatabase, m_Cfg.CloudUserId, m_Cfg.CloudPassword));
-                CloudServer.Open();
+                LocalServer.Close();
+                LocalServer = null;
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("開啟雲端服務器失敗,原因:" + ex.Message);
-                CloudServer=LocalServer = null;
-                return false;
-            }
-            return true;
+            catch { }
+            return false;
         }
 
         void Message(string msg)
@@ -66,7 +69,7 @@ namespace SyncCloud
             {
                 if (!DB.AskCreateDataTable(title, DB.SyncDataTable.SyncTable, conn))
                     goto FAIL;
-                if (!DB.DropTable("SyncMD5Old", conn)) goto FAIL;
+                if (!DB.DropTable(DB.SyncDataTable.SyncMD5Old.ToString(), conn)) goto FAIL;
             }
             if (!DB.CheckSyncTable(conn, title))                 // 檢查SyncTable存在
             {
@@ -76,17 +79,18 @@ namespace SyncCloud
             dicTableID = DB.GetTableID(conn);                   // 分別載入Local及Cloud的存在SyncTable中的TableID
             return true;
          FAIL:
-            Message("==============================================");
+            Message("==========請重新執行=========================");
             return false;
         }
 
         bool DoCheckSyncMD5Old(string title, SqlConnection conn, ref Dictionary<string,List<DB.SqlColumnStruct>> dicStructs)
         {
-            if (!dicStructs.ContainsKey("SyncMD5Old"))
+            if (!dicStructs.ContainsKey(DB.SyncDataTable.SyncMD5Old.ToString()))
             {
-                if (DB.AskCreateDataTable(title, DB.SyncDataTable.SyncMD5Old, conn))
-                    MessageBox.Show("己創建"+title+"<SyncMD5Old>, 請再執行同步!");
-                Message("======================================================");
+                if (!DB.AskCreateDataTable(title, DB.SyncDataTable.SyncMD5Old, conn))
+                    return false;
+                MessageBox.Show("己創建" + title + "同步用記憶表! 請再按開始同步");
+                Message("========新創建" + title + "同步用記憶表!=================");
                 return false;
             }
             return true;
@@ -104,11 +108,14 @@ namespace SyncCloud
             return null;
         }
 
-        DataRow GetRowFromGuidPrimaryKey(Guid guidPrimaryKey, DataTable table, List<DB.SqlColumnStruct> colStruct)
+
+        DataRow GetRowFromGuidPrimaryKey(Guid guidPrimaryKey, DataTable table, DB.TableInfo tableInfo)
         {
+            List<DB.SqlColumnStruct> colStruct = tableInfo.Struct;
             var Keys=from st in colStruct where st.IsPrimaryKey select st;
             if (Keys.Count() == 0) return null;
             byte[] PrimaryKey = guidPrimaryKey.ToByteArray();
+
             try
             {
                 if (Keys.Count() == 1)
@@ -153,25 +160,290 @@ namespace SyncCloud
                 dest[col.Name] = source[col.Name];
         }
 
-        void UpdateData(string title,string tableName, DataTable table, SqlConnection conn)
+        bool UpdateData(string title,string tableName, DataSet dataSet, SqlConnection conn,DB.TableInfo info)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("Select * From "+tableName,conn);
+            SqlDataAdapter adapter = new SqlDataAdapter("Select * From ["+tableName+"]",conn);
             SqlCommandBuilder cb = new SqlCommandBuilder(adapter);
-            try
-            {
-                cb.GetUpdateCommand();
-                cb.GetInsertCommand();
-                cb.GetDeleteCommand();
-                adapter.Update(table);
+            
+            try  // 因為Sql資料主副表連動,外鍵限制 刪父Key 子表還存在會報錯,Update Insert子表沒有父Key會報錯
+            {    // 所以規定刪除規則要選Cascade 在子表中直接去除刪除記錄,  新增要主表先
+                adapter.DeleteCommand=cb.GetDeleteCommand();
+                adapter.InsertCommand=cb.GetInsertCommand();
+                adapter.UpdateCommand=cb.GetUpdateCommand();
+                adapter.Update(dataSet,tableName);
+                dataSet.Tables[tableName].AcceptChanges();
+                if (info.Childs!=null)
+                    foreach (var child in info.Childs)
+                    {
+                        var updatedChilds = from DataRow d in dataSet.Tables[child.Name].Rows
+                                            where d.RowState == DataRowState.Added || d.RowState == DataRowState.Modified
+                                            select d;
+                        if (updatedChilds.Count() > 0)
+                        {
+                            SqlDataAdapter adapter1 = new SqlDataAdapter("Select * From [" + child.Name + "]", conn);
+                            SqlCommandBuilder cb1 = new SqlCommandBuilder(adapter1);
+                            adapter1.DeleteCommand = cb1.GetDeleteCommand();
+                            adapter1.UpdateCommand = cb1.GetUpdateCommand();
+                            adapter1.InsertCommand = cb1.GetInsertCommand();
+                            DataRow[] rows=updatedChilds.ToArray();
+                            adapter1.Update(rows);
+                            dataSet.Tables[child.Name].AcceptChanges();
+                        }
+                    }
             }
             catch (Exception ex)
             {
                 Message(title + "寫出<" + tableName + ">錯誤,原因:" + ex.Message);
+                return false;
             }
+            return true;
+        }
+
+        private bool SameKeyExist(DataRow source, List<DataRow> dests, DB.ChildInfo info,out DataRow dest)
+        {
+            dest = null;
+            if (dests == null)      return false;
+            if (dests.Count() == 0) return false;
+            List<DB.SqlColumnStruct> Keys=info.PrimaryKeys;
+            if (Keys.Count() == 0) return false;
+            try
+            {
+                DB.SqlColumnStruct key = Keys.First();
+                object sourceKey=source[key.Name];
+                IEnumerable<DataRow> rows;
+                switch(key.DbType)
+                {
+                    case SqlDbType.UniqueIdentifier: 
+                                Guid guidKey=(Guid)sourceKey;
+                                rows=from r in dests where guidKey==(Guid)r[key.Name] select r;
+                                break;
+                    case SqlDbType.Int:
+                                int intKey=(int)sourceKey;
+                                rows = from r in dests where intKey == (int)r[key.Name] select r;
+                                break;
+                    case SqlDbType.BigInt:
+                                Int64 int64Key = (Int64)sourceKey;
+                                rows = from r in dests where int64Key == (Int64)r[key.Name] select r;
+                                break;
+                    case SqlDbType.TinyInt:
+                                byte byteKey = (byte)sourceKey;
+                                rows = from r in dests where byteKey == (byte)r[key.Name] select r;
+                                break;
+                    case SqlDbType.SmallInt:
+                                Int16 int16Key = (Int16)sourceKey;
+                                rows = from r in dests where int16Key == (Int16)r[key.Name] select r;
+                                break;
+                    default: return false;
+                }
+                if (rows.Count()==0) return false;
+                if (Keys.Count()==1)
+                {
+                    dest=rows.First();
+                    return true;
+                }
+                if (Keys.Count()>2) return false;
+                var key2=Keys.Last();
+                var sourceKey2 = source[key2.Name];
+                IEnumerable<DataRow> rows2;
+                switch (key.DbType)
+                {
+                    case SqlDbType.UniqueIdentifier:
+                        Guid guidKey = (Guid)sourceKey2;
+                        rows2 = from r in rows where guidKey == (Guid)r[key2.Name] select r;
+                        break;
+                    case SqlDbType.Int:
+                        int intKey = (int)sourceKey2;
+                        rows2 = from r in rows where intKey == (int)r[key2.Name] select r;
+                        break;
+                    case SqlDbType.BigInt:
+                        Int64 int64Key = (Int64)sourceKey2;
+                        rows2 = from r in rows where int64Key == (Int64)r[key2.Name] select r;
+                        break;
+                    case SqlDbType.TinyInt:
+                        byte byteKey = (byte)sourceKey2;
+                        rows2 = from r in rows where byteKey == (byte)r[key2.Name] select r;
+                        break;
+                    case SqlDbType.SmallInt:
+                        Int16 int16Key = (Int16)sourceKey2;
+                        rows2 = from r in rows where int16Key == (Int16)r[key2.Name] select r;
+                        break;
+                    default: return false;
+                }
+                if (rows2.Count() == 0) return false;
+                dest = rows2.First();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Message("程式或資料錯誤！<SameKeyExist>[" + source.Table.TableName + "] 原因:" + ex.Message);
+                throw ex;
+            }
+        }
+
+        private bool UpdateRealDataByMd5Result(string tableName,string msgDest,SqlConnection serverConnDest,DB.TableInfo tableInfoSource,DB.TableInfo tableInfoDest,
+                                                DataSet dataSetSource,DataSet dataSetDest,Dictionary<Guid,DB.Md5Result> dicMd5ResultSource )
+        {
+                DataTable dataTableSource = dataSetSource.Tables[tableName];
+                DataTable dataTableDest = dataSetDest.Tables[tableName];
+                int changed=0;
+                foreach (var pair in dicMd5ResultSource)
+                {
+                    var re = pair.Value;
+                    if (re.Status==DB.RowStatus.Unchanged) continue;
+                    // 自Source取資料更新Dest端真實檔案
+                    changed++;
+                    try
+                    {
+                        DataRow sourceRow = GetRowFromGuidPrimaryKey(re.PrimaryKey, dataTableSource, tableInfoSource);
+                        DataRow destRow   = GetRowFromGuidPrimaryKey(re.PrimaryKey, dataTableDest  , tableInfoDest);
+                        var colStruct = tableInfoSource.Struct;       // 雲端和本地一定相同,前面己經比對過,所以用同一colStruct
+                        switch (re.Status)
+                        {
+                            case DB.RowStatus.New:
+                            case DB.RowStatus.Changed:
+                                if (sourceRow == null) continue;  // 應該不可能
+                                if (destRow == null)
+                                {
+                                    destRow = dataTableDest.NewRow();
+                                    CopyRow(sourceRow, destRow, colStruct);
+                                    dataTableDest.Rows.Add(destRow);
+                                    if (tableInfoSource.Childs != null)
+                                        foreach (var info in tableInfoSource.Childs)
+                                        {
+                                            var infoDests = from inf in tableInfoDest.Childs where inf.Name == info.Name select inf;
+                                            if (infoDests.Count() != 1) continue;
+                                            var infoDest = infoDests.First();
+                                            DataTable childTableDest=dataSetDest.Tables[infoDest.Name];
+                                            if (childTableDest == null)
+                                            {
+                                                Message("處理 =>" + msgDest + "[" + tableName + "]時出錯,本表同步停止,原因:找不到子表["+infoDest.Name+"]");
+                                                return false;
+                                            }
+                                            DataRow[] childRowsSource = sourceRow.GetChildRows(info.ForeignKeyName);
+                                            List<DataRow> childRowsDest = destRow.GetChildRows(infoDest.ForeignKeyName).ToList();  // 應該不會有,但要預防
+                                            // 分三部分,二個都有的要覆蓋Dest, Source有Dest沒有要新增, Source沒有Dest有要Delete 
+                                            foreach (DataRow s in childRowsSource)
+                                            {
+                                                DataRow dest;
+                                                if (SameKeyExist(s, childRowsDest, info, out dest))
+                                                {
+                                                    CopyRow(s, dest, info.Struct);
+                                                    childRowsDest.Remove(dest);
+                                                }
+                                                else
+                                                {
+                                                    dest = childTableDest.NewRow();
+                                                    CopyRow(s, dest, info.Struct);
+                                                    childTableDest.Rows.Add(dest);
+                                                }
+                                            }
+                                            foreach (DataRow d in childRowsDest)
+                                                d.Delete();
+                                        }
+                                        // 新增在Update時要先放主表,再插入副表
+                                }
+                                else
+                                {
+                                    // 分三部分, Source有Dest沒有要新增, Source沒有Dest有要Delete, 二個都有的要覆蓋Dest(覆蓋不好做)
+                                    CopyRow(sourceRow, destRow, colStruct);
+                                    if (tableInfoSource.Childs != null)
+                                        foreach (var info in tableInfoSource.Childs)
+                                        {
+                                            var infoDests = from inf in tableInfoDest.Childs where inf.Name == info.Name select inf;
+                                            if (infoDests.Count() != 1) continue;
+                                            var infoDest = infoDests.First();
+                                            DataTable childTableDest = dataSetDest.Tables[infoDest.Name];
+                                            if (childTableDest == null)
+                                            {
+                                                Message("處理 =>" + msgDest + "[" + tableName + "]時出錯,本表同步停止,原因:找不到子表[" + infoDest.Name + "]");
+                                                return false;
+                                            }
+                                            DataRow[] childRowsSource = sourceRow.GetChildRows(info.ForeignKeyName);
+                                            List<DataRow> childRowsDest = destRow.GetChildRows(infoDest.ForeignKeyName).ToList();
+                                            // 分三部分,二個都有的要覆蓋Dest, Source有Dest沒有要新增, Source沒有Dest有要Delete 
+                                            foreach (DataRow so in childRowsSource)
+                                            {
+                                                DataRow dest;
+                                                if (SameKeyExist(so, childRowsDest, info,out dest))
+                                                {
+                                                    CopyRow(so, dest, info.Struct);
+                                                    childRowsDest.Remove(dest);
+                                                }
+                                                else
+                                                {
+                                                    dest = childTableDest.NewRow();
+                                                    CopyRow(so, dest, info.Struct);
+                                                    childTableDest.Rows.Add(dest);
+                                                }
+                                            }
+                                            foreach (DataRow d in childRowsDest)
+                                                d.Delete();
+                                        }
+                                }
+                                break;
+                            case DB.RowStatus.Deleted:
+                                if (destRow != null)
+                                {
+                                    if (tableInfoDest.Childs!=null)
+                                        foreach(var child in tableInfoDest.Childs)
+                                        {
+                                            var childRows = destRow.GetChildRows(child.ForeignKeyName);   // 前面CalcMd5應該己經建立Relation
+                                            DataTable tab=dataSetDest.Tables[child.Name];
+                                            foreach (var childRow in childRows)
+                                                tab.Rows.Remove(childRow);          // 先刪子表,再刪總表, 規定Delete Cascade, 所以先將Deleted的ChildRow Remove就好
+                                        }
+                                    destRow.Delete();   
+                                }
+                                break;
+                            default:
+                                Message("處理 =>" + msgDest + "[" + tableName + "]時出錯,本表同步停止,原因:"+re.Status.ToString()+"我不認得");
+                                return false;  // 不可能,出錯了
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Message("處理 =>"+msgDest+"["+tableName+"]時出錯,本表同步停止,原因:"+ex.Message);
+                        return false;
+                    }
+                }
+                ShowStatus("更新"+msgDest+"[" + tableName + "]資料 " + changed.ToString() + "筆!");
+                return UpdateData(msgDest, tableName, dataSetDest, serverConnDest,tableInfoDest);  
+        }
+
+
+        private bool BuildChildInfo(string fatherName,string childName,Dictionary<string,List<DB.SqlColumnStruct>> dicStruct,Dictionary<string,DB.TableInfo> dicTableInfo,
+                                    List<DB.ForeignKey> listForeignKey,out DB.TableInfo fatherInfo)
+        {
+            if (dicTableInfo.TryGetValue(fatherName, out fatherInfo))
+            {
+                if (fatherInfo.Childs == null) fatherInfo.Childs = new List<DB.ChildInfo>();
+                DB.ChildInfo child=new DB.ChildInfo(childName);
+                dicStruct.TryGetValue(childName, out child.Struct);
+                var fks=from fk in listForeignKey where fk.FatherTable==fatherName && fk.ChildTable==childName select fk;
+                if (fks.Count()>0)
+                {
+                    DB.ForeignKey fk=fks.First();
+                    child.ForeignKeyName = fk.KeyName;
+                    child.FatherKey = fk.FatherKey;
+                    child.ChildKey  = fk.ChildKey;
+                    child.DeleteAction = fk.DeleteAction;
+                    child.UpdateAction = fk.UpdateAction;
+                    var keys = from ke in child.Struct where ke.IsPrimaryKey select ke;
+                    if (keys.Count()>0)
+                    {
+                        child.PrimaryKeys=new List<DB.SqlColumnStruct>();
+                        foreach(var key in keys)
+                            child.PrimaryKeys.Add(key);
+                    }
+                }
+                fatherInfo.Childs.Add(child);
+            }
+            return true;
         }
 
         private void menuItemBeginSync_Click(object sender, EventArgs e)
         {
+            Message("=========開始同步  " + DateTime.Now.ToShortTimeString() + "  ===================");
             if (!ConnectBothServer()) return;                                                           // 連本机 連雲端
             Dictionary<string,List<DB.SqlColumnStruct>> StructLocal = DB.GetTablesName(LocalServer);    // 本机所有TableName
             Dictionary<string,List<DB.SqlColumnStruct>> StructCloud = DB.GetTablesName(CloudServer);
@@ -187,6 +459,10 @@ namespace SyncCloud
             if (!DoCheckSyncTable ("雲端", CloudServer, ref StructCloud, ref TableInfoCloud)) return;
             if (!DoCheckSyncMD5Old("本地", LocalServer, ref StructLocal)) return;
             if (!DoCheckSyncMD5Old("雲端", CloudServer, ref StructCloud)) return;
+            ShowStatus("取得本地ForeignKey定義!");
+            List<DB.ForeignKey> listFKLocal = DB.GetForeignKey(LocalServer);
+            ShowStatus("取得雲ForeignKey定義!");
+            List<DB.ForeignKey> listFKCloud = DB.GetForeignKey(CloudServer);
 
             //int updatedVersion;
             //if (!DB.GetDeletedVersion(CloudServer, out updatedVersion))  // 雲端Deleted的版本号
@@ -195,15 +471,17 @@ namespace SyncCloud
             //    return;
             //}
             //Message("雲端己更新版本号為<"+updatedVersion.ToString()+">");
-            Message("======比對本地及雲端資料庫================");
+            Message("=========比對本地及雲端資料庫==================");
             // 比對Local及Cloud每個Table的檔案結構是否相同
-            List<string> keys = StructLocal.Keys.ToList<string>();
+            List<string> keys = StructLocal.Keys.ToList();
+            List<string> shouldRemoved = new List<string>();
             foreach(string local in keys) 
             {
+                string fatherName = null;
                 if (local == DB.SyncDataTable.SyncMD5Now.ToString()) continue;    // Md5Now檔案二端同時自動產生, 不用比較
                 if (local == "DrawerRecord")
                 {
-                    StructLocal.Remove(local);
+                    shouldRemoved.Add(local);
                     continue;                            // 量大此資料不同步                          
                 }
                 ShowStatus("比對 " + local);
@@ -214,9 +492,14 @@ namespace SyncCloud
                     DB.TableInfo me ,meCloud;
                     if (TableInfoLocal.TryGetValue(local, out me     ))  me.Struct        = StructLocal[local];
                     if (TableInfoCloud.TryGetValue(local, out meCloud))  meCloud.Struct   = StructCloud[local];
-                    string fatherName = null;
-                    if      (local.EndsWith("Detail"))  fatherName = local.Substring(0, local.Length - 6);
-                    else if (local.EndsWith("Item"))    fatherName = local.Substring(0, local.Length - 4);
+
+                    if      (local.Equals("ShiftDetail"))       fatherName = "ShiftTable";
+                    else if (local.EndsWith("Detail"))          fatherName = local.Substring(0, local.Length - 6);
+                    else if (local.EndsWith("Item"))            fatherName = local.Substring(0, local.Length - 4);
+                    else if (local.Equals("InventoryProducts")) fatherName = "Inventory";
+                    if (fatherName != null)
+                        if (!StructLocal.ContainsKey(fatherName)) fatherName = null;      // 例如BankDetail其實不是副檔,沒有主檔叫Bank
+
                     if (!DB.SameStructWithPK(StructLocal[local], StructCloud[local]))
                     {
                         Message("不同    " + local);
@@ -225,23 +508,61 @@ namespace SyncCloud
                             MessageBox.Show("Table[Sync*] 為同步所需檔案,不可不同,同步停止!");
                             return;
                         }
-                        StructLocal.Remove(local);
-                        if (fatherName != null) StructLocal.Remove(fatherName);  // 副檔不同,主檔也不同步
+                        shouldRemoved.Add(local);
+                        if (fatherName != null) shouldRemoved.Add(fatherName);  // 副檔不同,主檔也不同步. 主檔不存在,表示不是副檔,只是取名為%Detail或%Item
                     }
                     else
                     {
                         if (fatherName != null)
                         {
                             DB.TableInfo fatherInfo,fatherInfoCloud;
-                            if (TableInfoLocal.TryGetValue(fatherName, out fatherInfo))
+                            BuildChildInfo(fatherName, local, StructLocal, TableInfoLocal, listFKLocal, out fatherInfo);
+                            BuildChildInfo(fatherName, local, StructCloud, TableInfoCloud, listFKCloud, out fatherInfoCloud);
+                            #region Old BuildChildInfo
+                            //if (TableInfoLocal.TryGetValue(fatherName, out fatherInfo))
+                            //{
+                            //    if (fatherInfo.Childs == null) fatherInfo.Childs = new List<DB.ChildInfo>();
+                            //    DB.ChildInfo child=new DB.ChildInfo(local);
+                            //    StructLocal.TryGetValue(local, out child.Struct);
+                            //    var fks=from fk in listFKLocal where fk.FatherTable==fatherName && fk.ChildTable==local select fk;
+                            //    if (fks.Count()>0)
+                            //    {
+                            //        DB.ForeignKey fk=fks.First();
+                            //        child.ForeignKeyName = fk.KeyName;
+                            //        child.FatherKey = fk.FatherKey;
+                            //        child.ChildKey  = fk.ChildKey;
+                            //        child.DeleteAction = fk.DeleteAction;
+                            //        child.UpdateAction = fk.UpdateAction;
+                            //    }
+                            //    fatherInfo.Childs.Add(child);
+                            //}
+                            //if (TableInfoCloud.TryGetValue(fatherName, out fatherInfoCloud))
+                            //{
+                            //    if (fatherInfoCloud.Childs == null) fatherInfoCloud.Childs = new List<DB.ChildInfo>();
+                            //    DB.ChildInfo child = new DB.ChildInfo(local);
+                            //    StructCloud.TryGetValue(local, out child.Struct);
+                            //    var fks = from fk in listFKCloud where fk.FatherTable == fatherName && fk.ChildTable == local select fk;
+                            //    if (fks.Count() > 0)
+                            //    {
+                            //        DB.ForeignKey fk = fks.First();
+                            //        child.ForeignKeyName = fk.KeyName;
+                            //        child.FatherKey = fk.FatherKey;
+                            //        child.ChildKey  = fk.ChildKey;
+                            //        child.DeleteAction = fk.DeleteAction;
+                            //        child.UpdateAction = fk.UpdateAction;
+                            //    }
+                            //    fatherInfoCloud.Childs.Add(child);
+                            //}
+                            #endregion
+                            if (!DB.SameForeignKey(fatherInfo, fatherInfoCloud))
                             {
-                                fatherInfo.ChildName = local;
-                                StructLocal.TryGetValue(local, out fatherInfo.ChildStruct);
+                                Message("FK不同    <" +fatherName+"-"+local+">");
+                                shouldRemoved.Add(fatherName);
                             }
-                            if (TableInfoCloud.TryGetValue(fatherName, out fatherInfoCloud))
+                            else if (!DB.IsForeignKeyDeleteActionCascade(fatherInfo))
                             {
-                                fatherInfoCloud.ChildName = local;
-                                StructCloud.TryGetValue(local, out fatherInfoCloud.ChildStruct);
+                                Message("規定FK的刪除規則必需為CASCADE <" +fatherName+"-"+local+">");
+                                shouldRemoved.Add(fatherName);
                             }
                         }
                     }
@@ -249,12 +570,17 @@ namespace SyncCloud
                 else
                 {
                     Message("雲端無 " + local);
-                    StructLocal.Remove(local);
+                    shouldRemoved.Add(local);
                 }
-                if (local.EndsWith("Detail") || local.EndsWith("Item")) StructLocal.Remove(local);  // 副檔案不用各別計算 
+                if (fatherName!=null) shouldRemoved.Add(local);  // 副檔案不用各別計算 
+            }
+            foreach (string name in shouldRemoved)
+            {
+                StructLocal.Remove(name);
+                StructCloud.Remove(name);
             }
             ShowStatus("資料庫結構比對完成!");
-            Message("============ 以上資料庫將不進行同步! ======");
+            Message("============ 以上資料庫將不進行同步! ===========");
             // 鎖定同步
 
             // 比對 MD5Old 找出Deleted
@@ -281,21 +607,32 @@ namespace SyncCloud
                 string tableName=table.Key;
                 if (tableName.StartsWith("Sync")) continue;                            // 同步系統用檔案不用算Md5
                 //if (tableName != "Expense") continue;
-                DB.TableInfo tableInfo;
-                if (!TableInfoLocal.TryGetValue(tableName, out tableInfo)) continue;
-                var colStruct = tableInfo.Struct;       // 雲端和本地一定相同,前面己經比對過,所以用同一colStruct
-                DataTable localDataTable = new DataTable(tableName);
+                DB.TableInfo tableInfoLocal,tableInfoCloud;
+                if (!TableInfoLocal.TryGetValue(tableName, out tableInfoLocal))
+                {
+                    Message("無法找到本地[" + tableName + "]的TableInfo!");
+                    continue;
+                }
+
+                DataSet localDataSet=new DataSet();
                 //int tableID=DB.FindTableID(tableName,LocalTableID);
-                Dictionary<Guid,DB.Md5Result> md5ResultLocal=DB.CalcCompMd5(tableInfo, LocalServer,ref localDataTable,ref MD5LocalDataTable);
                 string msg="計算MD5<" + tableName;
-                if (tableInfo.ChildName!=null) msg+="-"+tableInfo.ChildName;
+                if (tableInfoLocal.Childs!=null)
+                    foreach(var child in tableInfoLocal.Childs)
+                        msg+="-"+child.Name;
                 msg+= "> ";
                 msg=msg.PadRight(35);
+                // 算出 所有Table MD5Now
+                // 比對新舊MD5 找出變更及新增資料 建差異表md5ResultLocal
+                // 算本地的MD5Now (Order OrderItem及DrawerRecord不算)
+                Dictionary<Guid, DB.Md5Result> md5ResultLocal = DB.CalcCompMd5(tableInfoLocal, LocalServer, ref localDataSet, ref MD5LocalDataTable);
                 if (md5ResultLocal == null) msg+=" 本地出錯,";
                 else                        msg+=" 本地 Ok ,";
-                DataTable cloudDataTable = new DataTable(tableName);
-                if (!TableInfoCloud.TryGetValue(tableName, out tableInfo)) continue;
-                Dictionary<Guid,DB.Md5Result> md5ResultCloud = DB.CalcCompMd5(tableInfo, CloudServer,ref cloudDataTable,ref MD5CloudDataTable);  // 這個將來一定要在雲端做,Unchanged就不傳回
+                DataSet cloudDataSet = new DataSet();
+                // 算雲端的MD5Now (Order OrderItem及DrawerRecord不算)
+                // 比對新舊MD5 找出變更及新增資料 建差異表md5ResultCloud
+                if (!TableInfoCloud.TryGetValue(tableName, out tableInfoCloud)) continue;
+                Dictionary<Guid,DB.Md5Result> md5ResultCloud = DB.CalcCompMd5(tableInfoCloud, CloudServer,ref cloudDataSet,ref MD5CloudDataTable);  // 這個將來一定要在雲端做,Unchanged就不傳回
                 if (md5ResultCloud == null) msg+=" 雲端出錯!";
                 else                        msg+=" 雲端 Ok !";
                 Message(msg);
@@ -303,86 +640,146 @@ namespace SyncCloud
                 foreach (var pair in md5ResultCloud)
                 {
                     if (pair.Value.Status == DB.RowStatus.Unchanged) continue;
-                    if (md5ResultLocal.ContainsKey(pair.Key))
+                    DB.Md5Result val;
+                    if (md5ResultLocal.TryGetValue(pair.Key,out val))
                     {
-                        DB.Md5Result val=pair.Value;    
                         if (val.Status != DB.RowStatus.Unchanged)    // 雲端和本地同時變更的,雲端被蓋
                             val.Status  = DB.RowStatus.Unchanged;
                     }
                 }
-                if (tableName != "Order")     // Order特殊處理,DB.CalcCompMd5 並未讀入Order,, 雲端不更新本地
+                //DataTable localDataTable=localDataSet.Tables[tableName];
+                //DataTable cloudDataTable = cloudDataSet.Tables[tableName];
+                //if (tableName != "Order")     // Order特殊處理,DB.CalcCompMd5 並未讀入Order,, 雲端不更新本地
                 {
-                    foreach (var pair in md5ResultLocal)
-                    {
-                        var re = pair.Value;
-                        if (re.Status==DB.RowStatus.Unchanged) continue;
-                        // 自本地取資料更新雲端真實檔案
-                        try
-                        {
-                            DataRow localRow = GetRowFromGuidPrimaryKey(re.PrimaryKey, localDataTable, colStruct);
-                            DataRow cloudRow = GetRowFromGuidPrimaryKey(re.PrimaryKey, cloudDataTable, colStruct);
-                            switch (re.Status)
-                            {
-                                case DB.RowStatus.New:
-                                case DB.RowStatus.Changed:
-                                    if (localRow == null) continue;  // 應該不可能
-                                    if (cloudRow == null)
-                                    {
-                                        cloudRow = cloudDataTable.NewRow();
-                                        CopyRow(localRow, cloudRow, colStruct);
-                                        cloudDataTable.Rows.Add(cloudRow);
-                                    }
-                                    else CopyRow(localRow, cloudRow, colStruct);
-                                    break;
-                                case DB.RowStatus.Deleted:
-                                    if (cloudRow != null) cloudRow.Delete();
-                                    break;
-                                default: break;
-                            }
-                        }
-                        catch { break; }
-                    }
-                    UpdateData("雲端", tableName, cloudDataTable, CloudServer);
+                    if (!UpdateRealDataByMd5Result(tableName, "雲端", CloudServer, tableInfoLocal, tableInfoCloud,localDataSet, cloudDataSet, md5ResultLocal))
+                        goto Next;
+                    #region UpdateRealDataFromMd5Result Local=>Cloud
+                    //int changed=0;
+                    //foreach (var pair in md5ResultLocal)
+                    //{
+                    //    var re = pair.Value;
+                    //    if (re.Status==DB.RowStatus.Unchanged) continue;
+                    //    // 自本地取資料更新雲端真實檔案
+                    //    changed++;
+                    //    try
+                    //    {
+                    //        DataRow localRow = GetRowFromGuidPrimaryKey(re.PrimaryKey, localDataTable, tableInfoLocal);
+                    //        DataRow cloudRow = GetRowFromGuidPrimaryKey(re.PrimaryKey, cloudDataTable, tableInfoCloud);
+                    //        var colStruct = tableInfoLocal.Struct;       // 雲端和本地一定相同,前面己經比對過,所以用同一colStruct
+                    //        switch (re.Status)
+                    //        {
+                    //            case DB.RowStatus.New:
+                    //            case DB.RowStatus.Changed:
+                    //                if (localRow == null) continue;  // 應該不可能
+                    //                if (cloudRow == null)
+                    //                {
+                    //                    cloudRow = cloudDataTable.NewRow();
+                    //                    CopyRow(localRow, cloudRow, colStruct);
+                    //                    cloudDataTable.Rows.Add(cloudRow);
+                    //                    //if (tableInfoLocal.Childs!=null)
+                    //                    //    foreach(var info in tableInfoLocal.Childs)
+                    //                    //    {
+                    //                    //        var infoDests=from inf in tableInfoCloud.Childs where inf.Name==info.Name select inf;
+                    //                    //        if (infoDests.Count()!=1) continue;   
+                    //                    //        var infoDest=infoDests.First();
+                    //                    //        DataRow[] childRowsLocal = localRow.GetChildRows(info.ForeignKeyName);
+                    //                    //        DataRow[] childRowsCloud = cloudRow.GetChildRows(infoDest.ForeignKeyName);  // 新增的理
+                    //                    //    }
+                    //                    // 
+                    //                }
+                    //                else CopyRow(localRow, cloudRow, colStruct);
+                    //                break;
+                    //            case DB.RowStatus.Deleted:
+                    //                if (cloudRow != null)
+                    //                {
+                    //                    cloudRow.Delete();
+                    //                    if (tableInfoCloud.Childs!=null)
+                    //                        foreach(var child in tableInfoCloud.Childs)
+                    //                        {
+                    //                            var childRows = cloudRow.GetChildRows(child.ForeignKeyName);   // 前面應該己經建立Relation
+                    //                            foreach (var childRow in childRows)
+                    //                                childRow.Delete();
+                    //                        }
+                    //                }
+                    //                break;
+                    //            default: break;
+                    //        }
+                    //    }
+                    //   catch (Exception ex)
+                    //    {
+                    //        Message("處理 本地=>雲端["+tableName+"]時出錯,本表同步停止,原因:"+ex.Message);
+                    //        goto Next;
+                    //    }
+                    //}
+                    //ShowStatus("更新雲端[" + tableName + "]資料 " + changed.ToString() + "筆!");
+                    //UpdateData("雲端", tableName, cloudDataTable, CloudServer);
+                    #endregion
+                    // 自雲端取資料改本地部分
+                    if (!UpdateRealDataByMd5Result(tableName, "本地", LocalServer, tableInfoCloud, tableInfoLocal, cloudDataSet, localDataSet, md5ResultCloud))
+                        goto Next;
+                    #region UpdateRealDataFromMd5Result Cloud=>Local
+                    //changed = 0;
+                    //foreach (var pair in md5ResultCloud)
+                    //{   // 自雲端取資料更新本地真實檔案
+                    //    var re = pair.Value;
+                    //    if (re.Status == DB.RowStatus.Unchanged) continue;
+                    //    changed++;
+                    //    try
+                    //    {
+                    //        DataRow localRow = GetRowFromGuidPrimaryKey(re.PrimaryKey, localDataTable, tableInfoLocal);
+                    //        DataRow cloudRow = GetRowFromGuidPrimaryKey(re.PrimaryKey, cloudDataTable, tableInfoCloud);
+                    //        var colStruct = tableInfoLocal.Struct;       // 雲端和本地一定相同,前面己經比對過,所以用同一colStruct
+                    //        switch (re.Status)
+                    //        {
+                    //            case DB.RowStatus.New:
+                    //            case DB.RowStatus.Changed:
+                    //                if (cloudRow == null) continue;  // 應該不可能
+                    //                if (localRow == null)
+                    //                {
+                    //                    localRow = localDataTable.NewRow();
+                    //                    CopyRow(cloudRow, localRow, colStruct);
+                    //                    localDataTable.Rows.Add(localRow);
+                    //                }
+                    //                else CopyRow(cloudRow, localRow, colStruct);
+                    //                break;
+                    //            case DB.RowStatus.Deleted:
+                    //                if (localRow != null) 
+                    //                {
+                    //                    localRow.Delete();
+                    //                    if (tableInfoLocal.Childs != null)
+                    //                        foreach (var child in tableInfoLocal.Childs)
+                    //                        {
+                    //                            var childRows = localRow.GetChildRows(child.ForeignKeyName);   // 前面應該己經建立Relation
+                    //                            foreach (var childRow in childRows)
+                    //                                childRow.Delete();
+                    //                        }
+                    //                }
+                    //                break;
+                    //            default: break;   // 不應該有
+                    //        }
+                    //    }
+                    //    catch (Exception ex)
+                    //    {
+                    //        Message("處理 雲端=>本地["+tableName+"]時出錯,本表同步停止,原因:"+ex.Message);
+                    //        goto Next;
+                    //    }
+                    //}
+                    //ShowStatus("更新本地[" + tableName + "]資料 " + changed.ToString() + "筆!");
+                    //UpdateData("本地", tableName, localDataTable, LocalServer);
+                    #endregion
 
-                    // 變更雲端部分
-                    foreach (var pair in md5ResultCloud)
-                    {   // 自雲端取資料更新本地真實檔案
-                        var re = pair.Value;
-                        if (re.Status == DB.RowStatus.Unchanged) continue;
-                        try
-                        {
-                            DataRow localRow = GetRowFromGuidPrimaryKey(re.PrimaryKey, localDataTable, colStruct);
-                            DataRow cloudRow = GetRowFromGuidPrimaryKey(re.PrimaryKey, cloudDataTable, colStruct);
-                            switch (re.Status)
-                            {
-                                case DB.RowStatus.New:
-                                case DB.RowStatus.Changed:
-                                    if (cloudRow == null) continue;  // 應該不可能
-                                    if (localRow == null)
-                                    {
-                                        localRow = localDataTable.NewRow();
-                                        CopyRow(cloudRow, localRow, colStruct);
-                                        cloudDataTable.Rows.Add(localRow);
-                                    }
-                                    else CopyRow(cloudRow, localRow, colStruct);
-                                    break;
-                                case DB.RowStatus.Deleted:
-                                    if (localRow != null) localRow.Delete();
-                                    break;
-                                default: break;   // 不應該有
-                            }
-                        }
-                        catch { break; }
-                    }
-                    UpdateData("本地", tableName, localDataTable, LocalServer);
                     var changedLocal=from loc in md5ResultLocal.Values where loc.Status!=DB.RowStatus.Unchanged select loc;
                     var changedCloud=from cld in md5ResultCloud.Values where cld.Status!=DB.RowStatus.Unchanged select cld;
                     List<DB.Md5Result> changedList=changedLocal.ToList();
                     int tableIDLocal=DB.FindTableID(tableName,TableInfoLocal);
                     int tableIDCloud=DB.FindTableID(tableName,TableInfoCloud);
                     changedList.AddRange(changedCloud);
-                    DB.UpdateMd5Old(changedList,tableIDLocal, LocalServer, MD5LocalDataTable);
-                    DB.UpdateMd5Old(changedList,tableIDCloud, CloudServer, MD5CloudDataTable);
+
+                    ShowStatus("更新本地[" + tableName + " MD5] " + changedList.Count().ToString() + "筆!");
+                    DB.UpdateMd5Old(changedList, tableIDLocal, LocalServer, MD5LocalDataTable);
+                    ShowStatus("更新雲端[" + tableName + " MD5] " + changedList.Count().ToString() + "筆!");
+                    DB.UpdateMd5Old(changedList, tableIDCloud, CloudServer, MD5CloudDataTable);
+                Next:
                     GC.Collect();
                 }
             }
@@ -396,9 +793,7 @@ namespace SyncCloud
             // 查目前版本号後的Deleted, 執行刪除本地. Deleted版本号設為 為雲端Deleted版本号+1
             // Deleted如果有新增 雲端Deleted版本號++
 
-            // 算出 所有Table MD5Now
-            // 比對新舊MD5 找出變更及新增資料 建本地差異表
-            // 算雲端的MD5Now (Order OrderItem及Drawer不算)
+            
 
             // 傳回各表總MD5 及雲端差異表
 
@@ -419,7 +814,7 @@ namespace SyncCloud
 
             // 將本地及雲端 MD5Now 放到 MD5Old, MD5Now清空
             // 解鎖同步
-            Message("=========本次同步完成" + DateTime.Now.ToShortTimeString() + "============");
+            Message("=========本次同步完成" + DateTime.Now.ToShortTimeString() + "=================");
             ShowStatus("同步完成!");
         }
 
@@ -441,7 +836,49 @@ namespace SyncCloud
             ListBox listBox = sender as ListBox;
             e.DrawBackground();
             e.DrawFocusRectangle();
-            e.Graphics.DrawString(listBox.Items[e.Index].ToString(), e.Font, new SolidBrush(e.ForeColor), e.Bounds);
+            if (e.Index>=0)
+                e.Graphics.DrawString(listBox.Items[e.Index].ToString(), e.Font, new SolidBrush(e.ForeColor), e.Bounds);
+        }
+
+        private void MenuItemClearScreen_Click(object sender, EventArgs e)
+        {
+            listBoxMessage.Items.Clear();
+            Application.DoEvents();
+        }
+
+        private void MenuItemClearLocalMemory_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("清除本地記憶後同步,會將本地所有資料上傳,\r\n耗癈大量時間,上次同步後在雲端所做變更可能被還原,\r\n確定清除嗎?",
+                                "", MessageBoxButtons.OKCancel) != DialogResult.OK) return;
+            if (LocalServer == null)
+                LocalServer=ConnectServer("本地", m_Cfg.LocalServer, m_Cfg.LocalDatabase, m_Cfg.LocalUserId, m_Cfg.LocalPassword);
+            if (LocalServer == null) return;
+            if (DB.DropTable(DB.SyncDataTable.SyncMD5Old.ToString(), LocalServer))
+            {
+                ShowStatus("本地記憶己清除!");
+                Message("=========本地記憶己清除!=======================");
+            }
+            else
+                Message("=========本地記憶清除失敗!=====================");
+
+        }
+
+        private void MenuItemClearCloudMemory_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("清除雲端記憶後同步,會將雲端所有資料下載,\r\n耗癈大量時間,上次同步後在本地所做變更可能被還原,\r\n確定清除嗎?",
+                                "", MessageBoxButtons.OKCancel) != DialogResult.OK) return;
+
+            if (CloudServer == null)
+                CloudServer = ConnectServer("本地", m_Cfg.CloudServer, m_Cfg.CloudDatabase, m_Cfg.CloudUserId, m_Cfg.CloudPassword);
+            if (CloudServer == null) return;
+            if (DB.DropTable(DB.SyncDataTable.SyncMD5Old.ToString(), CloudServer))
+            {
+                ShowStatus("雲端記憶己清除!");
+                Message("=========雲端記憶己清除!=======================");
+            }
+            else
+                Message("=========雲端記憶清除失敗!=====================");
+
         }
 
     }

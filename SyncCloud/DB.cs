@@ -535,6 +535,7 @@ Retry:
             public int RecordCount;
             public Guid MD5;
             public List<SqlColumnStruct> Struct;
+            public List<SqlColumnStruct> PrimaryKeys = null;
             public List<ChildInfo> Childs;
         }
 
@@ -613,7 +614,7 @@ Retry:
             return PrimaryKeyType.Unknown;
         }
 
-        class RunningSet
+        public class RunningSet
         {
             public SqlDataAdapter adapter = null;
             public DataTable table = null;
@@ -684,7 +685,7 @@ Retry:
                 DataTable table = new DataTable();
                 try
                 {
-                    adapterNow.Fill(tableNow);
+                    //adapterNow.Fill(tableNow);
                     // 填MD5Now入listResult
                     foreach (DataRow row in tableNow.Rows)
                     {

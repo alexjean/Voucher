@@ -25,6 +25,7 @@ namespace VoucherExpense
             Config = MyFunction.HardwareCfg;
         }
 
+
         private void btnFindPrinter_Click(object sender, EventArgs e)
         {
             if (printDialog1.ShowDialog()==DialogResult.OK)

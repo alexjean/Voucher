@@ -156,7 +156,7 @@ namespace VoucherExpense
         DamaiDataSetTableAdapters.VEHeaderTableAdapter headerSQLAdapter;
         DamaiDataSetTableAdapters.ApartmentTableAdapter apartmentSQLAdapter;
         DamaiDataSet damaiDataSet;
-        private void ReadTable()
+        private bool ReadTable()
         {
             operatorSQLAdapter  = new DamaiDataSetTableAdapters.OperatorTableAdapter();
             headerSQLAdapter    = new DamaiDataSetTableAdapters.VEHeaderTableAdapter();
@@ -171,12 +171,13 @@ namespace VoucherExpense
             catch(Exception ex)
             {
                 MessageBox.Show("操作員資料庫讀取錯誤<"+ex.Message+">!  無法登入");
-                Close();
+                return false;
             }
             if (damaiDataSet.Operator.Rows.Count == 0)
             {
                 MessageBox.Show("資料庫內沒有設定任何操作員,無法登入");
                 Close();
+                return false;
             }
             if (damaiDataSet.Apartment.Rows.Count != 0)
             {
@@ -203,6 +204,7 @@ namespace VoucherExpense
                 if (!header.IsVersionNull()) sVersion = header.Version.Trim();
             }
             CheckAppVersion(sVersion);
+            return true;
         }
 
         bool DoUpdate()
@@ -518,7 +520,14 @@ namespace VoucherExpense
             if (!m_Cfg.IsServer)
                 System.Threading.Thread.Sleep(250);   // 給 WinExec一點時間,執行完 Net Use * /Delete /Yes
             ShowLogin(true);
-            ReadTable();
+            if (!ReadTable())
+            {
+                MyFunction.HardwareCfg = m_Cfg;
+                Form hardware = new FormHardware();
+                hardware.ShowDialog();
+                Close();
+                return;
+            }
             var row = CheckLogin("alexjean", "lovealex");
             if (row != null)
             {
@@ -528,6 +537,7 @@ namespace VoucherExpense
                 Home.ShowDialog();
                 Close();
             }
+
 #endif
         }
 

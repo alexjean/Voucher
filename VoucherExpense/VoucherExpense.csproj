@@ -136,6 +136,7 @@
     </Compile>
     <Compile Include="AccTitleList.cs" />
     <Compile Include="Class\BakeryConfig.cs" />
+    <Compile Include="Class\DB.cs" />
     <Compile Include="DamaiDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -193,6 +194,12 @@
     </Compile>
     <Compile Include="FormApartment.Designer.cs">
       <DependentUpon>FormApartment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormAutoSync.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAutoSync.Designer.cs">
+      <DependentUpon>FormAutoSync.cs</DependentUpon>
     </Compile>
     <Compile Include="FormBank.cs">
       <SubType>Form</SubType>
@@ -475,6 +482,9 @@
     <EmbeddedResource Include="FormApartment.resx">
       <DependentUpon>FormApartment.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAutoSync.resx">
+      <DependentUpon>FormAutoSync.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormBank.resx">
       <DependentUpon>FormBank.cs</DependentUpon>

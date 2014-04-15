@@ -9,6 +9,7 @@ using System.IO;
 #if UseSQLServer
 using MyVEHeaderAdapter = VoucherExpense.DamaiDataSetTableAdapters.VEHeaderTableAdapter;
 using MyVEHeaderTable = VoucherExpense.DamaiDataSet.VEHeaderDataTable;
+using System.Data.SqlClient;
 #else
 using MyVEHeaderAdapter = VoucherExpense.VEDataSetTableAdapters.HeaderTableAdapter;
 using MyVEHeaderTable = VoucherExpense.VEDataSet.HeaderDataTable;
@@ -204,6 +205,42 @@ namespace VoucherExpense
             {
                 MessageBox.Show("錯誤:" + ex.Message);
             }
+        }
+
+        private void btnTestLocal_Click(object sender, EventArgs e)
+        {
+            string connStr = DB.SqlConnectString(textBoxSqlServerIP.Text.Trim(), textBoxSqlDatabase.Text.Trim()
+                                , textBoxSqlUserID.Text.Trim(), textBoxSqlPassword.Text.Trim());
+            SqlConnection conn = new SqlConnection(connStr);
+            try
+            {
+                conn.Open();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("本地資料庫連線 失敗,原因:" + ex.Message);
+                return;
+            }
+            conn.Close();
+            MessageBox.Show("本地資料庫 連線成功!");
+        }
+
+        private void btnTestCloud_Click(object sender, EventArgs e)
+        {
+                        string connStr = DB.SqlConnectString(textBoxSqlServerIPCloud.Text.Trim(), textBoxSqlDatabase.Text.Trim()
+                                , textBoxSqlUserIDCloud.Text.Trim(), textBoxSqlPasswordCloud.Text.Trim());
+            SqlConnection conn = new SqlConnection(connStr);
+            try
+            {
+                conn.Open();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("雲端資料庫連線 失敗,原因:" + ex.Message);
+                return;
+            }
+            conn.Close();
+            MessageBox.Show("雲端資料庫 連線成功!");
         }
     }
 }

@@ -53,6 +53,7 @@ namespace VoucherExpense
             InitializeComponent();
         }
 
+        HardwareConfig m_Cfg=new HardwareConfig();
         // 店長DB
         MyDataSet m_DataSet = new MyDataSet();
         MyOrderSet m_OrderSet;
@@ -65,6 +66,9 @@ namespace VoucherExpense
 
         private void FormCashierAuthen_Load(object sender, EventArgs e)
         {
+            m_Cfg.Load();
+            btnCloundSyncAuto.Visible = m_Cfg.EnableCloudSync;
+
 #if UseSQLServer
             HideBackupOption();
             m_OrderSet = m_DataSet;
@@ -1037,8 +1041,6 @@ namespace VoucherExpense
             Message("收銀机必需重新登入更新才會生效!");
         }
 
-
-
         #region ====== Print Function ======
         int PageIndex = -1;
         private void printDocument_BeginPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
@@ -1246,5 +1248,10 @@ namespace VoucherExpense
                   e.ColumnIndex.ToString() + "列錯誤!原因:" + e.Exception.Message);
         }
 
+        private void btnCloundSyncAuto_Click(object sender, EventArgs e)
+        {
+            Form form = new FormAutoSync();
+            form.ShowDialog();
+        }
     }
 }

@@ -77,6 +77,8 @@
             this.textBoxSqlUserID = new System.Windows.Forms.TextBox();
             this.textBoxSqlPassword = new System.Windows.Forms.TextBox();
             this.btnSaveSql = new System.Windows.Forms.Button();
+            this.btnTestLocal = new System.Windows.Forms.Button();
+            this.btnTestCloud = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -458,6 +460,8 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.btnTestCloud);
+            this.groupBox4.Controls.Add(this.btnTestLocal);
             this.groupBox4.Controls.Add(this.label11);
             this.groupBox4.Controls.Add(this.chBoxCloudSync);
             this.groupBox4.Controls.Add(this.textBoxSqlUserIDCloud);
@@ -561,13 +565,33 @@
             // 
             // btnSaveSql
             // 
-            this.btnSaveSql.Location = new System.Drawing.Point(180, 203);
+            this.btnSaveSql.Location = new System.Drawing.Point(252, 204);
             this.btnSaveSql.Name = "btnSaveSql";
-            this.btnSaveSql.Size = new System.Drawing.Size(75, 30);
+            this.btnSaveSql.Size = new System.Drawing.Size(96, 30);
             this.btnSaveSql.TabIndex = 16;
             this.btnSaveSql.Text = "存檔";
             this.btnSaveSql.UseVisualStyleBackColor = true;
             this.btnSaveSql.Click += new System.EventHandler(this.btnSaveSql_Click);
+            // 
+            // btnTestLocal
+            // 
+            this.btnTestLocal.Location = new System.Drawing.Point(109, 205);
+            this.btnTestLocal.Name = "btnTestLocal";
+            this.btnTestLocal.Size = new System.Drawing.Size(96, 29);
+            this.btnTestLocal.TabIndex = 26;
+            this.btnTestLocal.Text = "試連本机";
+            this.btnTestLocal.UseVisualStyleBackColor = true;
+            this.btnTestLocal.Click += new System.EventHandler(this.btnTestLocal_Click);
+            // 
+            // btnTestCloud
+            // 
+            this.btnTestCloud.Location = new System.Drawing.Point(395, 205);
+            this.btnTestCloud.Name = "btnTestCloud";
+            this.btnTestCloud.Size = new System.Drawing.Size(96, 29);
+            this.btnTestCloud.TabIndex = 27;
+            this.btnTestCloud.Text = "試連雲端";
+            this.btnTestCloud.UseVisualStyleBackColor = true;
+            this.btnTestCloud.Click += new System.EventHandler(this.btnTestCloud_Click);
             // 
             // FormHardware
             // 
@@ -655,5 +679,7 @@
         private System.Windows.Forms.TextBox textBoxSqlUserIDCloud;
         private System.Windows.Forms.TextBox textBoxSqlPasswordCloud;
         private System.Windows.Forms.TextBox textBoxSqlServerIPCloud;
+        private System.Windows.Forms.Button btnTestLocal;
+        private System.Windows.Forms.Button btnTestCloud;
     }
 }

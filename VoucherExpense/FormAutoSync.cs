@@ -142,7 +142,7 @@ namespace VoucherExpense
                 case DB.PrimaryKeyType.UniqueIdentifier: return guidPrimaryKey.ToString();
                 case DB.PrimaryKeyType.String: 
                     string str=Encoding.Unicode.GetString(PrimaryKey);
-                    return str.TrimEnd();
+                    return str;
             }
             return null;
         }
@@ -721,10 +721,20 @@ namespace VoucherExpense
                                 Message("FK不同    <" + fatherName + "-" + local + ">");
                                 shouldRemoved.Add(fatherName);
                             }
-                            else if (!DB.IsForeignKeyDeleteActionCascade(fatherInfo))
+                            else
                             {
-                                Message("規定FK的刪除規則必需為CASCADE <" + fatherName + "-" + local + ">");
-                                shouldRemoved.Add(fatherName);
+                                if (fatherInfo.PrimaryKeys==null || fatherInfo.PrimaryKeys.Count == 0)
+                                {
+                                    Message("必需有主Key<"+fatherName+">");
+                                    shouldRemoved.Add(fatherName);
+                                    fatherName = null;
+                                }
+                                else if (!DB.IsForeignKeyDeleteActionCascade(fatherInfo))
+                                {
+                                    Message("規定FK的刪除規則必需為CASCADE <" + fatherName + "-" + local + ">");
+                                    shouldRemoved.Add(fatherName);
+                                    fatherName = null;
+                                }
                             }
                         }
                     }

@@ -25,6 +25,11 @@ namespace VoucherExpense
         public string sqlDatabase;
         public string sqlUserID;
         public string sqlPassword;
+
+        public bool enableCloudSync;
+        public string sqlServerIPCloud;
+        public string sqlUserIDCloud;
+        public string sqlPasswordCloud;
     }
 
     public class HardwareConfig
@@ -44,6 +49,11 @@ namespace VoucherExpense
         public string SqlDatabase;
         public string SqlUserID;
         public string SqlPassword;
+
+        public bool EnableCloudSync;
+        public string SqlServerIPCloud;
+        public string SqlUserIDCloud;
+        public string SqlPasswordCloud;
 
         public List<HardwareProfile> ProfileList = null;
         public HardwareProfile ActiveProfile = null;
@@ -135,6 +145,13 @@ namespace VoucherExpense
                 GetEncryptedAttrib(Server, "SqlUserID"  , ref curr.sqlUserID);
                 GetEncryptedAttrib(Server, "SqlPassword", ref curr.sqlPassword);
                 GetEncryptedAttrib(Server, "SqlDatabase", ref curr.sqlDatabase);
+
+                GetAttrib(Server, "EnableCloudSync", ref str);
+                if (str != null && str.ToUpper() == "YES") curr.enableCloudSync = true;
+                else curr.enableCloudSync = false;
+                GetEncryptedAttrib(Server, "SqlServerIPCloud", ref curr.sqlServerIPCloud);
+                GetEncryptedAttrib(Server, "SqlUserIDCloud"  , ref curr.sqlUserIDCloud);
+                GetEncryptedAttrib(Server, "SqlPasswordCloud", ref curr.sqlPasswordCloud);
             }
         }
 
@@ -156,6 +173,11 @@ namespace VoucherExpense
             SqlDatabase =curr.sqlDatabase;
             SqlUserID   =curr.sqlUserID;
             SqlPassword =curr.sqlPassword;
+
+            EnableCloudSync  = curr.enableCloudSync;
+            SqlServerIPCloud = curr.sqlServerIPCloud;
+            SqlUserIDCloud   = curr.sqlUserIDCloud;
+            SqlPasswordCloud = curr.sqlPasswordCloud;
         }
 
         public void SaveDefaultTo(HardwareProfile curr)
@@ -175,6 +197,11 @@ namespace VoucherExpense
             curr.sqlDatabase = SqlDatabase;
             curr.sqlUserID   = SqlUserID;
             curr.sqlPassword = SqlPassword;
+
+            curr.enableCloudSync  = EnableCloudSync;
+            curr.sqlServerIPCloud = SqlServerIPCloud;
+            curr.sqlUserIDCloud   = SqlUserIDCloud;
+            curr.sqlPasswordCloud = SqlPasswordCloud;
         }
 
         public void Load()
@@ -218,7 +245,10 @@ namespace VoucherExpense
                     MessageBox.Show("未知的HardwareCfg.xml格式!");
 
             }
-            catch { }
+            catch (Exception ex)
+            {
+                MessageBox.Show("讀取<HardwareCfg.xml>時發生錯誤!\r\n請確定正確的HardwareCfg.xml和Manage.exe在相同目錄!\r\n錯誤原因:" + ex.Message);
+            }
         }
 
         public void Save()
@@ -241,6 +271,11 @@ namespace VoucherExpense
             UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlUserID"   , curr.sqlUserID);
             UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlPassword" , curr.sqlPassword);
             UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlDatabase" , curr.sqlDatabase);
+
+            UpdateXmlAttrib(doc, node, "DataSource", "EnableCloudSync", (EnableCloudSync ? "YES" : "NO"));
+            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlServerIPCloud", curr.sqlServerIPCloud);
+            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlUserIDCloud", curr.sqlUserIDCloud);
+            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlPasswordCloud", curr.sqlPasswordCloud);
         }
 
         public void SaveTo(string dir)

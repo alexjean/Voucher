@@ -66,12 +66,17 @@
             this.textBoxSqlDatabase = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.chBoxCloudSync = new System.Windows.Forms.CheckBox();
+            this.textBoxSqlUserIDCloud = new System.Windows.Forms.TextBox();
+            this.textBoxSqlPasswordCloud = new System.Windows.Forms.TextBox();
+            this.textBoxSqlServerIPCloud = new System.Windows.Forms.TextBox();
+            this.textBoxProfileName = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.textBoxSqlUserID = new System.Windows.Forms.TextBox();
             this.textBoxSqlPassword = new System.Windows.Forms.TextBox();
             this.btnSaveSql = new System.Windows.Forms.Button();
-            this.textBoxProfileName = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -421,15 +426,15 @@
             // 
             // textBoxSqlServerIP
             // 
-            this.textBoxSqlServerIP.Location = new System.Drawing.Point(106, 42);
+            this.textBoxSqlServerIP.Location = new System.Drawing.Point(106, 55);
             this.textBoxSqlServerIP.Name = "textBoxSqlServerIP";
-            this.textBoxSqlServerIP.Size = new System.Drawing.Size(277, 27);
+            this.textBoxSqlServerIP.Size = new System.Drawing.Size(169, 27);
             this.textBoxSqlServerIP.TabIndex = 2;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(30, 47);
+            this.label7.Location = new System.Drawing.Point(30, 60);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(65, 16);
             this.label7.TabIndex = 8;
@@ -437,15 +442,15 @@
             // 
             // textBoxSqlDatabase
             // 
-            this.textBoxSqlDatabase.Location = new System.Drawing.Point(106, 75);
+            this.textBoxSqlDatabase.Location = new System.Drawing.Point(106, 88);
             this.textBoxSqlDatabase.Name = "textBoxSqlDatabase";
-            this.textBoxSqlDatabase.Size = new System.Drawing.Size(277, 27);
+            this.textBoxSqlDatabase.Size = new System.Drawing.Size(169, 27);
             this.textBoxSqlDatabase.TabIndex = 9;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(30, 78);
+            this.label8.Location = new System.Drawing.Point(30, 91);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(56, 16);
             this.label8.TabIndex = 10;
@@ -453,6 +458,11 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.label11);
+            this.groupBox4.Controls.Add(this.chBoxCloudSync);
+            this.groupBox4.Controls.Add(this.textBoxSqlUserIDCloud);
+            this.groupBox4.Controls.Add(this.textBoxSqlPasswordCloud);
+            this.groupBox4.Controls.Add(this.textBoxSqlServerIPCloud);
             this.groupBox4.Controls.Add(this.textBoxProfileName);
             this.groupBox4.Controls.Add(this.label9);
             this.groupBox4.Controls.Add(this.label10);
@@ -469,6 +479,53 @@
             this.groupBox4.TabIndex = 30;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "SQL設定";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(320, 96);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(184, 16);
+            this.label11.TabIndex = 25;
+            this.label11.Text = "雲端資料庫名稱必需相同";
+            // 
+            // chBoxCloudSync
+            // 
+            this.chBoxCloudSync.AutoSize = true;
+            this.chBoxCloudSync.Location = new System.Drawing.Point(323, 26);
+            this.chBoxCloudSync.Name = "chBoxCloudSync";
+            this.chBoxCloudSync.Size = new System.Drawing.Size(123, 20);
+            this.chBoxCloudSync.TabIndex = 24;
+            this.chBoxCloudSync.Text = "啟動雲端同步";
+            this.chBoxCloudSync.UseVisualStyleBackColor = true;
+            // 
+            // textBoxSqlUserIDCloud
+            // 
+            this.textBoxSqlUserIDCloud.Location = new System.Drawing.Point(323, 131);
+            this.textBoxSqlUserIDCloud.Name = "textBoxSqlUserIDCloud";
+            this.textBoxSqlUserIDCloud.Size = new System.Drawing.Size(169, 27);
+            this.textBoxSqlUserIDCloud.TabIndex = 22;
+            // 
+            // textBoxSqlPasswordCloud
+            // 
+            this.textBoxSqlPasswordCloud.Location = new System.Drawing.Point(323, 164);
+            this.textBoxSqlPasswordCloud.Name = "textBoxSqlPasswordCloud";
+            this.textBoxSqlPasswordCloud.Size = new System.Drawing.Size(169, 27);
+            this.textBoxSqlPasswordCloud.TabIndex = 23;
+            // 
+            // textBoxSqlServerIPCloud
+            // 
+            this.textBoxSqlServerIPCloud.Location = new System.Drawing.Point(323, 55);
+            this.textBoxSqlServerIPCloud.Name = "textBoxSqlServerIPCloud";
+            this.textBoxSqlServerIPCloud.Size = new System.Drawing.Size(169, 27);
+            this.textBoxSqlServerIPCloud.TabIndex = 20;
+            // 
+            // textBoxProfileName
+            // 
+            this.textBoxProfileName.Location = new System.Drawing.Point(106, 0);
+            this.textBoxProfileName.Name = "textBoxProfileName";
+            this.textBoxProfileName.Size = new System.Drawing.Size(169, 27);
+            this.textBoxProfileName.TabIndex = 19;
             // 
             // label9
             // 
@@ -492,14 +549,14 @@
             // 
             this.textBoxSqlUserID.Location = new System.Drawing.Point(106, 131);
             this.textBoxSqlUserID.Name = "textBoxSqlUserID";
-            this.textBoxSqlUserID.Size = new System.Drawing.Size(231, 27);
+            this.textBoxSqlUserID.Size = new System.Drawing.Size(169, 27);
             this.textBoxSqlUserID.TabIndex = 14;
             // 
             // textBoxSqlPassword
             // 
             this.textBoxSqlPassword.Location = new System.Drawing.Point(106, 164);
             this.textBoxSqlPassword.Name = "textBoxSqlPassword";
-            this.textBoxSqlPassword.Size = new System.Drawing.Size(231, 27);
+            this.textBoxSqlPassword.Size = new System.Drawing.Size(169, 27);
             this.textBoxSqlPassword.TabIndex = 15;
             // 
             // btnSaveSql
@@ -511,13 +568,6 @@
             this.btnSaveSql.Text = "存檔";
             this.btnSaveSql.UseVisualStyleBackColor = true;
             this.btnSaveSql.Click += new System.EventHandler(this.btnSaveSql_Click);
-            // 
-            // textBoxProfileName
-            // 
-            this.textBoxProfileName.Location = new System.Drawing.Point(106, 0);
-            this.textBoxProfileName.Name = "textBoxProfileName";
-            this.textBoxProfileName.Size = new System.Drawing.Size(169, 27);
-            this.textBoxProfileName.TabIndex = 19;
             // 
             // FormHardware
             // 
@@ -600,5 +650,10 @@
         private System.Windows.Forms.Button btnSaveSql;
         private System.Windows.Forms.Label labelDataBase;
         private System.Windows.Forms.TextBox textBoxProfileName;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.CheckBox chBoxCloudSync;
+        private System.Windows.Forms.TextBox textBoxSqlUserIDCloud;
+        private System.Windows.Forms.TextBox textBoxSqlPasswordCloud;
+        private System.Windows.Forms.TextBox textBoxSqlServerIPCloud;
     }
 }

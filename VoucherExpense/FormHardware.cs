@@ -85,6 +85,11 @@ namespace VoucherExpense
             textBoxSqlDatabase.Text = Config.SqlDatabase;
             textBoxSqlUserID.Text   = Config.SqlUserID;
             textBoxSqlPassword.Text = Config.SqlPassword;
+
+            chBoxCloudSync.Checked       = Config.EnableCloudSync;
+            textBoxSqlServerIPCloud.Text = Config.SqlServerIPCloud;
+            textBoxSqlUserIDCloud.Text   = Config.SqlUserIDCloud;
+            textBoxSqlPasswordCloud.Text = Config.SqlPasswordCloud;
             
 
             labelProgramVersion.Text = "程式版本 "+Application.ProductVersion.ToString();
@@ -126,6 +131,11 @@ namespace VoucherExpense
             Config.SqlDatabase = textBoxSqlDatabase.Text.Trim();
             Config.SqlUserID   = textBoxSqlUserID.Text.Trim();
             Config.SqlPassword = textBoxSqlPassword.Text.Trim();
+
+            Config.EnableCloudSync  = chBoxCloudSync.Checked;
+            Config.SqlServerIPCloud = textBoxSqlServerIPCloud.Text.Trim();
+            Config.SqlUserIDCloud   = textBoxSqlUserIDCloud.Text.Trim();
+            Config.SqlPasswordCloud = textBoxSqlPasswordCloud.Text.Trim();
             Config.Save();
             MessageBox.Show("SQL設定存檔完成! 重新啟動程式後, 設定方生效.");
         }

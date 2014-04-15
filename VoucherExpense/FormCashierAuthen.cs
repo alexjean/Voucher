@@ -105,6 +105,8 @@ namespace VoucherExpense
             m_TextBoxPaths.Add(textBoxPOS1);
             m_TextBoxPaths.Add(textBoxPOS2);
             m_TextBoxPaths.Add(textBoxPOS3);
+
+            btnCloundSyncAuto.Text = "雲端同步\n\n收取收銀机資料\n\n自動循環";
         }
 
         void HideBackupOption()

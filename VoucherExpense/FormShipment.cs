@@ -248,7 +248,7 @@ namespace VoucherExpense
             //var dt = shipment.CopyToDataTable();
             //var sdt = dt as SQLVEDataSet.ShipmentDataTable;
             //var shipmentrows = from r in this.sQLVEDataSet.Shipment where (r.ShipCode >= Convert.ToInt32(currentYear) || r.ShipCode < Convert.ToInt32(currentMaxYear)) orderby r.ShipCode descending select r;
-            var shipmentrows = from r in this.damaiDataSet.Shipment where (r.ShipCode >= Convert.ToInt32(currentYear) || r.ShipCode < Convert.ToInt32(currentMaxYear)) orderby r.ShipCode descending select r;
+            var shipmentrows = from r in this.damaiDataSet.Shipment where (r.ShipCode >= Convert.ToInt32(currentYear) && r.ShipCode < Convert.ToInt32(currentMaxYear)) orderby r.ShipCode descending select r;
             if (shipmentrows.ToArray().Length>0)
             {
                 //var shipmentrow = shipmentrows.First<SQLVEDataSet.ShipmentRow>();
@@ -314,7 +314,7 @@ namespace VoucherExpense
                     DataGridViewCell costCell = dgRow.Cells["dgvCostColumn"];
                     if (costCell.ValueType != typeof(decimal)) return;  // Cost不是decimal,資料庫定義必然被改過了,程式碼失效
                     if (costCell.Value == null) return;
-                    if (costCell.Value != DBNull.Value) return;         // Cost有資料時就不改
+                    //if (costCell.Value != DBNull.Value) return;         // Cost有資料時就不改
                     DataRowView rowView = dgRow.DataBoundItem as DataRowView;
                     //SQLVEDataSet.ShipmentDetailRow shipmentDetailRow = rowView.Row as SQLVEDataSet.ShipmentDetailRow;
                     DamaiDataSet.ShipmentDetailRow shipmentDetailRow = rowView.Row as DamaiDataSet.ShipmentDetailRow;
@@ -707,12 +707,39 @@ namespace VoucherExpense
         }
 
         private void productClassComboBox_SelectedValueChanged(object sender, EventArgs e)
-        {
-
-            //ComboBox box = (ComboBox)sender;
-            if (productClassComboBox.SelectedValue == null)
+        {            if (productClassComboBox.SelectedValue == null)
             { return; }
+        //var cr = this.shipmentBindingSource.Current as DataRowView;
+        //if (cr==null)
+        //{
+        //    return;
+        //}
+        //    if (cr.Row.RowState==DataRowState.Detached)
+        //    {
+
             SetProductFilter((int)productClassComboBox.SelectedValue);
+           
+        //    DamaiDataSet.ShipmentRow sr = cr.Row as DamaiDataSet.ShipmentRow;
+        //    foreach (var item in CreateNewShipmentDetailDataTable(sr.ID))
+        //    {
+        //    this.damaiDataSet.ShipmentDetail.Rows.Add(item);
+        //    }
+        //    this.shipmentDetailBindingSource.ResetBindings(false);
+        //    }
+        }
+        DamaiDataSet.ShipmentDetailDataTable CreateNewShipmentDetailDataTable(int id)
+        {
+            DamaiDataSet.ShipmentDetailDataTable dt = new DamaiDataSet.ShipmentDetailDataTable();
+            foreach (DataRowView item in productBindingSource)
+            {
+
+                DataRow dr = item.Row as DataRow;
+                DamaiDataSet.ProductRow pr = dr as DamaiDataSet.ProductRow;
+                DamaiDataSet.ShipmentDetailRow r = dt.NewRow() as DamaiDataSet.ShipmentDetailRow;
+                r.ProductID = pr.ProductID;
+                r.ShipmentID = id;
+            }
+            return dt;
         }
 
         void SetProductFilter(int ProductClassID)

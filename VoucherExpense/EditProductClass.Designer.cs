@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditProductClass));
             this.productClassDataGridView = new System.Windows.Forms.DataGridView();
+            this.dgvColumnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnClassName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.productClassBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             this.productClassTableAdapter = new VoucherExpense.DamaiDataSetTableAdapters.ProductClassTableAdapter();
@@ -47,9 +49,6 @@
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.productClassBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.productClassBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.dgvColumnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnClassName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.productClassDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productClassBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
@@ -71,12 +70,28 @@
             this.ColumnClassName});
             this.productClassDataGridView.DataSource = this.productClassBindingSource;
             this.productClassDataGridView.Location = new System.Drawing.Point(0, 29);
-            this.productClassDataGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.productClassDataGridView.Margin = new System.Windows.Forms.Padding(4);
             this.productClassDataGridView.Name = "productClassDataGridView";
             this.productClassDataGridView.RowTemplate.Height = 23;
             this.productClassDataGridView.Size = new System.Drawing.Size(462, 647);
             this.productClassDataGridView.TabIndex = 1;
             this.productClassDataGridView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.productClassDataGridView_CellBeginEdit);
+            // 
+            // dgvColumnID
+            // 
+            this.dgvColumnID.DataPropertyName = "ID";
+            this.dgvColumnID.HeaderText = "编号";
+            this.dgvColumnID.MaxInputLength = 50;
+            this.dgvColumnID.Name = "dgvColumnID";
+            this.dgvColumnID.ReadOnly = true;
+            // 
+            // ColumnClassName
+            // 
+            this.ColumnClassName.DataPropertyName = "ProductClass";
+            this.ColumnClassName.HeaderText = "产品类别";
+            this.ColumnClassName.MaxInputLength = 20;
+            this.ColumnClassName.Name = "ColumnClassName";
+            this.ColumnClassName.Width = 300;
             // 
             // productClassBindingSource
             // 
@@ -172,8 +187,8 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 22);
-            this.bindingNavigatorCountItem.Text = "/{0}";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(32, 22);
+            this.bindingNavigatorCountItem.Text = "/ {0}";
             this.bindingNavigatorCountItem.ToolTipText = "总项数";
             // 
             // bindingNavigatorSeparator1
@@ -240,8 +255,7 @@
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorSeparator2,
             this.bindingNavigatorAddNewItem,
-            this.productClassBindingNavigatorSaveItem,
-            this.toolStripButton1});
+            this.productClassBindingNavigatorSaveItem});
             this.productClassBindingNavigator.Location = new System.Drawing.Point(0, 0);
             this.productClassBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.productClassBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
@@ -254,31 +268,6 @@
             this.productClassBindingNavigator.TabIndex = 0;
             this.productClassBindingNavigator.Text = "bindingNavigator1";
             // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton1.Text = "toolStripButton1";
-            // 
-            // dgvColumnID
-            // 
-            this.dgvColumnID.DataPropertyName = "ID";
-            this.dgvColumnID.HeaderText = "编号";
-            this.dgvColumnID.MaxInputLength = 50;
-            this.dgvColumnID.Name = "dgvColumnID";
-            this.dgvColumnID.ReadOnly = true;
-            // 
-            // ColumnClassName
-            // 
-            this.ColumnClassName.DataPropertyName = "ProductClass";
-            this.ColumnClassName.HeaderText = "产品类别";
-            this.ColumnClassName.MaxInputLength = 20;
-            this.ColumnClassName.Name = "ColumnClassName";
-            this.ColumnClassName.Width = 300;
-            // 
             // EditProductClass
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -287,8 +276,8 @@
             this.ClientSize = new System.Drawing.Size(1017, 676);
             this.Controls.Add(this.productClassDataGridView);
             this.Controls.Add(this.productClassBindingNavigator);
-            this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "EditProductClass";
             this.Text = "产品类别";
             this.Load += new System.EventHandler(this.EditProductClass_Load);
@@ -310,6 +299,8 @@
         private DamaiDataSetTableAdapters.ProductClassTableAdapter productClassTableAdapter;
         private DamaiDataSetTableAdapters.TableAdapterManager tableAdapterManager;
         private System.Windows.Forms.DataGridView productClassDataGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvColumnID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnClassName;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveFirstItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMovePreviousItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator;
@@ -322,8 +313,5 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
         private System.Windows.Forms.ToolStripButton productClassBindingNavigatorSaveItem;
         private System.Windows.Forms.BindingNavigator productClassBindingNavigator;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvColumnID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnClassName;
     }
 }

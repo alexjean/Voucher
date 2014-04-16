@@ -68,17 +68,14 @@ namespace VoucherExpense.Properties {
             get {
                 return ((string)(this["SqlVeConnectionString"]));
             }
-            set
-            {
-                this["SqlVeConnectionString"] = value;
-            }
+            set { this["SqlVeConnectionString"] = value; }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=AlexSuper-PC;Initial Catalog=Damai;Persist Security Info=True;User ID" +
-            "=VoucherExpense")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.;Initial Catalog=Damai;Persist Security Info=True;User ID=VoucherExp" +
+            "ense")]
         public string DamaiConnectionString {
             get {
                 return ((string)(this["DamaiConnectionString"]));

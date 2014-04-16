@@ -16,6 +16,7 @@ using MyProductAdapter  = VoucherExpense.DamaiDataSetTableAdapters.ProductTableA
 using MyOrderAdapter    = VoucherExpense.DamaiDataSetTableAdapters.OrderTableAdapter;
 using MyOrderItemAdapter= VoucherExpense.DamaiDataSetTableAdapters.OrderItemTableAdapter;
 using MyAccountingTitleAdapter = VoucherExpense.DamaiDataSetTableAdapters.AccountingTitleTableAdapter;
+using System.Security.Cryptography;
 #else
 using MyDataSet          = VoucherExpense.BakeryOrderSet;
 using MyProductTable     = VoucherExpense.BakeryOrderSet.ProductDataTable;
@@ -215,6 +216,7 @@ namespace VoucherExpense
         private void SavePhotoFileToDB(string fileName,int id,short tableID,int width,int height,MyDataSet.PhotosRow photo) // photo==null 就新增
         {
             Cursor = Cursors.WaitCursor;
+            MD5 MD5Provider = new MD5CryptoServiceProvider();
             try
             {
                 Bitmap img = (Bitmap)(Bitmap.FromFile(fileName));
@@ -228,12 +230,14 @@ namespace VoucherExpense
                     photo.PhotoID = id;
                     photo.Photo = stream.ToArray();
                     photo.UpdatedTime = DateTime.Now;
+                    photo.MD5 = MD5Provider.ComputeHash(photo.Photo);
                     m_DataSet.Photos.AddPhotosRow(photo);
                 }
                 else
                 {
                     photo.Photo = stream.ToArray();
                     photo.UpdatedTime = DateTime.Now;
+                    photo.MD5 = MD5Provider.ComputeHash(photo.Photo);
                 }
                 PhotoAdapter.Update(m_DataSet.Photos);
             }
@@ -273,7 +277,20 @@ namespace VoucherExpense
                 return;
             }
             else
-                ShowPhotoDB(photos.First());
+            {
+                var photo = photos.First();
+                ShowPhotoDB(photo);
+                if (photo.IsMD5Null())
+                {
+                    MD5 Md5Provider = new MD5CryptoServiceProvider();
+                    try
+                    {
+                        photo.MD5 = Md5Provider.ComputeHash(photo.Photo);
+                        PhotoAdapter.Update(photo);
+                    }
+                    catch { }
+                }
+            }
         }
 #endif
         #endregion

@@ -14008,6 +14008,8 @@ namespace VoucherExpense {
             
             private global::System.Data.DataColumn columnUpdatedTime;
             
+            private global::System.Data.DataColumn columnMD5;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public PhotosDataTable() {
@@ -14075,6 +14077,14 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn MD5Column {
+                get {
+                    return this.columnMD5;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -14110,13 +14120,14 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public PhotosRow AddPhotosRow(short TableID, int PhotoID, byte[] Photo, System.DateTime UpdatedTime) {
+            public PhotosRow AddPhotosRow(short TableID, int PhotoID, byte[] Photo, System.DateTime UpdatedTime, byte[] MD5) {
                 PhotosRow rowPhotosRow = ((PhotosRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         TableID,
                         PhotoID,
                         Photo,
-                        UpdatedTime};
+                        UpdatedTime,
+                        MD5};
                 rowPhotosRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowPhotosRow);
                 return rowPhotosRow;
@@ -14151,6 +14162,7 @@ namespace VoucherExpense {
                 this.columnPhotoID = base.Columns["PhotoID"];
                 this.columnPhoto = base.Columns["Photo"];
                 this.columnUpdatedTime = base.Columns["UpdatedTime"];
+                this.columnMD5 = base.Columns["MD5"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -14164,6 +14176,8 @@ namespace VoucherExpense {
                 base.Columns.Add(this.columnPhoto);
                 this.columnUpdatedTime = new global::System.Data.DataColumn("UpdatedTime", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnUpdatedTime);
+                this.columnMD5 = new global::System.Data.DataColumn("MD5", typeof(byte[]), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnMD5);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnTableID,
                                 this.columnPhotoID}, true));
@@ -24906,6 +24920,22 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public byte[] MD5 {
+                get {
+                    try {
+                        return ((byte[])(this[this.tablePhotos.MD5Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("資料表 \'Photos\' 中資料行 \'MD5\' 的值是 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tablePhotos.MD5Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsPhotoNull() {
                 return this.IsNull(this.tablePhotos.PhotoColumn);
             }
@@ -24926,6 +24956,18 @@ namespace VoucherExpense {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetUpdatedTimeNull() {
                 this[this.tablePhotos.UpdatedTimeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsMD5Null() {
+                return this.IsNull(this.tablePhotos.MD5Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetMD5Null() {
+                this[this.tablePhotos.MD5Column] = global::System.Convert.DBNull;
             }
         }
         
@@ -47257,40 +47299,46 @@ SELECT CashierID, CashierName, InPosition, CashierPassword, AuthenID, LastUpdate
             tableMapping.ColumnMappings.Add("PhotoID", "PhotoID");
             tableMapping.ColumnMappings.Add("Photo", "Photo");
             tableMapping.ColumnMappings.Add("UpdatedTime", "UpdatedTime");
+            tableMapping.ColumnMappings.Add("MD5", "MD5");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [Photos] WHERE (([TableID] = @Original_TableID) AND ([PhotoID] = @Ori" +
-                "ginal_PhotoID) AND ((@IsNull_UpdatedTime = 1 AND [UpdatedTime] IS NULL) OR ([Upd" +
-                "atedTime] = @Original_UpdatedTime)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [Photos] WHERE (([TableID] = @Original_TableID) AND ([PhotoID] = @Original_PhotoID) AND ((@IsNull_UpdatedTime = 1 AND [UpdatedTime] IS NULL) OR ([UpdatedTime] = @Original_UpdatedTime)) AND ((@IsNull_MD5 = 1 AND [MD5] IS NULL) OR ([MD5] = @Original_MD5)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TableID", global::System.Data.SqlDbType.SmallInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TableID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PhotoID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PhotoID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_UpdatedTime", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UpdatedTime", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_UpdatedTime", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UpdatedTime", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_MD5", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MD5", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_MD5", global::System.Data.SqlDbType.Binary, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MD5", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [Photos] ([TableID], [PhotoID], [Photo], [UpdatedTime]) VALUES (@Tabl" +
-                "eID, @PhotoID, @Photo, @UpdatedTime);\r\nSELECT TableID, PhotoID, Photo, UpdatedTi" +
-                "me FROM Photos WHERE (PhotoID = @PhotoID) AND (TableID = @TableID)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [Photos] ([TableID], [PhotoID], [Photo], [UpdatedTime], [MD5]) VALUES" +
+                " (@TableID, @PhotoID, @Photo, @UpdatedTime, @MD5);\r\nSELECT TableID, PhotoID, Pho" +
+                "to, UpdatedTime, MD5 FROM Photos WHERE (PhotoID = @PhotoID) AND (TableID = @Tabl" +
+                "eID)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TableID", global::System.Data.SqlDbType.SmallInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TableID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PhotoID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PhotoID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Photo", global::System.Data.SqlDbType.Image, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Photo", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UpdatedTime", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UpdatedTime", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@MD5", global::System.Data.SqlDbType.Binary, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MD5", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [Photos] SET [TableID] = @TableID, [PhotoID] = @PhotoID, [Photo] = @Photo, [UpdatedTime] = @UpdatedTime WHERE (([TableID] = @Original_TableID) AND ([PhotoID] = @Original_PhotoID) AND ((@IsNull_UpdatedTime = 1 AND [UpdatedTime] IS NULL) OR ([UpdatedTime] = @Original_UpdatedTime)));
-SELECT TableID, PhotoID, Photo, UpdatedTime FROM Photos WHERE (PhotoID = @PhotoID) AND (TableID = @TableID)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [Photos] SET [TableID] = @TableID, [PhotoID] = @PhotoID, [Photo] = @Photo, [UpdatedTime] = @UpdatedTime, [MD5] = @MD5 WHERE (([TableID] = @Original_TableID) AND ([PhotoID] = @Original_PhotoID) AND ((@IsNull_UpdatedTime = 1 AND [UpdatedTime] IS NULL) OR ([UpdatedTime] = @Original_UpdatedTime)) AND ((@IsNull_MD5 = 1 AND [MD5] IS NULL) OR ([MD5] = @Original_MD5)));
+SELECT TableID, PhotoID, Photo, UpdatedTime, MD5 FROM Photos WHERE (PhotoID = @PhotoID) AND (TableID = @TableID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TableID", global::System.Data.SqlDbType.SmallInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TableID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PhotoID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PhotoID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Photo", global::System.Data.SqlDbType.Image, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Photo", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UpdatedTime", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UpdatedTime", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@MD5", global::System.Data.SqlDbType.Binary, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MD5", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TableID", global::System.Data.SqlDbType.SmallInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TableID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PhotoID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PhotoID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_UpdatedTime", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UpdatedTime", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_UpdatedTime", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UpdatedTime", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_MD5", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MD5", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_MD5", global::System.Data.SqlDbType.Binary, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MD5", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -47306,7 +47354,7 @@ SELECT TableID, PhotoID, Photo, UpdatedTime FROM Photos WHERE (PhotoID = @PhotoI
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT TableID, PhotoID, Photo, UpdatedTime FROM Photos";
+            this._commandCollection[0].CommandText = "SELECT TableID, PhotoID, Photo, UpdatedTime, MD5 FROM Photos";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -47367,7 +47415,7 @@ SELECT TableID, PhotoID, Photo, UpdatedTime FROM Photos WHERE (PhotoID = @PhotoI
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(short Original_TableID, int Original_PhotoID, global::System.Nullable<global::System.DateTime> Original_UpdatedTime) {
+        public virtual int Delete(short Original_TableID, int Original_PhotoID, global::System.Nullable<global::System.DateTime> Original_UpdatedTime, byte[] Original_MD5) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((short)(Original_TableID));
             this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_PhotoID));
             if ((Original_UpdatedTime.HasValue == true)) {
@@ -47377,6 +47425,14 @@ SELECT TableID, PhotoID, Photo, UpdatedTime FROM Photos WHERE (PhotoID = @PhotoI
             else {
                 this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            if ((Original_MD5 == null)) {
+                this.Adapter.DeleteCommand.Parameters[4].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[4].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((byte[])(Original_MD5));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -47398,7 +47454,7 @@ SELECT TableID, PhotoID, Photo, UpdatedTime FROM Photos WHERE (PhotoID = @PhotoI
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(short TableID, int PhotoID, byte[] Photo, global::System.Nullable<global::System.DateTime> UpdatedTime) {
+        public virtual int Insert(short TableID, int PhotoID, byte[] Photo, global::System.Nullable<global::System.DateTime> UpdatedTime, byte[] MD5) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((short)(TableID));
             this.Adapter.InsertCommand.Parameters[1].Value = ((int)(PhotoID));
             if ((Photo == null)) {
@@ -47412,6 +47468,12 @@ SELECT TableID, PhotoID, Photo, UpdatedTime FROM Photos WHERE (PhotoID = @PhotoI
             }
             else {
                 this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            if ((MD5 == null)) {
+                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[4].Value = ((byte[])(MD5));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -47433,7 +47495,7 @@ SELECT TableID, PhotoID, Photo, UpdatedTime FROM Photos WHERE (PhotoID = @PhotoI
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(short TableID, int PhotoID, byte[] Photo, global::System.Nullable<global::System.DateTime> UpdatedTime, short Original_TableID, int Original_PhotoID, global::System.Nullable<global::System.DateTime> Original_UpdatedTime) {
+        public virtual int Update(short TableID, int PhotoID, byte[] Photo, global::System.Nullable<global::System.DateTime> UpdatedTime, byte[] MD5, short Original_TableID, int Original_PhotoID, global::System.Nullable<global::System.DateTime> Original_UpdatedTime, byte[] Original_MD5) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((short)(TableID));
             this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(PhotoID));
             if ((Photo == null)) {
@@ -47448,15 +47510,29 @@ SELECT TableID, PhotoID, Photo, UpdatedTime FROM Photos WHERE (PhotoID = @PhotoI
             else {
                 this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((short)(Original_TableID));
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_PhotoID));
-            if ((Original_UpdatedTime.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((System.DateTime)(Original_UpdatedTime.Value));
+            if ((MD5 == null)) {
+                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((byte[])(MD5));
+            }
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((short)(Original_TableID));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_PhotoID));
+            if ((Original_UpdatedTime.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((System.DateTime)(Original_UpdatedTime.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
+            }
+            if ((Original_MD5 == null)) {
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((byte[])(Original_MD5));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -47478,8 +47554,8 @@ SELECT TableID, PhotoID, Photo, UpdatedTime FROM Photos WHERE (PhotoID = @PhotoI
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(byte[] Photo, global::System.Nullable<global::System.DateTime> UpdatedTime, short Original_TableID, int Original_PhotoID, global::System.Nullable<global::System.DateTime> Original_UpdatedTime) {
-            return this.Update(Original_TableID, Original_PhotoID, Photo, UpdatedTime, Original_TableID, Original_PhotoID, Original_UpdatedTime);
+        public virtual int Update(byte[] Photo, global::System.Nullable<global::System.DateTime> UpdatedTime, byte[] MD5, short Original_TableID, int Original_PhotoID, global::System.Nullable<global::System.DateTime> Original_UpdatedTime, byte[] Original_MD5) {
+            return this.Update(Original_TableID, Original_PhotoID, Photo, UpdatedTime, MD5, Original_TableID, Original_PhotoID, Original_UpdatedTime, Original_MD5);
         }
     }
     

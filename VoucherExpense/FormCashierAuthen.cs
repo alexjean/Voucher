@@ -110,7 +110,7 @@ namespace VoucherExpense
             m_TextBoxPaths.Add(textBoxPOS2);
             m_TextBoxPaths.Add(textBoxPOS3);
 
-            btnCloundSyncAuto.Text = "雲端同步\n\n收取收銀机資料\n\n自動循環";
+//            btnCloundSyncAuto.Text = "雲端同步\n\n收取收銀机資料\n\n自動循環";
         }
 
         void HideBackupOption()
@@ -1242,9 +1242,10 @@ namespace VoucherExpense
             dgvCashier.Visible=false;
         }
 
+  
         private void cashierDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-            MessageBox.Show("dgvCashier資料 第" + e.RowIndex.ToString() + "行" +
+            Message("dgvCashier資料 第" + e.RowIndex.ToString() + "行" +
                   e.ColumnIndex.ToString() + "列錯誤!原因:" + e.Exception.Message);
         }
 
@@ -1253,5 +1254,7 @@ namespace VoucherExpense
             Form form = new FormAutoSync();
             form.ShowDialog();
         }
+
+ 
     }
 }

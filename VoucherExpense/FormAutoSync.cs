@@ -18,7 +18,7 @@ namespace VoucherExpense
         }
 
         SqlConnection LocalServer, CloudServer;
-        bool AllowLeave = false;
+        bool AllowLeave = true;
         HardwareConfig m_Cfg = new HardwareConfig();
 
         private void FormAutoSync_Load(object sender, EventArgs e)
@@ -140,6 +140,9 @@ namespace VoucherExpense
             {
                 case DB.PrimaryKeyType.IntCombined: return FindIntKey(PrimaryKey, 0, key.DbType).ToString();
                 case DB.PrimaryKeyType.UniqueIdentifier: return guidPrimaryKey.ToString();
+                case DB.PrimaryKeyType.String: 
+                    string str=Encoding.Unicode.GetString(PrimaryKey);
+                    return str.TrimEnd();
             }
             return null;
         }
@@ -397,7 +400,13 @@ namespace VoucherExpense
                         if (i == 0) sb.Append(" Where ");
                         else sb.Append(" Or ");
                         sb.Append(pkName); sb.Append("=");
-                        sb.Append(GuidPrimaryKeyToString(r.PrimaryKey, pkDefine));
+                        string str = GuidPrimaryKeyToString(r.PrimaryKey, pkDefine);
+                        if (str == null)
+                        {
+                            Message("處理 =>" + msgDest + "[" + tableName + "]時出錯,本表同步停止, 主Key無法轉換(只支援整數 Guid及8字以下String");
+                            return false;  
+                        }
+                        sb.Append(str);
                         listChanged.Add(r);
                         if (++i >= 100) break;
                     }
@@ -441,7 +450,13 @@ namespace VoucherExpense
                                 if (i1 == 0) sb1.Append(" Where ");
                                 else sb1.Append(" Or ");
                                 sb1.Append(pkName1); sb1.Append("=");
-                                sb1.Append(GuidPrimaryKeyToString(r.PrimaryKey, pkDefine1));
+                                string str = GuidPrimaryKeyToString(r.PrimaryKey, pkDefine1);
+                                if (str == null)
+                                {
+                                    Message("處理 =>" + msgDest + "[" + tableName + "]時出錯,本表同步停止, 主Key無法轉換(只支援整數 Guid及8字以下String");
+                                    return false;
+                                }
+                                sb.Append(str);
                                 if (++i1 >= 100) break;
                             }
                             run.adapter = new SqlDataAdapter(sb1.ToString(), serverConnDest);
@@ -772,7 +787,12 @@ namespace VoucherExpense
                 // 比對新舊MD5 找出變更及新增資料 建差異表md5ResultLocal
                 // 算本地的MD5Now (Order OrderItem及DrawerRecord不算)
                 Dictionary<Guid, DB.Md5Result> md5ResultLocal = DB.CalcCompMd5(tableInfoLocal, LocalServer, ref localDataSet, ref MD5LocalDataTable);
-                if (md5ResultLocal == null) msg += " 本地出錯, ";
+                if (md5ResultLocal == null)
+                {
+                    msg += " 本地出錯!";
+                    Message(msg);
+                    continue;
+                }
                 else msg += " 本地 Ok , ";
 
                 DataSet cloudDataSet = new DataSet();
@@ -784,7 +804,12 @@ namespace VoucherExpense
                     // 算雲端的MD5Now (Order OrderItem及DrawerRecord不算)
                     // 比對新舊MD5 找出變更及新增資料 建差異表md5ResultCloud
                     md5ResultCloud = DB.CalcCompMd5(tableInfoCloud, CloudServer, ref cloudDataSet, ref MD5CloudDataTable);  // 這個將來一定要在雲端做,Unchanged就不傳回
-                    if (md5ResultCloud == null) msg += " 雲端出錯!";
+                    if (md5ResultCloud == null)
+                    {
+                        msg += " 雲端出錯!";
+                        Message(msg);
+                        continue;
+                    }
                     else msg += " 雲端 Ok !";
                     foreach (var pair in md5ResultCloud)
                     {
@@ -909,10 +934,12 @@ namespace VoucherExpense
 
         private void btnStartSync_Click(object sender, EventArgs e)
         {
+            AllowLeave = false;
             btnExit.Enabled = false;
             Application.DoEvents();
             CloudSyncOnce();
             btnExit.Enabled = true;
+            AllowLeave = true;
         }
 
         private void listBoxMessage_DrawItem(object sender, DrawItemEventArgs e)

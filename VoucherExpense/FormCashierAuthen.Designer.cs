@@ -37,9 +37,9 @@
             System.Windows.Forms.Label label6;
             System.Windows.Forms.Label label7;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCashierAuthen));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.labelBackup = new System.Windows.Forms.Label();
             this.bakeryOrderSet = new VoucherExpense.BakeryOrderSet();
             this.cashierBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -348,9 +348,9 @@
             // dataGridViewCheckBoxColumn1
             // 
             this.dataGridViewCheckBoxColumn1.DataPropertyName = "InPosition";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.NullValue = false;
-            this.dataGridViewCheckBoxColumn1.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.NullValue = false;
+            this.dataGridViewCheckBoxColumn1.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewCheckBoxColumn1.HeaderText = "在職";
             this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
             this.dataGridViewCheckBoxColumn1.Width = 48;
@@ -358,8 +358,8 @@
             // CashierIDColumn
             // 
             this.CashierIDColumn.DataPropertyName = "CashierID";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.CashierIDColumn.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.CashierIDColumn.DefaultCellStyle = dataGridViewCellStyle2;
             this.CashierIDColumn.FillWeight = 65F;
             this.CashierIDColumn.HeaderText = "No";
             this.CashierIDColumn.Name = "CashierIDColumn";
@@ -410,9 +410,9 @@
             // dataGridViewTextBoxColumn5
             // 
             this.dataGridViewTextBoxColumn5.DataPropertyName = "LastUpdated";
-            dataGridViewCellStyle6.Format = "MM-dd hh:mm";
-            dataGridViewCellStyle6.NullValue = null;
-            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Format = "MM-dd hh:mm";
+            dataGridViewCellStyle3.NullValue = null;
+            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewTextBoxColumn5.HeaderText = "更新時間";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.ReadOnly = true;
@@ -594,9 +594,9 @@
             // 
             this.btnCloundSyncAuto.Location = new System.Drawing.Point(238, 138);
             this.btnCloundSyncAuto.Name = "btnCloundSyncAuto";
-            this.btnCloundSyncAuto.Size = new System.Drawing.Size(162, 101);
+            this.btnCloundSyncAuto.Size = new System.Drawing.Size(162, 40);
             this.btnCloundSyncAuto.TabIndex = 22;
-            this.btnCloundSyncAuto.Text = "         雲端同步           自動循環";
+            this.btnCloundSyncAuto.Text = "雲端同步";
             this.btnCloundSyncAuto.UseVisualStyleBackColor = true;
             this.btnCloundSyncAuto.Click += new System.EventHandler(this.btnCloundSyncAuto_Click);
             // 

@@ -668,16 +668,22 @@ namespace VoucherExpense
                 }
 
             }
-            catch (Exception ex) { throw ex; }
+            catch  { return null; }
             // 計算New
             MD5 MD5Provider = new MD5CryptoServiceProvider();
             SqlDataAdapter adapterNow = new SqlDataAdapter("Select * From [" + tableName + "]", conn);
             adapterNow.MissingSchemaAction = MissingSchemaAction.AddWithKey;
 
-
-            DataTable tableNow = new DataTable(tableName);   //
-            dataSet.Tables.Add(tableNow);                    //
-            adapterNow.Fill(dataSet, tableName);              // 這三行一定要這樣寫才會自動填 Columns,一定要指定tableName,而且要存在,要不然會新建一個叫'Table'
+            DataTable tableNow = new DataTable(tableName);         //
+            try
+            {
+                dataSet.Tables.Add(tableNow);                     //
+                adapterNow.Fill(dataSet, tableName);              // 這三行一定要這樣寫才會自動填 Columns,一定要指定tableName,而且要存在,要不然會新建一個叫'Table'
+            }
+            catch
+            {
+                return null;
+            }
 
 
             if (tableName == "Order")    // [Order]的MD5量大,是由AP計算的
@@ -710,7 +716,7 @@ namespace VoucherExpense
                         }
                     }
                 }
-                catch (Exception ex) { throw ex; }
+                catch (Exception ex) { return null; }
             }
             else
             {
@@ -770,7 +776,7 @@ namespace VoucherExpense
                     tableInfo.RecordCount = tableNow.Rows.Count;
                     // syncTableRow.MD5 =  ??? File MD5待寫
                 }
-                catch (Exception ex) { throw ex; }
+                catch (Exception ex) { return null; }
             }
             return dicResult;
         }
@@ -814,7 +820,16 @@ namespace VoucherExpense
                             Int64ToBinary16(dt.ToBinary(), ref pk, 0);
                             break;
                         case PrimaryKeyType.String:
-                            pk = MD5Provider.ComputeHash(Encoding.Unicode.GetBytes((string)obj));
+                            byte[] strBytes=Encoding.Unicode.GetBytes((string)obj);
+                            if (strBytes.Length > 16)
+                            {
+                                MessageBox.Show("String類主Key最大支援8個Unicode字元!");
+                                return null;
+                            }
+                            pk = new byte[16];
+                            int iMax = 16;
+                            if (iMax > strBytes.Length) iMax = strBytes.Length;
+                            for (int i = 0; i < iMax; i++) pk[i] = strBytes[i];
                             break;
                         default: return null;
                     }

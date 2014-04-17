@@ -604,7 +604,7 @@ namespace VoucherExpense
             return IDLookupTable[tableName].TableID;
         }
 
-        static private PrimaryKeyType GetFirstKeyType(List<SqlColumnStruct> listStruct)
+        static public PrimaryKeyType GetFirstKeyType(List<SqlColumnStruct> listStruct)
         {
             foreach (var col in listStruct)
             {

@@ -456,7 +456,7 @@ namespace VoucherExpense
                                     Message("處理 =>" + msgDest + "[" + tableName + "]時出錯,本表同步停止, 主Key無法轉換(只支援整數 Guid及8字以下String");
                                     return false;
                                 }
-                                sb.Append(str);
+                                sb1.Append(str);
                                 if (++i1 >= 100) break;
                             }
                             run.adapter = new SqlDataAdapter(sb1.ToString(), serverConnDest);
@@ -575,7 +575,6 @@ namespace VoucherExpense
         {
             try
             {
-
                 List<DB.RunningSet> Runnings = new List<DB.RunningSet>();
                 if (tableInfo.Childs != null)
                     foreach (var child in tableInfo.Childs)
@@ -610,7 +609,7 @@ namespace VoucherExpense
             //        return;
             //}
 
-            if (!DoCheckSyncTable("本地", LocalServer, ref StructLocal, ref TableInfoLocal)) return;
+            if (!DoCheckSyncTable("本地", LocalServer, ref StructLocal, ref TableInfoLocal)) return;     // 檢查是否存在,再載入存於SyncTable的TableID
             if (!DoCheckSyncTable("雲端", CloudServer, ref StructCloud, ref TableInfoCloud)) return;
             if (!DoCheckSyncMD5Old("本地", LocalServer, ref StructLocal)) return;
             if (!DoCheckSyncMD5Old("雲端", CloudServer, ref StructCloud)) return;
@@ -627,6 +626,27 @@ namespace VoucherExpense
             //}
             //Message("雲端己更新版本号為<"+updatedVersion.ToString()+">");
             Message("=========比對本地及雲端資料庫==================");
+            // 填入 Struct及PrimaryKeys
+            foreach (string name in StructLocal.Keys.ToList())
+            {
+                StructLocal[name] = DB.GetStruct(name, LocalServer);
+                DB.TableInfo me;
+                if (TableInfoLocal.TryGetValue(name, out me))
+                {
+                    me.Struct = StructLocal[name];
+                    me.PrimaryKeys = (from pk in me.Struct where pk.IsPrimaryKey select pk).ToList();
+                }
+            }
+            foreach (string name in StructCloud.Keys.ToList())
+            {
+                StructCloud[name] = DB.GetStruct(name, CloudServer);
+                DB.TableInfo me;
+                if (TableInfoCloud.TryGetValue(name, out me))
+                {
+                    me.Struct = StructLocal[name];
+                    me.PrimaryKeys = (from pk in me.Struct where pk.IsPrimaryKey select pk).ToList();
+                }
+            }
             // 比對Local及Cloud每個Table的檔案結構是否相同
             List<string> keys = StructLocal.Keys.ToList();
             List<string> shouldRemoved = new List<string>();
@@ -642,19 +662,6 @@ namespace VoucherExpense
                 ShowStatus("比對 " + local);
                 if (StructCloud.ContainsKey(local))
                 {
-                    StructLocal[local] = DB.GetStruct(local, LocalServer);
-                    StructCloud[local] = DB.GetStruct(local, CloudServer);
-                    DB.TableInfo me, meCloud;
-                    if (TableInfoLocal.TryGetValue(local, out me))
-                    {
-                        me.Struct = StructLocal[local];
-                        me.PrimaryKeys = (from pk in me.Struct where pk.IsPrimaryKey select pk).ToList();
-                    }
-                    if (TableInfoCloud.TryGetValue(local, out meCloud))
-                    {
-                        meCloud.Struct = StructCloud[local];
-                        meCloud.PrimaryKeys = (from pk in meCloud.Struct where pk.IsPrimaryKey select pk).ToList();
-                    }
                     if (local.Equals("ShiftDetail")) fatherName = "ShiftTable";
                     else if (local.EndsWith("Detail")) fatherName = local.Substring(0, local.Length - 6);
                     else if (local.EndsWith("Item")) fatherName = local.Substring(0, local.Length - 4);
@@ -673,6 +680,11 @@ namespace VoucherExpense
                         shouldRemoved.Add(local);
                         if (fatherName != null) shouldRemoved.Add(fatherName);  // 副檔不同,主檔也不同步. 主檔不存在,表示不是副檔,只是取名為%Detail或%Item
                     }
+                    else if (DB.GetFirstKeyType(StructLocal[local]) == DB.PrimaryKeyType.Unknown)
+                    {
+                        Message("未知主Key   <" + local + ">");
+                        shouldRemoved.Add(local);
+                    }
                     else
                     {
                         if (fatherName != null)
@@ -680,42 +692,6 @@ namespace VoucherExpense
                             DB.TableInfo fatherInfo, fatherInfoCloud;
                             BuildChildInfo(fatherName, local, StructLocal, TableInfoLocal, listFKLocal, out fatherInfo);
                             BuildChildInfo(fatherName, local, StructCloud, TableInfoCloud, listFKCloud, out fatherInfoCloud);
-                            #region Old BuildChildInfo
-                            //if (TableInfoLocal.TryGetValue(fatherName, out fatherInfo))
-                            //{
-                            //    if (fatherInfo.Childs == null) fatherInfo.Childs = new List<DB.ChildInfo>();
-                            //    DB.ChildInfo child=new DB.ChildInfo(local);
-                            //    StructLocal.TryGetValue(local, out child.Struct);
-                            //    var fks=from fk in listFKLocal where fk.FatherTable==fatherName && fk.ChildTable==local select fk;
-                            //    if (fks.Count()>0)
-                            //    {
-                            //        DB.ForeignKey fk=fks.First();
-                            //        child.ForeignKeyName = fk.KeyName;
-                            //        child.FatherKey = fk.FatherKey;
-                            //        child.ChildKey  = fk.ChildKey;
-                            //        child.DeleteAction = fk.DeleteAction;
-                            //        child.UpdateAction = fk.UpdateAction;
-                            //    }
-                            //    fatherInfo.Childs.Add(child);
-                            //}
-                            //if (TableInfoCloud.TryGetValue(fatherName, out fatherInfoCloud))
-                            //{
-                            //    if (fatherInfoCloud.Childs == null) fatherInfoCloud.Childs = new List<DB.ChildInfo>();
-                            //    DB.ChildInfo child = new DB.ChildInfo(local);
-                            //    StructCloud.TryGetValue(local, out child.Struct);
-                            //    var fks = from fk in listFKCloud where fk.FatherTable == fatherName && fk.ChildTable == local select fk;
-                            //    if (fks.Count() > 0)
-                            //    {
-                            //        DB.ForeignKey fk = fks.First();
-                            //        child.ForeignKeyName = fk.KeyName;
-                            //        child.FatherKey = fk.FatherKey;
-                            //        child.ChildKey  = fk.ChildKey;
-                            //        child.DeleteAction = fk.DeleteAction;
-                            //        child.UpdateAction = fk.UpdateAction;
-                            //    }
-                            //    fatherInfoCloud.Childs.Add(child);
-                            //}
-                            #endregion
                             if (!DB.SameForeignKey(fatherInfo, fatherInfoCloud))
                             {
                                 Message("FK不同    <" + fatherName + "-" + local + ">");
@@ -723,9 +699,9 @@ namespace VoucherExpense
                             }
                             else
                             {
-                                if (fatherInfo.PrimaryKeys==null || fatherInfo.PrimaryKeys.Count == 0)
+                                if (fatherInfo.PrimaryKeys == null || fatherInfo.PrimaryKeys.Count == 0)
                                 {
-                                    Message("必需有主Key<"+fatherName+">");
+                                    Message("必需有主Key<" + fatherName + ">");
                                     shouldRemoved.Add(fatherName);
                                     fatherName = null;
                                 }
@@ -753,23 +729,6 @@ namespace VoucherExpense
             }
             ShowStatus("資料庫結構比對完成!");
             Message("============ 以上資料庫將不進行同步! ===========");
-            // 鎖定同步
-
-            // 比對 MD5Old 找出Deleted
-            /*
-            if (StructLocal.Keys.Contains(DB.SyncDataTable.SyncMD5Now.ToString()))
-            {
-                if (MessageBox.Show("系統同步用資料庫SyncMD5Now存在, 要刪除嗎?", "", MessageBoxButtons.YesNo) != DialogResult.Yes)
-                    return;
-                if (!DB.DropTable(DB.SyncDataTable.SyncMD5Now.ToString(),LocalServer)) return;
-
-            }
-            if (!DB.CreateDataTable(DB.SyncDataTable.SyncMD5Now, LocalServer))
-            {
-                Message("無法創建本地端" + DB.SyncDataTable.SyncMD5Now.ToString() + ",可能之前同步當機,請手工排除!");
-                return;
-            }
-            */
             DamaiDataSet.SyncMD5OldDataTable MD5LocalDataTable = new DamaiDataSet.SyncMD5OldDataTable();
             DamaiDataSet.SyncMD5OldDataTable MD5CloudDataTable = new DamaiDataSet.SyncMD5OldDataTable();
 
@@ -787,7 +746,7 @@ namespace VoucherExpense
                 }
 
                 DataSet localDataSet = new DataSet();
-                string msg = "計算MD5<" + tableName;
+                string msg = "同步<" + tableName;
                 if (tableInfoLocal.Childs != null)
                     foreach (var child in tableInfoLocal.Childs)
                         msg += "-" + child.Name;
@@ -803,12 +762,13 @@ namespace VoucherExpense
                     Message(msg);
                     continue;
                 }
-                else msg += " 本地 Ok , ";
+                else msg += " 本地 Ok";
 
                 DataSet cloudDataSet = new DataSet();
                 Dictionary<Guid, DB.Md5Result> md5ResultCloud = null;
                 if (!TableInfoCloud.TryGetValue(tableName, out tableInfoCloud)) continue;
 
+                string msgCloud = "";
                 if (AllowCloudToLocal(tableName))
                 {
                     // 算雲端的MD5Now (Order OrderItem及DrawerRecord不算)
@@ -820,7 +780,7 @@ namespace VoucherExpense
                         Message(msg);
                         continue;
                     }
-                    else msg += " 雲端 Ok !";
+                    else msgCloud += " 雲端";
                     foreach (var pair in md5ResultCloud)
                     {
                         if (pair.Value.Status == DB.RowStatus.Unchanged) continue;
@@ -832,8 +792,7 @@ namespace VoucherExpense
                         }
                     }
                 }
-                else msg += " 雲端不作業!";
-                Message(msg);
+                else msgCloud += " 雲端不作業";
 
                 if (tableName == "Order")           // Order不會在UpdateComp表裏載入Source的OrderItem資料,要自己來. Dest資料在UpdateRealDataByMd5Result裏進行
                     LoadOrderItem(localDataSet, tableInfoLocal, LocalServer);
@@ -841,21 +800,25 @@ namespace VoucherExpense
                 if (!UpdateRealDataByMd5Result(tableName, "雲端", CloudServer, tableInfoLocal, tableInfoCloud, localDataSet, cloudDataSet, md5ResultLocal)) goto Next;
                 var changedLocal = from loc in md5ResultLocal.Values where loc.Status != DB.RowStatus.Unchanged select loc;
                 List<DB.Md5Result> changedList = changedLocal.ToList();
-
+                int localChangedCount = changedLocal.Count();
+                int cloudChangedCount = 0;
                 if (AllowCloudToLocal(tableName))
                 {   // 自雲端取資料改本地部分
                     if (!UpdateRealDataByMd5Result(tableName, "本地", LocalServer, tableInfoCloud, tableInfoLocal, cloudDataSet, localDataSet, md5ResultCloud)) goto Next;
                     var changedCloud = from cld in md5ResultCloud.Values where cld.Status != DB.RowStatus.Unchanged select cld;
-
+                    cloudChangedCount = changedCloud.Count();
                     changedList.AddRange(changedCloud);
                     int tableIDCloud = DB.FindTableID(tableName, TableInfoCloud);
-                    ShowStatus("更新雲端[" + tableName + " MD5] " + changedList.Count().ToString() + "筆!");
+                    ShowStatus("更新雲端[" + tableName + " MD5] " + localChangedCount.ToString() + "筆!");
                     DB.UpdateMd5Old(changedList, tableIDCloud, CloudServer, MD5CloudDataTable);
                 }
 
                 int tableIDLocal = DB.FindTableID(tableName, TableInfoLocal);
                 ShowStatus("更新本地[" + tableName + " MD5] " + changedList.Count().ToString() + "筆!");
                 DB.UpdateMd5Old(changedList, tableIDLocal, LocalServer, MD5LocalDataTable);
+                msg += "(" + localChangedCount.ToString() + "),";
+                msgCloud += "(" + cloudChangedCount.ToString() + ")!";
+                Message(msg + msgCloud);
             Next:
                 GC.Collect();
             }
@@ -900,46 +863,10 @@ namespace VoucherExpense
             Application.DoEvents();
         }
 
-
-        private void MenuItemClearScreen_Click(object sender, EventArgs e)
+        private void btnClearMessage_Click(object sender, EventArgs e)
         {
             listBoxMessage.Items.Clear();
             Application.DoEvents();
-        }
-
-        private void MenuItemClearLocalMemory_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("清除本地記憶後同步,會將本地所有資料上傳,\r\n耗癈大量時間,上次同步後在雲端所做變更可能被還原,\r\n確定清除嗎?",
-                                "", MessageBoxButtons.OKCancel) != DialogResult.OK) return;
-            if (LocalServer == null)
-                LocalServer = ConnectServer("本地", m_Cfg.SqlServerIP, m_Cfg.SqlDatabase, m_Cfg.SqlUserID, m_Cfg.SqlPassword);
-            if (LocalServer == null) return;
-            if (DB.DropTable(DB.SyncDataTable.SyncMD5Old.ToString(), LocalServer))
-            {
-                ShowStatus("本地記憶己清除!");
-                Message("=========本地記憶己清除!=======================");
-            }
-            else
-                Message("=========本地記憶清除失敗!=====================");
-
-        }
-
-        private void MenuItemClearCloudMemory_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("清除雲端記憶後同步,會將雲端所有資料下載,\r\n耗癈大量時間,上次同步後在本地所做變更可能被還原,\r\n確定清除嗎?",
-                                "", MessageBoxButtons.OKCancel) != DialogResult.OK) return;
-
-            if (CloudServer == null)
-                CloudServer = ConnectServer("本地", m_Cfg.SqlServerIPCloud, m_Cfg.SqlDatabase, m_Cfg.SqlUserIDCloud, m_Cfg.SqlPasswordCloud);
-            if (CloudServer == null) return;
-            if (DB.DropTable(DB.SyncDataTable.SyncMD5Old.ToString(), CloudServer))
-            {
-                ShowStatus("雲端記憶己清除!");
-                Message("=========雲端記憶己清除!=======================");
-            }
-            else
-                Message("=========雲端記憶清除失敗!=====================");
-
         }
 
         private void btnStartSync_Click(object sender, EventArgs e)
@@ -1004,6 +931,7 @@ namespace VoucherExpense
             else
                 Message("=========雲端記憶清除失敗!=====================");
         }
+
 
 
     }

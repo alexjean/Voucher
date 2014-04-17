@@ -37,15 +37,25 @@
             this.btnClearLocalMemory = new System.Windows.Forms.Button();
             this.btnClearCloundMemory = new System.Windows.Forms.Button();
             this.todayPicker = new System.Windows.Forms.DateTimePicker();
+            this.btnClearMessage = new System.Windows.Forms.Button();
             labelTime = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
+            // labelTime
+            // 
+            labelTime.Location = new System.Drawing.Point(642, 217);
+            labelTime.Name = "labelTime";
+            labelTime.Size = new System.Drawing.Size(56, 30);
+            labelTime.TabIndex = 29;
+            labelTime.Text = "今日是";
+            labelTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(615, 473);
+            this.btnExit.Location = new System.Drawing.Point(694, 471);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(75, 36);
+            this.btnExit.Size = new System.Drawing.Size(80, 36);
             this.btnExit.TabIndex = 0;
             this.btnExit.Text = "離開";
             this.btnExit.UseVisualStyleBackColor = true;
@@ -62,7 +72,7 @@
             this.listBoxMessage.ItemHeight = 18;
             this.listBoxMessage.Location = new System.Drawing.Point(0, 1);
             this.listBoxMessage.Name = "listBoxMessage";
-            this.listBoxMessage.Size = new System.Drawing.Size(483, 544);
+            this.listBoxMessage.Size = new System.Drawing.Size(616, 544);
             this.listBoxMessage.TabIndex = 0;
             this.listBoxMessage.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBoxMessage_DrawItem);
             // 
@@ -73,7 +83,7 @@
             this.labelStatus});
             this.statusStrip1.Location = new System.Drawing.Point(0, 550);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(840, 25);
+            this.statusStrip1.Size = new System.Drawing.Size(897, 25);
             this.statusStrip1.TabIndex = 24;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -85,9 +95,9 @@
             // 
             // btnStartSync
             // 
-            this.btnStartSync.Location = new System.Drawing.Point(615, 401);
+            this.btnStartSync.Location = new System.Drawing.Point(694, 399);
             this.btnStartSync.Name = "btnStartSync";
-            this.btnStartSync.Size = new System.Drawing.Size(75, 36);
+            this.btnStartSync.Size = new System.Drawing.Size(80, 36);
             this.btnStartSync.TabIndex = 25;
             this.btnStartSync.Text = "開始";
             this.btnStartSync.UseVisualStyleBackColor = true;
@@ -95,7 +105,7 @@
             // 
             // btnClearLocalMemory
             // 
-            this.btnClearLocalMemory.Location = new System.Drawing.Point(588, 277);
+            this.btnClearLocalMemory.Location = new System.Drawing.Point(667, 275);
             this.btnClearLocalMemory.Name = "btnClearLocalMemory";
             this.btnClearLocalMemory.Size = new System.Drawing.Size(129, 36);
             this.btnClearLocalMemory.TabIndex = 26;
@@ -106,7 +116,7 @@
             // 
             // btnClearCloundMemory
             // 
-            this.btnClearCloundMemory.Location = new System.Drawing.Point(588, 336);
+            this.btnClearCloundMemory.Location = new System.Drawing.Point(667, 334);
             this.btnClearCloundMemory.Name = "btnClearCloundMemory";
             this.btnClearCloundMemory.Size = new System.Drawing.Size(129, 36);
             this.btnClearCloundMemory.TabIndex = 27;
@@ -118,25 +128,27 @@
             // todayPicker
             // 
             this.todayPicker.Enabled = false;
-            this.todayPicker.Location = new System.Drawing.Point(625, 221);
+            this.todayPicker.Location = new System.Drawing.Point(704, 219);
             this.todayPicker.Name = "todayPicker";
             this.todayPicker.Size = new System.Drawing.Size(146, 27);
             this.todayPicker.TabIndex = 30;
             // 
-            // labelTime
+            // btnClearMessage
             // 
-            labelTime.Location = new System.Drawing.Point(563, 219);
-            labelTime.Name = "labelTime";
-            labelTime.Size = new System.Drawing.Size(56, 30);
-            labelTime.TabIndex = 29;
-            labelTime.Text = "今日是";
-            labelTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnClearMessage.Location = new System.Drawing.Point(805, 399);
+            this.btnClearMessage.Name = "btnClearMessage";
+            this.btnClearMessage.Size = new System.Drawing.Size(80, 36);
+            this.btnClearMessage.TabIndex = 31;
+            this.btnClearMessage.Text = "清除畫面";
+            this.btnClearMessage.UseVisualStyleBackColor = true;
+            this.btnClearMessage.Click += new System.EventHandler(this.btnClearMessage_Click);
             // 
             // FormAutoSync
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(840, 575);
+            this.ClientSize = new System.Drawing.Size(897, 575);
+            this.Controls.Add(this.btnClearMessage);
             this.Controls.Add(this.todayPicker);
             this.Controls.Add(labelTime);
             this.Controls.Add(this.btnClearCloundMemory);
@@ -146,7 +158,7 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.btnExit);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormAutoSync";
@@ -170,5 +182,6 @@
         private System.Windows.Forms.Button btnClearLocalMemory;
         private System.Windows.Forms.Button btnClearCloundMemory;
         private System.Windows.Forms.DateTimePicker todayPicker;
+        private System.Windows.Forms.Button btnClearMessage;
     }
 }

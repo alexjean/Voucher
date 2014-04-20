@@ -147,6 +147,14 @@ namespace VoucherExpense
             return null;
         }
 
+        string GuidPrimaryKey2ToString(Guid guidPrimaryKey, DB.SqlColumnStruct key)
+        {
+            if (DB.GetKeyType(key.DbType) != DB.PrimaryKeyType.IntCombined) return null;
+            byte[] PrimaryKey = guidPrimaryKey.ToByteArray();
+            return FindIntKey(PrimaryKey, 8, key.DbType).ToString();
+        }
+
+
         DataRow GetRowFromGuidPrimaryKey(Guid guidPrimaryKey, DataTable table, DB.TableInfo tableInfo)
         {
             //            List<DB.SqlColumnStruct> colStruct = tableInfo.Struct;
@@ -358,117 +366,182 @@ namespace VoucherExpense
             return true;
         }
 
+        bool Load100ChangedDestDataOneByOne(string tableName,string msgDest,DB.TableInfo tableInfo,DataSet dataSet,SqlConnection serverConn,
+                                    ref DataTable dataTable,ref List<DB.RunningSet> Runnings,ref List<DB.Md5Result> listChanged,ref List<DB.Md5Result> changedMd5Result)
+        {
+            if (tableInfo.PrimaryKeys == null || tableInfo.PrimaryKeys.Count == 0 )
+            {
+                Message("規定"+msgDest+"的[" + tableName + "]資料表, 必需有個PrimaryKey! 本表同步停止!(UpdateRealDataByMd5Result)");
+                return false;
+            }
+            if (tableInfo.PrimaryKeys.Count > 1)
+            {
+                if (tableInfo.PrimaryKeys.Count > 2)
+                {
+                    Message("規定" + msgDest + "的[" + tableName + "]資料表,最多二個PrimaryKey! 本表同步停止!(UpdateRealDataByMd5Result)");
+                    return false;
+                }
+                foreach (var key in tableInfo.PrimaryKeys)
+                {
+                    if (DB.GetKeyType(key.DbType) != DB.PrimaryKeyType.IntCombined)
+                    {
+                        Message(msgDest + "的[" + tableName + "]資料表,有二個PrimaryKey,只支援整數型態組合! 本表同步停止!(UpdateRealDataByMd5Result)");
+                        return false;
+                    }
+                }
+            }
+            else if (DB.GetKeyType(tableInfo.PrimaryKeys[0].DbType)==DB.PrimaryKeyType.Unknown)
+            {
+                 Message( msgDest + "的[" + tableName + "]資料表,PrimaryKey型態不支持! 本表同步停止!(UpdateRealDataByMd5Result)");
+                 return false;
+            }
+            DB.SqlColumnStruct pkDefine = tableInfo.PrimaryKeys[0];
+            string pkName = pkDefine.Name;
+            DB.SqlColumnStruct pkDefine1 = null;
+            string pkName1 = null;
+            if (tableInfo.PrimaryKeys.Count == 2)
+            {
+                pkDefine1 = tableInfo.PrimaryKeys[1];
+                pkName1 = pkDefine1.Name;
+            }
+            DB.PrimaryKeyType keyType = DB.GetKeyType(pkDefine.DbType);
+            if (keyType != DB.PrimaryKeyType.IntCombined && keyType != DB.PrimaryKeyType.UniqueIdentifier)
+            {
+                Message("規定從本地=>雲端的[" + tableName + "]資料表, PrimaryKey只支援整數類或UniqueIdentifier! 本表同步停止!(UpdateRealDataByMd5Result)");
+                return false;
+            }
+            if (dataTable == null)
+            {
+                dataTable = new DataTable(tableName);
+                dataSet.Tables.Add(dataTable);
+            }
+            if (changedMd5Result.Count() > 0)
+            {
+                int i = 0;
+                StringBuilder sb = new StringBuilder("Select * From [" + tableName + "]");  // 寫Where
+                foreach (var r in changedMd5Result)
+                {
+                    if (i == 0) sb.Append(" Where ");
+                    else sb.Append(" Or ");
+                    if (pkName1 ==null)    // 一個Key,編寫 Where ID=39999 Or ID=40001 ...
+                    {
+                        sb.Append(pkName); sb.Append("=");
+                        string str = GuidPrimaryKeyToString(r.PrimaryKey, pkDefine);
+                        if (str == null)
+                        {
+                            Message("處理 =>" + msgDest + "[" + tableName + "]時出錯,本表同步停止, 主Key無法轉換(只支援整數 Guid及8字以下String");
+                            return false;
+                        }
+                        sb.Append(str);
+                    }
+                    else                                  // 二個Key,編寫 Where (ID=1234 And Index=1) Or (ID=1234 And Index=2) ....
+                    {
+                        sb.Append("(" + pkName + "=");
+                        string str = GuidPrimaryKeyToString(r.PrimaryKey, pkDefine);
+                        if (str == null)
+                        {
+                            Message("處理 =>" + msgDest + "[" + tableName + "]時出錯,本表同步停止, 主Key1無法轉換(只支援整數 Guid及8字以下String");
+                            return false;
+                        }
+                        sb.Append(str+" And ");
+                        sb.Append(pkName1 + "=");
+                        string str1 = GuidPrimaryKey2ToString(r.PrimaryKey, pkDefine1);
+                        if (str1 == null)
+                        {
+                            Message("處理 =>" + msgDest + "[" + tableName + "]時出錯,本表同步停止, 主Key2無法轉換(只支援整數 Guid及8字以下String");
+                            return false;
+                        }
+                        sb.Append(str1 + ")");
+                    }
+                    listChanged.Add(r);
+                    if (++i >= 100) break;
+                }
+                foreach (var r in listChanged)
+                    changedMd5Result.Remove(r);
+                //foreach(var re in changedMd5Result)
+                //    tableInfoDest.
+                try
+                {
+                    SqlDataAdapter adapterNow = new SqlDataAdapter(sb.ToString(), serverConn);
+                    adapterNow.MissingSchemaAction = MissingSchemaAction.AddWithKey;
+                    adapterNow.Fill(dataSet, tableName);
+                }
+                catch (Exception ex)
+                {
+                    Message("載入" + msgDest + "[" + tableName + "]出錯,原因:" + ex.Message);
+                    return false;
+                }
+                if (tableInfo.Childs != null)
+                {
+                    if (Runnings.Count == 0)
+                    {
+                        foreach (var child in tableInfo.Childs)
+                            Runnings.Add(new DB.RunningSet(child));
+                        foreach (var run in Runnings)
+                        {
+                            DB.ChildInfo info = run.childInfo;
+                            run.table = new DataTable(info.Name);
+                            dataSet.Tables.Add(run.table);
+                            run.childType = DB.GetKeyType(info.PrimaryKeys[0].DbType);
+                        }
+                    }
+                    foreach (var run in Runnings)
+                    {
+                        DB.ChildInfo info = run.childInfo;
+                        string pkNameChild = info.ChildKey;
+                        var pkDefineChild = (from st in info.Struct where st.Name == pkNameChild select st).First();
+                        DB.PrimaryKeyType keyTypeChild = DB.GetKeyType(pkDefineChild.DbType);
+                        if (keyTypeChild != DB.PrimaryKeyType.IntCombined && keyTypeChild != DB.PrimaryKeyType.UniqueIdentifier)
+                        {
+                            Message("規定從本地=>雲端的[" + tableName + "]資料表, PrimaryKey只支援整數類或UniqueIdentifier! 本表同步停止!(UpdateRealDataByMd5Result)");
+                            return false;
+                        }
+                        int i1 = 0;
+                        StringBuilder sb1 = new StringBuilder("Select * From [" + info.Name + "]");
+                        foreach (var r in listChanged)
+                        {
+                            if (i1 == 0) sb1.Append(" Where ");
+                            else sb1.Append(" Or ");
+                            sb1.Append(pkNameChild); sb1.Append("=");
+                            string str = GuidPrimaryKeyToString(r.PrimaryKey, pkDefineChild);
+                            if (str == null)
+                            {
+                                Message("處理 =>" + msgDest + "[" + tableName + "]時出錯,本表同步停止, 主Key無法轉換(只支援整數 Guid及8字以下String");
+                                return false;
+                            }
+                            sb1.Append(str);
+                            if (++i1 >= 100) break;
+                        }
+                        run.adapter = new SqlDataAdapter(sb1.ToString(), serverConn);
+                        run.adapter.Fill(dataSet, info.Name);
+                        if (run.relation == null)  // 第一次Fill以後才有Cloums,才能加Relation
+                        {
+                            run.relation = new DataRelation(info.ForeignKeyName, dataTable.Columns[info.FatherKey], run.table.Columns[info.ChildKey]);
+                            dataSet.Relations.Add(run.relation);
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
         private bool UpdateRealDataByMd5Result(string tableName, string msgDest, SqlConnection serverConnDest, DB.TableInfo tableInfoSource, DB.TableInfo tableInfoDest,
                                                 DataSet dataSetSource, DataSet dataSetDest, Dictionary<Guid, DB.Md5Result> dicMd5ResultSource)
         {
             DataTable dataTableSource = dataSetSource.Tables[tableName];
             DataTable dataTableDest = dataSetDest.Tables[tableName];
             var changedMd5Result = (from mr in dicMd5ResultSource.Values where mr.Status != DB.RowStatus.Unchanged select mr).ToList();
-            bool notAllowCloudToLocal = !AllowCloudToLocal(tableName);
+            bool loadDataNeeded = !AllowCloudToLocal(tableName) || SpecialMD5(tableName);
             int totalCount = changedMd5Result.Count();
             int addCount = 0;
             var Runnings = new List<DB.RunningSet>();
         LOOP: // 要Update的太大時,分筆寫出
             if (changedMd5Result == null) return true;
             List<DB.Md5Result> listChanged = new List<DB.Md5Result>();
-            if (notAllowCloudToLocal)  // 不從雲端更新本地的檔案, dataSetDest值沒算過MD5,所以沒有被載入
+            if (loadDataNeeded)  // 不從雲端更新本地的檔案和程式自己計算的MD5, dataSetDest值沒算過MD5,所以沒有被載入
             {
-                if (tableInfoDest.PrimaryKeys == null || tableInfoDest.PrimaryKeys.Count == 0 || tableInfoDest.PrimaryKeys.Count > 1)
-                {
-                    Message("規定從本地=>雲端的[" + tableName + "]資料表, 只支援一個PrimaryKey! 本表同步停止!(UpdateRealDataByMd5Result)");
+                if (!Load100ChangedDestDataOneByOne(tableName, msgDest, tableInfoDest, dataSetDest, serverConnDest, ref dataTableDest, ref Runnings, ref listChanged, ref changedMd5Result))
                     return false;
-                }
-                string pkName = tableInfoDest.PrimaryKeys[0].Name;
-                DB.SqlColumnStruct pkDefine = tableInfoDest.PrimaryKeys[0];
-                DB.PrimaryKeyType keyType = DB.GetKeyType(pkDefine.DbType);
-                if (keyType != DB.PrimaryKeyType.IntCombined && keyType != DB.PrimaryKeyType.UniqueIdentifier)
-                {
-                    Message("規定從本地=>雲端的[" + tableName + "]資料表, PrimaryKey只支援整數類或UniqueIdentifier! 本表同步停止!(UpdateRealDataByMd5Result)");
-                    return false;
-                }
-                if (dataTableDest == null)
-                {
-                    dataTableDest = new DataTable(tableName);
-                    dataSetDest.Tables.Add(dataTableDest);
-                }
-                if (changedMd5Result.Count() > 0)
-                {
-                    int i = 0;
-                    StringBuilder sb = new StringBuilder("Select * From [" + tableName + "]");  // 寫Where
-                    foreach (var r in changedMd5Result)
-                    {
-                        if (i == 0) sb.Append(" Where ");
-                        else sb.Append(" Or ");
-                        sb.Append(pkName); sb.Append("=");
-                        string str = GuidPrimaryKeyToString(r.PrimaryKey, pkDefine);
-                        if (str == null)
-                        {
-                            Message("處理 =>" + msgDest + "[" + tableName + "]時出錯,本表同步停止, 主Key無法轉換(只支援整數 Guid及8字以下String");
-                            return false;  
-                        }
-                        sb.Append(str);
-                        listChanged.Add(r);
-                        if (++i >= 100) break;
-                    }
-                    foreach (var r in listChanged)
-                        changedMd5Result.Remove(r);
-                    //foreach(var re in changedMd5Result)
-                    //    tableInfoDest.
-                    SqlDataAdapter adapterNow = new SqlDataAdapter(sb.ToString(), serverConnDest);
-                    adapterNow.MissingSchemaAction = MissingSchemaAction.AddWithKey;
-                    adapterNow.Fill(dataSetDest, tableName);
-
-                    if (tableInfoDest.Childs != null)
-                    {
-                        if (Runnings.Count == 0)
-                        {
-                            foreach (var child in tableInfoDest.Childs)
-                                Runnings.Add(new DB.RunningSet(child));
-                            foreach (var run in Runnings)
-                            {
-                                DB.ChildInfo info = run.childInfo;
-                                run.table = new DataTable(info.Name);
-                                dataSetDest.Tables.Add(run.table);
-                                run.childType = DB.GetKeyType(info.PrimaryKeys[0].DbType);
-                            }
-                        }
-                        foreach (var run in Runnings)
-                        {
-                            DB.ChildInfo info = run.childInfo;
-                            string pkName1 = info.ChildKey;
-                            var pkDefine1 = (from st in info.Struct where st.Name == pkName1 select st).First();
-                            DB.PrimaryKeyType keyType1 = DB.GetKeyType(pkDefine1.DbType);
-                            if (keyType1 != DB.PrimaryKeyType.IntCombined && keyType1 != DB.PrimaryKeyType.UniqueIdentifier)
-                            {
-                                Message("規定從本地=>雲端的[" + tableName + "]資料表, PrimaryKey只支援整數類或UniqueIdentifier! 本表同步停止!(UpdateRealDataByMd5Result)");
-                                return false;
-                            }
-                            int i1 = 0;
-                            StringBuilder sb1 = new StringBuilder("Select * From [" + info.Name + "]");
-                            foreach (var r in listChanged)
-                            {
-                                if (i1 == 0) sb1.Append(" Where ");
-                                else sb1.Append(" Or ");
-                                sb1.Append(pkName1); sb1.Append("=");
-                                string str = GuidPrimaryKeyToString(r.PrimaryKey, pkDefine1);
-                                if (str == null)
-                                {
-                                    Message("處理 =>" + msgDest + "[" + tableName + "]時出錯,本表同步停止, 主Key無法轉換(只支援整數 Guid及8字以下String");
-                                    return false;
-                                }
-                                sb1.Append(str);
-                                if (++i1 >= 100) break;
-                            }
-                            run.adapter = new SqlDataAdapter(sb1.ToString(), serverConnDest);
-                            run.adapter.Fill(dataSetDest, info.Name);
-                            if (run.relation == null)  // 第一次Fill以後才有Cloums,才能加Relation
-                            {
-                                run.relation = new DataRelation(info.ForeignKeyName, dataTableDest.Columns[info.FatherKey], run.table.Columns[info.ChildKey]);
-                                dataSetDest.Relations.Add(run.relation);
-                            }
-                        }
-                    }
-                }
             }
             else
             {   // 可以二邊同步的檔案都小,全部一起來
@@ -571,6 +644,14 @@ namespace VoucherExpense
             return true;
         }
 
+        private bool SpecialMD5(string tableName)
+        {
+            if (tableName == "Photos") return true;
+            if (tableName == "Program") return true;
+            if (tableName == "Order") return true;
+            return false;
+        }
+
         void LoadOrderItem(DataSet dataSet, DB.TableInfo tableInfo, SqlConnection conn)
         {
             try
@@ -643,7 +724,7 @@ namespace VoucherExpense
                 DB.TableInfo me;
                 if (TableInfoCloud.TryGetValue(name, out me))
                 {
-                    me.Struct = StructLocal[name];
+                    me.Struct = StructCloud[name];
                     me.PrimaryKeys = (from pk in me.Struct where pk.IsPrimaryKey select pk).ToList();
                 }
             }
@@ -796,6 +877,21 @@ namespace VoucherExpense
 
                 if (tableName == "Order")           // Order不會在UpdateComp表裏載入Source的OrderItem資料,要自己來. Dest資料在UpdateRealDataByMd5Result裏進行
                     LoadOrderItem(localDataSet, tableInfoLocal, LocalServer);
+                else if (SpecialMD5(tableName))     // 特殊MD5的資料沒有載入本地資料
+                {
+                    if (cloudDataSet.Tables[tableName] == null)
+                    {
+                        DataTable tableSource = new DataTable();
+                        try
+                        {
+                            SqlDataAdapter adapterNow = new SqlDataAdapter("Select * From [" + tableName + "]", LocalServer);
+                            adapterNow.MissingSchemaAction = MissingSchemaAction.AddWithKey;
+                            adapterNow.Fill(tableSource);
+                            localDataSet.Tables.Add(tableSource);
+                        }
+                        catch (Exception ex) { Message(msg + "載入[" + tableName + "]出錯,原因:" + ex.Message); continue; };
+                    }
+                }
 
                 if (!UpdateRealDataByMd5Result(tableName, "雲端", CloudServer, tableInfoLocal, tableInfoCloud, localDataSet, cloudDataSet, md5ResultLocal)) goto Next;
                 var changedLocal = from loc in md5ResultLocal.Values where loc.Status != DB.RowStatus.Unchanged select loc;

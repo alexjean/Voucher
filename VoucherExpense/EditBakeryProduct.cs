@@ -157,7 +157,7 @@ namespace VoucherExpense
             var photos = from r in m_DataSet.Photos where r.PhotoID == productID && r.TableID == (int)PhotoTableID.Product select r;
             MyDataSet.PhotosRow photo=null;
             if (photos.Count() > 0) photo = photos.First();
-            SavePhotoFileToDB(openFileDialog1.FileName, productID,(short)PhotoTableID.Product, 240, 160, photo);
+            photo=SavePhotoFileToDB(openFileDialog1.FileName, productID,(short)PhotoTableID.Product, 240, 160, photo);
             ShowPhotoDB(photo);
 #else
             string path = CurrentPhotoPath();
@@ -208,12 +208,13 @@ namespace VoucherExpense
 
         void ShowPhotoDB(MyDataSet.PhotosRow row)
         {
+            if (row == null || row.IsPhotoNull()) return;
             MemoryStream stream = new MemoryStream(row.Photo);
             Image bmp = Image.FromStream(stream);
             photoPictureBox.Image = bmp;
         }
 
-        private void SavePhotoFileToDB(string fileName,int id,short tableID,int width,int height,MyDataSet.PhotosRow photo) // photo==null 就新增
+        private MyDataSet.PhotosRow SavePhotoFileToDB(string fileName,int id,short tableID,int width,int height,MyDataSet.PhotosRow photo) // photo==null 就新增
         {
             Cursor = Cursors.WaitCursor;
             MD5 MD5Provider = new MD5CryptoServiceProvider();
@@ -246,6 +247,7 @@ namespace VoucherExpense
                 MessageBox.Show("存產品照片<" + id.ToString() + ">時出錯!原因:" + ex.Message);
             }
             Cursor = Cursors.Arrow;
+            return photo;
         }
 
 

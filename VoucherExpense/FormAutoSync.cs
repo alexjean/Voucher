@@ -139,7 +139,7 @@ namespace VoucherExpense
             switch (keyType)
             {
                 case DB.PrimaryKeyType.IntCombined: return FindIntKey(PrimaryKey, 0, key.DbType).ToString();
-                case DB.PrimaryKeyType.UniqueIdentifier: return guidPrimaryKey.ToString();
+                case DB.PrimaryKeyType.UniqueIdentifier: return "'"+guidPrimaryKey.ToString()+"'";
                 case DB.PrimaryKeyType.String: 
                     string str=Encoding.Unicode.GetString(PrimaryKey);
                     return str;
@@ -366,8 +366,8 @@ namespace VoucherExpense
             return true;
         }
 
-        bool Load100ChangedDestDataOneByOne(string tableName,string msgDest,DB.TableInfo tableInfo,DataSet dataSet,SqlConnection serverConn,
-                                    ref DataTable dataTable,ref List<DB.RunningSet> Runnings,ref List<DB.Md5Result> listChanged,ref List<DB.Md5Result> changedMd5Result)
+        bool LoadChangedDataOneByOne(string tableName,string msgDest,DB.TableInfo tableInfo,DataSet dataSet,SqlConnection serverConn,
+                                    ref DataTable dataTable,ref List<DB.RunningSet> Runnings,ref List<DB.Md5Result> listChanged)
         {
             if (tableInfo.PrimaryKeys == null || tableInfo.PrimaryKeys.Count == 0 )
             {
@@ -415,110 +415,101 @@ namespace VoucherExpense
                 dataTable = new DataTable(tableName);
                 dataSet.Tables.Add(dataTable);
             }
-            if (changedMd5Result.Count() > 0)
+            if (listChanged.Count <= 0) return true;
+            bool firstTime=true;
+            StringBuilder sb = new StringBuilder("Select * From [" + tableName + "]");  // 寫Where
+            foreach (var r in listChanged)
             {
-                int i = 0;
-                StringBuilder sb = new StringBuilder("Select * From [" + tableName + "]");  // 寫Where
-                foreach (var r in changedMd5Result)
+                if (firstTime) { sb.Append(" Where "); firstTime = false; }
+                else sb.Append(" Or ");
+                if (pkName1 == null)    // 一個Key,編寫 Where ID=39999 Or ID=40001 ...
                 {
-                    if (i == 0) sb.Append(" Where ");
-                    else sb.Append(" Or ");
-                    if (pkName1 ==null)    // 一個Key,編寫 Where ID=39999 Or ID=40001 ...
+                    sb.Append(pkName); sb.Append("=");
+                    string str = GuidPrimaryKeyToString(r.PrimaryKey, pkDefine);
+                    if (str == null)
                     {
-                        sb.Append(pkName); sb.Append("=");
-                        string str = GuidPrimaryKeyToString(r.PrimaryKey, pkDefine);
+                        Message("處理 =>" + msgDest + "[" + tableName + "]時出錯,本表同步停止, 主Key無法轉換(只支援整數 Guid及8字以下String");
+                        return false;
+                    }
+                    sb.Append(str);
+                }
+                else                                  // 二個Key,編寫 Where (ID=1234 And Index=1) Or (ID=1234 And Index=2) ....
+                {
+                    sb.Append("(" + pkName + "=");
+                    string str = GuidPrimaryKeyToString(r.PrimaryKey, pkDefine);
+                    if (str == null)
+                    {
+                        Message("處理 =>" + msgDest + "[" + tableName + "]時出錯,本表同步停止, 主Key1無法轉換(只支援整數 Guid及8字以下String");
+                        return false;
+                    }
+                    sb.Append(str + " And ");
+                    sb.Append(pkName1 + "=");
+                    string str1 = GuidPrimaryKey2ToString(r.PrimaryKey, pkDefine1);
+                    if (str1 == null)
+                    {
+                        Message("處理 =>" + msgDest + "[" + tableName + "]時出錯,本表同步停止, 主Key2無法轉換(只支援整數 Guid及8字以下String");
+                        return false;
+                    }
+                    sb.Append(str1 + ")");
+                }
+            }
+            try
+            {
+                SqlDataAdapter adapterNow = new SqlDataAdapter(sb.ToString(), serverConn);
+                adapterNow.MissingSchemaAction = MissingSchemaAction.AddWithKey;
+                adapterNow.Fill(dataSet, tableName);
+            }
+            catch (Exception ex)
+            {
+                Message("載入" + msgDest + "[" + tableName + "]出錯,原因:" + ex.Message);
+                return false;
+            }
+            if (tableInfo.Childs != null)
+            {
+                if (Runnings.Count == 0)
+                {
+                    foreach (var child in tableInfo.Childs)
+                        Runnings.Add(new DB.RunningSet(child));
+                    foreach (var run in Runnings)
+                    {
+                        DB.ChildInfo info = run.childInfo;
+                        run.table = new DataTable(info.Name);
+                        dataSet.Tables.Add(run.table);
+                        run.childType = DB.GetKeyType(info.PrimaryKeys[0].DbType);
+                    }
+                }
+                foreach (var run in Runnings)
+                {
+                    DB.ChildInfo info = run.childInfo;
+                    string pkNameChild = info.ChildKey;
+                    var pkDefineChild = (from st in info.Struct where st.Name == pkNameChild select st).First();
+                    DB.PrimaryKeyType keyTypeChild = DB.GetKeyType(pkDefineChild.DbType);
+                    if (keyTypeChild != DB.PrimaryKeyType.IntCombined && keyTypeChild != DB.PrimaryKeyType.UniqueIdentifier)
+                    {
+                        Message("規定從本地=>雲端的[" + tableName + "]資料表, PrimaryKey只支援整數類或UniqueIdentifier! 本表同步停止!(UpdateRealDataByMd5Result)");
+                        return false;
+                    }
+                    bool firstTime1=true;
+                    StringBuilder sb1 = new StringBuilder("Select * From [" + info.Name + "]");
+                    foreach (var r in listChanged)
+                    {
+                        if (firstTime1) { sb1.Append(" Where "); firstTime1 = false; }
+                        else sb1.Append(" Or ");
+                        sb1.Append(pkNameChild); sb1.Append("=");
+                        string str = GuidPrimaryKeyToString(r.PrimaryKey, pkDefineChild);
                         if (str == null)
                         {
                             Message("處理 =>" + msgDest + "[" + tableName + "]時出錯,本表同步停止, 主Key無法轉換(只支援整數 Guid及8字以下String");
                             return false;
                         }
-                        sb.Append(str);
+                        sb1.Append(str);
                     }
-                    else                                  // 二個Key,編寫 Where (ID=1234 And Index=1) Or (ID=1234 And Index=2) ....
+                    run.adapter = new SqlDataAdapter(sb1.ToString(), serverConn);
+                    run.adapter.Fill(dataSet, info.Name);
+                    if (run.relation == null)  // 第一次Fill以後才有Cloums,才能加Relation
                     {
-                        sb.Append("(" + pkName + "=");
-                        string str = GuidPrimaryKeyToString(r.PrimaryKey, pkDefine);
-                        if (str == null)
-                        {
-                            Message("處理 =>" + msgDest + "[" + tableName + "]時出錯,本表同步停止, 主Key1無法轉換(只支援整數 Guid及8字以下String");
-                            return false;
-                        }
-                        sb.Append(str+" And ");
-                        sb.Append(pkName1 + "=");
-                        string str1 = GuidPrimaryKey2ToString(r.PrimaryKey, pkDefine1);
-                        if (str1 == null)
-                        {
-                            Message("處理 =>" + msgDest + "[" + tableName + "]時出錯,本表同步停止, 主Key2無法轉換(只支援整數 Guid及8字以下String");
-                            return false;
-                        }
-                        sb.Append(str1 + ")");
-                    }
-                    listChanged.Add(r);
-                    if (++i >= 100) break;
-                }
-                foreach (var r in listChanged)
-                    changedMd5Result.Remove(r);
-                //foreach(var re in changedMd5Result)
-                //    tableInfoDest.
-                try
-                {
-                    SqlDataAdapter adapterNow = new SqlDataAdapter(sb.ToString(), serverConn);
-                    adapterNow.MissingSchemaAction = MissingSchemaAction.AddWithKey;
-                    adapterNow.Fill(dataSet, tableName);
-                }
-                catch (Exception ex)
-                {
-                    Message("載入" + msgDest + "[" + tableName + "]出錯,原因:" + ex.Message);
-                    return false;
-                }
-                if (tableInfo.Childs != null)
-                {
-                    if (Runnings.Count == 0)
-                    {
-                        foreach (var child in tableInfo.Childs)
-                            Runnings.Add(new DB.RunningSet(child));
-                        foreach (var run in Runnings)
-                        {
-                            DB.ChildInfo info = run.childInfo;
-                            run.table = new DataTable(info.Name);
-                            dataSet.Tables.Add(run.table);
-                            run.childType = DB.GetKeyType(info.PrimaryKeys[0].DbType);
-                        }
-                    }
-                    foreach (var run in Runnings)
-                    {
-                        DB.ChildInfo info = run.childInfo;
-                        string pkNameChild = info.ChildKey;
-                        var pkDefineChild = (from st in info.Struct where st.Name == pkNameChild select st).First();
-                        DB.PrimaryKeyType keyTypeChild = DB.GetKeyType(pkDefineChild.DbType);
-                        if (keyTypeChild != DB.PrimaryKeyType.IntCombined && keyTypeChild != DB.PrimaryKeyType.UniqueIdentifier)
-                        {
-                            Message("規定從本地=>雲端的[" + tableName + "]資料表, PrimaryKey只支援整數類或UniqueIdentifier! 本表同步停止!(UpdateRealDataByMd5Result)");
-                            return false;
-                        }
-                        int i1 = 0;
-                        StringBuilder sb1 = new StringBuilder("Select * From [" + info.Name + "]");
-                        foreach (var r in listChanged)
-                        {
-                            if (i1 == 0) sb1.Append(" Where ");
-                            else sb1.Append(" Or ");
-                            sb1.Append(pkNameChild); sb1.Append("=");
-                            string str = GuidPrimaryKeyToString(r.PrimaryKey, pkDefineChild);
-                            if (str == null)
-                            {
-                                Message("處理 =>" + msgDest + "[" + tableName + "]時出錯,本表同步停止, 主Key無法轉換(只支援整數 Guid及8字以下String");
-                                return false;
-                            }
-                            sb1.Append(str);
-                            if (++i1 >= 100) break;
-                        }
-                        run.adapter = new SqlDataAdapter(sb1.ToString(), serverConn);
-                        run.adapter.Fill(dataSet, info.Name);
-                        if (run.relation == null)  // 第一次Fill以後才有Cloums,才能加Relation
-                        {
-                            run.relation = new DataRelation(info.ForeignKeyName, dataTable.Columns[info.FatherKey], run.table.Columns[info.ChildKey]);
-                            dataSet.Relations.Add(run.relation);
-                        }
+                        run.relation = new DataRelation(info.ForeignKeyName, dataTable.Columns[info.FatherKey], run.table.Columns[info.ChildKey]);
+                        dataSet.Relations.Add(run.relation);
                     }
                 }
             }
@@ -540,7 +531,15 @@ namespace VoucherExpense
             List<DB.Md5Result> listChanged = new List<DB.Md5Result>();
             if (loadDataNeeded)  // 不從雲端更新本地的檔案和程式自己計算的MD5, dataSetDest值沒算過MD5,所以沒有被載入
             {
-                if (!Load100ChangedDestDataOneByOne(tableName, msgDest, tableInfoDest, dataSetDest, serverConnDest, ref dataTableDest, ref Runnings, ref listChanged, ref changedMd5Result))
+                int i=0;
+                foreach(var r in changedMd5Result)
+                {
+                    listChanged.Add(r);
+                    if (++i >= 100) break;
+                }
+                foreach (var r in listChanged)
+                    changedMd5Result.Remove(r);
+                if (!LoadChangedDataOneByOne(tableName, msgDest, tableInfoDest, dataSetDest, serverConnDest, ref dataTableDest, ref Runnings, ref listChanged))
                     return false;
             }
             else
@@ -548,61 +547,64 @@ namespace VoucherExpense
                 listChanged = changedMd5Result;
                 changedMd5Result = null;
             }
-            foreach (var re in listChanged)
-            {   // 自Source取資料更新Dest端真實檔案
-                try
-                {
-                    DataRow sourceRow = GetRowFromGuidPrimaryKey(re.PrimaryKey, dataTableSource, tableInfoSource);
-                    DataRow destRow = GetRowFromGuidPrimaryKey(re.PrimaryKey, dataTableDest, tableInfoDest);
-                    var colStruct = tableInfoSource.Struct;       // 雲端和本地一定相同,前面己經比對過,所以用同一colStruct
-                    switch (re.Status)
+            if (listChanged.Count > 0)
+            {
+                foreach (var re in listChanged)
+                {   // 自Source取資料更新Dest端真實檔案
+                    try
                     {
-                        case DB.RowStatus.New:
-                        case DB.RowStatus.Changed:
-                            if (sourceRow == null) continue;  // 應該不可能
-                            if (destRow == null)
-                            {
-                                destRow = dataTableDest.NewRow();
-                                CopyRow(sourceRow, destRow, colStruct);
-                                dataTableDest.Rows.Add(destRow);
-                                if (!ProcessChildsRows(tableName, msgDest, dataSetDest, sourceRow, destRow, tableInfoSource, tableInfoDest)) return false;
-                                // 新增在Update時要先放主表,再插入副表
-                            }
-                            else
-                            {   // 分三部分, Source有Dest沒有要新增, Source沒有Dest有要Delete, 二個都有的要覆蓋Dest(覆蓋不好做)
-                                CopyRow(sourceRow, destRow, colStruct);
-                                if (!ProcessChildsRows(tableName, msgDest, dataSetDest, sourceRow, destRow, tableInfoSource, tableInfoDest)) return false;
-                            }
-                            break;
-                        case DB.RowStatus.Deleted:
-                            if (destRow != null)
-                            {
-                                if (tableInfoDest.Childs != null)
-                                    foreach (var child in tableInfoDest.Childs)
-                                    {
-                                        var childRows = destRow.GetChildRows(child.ForeignKeyName);   // 前面CalcMd5應該己經建立Relation
-                                        DataTable tab = dataSetDest.Tables[child.Name];
-                                        foreach (var childRow in childRows)
-                                            tab.Rows.Remove(childRow);          // 先刪子表,再刪總表, 規定Delete Cascade, 所以先將Deleted的ChildRow Remove就好
-                                    }
-                                destRow.Delete();
-                            }
-                            break;
-                        default:
-                            Message("處理 =>" + msgDest + "[" + tableName + "]時出錯,本表同步停止,原因:" + re.Status.ToString() + "我不認得");
-                            return false;  // 不可能,出錯了
+                        DataRow sourceRow = GetRowFromGuidPrimaryKey(re.PrimaryKey, dataTableSource, tableInfoSource);
+                        DataRow destRow = GetRowFromGuidPrimaryKey(re.PrimaryKey, dataTableDest, tableInfoDest);
+                        var colStruct = tableInfoSource.Struct;       // 雲端和本地一定相同,前面己經比對過,所以用同一colStruct
+                        switch (re.Status)
+                        {
+                            case DB.RowStatus.New:
+                            case DB.RowStatus.Changed:
+                                if (sourceRow == null) continue;  // 應該不可能
+                                if (destRow == null)
+                                {
+                                    destRow = dataTableDest.NewRow();
+                                    CopyRow(sourceRow, destRow, colStruct);
+                                    dataTableDest.Rows.Add(destRow);
+                                    if (!ProcessChildsRows(tableName, msgDest, dataSetDest, sourceRow, destRow, tableInfoSource, tableInfoDest)) return false;
+                                    // 新增在Update時要先放主表,再插入副表
+                                }
+                                else
+                                {   // 分三部分, Source有Dest沒有要新增, Source沒有Dest有要Delete, 二個都有的要覆蓋Dest(覆蓋不好做)
+                                    CopyRow(sourceRow, destRow, colStruct);
+                                    if (!ProcessChildsRows(tableName, msgDest, dataSetDest, sourceRow, destRow, tableInfoSource, tableInfoDest)) return false;
+                                }
+                                break;
+                            case DB.RowStatus.Deleted:
+                                if (destRow != null)
+                                {
+                                    if (tableInfoDest.Childs != null)
+                                        foreach (var child in tableInfoDest.Childs)
+                                        {
+                                            var childRows = destRow.GetChildRows(child.ForeignKeyName);   // 前面CalcMd5應該己經建立Relation
+                                            DataTable tab = dataSetDest.Tables[child.Name];
+                                            foreach (var childRow in childRows)
+                                                tab.Rows.Remove(childRow);          // 先刪子表,再刪總表, 規定Delete Cascade, 所以先將Deleted的ChildRow Remove就好
+                                        }
+                                    destRow.Delete();
+                                }
+                                break;
+                            default:
+                                Message("處理 =>" + msgDest + "[" + tableName + "]時出錯,本表同步停止,原因:" + re.Status.ToString() + "我不認得");
+                                return false;  // 不可能,出錯了
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Message("處理 =>" + msgDest + "[" + tableName + "]時出錯,本表同步停止,原因:" + ex.Message);
+                        return false;
                     }
                 }
-                catch (Exception ex)
-                {
-                    Message("處理 =>" + msgDest + "[" + tableName + "]時出錯,本表同步停止,原因:" + ex.Message);
-                    return false;
-                }
+                addCount += listChanged.Count;
+                ShowStatus("更新" + msgDest + "[" + tableName + "]資料  " + addCount.ToString() + "/" + totalCount.ToString() + "筆!");
+                if (!UpdateData(msgDest, tableName, dataSetDest, serverConnDest, tableInfoDest)) return false;
+                if (changedMd5Result != null && changedMd5Result.Count() > 0) goto LOOP;
             }
-            addCount += listChanged.Count;
-            ShowStatus("更新" + msgDest + "[" + tableName + "]資料  " + addCount.ToString() + "/" + totalCount.ToString() + "筆!");
-            if (!UpdateData(msgDest, tableName, dataSetDest, serverConnDest, tableInfoDest)) return false;
-            if (changedMd5Result != null && changedMd5Result.Count() > 0) goto LOOP;
             return true;
         }
 
@@ -648,7 +650,6 @@ namespace VoucherExpense
         {
             if (tableName == "Photos") return true;
             if (tableName == "Program") return true;
-            if (tableName == "Order") return true;
             return false;
         }
 
@@ -879,7 +880,7 @@ namespace VoucherExpense
                     LoadOrderItem(localDataSet, tableInfoLocal, LocalServer);
                 else if (SpecialMD5(tableName))     // 特殊MD5的資料沒有載入本地資料
                 {
-                    if (cloudDataSet.Tables[tableName] == null)
+                    if (localDataSet.Tables[tableName] == null)
                     {
                         DataTable tableSource = new DataTable();
                         try
@@ -892,16 +893,31 @@ namespace VoucherExpense
                         catch (Exception ex) { Message(msg + "載入[" + tableName + "]出錯,原因:" + ex.Message); continue; };
                     }
                 }
-
-                if (!UpdateRealDataByMd5Result(tableName, "雲端", CloudServer, tableInfoLocal, tableInfoCloud, localDataSet, cloudDataSet, md5ResultLocal)) goto Next;
                 var changedLocal = from loc in md5ResultLocal.Values where loc.Status != DB.RowStatus.Unchanged select loc;
+                if (changedLocal.Count() != 0)
+                {
+                    if (!UpdateRealDataByMd5Result(tableName, "雲端", CloudServer, tableInfoLocal, tableInfoCloud, localDataSet, cloudDataSet, md5ResultLocal)) goto Next;
+                }
                 List<DB.Md5Result> changedList = changedLocal.ToList();
                 int localChangedCount = changedLocal.Count();
                 int cloudChangedCount = 0;
                 if (AllowCloudToLocal(tableName))
                 {   // 自雲端取資料改本地部分
-                    if (!UpdateRealDataByMd5Result(tableName, "本地", LocalServer, tableInfoCloud, tableInfoLocal, cloudDataSet, localDataSet, md5ResultCloud)) goto Next;
-                    var changedCloud = from cld in md5ResultCloud.Values where cld.Status != DB.RowStatus.Unchanged select cld;
+                    var changedCloud = (from cld in md5ResultCloud.Values where cld.Status != DB.RowStatus.Unchanged select cld).ToList();
+                    if (changedCloud.Count() != 0)
+                    {
+                        if (SpecialMD5(tableName)) // SpecialMD5的雲端資料還沒取過
+                        {
+                            var cloudRunnings = new List<DB.RunningSet>();
+                            DataTable cloudDataTable = cloudDataSet.Tables[tableName];
+                            if (!LoadChangedDataOneByOne(tableName, "雲端", tableInfoCloud, cloudDataSet, CloudServer, ref cloudDataTable, ref cloudRunnings, ref changedCloud))
+                            {
+                                Message("特殊MD5資料庫<" + tableName + ">逐筆讀取雲端資料時失敗!");
+                                continue;
+                            }
+                        }
+                        if (!UpdateRealDataByMd5Result(tableName, "本地", LocalServer, tableInfoCloud, tableInfoLocal, cloudDataSet, localDataSet, md5ResultCloud)) goto Next;
+                    }
                     cloudChangedCount = changedCloud.Count();
                     changedList.AddRange(changedCloud);
                     int tableIDCloud = DB.FindTableID(tableName, TableInfoCloud);

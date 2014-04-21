@@ -746,6 +746,40 @@ namespace VoucherExpense
                     return null;
                 }
             }
+            else if (tableName == "Program")
+            {
+                DataTable table = new DataTable();
+                try
+                {
+                    SqlDataAdapter adapterNow = new SqlDataAdapter("Select [ID],[Md5] From [Program]", conn);   // Order只准從本地至雲端,本地全讀不是負擔
+                    adapterNow.MissingSchemaAction = MissingSchemaAction.AddWithKey;
+                    adapterNow.Fill(table);              // 這三行一定要這樣寫才會自動填 Columns,一定要指定tableName,而且要存在,要不然會新建一個叫'Table'
+
+                    foreach (DataRow row in table.Rows)
+                    {
+                        Guid pk = (Guid)row["ID"];
+                        Md5Result val;
+                        object objMD5 = row["Md5"];
+                        if (objMD5 == Convert.DBNull) dicResult.Remove(pk);   // MD5 DBNull 刪掉這個記錄
+                        else if (dicResult.TryGetValue(pk, out val))
+                        {
+                            val.Md5Now = (byte[])objMD5;
+                            if (!val.SameMd5()) val.Status = RowStatus.Changed;
+                            else val.Status = RowStatus.Unchanged;
+                        }
+                        else
+                        {
+                            val = new Md5Result();
+                            val.PrimaryKey = pk;
+                            val.Md5Old = null;
+                            val.Md5Now = (byte[])objMD5;
+                            val.Status = RowStatus.New;
+                            dicResult.Add(pk, val);
+                        }
+                    }
+                }
+                catch (Exception ex) { return null; }
+            }
             else
             {
                 MD5 MD5Provider = new MD5CryptoServiceProvider();

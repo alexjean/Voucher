@@ -26,6 +26,7 @@ using MyOrderAdapter        = VoucherExpense.DamaiOrderAdapter;
 using MyOrderItemAdapter    = VoucherExpense.DamaiOrderItemAdapter;
 using MyDrawerRecordAdapter = VoucherExpense.DamaiDrawerRecordAdapter;
 using System.Security.Cryptography;
+using System.Data.SqlClient;
 #else
 using MyDataSet         = VoucherExpense.VEDataSet;
 using MyOrderSet        = VoucherExpense.BakeryOrderSet;
@@ -662,6 +663,26 @@ namespace VoucherExpense
                 Application.DoEvents();
         }
 
+        private void DoSqlBackup()
+        {
+            string strWeekDay = DateTime.Now.DayOfWeek.ToString().Substring(0, 3);
+            string name=m_Cfg.SqlDatabase + "_" + strWeekDay + ".bak";
+            try
+            {
+                string cmdTxt = "Backup Database " + m_Cfg.SqlDatabase + " TO DISK='"+name+"' WITH INIT";
+                SqlConnection conn = new SqlConnection(DB.SqlConnectString(m_Cfg.SqlServerIP, m_Cfg.SqlDatabase,m_Cfg.SqlUserID, m_Cfg.SqlPassword));
+                conn.Open();
+                SqlCommand sqlCmd = new SqlCommand(cmdTxt, conn);
+                sqlCmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                Message("備份數據庫時出錯,錯誤:" + ex.Message, true);
+            }
+            Message("己備份至 <" + name+">!");
+        }
+
         private void btnClosedBackup_Click(object sender, EventArgs e)
         {
             DateTime today = todayPicker.Value;
@@ -739,7 +760,9 @@ namespace VoucherExpense
             {
                 Message("更新店長封印資訊時,錯誤:" + ex.Message,true);
             }
-#if (!UseSQLServer)             // 當使用SQL Server時不備份
+#if (UseSQLServer)             
+            DoSqlBackup();
+#else
             dir=textBoxBackupDir.Text.Trim();
             if (dir.Length > 0)
             {

@@ -672,7 +672,7 @@ namespace VoucherExpense
             // 計算New
             if (tableName == "Order")    // [Order]的MD5量大,是由AP計算的
             {
-                DataTable tableNow = new DataTable();
+                DataTable tableNow = new DataTable(tableName);
                 try
                 {
                     SqlDataAdapter adapterNow = new SqlDataAdapter("Select * From [Order]", conn);   // Order只准從本地至雲端,本地全讀不是負擔

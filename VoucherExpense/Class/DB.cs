@@ -651,8 +651,9 @@ namespace VoucherExpense
                 //////////////////////////////////////
                 foreach (var row in tableMd5Old)
                 {
-                    if (row.IsMD5Null()) { row.Delete(); continue; }  // 資料庫內md5是dbnull,不應該   
-                    if (row.IsPrimaryKeyNull()) { row.Delete(); continue; }
+                    if (row.IsMD5Null())                       { row.Delete(); continue; }  // 資料庫內md5是dbnull,不應該   
+                    if (row.IsPrimaryKeyNull())                { row.Delete(); continue; }
+                    if (dicResult.ContainsKey(row.PrimaryKey)) { row.Delete(); continue; }  // 重複了,Bug
                     Md5Result result = new Md5Result();
                     result.PrimaryKey = row.PrimaryKey;
                     result.Md5Old = row.MD5;
@@ -662,13 +663,16 @@ namespace VoucherExpense
                         case PrimaryKeyType.DateTime:
                         case PrimaryKeyType.IntCombined:
                         case PrimaryKeyType.String:
-                        case PrimaryKeyType.UniqueIdentifier: dicResult.Add(result.PrimaryKey, result); break;
+                        case PrimaryKeyType.UniqueIdentifier:   dicResult.Add(result.PrimaryKey, result); break;
                         default: return null;
                     }
                 }
 
             }
-            catch  { return null; }
+            catch(Exception ex)
+            {
+                return null;
+            }
             // 計算New
             if (tableName == "Order")    // [Order]的MD5量大,是由AP計算的
             {
@@ -979,7 +983,8 @@ namespace VoucherExpense
             foreach (var r in table)
             {
                 if (r.RowState == DataRowState.Deleted) continue;
-                dic.Add(r.PrimaryKey, r);
+                if (dic.ContainsKey(r.PrimaryKey)) r.Delete();
+                else                               dic.Add(r.PrimaryKey, r);
             }
             foreach (var md5 in changedMd5)
             {

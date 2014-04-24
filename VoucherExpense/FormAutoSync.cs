@@ -1019,6 +1019,8 @@ namespace VoucherExpense
             if (LocalServer == null) return;
             if (DB.DropTable(DB.SyncDataTable.SyncMD5Old.ToString(), LocalServer))
             {
+                DB.AskCreateDataTable("本地", DB.SyncDataTable.SyncMD5Old, LocalServer);
+                Message("========新創建本地同步用記憶表!=================");
                 ShowStatus("本地記憶己清除!");
                 Message("=========本地記憶己清除!=======================");
             }
@@ -1033,10 +1035,12 @@ namespace VoucherExpense
                     "", MessageBoxButtons.OKCancel) != DialogResult.OK) return;
 
             if (CloudServer == null)
-                CloudServer = ConnectServer("本地", m_Cfg.SqlServerIPCloud, m_Cfg.SqlDatabase, m_Cfg.SqlUserIDCloud, m_Cfg.SqlPasswordCloud);
+                CloudServer = ConnectServer("雲端", m_Cfg.SqlServerIPCloud, m_Cfg.SqlDatabase, m_Cfg.SqlUserIDCloud, m_Cfg.SqlPasswordCloud);
             if (CloudServer == null) return;
             if (DB.DropTable(DB.SyncDataTable.SyncMD5Old.ToString(), CloudServer))
             {
+                DB.AskCreateDataTable("雲端", DB.SyncDataTable.SyncMD5Old, CloudServer);
+                Message("========新創建雲端同步用記憶表!=================");
                 ShowStatus("雲端記憶己清除!");
                 Message("=========雲端記憶己清除!=======================");
             }

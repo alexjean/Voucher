@@ -607,7 +607,7 @@ namespace VoucherExpense
                             prev = r;
                 }
                 if (prev == null) // 這是本年第一張
-                {
+                {   
                     //var detailTable = sQLVEDataSet.InventoryDetail.GetChanges() as SQLVEDataSet.InventoryDetailDataTable;
                     //if (detailTable != null) inventoryDetailTableAdapter1.Update(sQLVEDataSet.InventoryDetail);
                     //details = curr.GetInventoryDetailRows();
@@ -752,13 +752,21 @@ namespace VoucherExpense
                             if (item.IsStockMoneyNull())//计算初值时，如果输入初值金额，就不估算，没有就估算
                             {
                                 var ingredientrows = from r in m_DataSet.Ingredient where r.IngredientID == item.IngredientID select r;
-//                                                     vEDataSet.Ingredient.Select("IngredientID=" + item.IngredientID);
-                                if (item.IsStockVolumeNull())   continue;
-                                if (ingredientrows.Count() ==0) continue;
+                                //                                                     vEDataSet.Ingredient.Select("IngredientID=" + item.IngredientID);
+                                if (item.IsStockVolumeNull()) continue;
+                                if (ingredientrows.Count() == 0) continue;
                                 item.StockMoney = (decimal)(item.StockVolume * ingredientrows.First().Price);
+                            }
+                            else
+                            {
+                                if (item.StockMoney == 0) continue;
+                                if (item.IsStockVolumeNull() || item.StockVolume == 0)   // 本年第一張 ,數量為0 , 金額不為0 ，不可
+                                    item.StockMoney = 0;
                             }
                             inventory.IngredientsCost += item.StockMoney;
                         }
+                        // 產品不管是不是第一單,在下方都直接以 Volume*EvaluatedCost代入
+             
                     }
                     catch (Exception ex) { MessageBox.Show("错误：" + ex.Message); };
                 }

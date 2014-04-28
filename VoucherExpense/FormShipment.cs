@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Drawing.Printing;
+using System.IO;
 namespace VoucherExpense
 {
     public partial class FormShipment : Form
@@ -108,8 +110,6 @@ namespace VoucherExpense
             this.productClassTableAdapter.Fill(this.damaiDataSet.ProductClass);
             // TODO: 这行代码将数据加载到表“damaiDataSet.ShipmentDetail”中。您可以根据需要移动或删除它。
             this.shipmentDetailTableAdapter1.Fill(this.damaiDataSet.ShipmentDetail);
-            // TODO: 这行代码将数据加载到表“damaiDataSet.ShipmentDetail”中。您可以根据需要移动或删除它。
-            this.shipmentDetailTableAdapter1.Fill(this.damaiDataSet.ShipmentDetail);
             // TODO: 这行代码将数据加载到表“damaiDataSet.Product”中。您可以根据需要移动或删除它。
             this.productTableAdapter1.Fill(this.damaiDataSet.Product);
             // TODO: 这行代码将数据加载到表“damaiDataSet.Customer”中。您可以根据需要移动或删除它。
@@ -207,7 +207,14 @@ namespace VoucherExpense
                 
                 //removedCheckBox.Checked = false;                           // 只有對DateTime的Binding會受影響, bool不會,所以可以放ResetBindings前  
                 //checkedCheckBox.Checked = false;
-                this.shipmentBindingSource.ResetBindings(false);           // 這行加了會把stockTimeTextBox.Text和entryTimeTextBox.Text給清成空白,所以放前面
+                       // 這行加了會把stockTimeTextBox.Text和entryTimeTextBox.Text給清成空白,所以放前面
+                foreach (var item in CreateNewShipmentDetailDataTable(i))
+                {
+                    DamaiDataSet.ShipmentDetailRow r;
+                    r = item;
+                    this.damaiDataSet.ShipmentDetail.ImportRow(r);
+                }
+                this.shipmentBindingSource.ResetBindings(false);    
                 this.shipmentDetailBindingSource.ResetBindings(false);   // 有id了,可以刷新下面的detail表
                 removedCheckBox.Checked = false;
                 checkedCheckBox.Checked = false;
@@ -248,7 +255,7 @@ namespace VoucherExpense
             //var dt = shipment.CopyToDataTable();
             //var sdt = dt as SQLVEDataSet.ShipmentDataTable;
             //var shipmentrows = from r in this.sQLVEDataSet.Shipment where (r.ShipCode >= Convert.ToInt32(currentYear) || r.ShipCode < Convert.ToInt32(currentMaxYear)) orderby r.ShipCode descending select r;
-            var shipmentrows = from r in this.damaiDataSet.Shipment where (r.ShipCode >= Convert.ToInt32(currentYear) && r.ShipCode < Convert.ToInt32(currentMaxYear)) orderby r.ShipCode descending select r;
+            var shipmentrows = from r in this.damaiDataSet.Shipment where (!r.IsShipCodeNull()&&r.ShipCode >= Convert.ToInt32(currentYear) && r.ShipCode < Convert.ToInt32(currentMaxYear)) orderby r.ShipCode descending select r;
             if (shipmentrows.ToArray().Length>0)
             {
                 //var shipmentrow = shipmentrows.First<SQLVEDataSet.ShipmentRow>();
@@ -539,6 +546,11 @@ namespace VoucherExpense
                 }
             this.shipmentDataGridView.Focus();
         }
+        //private void tsbtPrint_Click(object sender, EventArgs e)
+        //{ 
+
+        //}
+        Shipmentprint smp = new Shipmentprint();
         private void tsbtPrint_Click(object sender, EventArgs e)
         {
             string apartmentName = "";
@@ -558,52 +570,7 @@ namespace VoucherExpense
                 else
                     apartmentName = a0.ApartmentAllName;
             }
-            DataRowView rowview=shipmentBindingSource.Current as DataRowView;
-            //SQLVEDataSet.ShipmentRow row = rowview.Row as SQLVEDataSet.ShipmentRow;
-            //var  customerrows =from ro in sQLVEDataSet.Customer where(ro.CustomerID==row.Customer) select ro;
-            //var customerrow=customerrows.First();
-            //Shipmentprint smp = new Shipmentprint();
-            //smp.ApartmentName = apartmentName;
-            //smp.ShipmentNumber = row.ShipCode.ToString();
-            //smp.ContactPeople = customerrow.ContactPeople;
-            //smp.CustomerName = customerrow.Name;
-            //smp.ShipAddress = customerrow.Address;
-            //smp.ContactPhone = customerrow.Telephone;
-            //smp.EntryTime = row.LastUpdated.ToString("yyyyMMdd");
-            //smp.ShipTime = row.ShipTime.ToString("yyyyMMdd");
-            //smp.CostAllCount = row.Cost;
-            //var shipmetdetailrows=row.GetShipmentDetailRows();
-            //if(shipmetdetailrows.Count()==0)
-            //    return ;
-            //List<List<Shipmentdetailprint>> lists = new List<List<Shipmentdetailprint>>();
-            //int inttemp=shipmetdetailrows.Count()/15;
-            //for (int j = 0; j <=inttemp; j++)
-            //{
-
-            //    List<Shipmentdetailprint> listshipmentdetail = new List<Shipmentdetailprint>();
-            //    for (int i = j*14; i < shipmetdetailrows.Count(); i++)
-            //    {
-            //        if (i < (j + 1) * 14)
-            //        {              
-            //        var temrow = shipmetdetailrows[i];
-            //        var productrow = from r in bakeryOrderSet.Product where (r.ProductID == temrow.ProductID) select r;
-
-            //        Shipmentdetailprint smdp = new Shipmentdetailprint();
-            //        smdp.PageNumCount = inttemp+1;
-            //        smdp.ProductName = productrow.First().Name;
-            //        smdp.ProductCode = productrow.First().Code;
-            //        smdp.Unit = productrow.First().Unit;
-            //        smdp.Cost = productrow.First().Price;
-            //        smdp.Volum = temrow.Volume;
-            //        smdp.AllCost = temrow.Cost;
-            //        listshipmentdetail.Add(smdp); 
-            //        }
-            //    }
-            //    lists.Add(listshipmentdetail);
-            //}
-            //smp.ShipmentDetileProduct = lists;
-            //FormShipmentPrint form = new FormShipmentPrint(smp);
-            //form.Show();
+            DataRowView rowview = shipmentBindingSource.Current as DataRowView;
             DamaiDataSet.ShipmentRow row = rowview.Row as DamaiDataSet.ShipmentRow;
             if (row.IsCustomerNull())
             {
@@ -617,7 +584,7 @@ namespace VoucherExpense
             }
             var customerrows = from ro in damaiDataSet.Customer where (ro.CustomerID == row.Customer) select ro;
             var customerrow = customerrows.First();
-            Shipmentprint smp = new Shipmentprint();
+            
             smp.ApartmentName = apartmentName;
             smp.ShipmentNumber = row.ShipCode.ToString();
             smp.ContactPeople = customerrow.ContactPeople;
@@ -631,20 +598,23 @@ namespace VoucherExpense
             if (shipmetdetailrows.Count() == 0)
                 return;
             List<List<Shipmentdetailprint>> lists = new List<List<Shipmentdetailprint>>();
-            int inttemp = shipmetdetailrows.Count() / 15;
-            for (int j = 0; j <= inttemp; j++)
-            {
-                     
+          //  int inttemp = shipmetdetailrows.Count() / 1000;
+         //  for (int j = 0; j <= inttemp; j++)
+           //{
+
                 List<Shipmentdetailprint> listshipmentdetail = new List<Shipmentdetailprint>();
-                for (int i = j * 14; i < shipmetdetailrows.Count(); i++)
+                //for (int i = j*999; i < shipmetdetailrows.Count(); i++)
+                    for (int i =0; i < shipmetdetailrows.Count(); i++)
                 {
-                    if (i < (j + 1) * 14)
-                    {
+                    //if (i < (j + 1) * 999)
+                       // if (i < (j + 1) * 999)
+                  // {
                         var temrow = shipmetdetailrows[i];
                         var productrow = from r in damaiDataSet.Product where (r.ProductID == temrow.ProductID) select r;
                         var productfirst = productrow.First();
                         Shipmentdetailprint smdp = new Shipmentdetailprint();
-                        smdp.PageNumCount = inttemp + 1;
+                       // smdp.PageNumCount = inttemp + 1;
+                        //smdp.Num = i+1;
                         smdp.ProductName = productrow.First().Name;
                         smdp.ProductCode = productrow.First().Code;
                         if (productfirst.IsUnitNull())
@@ -657,7 +627,7 @@ namespace VoucherExpense
                         }
                         if (productfirst.IsPriceNull())
                         {
-                            MessageBox.Show("产品"+productfirst.Name+"所在行资料不全无法打印");
+                            MessageBox.Show("产品" + productfirst.Name + "所在行资料不全无法打印");
                             return;
                         }
                         else
@@ -673,17 +643,34 @@ namespace VoucherExpense
                         else
                         {
                             smdp.AllCost = temrow.Cost;
-                            
+
                         }
                         listshipmentdetail.Add(smdp);
-                    }
-                }
+                       
+                   // } 
+                     
+               }   listshipmentdetail.Sort(compare);
                 lists.Add(listshipmentdetail);
-            }
+           // }
             smp.ShipmentDetileProduct = lists;
-            FormShipmentPrint form = new FormShipmentPrint(smp);
-            form.Show();
-        }
+            printPageHeight = lists[0].Count * 14 + 110 + 552;
+
+            try
+            {
+                Config = MyFunction.HardwareCfg;
+                PrinterSettings ps = new PrinterSettings();
+                ps.PrinterName = Config.DotPrinterName;
+                var ss = ps.PaperSizes;
+               
+                System.Drawing.Printing.PageSettings df =  ps.DefaultPageSettings ;                     
+                printDocument1.PrinterSettings = ps;
+                printDocument1.Print();
+            }
+            catch
+            { }
+            //FormShipmentPrint form = new FormShipmentPrint(smp);
+            //form.Show();
+        } HardwareConfig Config;
         private void costTextBox_TextChanged(object sender, EventArgs e)
         {
 
@@ -692,7 +679,10 @@ namespace VoucherExpense
         {
 
         }
-
+        private int compare(Shipmentdetailprint student1, Shipmentdetailprint student2)
+        {
+            return student1.ProductCode - student2.ProductCode;
+        }
         private void shipmentDetailDataGridView_DataError_1(object sender, DataGridViewDataErrorEventArgs e)
         {
             DataGridView view = (DataGridView)sender;
@@ -702,8 +692,8 @@ namespace VoucherExpense
                 MessageBox.Show("ShipmentDetail第" + e.RowIndex.ToString() + "行錯誤:" + e.Exception.Message);
                 return;
             }
-            DataGridViewCell cell = view.Rows[e.RowIndex].Cells[e.ColumnIndex];
-            MessageBox.Show(string.Format("ShipmentDetail on Row{0} Col[{1}]:{2}", e.RowIndex, view.Columns[e.ColumnIndex].Name, e.Exception.Message));
+            //DataGridViewCell cell = view.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            //MessageBox.Show(string.Format("ShipmentDetail on Row{0} Col[{1}]:{2}", e.RowIndex, view.Columns[e.ColumnIndex].Name, e.Exception.Message));
         }
 
         private void productClassComboBox_SelectedValueChanged(object sender, EventArgs e)
@@ -738,6 +728,10 @@ namespace VoucherExpense
                 DamaiDataSet.ShipmentDetailRow r = dt.NewRow() as DamaiDataSet.ShipmentDetailRow;
                 r.ProductID = pr.ProductID;
                 r.ShipmentID = id;
+                r.Volume = 0;
+                r.ID = Guid.NewGuid();
+                r.Cost = 0;
+                dt.AddShipmentDetailRow(r);
             }
             return dt;
         }
@@ -748,17 +742,19 @@ namespace VoucherExpense
             if (ProductClassID >0)
                 Select += "and class=" + ProductClassID.ToString();
             ModifyProductFilterForSafe(Select);
+            this.shipmentDetailBindingSource.ResetBindings(false);
+            shipmentDetailDataGridView.Refresh();
         }
         private void ModifyProductFilterForSafe(string Select)
         {   // 避免出現ComboBox沒有的
-            foreach (DataGridViewRow row in shipmentDetailDataGridView.Rows)
-            {
-                DataGridViewCell cell = row.Cells["dgvColumnProductID"];
-                if (cell == null) continue;
-                if (cell.Value == null) continue;
-                if (cell.Value == DBNull.Value) continue;
-                Select += " OR ProductID=" + cell.Value.ToString();
-            }
+            //foreach (DataGridViewRow row in shipmentDetailDataGridView.Rows)
+            //{
+            //    DataGridViewCell cell = row.Cells["dgvColumnProductID"];
+            //    if (cell == null) continue;
+            //    if (cell.Value == null) continue;
+            //    if (cell.Value == DBNull.Value) continue;
+            //    Select += " OR ProductID=" + cell.Value.ToString();
+            //}
             productBindingSource.Filter = Select;
         }
 
@@ -776,6 +772,108 @@ namespace VoucherExpense
                     checkedCheckBox.Checked = true;
                 }
             }
+        }
+
+        int printPageHeight = 0;
+        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            if (smp==null)
+            {
+                return;
+            }  
+            Graphics g = e.Graphics;
+            Font font = new Font("新宋体", 13);
+            Font font1 = new Font("新宋体", 9);
+            Brush brush = new SolidBrush(Color.Black);
+            string aName=smp.ApartmentName;
+            if (aName.Length < 15)
+            {
+                for (int temp = 0; temp < (15 - aName.Length) % 2; temp++)
+                    {
+                        aName = aName.Insert(0, " ");
+                    }
+            }
+            g.DrawString(smp.ApartmentName+"出货单", new Font("新宋体", 15), brush, new Point(200, 30));
+            g.DrawString("客户名称：", font, brush, new Point(30, 60)); g.DrawString(smp.CustomerName, font, brush, new Point(110, 60));
+            g.DrawString("联系人：", font, brush, new Point(410, 60)); g.DrawString(smp.ContactPeople, font, brush, new Point(480, 60));
+            g.DrawString("联系电话：", font, brush, new Point(600, 60)); g.DrawString(smp.ContactPhone, font, brush, new Point(685, 60));
+            g.DrawString("送货地址：", font, brush, new Point(30, 80));      
+            if (smp.ShipAddress.Length > 21)
+            {
+                g.DrawString(smp.ShipAddress.Substring(0, 20), font1, brush, new Point(110, 80));
+                g.DrawString(smp.ShipAddress.Substring(21), font1, brush, new Point(110, 96));
+            }
+            else { g.DrawString(smp.ShipAddress, font1, brush, new Point(110, 80));}
+            g.DrawString("出货日期：", font, brush, new Point(410, 80)); g.DrawString(smp.ShipTime, font, brush, new Point(495, 80));
+            g.DrawString("开单日期：", font, brush, new Point(600, 80)); g.DrawString(smp.EntryTime, font, brush, new Point(685, 80));
+            g.DrawString("序号", font, brush, new Point(35, 110));
+            g.DrawString("产品代码", font, brush, new Point(100, 110));
+            g.DrawString("产品名称", font, brush, new Point(220, 110));
+            g.DrawString("单位", font, brush, new Point(380, 110));
+            g.DrawString("数量", font, brush, new Point(450, 110));
+            g.DrawString("单价", font, brush, new Point(520, 110));
+            g.DrawString("金额", font, brush, new Point(630, 110));
+            g.DrawString("其他", font, brush, new Point(730, 110));
+            int i = 0;
+            foreach (var item in smp.ShipmentDetileProduct)
+            {
+
+                foreach (var item1 in item)
+                {
+                    g.DrawString((i+1).ToString(), font1, brush, new Point(35, 130+i*14));
+                    g.DrawString(item1.ProductCode.ToString(), font1, brush, new Point(100, 130 + i * 14));
+                    g.DrawString(item1.ProductName, font1, brush, new Point(220, 130 + i * 14));
+                    g.DrawString(item1.Unit, font1, brush, new Point(390, 130 + i * 14));                  
+                    int l2 = item1.Volum.ToString().Length;
+                    string strvolum = item1.Volum.ToString();
+                    for (int ii = 0; ii < 5 - l2; ii++)
+                    {
+                        strvolum = strvolum.Insert(0, " ");
+                    }
+                    int l1 = item1.Cost.ToString().Length;
+                    string strdanjia = item1.Cost.ToString("0.00");
+                    for (int ii = 0; ii < 8 - l1; ii++)
+                    {
+                        strdanjia = strdanjia.Insert(0, " ");
+                    }
+                    g.DrawString(strvolum, font1, brush, new Point(430, 130 + i * 14));
+                    int l = item1.AllCost.ToString("0.00").Length;
+                    string strjine = item1.AllCost.ToString("0.00");
+                    for (int ii = 0; ii < 9 - l; ii++)
+                    {
+                        strjine = strjine.Insert(0, " ");
+                    }
+                    g.DrawString(strdanjia, font1, brush, new Point(490, 130 + i * 14));
+                    g.DrawString(strjine, font1, brush, new Point(610, 130 + i * 14));
+                   // g.DrawString("", font1, brush, new Point(730, 130 + i * 14));
+                    if (i % 10 == 0)
+                    {
+                        if (i == 0)
+                        {
+                            g.DrawLine(new Pen(brush), new Point(34, 130 + i * 14 - 24), new Point(780, 130 + i * 14 - 24));
+                        }
+                        else
+                        {
+                            g.DrawLine(new Pen(brush), new Point(34, 130 + i * 14 - 15), new Point(780, 130 + i * 14 - 15));
+                        }
+                    }
+                    i++; 
+                }          
+            }
+            g.DrawString("总计：", new Font("新宋体", 15), brush, new Point(200, 130 + i * 14 + 10)); g.DrawString(smp.CostAllCount.ToString("0.00"), font, brush, new Point(300, 130 + i * 14 + 10));
+            g.DrawString("收货单位及经手人：", font, brush, new Point(30, 130 + i * 14 + 40)); 
+            g.DrawString("出货单位及经手人：", font, brush, new Point(410, 130 + i * 14 + 40));
+            g.DrawLine(new Pen(brush), new Point(34, 58), new Point(34, 130 + i * 14 + 60));
+            g.DrawLine(new Pen(brush), new Point(780, 58), new Point(780, 130 + i * 14 + 60));
+            g.DrawLine(new Pen(brush), new Point(34, 58), new Point(780, 58));
+            g.DrawLine(new Pen(brush), new Point(34, 130 + i * 14 + 60), new Point(780, 130 + i * 14 + 60));
+
+        }
+
+        private void printDocument1_QueryPageSettings(object sender, QueryPageSettingsEventArgs e)
+        {
+            e.PageSettings.PaperSize = new System.Drawing.Printing.PaperSize("Custom", 850, printPageHeight);
+            e.PageSettings.Margins = new Margins(0, 0, 0, 0);
         }
 
     }

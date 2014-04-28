@@ -28,19 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabControl1 = new System.Windows.Forms.TabControl();
             this.pD = new System.Drawing.Printing.PrintDocument();
             this.button1 = new System.Windows.Forms.Button();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
             this.SuspendLayout();
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Location = new System.Drawing.Point(60, 12);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.Padding = new System.Drawing.Point(0, 0);
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(727, 503);
-            this.tabControl1.TabIndex = 0;
             // 
             // pD
             // 
@@ -57,14 +48,25 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Location = new System.Drawing.Point(37, 12);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(732, 438);
+            this.tabControl1.TabIndex = 2;
+            // 
             // FormShipmentPrint
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(858, 552);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(858, 479);
             this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.button1);
             this.Name = "FormShipmentPrint";
             this.Text = "出货单预览";
             this.Load += new System.EventHandler(this.FormShipmentPrint_Load);
@@ -74,8 +76,8 @@
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabControl1;
         private System.Drawing.Printing.PrintDocument pD;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TabControl tabControl1;
     }
 }

@@ -381,6 +381,12 @@
     <Compile Include="FormShipmentPrint.Designer.cs">
       <DependentUpon>FormShipmentPrint.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormShipmentReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormShipmentReport.Designer.cs">
+      <DependentUpon>FormShipmentReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormShrink.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -587,6 +593,9 @@
     <EmbeddedResource Include="FormShipmentPrint.resx">
       <DependentUpon>FormShipmentPrint.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormShipmentReport.resx">
+      <DependentUpon>FormShipmentReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormShrink.resx">
       <DependentUpon>FormShrink.cs</DependentUpon>
     </EmbeddedResource>
@@ -680,6 +689,7 @@
     <None Include="BasicDataSet.xss">
       <DependentUpon>BasicDataSet.xsd</DependentUpon>
     </None>
+    <None Include="CrystalReport1.mht" />
     <None Include="DamaiDataSet.xsc">
       <DependentUpon>DamaiDataSet.xsd</DependentUpon>
     </None>

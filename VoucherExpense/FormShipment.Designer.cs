@@ -37,15 +37,15 @@
             System.Windows.Forms.Label shipTimeLabel;
             System.Windows.Forms.Label supplierLabel;
             System.Windows.Forms.Label productClassLabel;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormShipment));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.shipmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.damaiDataSet = new VoucherExpense.DamaiDataSet();
@@ -115,6 +115,7 @@
             this.checkedLabel = new System.Windows.Forms.Label();
             this.checkedIDLabel = new System.Windows.Forms.Label();
             this.keyinIDLabel = new System.Windows.Forms.Label();
+            this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.ColumnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Removed = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.shipCodeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -221,6 +222,7 @@
             productClassLabel.Size = new System.Drawing.Size(60, 16);
             productClassLabel.TabIndex = 82;
             productClassLabel.Text = "出货类:";
+            productClassLabel.Visible = false;
             // 
             // comboBox2
             // 
@@ -360,8 +362,8 @@
             // shipmentDetailDataGridView
             // 
             this.shipmentDetailDataGridView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.Azure;
-            this.shipmentDetailDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
+            this.shipmentDetailDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.shipmentDetailDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -379,9 +381,9 @@
             this.shipmentDetailDataGridView.Location = new System.Drawing.Point(445, 154);
             this.shipmentDetailDataGridView.Name = "shipmentDetailDataGridView";
             this.shipmentDetailDataGridView.RowHeadersWidth = 25;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.shipmentDetailDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.shipmentDetailDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.shipmentDetailDataGridView.RowTemplate.Height = 23;
             this.shipmentDetailDataGridView.Size = new System.Drawing.Size(494, 456);
             this.shipmentDetailDataGridView.TabIndex = 77;
@@ -414,12 +416,13 @@
             this.productBindingSource.DataMember = "Product";
             this.productBindingSource.DataSource = this.damaiDataSet;
             this.productBindingSource.Filter = "Code>0";
+            this.productBindingSource.Sort = "Code asc";
             // 
             // dgvColumnVolume
             // 
             this.dgvColumnVolume.DataPropertyName = "Volume";
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dgvColumnVolume.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dgvColumnVolume.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvColumnVolume.HeaderText = "数量";
             this.dgvColumnVolume.Name = "dgvColumnVolume";
             this.dgvColumnVolume.Width = 80;
@@ -440,10 +443,10 @@
             // dgvCostColumn
             // 
             this.dgvCostColumn.DataPropertyName = "Cost";
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle11.Format = "N2";
-            dataGridViewCellStyle11.NullValue = null;
-            this.dgvCostColumn.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.Format = "N2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.dgvCostColumn.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvCostColumn.HeaderText = "金额";
             this.dgvCostColumn.Name = "dgvCostColumn";
             this.dgvCostColumn.Width = 150;
@@ -515,18 +518,18 @@
             this.shipmentDataGridView.AllowUserToDeleteRows = false;
             this.shipmentDataGridView.AllowUserToOrderColumns = true;
             this.shipmentDataGridView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle13.BackColor = System.Drawing.Color.Azure;
-            this.shipmentDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Azure;
+            this.shipmentDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             this.shipmentDataGridView.AutoGenerateColumns = false;
             this.shipmentDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("PMingLiU", 12F);
-            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.shipmentDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("PMingLiU", 12F);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.shipmentDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.shipmentDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.shipmentDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnID,
@@ -544,9 +547,9 @@
             this.shipmentDataGridView.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.shipmentDataGridView.RowHeadersVisible = false;
             this.shipmentDataGridView.RowHeadersWidth = 25;
-            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.shipmentDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.shipmentDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle8;
             this.shipmentDataGridView.RowTemplate.Height = 23;
             this.shipmentDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.shipmentDataGridView.Size = new System.Drawing.Size(444, 718);
@@ -853,6 +856,7 @@
             this.productClassComboBox.Size = new System.Drawing.Size(111, 24);
             this.productClassComboBox.TabIndex = 83;
             this.productClassComboBox.ValueMember = "ID";
+            this.productClassComboBox.Visible = false;
             this.productClassComboBox.SelectedValueChanged += new System.EventHandler(this.productClassComboBox_SelectedValueChanged);
             // 
             // checkedLabel
@@ -885,6 +889,11 @@
             this.keyinIDLabel.TabIndex = 86;
             this.keyinIDLabel.Text = "输入人：";
             // 
+            // printDocument1
+            // 
+            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
+            this.printDocument1.QueryPageSettings += new System.Drawing.Printing.QueryPageSettingsEventHandler(this.printDocument1_QueryPageSettings);
+            // 
             // ColumnID
             // 
             this.ColumnID.DataPropertyName = "ID";
@@ -905,6 +914,7 @@
             this.shipCodeDataGridViewTextBoxColumn.DataPropertyName = "ShipCode";
             this.shipCodeDataGridViewTextBoxColumn.HeaderText = "凭证号";
             this.shipCodeDataGridViewTextBoxColumn.Name = "shipCodeDataGridViewTextBoxColumn";
+            this.shipCodeDataGridViewTextBoxColumn.ReadOnly = true;
             this.shipCodeDataGridViewTextBoxColumn.Width = 70;
             // 
             // customerDataGridViewTextBoxColumn
@@ -923,12 +933,13 @@
             // costDataGridViewTextBoxColumn
             // 
             this.costDataGridViewTextBoxColumn.DataPropertyName = "Cost";
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle15.Format = "N2";
-            dataGridViewCellStyle15.NullValue = null;
-            this.costDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle7.Format = "N2";
+            dataGridViewCellStyle7.NullValue = null;
+            this.costDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle7;
             this.costDataGridViewTextBoxColumn.HeaderText = "总计";
             this.costDataGridViewTextBoxColumn.Name = "costDataGridViewTextBoxColumn";
+            this.costDataGridViewTextBoxColumn.ReadOnly = true;
             this.costDataGridViewTextBoxColumn.Width = 90;
             // 
             // shipTimeDataGridViewTextBoxColumn
@@ -1076,6 +1087,7 @@
         private System.Windows.Forms.Label checkedLabel;
         private System.Windows.Forms.Label checkedIDLabel;
         private System.Windows.Forms.Label keyinIDLabel;
+        private System.Drawing.Printing.PrintDocument printDocument1;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnID;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Removed;
         private System.Windows.Forms.DataGridViewTextBoxColumn shipCodeDataGridViewTextBoxColumn;

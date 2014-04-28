@@ -475,6 +475,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(908, 612);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.btnCalc);
             this.Controls.Add(this.cbBoxTo);
             this.Controls.Add(this.cbBoxFrom);
@@ -485,12 +486,11 @@
             this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(label1);
             this.Controls.Add(this.vendorIDComboBox);
             this.Controls.Add(vendorIDLabel);
             this.Controls.Add(this.cbBoxMonth);
-            this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ReportByVender";
             this.Text = "月報表 廠商別";

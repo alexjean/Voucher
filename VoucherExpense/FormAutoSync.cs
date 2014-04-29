@@ -643,6 +643,7 @@ namespace VoucherExpense
         {   // Order和OnDutyData只從本地到雲端
             if (tableName == "Order") return false;
             if (tableName == "OnDutyData") return false;
+            if (tableName == "ProductScrapped") return false;
             return true;
         }
 
@@ -750,10 +751,10 @@ namespace VoucherExpense
                     else if (local.Equals("InventoryProducts")) fatherName = "Inventory";
                     if (fatherName != null)
                         if (!StructLocal.ContainsKey(fatherName)) fatherName = null;      // 例如BankDetail其實不是副檔,沒有主檔叫Bank
-
-                    if (!DB.SameStructWithPK(StructLocal[local], StructCloud[local]))
+                    string errMsg;
+                    if (!DB.SameStructWithPK(StructLocal[local], StructCloud[local],out errMsg))
                     {
-                        Message("不同    " + local);
+                        Message(local+"不同 -> " +errMsg);
                         if (local.Length > 4 && local.Substring(0, 4) == "Sync")
                         {
                             MessageBox.Show("Table[Sync*] 為同步所需檔案,不可不同,同步停止!");

@@ -350,22 +350,34 @@ namespace VoucherExpense
             return true;
         }
 
-        static public bool SameStructWithPK(List<SqlColumnStruct> local, List<SqlColumnStruct> cloud)
+        static public bool SameStructWithPK(List<SqlColumnStruct> local, List<SqlColumnStruct> cloud,out string msg)
         {
-            if (local.Count != cloud.Count) return false;
+            if (local.Count != cloud.Count)
+            {
+                msg = "欄位數不同!";
+                return false;
+            }
             int count = local.Count;
             for (int i = 0; i < count; i++)
             {
                 var l = local[i];
                 var c = cloud[i];
-                if (l.DbType != c.DbType) return false;
-                if (l.IsNullable != c.IsNullable) return false;
-                if (l.IsPrimaryKey != c.IsPrimaryKey) return false;
-                if (l.Length != c.Length) return false;
-                if (l.Name != c.Name) return false;
+                if (l.DbType != c.DbType)               goto Different;
+                if (l.IsNullable != c.IsNullable)       goto Different;
+                if (l.IsPrimaryKey != c.IsPrimaryKey)   goto Different;
+                if (l.Length != c.Length)               goto Different;
+                if (l.Name != c.Name)                   goto Different;
+                continue;
                 // TableName不比對
+            Different:
+                msg = "欄位<" + l.Name + ">不同!";
+                return false;
             }
+            msg = "";
             return true;
+        
+           
+
         }
 
         static public bool SameStruct(string TableName, SqlConnection DB1, SqlConnection DB2)

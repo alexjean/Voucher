@@ -108,13 +108,14 @@
             this.orderCountDataGridViewTextBoxColumn,
             this.moneyDataGridViewTextBoxColumn});
             this.dgViewMonthlyPay.DataSource = this.cMonthlyPayBindingSource;
-            this.dgViewMonthlyPay.Location = new System.Drawing.Point(25, 52);
+            this.dgViewMonthlyPay.Location = new System.Drawing.Point(12, 52);
             this.dgViewMonthlyPay.Name = "dgViewMonthlyPay";
             this.dgViewMonthlyPay.ReadOnly = true;
             this.dgViewMonthlyPay.RowHeadersVisible = false;
             this.dgViewMonthlyPay.RowTemplate.Height = 24;
             this.dgViewMonthlyPay.Size = new System.Drawing.Size(453, 537);
             this.dgViewMonthlyPay.TabIndex = 61;
+            this.dgViewMonthlyPay.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgViewMonthlyPay_DataError);
             // 
             // venderIDDataGridViewTextBoxColumn
             // 
@@ -245,7 +246,7 @@
             this.Controls.Add(this.dgViewMonthlyPay);
             this.Controls.Add(label1);
             this.Controls.Add(this.comboBoxMonth);
-            this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormMonthlyPay";
             this.Text = "付款匯總";

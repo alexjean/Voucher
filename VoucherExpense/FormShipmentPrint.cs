@@ -258,8 +258,7 @@ danwei.Text = item1.Unit;
                  this.Close();
             }
             catch (Exception)
-            {
-                
+            {             
                 throw;
             }
            

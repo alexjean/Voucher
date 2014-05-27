@@ -445,7 +445,15 @@ namespace VoucherExpense
 
         private void accountingTitleDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-
+            DataGridView view = (DataGridView)sender;
+            if (e.RowIndex < 0) return;
+            if (e.ColumnIndex < 0)
+            {
+                MessageBox.Show("Deail第" + e.RowIndex.ToString() + "行錯誤:" + e.Exception.Message);
+                return;
+            }
+            DataGridViewCell cell = view.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            MessageBox.Show(string.Format("Detail on Row{0} Col[{1}]:{2}", e.RowIndex, view.Columns[e.ColumnIndex].Name, e.Exception.Message));
         }
 
      

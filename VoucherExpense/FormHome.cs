@@ -469,10 +469,6 @@ namespace VoucherExpense
             PopupOrRun("FormCustomer", typeof(FormCustomer));
         }
 
-        private void 出货MenuItem_Click(object sender, EventArgs e)
-        {
-            PopupOrRun("FormShipment", typeof(FormShipment));
-        }
 
         private void 单据ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -482,6 +478,21 @@ namespace VoucherExpense
         private void 产品类别ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PopupOrRun("EditProductClass", typeof(EditProductClass));
+        }
+
+        private void 出货统计ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PopupOrRun("FormShipmentReport", typeof(FormShipmentReport));
+        }
+
+        private void 出货ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PopupOrRun("FormShipment", typeof(FormShipment));
+        }
+
+        private void 出货收款统计ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PopupOrRun("FormMonthlyIncome", typeof(FormMonthlyIncome));
         }
     }
 }

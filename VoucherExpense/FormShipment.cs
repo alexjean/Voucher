@@ -106,7 +106,8 @@ namespace VoucherExpense
         bool m_check = false;
         private void FormShipment_Load(object sender, EventArgs e)
         {
-            // TODO: 这行代码将数据加载到表“damaiDataSet.ProductClass”中。您可以根据需要移动或删除它。
+         try
+            {         // TODO: 这行代码将数据加载到表“damaiDataSet.ProductClass”中。您可以根据需要移动或删除它。
             this.productClassTableAdapter.Fill(this.damaiDataSet.ProductClass);
             // TODO: 这行代码将数据加载到表“damaiDataSet.ShipmentDetail”中。您可以根据需要移动或删除它。
             this.shipmentDetailTableAdapter1.Fill(this.damaiDataSet.ShipmentDetail);
@@ -120,8 +121,7 @@ namespace VoucherExpense
             this.operatorTableAdapter1.Fill(this.damaiDataSet.Operator);
             // TODO: 这行代码将数据加载到表“damaiDataSet.Shipment”中。您可以根据需要移动或删除它。
             this.shipmentTableAdapter1.Fill(this.damaiDataSet.Shipment);
-            try
-            {
+      
                 this.apartmentTableAdapter.Fill(this.damaiDataSet.Apartment);
                 // TODO: 这行代码将数据加载到表“vEDataSet.AccountingTitle”中。您可以根据需要移动或删除它。
              //   this.accountingTitleTableAdapter.Fill(this.vEDataSet.AccountingTitle);
@@ -182,7 +182,7 @@ namespace VoucherExpense
             DataGridViewCell cellID = row.Cells["detailColumnID"];
             cellID.Value = Guid.NewGuid();
         }
-
+        int m_Month = 0;
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
             if (MyFunction.LockAll)
@@ -195,10 +195,13 @@ namespace VoucherExpense
                 month = DateTime.Now.Month;
                 MessageBox.Show("你未選擇月份, 電腦設定新增為<" + month.ToString() + "月>單子!");
             }
+            m_Month = month;
+            panel1.Visible = true;
+        }
 
-            //            int count=this.voucherBindingNavigator.PositionItem.
-            //int ma = MyFunction.MaxNoInDB("ID", sQLVEDataSet.Shipment);
-            //int i = MyFunction.SetCellMaxNo("ColumnID", shipmentDataGridView, ma);
+        private bool addNew(int month, int productClass)
+        { 
+
             int ma = MyFunction.MaxNoInDB("ID", damaiDataSet.Shipment);
             int i = MyFunction.SetCellMaxNo("ColumnID", shipmentDataGridView, ma);
             if (i > 0)
@@ -208,7 +211,11 @@ namespace VoucherExpense
                 //removedCheckBox.Checked = false;                           // 只有對DateTime的Binding會受影響, bool不會,所以可以放ResetBindings前  
                 //checkedCheckBox.Checked = false;
                        // 這行加了會把stockTimeTextBox.Text和entryTimeTextBox.Text給清成空白,所以放前面
-                foreach (var item in CreateNewShipmentDetailDataTable(i))
+                if (CreateNewShipmentDetailDataTable(i, productClass).Count == 0)
+                {
+                    return false;
+                }
+                foreach (var item in CreateNewShipmentDetailDataTable(i,productClass))
                 {
                     DamaiDataSet.ShipmentDetailRow r;
                     r = item;
@@ -228,9 +235,10 @@ namespace VoucherExpense
                 // 有選月份時,先強設日期,否則在當月看不到
                 DateTime stockTime = new DateTime(year, month, MyFunction.DayCountOfMonth(month));   // 資料月份,設成該月最後一天
                 shipTimeTextBox.Text = stockTime.ToShortDateString();
+                return true;
             }
+            return false;
         }
-
         /// <summary>
         /// 凭证号
         /// </summary>
@@ -546,10 +554,7 @@ namespace VoucherExpense
                 }
             this.shipmentDataGridView.Focus();
         }
-        //private void tsbtPrint_Click(object sender, EventArgs e)
-        //{ 
 
-        //}
         Shipmentprint smp = new Shipmentprint();
         private void tsbtPrint_Click(object sender, EventArgs e)
         {
@@ -695,9 +700,10 @@ namespace VoucherExpense
             //DataGridViewCell cell = view.Rows[e.RowIndex].Cells[e.ColumnIndex];
             //MessageBox.Show(string.Format("ShipmentDetail on Row{0} Col[{1}]:{2}", e.RowIndex, view.Columns[e.ColumnIndex].Name, e.Exception.Message));
         }
-
+        int m_ProductClass = 0;
         private void productClassComboBox_SelectedValueChanged(object sender, EventArgs e)
-        {            if (productClassComboBox.SelectedValue == null)
+        {           
+            if (productClassComboBox.SelectedValue == null||(int)productClassComboBox.SelectedValue <1)
             { return; }
         //var cr = this.shipmentBindingSource.Current as DataRowView;
         //if (cr==null)
@@ -707,7 +713,7 @@ namespace VoucherExpense
         //    if (cr.Row.RowState==DataRowState.Detached)
         //    {
 
-            SetProductFilter((int)productClassComboBox.SelectedValue);
+          //  SetProductFilter((int)productClassComboBox.SelectedValue);
            
         //    DamaiDataSet.ShipmentRow sr = cr.Row as DamaiDataSet.ShipmentRow;
         //    foreach (var item in CreateNewShipmentDetailDataTable(sr.ID))
@@ -716,8 +722,13 @@ namespace VoucherExpense
         //    }
         //    this.shipmentDetailBindingSource.ResetBindings(false);
         //    }
+        if (productClassComboBox.SelectedText==null)
+        {
+            return;
         }
-        DamaiDataSet.ShipmentDetailDataTable CreateNewShipmentDetailDataTable(int id)
+        m_ProductClass = (int)productClassComboBox.SelectedValue;
+        }
+        DamaiDataSet.ShipmentDetailDataTable CreateNewShipmentDetailDataTable(int id,int productClass)
         {
             DamaiDataSet.ShipmentDetailDataTable dt = new DamaiDataSet.ShipmentDetailDataTable();
             foreach (DataRowView item in productBindingSource)
@@ -725,6 +736,10 @@ namespace VoucherExpense
 
                 DataRow dr = item.Row as DataRow;
                 DamaiDataSet.ProductRow pr = dr as DamaiDataSet.ProductRow;
+                if (pr.Class!=productClass)
+                {
+                    continue;
+                }
                 DamaiDataSet.ShipmentDetailRow r = dt.NewRow() as DamaiDataSet.ShipmentDetailRow;
                 r.ProductID = pr.ProductID;
                 r.ShipmentID = id;
@@ -805,25 +820,42 @@ namespace VoucherExpense
             }
             else { g.DrawString(smp.ShipAddress, font1, brush, new Point(110, 80));}
             g.DrawString("出货日期：", font, brush, new Point(410, 80)); g.DrawString(smp.ShipTime, font, brush, new Point(495, 80));
-            g.DrawString("开单日期：", font, brush, new Point(600, 80)); g.DrawString(smp.EntryTime, font, brush, new Point(685, 80));
-            g.DrawString("序号", font, brush, new Point(35, 110));
-            g.DrawString("产品代码", font, brush, new Point(100, 110));
-            g.DrawString("产品名称", font, brush, new Point(220, 110));
-            g.DrawString("单位", font, brush, new Point(380, 110));
-            g.DrawString("数量", font, brush, new Point(450, 110));
-            g.DrawString("单价", font, brush, new Point(520, 110));
-            g.DrawString("金额", font, brush, new Point(630, 110));
-            g.DrawString("其他", font, brush, new Point(730, 110));
+            g.DrawString("凭证号：", font, brush, new Point(600, 80)); g.DrawString(smp.ShipmentNumber, font, brush, new Point(685, 80));
+            g.DrawString("序号", font1, brush, new Point(35, 110));
+           // g.DrawString("代码", font1, brush, new Point(75, 110));
+            g.DrawString("名称", font1, brush, new Point(95, 110));
+            g.DrawString("单位", font1, brush, new Point(180, 110));
+            g.DrawString("数量", font1, brush, new Point(225, 110));
+            g.DrawString("单价", font1, brush, new Point(275, 110));
+            g.DrawString("金额", font1, brush, new Point(350, 110));
+           // g.DrawString("其他", font1, brush, new Point(380, 110));
+            g.DrawString("序号", font1, brush, new Point(370 + 35, 110));
+           // g.DrawString("代码", font1, brush, new Point(370 + 75, 110));
+            g.DrawString("名称", font1, brush, new Point(370 + 95, 110));
+            g.DrawString("单位", font1, brush, new Point(370 + 180, 110));
+            g.DrawString("数量", font1, brush, new Point(370 + 225, 110));
+            g.DrawString("单价", font1, brush, new Point(370 + 275, 110));
+            g.DrawString("金额", font1, brush, new Point(370 + 350, 110));
             int i = 0;
             foreach (var item in smp.ShipmentDetileProduct)
             {
 
                 foreach (var item1 in item)
                 {
-                    g.DrawString((i+1).ToString(), font1, brush, new Point(35, 130+i*14));
-                    g.DrawString(item1.ProductCode.ToString(), font1, brush, new Point(100, 130 + i * 14));
-                    g.DrawString(item1.ProductName, font1, brush, new Point(220, 130 + i * 14));
-                    g.DrawString(item1.Unit, font1, brush, new Point(390, 130 + i * 14));                  
+                    if (i % 2 == 0)
+                    {
+                        g.DrawString((i + 1).ToString(), font1, brush, new Point(35, 130 + i * 8));
+                       // g.DrawString(item1.ProductCode.ToString(), font1, brush, new Point(65, 130 + i * 8));
+                        g.DrawString(item1.ProductName, font1, brush, new Point(65, 130 + i * 8));
+                        g.DrawString(item1.Unit, font1, brush, new Point(185, 130 + i * 8));
+                    }
+                    else
+                    {
+                        g.DrawString((i + 1).ToString(), font1, brush, new Point(370 + 35, 130 + (i - 1) * 8));
+                      //  g.DrawString(item1.ProductCode.ToString(), font1, brush, new Point(370 + 65, 130 + (i - 1) * 8));
+                        g.DrawString(item1.ProductName, font1, brush, new Point(370 + 65, 130 + (i - 1) * 8));
+                        g.DrawString(item1.Unit, font1, brush, new Point(370 + 185, 130 + (i - 1) * 8));
+                    }
                     int l2 = item1.Volum.ToString().Length;
                     string strvolum = item1.Volum.ToString();
                     for (int ii = 0; ii < 5 - l2; ii++)
@@ -836,44 +868,67 @@ namespace VoucherExpense
                     {
                         strdanjia = strdanjia.Insert(0, " ");
                     }
-                    g.DrawString(strvolum, font1, brush, new Point(430, 130 + i * 14));
+                    if (i % 2 == 0)
+                    {
+                        g.DrawString(strvolum, font1, brush, new Point(210, 130 + i * 8));
+                    }
+                    else
+                    {
+                        g.DrawString(strvolum, font1, brush, new Point(370 + 210, 130 + (i - 1) * 8));
+                    }
                     int l = item1.AllCost.ToString("0.00").Length;
                     string strjine = item1.AllCost.ToString("0.00");
                     for (int ii = 0; ii < 9 - l; ii++)
                     {
                         strjine = strjine.Insert(0, " ");
                     }
-                    g.DrawString(strdanjia, font1, brush, new Point(490, 130 + i * 14));
-                    g.DrawString(strjine, font1, brush, new Point(610, 130 + i * 14));
-                   // g.DrawString("", font1, brush, new Point(730, 130 + i * 14));
-                    if (i % 10 == 0)
+                    if (i % 2 == 0)
+                    {
+                        g.DrawString(strdanjia, font1, brush, new Point(235, 130 + i * 8));
+                        g.DrawString(strjine, font1, brush, new Point(330, 130 + i * 8));
+                    }
+                    else
+                    {
+                        g.DrawString(strdanjia, font1, brush, new Point(370 + 235, 130 + (i - 1) * 8));
+                        g.DrawString(strjine, font1, brush, new Point(370 + 330, 130 + (i - 1) * 8));
+                    }
+                   // g.DrawString("", font1, brush, new Point(730, 130 + i * 8));
+                    if (i % 20 == 0)
                     {
                         if (i == 0)
                         {
-                            g.DrawLine(new Pen(brush), new Point(34, 130 + i * 14 - 24), new Point(780, 130 + i * 14 - 24));
+                            g.DrawLine(new Pen(brush), new Point(34, 130 + i * 8 - 24), new Point(780, 130 + i * 8 - 24));
                         }
                         else
                         {
-                            g.DrawLine(new Pen(brush), new Point(34, 130 + i * 14 - 15), new Point(780, 130 + i * 14 - 15));
+                            g.DrawLine(new Pen(brush), new Point(34, 130 + i * 8 ), new Point(780, 130 + i * 8 ));
                         }
                     }
                     i++; 
                 }          
             }
-            g.DrawString("总计：", new Font("新宋体", 15), brush, new Point(200, 130 + i * 14 + 10)); g.DrawString(smp.CostAllCount.ToString("0.00"), font, brush, new Point(300, 130 + i * 14 + 10));
-            g.DrawString("收货单位及经手人：", font, brush, new Point(30, 130 + i * 14 + 40)); 
-            g.DrawString("出货单位及经手人：", font, brush, new Point(410, 130 + i * 14 + 40));
-            g.DrawLine(new Pen(brush), new Point(34, 58), new Point(34, 130 + i * 14 + 60));
-            g.DrawLine(new Pen(brush), new Point(780, 58), new Point(780, 130 + i * 14 + 60));
+            g.DrawString("总计：", new Font("新宋体", 15), brush, new Point(200, 130 + i * 8 + 10)); g.DrawString(smp.CostAllCount.ToString("0.00"), font, brush, new Point(300, 130 + i * 8 + 10));
+            g.DrawString("收货单位及经手人：", font, brush, new Point(30, 130 + i * 8 + 40)); 
+            g.DrawString("出货单位及经手人：", font, brush, new Point(410, 130 + i * 8 + 40));
+            g.DrawLine(new Pen(brush), new Point(34, 58), new Point(34, 130 + i * 8 + 60));
+            g.DrawLine(new Pen(brush), new Point(405, 58), new Point(405, 130 + i * 8 + 60));
+            g.DrawLine(new Pen(brush), new Point(780, 58), new Point(780, 130 + i * 8 + 60));
             g.DrawLine(new Pen(brush), new Point(34, 58), new Point(780, 58));
-            g.DrawLine(new Pen(brush), new Point(34, 130 + i * 14 + 60), new Point(780, 130 + i * 14 + 60));
+            g.DrawLine(new Pen(brush), new Point(34, 130 + i * 8 + 60), new Point(780, 130 + i * 8 + 60));
 
         }
 
         private void printDocument1_QueryPageSettings(object sender, QueryPageSettingsEventArgs e)
         {
-            e.PageSettings.PaperSize = new System.Drawing.Printing.PaperSize("Custom", 850, printPageHeight);
-            e.PageSettings.Margins = new Margins(0, 0, 0, 0);
+            //e.PageSettings.PaperSize = new System.Drawing.Printing.PaperSize("Custom", 850, printPageHeight);
+            //e.PageSettings.Margins = new Margins(0, 0, 0, 0);
+        }
+
+        private void btOK_Click(object sender, EventArgs e)
+        {
+            panel1.Visible = false;
+            if (!addNew(m_Month, m_ProductClass))
+            { MessageBox.Show("没有符合的产品，请退出出货界面重新进入后再继续进行其他操作！"); }
         }
 
     }

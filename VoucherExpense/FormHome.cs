@@ -494,5 +494,10 @@ namespace VoucherExpense
         {
             PopupOrRun("FormMonthlyIncome", typeof(FormMonthlyIncome));
         }
+
+        private void 組合傳票ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PopupOrRun("FormAccounting", typeof(FormAccounting));
+        }
     }
 }

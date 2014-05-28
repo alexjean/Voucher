@@ -183,6 +183,12 @@
     <Compile Include="Expense.Designer.cs">
       <DependentUpon>Expense.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormAccounting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAccounting.Designer.cs">
+      <DependentUpon>FormAccounting.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormAccVoucher.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -487,6 +493,9 @@
       <SubType>Designer</SubType>
       <DependentUpon>Expense.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormAccounting.resx">
+      <DependentUpon>FormAccounting.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormAccVoucher.resx">
       <DependentUpon>FormAccVoucher.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -698,7 +707,6 @@
     <None Include="BasicDataSet.xss">
       <DependentUpon>BasicDataSet.xsd</DependentUpon>
     </None>
-    <None Include="CrystalReport1.mht" />
     <None Include="DamaiDataSet.xsc">
       <DependentUpon>DamaiDataSet.xsd</DependentUpon>
     </None>

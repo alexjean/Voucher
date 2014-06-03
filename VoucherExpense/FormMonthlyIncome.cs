@@ -72,10 +72,11 @@ namespace VoucherExpense
                 if (vr.IsCustomerNull()) continue;
                 if (!vr.IsRemovedNull())
                     if (vr.Removed) continue;
-
+                
                 int id = vr.Customer;
                 CMonthlyIncome p = FindOrAdd(vr.Customer, list);
-                if (!vr.IsLockedNull()&&vr.Locked) p.ShipmentCount++;
+               // if (!vr.IsLockedNull()&&vr.Locked) p.ShipmentCount++;
+                if (!vr.IsCheckedNull() && vr.Checked) p.ShipmentCount++;
                 if (!vr.IsCostNull())
                     p.Money += vr.Cost;
             }

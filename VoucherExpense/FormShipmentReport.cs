@@ -94,6 +94,7 @@ namespace VoucherExpense
             dataGridView2.DataSource= ds.Tables[1];
             object sumObject =ds.Tables[0].Compute("sum(金额)", "TRUE");
             this.tBTotal.Text = sumObject.ToString();
+            this.tBCount.Text = ds.Tables[0].Compute("sum(总量)", "TRUE").ToString();
             labelCount.Text = "共" + ds.Tables[1].Rows.Count+ "张";
         }
 

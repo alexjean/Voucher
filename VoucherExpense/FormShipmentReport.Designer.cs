@@ -53,6 +53,8 @@
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.btPrint = new System.Windows.Forms.Button();
             this.pD = new System.Drawing.Printing.PrintDocument();
+            this.tBCount = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             label3 = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
             nameLabel = new System.Windows.Forms.Label();
@@ -202,23 +204,23 @@
             // tBTotal
             // 
             this.tBTotal.BackColor = System.Drawing.SystemColors.Window;
-            this.tBTotal.Location = new System.Drawing.Point(316, 651);
+            this.tBTotal.Location = new System.Drawing.Point(134, 659);
             this.tBTotal.Margin = new System.Windows.Forms.Padding(4);
             this.tBTotal.Name = "tBTotal";
             this.tBTotal.ReadOnly = true;
-            this.tBTotal.Size = new System.Drawing.Size(157, 27);
+            this.tBTotal.Size = new System.Drawing.Size(142, 27);
             this.tBTotal.TabIndex = 76;
             this.tBTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(251, 662);
+            this.label2.Location = new System.Drawing.Point(54, 662);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(40, 16);
+            this.label2.Size = new System.Drawing.Size(72, 16);
             this.label2.TabIndex = 75;
-            this.label2.Text = "小計";
+            this.label2.Text = "金额小計";
             // 
             // cbBoxMonth
             // 
@@ -316,11 +318,34 @@
             // 
             this.pD.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.pD_PrintPage);
             // 
+            // tBCount
+            // 
+            this.tBCount.BackColor = System.Drawing.SystemColors.Window;
+            this.tBCount.Location = new System.Drawing.Point(361, 658);
+            this.tBCount.Margin = new System.Windows.Forms.Padding(4);
+            this.tBCount.Name = "tBCount";
+            this.tBCount.ReadOnly = true;
+            this.tBCount.Size = new System.Drawing.Size(142, 27);
+            this.tBCount.TabIndex = 89;
+            this.tBCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(297, 661);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(56, 16);
+            this.label4.TabIndex = 88;
+            this.label4.Text = "量小計";
+            // 
             // FormShipmentReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(938, 718);
+            this.Controls.Add(this.tBCount);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.btPrint);
             this.Controls.Add(nameLabel);
             this.Controls.Add(this.nameComboBox);
@@ -370,5 +395,7 @@
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.Button btPrint;
         private System.Drawing.Printing.PrintDocument pD;
+        private System.Windows.Forms.TextBox tBCount;
+        private System.Windows.Forms.Label label4;
     }
 }

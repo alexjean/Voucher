@@ -322,8 +322,8 @@ namespace VoucherExpense
 #endif
         {
             decimal cash = 0, credit = 0, deduct = 0;
-            decimal coupond=0,deletedMoney=0,returnedMoney=0;
-            int orderCount = 0,deletedCount=0,returnedCount=0;
+            decimal coupond = 0, deletedMoney = 0, returnedMoney = 0, TwentyPDMoney = 0, FifteenPDMoney = 0, TenPDMoney=0;
+            int orderCount = 0, deletedCount = 0, returnedCount = 0, TwentyPDCount = 0, FifteenPDCount=0, TenPDCount=0;
             MonthlyReportData data = new MonthlyReportData();
             foreach (var row in orderSet.Order)
             {
@@ -350,6 +350,24 @@ namespace VoucherExpense
                     returnedMoney += income;
                     returnedCount++;
                 }
+                if (!row.IsDiscountRateNull())
+                {
+                  if(  row.DiscountRate==(decimal)0.80)
+                {
+                    TwentyPDMoney += income;
+                    TwentyPDCount++;
+                }
+                  if (row.DiscountRate==(decimal)0.85)
+                  {
+                      FifteenPDMoney += income;
+                      FifteenPDCount++;
+                  }
+                  if (row.DiscountRate==(decimal)0.90)
+                  {
+                      TenPDMoney += income;
+                      TenPDCount++;
+                  }
+                }
             }
             data.OrderCount = orderCount;
             data.Cash    = Math.Round(cash);
@@ -368,6 +386,8 @@ namespace VoucherExpense
 
             data.ReturnedCount = returnedCount;
             data.ReturnedMoney = Math.Round(returnedMoney);
+            data.TwentyPDCount = TwentyPDCount;
+            data.TwentyPDMoney = Math.Round(TwentyPDMoney);
             return data;
         }
     }

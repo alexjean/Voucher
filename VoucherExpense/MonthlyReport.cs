@@ -83,6 +83,8 @@ namespace VoucherExpense
                 total.CreditCard += d.CreditCard;
                 total.CreditFee += d.CreditFee;
                 total.CreditNet += d.CreditNet;
+                total.TwentyPDCount += d.TwentyPDCount;
+                total.TwentyPDMoney += d.TwentyPDMoney;
             }
             labelCash.Text = total.Cash.ToString();
             labelCredit.Text = total.CreditCard.ToString();

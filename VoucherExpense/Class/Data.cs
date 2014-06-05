@@ -478,6 +478,12 @@ namespace VoucherExpense
 
         public int ReturnedCount     { get; set; }
         public decimal ReturnedMoney { get; set; }
+        public int TwentyPDCount     { get; set; }
+        public decimal TwentyPDMoney { get; set; }
+        public int FifteenPDCount { get; set; }
+        public decimal FifteenPDMoney { get; set; }
+        public int TenPDCount     { get; set; }
+        public decimal TenPDMoney { get; set; }
     }
 
     public class CLedgerRow

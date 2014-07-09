@@ -189,6 +189,7 @@ namespace VoucherExpense
                     MessageBox.Show("存VoucherDetail時,ex:" + ex.Message);
                 }
             }
+            dgvVoucher.Invalidate();
         }
 
 

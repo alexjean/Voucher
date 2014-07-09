@@ -77,7 +77,15 @@ namespace VoucherExpense
                 MessageBox.Show("請選擇客户!");
                 return;
             }
-            Calculate(monthFrom, dayFrom, monthTo, dayTo, id);
+            try
+            {
+                Calculate(monthFrom, dayFrom, monthTo, dayTo, id);
+            }
+            catch (Exception)
+            {               
+                throw;
+            }
+            
         }
         void Calculate(int monthFrom, int dayFrom, int monthTo, int dayTo, int id)
         {
@@ -86,7 +94,7 @@ namespace VoucherExpense
             SqlDataAdapter da = new SqlDataAdapter();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = conn;
-            cmd.CommandText = "  select p.Name 产品名, count(sd.ProductID) 次数,p.Price 单价,sum(sd.Volume) 总量,cast(sum(sd.Cost) as decimal(38,2))金额 from Product p,Shipment s,ShipmentDetail sd where p.ProductID=sd.ProductID and s.ID=sd.ShipmentID and s.customer= " + id + " and s.ShipTime<'" + MyFunction.IntHeaderYear + monthTo.ToString("00") + dayTo.ToString("00") + "' and s.ShipTime>'" + MyFunction.IntHeaderYear + monthFrom.ToString("00") + dayFrom.ToString("00") + "' and sd.Volume>0 group by p.Name,p.Price" + "  select s.ShipCode 凭证号,s.ShipTime 出货时间,CONVERT(VARCHAR(15),CAST(CONVERT(DECIMAL(12,2),LTRIM(s.Cost)) AS MONEY),1) 金额 from Shipment s where s.customer= " + id + " and  s.ShipTime>'" + MyFunction.IntHeaderYear + monthFrom.ToString("00") + dayFrom.ToString("00") + "'  and s.ShipTime<'" + MyFunction.IntHeaderYear + monthTo.ToString("00") + dayTo.ToString("00") + "'";
+            cmd.CommandText = "  select p.Name 产品名, count(sd.ProductID) 次数,p.Price 单价,sum(sd.Volume) 总量,cast(sum(sd.Cost) as decimal(38,2))金额,cast(sd.Volume*p.EvaluatedCost as decimal(38,2)) as 估成本,cast(1-(sd.Volume*p.EvaluatedCost)/cast(sum(sd.Cost) as decimal(38,2)) as decimal(38,2))*100  as 毛利率 from Product p,Shipment s,ShipmentDetail sd where p.ProductID=sd.ProductID and s.ID=sd.ShipmentID and s.customer= " + id + " and s.ShipTime<='" + MyFunction.IntHeaderYear + monthTo.ToString("00") + dayTo.ToString("00") + "' and s.ShipTime>='" + MyFunction.IntHeaderYear + monthFrom.ToString("00") + dayFrom.ToString("00") + "' and sd.Volume>0 and sd.Cost>0 group by p.Name,p.Price,sd.Volume,p.EvaluatedCost" + "  select s.ShipCode 凭证号,s.ShipTime 出货时间,CONVERT(VARCHAR(15),CAST(CONVERT(DECIMAL(12,2),LTRIM(s.Cost)) AS MONEY),1) 金额 from Shipment s where s.customer= " + id + " and  s.ShipTime>='" + MyFunction.IntHeaderYear + monthFrom.ToString("00") + dayFrom.ToString("00") + "'  and s.ShipTime<='" + MyFunction.IntHeaderYear + monthTo.ToString("00") + dayTo.ToString("00") + "'";
             da.SelectCommand = cmd;
             DataSet ds = new DataSet();
             da.Fill(ds);
@@ -96,6 +104,8 @@ namespace VoucherExpense
             this.tBTotal.Text = sumObject.ToString();
             this.tBCount.Text = ds.Tables[0].Compute("sum(总量)", "TRUE").ToString();
             labelCount.Text = "共" + ds.Tables[1].Rows.Count+ "张";
+            this.textBox1.Text = ((1 - (decimal)ds.Tables[0].Compute("sum(估成本)", "TRUE") / (decimal)sumObject)*100).ToString("0.00") ;
+            this.textBox2.Text = ds.Tables[0].Compute("sum(估成本)", "TRUE").ToString();
         }
 
         private void btPrint_Click(object sender, EventArgs e)

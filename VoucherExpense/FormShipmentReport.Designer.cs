@@ -55,6 +55,10 @@
             this.pD = new System.Drawing.Printing.PrintDocument();
             this.tBCount = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             label3 = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
             nameLabel = new System.Windows.Forms.Label();
@@ -68,7 +72,7 @@
             // 
             label3.AllowDrop = true;
             label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(251, 16);
+            label3.Location = new System.Drawing.Point(254, 6);
             label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(24, 16);
@@ -79,7 +83,7 @@
             // 
             label1.AllowDrop = true;
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(10, 19);
+            label1.Location = new System.Drawing.Point(13, 9);
             label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(40, 16);
@@ -89,7 +93,7 @@
             // nameLabel
             // 
             nameLabel.AutoSize = true;
-            nameLabel.Location = new System.Drawing.Point(10, 50);
+            nameLabel.Location = new System.Drawing.Point(13, 40);
             nameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             nameLabel.Name = "nameLabel";
             nameLabel.Size = new System.Drawing.Size(56, 16);
@@ -115,19 +119,19 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridView1.Location = new System.Drawing.Point(13, 90);
+            this.dataGridView1.Location = new System.Drawing.Point(1, 68);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowHeadersWidth = 25;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(516, 555);
+            this.dataGridView1.Size = new System.Drawing.Size(588, 555);
             this.dataGridView1.TabIndex = 74;
             // 
             // btnCalc
             // 
-            this.btnCalc.Location = new System.Drawing.Point(667, 7);
+            this.btnCalc.Location = new System.Drawing.Point(668, 3);
             this.btnCalc.Margin = new System.Windows.Forms.Padding(4);
             this.btnCalc.Name = "btnCalc";
             this.btnCalc.Size = new System.Drawing.Size(71, 48);
@@ -139,7 +143,7 @@
             // cbBoxTo
             // 
             this.cbBoxTo.FormattingEnabled = true;
-            this.cbBoxTo.Location = new System.Drawing.Point(379, 13);
+            this.cbBoxTo.Location = new System.Drawing.Point(382, 3);
             this.cbBoxTo.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.cbBoxTo.Name = "cbBoxTo";
             this.cbBoxTo.Size = new System.Drawing.Size(94, 24);
@@ -148,7 +152,7 @@
             // cbBoxFrom
             // 
             this.cbBoxFrom.FormattingEnabled = true;
-            this.cbBoxFrom.Location = new System.Drawing.Point(138, 13);
+            this.cbBoxFrom.Location = new System.Drawing.Point(141, 3);
             this.cbBoxFrom.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.cbBoxFrom.Name = "cbBoxFrom";
             this.cbBoxFrom.Size = new System.Drawing.Size(88, 24);
@@ -174,7 +178,7 @@
             "十月",
             "十一月",
             "十二月"});
-            this.cbBoxMonthTo.Location = new System.Drawing.Point(285, 13);
+            this.cbBoxMonthTo.Location = new System.Drawing.Point(288, 3);
             this.cbBoxMonthTo.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.cbBoxMonthTo.Name = "cbBoxMonthTo";
             this.cbBoxMonthTo.Size = new System.Drawing.Size(83, 24);
@@ -204,7 +208,7 @@
             // tBTotal
             // 
             this.tBTotal.BackColor = System.Drawing.SystemColors.Window;
-            this.tBTotal.Location = new System.Drawing.Point(134, 659);
+            this.tBTotal.Location = new System.Drawing.Point(133, 624);
             this.tBTotal.Margin = new System.Windows.Forms.Padding(4);
             this.tBTotal.Name = "tBTotal";
             this.tBTotal.ReadOnly = true;
@@ -215,7 +219,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(54, 662);
+            this.label2.Location = new System.Drawing.Point(53, 627);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(72, 16);
@@ -242,7 +246,7 @@
             "十月",
             "十一月",
             "十二月"});
-            this.cbBoxMonth.Location = new System.Drawing.Point(53, 13);
+            this.cbBoxMonth.Location = new System.Drawing.Point(56, 3);
             this.cbBoxMonth.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.cbBoxMonth.Name = "cbBoxMonth";
             this.cbBoxMonth.Size = new System.Drawing.Size(73, 24);
@@ -268,7 +272,7 @@
             this.nameComboBox.DataSource = this.customerBindingSource;
             this.nameComboBox.DisplayMember = "Name";
             this.nameComboBox.FormattingEnabled = true;
-            this.nameComboBox.Location = new System.Drawing.Point(72, 46);
+            this.nameComboBox.Location = new System.Drawing.Point(75, 36);
             this.nameComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.nameComboBox.Name = "nameComboBox";
             this.nameComboBox.Size = new System.Drawing.Size(140, 24);
@@ -292,7 +296,7 @@
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridView2.Location = new System.Drawing.Point(563, 90);
+            this.dataGridView2.Location = new System.Drawing.Point(597, 68);
             this.dataGridView2.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
@@ -300,12 +304,12 @@
             this.dataGridView2.RowHeadersWidth = 25;
             this.dataGridView2.RowTemplate.Height = 24;
             this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView2.Size = new System.Drawing.Size(353, 555);
+            this.dataGridView2.Size = new System.Drawing.Size(337, 555);
             this.dataGridView2.TabIndex = 78;
             // 
             // btPrint
             // 
-            this.btPrint.Location = new System.Drawing.Point(746, 7);
+            this.btPrint.Location = new System.Drawing.Point(747, 3);
             this.btPrint.Margin = new System.Windows.Forms.Padding(4);
             this.btPrint.Name = "btPrint";
             this.btPrint.Size = new System.Drawing.Size(71, 48);
@@ -321,7 +325,7 @@
             // tBCount
             // 
             this.tBCount.BackColor = System.Drawing.SystemColors.Window;
-            this.tBCount.Location = new System.Drawing.Point(361, 658);
+            this.tBCount.Location = new System.Drawing.Point(360, 623);
             this.tBCount.Margin = new System.Windows.Forms.Padding(4);
             this.tBCount.Name = "tBCount";
             this.tBCount.ReadOnly = true;
@@ -332,18 +336,64 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(297, 661);
+            this.label4.Location = new System.Drawing.Point(296, 626);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(56, 16);
             this.label4.TabIndex = 88;
             this.label4.Text = "量小計";
             // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.SystemColors.Window;
+            this.textBox1.Location = new System.Drawing.Point(360, 654);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(142, 27);
+            this.textBox1.TabIndex = 93;
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(296, 657);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(56, 16);
+            this.label5.TabIndex = 92;
+            this.label5.Text = "毛利率";
+            // 
+            // textBox2
+            // 
+            this.textBox2.BackColor = System.Drawing.SystemColors.Window;
+            this.textBox2.Location = new System.Drawing.Point(133, 655);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(142, 27);
+            this.textBox2.TabIndex = 91;
+            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(53, 658);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(40, 16);
+            this.label6.TabIndex = 90;
+            this.label6.Text = "成本";
+            // 
             // FormShipmentReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(938, 718);
+            this.ClientSize = new System.Drawing.Size(938, 689);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.tBCount);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.btPrint);
@@ -397,5 +447,9 @@
         private System.Drawing.Printing.PrintDocument pD;
         private System.Windows.Forms.TextBox tBCount;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label6;
     }
 }

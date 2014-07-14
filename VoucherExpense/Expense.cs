@@ -433,7 +433,7 @@ namespace VoucherExpense
                 decimal money = 0m;
                 if (!row.IsMoneyNull())   // 避免IsMoneyNull
                     money = row.Money;
-                str = money.ToString("f2");
+                str = money.ToString("0.00");
                 w = m_Graphics.MeasureString(str, m_Font).Width;
                 m_Graphics.DrawString(str, m_Font, m_Brush, x + CostOffset + 40 - w, y);
                 total += money;
@@ -442,7 +442,7 @@ namespace VoucherExpense
             y += (int)(1.5 * height);
             str = "共 " + count.ToString() + "張";
             m_Graphics.DrawString(str, m_Font, m_Brush, x, y);
-            str = "小計 " + total.ToString("f2");
+            str = "小計 " + total.ToString("0.00");
             w = m_Graphics.MeasureString(str, m_Font).Width;
             m_Graphics.DrawString(str, m_Font, m_Brush, x + CostOffset + 40 - w, y);
 

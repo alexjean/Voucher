@@ -766,7 +766,7 @@ namespace VoucherExpense
             IsShipment = cBShipment.Checked;
             if (IsShipment)
             {
-
+                checkedListBox1.Enabled = true;
                 for (int i = 0; i < checkedListBox1.Items.Count; i++)
                 {
                     checkedListBox1.SetItemChecked(i, true);
@@ -774,6 +774,7 @@ namespace VoucherExpense
             }
             else
             {
+                checkedListBox1.Enabled = false;
                 for (int i = 0; i < checkedListBox1.Items.Count; i++)
                 {
                     checkedListBox1.SetItemChecked(i, false);

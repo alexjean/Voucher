@@ -1,19 +1,20 @@
-﻿<HardwareProfile>
-  <Profile Name="开发">
+<HardwareProfile>
+  <Profile Name="erdian">
     <ComPort Name="COM1" />
     <ReceiptPrinter Name="Zonerich AB-58MK USB" />
     <DotPrinter Name="\\SMILE-PC\EPSON LQ-730K ESC/P 2" />
-    <DataSource IsServer="YES" DataDir="EPRT+YCj5fNrqGtQkgdrFxd/qclQ1i9AIGGO3PrxJw7O0j/wt/ai9WQ00/4AOhzu/6JgQw8gCtM=" UserName="sZM/bLSyqv0j4SXhyzDavo1sJn8QGahl" Password="wS4zmgr+ahF21XXsgXwKYhRDYDrg0cz9" BackupDir="Pkce2PnPHlY=" SqlServerIP="Pkce2PnPHlY=" SqlUserID="yFiE/KqBxfg=" SqlPassword="Q6BLFTtgWs2MHHgjjvTmfg==" SqlDatabase="IDObpp3YRGmQPyKzhkKQ6J5AXOREjfmO" EnableCloudSync="NO" />
+    <DataSource IsServer="YES" DataDir="EPRT+YCj5fNrqGtQkgdrFxd/qclQ1i9AIGGO3PrxJw7O0j/wt/ai9WQ00/4AOhzu/6JgQw8gCtM=" UserName="sZM/bLSyqv0j4SXhyzDavo1sJn8QGahl" Password="wS4zmgr+ahF21XXsgXwKYhRDYDrg0cz9" BackupDir="Pkce2PnPHlY=" SqlServerIP="1NptfGSR0PQ7we7zv/iQcQ96rfp1xj75vovGfLNXENw=" SqlUserID="yFiE/KqBxfg=" SqlPassword="cCsauyIuKESO+YocYe3GIDRw4XC9UXyi" SqlDatabase="zqvN9W3gPGLdORe6v6j05w1OCHxEUgDC" EnableCloudSync="NO" SqlServerIPCloud="u+EJLVKVPCY=" SqlUserIDCloud="u+EJLVKVPCY=" SqlPasswordCloud="u+EJLVKVPCY=" />
   </Profile>
-<Profile Name="央厨云">
-
-<ComPort Name="COM1"/>
-
-<ReceiptPrinter Name="Zonerich AB-58MK USB"/>
-
-<DotPrinter Name="\\Smile-pc\epson lq-730k esc/p 2"/>
-
-<DataSource EnableCloudSync="NO" SqlDatabase="j5aX472fW6tYvbQbJFkEaLNo8vOIB6MgGa/xgCD0l/4=" SqlPassword="cCsauyIuKESO+YocYe3GILceac2pUUrqubNVPwcDOp8=" SqlUserID="yFiE/KqBxfg=" SqlServerIP="IjX6V1Zao77WbjMrsxSOQt2WsHitYzDO35jDC9rqoBM=" BackupDir="Pkce2PnPHlY=" Password="wS4zmgr+ahF21XXsgXwKYhRDYDrg0cz9" UserName="sZM/bLSyqv0j4SXhyzDavo1sJn8QGahl" DataDir="EPRT+YCj5fNrqGtQkgdrFxd/qclQ1i9AIGGO3PrxJw7O0j/wt/ai9WQ00/4AOhzu/6JgQw8gCtM=" IsServer="YES" SqlPasswordCloud="u+EJLVKVPCY=" SqlUserIDCloud="u+EJLVKVPCY=" SqlServerIPCloud="u+EJLVKVPCY="/>
-
-</Profile>
+  <Profile Name="erdian">
+    <ComPort Name="COM1" />
+    <ReceiptPrinter Name="Zonerich AB-58MK USB" />
+    <DotPrinter Name="\\Smile-pc\epson lq-730k esc/p 2" />
+    <DataSource IsServer="YES" DataDir="EPRT+YCj5fNrqGtQkgdrFxd/qclQ1i9AIGGO3PrxJw7O0j/wt/ai9WQ00/4AOhzu/6JgQw8gCtM=" UserName="sZM/bLSyqv0j4SXhyzDavo1sJn8QGahl" Password="wS4zmgr+ahF21XXsgXwKYhRDYDrg0cz9" BackupDir="Pkce2PnPHlY=" SqlServerIP="1NptfGSR0PQ7we7zv/iQcQ96rfp1xj75vovGfLNXENw=" SqlUserID="yFiE/KqBxfg=" SqlPassword="cCsauyIuKESO+YocYe3GILceac2pUUrqubNVPwcDOp8=" SqlDatabase="zqvN9W3gPGLdORe6v6j05w1OCHxEUgDC" EnableCloudSync="NO" SqlServerIPCloud="u+EJLVKVPCY=" SqlUserIDCloud="u+EJLVKVPCY=" SqlPasswordCloud="u+EJLVKVPCY=" />
+  </Profile>
+  <Profile Name="京一店14年">
+    <ComPort Name="COM1" />
+    <ReceiptPrinter Name="Zonerich AB-58MK USB" />
+    <DotPrinter Name="" />
+    <DataSource IsServer="YES" DataDir="iF5Gv7apuvy1S7+2GcxPangTLBhtZs2nGFYk2VbuNLF9KTsviUvuopq2/wMj6hOAQXgVfkuf4WI=" UserName="+msv2SiT4cnOh0vu0ZSo2g==" Password="kwrFJBHWCb/vYrNF4d4o1Mkniu8Hevi5" BackupDir="3YVNsGvI2pcDvqBHj7UHCImdi/cU5R7OpAQpmVSpP7V7HajfGYZcHMyv6nV8Xv3bPHnfM2WKwCHryDzBVqeYTQ==" SqlServerIP="1NptfGSR0PQ7we7zv/iQcQ74sx6YD5ZRmYAyNLJA/rQ=" SqlUserID="yFiE/KqBxfg=" SqlPassword="cCsauyIuKESO+YocYe3GILceac2pUUrqubNVPwcDOp8=" SqlDatabase="IDObpp3YRGmQPyKzhkKQ6J5AXOREjfmO" EnableCloudSync="NO" SqlServerIPCloud="IjX6V1Zao77WbjMrsxSOQt2WsHitYzDO35jDC9rqoBM=" SqlUserIDCloud="yFiE/KqBxfg=" SqlPasswordCloud="cCsauyIuKESO+YocYe3GILceac2pUUrqubNVPwcDOp8=" />
+  </Profile>
 </HardwareProfile>

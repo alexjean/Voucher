@@ -109,6 +109,9 @@
             this.chBoxShowHour = new System.Windows.Forms.CheckBox();
             this.labelTotalVolume = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.cBSold = new System.Windows.Forms.CheckBox();
+            this.cBShipment = new System.Windows.Forms.CheckBox();
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgViewSale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).BeginInit();
@@ -228,7 +231,7 @@
             this.dgViewSale.Name = "dgViewSale";
             this.dgViewSale.RowHeadersWidth = 25;
             this.dgViewSale.RowTemplate.Height = 24;
-            this.dgViewSale.Size = new System.Drawing.Size(620, 591);
+            this.dgViewSale.Size = new System.Drawing.Size(643, 591);
             this.dgViewSale.TabIndex = 18;
             this.dgViewSale.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgViewSale_DataError);
             // 
@@ -478,7 +481,7 @@
             // btnImport
             // 
             this.btnImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnImport.Location = new System.Drawing.Point(805, 543);
+            this.btnImport.Location = new System.Drawing.Point(828, 614);
             this.btnImport.Name = "btnImport";
             this.btnImport.Size = new System.Drawing.Size(80, 23);
             this.btnImport.TabIndex = 75;
@@ -490,7 +493,7 @@
             // btnExport
             // 
             this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExport.Location = new System.Drawing.Point(805, 502);
+            this.btnExport.Location = new System.Drawing.Point(828, 573);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(80, 23);
             this.btnExport.TabIndex = 74;
@@ -502,7 +505,7 @@
             // btnDelete
             // 
             this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDelete.Location = new System.Drawing.Point(805, 457);
+            this.btnDelete.Location = new System.Drawing.Point(828, 528);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 23);
             this.btnDelete.TabIndex = 73;
@@ -514,7 +517,7 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(805, 386);
+            this.btnCancel.Location = new System.Drawing.Point(828, 457);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 72;
@@ -527,7 +530,7 @@
             // 
             this.labelName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelName.AutoSize = true;
-            this.labelName.Location = new System.Drawing.Point(807, 274);
+            this.labelName.Location = new System.Drawing.Point(830, 345);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(56, 16);
             this.labelName.TabIndex = 71;
@@ -537,7 +540,7 @@
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Location = new System.Drawing.Point(805, 346);
+            this.btnSave.Location = new System.Drawing.Point(828, 417);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 69;
@@ -549,7 +552,7 @@
             // btnEdit
             // 
             this.btnEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEdit.Location = new System.Drawing.Point(805, 204);
+            this.btnEdit.Location = new System.Drawing.Point(828, 306);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(80, 27);
             this.btnEdit.TabIndex = 68;
@@ -560,7 +563,7 @@
             // textBoxName
             // 
             this.textBoxName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxName.Location = new System.Drawing.Point(805, 310);
+            this.textBoxName.Location = new System.Drawing.Point(828, 381);
             this.textBoxName.MaxLength = 10;
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(100, 27);
@@ -581,7 +584,7 @@
             // 
             this.cbBoxTable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbBoxTable.FormattingEnabled = true;
-            this.cbBoxTable.Location = new System.Drawing.Point(805, 34);
+            this.cbBoxTable.Location = new System.Drawing.Point(828, 34);
             this.cbBoxTable.Name = "cbBoxTable";
             this.cbBoxTable.Size = new System.Drawing.Size(94, 24);
             this.cbBoxTable.TabIndex = 77;
@@ -659,7 +662,7 @@
             // btnAddAllProduct
             // 
             this.btnAddAllProduct.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddAllProduct.Location = new System.Drawing.Point(805, 130);
+            this.btnAddAllProduct.Location = new System.Drawing.Point(828, 130);
             this.btnAddAllProduct.Name = "btnAddAllProduct";
             this.btnAddAllProduct.Size = new System.Drawing.Size(80, 34);
             this.btnAddAllProduct.TabIndex = 86;
@@ -671,7 +674,7 @@
             // 
             this.chBoxShowHour.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chBoxShowHour.AutoSize = true;
-            this.chBoxShowHour.Location = new System.Drawing.Point(805, 86);
+            this.chBoxShowHour.Location = new System.Drawing.Point(828, 86);
             this.chBoxShowHour.Name = "chBoxShowHour";
             this.chBoxShowHour.Size = new System.Drawing.Size(75, 20);
             this.chBoxShowHour.TabIndex = 87;
@@ -697,12 +700,47 @@
             this.label7.TabIndex = 88;
             this.label7.Text = "總數量";
             // 
+            // cBSold
+            // 
+            this.cBSold.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cBSold.AutoSize = true;
+            this.cBSold.Location = new System.Drawing.Point(824, 179);
+            this.cBSold.Name = "cBSold";
+            this.cBSold.Size = new System.Drawing.Size(59, 20);
+            this.cBSold.TabIndex = 92;
+            this.cBSold.Text = "售货";
+            this.cBSold.UseVisualStyleBackColor = true;
+            this.cBSold.CheckedChanged += new System.EventHandler(this.cBSold_CheckedChanged);
+            // 
+            // cBShipment
+            // 
+            this.cBShipment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cBShipment.AutoSize = true;
+            this.cBShipment.Location = new System.Drawing.Point(824, 211);
+            this.cBShipment.Name = "cBShipment";
+            this.cBShipment.Size = new System.Drawing.Size(59, 20);
+            this.cBShipment.TabIndex = 93;
+            this.cBShipment.Text = "出货";
+            this.cBShipment.UseVisualStyleBackColor = true;
+            this.cBShipment.CheckedChanged += new System.EventHandler(this.cBShipment_CheckedChanged);
+            // 
+            // checkedListBox1
+            // 
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Location = new System.Drawing.Point(824, 238);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.Size = new System.Drawing.Size(104, 48);
+            this.checkedListBox1.TabIndex = 94;
+            // 
             // BakerySoldProducts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(921, 641);
+            this.ClientSize = new System.Drawing.Size(944, 641);
+            this.Controls.Add(this.checkedListBox1);
+            this.Controls.Add(this.cBShipment);
+            this.Controls.Add(this.cBSold);
             this.Controls.Add(this.labelTotalVolume);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.chBoxShowHour);
@@ -725,7 +763,6 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.textBoxName);
-            this.Controls.Add(this.dgViewSale);
             this.Controls.Add(this.btnCalc);
             this.Controls.Add(this.ckBoxWholeMonth);
             this.Controls.Add(this.label2);
@@ -733,7 +770,8 @@
             this.Controls.Add(this.cbBoxTo);
             this.Controls.Add(this.cbBoxFrom);
             this.Controls.Add(this.cbBoxMonth);
-            this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Controls.Add(this.dgViewSale);
+            this.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "BakerySoldProducts";
             this.Text = "焙焙銷售統計";
@@ -806,5 +844,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnVol99;
         private System.Windows.Forms.Label labelTotalVolume;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.CheckBox cBSold;
+        private System.Windows.Forms.CheckBox cBShipment;
+        private System.Windows.Forms.CheckedListBox checkedListBox1;
     }
 }

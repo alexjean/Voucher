@@ -14,6 +14,12 @@ using MyOrderTable      = VoucherExpense.DamaiDataSet.OrderDataTable;
 using MyOrderItemTable  = VoucherExpense.DamaiDataSet.OrderItemDataTable;
 using MyOrderAdapter    = VoucherExpense.DamaiDataSetTableAdapters.OrderTableAdapter;
 using MyOrderItemAdapter= VoucherExpense.DamaiDataSetTableAdapters.OrderItemTableAdapter; 
+
+using MyShipmentAdapter =VoucherExpense.DamaiDataSetTableAdapters.ShipmentTableAdapter;
+using MyShipmentItemAdapter=VoucherExpense.DamaiDataSetTableAdapters.ShipmentDetailTableAdapter;
+using MyShipmentTable=VoucherExpense.DamaiDataSet.ShipmentDataTable;
+using MyshipmentItemTable=VoucherExpense.DamaiDataSet.ShipmentDetailDataTable;
+using MyCustomerTable = VoucherExpense.DamaiDataSet.CustomerDataTable;
 #else
 using MyOrderSet = VoucherExpense.BakeryOrderSet;
 using MyOrderTable      = VoucherExpense.BakeryOrderSet.OrderDataTable;
@@ -29,18 +35,20 @@ namespace VoucherExpense
         
         private Config Cfg = new Config();
         private string ConfigName = "BakerySoldProducts";
-
+      
         public BakerySoldProducts()
         {
             InitializeComponent();
         }
 
         MyOrderSet m_OrderSet = new MyOrderSet();
+       
         private void FormSoldIngredients_Load(object sender, EventArgs e)
-        {
+        {    
             productBindingSource.DataSource = m_OrderSet;
 #if UseSQLServer
             var productAdapter = new VoucherExpense.DamaiDataSetTableAdapters.ProductTableAdapter();
+            var customerAdapter = new VoucherExpense.DamaiDataSetTableAdapters.CustomerTableAdapter();
 #else
             var productAdapter = new VoucherExpense.BakeryOrderSetTableAdapters.ProductTableAdapter();
             m_OrderAdapter.Connection       = MapPath.BakeryConnection;
@@ -48,7 +56,8 @@ namespace VoucherExpense
             productAdapter.Connection  = MapPath.BakeryConnection;
 #endif
             productAdapter.Fill(m_OrderSet.Product);
-
+             customerAdapter.Fill(m_OrderSet.Customer)  ;
+             bind();
             cbBoxMonth.Items.Clear();
             for (int i = 1; i <= 12; i++)
                 cbBoxMonth.Items.Add(i.ToString() + "月");
@@ -61,6 +70,15 @@ namespace VoucherExpense
             if (cbBoxTable.Items.Count > 0)
                 cbBoxTable.SelectedIndex = 0;
             chBoxShowHour_CheckedChanged(chBoxShowHour, null);
+           
+
+        }
+        void bind()
+        {
+            foreach (var item in m_OrderSet.Customer)
+            {
+                this.checkedListBox1.Items.Add(new MyCustomer(item));
+            }
         }
 
         void SetEditMode(bool flag)
@@ -277,7 +295,8 @@ namespace VoucherExpense
         #region Adapter Modified Utility
         OrderAdapter m_OrderAdapter = new OrderAdapter();
         OrderItemAdapter m_OrderItemAdapter = new OrderItemAdapter();
-
+        ShipmentAdapter m_ShipmentAdapter = new ShipmentAdapter();
+        ShipmentItemAdapter m_ShipmentItemAdapter = new ShipmentItemAdapter();
         class OrderAdapter : MyOrderAdapter
         {
             string SaveStr;
@@ -300,7 +319,34 @@ namespace VoucherExpense
                 int result = Fill(dataTable);
                 base.CommandCollection[0].CommandText = SaveStr;
                 return result;
+            } 
+        }
+        class ShipmentAdapter : MyShipmentAdapter
+
+        {
+            string SaveStr;
+            public int FillBySelectStr(MyShipmentTable dataTable, string SelectStr)
+            {
+                SaveStr = base.CommandCollection[0].CommandText;
+                base.CommandCollection[0].CommandText = SelectStr;
+                int result = Fill(dataTable);
+                base.CommandCollection[0].CommandText = SaveStr;
+                return result;
             }
+ 
+        }
+        class ShipmentItemAdapter : MyShipmentItemAdapter
+        {
+            string SaveStr;
+            public int FillBySelectStr(MyshipmentItemTable dataTable, string SelectStr)
+            {
+                SaveStr = base.CommandCollection[0].CommandText;
+                base.CommandCollection[0].CommandText = SelectStr;
+                int result = Fill(dataTable);
+                base.CommandCollection[0].CommandText = SaveStr;
+                return result;
+            }
+
         }
         string DateStr(DateTime da)
         {
@@ -337,20 +383,43 @@ namespace VoucherExpense
         void LoadData(int year, int month, int from, int to)
         {
             string sql;
+            string sqlShipment;
             try
             {
 #if UseSQLServer
                 sql = "Where (Floor(ID/1000000)>=" + DateStr(month, from)
                     + " And Floor(ID/1000000)<=" + DateStr(month, to) + ")";
+                sqlShipment = "where a.ShipTime>= '"+ year + DateStr(month, from) + "' and a.ShipTime<= '"+ year + DateStr(month, to) + "'";
 #else
                 sql = "Where (INT(ID/1000000)>=" + DateStr(month, from)
                     + " And INT(ID/1000000)<=" + DateStr(month, to) + ")";
 
 #endif
+                                 
                 m_OrderSet.OrderItem.Rows.Clear();
-                m_OrderSet.Order.Rows.Clear();
-                m_OrderAdapter.FillBySelectStr      (m_OrderSet.Order, "Select * From [Order] " + sql + " Order by ID");
-                m_OrderItemAdapter.FillBySelectStr  (m_OrderSet.OrderItem, "Select * From [OrderItem] " + sql);
+                m_OrderSet.Order.Rows.Clear();  
+                m_OrderSet.ShipmentDetail.Rows.Clear();
+                m_OrderSet.Shipment.Rows.Clear();
+                if (IsSold)
+                {
+                    m_OrderAdapter.FillBySelectStr(m_OrderSet.Order, "Select * From [Order] " + sql + " Order by ID");
+                    m_OrderItemAdapter.FillBySelectStr(m_OrderSet.OrderItem, "Select * From [OrderItem] " + sql);
+                }
+                if (IsShipment)
+                {
+                    sqlShipment = sqlShipment + " and (a.customer=0 ";
+                    for (int i = 0; i < checkedListBox1.Items.Count; i++)
+                    {
+                        if (checkedListBox1.GetItemChecked(i))
+                        {
+                            MyCustomer mc = checkedListBox1.Items[i] as MyCustomer;
+                            sqlShipment = sqlShipment +"or a.customer="+ mc.GetID()+" ";
+                        }
+                    }
+                    sqlShipment = sqlShipment + " )";
+                    m_ShipmentAdapter.FillBySelectStr(m_OrderSet.Shipment, "Select * From [Shipment] a " + sqlShipment);
+                    m_ShipmentItemAdapter.FillBySelectStr(m_OrderSet.ShipmentDetail, "Select b.* From [Shipment] a,[ShipmentDetail] b " + sqlShipment+" and b.ShipmentID=a.ID and b.cost is not null");
+                }
             }
             catch (Exception ex)
             {
@@ -382,7 +451,9 @@ namespace VoucherExpense
             }
             labelMessage.Text = "計算中...";
 
-            InitProgressBar(m_OrderSet.Order.Count);
+ InitProgressBar(m_OrderSet.Order.Count+m_OrderSet.Shipment.Count);  //此处不用区分 是出货（出货数+0）还售货（售货数+0）还是出货和售货的和
+
+
             Application.DoEvents();
 
             bool[] debug = new bool[count];   // items code會重複, 不知為何 ,只好用此辦法
@@ -426,6 +497,54 @@ namespace VoucherExpense
                         }
                     }
                 }
+
+                progressBar1.Increment(1);
+                Application.DoEvents();
+            }
+            foreach (var row in m_OrderSet.Shipment)
+            {
+                decimal discountRate = 0.88m, deductRate = 1m;
+                //if (!row.IsDiscountRateNull()) discountRate = row.DiscountRate;
+                var items = row.GetShipmentDetailRows();
+                for (int i = 0; i < count; i++) debug[i] = false;
+                decimal total = 0;
+                foreach (var it in items)
+                {
+                    if (it.IsProductIDNull()) continue;
+                   // if (it.Discount)
+                      //  total += it.Price * it.No * discountRate;
+                   // else
+                    //    total += it.Price * it.No;
+                    total += it.Cost * it.Volume;
+                }
+                decimal income = 0;
+                //if (!row.IsIncomeNull()) income = row.Income;
+                if (!row.IsCostNull()) income = row.Cost;
+                if (total != 0m) deductRate = income / total;
+                int hr = 0;
+                if (!row.IsPrintTimeNull()) hr = row.PrintTime.Hour;
+                foreach (var it in items)
+                {
+                    if (it.IsProductIDNull()) continue;
+                    for (int i = 0; i < m_SaleList.Count; i++)
+                    {
+                        CSaleItem m = m_SaleList[i];
+                        if (m.ProductID == it.ProductID)
+                        {
+                            if (debug[i]) break;        // 重複算了二次, items存入有bug,只好先跳掉
+                            debug[i] = true;
+                            if (income >= 0)            // 收入為負,退貨不計也不減回數量,計成本並回扣收入
+                                m.AddVolume(it.Volume, hr);
+                            //if (it.Discount)
+                            //    m.Total += (it.Price * it.No * discountRate) * deductRate;
+                            //else
+                            //    m.Total += it.Price * it.No * deductRate;
+                            m.Total += it.Cost * it.Volume * deductRate;
+                            break;
+                        }
+                    }
+                }
+
                 progressBar1.Increment(1);
                 Application.DoEvents();
             }
@@ -633,7 +752,55 @@ namespace VoucherExpense
             ColumnVol22.Visible = b;
             ColumnVol99.Visible = b;
         }
+        private bool IsSold = false;
+        private bool IsShipment = false;
 
 
+        private void cBSold_CheckedChanged(object sender, EventArgs e)
+        {
+            IsSold = cBSold.Checked;
+        }
+
+        private void cBShipment_CheckedChanged(object sender, EventArgs e)
+        {
+            IsShipment = cBShipment.Checked;
+            if (IsShipment)
+            {
+
+                for (int i = 0; i < checkedListBox1.Items.Count; i++)
+                {
+                    checkedListBox1.SetItemChecked(i, true);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < checkedListBox1.Items.Count; i++)
+                {
+                    checkedListBox1.SetItemChecked(i, false);
+                }
+            }
+        }
+
+
+    }
+    class MyCustomer
+    {
+        private DataRow dr;
+        public MyCustomer(DataRow dr)
+        {
+            this.dr = dr;
+        }
+        public override string ToString()
+        {
+            return dr["Name"].ToString();
+        }
+        public string GetName()
+        {
+            return this.ToString();
+        }
+        public int GetID()
+        {
+            return int.Parse(dr["CustomerID"].ToString());
+        }
     }
 }

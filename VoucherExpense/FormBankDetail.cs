@@ -107,7 +107,7 @@ namespace VoucherExpense
                 return;
             }
             this.Validate();
-            this.bankDetailBindingSource.EndEdit();
+            this.bankBindingSource.EndEdit();
             var table = (MyBankDetailTable)m_DataSet.BankDetail.GetChanges();
             if (table==null || table.Count == 0)
             {
@@ -120,7 +120,7 @@ namespace VoucherExpense
 
         void SetupBindingSource()
         {
-            bankDetailBindingSource.DataSource      = m_DataSet;
+            bankBindingSource.DataSource      = m_DataSet;
             accountingTitleBindingSource.DataSource = m_DataSet;
             bankAccountBindingSource.DataSource     = m_DataSet;
         }
@@ -184,7 +184,7 @@ namespace VoucherExpense
             else if (day == null)            filter = bank;
             else if (bank == null)           filter = day;
             else                             filter = day + " And " + bank;
-            bankDetailBindingSource.Filter = filter;
+            bankBindingSource.Filter = filter;
 //            CalcTotal();
         }
 
@@ -298,9 +298,9 @@ namespace VoucherExpense
         {
             CheckBox box = (CheckBox)sender;
             if (box.Checked)
-                bankDetailBindingSource.Sort="Day";
+                bankBindingSource.Sort="Day";
             else
-                bankDetailBindingSource.RemoveSort();
+                bankBindingSource.RemoveSort();
         }
 
         bool ValueValid(DataGridViewCell cell)

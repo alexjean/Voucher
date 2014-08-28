@@ -84,8 +84,18 @@ namespace VoucherExpense
 #endif
         }
 
+        public class CID
+        {
+            public string Name { set; get; }
+            public byte ID { set; get; }
+            public CID() { Name = ""; ID = 0; }
+            public CID(byte id, string name) { ID = id; Name = name; }
+            override public string ToString() { return Name; }
+        }
+        public List<CID> SourceNames = new List<CID>() { new CID((byte)1, "資產"), new CID(2, "負債"), new CID(3, "股東權益"), new CID(4, "營收"), new CID(5, "成本"), new CID(6, "費用") };
         private void FormAccountingTitle_Load(object sender, EventArgs e)
         {
+            cIDBindingSource.DataSource = SourceNames;
 #if (UseSQLServer)
             this.accountingTitleBindingSource.DataSource = damaiDataSet;
             this.accountingTitleSQLAdapter.Fill(this.damaiDataSet.AccountingTitle);
@@ -258,8 +268,6 @@ namespace VoucherExpense
                 accountingTitleBindingSource.RemoveCurrent();
                 MessageBox.Show("科目<" + titleCode + ">" + titleName + "己刪除,請按存檔!");
             }
-
-
         }
 
         #region ====== LedgerData Gloal======
@@ -420,15 +428,15 @@ namespace VoucherExpense
             MonthlyReportData total = new MonthlyReportData();
             foreach (MonthlyReportData d in list)
             {
-                total.Revenue += d.Revenue;
+                total.Revenue    += d.Revenue;
                 total.OrderCount += d.OrderCount;
-                total.Cash += d.Cash;
+                total.Cash       += d.Cash;
                 total.CreditCard += d.CreditCard;
+                total.Coupond    += d.Coupond;
             }
             reportList = list;
             return total;
         }
-
         #endregion
 
         private void accountingTitleDataGridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
@@ -455,10 +463,6 @@ namespace VoucherExpense
             DataGridViewCell cell = view.Rows[e.RowIndex].Cells[e.ColumnIndex];
             MessageBox.Show(string.Format("Detail on Row{0} Col[{1}]:{2}", e.RowIndex, view.Columns[e.ColumnIndex].Name, e.Exception.Message));
         }
-
-     
-
-
     }
 
 }

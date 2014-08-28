@@ -297,6 +297,12 @@
     <Compile Include="FormLedger.Designer.cs">
       <DependentUpon>FormLedger.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormLedgerNew.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormLedgerNew.Designer.cs">
+      <DependentUpon>FormLedgerNew.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -556,6 +562,9 @@
     <EmbeddedResource Include="FormLedger.resx">
       <DependentUpon>FormLedger.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormLedgerNew.resx">
+      <DependentUpon>FormLedgerNew.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormLogin.resx">
       <SubType>Designer</SubType>
       <DependentUpon>FormLogin.cs</DependentUpon>
@@ -720,8 +729,10 @@
     </None>
     <None Include="EmptyBasic.gz" />
     <None Include="Properties\app.manifest" />
+    <None Include="Properties\DataSources\AccountingTitle.CID.datasource" />
     <None Include="Properties\DataSources\BakeryOrderBrowse.HourStatics.datasource" />
     <None Include="Properties\DataSources\CLedgerRow.datasource" />
+    <None Include="Properties\DataSources\FormAccounting.CID.datasource" />
     <None Include="Properties\DataSources\FormMonthlyIncome.CMonthlyIncome.datasource" />
     <None Include="Properties\DataSources\FormScraps.CalcScrape.datasource" />
     <None Include="Properties\DataSources\FormShift.CCodeForCombo.datasource" />

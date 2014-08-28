@@ -288,11 +288,12 @@ namespace VoucherExpense
             form.Show();
         }
 
-        private void PopupOrRun(string formName, Type formType)
+        private bool PopupOrRun(string formName, Type formType)
         {
-            if (PopupMenu(formName)) return;
+            if (PopupMenu(formName)) return true;
             Form form = (Form)Activator.CreateInstance(formType);
             Run(formName, form);
+            return false;
         }
 
         private void 銀行帳號ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -435,7 +436,8 @@ namespace VoucherExpense
 
         private void 分類MenuItem_Click(object sender, EventArgs e)
         {
-            PopupOrRun("分類帳", typeof(FormLedger));
+            PopupOrRun("分類帳", typeof(FormLedgerNew));
+//            PopupOrRun("分類帳", typeof(FormLedger));
         }
 
         private void 配方表MenuItem_Click(object sender, EventArgs e)
@@ -497,7 +499,16 @@ namespace VoucherExpense
 
         private void 組合傳票ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PopupOrRun("FormAccounting", typeof(FormAccounting));
+            if (!PopupOrRun("FormAccounting", typeof(FormAccounting)))
+            {
+                int w=Screen.PrimaryScreen.WorkingArea.Width;
+                if ( w> 1600 && this.Width<1600)
+                {
+                    this.Width = 1600;
+                    if ((this.Left + this.Width) > w)
+                        this.Left = w - this.Width;
+                }
+            }
         }
     }
 }

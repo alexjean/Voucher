@@ -383,5 +383,30 @@ namespace VoucherExpense
             }
         }
 
+        private void cLedgerTableDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void cLedgerRowBindingSource_CurrentChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void accountingTitleBindingSource_CurrentChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelMessage_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void progressBar1_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

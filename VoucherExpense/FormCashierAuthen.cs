@@ -547,7 +547,7 @@ namespace VoucherExpense
                 var headers = from row in m_OrderSet.Header where row.DataDate == today.Date select row;
                 if (headers.Count() <=0)   // 無今日資料再加, 是否己封印,呼叫端己檢查
                 {
-                    m_OrderSet.Header.AddHeaderRow(today.Date,false,0);
+                    m_OrderSet.Header.AddHeaderRow(today.Date,false,0,0,0,0);
                     HeaderAdapter.Update(m_OrderSet.Header);
                 }
 
@@ -600,7 +600,6 @@ namespace VoucherExpense
             int serialPart = id % 100000;
             return dayPart + serialPart + pos * 100000;
         }
-
 
         private void btnGetDataFromPOS_Click(object sender, EventArgs e)
         {
@@ -751,7 +750,10 @@ namespace VoucherExpense
                 revenue.LoadData(m_OrderSet, today.Month, today.Day);
                 var s=revenue.Statics(m_OrderSet);
 #if (UseSQLServer)
-                mainHeader.Revenue = s.Revenue;
+                mainHeader.Revenue      = s.Revenue;
+                mainHeader.Cash         = s.Cash;
+                mainHeader.CreditCard   = s.CreditCard;
+                mainHeader.Coupond      = s.Coupond;
 #endif
                 mainHeader.Closed = true;
                 HeaderAdapter.Update(m_OrderSet.Header);

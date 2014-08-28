@@ -270,7 +270,7 @@ namespace VoucherExpense
                 var sourceConn    = new SqlConnection(MapPath.SqlConnectString(m_HCfg.SqlServerIP, m_HCfg.SqlDatabase , m_HCfg.SqlUserID, m_HCfg.SqlPassword));
 
                 m_OrderSet.Header.Clear();
-                var row1 = m_OrderSet.Header.AddHeaderRow(new DateTime(m_Year , 1, 1), false,0);
+                var row1 = m_OrderSet.Header.AddHeaderRow(new DateTime(m_Year , 1, 1), false,0,0,0,0);
                 var adapterBa = new VoucherExpense.DamaiDataSetTableAdapters.HeaderTableAdapter();
                 adapterBa.Connection = sqlConn;
                 adapterBa.Update(row1);

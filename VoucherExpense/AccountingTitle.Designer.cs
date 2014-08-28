@@ -29,23 +29,28 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AccountingTitle));
-            this.accountingTitleBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.vEDataSet = new VoucherExpense.VEDataSet();
             this.accountingTitleDataGridView = new System.Windows.Forms.DataGridView();
             this.TitleCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnTitleName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.InitialValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IsDebt = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.IsVirtual = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.AccountClass = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.cIDBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.accountingTitleBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             this.accountingTitleTableAdapter = new VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter();
             this.dgvLedgerTable = new System.Windows.Forms.DataGridView();
             this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -80,24 +85,18 @@
             this.labelMessage = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             this.accountingTitleSQLAdapter = new VoucherExpense.DamaiDataSetTableAdapters.AccountingTitleTableAdapter();
-            ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cIDBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLedgerTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cLedgerTableBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingNavigator)).BeginInit();
             this.accountingTitleBindingNavigator.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             this.SuspendLayout();
-            // 
-            // accountingTitleBindingSource
-            // 
-            this.accountingTitleBindingSource.DataMember = "AccountingTitle";
-            this.accountingTitleBindingSource.DataSource = this.damaiDataSet;
-            this.accountingTitleBindingSource.Sort = "TitleCode";
             // 
             // vEDataSet
             // 
@@ -109,24 +108,27 @@
             this.accountingTitleDataGridView.AllowUserToAddRows = false;
             this.accountingTitleDataGridView.AllowUserToDeleteRows = false;
             this.accountingTitleDataGridView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.Azure;
-            this.accountingTitleDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
+            this.accountingTitleDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.accountingTitleDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.accountingTitleDataGridView.AutoGenerateColumns = false;
             this.accountingTitleDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.accountingTitleDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.accountingTitleDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.accountingTitleDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.TitleCode,
             this.columnTitleName,
             this.InitialValue,
+            this.IsDebt,
+            this.IsVirtual,
+            this.AccountClass,
             this.dataGridViewTextBoxColumn4});
             this.accountingTitleDataGridView.DataSource = this.accountingTitleBindingSource;
             this.accountingTitleDataGridView.EnableHeadersVisualStyles = false;
@@ -137,7 +139,7 @@
             this.accountingTitleDataGridView.RowHeadersWidth = 25;
             this.accountingTitleDataGridView.RowTemplate.Height = 24;
             this.accountingTitleDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.accountingTitleDataGridView.Size = new System.Drawing.Size(448, 514);
+            this.accountingTitleDataGridView.Size = new System.Drawing.Size(582, 514);
             this.accountingTitleDataGridView.TabIndex = 1;
             this.accountingTitleDataGridView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.accountingTitleDataGridView_CellBeginEdit);
             this.accountingTitleDataGridView.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.accountingTitleDataGridView_CellValidating);
@@ -147,9 +149,10 @@
             // TitleCode
             // 
             this.TitleCode.DataPropertyName = "TitleCode";
-            dataGridViewCellStyle12.NullValue = null;
-            this.TitleCode.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle3.NullValue = null;
+            this.TitleCode.DefaultCellStyle = dataGridViewCellStyle3;
             this.TitleCode.HeaderText = "科目編號";
+            this.TitleCode.MaxInputLength = 8;
             this.TitleCode.Name = "TitleCode";
             this.TitleCode.Width = 80;
             // 
@@ -163,22 +166,64 @@
             // InitialValue
             // 
             this.InitialValue.DataPropertyName = "InitialValue";
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle13.Format = "N2";
-            dataGridViewCellStyle13.NullValue = null;
-            this.InitialValue.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle4.Format = "N2";
+            dataGridViewCellStyle4.NullValue = null;
+            this.InitialValue.DefaultCellStyle = dataGridViewCellStyle4;
             this.InitialValue.HeaderText = "期初值";
             this.InitialValue.Name = "InitialValue";
+            // 
+            // IsDebt
+            // 
+            this.IsDebt.DataPropertyName = "IsDebt";
+            this.IsDebt.HeaderText = "借方科目";
+            this.IsDebt.Name = "IsDebt";
+            this.IsDebt.Width = 48;
+            // 
+            // IsVirtual
+            // 
+            this.IsVirtual.DataPropertyName = "IsVirtual";
+            this.IsVirtual.HeaderText = "虛科目";
+            this.IsVirtual.Name = "IsVirtual";
+            this.IsVirtual.Width = 48;
+            // 
+            // AccountClass
+            // 
+            this.AccountClass.DataPropertyName = "AccountClass";
+            this.AccountClass.DataSource = this.cIDBindingSource;
+            this.AccountClass.DisplayMember = "Name";
+            this.AccountClass.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.AccountClass.HeaderText = "類別";
+            this.AccountClass.Name = "AccountClass";
+            this.AccountClass.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.AccountClass.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.AccountClass.ValueMember = "ID";
+            this.AccountClass.Width = 80;
+            // 
+            // cIDBindingSource
+            // 
+            this.cIDBindingSource.DataSource = typeof(VoucherExpense.AccountingTitle.CID);
             // 
             // dataGridViewTextBoxColumn4
             // 
             this.dataGridViewTextBoxColumn4.DataPropertyName = "LastUpdated";
-            dataGridViewCellStyle14.Format = "d";
-            dataGridViewCellStyle14.NullValue = null;
-            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle5.Format = "d";
+            dataGridViewCellStyle5.NullValue = null;
+            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridViewTextBoxColumn4.HeaderText = "更新日";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            // 
+            // accountingTitleBindingSource
+            // 
+            this.accountingTitleBindingSource.DataMember = "AccountingTitle";
+            this.accountingTitleBindingSource.DataSource = this.damaiDataSet;
+            this.accountingTitleBindingSource.Sort = "TitleCode";
+            // 
+            // damaiDataSet
+            // 
+            this.damaiDataSet.DataSetName = "DamaiDataSet";
+            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // accountingTitleTableAdapter
             // 
@@ -188,8 +233,8 @@
             // 
             this.dgvLedgerTable.AllowUserToAddRows = false;
             this.dgvLedgerTable.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle15.BackColor = System.Drawing.Color.SeaShell;
-            this.dgvLedgerTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.SeaShell;
+            this.dgvLedgerTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvLedgerTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -232,8 +277,8 @@
             // debtDataGridViewTextBoxColumn
             // 
             this.debtDataGridViewTextBoxColumn.DataPropertyName = "Debt";
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.debtDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.debtDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle7;
             this.debtDataGridViewTextBoxColumn.HeaderText = "借方";
             this.debtDataGridViewTextBoxColumn.Name = "debtDataGridViewTextBoxColumn";
             this.debtDataGridViewTextBoxColumn.ReadOnly = true;
@@ -241,8 +286,8 @@
             // creditDataGridViewTextBoxColumn
             // 
             this.creditDataGridViewTextBoxColumn.DataPropertyName = "Credit";
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.creditDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.creditDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle8;
             this.creditDataGridViewTextBoxColumn.HeaderText = "貸方";
             this.creditDataGridViewTextBoxColumn.Name = "creditDataGridViewTextBoxColumn";
             this.creditDataGridViewTextBoxColumn.ReadOnly = true;
@@ -250,8 +295,8 @@
             // sumDataGridViewTextBoxColumn
             // 
             this.sumDataGridViewTextBoxColumn.DataPropertyName = "Sum";
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.sumDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.sumDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle9;
             this.sumDataGridViewTextBoxColumn.HeaderText = "餘額";
             this.sumDataGridViewTextBoxColumn.Name = "sumDataGridViewTextBoxColumn";
             this.sumDataGridViewTextBoxColumn.ReadOnly = true;
@@ -338,7 +383,7 @@
             this.accountingTitleBindingNavigator.Name = "accountingTitleBindingNavigator";
             this.accountingTitleBindingNavigator.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.accountingTitleBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.accountingTitleBindingNavigator.Size = new System.Drawing.Size(437, 27);
+            this.accountingTitleBindingNavigator.Size = new System.Drawing.Size(306, 27);
             this.accountingTitleBindingNavigator.TabIndex = 0;
             this.accountingTitleBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -442,7 +487,7 @@
             // labelMessage
             // 
             this.labelMessage.AutoSize = true;
-            this.labelMessage.Location = new System.Drawing.Point(141, 95);
+            this.labelMessage.Location = new System.Drawing.Point(82, 61);
             this.labelMessage.Name = "labelMessage";
             this.labelMessage.Size = new System.Drawing.Size(136, 16);
             this.labelMessage.TabIndex = 1;
@@ -472,9 +517,9 @@
             "所有進貨的貸方  ",
             "現金收入 刷卡收入",
             "---------------------------------"});
-            this.listBox1.Location = new System.Drawing.Point(34, 142);
+            this.listBox1.Location = new System.Drawing.Point(21, 110);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(379, 324);
+            this.listBox1.Size = new System.Drawing.Size(273, 356);
             this.listBox1.TabIndex = 3;
             // 
             // panel1
@@ -486,15 +531,10 @@
             this.panel1.Controls.Add(this.listBox1);
             this.panel1.Controls.Add(this.labelMessage);
             this.panel1.Controls.Add(this.accountingTitleBindingNavigator);
-            this.panel1.Location = new System.Drawing.Point(448, 0);
+            this.panel1.Location = new System.Drawing.Point(579, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(437, 514);
+            this.panel1.Size = new System.Drawing.Size(306, 514);
             this.panel1.TabIndex = 2;
-            // 
-            // damaiDataSet
-            // 
-            this.damaiDataSet.DataSetName = "DamaiDataSet";
-            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // accountingTitleSQLAdapter
             // 
@@ -506,17 +546,19 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(885, 514);
             this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.dgvLedgerTable);
             this.Controls.Add(this.accountingTitleDataGridView);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.dgvLedgerTable);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AccountingTitle";
             this.Text = "會計科目";
             this.Load += new System.EventHandler(this.FormAccountingTitle_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cIDBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLedgerTable)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cLedgerTableBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingNavigator)).EndInit();
@@ -524,7 +566,6 @@
             this.accountingTitleBindingNavigator.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -535,10 +576,6 @@
         private System.Windows.Forms.BindingSource accountingTitleBindingSource;
         private VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter accountingTitleTableAdapter;
         private System.Windows.Forms.DataGridView accountingTitleDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TitleCode;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnTitleName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn InitialValue;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridView dgvLedgerTable;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.BindingSource cLedgerTableBindingSource;
@@ -574,6 +611,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn othersideAccTitleDataGridViewTextBoxColumn;
         private DamaiDataSet damaiDataSet;
         private DamaiDataSetTableAdapters.AccountingTitleTableAdapter accountingTitleSQLAdapter;
+        private System.Windows.Forms.BindingSource cIDBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TitleCode;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnTitleName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn InitialValue;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn IsDebt;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn IsVirtual;
+        private System.Windows.Forms.DataGridViewComboBoxColumn AccountClass;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
 
     }
 }

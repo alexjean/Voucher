@@ -552,4 +552,6 @@ namespace VoucherExpense
 
     public enum PhotoTableID { Ingredient = 1, Product = 2, Recipe = 3 }
 
+    public enum AccClass { Asset = 1, Liability = 2, OwnersEquity = 3, Revenue = 4, Cost = 5, Expense = 6 }
+
 }

@@ -138,7 +138,13 @@ namespace VoucherExpense
                     m_DataSet.ProductScrapped.Merge(table);
                     m_DataSet.ProductScrapped.AcceptChanges();
                 }
-                if (detailTable != null) ProductScrappedDetailAdapter.Update(m_DataSet.ProductScrappedDetail);
+                if (detailTable != null)
+                {
+//                    ProductScrappedDetailAdapter.Update(m_DataSet.ProductScrappedDetail);
+                    ProductScrappedDetailAdapter.Update(detailTable);
+                    m_DataSet.ProductScrappedDetail.Merge(detailTable);
+                    m_DataSet.ProductScrappedDetail.AcceptChanges();
+                }
                 string msg = "共 ";
                 if (updated > 0) msg += updated.ToString() + "筆更改,";
                 if (deleted > 0) msg += deleted.ToString() + "筆刪除,";
@@ -314,7 +320,7 @@ namespace VoucherExpense
             var productScrapped = rowView.Row as MyProductScrappedRow;
             int id = productScrapped.ProductScrappedID;
             var rows = from r in m_DataSet.ProductScrappedDetail where r.ProdcutScrappedID == id select r;
-            var list = rows.ToList<MyProductScrappedDetailRow>(); // 用Collection,delete 會影響枚舉
+            var list = rows.ToList<MyProductScrappedDetailRow>();       // 用Collection,delete 會影響枚舉
             foreach (var r in list)                                     // 用RemoveProductScrappedDetailRow() 會只是Remove, 不是留下要Delete的tag
                 r.Delete();
             productScrappedBindingSource.RemoveCurrent();               // 要放在後面,因為還要取出 Current的prodcutScrappedID

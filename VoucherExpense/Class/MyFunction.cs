@@ -193,6 +193,26 @@ namespace VoucherExpense
         }
         #endregion 
 
+        public static Guid NewCombId()
+        {
+            byte[] guidArray = System.Guid.NewGuid().ToByteArray();
+            DateTime baseDate = new DateTime(1900, 1, 1);
+            DateTime now = DateTime.Now;
+            TimeSpan days = new TimeSpan(now.Date.Ticks - baseDate.Ticks);
+            TimeSpan msecs = new TimeSpan(now.Ticks - (now.Date.Ticks));
+            byte[] daysArray = BitConverter.GetBytes(days.Days);
+            byte[] msecsArray = BitConverter.GetBytes((long)(msecs.TotalMilliseconds / 3.333333));
+            // Reverse the bytes to match SQL Servers ordering 
+            Array.Reverse(daysArray);
+            Array.Reverse(msecsArray);
+            for (int i = 15; i >= 6; i--)
+                guidArray[i] = guidArray[i - 6];
+            Array.Copy(daysArray , daysArray.Length - 2 , guidArray, 0, 2);
+            Array.Copy(msecsArray, msecsArray.Length - 4, guidArray, 2, 4);
+            return new System.Guid(guidArray);
+        }
+
+
         static public void SetFieldLength(DataGridView view, DataTable table)
         {
             try

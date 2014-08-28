@@ -68,6 +68,7 @@
             this.損益報表ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.分類MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.合併傳票MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.組合傳票ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.人事MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.考勤MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.排班表MenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -88,7 +89,6 @@
             this.请款单ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.耗料ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.盤點ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.組合傳票ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menu1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -395,6 +395,7 @@
             this.轉帳傳票MenuItem.Name = "轉帳傳票MenuItem";
             this.轉帳傳票MenuItem.Size = new System.Drawing.Size(152, 22);
             this.轉帳傳票MenuItem.Text = "轉帳傳票";
+            this.轉帳傳票MenuItem.Visible = false;
             this.轉帳傳票MenuItem.Click += new System.EventHandler(this.轉帳傳票MenuItem_Click);
             // 
             // 損益報表ToolStripMenuItem
@@ -402,6 +403,7 @@
             this.損益報表ToolStripMenuItem.Name = "損益報表ToolStripMenuItem";
             this.損益報表ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.損益報表ToolStripMenuItem.Text = "損益報表";
+            this.損益報表ToolStripMenuItem.Visible = false;
             this.損益報表ToolStripMenuItem.Click += new System.EventHandler(this.損益報表ToolStripMenuItem_Click);
             // 
             // 分類MenuItem
@@ -418,6 +420,13 @@
             this.合併傳票MenuItem.Text = "合併 mdb";
             this.合併傳票MenuItem.Visible = false;
             this.合併傳票MenuItem.Click += new System.EventHandler(this.合併傳票MdbMenuItem_Click);
+            // 
+            // 組合傳票ToolStripMenuItem
+            // 
+            this.組合傳票ToolStripMenuItem.Name = "組合傳票ToolStripMenuItem";
+            this.組合傳票ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.組合傳票ToolStripMenuItem.Text = "組合傳票";
+            this.組合傳票ToolStripMenuItem.Click += new System.EventHandler(this.組合傳票ToolStripMenuItem_Click);
             // 
             // 人事MenuItem
             // 
@@ -569,13 +578,6 @@
             // 
             this.盤點ToolStripMenuItem.Name = "盤點ToolStripMenuItem";
             this.盤點ToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
-            // 
-            // 組合傳票ToolStripMenuItem
-            // 
-            this.組合傳票ToolStripMenuItem.Name = "組合傳票ToolStripMenuItem";
-            this.組合傳票ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.組合傳票ToolStripMenuItem.Text = "組合傳票";
-            this.組合傳票ToolStripMenuItem.Click += new System.EventHandler(this.組合傳票ToolStripMenuItem_Click);
             // 
             // FormHome
             // 

@@ -319,6 +319,12 @@ namespace VoucherExpense
                     case AccDataSource.PosRevenue: 
                         var revenueRow = sourceRowView.Row as DamaiDataSet.HeaderRow;
                         note = SafeNote(revenueRow.DataDate.ToString("M/dd"));
+                        if (!revenueRow.IsRevenueNull()   && revenueRow.IsCashNull() &&
+                            revenueRow.IsCreditCardNull() && revenueRow.IsCoupondNull())
+                        {
+                            detailTable.AddAccVouchDetailRow(Guid.NewGuid(), parent, Setup.CashIncome    , 0 , revenueRow.Revenue , note + "營收", shType, item.intDragID);
+                            detailTable.AddAccVouchDetailRow(Guid.NewGuid(), parent, Setup.CashReceivable, revenueRow.Revenue , 0 , note + "营收", shType, item.intDragID);
+                        }
                         if (!revenueRow.IsCashNull() && revenueRow.Cash!=0)
                         {
                             detailTable.AddAccVouchDetailRow(Guid.NewGuid(), parent, Setup.CashIncome    , 0, revenueRow.Cash, note + "现金营收", shType, item.intDragID);

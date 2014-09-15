@@ -29,6 +29,8 @@ namespace VoucherExpense
         MyAccTitleAdapter AccTitleAdapter = new MyAccTitleAdapter();
         private void FormTitleSetup_Load(object sender, EventArgs e)
         {
+            // TODO: 這行程式碼會將資料載入 'damaiDataSet.AccountingTitle' 資料表。您可以視需要進行移動或移除。
+            this.accountingTitleTableAdapter.Fill(this.damaiDataSet.AccountingTitle);
             SetupBindingSource();
 #if (!UseSQLServer)
             AccTitleAdapter.Connection = MapPath.VEConnection;
@@ -64,7 +66,6 @@ namespace VoucherExpense
             ownersEquityBindingSource.DataSource    = m_DataSet;
             costBindingSource.DataSource            = m_DataSet;
             expenseBindingSource.DataSource         = m_DataSet;
-
         }
     }
 }

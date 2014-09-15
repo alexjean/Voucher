@@ -48,9 +48,8 @@
             System.Windows.Forms.Label label6;
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.btnSave = new System.Windows.Forms.Button();
-            this.vEDataSet = new VoucherExpense.VEDataSet();
             this.assetDefaultBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.accountingTitleTableAdapter = new VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter();
+            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             this.cashIncomeComboBox = new System.Windows.Forms.ComboBox();
             this.titleSetupBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.incomeCardBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -87,6 +86,7 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.cbxProducts = new System.Windows.Forms.ComboBox();
             this.assetProductsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.accountingTitleTableAdapter = new VoucherExpense.DamaiDataSetTableAdapters.AccountingTitleTableAdapter();
             cashIncomeLabel = new System.Windows.Forms.Label();
             cashReceivableLabel = new System.Windows.Forms.Label();
             creditIncomeLabel = new System.Windows.Forms.Label();
@@ -104,8 +104,8 @@
             label4 = new System.Windows.Forms.Label();
             label5 = new System.Windows.Forms.Label();
             label6 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.assetDefaultBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.titleSetupBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.incomeCardBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.assetCashBindingSource)).BeginInit();
@@ -323,20 +323,16 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // vEDataSet
-            // 
-            this.vEDataSet.DataSetName = "VEDataSet";
-            this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // assetDefaultBindingSource
             // 
             this.assetDefaultBindingSource.DataMember = "AccountingTitle";
-            this.assetDefaultBindingSource.DataSource = this.vEDataSet;
-            this.assetDefaultBindingSource.Filter = "TitleCode like \'1*\'";
+            this.assetDefaultBindingSource.DataSource = this.damaiDataSet;
+            this.assetDefaultBindingSource.Filter = "AccountClass =1";
             // 
-            // accountingTitleTableAdapter
+            // damaiDataSet
             // 
-            this.accountingTitleTableAdapter.ClearBeforeFill = true;
+            this.damaiDataSet.DataSetName = "DamaiDataSet";
+            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // cashIncomeComboBox
             // 
@@ -357,8 +353,8 @@
             // incomeCardBindingSource
             // 
             this.incomeCardBindingSource.DataMember = "AccountingTitle";
-            this.incomeCardBindingSource.DataSource = this.vEDataSet;
-            this.incomeCardBindingSource.Filter = "TitleCode like \'4*\'";
+            this.incomeCardBindingSource.DataSource = this.damaiDataSet;
+            this.incomeCardBindingSource.Filter = "AccountClass = 4";
             // 
             // cashReceivableComboBox
             // 
@@ -375,8 +371,8 @@
             // assetCashBindingSource
             // 
             this.assetCashBindingSource.DataMember = "AccountingTitle";
-            this.assetCashBindingSource.DataSource = this.vEDataSet;
-            this.assetCashBindingSource.Filter = "TitleCode like \'1*\'";
+            this.assetCashBindingSource.DataSource = this.damaiDataSet;
+            this.assetCashBindingSource.Filter = "AccountClass = 1";
             // 
             // creditIncomeComboBox
             // 
@@ -393,8 +389,8 @@
             // incomeCashBindingSource
             // 
             this.incomeCashBindingSource.DataMember = "AccountingTitle";
-            this.incomeCashBindingSource.DataSource = this.vEDataSet;
-            this.incomeCashBindingSource.Filter = "TitleCode like \'4*\'";
+            this.incomeCashBindingSource.DataSource = this.damaiDataSet;
+            this.incomeCashBindingSource.Filter = "AccountClass = 4";
             // 
             // creditReceivableComboBox
             // 
@@ -411,8 +407,8 @@
             // assetCardBindingSource
             // 
             this.assetCardBindingSource.DataMember = "AccountingTitle";
-            this.assetCardBindingSource.DataSource = this.vEDataSet;
-            this.assetCardBindingSource.Filter = "TitleCode like \'1*\'";
+            this.assetCardBindingSource.DataSource = this.damaiDataSet;
+            this.assetCardBindingSource.Filter = "AccountClass = 1";
             // 
             // groupBox1
             // 
@@ -479,8 +475,8 @@
             // expenseBindingSource
             // 
             this.expenseBindingSource.DataMember = "AccountingTitle";
-            this.expenseBindingSource.DataSource = this.vEDataSet;
-            this.expenseBindingSource.Filter = "TitleCode like \'6*\'";
+            this.expenseBindingSource.DataSource = this.damaiDataSet;
+            this.expenseBindingSource.Filter = "AccountClass =6";
             // 
             // defaultCostComboBox
             // 
@@ -497,8 +493,8 @@
             // costBindingSource
             // 
             this.costBindingSource.DataMember = "AccountingTitle";
-            this.costBindingSource.DataSource = this.vEDataSet;
-            this.costBindingSource.Filter = "TitleCode like \'5*\'";
+            this.costBindingSource.DataSource = this.damaiDataSet;
+            this.costBindingSource.Filter = "AccountClass = 5";
             // 
             // defaultIncomeComboBox
             // 
@@ -515,8 +511,8 @@
             // incomeDefaultBindingSource
             // 
             this.incomeDefaultBindingSource.DataMember = "AccountingTitle";
-            this.incomeDefaultBindingSource.DataSource = this.vEDataSet;
-            this.incomeDefaultBindingSource.Filter = "TitleCode like \'4*\'";
+            this.incomeDefaultBindingSource.DataSource = this.damaiDataSet;
+            this.incomeDefaultBindingSource.Filter = "AccountClass = 4";
             // 
             // defualtLiabilityComboBox
             // 
@@ -533,8 +529,8 @@
             // liabilityDefaultBindingSource
             // 
             this.liabilityDefaultBindingSource.DataMember = "AccountingTitle";
-            this.liabilityDefaultBindingSource.DataSource = this.vEDataSet;
-            this.liabilityDefaultBindingSource.Filter = "TitleCode like \'2*\'";
+            this.liabilityDefaultBindingSource.DataSource = this.damaiDataSet;
+            this.liabilityDefaultBindingSource.Filter = "AccountClass = 2";
             // 
             // defaultAssetComboBox
             // 
@@ -563,14 +559,14 @@
             // ownersEquityBindingSource
             // 
             this.ownersEquityBindingSource.DataMember = "AccountingTitle";
-            this.ownersEquityBindingSource.DataSource = this.vEDataSet;
-            this.ownersEquityBindingSource.Filter = "TitleCode like \'3*\'";
+            this.ownersEquityBindingSource.DataSource = this.damaiDataSet;
+            this.ownersEquityBindingSource.Filter = "AccountClass = 3";
             // 
             // incomeSoldOnCreditBindingSource
             // 
             this.incomeSoldOnCreditBindingSource.DataMember = "AccountingTitle";
-            this.incomeSoldOnCreditBindingSource.DataSource = this.vEDataSet;
-            this.incomeSoldOnCreditBindingSource.Filter = "TitleCode like \'4*\'";
+            this.incomeSoldOnCreditBindingSource.DataSource = this.damaiDataSet;
+            this.incomeSoldOnCreditBindingSource.Filter = "AccountClass =4";
             // 
             // groupBox3
             // 
@@ -600,8 +596,8 @@
             // liabilityShouldPayTitleBindingSource
             // 
             this.liabilityShouldPayTitleBindingSource.DataMember = "AccountingTitle";
-            this.liabilityShouldPayTitleBindingSource.DataSource = this.vEDataSet;
-            this.liabilityShouldPayTitleBindingSource.Filter = "TitleCode like \'2*\'";
+            this.liabilityShouldPayTitleBindingSource.DataSource = this.damaiDataSet;
+            this.liabilityShouldPayTitleBindingSource.Filter = "AccountClass =2";
             // 
             // cbxIngredients
             // 
@@ -618,8 +614,8 @@
             // assetIngredientsBindingSource
             // 
             this.assetIngredientsBindingSource.DataMember = "AccountingTitle";
-            this.assetIngredientsBindingSource.DataSource = this.vEDataSet;
-            this.assetIngredientsBindingSource.Filter = "TitleCode like \'1*\'";
+            this.assetIngredientsBindingSource.DataSource = this.damaiDataSet;
+            this.assetIngredientsBindingSource.Filter = "AccountClass = 1";
             // 
             // groupBox4
             // 
@@ -661,8 +657,8 @@
             // assetReceivableBindingSource
             // 
             this.assetReceivableBindingSource.DataMember = "AccountingTitle";
-            this.assetReceivableBindingSource.DataSource = this.vEDataSet;
-            this.assetReceivableBindingSource.Filter = "TitleCode like \'1*\'";
+            this.assetReceivableBindingSource.DataSource = this.damaiDataSet;
+            this.assetReceivableBindingSource.Filter = "AccountClass = 1";
             // 
             // groupBox5
             // 
@@ -689,8 +685,12 @@
             // assetProductsBindingSource
             // 
             this.assetProductsBindingSource.DataMember = "AccountingTitle";
-            this.assetProductsBindingSource.DataSource = this.vEDataSet;
-            this.assetProductsBindingSource.Filter = "TitleCode like \'1*\'";
+            this.assetProductsBindingSource.DataSource = this.damaiDataSet;
+            this.assetProductsBindingSource.Filter = "AccountClass = 1";
+            // 
+            // accountingTitleTableAdapter
+            // 
+            this.accountingTitleTableAdapter.ClearBeforeFill = true;
             // 
             // FormTitleSetup
             // 
@@ -710,8 +710,8 @@
             this.Name = "FormTitleSetup";
             this.Text = "傳票設定";
             this.Load += new System.EventHandler(this.FormTitleSetup_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.assetDefaultBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.titleSetupBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.incomeCardBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.assetCashBindingSource)).EndInit();
@@ -745,9 +745,7 @@
 
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button btnSave;
-        private VEDataSet vEDataSet;
         private System.Windows.Forms.BindingSource assetDefaultBindingSource;
-        private VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter accountingTitleTableAdapter;
         private System.Windows.Forms.ComboBox cashIncomeComboBox;
         private System.Windows.Forms.ComboBox cashReceivableComboBox;
         private System.Windows.Forms.ComboBox creditIncomeComboBox;
@@ -784,5 +782,7 @@
         private System.Windows.Forms.ComboBox cbxIngredients;
         private System.Windows.Forms.BindingSource assetIngredientsBindingSource;
         private System.Windows.Forms.BindingSource assetProductsBindingSource;
+        private DamaiDataSet damaiDataSet;
+        private DamaiDataSetTableAdapters.AccountingTitleTableAdapter accountingTitleTableAdapter;
     }
 }

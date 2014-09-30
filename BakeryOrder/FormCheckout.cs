@@ -47,6 +47,7 @@ namespace BakeryOrder
             m_Order.DiscountRate = m_DiscountRate;
             m_Order.OldID = 0;
             m_Order.RCashierID = 0;
+            m_Order.MemberID = MemberInfo.MemberId;
             Close();
         }
 

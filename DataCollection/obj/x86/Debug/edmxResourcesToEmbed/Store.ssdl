@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WheatStoreModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="WheatStoreModelStoreContainer">
+    <EntitySet Name="tbStore" EntityType="WheatStoreModel.Store.tbStore" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="tbStore">
+    <Key>
+      <PropertyRef Name="StoreID" />
+    </Key>
+    <Property Name="StoreID" Type="int" Nullable="false" />
+    <Property Name="StoreName" Type="nchar" MaxLength="10" />
+    <Property Name="StoreAddress" Type="nchar" MaxLength="10" />
+    <Property Name="StoreDBName" Type="nchar" MaxLength="10" />
+    <Property Name="StoreDBUser" Type="nchar" MaxLength="10" />
+    <Property Name="StoreDBPwd" Type="nchar" MaxLength="10" />
+    <Property Name="StoreDBSouce" Type="nchar" MaxLength="10" />
+    <Property Name="CreateTime" Type="datetime" />
+    <Property Name="UpdateTime" Type="datetime" />
+  </EntityType>
+</Schema>

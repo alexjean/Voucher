@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WheatModelStoreContainer" CdmEntityContainer="WheatEntities">
+    <EntitySetMapping Name="tbCard">
+      <EntityTypeMapping TypeName="WheatModel.tbCard">
+        <MappingFragment StoreEntitySet="tbCard">
+          <ScalarProperty Name="CardId" ColumnName="CardId" />
+          <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
+          <ScalarProperty Name="CardStatus" ColumnName="CardStatus" />
+          <ScalarProperty Name="CardCDKEY" ColumnName="CardCDKEY" />
+          <ScalarProperty Name="CardSetLevel" ColumnName="CardSetLevel" />
+          <ScalarProperty Name="CardSetLevelEnabled" ColumnName="CardSetLevelEnabled" />
+          <ScalarProperty Name="CardClassId" ColumnName="CardClassId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbCardClass">
+      <EntityTypeMapping TypeName="WheatModel.tbCardClass">
+        <MappingFragment StoreEntitySet="tbCardClass">
+          <ScalarProperty Name="CardColor" ColumnName="CardColor" />
+          <ScalarProperty Name="CardClassId" ColumnName="CardClassId" />
+          <ScalarProperty Name="CardClassName" ColumnName="CardClassName" />
+          <ScalarProperty Name="CardAgreement" ColumnName="CardAgreement" />
+          <ScalarProperty Name="CardDescription" ColumnName="CardDescription" />
+          <ScalarProperty Name="CardIntroduce" ColumnName="CardIntroduce" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbCashier">
+      <EntityTypeMapping TypeName="WheatModel.tbCashier">
+        <MappingFragment StoreEntitySet="tbCashier">
+          <ScalarProperty Name="SNId" ColumnName="SNId" />
+          <ScalarProperty Name="CashierId" ColumnName="CashierId" />
+          <ScalarProperty Name="CashierName" ColumnName="CashierName" />
+          <ScalarProperty Name="Inpositon" ColumnName="Inpositon" />
+          <ScalarProperty Name="LastUpdated" ColumnName="LastUpdated" />
+          <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbLevelRelatePriviege">
+      <EntityTypeMapping TypeName="WheatModel.tbLevelRelatePriviege">
+        <MappingFragment StoreEntitySet="tbLevelRelatePriviege">
+          <ScalarProperty Name="RelateId" ColumnName="RelateId" />
+          <ScalarProperty Name="MemberLevelId" ColumnName="MemberLevelId" />
+          <ScalarProperty Name="PrivilegeId" ColumnName="PrivilegeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbMember">
+      <EntityTypeMapping TypeName="WheatModel.tbMember">
+        <MappingFragment StoreEntitySet="tbMember">
+          <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+          <ScalarProperty Name="MemberName" ColumnName="MemberName" />
+          <ScalarProperty Name="MemberPassword" ColumnName="MemberPassword" />
+          <ScalarProperty Name="MemberRegisterTime" ColumnName="MemberRegisterTime" />
+          <ScalarProperty Name="MemberEmail" ColumnName="MemberEmail" />
+          <ScalarProperty Name="MemberLoginTime" ColumnName="MemberLoginTime" />
+          <ScalarProperty Name="MemberIsDel" ColumnName="MemberIsDel" />
+          <ScalarProperty Name="MemberCard" ColumnName="MemberCard" />
+          <ScalarProperty Name="MemberSex" ColumnName="MemberSex" />
+          <ScalarProperty Name="MemberPhone" ColumnName="MemberPhone" />
+          <ScalarProperty Name="MemberBirthday" ColumnName="MemberBirthday" />
+          <ScalarProperty Name="MemberAddress" ColumnName="MemberAddress" />
+          <ScalarProperty Name="MemberIDCard" ColumnName="MemberIDCard" />
+          <ScalarProperty Name="MemberPoint" ColumnName="MemberPoint" />
+          <ScalarProperty Name="MemberLevel" ColumnName="MemberLevel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbMemeberLevel">
+      <EntityTypeMapping TypeName="WheatModel.tbMemeberLevel">
+        <MappingFragment StoreEntitySet="tbMemeberLevel">
+          <ScalarProperty Name="MemeberLevelId" ColumnName="MemeberLevelId" />
+          <ScalarProperty Name="MemeberLevelName" ColumnName="MemeberLevelName" />
+          <ScalarProperty Name="MemeberLevelDescribe" ColumnName="MemeberLevelDescribe" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbOrder">
+      <EntityTypeMapping TypeName="WheatModel.tbOrder">
+        <MappingFragment StoreEntitySet="tbOrder">
+          <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="CashierID" ColumnName="CashierID" />
+          <ScalarProperty Name="PrintTime" ColumnName="PrintTime" />
+          <ScalarProperty Name="Income" ColumnName="Income" />
+          <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+          <ScalarProperty Name="Deduct" ColumnName="Deduct" />
+          <ScalarProperty Name="DiscountRate" ColumnName="DiscountRate" />
+          <ScalarProperty Name="PayBy" ColumnName="PayBy" />
+          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+          <ScalarProperty Name="OldID" ColumnName="OldID" />
+          <ScalarProperty Name="RCashierID" ColumnName="RCashierID" />
+          <ScalarProperty Name="MD5" ColumnName="MD5" />
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+          <ScalarProperty Name="Point" ColumnName="Point" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbOrderItem">
+      <EntityTypeMapping TypeName="WheatModel.tbOrderItem">
+        <MappingFragment StoreEntitySet="tbOrderItem">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Index" ColumnName="Index" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="No" ColumnName="No" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+          <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+          <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbPhotos">
+      <EntityTypeMapping TypeName="WheatModel.tbPhotos">
+        <MappingFragment StoreEntitySet="tbPhotos">
+          <ScalarProperty Name="TableID" ColumnName="TableID" />
+          <ScalarProperty Name="PhotoID" ColumnName="PhotoID" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
+          <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+          <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbPrivilege">
+      <EntityTypeMapping TypeName="WheatModel.tbPrivilege">
+        <MappingFragment StoreEntitySet="tbPrivilege">
+          <ScalarProperty Name="PrivilegeId" ColumnName="PrivilegeId" />
+          <ScalarProperty Name="PrivivilegeClass" ColumnName="PrivivilegeClass" />
+          <ScalarProperty Name="PrivilegeContent" ColumnName="PrivilegeContent" />
+          <ScalarProperty Name="PrivilegeAttribute1" ColumnName="PrivilegeAttribute1" />
+          <ScalarProperty Name="PrivilegeAttribute2" ColumnName="PrivilegeAttribute2" />
+          <ScalarProperty Name="PrivilegeAttribute3" ColumnName="PrivilegeAttribute3" />
+          <ScalarProperty Name="PrivilegeBindingObject" ColumnName="PrivilegeBindingObject" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbPrivilegeClass">
+      <EntityTypeMapping TypeName="WheatModel.tbPrivilegeClass">
+        <MappingFragment StoreEntitySet="tbPrivilegeClass">
+          <ScalarProperty Name="PrivilegeClassId" ColumnName="PrivilegeClassId" />
+          <ScalarProperty Name="PrivilegeName" ColumnName="PrivilegeName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbProduct">
+      <EntityTypeMapping TypeName="WheatModel.tbProduct">
+        <MappingFragment StoreEntitySet="tbProduct">
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Class" ColumnName="Class" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="MenuX" ColumnName="MenuX" />
+          <ScalarProperty Name="MenuY" ColumnName="MenuY" />
+          <ScalarProperty Name="EvaluatedCost" ColumnName="EvaluatedCost" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="TitleCode" ColumnName="TitleCode" />
+          <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbProductClass">
+      <EntityTypeMapping TypeName="WheatModel.tbProductClass">
+        <MappingFragment StoreEntitySet="tbProductClass">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ProductClass" ColumnName="ProductClass" />
+          <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbStore">
+      <EntityTypeMapping TypeName="WheatModel.tbStore">
+        <MappingFragment StoreEntitySet="tbStore">
+          <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+          <ScalarProperty Name="StoreName" ColumnName="StoreName" />
+          <ScalarProperty Name="StoreAddress" ColumnName="StoreAddress" />
+          <ScalarProperty Name="StoreDBName" ColumnName="StoreDBName" />
+          <ScalarProperty Name="StoreDBUser" ColumnName="StoreDBUser" />
+          <ScalarProperty Name="StoreDBPwd" ColumnName="StoreDBPwd" />
+          <ScalarProperty Name="StoreDBSouce" ColumnName="StoreDBSouce" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbUser">
+      <EntityTypeMapping TypeName="WheatModel.tbUser">
+        <MappingFragment StoreEntitySet="tbUser">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+          <ScalarProperty Name="UserKey" ColumnName="UserKey" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vExchangeGoods">
+      <EntityTypeMapping TypeName="WheatModel.vExchangeGoods">
+        <MappingFragment StoreEntitySet="vExchangeGoods">
+          <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+          <ScalarProperty Name="PrintTime" ColumnName="PrintTime" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="StoreName" ColumnName="StoreName" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
+          <ScalarProperty Name="PayBy" ColumnName="PayBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

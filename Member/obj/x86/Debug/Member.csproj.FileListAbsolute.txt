@@ -1,0 +1,12 @@
+D:\VoucherExpense10\Member\bin\Debug\Member.exe.config
+D:\VoucherExpense10\Member\bin\Debug\Member.exe
+D:\VoucherExpense10\Member\bin\Debug\Member.pdb
+D:\VoucherExpense10\Member\obj\x86\Debug\Member.Properties.Resources.resources
+D:\VoucherExpense10\Member\obj\x86\Debug\Member.csproj.GenerateResource.Cache
+D:\VoucherExpense10\Member\obj\x86\Debug\Member.exe
+D:\VoucherExpense10\Member\obj\x86\Debug\Member.pdb
+D:\VoucherExpense10\Member\obj\x86\Debug\Member.FormStore.resources
+D:\VoucherExpense10\Member\obj\x86\Debug\Member.FormCard.resources
+D:\VoucherExpense10\Member\obj\x86\Debug\Member.FormCardClass.resources
+D:\VoucherExpense10\Member\obj\x86\Debug\Member.FormCenter.resources
+D:\VoucherExpense10\Member\obj\x86\Debug\Member.csprojResolveAssemblyReference.cache

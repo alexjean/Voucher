@@ -64,7 +64,7 @@ namespace VoucherExpense
         MyOrderItemAdapter OrderItemAdapter = new MyOrderItemAdapter();
         MyDrawerRecordAdapter DrawerAdapter = new MyDrawerRecordAdapter();
         MyProductAdapter ProductAdapter     = new MyProductAdapter();
-
+        int storeid;
         private void FormCashierAuthen_Load(object sender, EventArgs e)
         {
             m_Cfg.Load();
@@ -74,6 +74,7 @@ namespace VoucherExpense
             HideBackupOption();
             m_OrderSet = m_DataSet;
             var operatorAdapter = new VoucherExpense.DamaiDataSetTableAdapters.OperatorTableAdapter();
+            var apartmentAdapter = new VoucherExpense.DamaiDataSetTableAdapters.ApartmentTableAdapter();
 #else
             m_OrderSet = new VoucherExpense.BakeryOrderSet();
             var operatorAdapter = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
@@ -91,7 +92,24 @@ namespace VoucherExpense
             {
                 operatorAdapter.Fill(m_DataSet.Operator);
                 CashierAdapter.Fill (m_OrderSet.Cashier);
+                apartmentAdapter.Fill(m_DataSet.Apartment);
 
+                if (m_DataSet.Apartment.Rows.Count != 0)
+                {
+                    var a0 = m_DataSet.Apartment[0];
+                    foreach (var a in m_DataSet.Apartment)
+                    {
+                        if (!a.IsIsCurrentNull() && a.IsCurrent)
+                        {
+                            a0 = a;
+                            break;
+                        }
+                    }
+                    if (!a0.IsAppartementCodeNull())
+                    {
+                        storeid = a0.AppartementCode;
+                    }
+                }
                 chBoxOnlyInPosition_CheckedChanged(null, null);
                 DateTime now = DateTime.Now;
                 todayPicker.MinDate = new DateTime(MyFunction.IntHeaderYear, 1, 1);
@@ -422,6 +440,11 @@ namespace VoucherExpense
                 newOrder.PayBy = order.PayBy;
                 str+= order.PayBy.ToString();
             }
+            if (!order.IsMemberIdNull())
+            {
+                newOrder.MemberId = order.MemberId;
+                str += order.MemberId;
+            }
             if (!order.IsPrintTimeNull())
             {
                 newOrder.PrintTime = order.PrintTime;           
@@ -457,10 +480,12 @@ namespace VoucherExpense
             else
             {
                 newOrder = m_OrderSet.Order.NewOrderRow();
+             
                 newOrder.BeginEdit();
                // newOrder.ItemArray = order.ItemArray;
                 CopyOrderRow(order, newOrder);
                 newOrder.ID = newID;
+                newOrder.StoreId = storeid;
                 newOrder.EndEdit();
                 m_OrderSet.Order.AddOrderRow(newOrder);
             }
@@ -603,6 +628,11 @@ namespace VoucherExpense
 
         private void btnGetDataFromPOS_Click(object sender, EventArgs e)
         {
+            if (storeid==null)
+            {
+                MessageBox.Show("没有设置当前店部门编码，请先修改部门资料再收取数据");
+                return;
+            }
             DateTime today = todayPicker.Value;
             DialogResult result = MessageBox.Show("從收銀机匯整<" + today.ToShortDateString() + ">資料!", "", MessageBoxButtons.OKCancel);
             if (result == DialogResult.Cancel) return;

@@ -227,11 +227,11 @@
             this.ColumnVol22,
             this.ColumnVol99});
             this.dgViewSale.DataSource = this.cSaleItemBindingSource;
-            this.dgViewSale.Location = new System.Drawing.Point(160, 34);
+            this.dgViewSale.Location = new System.Drawing.Point(202, 34);
             this.dgViewSale.Name = "dgViewSale";
             this.dgViewSale.RowHeadersWidth = 25;
             this.dgViewSale.RowTemplate.Height = 24;
-            this.dgViewSale.Size = new System.Drawing.Size(643, 591);
+            this.dgViewSale.Size = new System.Drawing.Size(601, 591);
             this.dgViewSale.TabIndex = 18;
             this.dgViewSale.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgViewSale_DataError);
             // 
@@ -592,7 +592,7 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(160, 15);
+            this.progressBar1.Location = new System.Drawing.Point(183, 15);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(620, 13);
             this.progressBar1.TabIndex = 78;
@@ -625,18 +625,18 @@
             // 
             // labelTotal
             // 
-            this.labelTotal.Location = new System.Drawing.Point(74, 347);
+            this.labelTotal.Location = new System.Drawing.Point(72, 347);
             this.labelTotal.Name = "labelTotal";
-            this.labelTotal.Size = new System.Drawing.Size(68, 16);
+            this.labelTotal.Size = new System.Drawing.Size(88, 16);
             this.labelTotal.TabIndex = 82;
             this.labelTotal.Text = "0.0";
             this.labelTotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // labelCost
             // 
-            this.labelCost.Location = new System.Drawing.Point(74, 376);
+            this.labelCost.Location = new System.Drawing.Point(72, 376);
             this.labelCost.Name = "labelCost";
-            this.labelCost.Size = new System.Drawing.Size(68, 16);
+            this.labelCost.Size = new System.Drawing.Size(88, 16);
             this.labelCost.TabIndex = 83;
             this.labelCost.Text = "0.0";
             this.labelCost.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -652,7 +652,7 @@
             // 
             // labelGrossProfitRate
             // 
-            this.labelGrossProfitRate.Location = new System.Drawing.Point(74, 407);
+            this.labelGrossProfitRate.Location = new System.Drawing.Point(72, 407);
             this.labelGrossProfitRate.Name = "labelGrossProfitRate";
             this.labelGrossProfitRate.Size = new System.Drawing.Size(68, 16);
             this.labelGrossProfitRate.TabIndex = 85;

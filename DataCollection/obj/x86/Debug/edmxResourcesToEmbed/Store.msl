@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WheatStoreModelStoreContainer" CdmEntityContainer="WheatEntities">
+    <EntitySetMapping Name="tbStore">
+      <EntityTypeMapping TypeName="WheatStoreModel.tbStore">
+        <MappingFragment StoreEntitySet="tbStore">
+          <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+          <ScalarProperty Name="StoreName" ColumnName="StoreName" />
+          <ScalarProperty Name="StoreAddress" ColumnName="StoreAddress" />
+          <ScalarProperty Name="StoreDBName" ColumnName="StoreDBName" />
+          <ScalarProperty Name="StoreDBUser" ColumnName="StoreDBUser" />
+          <ScalarProperty Name="StoreDBPwd" ColumnName="StoreDBPwd" />
+          <ScalarProperty Name="StoreDBSouce" ColumnName="StoreDBSouce" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

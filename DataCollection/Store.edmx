@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="WheatStoreModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="WheatStoreModelStoreContainer">
+          <EntitySet Name="tbStore" EntityType="WheatStoreModel.Store.tbStore" store:Type="Tables" Schema="dbo" />
+        </EntityContainer>
+        <EntityType Name="tbStore">
+          <Key>
+            <PropertyRef Name="StoreID" />
+          </Key>
+          <Property Name="StoreID" Type="int" Nullable="false" />
+          <Property Name="StoreName" Type="nchar" MaxLength="10" />
+          <Property Name="StoreAddress" Type="nchar" MaxLength="10" />
+          <Property Name="StoreDBName" Type="nchar" MaxLength="10" />
+          <Property Name="StoreDBUser" Type="nchar" MaxLength="10" />
+          <Property Name="StoreDBPwd" Type="nchar" MaxLength="10" />
+          <Property Name="StoreDBSouce" Type="nchar" MaxLength="10" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="UpdateTime" Type="datetime" />
+        </EntityType>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WheatStoreModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="WheatEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbStore" EntityType="WheatStoreModel.tbStore" />
+        </EntityContainer>
+        <EntityType Name="tbStore">
+          <Key>
+            <PropertyRef Name="StoreID" />
+          </Key>
+          <Property Name="StoreID" Type="Int32" Nullable="false" />
+          <Property Name="StoreName" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="StoreAddress" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="StoreDBName" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="StoreDBUser" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="StoreDBPwd" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="StoreDBSouce" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="CreateTime" Type="DateTime" />
+          <Property Name="UpdateTime" Type="DateTime" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WheatStoreModelStoreContainer" CdmEntityContainer="WheatEntities">
+          <EntitySetMapping Name="tbStore">
+            <EntityTypeMapping TypeName="WheatStoreModel.tbStore">
+              <MappingFragment StoreEntitySet="tbStore">
+                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+                <ScalarProperty Name="StoreName" ColumnName="StoreName" />
+                <ScalarProperty Name="StoreAddress" ColumnName="StoreAddress" />
+                <ScalarProperty Name="StoreDBName" ColumnName="StoreDBName" />
+                <ScalarProperty Name="StoreDBUser" ColumnName="StoreDBUser" />
+                <ScalarProperty Name="StoreDBPwd" ColumnName="StoreDBPwd" />
+                <ScalarProperty Name="StoreDBSouce" ColumnName="StoreDBSouce" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Model1">
+        <EntityTypeShape EntityType="WheatStoreModel.tbStore" Width="1.5" PointX="0.75" PointY="0.75" Height="2.7341113281249996" IsExpanded="true" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<configuration>
+    <configSections>
+    </configSections>
+    <connectionStrings>
+        <add name="VoucherExpense.Properties.Settings.VoucherExpenseConnectionString"
+            connectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=|DataDirectory|\VoucherExpense.mdb;Persist Security Info=True;Jet OLEDB:Database Password=CalcVoucher888"
+            providerName="System.Data.OleDb" />
+        <add name="VoucherExpense.Properties.Settings.BasicDataConnectionString"
+            connectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=|DataDirectory|\BasicData.mdb;Persist Security Info=True;Jet OLEDB:Database Password=loveyou"
+            providerName="System.Data.OleDb" />
+        <add name="VoucherExpense.Properties.Settings.BakeryOrderConnectionString"
+            connectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=|DataDirectory|\BakeryOrder.mdb;Persist Security Info=True;Jet OLEDB:Database Password="
+            providerName="System.Data.OleDb" />
+<<<<<<< local
+        <add name="VoucherExpense.Properties.Settings.BillConnectionString"
+            connectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=|DataDirectory|\Bill.mdb;Jet OLEDB:Database Password=Bill000"
+            providerName="System.Data.OleDb" />
+        <add name="VoucherExpense.Properties.Settings.SQLVoucherExpenseConnectionString"
+            connectionString="Data Source=ICE-PC\MSSQL;Initial Catalog=VoucherExpense;Integrated Security=True"
+=======
+        <add name="VoucherExpense.Properties.Settings.SqlVeConnectionString"
+            connectionString="Data Source=192.168.88.201;Initial Catalog=Mai2013;Persist Security Info=True;User ID=VoucherExpense;Password=CalcVoucher888"
+>>>>>>> other
+            providerName="System.Data.SqlClient" />
+    </connectionStrings>
+	<runtime>
+		<assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+			<dependentAssembly>
+				<assemblyIdentity name="EnvDTE" publicKeyToken="B03F5F7F11D50A3A" culture="neutral"/>
+				<bindingRedirect oldVersion="0.0.0.0-8.0.0.0" newVersion="8.0.0.0"/>
+			</dependentAssembly>
+		</assemblyBinding>
+	</runtime>
+<startup><supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.0,Profile=Client"/></startup></configuration>

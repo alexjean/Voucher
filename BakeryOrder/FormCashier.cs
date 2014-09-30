@@ -9,9 +9,12 @@ using System.Windows.Forms;
 using System.IO;
 using System.Drawing.Drawing2D;
 using System.Xml;
+using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 
 namespace BakeryOrder
 {
+
     public partial class FormCashier : Form
     {
 
@@ -508,6 +511,9 @@ namespace BakeryOrder
             checkBoxTest.Checked = true;
             btnTest.Visible = true;
             m_CashierID = 1;  m_CashierName="测试员";
+            textBox1.Focus();
+            textBox1.SelectAll();
+
 #endif
             for (int i = 0; i <= 9; i++)
             {
@@ -644,6 +650,7 @@ namespace BakeryOrder
                 order.PayBy = DicPayBy.First().Key.ToString();
                 order.OldID = 0;
                 order.RCashierID = 0;
+                order.MemberID = MemberInfo.MemberId;
                 return order.ID;
             }
             catch (Exception ex)
@@ -652,6 +659,7 @@ namespace BakeryOrder
                 order = null;
                 return 0;
             }
+            
         }
 
         int CreateUpdateDrawerRecord(ref int maxID, int associateOrderID)
@@ -830,6 +838,11 @@ namespace BakeryOrder
             if (!this.checkBoxTest.Checked)
                 RawPrint.SendManagedBytes(m_Printer.PrinterName, m_CashDrawer);
             CreateUpdateDrawerRecord(ref m_MaxDrawerRecordID, m_CurrentOrder.ID % 10000);
+            MemberInfo.Set();
+            richTextBox1.Text = "";
+            textBox1.SelectAll();
+            textBox1.Focus();
+////////////////////////清空当前会员
             //            DoNewOrder();
         }
 
@@ -893,8 +906,13 @@ namespace BakeryOrder
         }
 
         private void btnNewOrder_Click(object sender, EventArgs e)
-        {
+        {        
+            MemberInfo.Set();
+            richTextBox1.Text = "";
+            textBox1.SelectAll();
+            textBox1.Focus();
             DoNewOrder();
+
         }
 
         void SetOrderItemFromListViewItem(BakeryOrderSet.OrderItemRow Row, ListViewItem lvItem, int i)
@@ -1090,6 +1108,7 @@ namespace BakeryOrder
                         SetLoginStatus(true);
                         ClearOrderInfoOnScreen();
                         lvItems.Items.Clear();
+                      //  textBox1.Focus();
                         return;
                     }
                     else
@@ -1235,6 +1254,11 @@ namespace BakeryOrder
             Form form = new FormCheckout(tabControl1.Left + 8, 8, m_CurrentOrder, (decimal)CalcTotal());
             if (form.ShowDialog(this) == DialogResult.OK)
             {
+                MemberInfo.Set();
+                richTextBox1.Text = "";
+                textBox1.SelectAll();
+                textBox1.Focus();
+
                 if (form.Tag.GetType() == typeof(decimal))
                     moneyGot = (decimal)(form.Tag);
                 else
@@ -1322,6 +1346,114 @@ namespace BakeryOrder
                         m_FormCustomer.SetPicture(img);
                 }
             }
+        }
+
+        private void FormCashier_Activated(object sender, EventArgs e)
+        {
+            
+            textBox1.Focus();
+              
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (textBox1.TextLength < 20)
+            {
+               
+            }
+            else
+            {
+                string str = textBox1.Text; ;
+                string restr = @"[^\d]*";
+                string mstr = System.Text.RegularExpressions.Regex.Replace(str, restr, "");
+                DataTable dt = ReadDB(mstr.Substring(0, 16));
+                if (dt != null)
+                {
+                    MemberInfo.MemberId = dt.Rows[0]["MemberId"].ToString();
+                    MemberInfo.MemberName = dt.Rows[0]["MemberName"].ToString();
+                    MemberInfo.MemberSex = dt.Rows[0]["MemberSex"].ToString();
+                    MemberInfo.MemberLevel = dt.Rows[0]["MemberLevel"].ToString();
+                    MemberInfo.MemberPoint = dt.Rows[0]["MemberPoint"].ToString();
+                    MemberInfo.CardNumber = dt.Rows[0]["CardNumber"].ToString();
+                    MemberInfo.CardStatus = dt.Rows[0]["CardStatus"].ToString();
+                    MemberInfo.CardClassName = dt.Rows[0]["CardClassName"].ToString();
+                    richTextBox1.Text = MemberInfo.MemberId;
+                }
+                else
+                {
+                    richTextBox1.Text = "没有查到此卡，可能没有激活或者激活没有超过24小时，也可能不是本店会员卡";
+                    MemberInfo.Set();
+                }
+            }
+
+        }
+        DataTable ReadDB(string memberCard)
+        {
+             string constr = "server=192.168.88.103;uid=sa;database=wheat;pwd=123456;";
+            //MemberId	MemberName	MemberSex	MemberLevel	MemberPoint	CardNumber	CardStatus	CardClassName	cardColor
+//,cardclass.cardColor
+            string sqlstr = "select member.MemberId,member.MemberName,member.MemberSex,member.MemberLevel,member.MemberPoint,card.CardNumber,card.CardStatus,cardclass.CardClassName"+ 
+            " from tbMember member,tbCard card,tbCardClass cardclass where member.MemberCard=card.CardId and card.CardNumber= "+memberCard+" and cardclass.CardClassId=card.CardClassId;";
+            using (SqlConnection connection = new SqlConnection(constr))
+            {
+                //using (SqlCommand cmd = new SqlCommand(sqlstr,connection))
+                {
+                    try
+                    {
+                        SqlDataAdapter da = new SqlDataAdapter(sqlstr,connection );
+                        DataSet ds = new DataSet();
+                        //da.SelectCommand = cmd;
+                        connection.Open();
+                        da.Fill(ds);
+                        DataTable dt=ds.Tables[0];
+                        connection.Close();
+                        return dt;
+                    }
+                    catch(Exception ex)
+                    {
+                        ex.Message.ToString();;
+                        connection.Close();
+                        return null;
+                    }
+ 
+                }
+            }
+        }
+        public static void Read(string path, out string res)
+        {
+            StreamReader sr = new StreamReader(path, Encoding.Default);
+            String line;
+            res = null;
+            while ((line = sr.ReadLine()) != null)
+            {
+                res = res + line.ToString();
+            }
+            sr.Close();
+        }
+       
+    }
+    public static class MemberInfo{
+
+        public static string MemberId { get; set; }
+        public static string MemberName { get; set; }
+        public static string MemberSex { get; set; }
+        public static string MemberLevel { get; set; }
+        public static string MemberPoint { get; set; }
+        public static string CardNumber { get; set; }
+        public static string CardStatus { get; set; }
+        public static string CardClassName { get; set; }
+        public static string CardColor { get; set; }
+ //MemberId	MemberName	MemberSex	MemberLevel	MemberPoint	CardNumber	CardStatus	CardClassName	cardColor
+        public static void Set()
+        {
+            MemberInfo.MemberId = null;
+            MemberInfo.MemberName = null;
+            MemberInfo.MemberSex = null;
+            MemberInfo.MemberLevel = null;
+            MemberInfo.MemberPoint = null;
+            MemberInfo.CardNumber = null;
+            MemberInfo.CardStatus = null;
+            MemberInfo.CardClassName = null;
         }
     }
 }

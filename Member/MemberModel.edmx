@@ -1,0 +1,1150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WheatModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="WheatModelStoreContainer">
+          <EntitySet Name="tbCard" EntityType="WheatModel.Store.tbCard" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbCardClass" EntityType="WheatModel.Store.tbCardClass" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbCashier" EntityType="WheatModel.Store.tbCashier" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbLevelRelatePriviege" EntityType="WheatModel.Store.tbLevelRelatePriviege" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbMember" EntityType="WheatModel.Store.tbMember" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbMemeberLevel" EntityType="WheatModel.Store.tbMemeberLevel" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbOrder" EntityType="WheatModel.Store.tbOrder" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbOrderItem" EntityType="WheatModel.Store.tbOrderItem" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbPhotos" EntityType="WheatModel.Store.tbPhotos" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbPrivilege" EntityType="WheatModel.Store.tbPrivilege" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbPrivilegeClass" EntityType="WheatModel.Store.tbPrivilegeClass" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbProduct" EntityType="WheatModel.Store.tbProduct" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbProductClass" EntityType="WheatModel.Store.tbProductClass" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbStore" EntityType="WheatModel.Store.tbStore" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbUser" EntityType="WheatModel.Store.tbUser" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="vExchangeGoods" EntityType="WheatModel.Store.vExchangeGoods" store:Type="Views" store:Schema="dbo" store:Name="vExchangeGoods">
+            <DefiningQuery>SELECT 
+      [vExchangeGoods].[MemberId] AS [MemberId], 
+      [vExchangeGoods].[PrintTime] AS [PrintTime], 
+      [vExchangeGoods].[ProductID] AS [ProductID], 
+      [vExchangeGoods].[Name] AS [Name], 
+      [vExchangeGoods].[Price] AS [Price], 
+      [vExchangeGoods].[StoreName] AS [StoreName], 
+      [vExchangeGoods].[Photo] AS [Photo], 
+      [vExchangeGoods].[PayBy] AS [PayBy]
+      FROM [dbo].[vExchangeGoods] AS [vExchangeGoods]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_tbCard_tbCardClass" Association="WheatModel.Store.FK_tbCard_tbCardClass">
+            <End Role="tbCardClass" EntitySet="tbCardClass" />
+            <End Role="tbCard" EntitySet="tbCard" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbCashier_tbStore" Association="WheatModel.Store.FK_tbCashier_tbStore">
+            <End Role="tbStore" EntitySet="tbStore" />
+            <End Role="tbCashier" EntitySet="tbCashier" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbLevelRelatePriviege_tbMemeberLevel" Association="WheatModel.Store.FK_tbLevelRelatePriviege_tbMemeberLevel">
+            <End Role="tbMemeberLevel" EntitySet="tbMemeberLevel" />
+            <End Role="tbLevelRelatePriviege" EntitySet="tbLevelRelatePriviege" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbLevelRelatePriviege_tbPrivilege" Association="WheatModel.Store.FK_tbLevelRelatePriviege_tbPrivilege">
+            <End Role="tbPrivilege" EntitySet="tbPrivilege" />
+            <End Role="tbLevelRelatePriviege" EntitySet="tbLevelRelatePriviege" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbMember_tbCard" Association="WheatModel.Store.FK_tbMember_tbCard">
+            <End Role="tbCard" EntitySet="tbCard" />
+            <End Role="tbMember" EntitySet="tbMember" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbMember_tbMemeberLevel" Association="WheatModel.Store.FK_tbMember_tbMemeberLevel">
+            <End Role="tbMemeberLevel" EntitySet="tbMemeberLevel" />
+            <End Role="tbMember" EntitySet="tbMember" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbOrder_tbMember" Association="WheatModel.Store.FK_tbOrder_tbMember">
+            <End Role="tbMember" EntitySet="tbMember" />
+            <End Role="tbOrder" EntitySet="tbOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbOrder_tbStore" Association="WheatModel.Store.FK_tbOrder_tbStore">
+            <End Role="tbStore" EntitySet="tbStore" />
+            <End Role="tbOrder" EntitySet="tbOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbOrderItem_tbOrder" Association="WheatModel.Store.FK_tbOrderItem_tbOrder">
+            <End Role="tbOrder" EntitySet="tbOrder" />
+            <End Role="tbOrderItem" EntitySet="tbOrderItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbOrderItem_tbProduct" Association="WheatModel.Store.FK_tbOrderItem_tbProduct">
+            <End Role="tbProduct" EntitySet="tbProduct" />
+            <End Role="tbOrderItem" EntitySet="tbOrderItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPrivilege_tbPrivilegeClass" Association="WheatModel.Store.FK_tbPrivilege_tbPrivilegeClass">
+            <End Role="tbPrivilegeClass" EntitySet="tbPrivilegeClass" />
+            <End Role="tbPrivilege" EntitySet="tbPrivilege" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tbCard">
+          <Key>
+            <PropertyRef Name="CardId" />
+          </Key>
+          <Property Name="CardId" Type="int" Nullable="false" />
+          <Property Name="CardNumber" Type="nchar" MaxLength="10" />
+          <Property Name="CardStatus" Type="int" />
+          <Property Name="CardCDKEY" Type="nchar" MaxLength="10" />
+          <Property Name="CardSetLevel" Type="int" />
+          <Property Name="CardSetLevelEnabled" Type="bit" />
+          <Property Name="CardClassId" Type="int" />
+        </EntityType>
+        <EntityType Name="tbCardClass">
+          <Key>
+            <PropertyRef Name="CardClassId" />
+          </Key>
+          <Property Name="CardClassId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CardClassName" Type="nvarchar" MaxLength="10" />
+          <Property Name="CardAgreement" Type="nvarchar(max)" />
+          <Property Name="CardDescription" Type="nvarchar(max)" />
+          <Property Name="CardIntroduce" Type="nvarchar(max)" />
+          <Property Name="CardColor" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbCashier">
+          <Key>
+            <PropertyRef Name="SNId" />
+          </Key>
+          <Property Name="SNId" Type="int" Nullable="false" />
+          <Property Name="CashierId" Type="int" />
+          <Property Name="CashierName" Type="nvarchar" MaxLength="10" />
+          <Property Name="Inpositon" Type="bit" />
+          <Property Name="LastUpdated" Type="datetime" />
+          <Property Name="StoreId" Type="int" />
+        </EntityType>
+        <EntityType Name="tbLevelRelatePriviege">
+          <Key>
+            <PropertyRef Name="RelateId" />
+          </Key>
+          <Property Name="RelateId" Type="int" Nullable="false" />
+          <Property Name="MemberLevelId" Type="int" />
+          <Property Name="PrivilegeId" Type="int" />
+        </EntityType>
+        <EntityType Name="tbMember">
+          <Key>
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="MemberId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MemberName" Type="nvarchar" MaxLength="10" />
+          <Property Name="MemberPassword" Type="char" MaxLength="32" />
+          <Property Name="MemberRegisterTime" Type="date" />
+          <Property Name="MemberEmail" Type="nvarchar" MaxLength="10" />
+          <Property Name="MemberLoginTime" Type="date" />
+          <Property Name="MemberIsDel" Type="bit" />
+          <Property Name="MemberCard" Type="int" />
+          <Property Name="MemberSex" Type="bit" />
+          <Property Name="MemberPhone" Type="varchar" MaxLength="11" />
+          <Property Name="MemberBirthday" Type="char" MaxLength="4" />
+          <Property Name="MemberAddress" Type="nvarchar" MaxLength="20" />
+          <Property Name="MemberIDCard" Type="nvarchar" MaxLength="18" />
+          <Property Name="MemberPoint" Type="int" />
+          <Property Name="MemberLevel" Type="int" />
+        </EntityType>
+        <EntityType Name="tbMemeberLevel">
+          <Key>
+            <PropertyRef Name="MemeberLevelId" />
+          </Key>
+          <Property Name="MemeberLevelId" Type="int" Nullable="false" />
+          <Property Name="MemeberLevelName" Type="nvarchar" MaxLength="10" />
+          <Property Name="MemeberLevelDescribe" Type="text" />
+        </EntityType>
+        <EntityType Name="tbOrder">
+          <Key>
+            <PropertyRef Name="StoreID" />
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="StoreID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="CashierID" Type="int" />
+          <Property Name="PrintTime" Type="datetime" />
+          <Property Name="Income" Type="money" />
+          <Property Name="BranchID" Type="int" />
+          <Property Name="Deduct" Type="money" />
+          <Property Name="DiscountRate" Type="money" />
+          <Property Name="PayBy" Type="nvarchar" MaxLength="1" />
+          <Property Name="Deleted" Type="bit" />
+          <Property Name="OldID" Type="int" />
+          <Property Name="RCashierID" Type="int" />
+          <Property Name="MD5" Type="binary" MaxLength="16" />
+          <Property Name="MemberID" Type="uniqueidentifier" />
+          <Property Name="Point" Type="int" />
+        </EntityType>
+        <EntityType Name="tbOrderItem">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Index" />
+            <PropertyRef Name="StoreId" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Index" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" />
+          <Property Name="No" Type="decimal" Scale="1" />
+          <Property Name="Price" Type="money" />
+          <Property Name="Discount" Type="bit" />
+          <Property Name="ItemID" Type="int" />
+          <Property Name="StoreId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbPhotos">
+          <Key>
+            <PropertyRef Name="PhotoID" />
+            <PropertyRef Name="StoreID" />
+          </Key>
+          <Property Name="TableID" Type="smallint" Nullable="false" />
+          <Property Name="PhotoID" Type="int" Nullable="false" />
+          <Property Name="Photo" Type="image" />
+          <Property Name="UpdateTime" Type="datetime" />
+          <Property Name="StoreID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbPrivilege">
+          <Key>
+            <PropertyRef Name="PrivilegeId" />
+          </Key>
+          <Property Name="PrivilegeId" Type="int" Nullable="false" />
+          <Property Name="PrivivilegeClass" Type="int" />
+          <Property Name="PrivilegeContent" Type="nvarchar" MaxLength="10" />
+          <Property Name="PrivilegeAttribute1" Type="nchar" MaxLength="10" />
+          <Property Name="PrivilegeAttribute2" Type="nchar" MaxLength="10" />
+          <Property Name="PrivilegeAttribute3" Type="nchar" MaxLength="10" />
+          <Property Name="PrivilegeBindingObject" Type="int" />
+        </EntityType>
+        <EntityType Name="tbPrivilegeClass">
+          <Key>
+            <PropertyRef Name="PrivilegeClassId" />
+          </Key>
+          <Property Name="PrivilegeClassId" Type="int" Nullable="false" />
+          <Property Name="PrivilegeName" Type="nvarchar" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="tbProduct">
+          <Key>
+            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="StoreID" />
+          </Key>
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="Code" Type="int" />
+          <Property Name="Class" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price" Type="float" />
+          <Property Name="MenuX" Type="smallint" />
+          <Property Name="MenuY" Type="smallint" />
+          <Property Name="EvaluatedCost" Type="money" />
+          <Property Name="Unit" Type="nvarchar" MaxLength="5" />
+          <Property Name="TitleCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="StoreID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbProductClass">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="StoreID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ProductClass" Type="nvarchar" MaxLength="50" />
+          <Property Name="StoreID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbStore">
+          <Key>
+            <PropertyRef Name="StoreID" />
+          </Key>
+          <Property Name="StoreID" Type="int" Nullable="false" />
+          <Property Name="StoreName" Type="nvarchar" MaxLength="50" />
+          <Property Name="StoreAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="StoreDBName" Type="nvarchar" MaxLength="50" />
+          <Property Name="StoreDBUser" Type="nvarchar" MaxLength="50" />
+          <Property Name="StoreDBPwd" Type="nvarchar" MaxLength="50" />
+          <Property Name="StoreDBSouce" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="UpdateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbUser">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="3" />
+          <Property Name="UserPassword" Type="nchar" MaxLength="6" />
+          <Property Name="UserKey" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <!--生成过程中发现错误:
+      警告 6002: 表/视图“Wheat.dbo.vExchangeGoods”未定义主键。已推断出该键，并将定义创建为只读的表/视图。
+      -->
+        <EntityType Name="vExchangeGoods">
+          <Key>
+            <PropertyRef Name="MemberId" />
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="MemberId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PrintTime" Type="datetime" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price" Type="float" />
+          <Property Name="StoreName" Type="nchar" MaxLength="10" />
+          <Property Name="Photo" Type="image" />
+          <Property Name="PayBy" Type="nvarchar" MaxLength="1" />
+        </EntityType>
+        <Association Name="FK_tbCard_tbCardClass">
+          <End Role="tbCardClass" Type="WheatModel.Store.tbCardClass" Multiplicity="0..1" />
+          <End Role="tbCard" Type="WheatModel.Store.tbCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCardClass">
+              <PropertyRef Name="CardClassId" />
+            </Principal>
+            <Dependent Role="tbCard">
+              <PropertyRef Name="CardClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbCashier_tbStore">
+          <End Role="tbStore" Type="WheatModel.Store.tbStore" Multiplicity="0..1" />
+          <End Role="tbCashier" Type="WheatModel.Store.tbCashier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbStore">
+              <PropertyRef Name="StoreID" />
+            </Principal>
+            <Dependent Role="tbCashier">
+              <PropertyRef Name="StoreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbLevelRelatePriviege_tbMemeberLevel">
+          <End Role="tbMemeberLevel" Type="WheatModel.Store.tbMemeberLevel" Multiplicity="0..1" />
+          <End Role="tbLevelRelatePriviege" Type="WheatModel.Store.tbLevelRelatePriviege" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbMemeberLevel">
+              <PropertyRef Name="MemeberLevelId" />
+            </Principal>
+            <Dependent Role="tbLevelRelatePriviege">
+              <PropertyRef Name="MemberLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbLevelRelatePriviege_tbPrivilege">
+          <End Role="tbPrivilege" Type="WheatModel.Store.tbPrivilege" Multiplicity="0..1" />
+          <End Role="tbLevelRelatePriviege" Type="WheatModel.Store.tbLevelRelatePriviege" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbPrivilege">
+              <PropertyRef Name="PrivilegeId" />
+            </Principal>
+            <Dependent Role="tbLevelRelatePriviege">
+              <PropertyRef Name="PrivilegeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbMember_tbCard">
+          <End Role="tbCard" Type="WheatModel.Store.tbCard" Multiplicity="0..1" />
+          <End Role="tbMember" Type="WheatModel.Store.tbMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCard">
+              <PropertyRef Name="CardId" />
+            </Principal>
+            <Dependent Role="tbMember">
+              <PropertyRef Name="MemberCard" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbMember_tbMemeberLevel">
+          <End Role="tbMemeberLevel" Type="WheatModel.Store.tbMemeberLevel" Multiplicity="0..1" />
+          <End Role="tbMember" Type="WheatModel.Store.tbMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbMemeberLevel">
+              <PropertyRef Name="MemeberLevelId" />
+            </Principal>
+            <Dependent Role="tbMember">
+              <PropertyRef Name="MemberLevel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbOrder_tbMember">
+          <End Role="tbMember" Type="WheatModel.Store.tbMember" Multiplicity="0..1" />
+          <End Role="tbOrder" Type="WheatModel.Store.tbOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbMember">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="tbOrder">
+              <PropertyRef Name="MemberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbOrder_tbStore">
+          <End Role="tbStore" Type="WheatModel.Store.tbStore" Multiplicity="1" />
+          <End Role="tbOrder" Type="WheatModel.Store.tbOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbStore">
+              <PropertyRef Name="StoreID" />
+            </Principal>
+            <Dependent Role="tbOrder">
+              <PropertyRef Name="StoreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbOrderItem_tbOrder">
+          <End Role="tbOrder" Type="WheatModel.Store.tbOrder" Multiplicity="0..1" />
+          <End Role="tbOrderItem" Type="WheatModel.Store.tbOrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbOrder">
+              <PropertyRef Name="StoreID" />
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbOrderItem">
+              <PropertyRef Name="StoreId" />
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbOrderItem_tbProduct">
+          <End Role="tbProduct" Type="WheatModel.Store.tbProduct" Multiplicity="0..1" />
+          <End Role="tbOrderItem" Type="WheatModel.Store.tbOrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbProduct">
+              <PropertyRef Name="ProductID" />
+              <PropertyRef Name="StoreID" />
+            </Principal>
+            <Dependent Role="tbOrderItem">
+              <PropertyRef Name="ProductID" />
+              <PropertyRef Name="StoreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPrivilege_tbPrivilegeClass">
+          <End Role="tbPrivilegeClass" Type="WheatModel.Store.tbPrivilegeClass" Multiplicity="0..1" />
+          <End Role="tbPrivilege" Type="WheatModel.Store.tbPrivilege" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbPrivilegeClass">
+              <PropertyRef Name="PrivilegeClassId" />
+            </Principal>
+            <Dependent Role="tbPrivilege">
+              <PropertyRef Name="PrivivilegeClass" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WheatModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="WheatEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbCard" EntityType="WheatModel.tbCard" />
+          <EntitySet Name="tbCardClass" EntityType="WheatModel.tbCardClass" />
+          <EntitySet Name="tbCashier" EntityType="WheatModel.tbCashier" />
+          <EntitySet Name="tbLevelRelatePriviege" EntityType="WheatModel.tbLevelRelatePriviege" />
+          <EntitySet Name="tbMember" EntityType="WheatModel.tbMember" />
+          <EntitySet Name="tbMemeberLevel" EntityType="WheatModel.tbMemeberLevel" />
+          <EntitySet Name="tbOrder" EntityType="WheatModel.tbOrder" />
+          <EntitySet Name="tbOrderItem" EntityType="WheatModel.tbOrderItem" />
+          <EntitySet Name="tbPhotos" EntityType="WheatModel.tbPhotos" />
+          <EntitySet Name="tbPrivilege" EntityType="WheatModel.tbPrivilege" />
+          <EntitySet Name="tbPrivilegeClass" EntityType="WheatModel.tbPrivilegeClass" />
+          <EntitySet Name="tbProduct" EntityType="WheatModel.tbProduct" />
+          <EntitySet Name="tbProductClass" EntityType="WheatModel.tbProductClass" />
+          <EntitySet Name="tbStore" EntityType="WheatModel.tbStore" />
+          <EntitySet Name="tbUser" EntityType="WheatModel.tbUser" />
+          <EntitySet Name="vExchangeGoods" EntityType="WheatModel.vExchangeGoods" />
+          <AssociationSet Name="FK_tbCard_tbCardClass" Association="WheatModel.FK_tbCard_tbCardClass">
+            <End Role="tbCardClass" EntitySet="tbCardClass" />
+            <End Role="tbCard" EntitySet="tbCard" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbMember_tbCard" Association="WheatModel.FK_tbMember_tbCard">
+            <End Role="tbCard" EntitySet="tbCard" />
+            <End Role="tbMember" EntitySet="tbMember" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbCashier_tbStore" Association="WheatModel.FK_tbCashier_tbStore">
+            <End Role="tbStore" EntitySet="tbStore" />
+            <End Role="tbCashier" EntitySet="tbCashier" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbLevelRelatePriviege_tbMemeberLevel" Association="WheatModel.FK_tbLevelRelatePriviege_tbMemeberLevel">
+            <End Role="tbMemeberLevel" EntitySet="tbMemeberLevel" />
+            <End Role="tbLevelRelatePriviege" EntitySet="tbLevelRelatePriviege" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbLevelRelatePriviege_tbPrivilege" Association="WheatModel.FK_tbLevelRelatePriviege_tbPrivilege">
+            <End Role="tbPrivilege" EntitySet="tbPrivilege" />
+            <End Role="tbLevelRelatePriviege" EntitySet="tbLevelRelatePriviege" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbMember_tbMemeberLevel" Association="WheatModel.FK_tbMember_tbMemeberLevel">
+            <End Role="tbMemeberLevel" EntitySet="tbMemeberLevel" />
+            <End Role="tbMember" EntitySet="tbMember" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbOrder_tbMember" Association="WheatModel.FK_tbOrder_tbMember">
+            <End Role="tbMember" EntitySet="tbMember" />
+            <End Role="tbOrder" EntitySet="tbOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbOrder_tbStore" Association="WheatModel.FK_tbOrder_tbStore">
+            <End Role="tbStore" EntitySet="tbStore" />
+            <End Role="tbOrder" EntitySet="tbOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbOrderItem_tbOrder" Association="WheatModel.FK_tbOrderItem_tbOrder">
+            <End Role="tbOrder" EntitySet="tbOrder" />
+            <End Role="tbOrderItem" EntitySet="tbOrderItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbOrderItem_tbProduct" Association="WheatModel.FK_tbOrderItem_tbProduct">
+            <End Role="tbProduct" EntitySet="tbProduct" />
+            <End Role="tbOrderItem" EntitySet="tbOrderItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPrivilege_tbPrivilegeClass" Association="WheatModel.FK_tbPrivilege_tbPrivilegeClass">
+            <End Role="tbPrivilegeClass" EntitySet="tbPrivilegeClass" />
+            <End Role="tbPrivilege" EntitySet="tbPrivilege" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tbCard">
+          <Key>
+            <PropertyRef Name="CardId" />
+          </Key>
+          <Property Name="CardId" Type="Int32" Nullable="false" />
+          <Property Name="CardNumber" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="CardStatus" Type="Int32" />
+          <Property Name="CardCDKEY" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="CardSetLevel" Type="Int32" />
+          <Property Name="CardSetLevelEnabled" Type="Boolean" />
+          <Property Name="CardClassId" Type="Int32" />
+          <NavigationProperty Name="tbCardClass" Relationship="WheatModel.FK_tbCard_tbCardClass" FromRole="tbCard" ToRole="tbCardClass" />
+          <NavigationProperty Name="tbMember" Relationship="WheatModel.FK_tbMember_tbCard" FromRole="tbCard" ToRole="tbMember" />
+        </EntityType>
+        <EntityType Name="tbCardClass">
+          <Key>
+            <PropertyRef Name="CardClassId" />
+          </Key>
+          <Property Name="CardClassId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CardClassName" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="CardAgreement" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="CardDescription" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="CardIntroduce" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="tbCard" Relationship="WheatModel.FK_tbCard_tbCardClass" FromRole="tbCardClass" ToRole="tbCard" />
+          <Property Type="String" Name="CardColor" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tbCashier">
+          <Key>
+            <PropertyRef Name="SNId" />
+          </Key>
+          <Property Name="SNId" Type="Int32" Nullable="false" />
+          <Property Name="CashierId" Type="Int32" />
+          <Property Name="CashierName" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="Inpositon" Type="Boolean" />
+          <Property Name="LastUpdated" Type="DateTime" />
+          <Property Name="StoreId" Type="Int32" />
+          <NavigationProperty Name="tbStore" Relationship="WheatModel.FK_tbCashier_tbStore" FromRole="tbCashier" ToRole="tbStore" />
+        </EntityType>
+        <EntityType Name="tbLevelRelatePriviege">
+          <Key>
+            <PropertyRef Name="RelateId" />
+          </Key>
+          <Property Name="RelateId" Type="Int32" Nullable="false" />
+          <Property Name="MemberLevelId" Type="Int32" />
+          <Property Name="PrivilegeId" Type="Int32" />
+          <NavigationProperty Name="tbMemeberLevel" Relationship="WheatModel.FK_tbLevelRelatePriviege_tbMemeberLevel" FromRole="tbLevelRelatePriviege" ToRole="tbMemeberLevel" />
+          <NavigationProperty Name="tbPrivilege" Relationship="WheatModel.FK_tbLevelRelatePriviege_tbPrivilege" FromRole="tbLevelRelatePriviege" ToRole="tbPrivilege" />
+        </EntityType>
+        <EntityType Name="tbMember">
+          <Key>
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="MemberId" Type="Guid" Nullable="false" />
+          <Property Name="MemberName" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="MemberPassword" Type="String" MaxLength="32" Unicode="false" FixedLength="true" />
+          <Property Name="MemberRegisterTime" Type="DateTime" />
+          <Property Name="MemberEmail" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="MemberLoginTime" Type="DateTime" />
+          <Property Name="MemberIsDel" Type="Boolean" />
+          <Property Name="MemberCard" Type="Int32" />
+          <Property Name="MemberSex" Type="Boolean" />
+          <Property Name="MemberPhone" Type="String" MaxLength="11" Unicode="false" FixedLength="false" />
+          <Property Name="MemberBirthday" Type="String" MaxLength="4" Unicode="false" FixedLength="true" />
+          <Property Name="MemberAddress" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="MemberIDCard" Type="String" MaxLength="18" Unicode="true" FixedLength="false" />
+          <Property Name="MemberPoint" Type="Int32" />
+          <Property Name="MemberLevel" Type="Int32" />
+          <NavigationProperty Name="tbCard" Relationship="WheatModel.FK_tbMember_tbCard" FromRole="tbMember" ToRole="tbCard" />
+          <NavigationProperty Name="tbMemeberLevel" Relationship="WheatModel.FK_tbMember_tbMemeberLevel" FromRole="tbMember" ToRole="tbMemeberLevel" />
+          <NavigationProperty Name="tbOrder" Relationship="WheatModel.FK_tbOrder_tbMember" FromRole="tbMember" ToRole="tbOrder" />
+        </EntityType>
+        <EntityType Name="tbMemeberLevel">
+          <Key>
+            <PropertyRef Name="MemeberLevelId" />
+          </Key>
+          <Property Name="MemeberLevelId" Type="Int32" Nullable="false" />
+          <Property Name="MemeberLevelName" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="MemeberLevelDescribe" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="tbLevelRelatePriviege" Relationship="WheatModel.FK_tbLevelRelatePriviege_tbMemeberLevel" FromRole="tbMemeberLevel" ToRole="tbLevelRelatePriviege" />
+          <NavigationProperty Name="tbMember" Relationship="WheatModel.FK_tbMember_tbMemeberLevel" FromRole="tbMemeberLevel" ToRole="tbMember" />
+        </EntityType>
+        <EntityType Name="tbOrder">
+          <Key>
+            <PropertyRef Name="StoreID" />
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="StoreID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="CashierID" Type="Int32" />
+          <Property Name="PrintTime" Type="DateTime" />
+          <Property Name="Income" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="BranchID" Type="Int32" />
+          <Property Name="Deduct" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DiscountRate" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PayBy" Type="String" MaxLength="1" Unicode="true" FixedLength="false" />
+          <Property Name="Deleted" Type="Boolean" />
+          <Property Name="OldID" Type="Int32" />
+          <Property Name="RCashierID" Type="Int32" />
+          <Property Name="MD5" Type="Binary" MaxLength="16" FixedLength="true" />
+          <Property Name="MemberID" Type="Guid" />
+          <Property Name="Point" Type="Int32" />
+          <NavigationProperty Name="tbMember" Relationship="WheatModel.FK_tbOrder_tbMember" FromRole="tbOrder" ToRole="tbMember" />
+          <NavigationProperty Name="tbStore" Relationship="WheatModel.FK_tbOrder_tbStore" FromRole="tbOrder" ToRole="tbStore" />
+          <NavigationProperty Name="tbOrderItem" Relationship="WheatModel.FK_tbOrderItem_tbOrder" FromRole="tbOrder" ToRole="tbOrderItem" />
+        </EntityType>
+        <EntityType Name="tbOrderItem">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Index" />
+            <PropertyRef Name="StoreId" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Index" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" />
+          <Property Name="No" Type="Decimal" Precision="18" Scale="1" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Discount" Type="Boolean" />
+          <Property Name="ItemID" Type="Int32" />
+          <Property Name="StoreId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbOrder" Relationship="WheatModel.FK_tbOrderItem_tbOrder" FromRole="tbOrderItem" ToRole="tbOrder" />
+          <NavigationProperty Name="tbProduct" Relationship="WheatModel.FK_tbOrderItem_tbProduct" FromRole="tbOrderItem" ToRole="tbProduct" />
+        </EntityType>
+        <EntityType Name="tbPhotos">
+          <Key>
+            <PropertyRef Name="PhotoID" />
+            <PropertyRef Name="StoreID" />
+          </Key>
+          <Property Name="TableID" Type="Int16" Nullable="false" />
+          <Property Name="PhotoID" Type="Int32" Nullable="false" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="UpdateTime" Type="DateTime" />
+          <Property Name="StoreID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbPrivilege">
+          <Key>
+            <PropertyRef Name="PrivilegeId" />
+          </Key>
+          <Property Name="PrivilegeId" Type="Int32" Nullable="false" />
+          <Property Name="PrivivilegeClass" Type="Int32" />
+          <Property Name="PrivilegeContent" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="PrivilegeAttribute1" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="PrivilegeAttribute2" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="PrivilegeAttribute3" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="PrivilegeBindingObject" Type="Int32" />
+          <NavigationProperty Name="tbLevelRelatePriviege" Relationship="WheatModel.FK_tbLevelRelatePriviege_tbPrivilege" FromRole="tbPrivilege" ToRole="tbLevelRelatePriviege" />
+          <NavigationProperty Name="tbPrivilegeClass" Relationship="WheatModel.FK_tbPrivilege_tbPrivilegeClass" FromRole="tbPrivilege" ToRole="tbPrivilegeClass" />
+        </EntityType>
+        <EntityType Name="tbPrivilegeClass">
+          <Key>
+            <PropertyRef Name="PrivilegeClassId" />
+          </Key>
+          <Property Name="PrivilegeClassId" Type="Int32" Nullable="false" />
+          <Property Name="PrivilegeName" Type="String" MaxLength="5" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="tbPrivilege" Relationship="WheatModel.FK_tbPrivilege_tbPrivilegeClass" FromRole="tbPrivilegeClass" ToRole="tbPrivilege" />
+        </EntityType>
+        <EntityType Name="tbProduct">
+          <Key>
+            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="StoreID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="Code" Type="Int32" />
+          <Property Name="Class" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Price" Type="Double" />
+          <Property Name="MenuX" Type="Int16" />
+          <Property Name="MenuY" Type="Int16" />
+          <Property Name="EvaluatedCost" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Unit" Type="String" MaxLength="5" Unicode="true" FixedLength="false" />
+          <Property Name="TitleCode" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="StoreID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbOrderItem" Relationship="WheatModel.FK_tbOrderItem_tbProduct" FromRole="tbProduct" ToRole="tbOrderItem" />
+        </EntityType>
+        <EntityType Name="tbProductClass">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="StoreID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ProductClass" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="StoreID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbStore">
+          <Key>
+            <PropertyRef Name="StoreID" />
+          </Key>
+          <Property Name="StoreID" Type="Int32" Nullable="false" />
+          <Property Name="StoreName" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="StoreAddress" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="StoreDBName" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="StoreDBUser" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="StoreDBPwd" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="StoreDBSouce" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="CreateTime" Type="DateTime" />
+          <Property Name="UpdateTime" Type="DateTime" />
+          <NavigationProperty Name="tbCashier" Relationship="WheatModel.FK_tbCashier_tbStore" FromRole="tbStore" ToRole="tbCashier" />
+          <NavigationProperty Name="tbOrder" Relationship="WheatModel.FK_tbOrder_tbStore" FromRole="tbStore" ToRole="tbOrder" />
+        </EntityType>
+        <EntityType Name="tbUser">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="3" Unicode="true" FixedLength="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="6" Unicode="true" FixedLength="true" />
+          <Property Name="UserKey" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="vExchangeGoods">
+          <Key>
+            <PropertyRef Name="MemberId" />
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="MemberId" Type="Guid" Nullable="false" />
+          <Property Name="PrintTime" Type="DateTime" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Price" Type="Double" />
+          <Property Name="StoreName" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="PayBy" Type="String" MaxLength="1" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_tbCard_tbCardClass">
+          <End Role="tbCardClass" Type="WheatModel.tbCardClass" Multiplicity="0..1" />
+          <End Role="tbCard" Type="WheatModel.tbCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCardClass">
+              <PropertyRef Name="CardClassId" />
+            </Principal>
+            <Dependent Role="tbCard">
+              <PropertyRef Name="CardClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbMember_tbCard">
+          <End Role="tbCard" Type="WheatModel.tbCard" Multiplicity="0..1" />
+          <End Role="tbMember" Type="WheatModel.tbMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCard">
+              <PropertyRef Name="CardId" />
+            </Principal>
+            <Dependent Role="tbMember">
+              <PropertyRef Name="MemberCard" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbCashier_tbStore">
+          <End Role="tbStore" Type="WheatModel.tbStore" Multiplicity="0..1" />
+          <End Role="tbCashier" Type="WheatModel.tbCashier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbStore">
+              <PropertyRef Name="StoreID" />
+            </Principal>
+            <Dependent Role="tbCashier">
+              <PropertyRef Name="StoreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbLevelRelatePriviege_tbMemeberLevel">
+          <End Role="tbMemeberLevel" Type="WheatModel.tbMemeberLevel" Multiplicity="0..1" />
+          <End Role="tbLevelRelatePriviege" Type="WheatModel.tbLevelRelatePriviege" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbMemeberLevel">
+              <PropertyRef Name="MemeberLevelId" />
+            </Principal>
+            <Dependent Role="tbLevelRelatePriviege">
+              <PropertyRef Name="MemberLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbLevelRelatePriviege_tbPrivilege">
+          <End Role="tbPrivilege" Type="WheatModel.tbPrivilege" Multiplicity="0..1" />
+          <End Role="tbLevelRelatePriviege" Type="WheatModel.tbLevelRelatePriviege" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbPrivilege">
+              <PropertyRef Name="PrivilegeId" />
+            </Principal>
+            <Dependent Role="tbLevelRelatePriviege">
+              <PropertyRef Name="PrivilegeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbMember_tbMemeberLevel">
+          <End Role="tbMemeberLevel" Type="WheatModel.tbMemeberLevel" Multiplicity="0..1" />
+          <End Role="tbMember" Type="WheatModel.tbMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbMemeberLevel">
+              <PropertyRef Name="MemeberLevelId" />
+            </Principal>
+            <Dependent Role="tbMember">
+              <PropertyRef Name="MemberLevel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbOrder_tbMember">
+          <End Role="tbMember" Type="WheatModel.tbMember" Multiplicity="0..1" />
+          <End Role="tbOrder" Type="WheatModel.tbOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbMember">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="tbOrder">
+              <PropertyRef Name="MemberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbOrder_tbStore">
+          <End Role="tbStore" Type="WheatModel.tbStore" Multiplicity="1" />
+          <End Role="tbOrder" Type="WheatModel.tbOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbStore">
+              <PropertyRef Name="StoreID" />
+            </Principal>
+            <Dependent Role="tbOrder">
+              <PropertyRef Name="StoreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbOrderItem_tbOrder">
+          <End Role="tbOrder" Type="WheatModel.tbOrder" Multiplicity="0..1" />
+          <End Role="tbOrderItem" Type="WheatModel.tbOrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbOrder">
+              <PropertyRef Name="StoreID" />
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbOrderItem">
+              <PropertyRef Name="StoreId" />
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbOrderItem_tbProduct">
+          <End Role="tbProduct" Type="WheatModel.tbProduct" Multiplicity="0..1" />
+          <End Role="tbOrderItem" Type="WheatModel.tbOrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbProduct">
+              <PropertyRef Name="ProductID" />
+              <PropertyRef Name="StoreID" />
+            </Principal>
+            <Dependent Role="tbOrderItem">
+              <PropertyRef Name="ProductID" />
+              <PropertyRef Name="StoreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPrivilege_tbPrivilegeClass">
+          <End Role="tbPrivilegeClass" Type="WheatModel.tbPrivilegeClass" Multiplicity="0..1" />
+          <End Role="tbPrivilege" Type="WheatModel.tbPrivilege" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbPrivilegeClass">
+              <PropertyRef Name="PrivilegeClassId" />
+            </Principal>
+            <Dependent Role="tbPrivilege">
+              <PropertyRef Name="PrivivilegeClass" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WheatModelStoreContainer" CdmEntityContainer="WheatEntities">
+          <EntitySetMapping Name="tbCard">
+            <EntityTypeMapping TypeName="WheatModel.tbCard">
+              <MappingFragment StoreEntitySet="tbCard">
+                <ScalarProperty Name="CardId" ColumnName="CardId" />
+                <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
+                <ScalarProperty Name="CardStatus" ColumnName="CardStatus" />
+                <ScalarProperty Name="CardCDKEY" ColumnName="CardCDKEY" />
+                <ScalarProperty Name="CardSetLevel" ColumnName="CardSetLevel" />
+                <ScalarProperty Name="CardSetLevelEnabled" ColumnName="CardSetLevelEnabled" />
+                <ScalarProperty Name="CardClassId" ColumnName="CardClassId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbCardClass">
+            <EntityTypeMapping TypeName="WheatModel.tbCardClass">
+              <MappingFragment StoreEntitySet="tbCardClass">
+                <ScalarProperty Name="CardColor" ColumnName="CardColor" />
+                <ScalarProperty Name="CardClassId" ColumnName="CardClassId" />
+                <ScalarProperty Name="CardClassName" ColumnName="CardClassName" />
+                <ScalarProperty Name="CardAgreement" ColumnName="CardAgreement" />
+                <ScalarProperty Name="CardDescription" ColumnName="CardDescription" />
+                <ScalarProperty Name="CardIntroduce" ColumnName="CardIntroduce" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbCashier">
+            <EntityTypeMapping TypeName="WheatModel.tbCashier">
+              <MappingFragment StoreEntitySet="tbCashier">
+                <ScalarProperty Name="SNId" ColumnName="SNId" />
+                <ScalarProperty Name="CashierId" ColumnName="CashierId" />
+                <ScalarProperty Name="CashierName" ColumnName="CashierName" />
+                <ScalarProperty Name="Inpositon" ColumnName="Inpositon" />
+                <ScalarProperty Name="LastUpdated" ColumnName="LastUpdated" />
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbLevelRelatePriviege">
+            <EntityTypeMapping TypeName="WheatModel.tbLevelRelatePriviege">
+              <MappingFragment StoreEntitySet="tbLevelRelatePriviege">
+                <ScalarProperty Name="RelateId" ColumnName="RelateId" />
+                <ScalarProperty Name="MemberLevelId" ColumnName="MemberLevelId" />
+                <ScalarProperty Name="PrivilegeId" ColumnName="PrivilegeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbMember">
+            <EntityTypeMapping TypeName="WheatModel.tbMember">
+              <MappingFragment StoreEntitySet="tbMember">
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="MemberName" ColumnName="MemberName" />
+                <ScalarProperty Name="MemberPassword" ColumnName="MemberPassword" />
+                <ScalarProperty Name="MemberRegisterTime" ColumnName="MemberRegisterTime" />
+                <ScalarProperty Name="MemberEmail" ColumnName="MemberEmail" />
+                <ScalarProperty Name="MemberLoginTime" ColumnName="MemberLoginTime" />
+                <ScalarProperty Name="MemberIsDel" ColumnName="MemberIsDel" />
+                <ScalarProperty Name="MemberCard" ColumnName="MemberCard" />
+                <ScalarProperty Name="MemberSex" ColumnName="MemberSex" />
+                <ScalarProperty Name="MemberPhone" ColumnName="MemberPhone" />
+                <ScalarProperty Name="MemberBirthday" ColumnName="MemberBirthday" />
+                <ScalarProperty Name="MemberAddress" ColumnName="MemberAddress" />
+                <ScalarProperty Name="MemberIDCard" ColumnName="MemberIDCard" />
+                <ScalarProperty Name="MemberPoint" ColumnName="MemberPoint" />
+                <ScalarProperty Name="MemberLevel" ColumnName="MemberLevel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbMemeberLevel">
+            <EntityTypeMapping TypeName="WheatModel.tbMemeberLevel">
+              <MappingFragment StoreEntitySet="tbMemeberLevel">
+                <ScalarProperty Name="MemeberLevelId" ColumnName="MemeberLevelId" />
+                <ScalarProperty Name="MemeberLevelName" ColumnName="MemeberLevelName" />
+                <ScalarProperty Name="MemeberLevelDescribe" ColumnName="MemeberLevelDescribe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbOrder">
+            <EntityTypeMapping TypeName="WheatModel.tbOrder">
+              <MappingFragment StoreEntitySet="tbOrder">
+                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CashierID" ColumnName="CashierID" />
+                <ScalarProperty Name="PrintTime" ColumnName="PrintTime" />
+                <ScalarProperty Name="Income" ColumnName="Income" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="Deduct" ColumnName="Deduct" />
+                <ScalarProperty Name="DiscountRate" ColumnName="DiscountRate" />
+                <ScalarProperty Name="PayBy" ColumnName="PayBy" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="OldID" ColumnName="OldID" />
+                <ScalarProperty Name="RCashierID" ColumnName="RCashierID" />
+                <ScalarProperty Name="MD5" ColumnName="MD5" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="Point" ColumnName="Point" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbOrderItem">
+            <EntityTypeMapping TypeName="WheatModel.tbOrderItem">
+              <MappingFragment StoreEntitySet="tbOrderItem">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Index" ColumnName="Index" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="No" ColumnName="No" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbPhotos">
+            <EntityTypeMapping TypeName="WheatModel.tbPhotos">
+              <MappingFragment StoreEntitySet="tbPhotos">
+                <ScalarProperty Name="TableID" ColumnName="TableID" />
+                <ScalarProperty Name="PhotoID" ColumnName="PhotoID" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbPrivilege">
+            <EntityTypeMapping TypeName="WheatModel.tbPrivilege">
+              <MappingFragment StoreEntitySet="tbPrivilege">
+                <ScalarProperty Name="PrivilegeId" ColumnName="PrivilegeId" />
+                <ScalarProperty Name="PrivivilegeClass" ColumnName="PrivivilegeClass" />
+                <ScalarProperty Name="PrivilegeContent" ColumnName="PrivilegeContent" />
+                <ScalarProperty Name="PrivilegeAttribute1" ColumnName="PrivilegeAttribute1" />
+                <ScalarProperty Name="PrivilegeAttribute2" ColumnName="PrivilegeAttribute2" />
+                <ScalarProperty Name="PrivilegeAttribute3" ColumnName="PrivilegeAttribute3" />
+                <ScalarProperty Name="PrivilegeBindingObject" ColumnName="PrivilegeBindingObject" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbPrivilegeClass">
+            <EntityTypeMapping TypeName="WheatModel.tbPrivilegeClass">
+              <MappingFragment StoreEntitySet="tbPrivilegeClass">
+                <ScalarProperty Name="PrivilegeClassId" ColumnName="PrivilegeClassId" />
+                <ScalarProperty Name="PrivilegeName" ColumnName="PrivilegeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbProduct">
+            <EntityTypeMapping TypeName="WheatModel.tbProduct">
+              <MappingFragment StoreEntitySet="tbProduct">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Class" ColumnName="Class" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="MenuX" ColumnName="MenuX" />
+                <ScalarProperty Name="MenuY" ColumnName="MenuY" />
+                <ScalarProperty Name="EvaluatedCost" ColumnName="EvaluatedCost" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="TitleCode" ColumnName="TitleCode" />
+                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbProductClass">
+            <EntityTypeMapping TypeName="WheatModel.tbProductClass">
+              <MappingFragment StoreEntitySet="tbProductClass">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ProductClass" ColumnName="ProductClass" />
+                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbStore">
+            <EntityTypeMapping TypeName="WheatModel.tbStore">
+              <MappingFragment StoreEntitySet="tbStore">
+                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+                <ScalarProperty Name="StoreName" ColumnName="StoreName" />
+                <ScalarProperty Name="StoreAddress" ColumnName="StoreAddress" />
+                <ScalarProperty Name="StoreDBName" ColumnName="StoreDBName" />
+                <ScalarProperty Name="StoreDBUser" ColumnName="StoreDBUser" />
+                <ScalarProperty Name="StoreDBPwd" ColumnName="StoreDBPwd" />
+                <ScalarProperty Name="StoreDBSouce" ColumnName="StoreDBSouce" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbUser">
+            <EntityTypeMapping TypeName="WheatModel.tbUser">
+              <MappingFragment StoreEntitySet="tbUser">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserKey" ColumnName="UserKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vExchangeGoods">
+            <EntityTypeMapping TypeName="WheatModel.vExchangeGoods">
+              <MappingFragment StoreEntitySet="vExchangeGoods">
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="PrintTime" ColumnName="PrintTime" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="StoreName" ColumnName="StoreName" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="PayBy" ColumnName="PayBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="MemberModel">
+        <EntityTypeShape EntityType="WheatModel.tbCard" Width="1.5" PointX="3.75" PointY="12.75" Height="2.7341113281249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="WheatModel.tbCardClass" Width="1.5" PointX="1.5" PointY="13" Height="2.1610522460937496" IsExpanded="true" />
+        <EntityTypeShape EntityType="WheatModel.tbCashier" Width="1.5" PointX="8.25" PointY="15" Height="2.3520719401041674" IsExpanded="true" />
+        <EntityTypeShape EntityType="WheatModel.tbLevelRelatePriviege" Width="1.5" PointX="3" PointY="5.125" Height="1.9700325520833335" IsExpanded="true" />
+        <EntityTypeShape EntityType="WheatModel.tbMember" Width="1.5" PointX="6" PointY="3.875" Height="4.45328857421875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WheatModel.tbMemeberLevel" Width="1.5" PointX="0.75" PointY="5.125" Height="1.9700325520833326" IsExpanded="true" />
+        <EntityTypeShape EntityType="WheatModel.tbOrder" Width="1.5" PointX="8.25" PointY="3.875" Height="4.45328857421875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WheatModel.tbOrderItem" Width="1.5" PointX="10.5" PointY="4.625" Height="2.9251310221354174" IsExpanded="true" />
+        <EntityTypeShape EntityType="WheatModel.tbPhotos" Width="1.5" PointX="2.75" PointY="2.125" Height="1.9700325520833317" IsExpanded="true" />
+        <EntityTypeShape EntityType="WheatModel.tbPrivilege" Width="1.5" PointX="0.75" PointY="0.75" Height="2.7341113281249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="WheatModel.tbPrivilegeClass" Width="1.5" PointX="1.5" PointY="9.5" Height="1.5879931640625031" IsExpanded="true" />
+        <EntityTypeShape EntityType="WheatModel.tbProduct" Width="1.5" PointX="8.25" PointY="10.5" Height="3.3071704101562531" IsExpanded="true" />
+        <EntityTypeShape EntityType="WheatModel.tbProductClass" Width="1.5" PointX="10.75" PointY="2.125" Height="1.5879931640625031" IsExpanded="true" />
+        <EntityTypeShape EntityType="WheatModel.tbStore" Width="1.5" PointX="6" PointY="10.5" Height="3.1161507161458388" IsExpanded="true" />
+        <EntityTypeShape EntityType="WheatModel.tbUser" Width="1.5" PointX="10.75" PointY="9.125" Height="1.7790128580729174" IsExpanded="true" />
+        <EntityTypeShape EntityType="WheatModel.vExchangeGoods" Width="1.5" PointX="10.75" PointY="12.125" Height="2.5430916341145888" IsExpanded="true" />
+        <AssociationConnector Association="WheatModel.FK_tbCard_tbCardClass" ManuallyRouted="false">
+          <ConnectorPoint PointX="3" PointY="14.080526123046875" />
+          <ConnectorPoint PointX="3.75" PointY="14.080526123046875" />
+        </AssociationConnector>
+        <AssociationConnector Association="WheatModel.FK_tbMember_tbCard" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.90625" PointY="12.75" />
+          <ConnectorPoint PointX="4.90625" PointY="7.7429105631510415" />
+          <ConnectorPoint PointX="6" PointY="7.7429105631510415" />
+        </AssociationConnector>
+        <AssociationConnector Association="WheatModel.FK_tbCashier_tbStore" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.75" PointY="13.616150716145839" />
+          <ConnectorPoint PointX="6.75" PointY="16.176035970052084" />
+          <ConnectorPoint PointX="8.25" PointY="16.176035970052084" />
+        </AssociationConnector>
+        <AssociationConnector Association="WheatModel.FK_tbLevelRelatePriviege_tbMemeberLevel" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="6.1100162760416659" />
+          <ConnectorPoint PointX="3" PointY="6.1100162760416659" />
+        </AssociationConnector>
+        <AssociationConnector Association="WheatModel.FK_tbLevelRelatePriviege_tbPrivilege" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="1.40625" />
+          <ConnectorPoint PointX="4.40625" PointY="1.40625" />
+          <ConnectorPoint PointX="4.40625" PointY="5.125" />
+        </AssociationConnector>
+        <AssociationConnector Association="WheatModel.FK_tbMember_tbMemeberLevel" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.5" PointY="7.0950325520833326" />
+          <ConnectorPoint PointX="1.5" PointY="7.3877195576171859" />
+          <ConnectorPoint PointX="6" PointY="7.3877195576171859" />
+        </AssociationConnector>
+        <AssociationConnector Association="WheatModel.FK_tbOrder_tbMember" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.5" PointY="6.1016442871093748" />
+          <ConnectorPoint PointX="8.25" PointY="6.1016442871093748" />
+        </AssociationConnector>
+        <AssociationConnector Association="WheatModel.FK_tbOrder_tbStore" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.5" PointY="10.501152846153847" />
+          <ConnectorPoint PointX="7.875" PointY="10.126152846153847" />
+          <ConnectorPoint PointX="7.875" PointY="7.2462184306640633" />
+          <ConnectorPoint PointX="8.25" PointY="7.2462184306640633" />
+        </AssociationConnector>
+        <AssociationConnector Association="WheatModel.FK_tbOrderItem_tbOrder" ManuallyRouted="false">
+          <ConnectorPoint PointX="9.75" PointY="6.0875655110677087" />
+          <ConnectorPoint PointX="10.5" PointY="6.0875655110677087" />
+        </AssociationConnector>
+        <AssociationConnector Association="WheatModel.FK_tbOrderItem_tbProduct" ManuallyRouted="false">
+          <ConnectorPoint PointX="9.75" PointY="11.514506429036459" />
+          <ConnectorPoint PointX="10.59375" PointY="11.514506429036459" />
+          <ConnectorPoint PointX="10.59375" PointY="7.5501310221354174" />
+        </AssociationConnector>
+        <AssociationConnector Association="WheatModel.FK_tbPrivilege_tbPrivilegeClass" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.5011528461538464" PointY="9.5" />
+          <ConnectorPoint PointX="1.1261528461538468" PointY="9.125" />
+          <ConnectorPoint PointX="0.375" PointY="9.125" />
+          <ConnectorPoint PointX="0.375" PointY="3.8591113281249996" />
+          <ConnectorPoint PointX="0.75" PointY="3.4841113281249996" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -515,7 +515,8 @@ namespace VoucherExpense
                       //  total += it.Price * it.No * discountRate;
                    // else
                     //    total += it.Price * it.No;
-                    total += it.Cost * it.Volume;
+                   // total += it.Cost * it.Volume;
+                    total += it.Cost;
                 }
                 decimal income = 0;
                 //if (!row.IsIncomeNull()) income = row.Income;
@@ -539,7 +540,8 @@ namespace VoucherExpense
                             //    m.Total += (it.Price * it.No * discountRate) * deductRate;
                             //else
                             //    m.Total += it.Price * it.No * deductRate;
-                            m.Total += it.Cost * it.Volume * deductRate;
+                           // m.Total += it.Cost * it.Volume * deductRate;
+                            m.Total += it.Cost * deductRate;
                             break;
                         }
                     }

@@ -41,7 +41,6 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.labelTotal = new System.Windows.Forms.Label();
             this.labelClass = new System.Windows.Forms.Label();
-            this.pictureBoxOrdered = new System.Windows.Forms.PictureBox();
             this.btnCashDrawer = new System.Windows.Forms.Button();
             this.btnNewOrder = new System.Windows.Forms.Button();
             this.checkBoxTest = new System.Windows.Forms.CheckBox();
@@ -71,9 +70,8 @@
             this.bakeryOrderSet = new BakeryOrder.BakeryOrderSet();
             this.cashierTableAdapter = new BakeryOrder.BakeryOrderSetTableAdapters.CashierTableAdapter();
             this.headerTableAdapter = new BakeryOrder.BakeryOrderSetTableAdapters.HeaderTableAdapter();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.pictureBoxOrdered = new System.Windows.Forms.Panel();
             this.tabControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrdered)).BeginInit();
             this.panelLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).BeginInit();
             this.SuspendLayout();
@@ -191,15 +189,6 @@
             this.labelClass.Size = new System.Drawing.Size(40, 16);
             this.labelClass.TabIndex = 5;
             this.labelClass.Text = "現金";
-            // 
-            // pictureBoxOrdered
-            // 
-            this.pictureBoxOrdered.Location = new System.Drawing.Point(1, 465);
-            this.pictureBoxOrdered.Name = "pictureBoxOrdered";
-            this.pictureBoxOrdered.Size = new System.Drawing.Size(240, 160);
-            this.pictureBoxOrdered.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBoxOrdered.TabIndex = 7;
-            this.pictureBoxOrdered.TabStop = false;
             // 
             // btnCashDrawer
             // 
@@ -493,13 +482,12 @@
             // 
             this.headerTableAdapter.ClearBeforeFill = true;
             // 
-            // richTextBox1
+            // pictureBoxOrdered
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(26, 495);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(100, 96);
-            this.richTextBox1.TabIndex = 17;
-            this.richTextBox1.Text = "";
+            this.pictureBoxOrdered.Location = new System.Drawing.Point(18, 472);
+            this.pictureBoxOrdered.Name = "pictureBoxOrdered";
+            this.pictureBoxOrdered.Size = new System.Drawing.Size(200, 147);
+            this.pictureBoxOrdered.TabIndex = 20;
             // 
             // FormCashier
             // 
@@ -507,7 +495,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(1024, 768);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.pictureBoxOrdered);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.btnTest);
             this.Controls.Add(this.labelDeduct);
@@ -522,7 +510,6 @@
             this.Controls.Add(this.panelLogin);
             this.Controls.Add(this.btnStatics);
             this.Controls.Add(this.btnPrint);
-            this.Controls.Add(this.pictureBoxOrdered);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -533,7 +520,6 @@
             this.Activated += new System.EventHandler(this.FormCashier_Activated);
             this.Load += new System.EventHandler(this.FormCashier_Load);
             this.tabControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrdered)).EndInit();
             this.panelLogin.ResumeLayout(false);
             this.panelLogin.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).EndInit();
@@ -556,7 +542,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader代碼;
         private System.Windows.Forms.Label labelTotal;
         private System.Windows.Forms.Label labelClass;
-        private System.Windows.Forms.PictureBox pictureBoxOrdered;
         private System.Windows.Forms.Button btnCashDrawer;
         private System.Windows.Forms.Button btnNewOrder;
         private BakeryOrderSetTableAdapters.ProductTableAdapter productTableAdapter;
@@ -586,7 +571,7 @@
         private System.Windows.Forms.Label labelDeduct;
         private System.Windows.Forms.Button btnTest;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Panel pictureBoxOrdered;
     }
 }
 

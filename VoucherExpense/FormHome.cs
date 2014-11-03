@@ -510,5 +510,10 @@ namespace VoucherExpense
                 }
             }
         }
+
+        private void 销售预估ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PopupOrRun("FormSalesForecast", typeof(FormSalesForecast));
+        }
     }
 }

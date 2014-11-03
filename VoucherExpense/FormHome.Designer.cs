@@ -89,13 +89,14 @@
             this.请款单ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.耗料ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.盤點ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.销售预估ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menu1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menu1
             // 
             this.menu1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("menu1.BackgroundImage")));
-            this.menu1.Font = new System.Drawing.Font("細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.menu1.Font = new System.Drawing.Font("MingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.menu1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.基本資料MenuItem,
             this.費用MenuItem,
@@ -318,7 +319,8 @@
             this.收入MenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.餐飲月報ToolStripMenuItem,
             this.餐飲明細ToolStripMenuItem,
-            this.收銀授權ToolStripMenuItem});
+            this.收銀授權ToolStripMenuItem,
+            this.销售预估ToolStripMenuItem});
             this.收入MenuItem.Name = "收入MenuItem";
             this.收入MenuItem.Size = new System.Drawing.Size(52, 20);
             this.收入MenuItem.Text = "收入";
@@ -326,21 +328,21 @@
             // 餐飲月報ToolStripMenuItem
             // 
             this.餐飲月報ToolStripMenuItem.Name = "餐飲月報ToolStripMenuItem";
-            this.餐飲月報ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.餐飲月報ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.餐飲月報ToolStripMenuItem.Text = "月報";
             this.餐飲月報ToolStripMenuItem.Click += new System.EventHandler(this.月報ToolStripMenuItem_Click);
             // 
             // 餐飲明細ToolStripMenuItem
             // 
             this.餐飲明細ToolStripMenuItem.Name = "餐飲明細ToolStripMenuItem";
-            this.餐飲明細ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.餐飲明細ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.餐飲明細ToolStripMenuItem.Text = "明細";
             this.餐飲明細ToolStripMenuItem.Click += new System.EventHandler(this.明細ToolStripMenuItem_Click);
             // 
             // 收銀授權ToolStripMenuItem
             // 
             this.收銀授權ToolStripMenuItem.Name = "收銀授權ToolStripMenuItem";
-            this.收銀授權ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.收銀授權ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.收銀授權ToolStripMenuItem.Text = "收銀授權";
             this.收銀授權ToolStripMenuItem.Click += new System.EventHandler(this.收銀授權ToolStripMenuItem_Click);
             // 
@@ -393,7 +395,7 @@
             // 轉帳傳票MenuItem
             // 
             this.轉帳傳票MenuItem.Name = "轉帳傳票MenuItem";
-            this.轉帳傳票MenuItem.Size = new System.Drawing.Size(152, 22);
+            this.轉帳傳票MenuItem.Size = new System.Drawing.Size(148, 22);
             this.轉帳傳票MenuItem.Text = "轉帳傳票";
             this.轉帳傳票MenuItem.Visible = false;
             this.轉帳傳票MenuItem.Click += new System.EventHandler(this.轉帳傳票MenuItem_Click);
@@ -401,7 +403,7 @@
             // 損益報表ToolStripMenuItem
             // 
             this.損益報表ToolStripMenuItem.Name = "損益報表ToolStripMenuItem";
-            this.損益報表ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.損益報表ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.損益報表ToolStripMenuItem.Text = "損益報表";
             this.損益報表ToolStripMenuItem.Visible = false;
             this.損益報表ToolStripMenuItem.Click += new System.EventHandler(this.損益報表ToolStripMenuItem_Click);
@@ -409,14 +411,14 @@
             // 分類MenuItem
             // 
             this.分類MenuItem.Name = "分類MenuItem";
-            this.分類MenuItem.Size = new System.Drawing.Size(152, 22);
+            this.分類MenuItem.Size = new System.Drawing.Size(148, 22);
             this.分類MenuItem.Text = "分類帳";
             this.分類MenuItem.Click += new System.EventHandler(this.分類MenuItem_Click);
             // 
             // 合併傳票MenuItem
             // 
             this.合併傳票MenuItem.Name = "合併傳票MenuItem";
-            this.合併傳票MenuItem.Size = new System.Drawing.Size(152, 22);
+            this.合併傳票MenuItem.Size = new System.Drawing.Size(148, 22);
             this.合併傳票MenuItem.Text = "合併 mdb";
             this.合併傳票MenuItem.Visible = false;
             this.合併傳票MenuItem.Click += new System.EventHandler(this.合併傳票MdbMenuItem_Click);
@@ -424,7 +426,7 @@
             // 組合傳票ToolStripMenuItem
             // 
             this.組合傳票ToolStripMenuItem.Name = "組合傳票ToolStripMenuItem";
-            this.組合傳票ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.組合傳票ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.組合傳票ToolStripMenuItem.Text = "組合傳票";
             this.組合傳票ToolStripMenuItem.Click += new System.EventHandler(this.組合傳票ToolStripMenuItem_Click);
             // 
@@ -579,6 +581,13 @@
             this.盤點ToolStripMenuItem.Name = "盤點ToolStripMenuItem";
             this.盤點ToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
             // 
+            // 销售预估ToolStripMenuItem
+            // 
+            this.销售预估ToolStripMenuItem.Name = "销售预估ToolStripMenuItem";
+            this.销售预估ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.销售预估ToolStripMenuItem.Text = "销售预估";
+            this.销售预估ToolStripMenuItem.Click += new System.EventHandler(this.销售预估ToolStripMenuItem_Click);
+            // 
             // FormHome
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -586,7 +595,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(960, 714);
             this.Controls.Add(this.menu1);
-            this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menu1;
@@ -665,6 +674,7 @@
         private System.Windows.Forms.ToolStripMenuItem 出货ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 出货收款统计ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 組合傳票ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 销售预估ToolStripMenuItem;
 
     }
 }

@@ -217,7 +217,7 @@ namespace BakeryOrder
                     CreateSmallImage(big, pictureBoxOrdered.Width, pictureBoxOrdered.Height, small);
                 }
                 Image img = Bitmap.FromFile(small);
-                pictureBoxOrdered.Image = img;
+                imgShow(img);
                 if (m_FormCustomer != null)
                     m_FormCustomer.SetPicture(img);
             }
@@ -280,7 +280,8 @@ namespace BakeryOrder
                 CreateSmallImage(big, pictureBoxOrdered.Width, pictureBoxOrdered.Height, small);
             }
             Image img = Bitmap.FromFile(small);
-            pictureBoxOrdered.Image = img;
+            imgShow(img);
+          //  myImgControl1.BackgroundImage = img;
             Application.DoEvents();           // 先把前面做的顯示出來
             if (m_FormCustomer != null)
             {
@@ -703,6 +704,12 @@ namespace BakeryOrder
 
         BakeryOrderSet.OrderRow m_CurrentOrder = null;
 
+        /// <summary>
+        /// 打印
+        /// </summary>
+        /// <param name="CurrentOrder"></param>
+        /// <param name="moneyGot"></param>
+        /// <param name="printTwice"></param>
         void Print(BakeryOrderSet.OrderRow CurrentOrder, double moneyGot,bool printTwice)
         {
             //byte[] PrintChinese = new byte[] { };
@@ -717,11 +724,26 @@ namespace BakeryOrder
             CurrentOrder.PrintTime = DateTime.Now;
             if (!SaveOrder(CurrentOrder)) return;
 
+
             Buf.Append(BorderMode);                                      // 設定列印模式28
             Buf.Append(m_Printer.Title + "\r\n");
             Buf.Append(NormalMode);                                      // 設定列印模式正常 
 
             Buf.Append("\r\n");
+
+            if (MemberInfo.CardNumber!=null)
+            {
+                 Buf.Append("会员卡号："+MemberInfo.CardNumber.ToString()+"\r\n");
+            }
+            if (MemberInfo.MemberName != null)
+            {
+                Buf.Append("会员姓名："+MemberInfo.MemberName.ToString()+"\r\n");
+            }
+            if (MemberInfo.MemberPoint!=null)
+            {
+                Buf.Append("会员麦子" + MemberInfo.MemberPoint.ToString() + "\r\n");
+            }
+
             Buf.Append(m_Printer.Address + "\r\n");
             Buf.AppendPadRight(m_Printer.Tel, 19);
             n = (CurrentOrder.ID % 1000);
@@ -839,7 +861,7 @@ namespace BakeryOrder
                 RawPrint.SendManagedBytes(m_Printer.PrinterName, m_CashDrawer);
             CreateUpdateDrawerRecord(ref m_MaxDrawerRecordID, m_CurrentOrder.ID % 10000);
             MemberInfo.Set();
-            richTextBox1.Text = "";
+            //richTextBox1.Text = "";
             textBox1.SelectAll();
             textBox1.Focus();
 ////////////////////////清空当前会员
@@ -908,7 +930,7 @@ namespace BakeryOrder
         private void btnNewOrder_Click(object sender, EventArgs e)
         {        
             MemberInfo.Set();
-            richTextBox1.Text = "";
+           // richTextBox1.Text = "";
             textBox1.SelectAll();
             textBox1.Focus();
             DoNewOrder();
@@ -1223,7 +1245,7 @@ namespace BakeryOrder
         //    return DicPayBy.First().Key;
         //}
 
-        Dictionary<char, string> DicPayBy = new Dictionary<char, string> { { 'A', "现金" }, { 'B', "刷卡" }, { 'C', "券  " } };
+        Dictionary<char, string> DicPayBy = new Dictionary<char, string> { { 'A', "现金" }, { 'B', "刷卡" }, { 'C', "券  " }, { 'D', "券  " } };
         string PayByChinese(char payBy)
         {
             string str;
@@ -1255,11 +1277,12 @@ namespace BakeryOrder
             if (form.ShowDialog(this) == DialogResult.OK)
             {
                 MemberInfo.Set();
-                richTextBox1.Text = "";
+                //richTextBox1.Text = "";
                 textBox1.SelectAll();
                 textBox1.Focus();
 
-                if (form.Tag.GetType() == typeof(decimal))
+                
+                 if (form.Tag.GetType() == typeof(decimal))
                     moneyGot = (decimal)(form.Tag);
                 else
                     moneyGot = 0m;
@@ -1341,7 +1364,8 @@ namespace BakeryOrder
                         CreateSmallImage(big, pictureBoxOrdered.Width, pictureBoxOrdered.Height, small);
                     }
                     Image img = Bitmap.FromFile(small);
-                    pictureBoxOrdered.Image = img;
+                    imgShow(img);
+                  //  myImgControl1.BackgroundImage = img;
                     if (m_FormCustomer != null)
                         m_FormCustomer.SetPicture(img);
                 }
@@ -1354,12 +1378,34 @@ namespace BakeryOrder
             textBox1.Focus();
               
         }
+        /// <summary>
+        /// 图片+会员信息显示
+        /// </summary>
+        /// <param name="img"></param>
+        private void imgShow(Image img)
+        {
+            pictureBoxOrdered.Controls.Clear();
+            var myimg = new MyControlLibrary.MyImgControl();
+            myimg.MyColor = MemberInfo.CardColor;
+            myimg.Myalpha = 0;
+            myimg.BackgroundImage = img;
+            myimg.MyStrColor = Color.Black;
+            myimg.MyStr =  MemberInfo.ResultStr;
+            myimg.Dock = DockStyle.Fill;
+            pictureBoxOrdered.Controls.Add(myimg);
 
+        }
+    #region  会员卡处理
+        /// <summary>
+        ///  会员卡刷卡处理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            if (textBox1.TextLength < 20)
+            if (textBox1.TextLength < 20)//刷卡接收信息textbox字符串长度小于卡号长度不作处理
             {
-               
+                MemberInfo.ResultStr = "测试";
             }
             else
             {
@@ -1377,16 +1423,24 @@ namespace BakeryOrder
                     MemberInfo.CardNumber = dt.Rows[0]["CardNumber"].ToString();
                     MemberInfo.CardStatus = dt.Rows[0]["CardStatus"].ToString();
                     MemberInfo.CardClassName = dt.Rows[0]["CardClassName"].ToString();
-                    richTextBox1.Text = MemberInfo.MemberId;
+                    //会员卡颜色
+                    MemberInfo.CardColor = Color.FromArgb(255, 255, 255); 
+                    MemberInfo.ResultStr = "";
+                   // richTextBox1.Text = MemberInfo.MemberId;
                 }
                 else
                 {
-                    richTextBox1.Text = "没有查到此卡，可能没有激活或者激活没有超过24小时，也可能不是本店会员卡";
                     MemberInfo.Set();
+                    MemberInfo.ResultStr = "没有查到此卡，可能没有激活或者激活没有超过24小时，也可能不是本店会员卡";
                 }
             }
 
         }
+        /// <summary>
+        ///  获取会员信息
+        /// </summary>
+        /// <param name="memberCard"></param>
+        /// <returns></returns>
         DataTable ReadDB(string memberCard)
         {
              string constr = "server=192.168.88.103;uid=sa;database=wheat;pwd=123456;";
@@ -1442,7 +1496,8 @@ namespace BakeryOrder
         public static string CardNumber { get; set; }
         public static string CardStatus { get; set; }
         public static string CardClassName { get; set; }
-        public static string CardColor { get; set; }
+        public static Color CardColor { get; set; }
+        public static string ResultStr { get; set; }
  //MemberId	MemberName	MemberSex	MemberLevel	MemberPoint	CardNumber	CardStatus	CardClassName	cardColor
         public static void Set()
         {
@@ -1454,6 +1509,9 @@ namespace BakeryOrder
             MemberInfo.CardNumber = null;
             MemberInfo.CardStatus = null;
             MemberInfo.CardClassName = null;
+            MemberInfo.CardColor = Color.White;
+            MemberInfo.ResultStr = "";
         }
     }
+#endregion
 }

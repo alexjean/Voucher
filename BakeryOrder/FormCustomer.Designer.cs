@@ -49,7 +49,7 @@
             this.columnHeader品名,
             this.columnHeader量,
             this.columnHeader金額});
-            this.lvCustomer.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.lvCustomer.Font = new System.Drawing.Font("DFKai-SB", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.lvCustomer.FullRowSelect = true;
             this.lvCustomer.HideSelection = false;
             this.lvCustomer.Location = new System.Drawing.Point(3, 3);
@@ -94,7 +94,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("標楷體", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label1.Font = new System.Drawing.Font("DFKai-SB", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label1.Location = new System.Drawing.Point(118, 659);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(106, 24);
@@ -103,7 +103,7 @@
             // 
             // labelTotal
             // 
-            this.labelTotal.Font = new System.Drawing.Font("標楷體", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.labelTotal.Font = new System.Drawing.Font("DFKai-SB", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.labelTotal.ForeColor = System.Drawing.Color.Red;
             this.labelTotal.Location = new System.Drawing.Point(69, 695);
             this.labelTotal.Name = "labelTotal";
@@ -132,7 +132,7 @@
             this.Controls.Add(this.lvCustomer);
             this.Controls.Add(this.pictureBoxOrdered);
             this.Controls.Add(this.pictureBoxPhoto);
-            this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormCustomer";

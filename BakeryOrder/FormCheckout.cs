@@ -34,7 +34,7 @@ namespace BakeryOrder
             DialogResult = DialogResult.OK;
             if (m_PayBy == 'A')
                 Tag = m_MoneyGot;
-            else if (m_PayBy == 'B' || m_PayBy=='C')  // 刷卡及券沒有 實收
+            else if (m_PayBy == 'B' || m_PayBy=='C'||m_PayBy=='D')  // 刷卡及券沒有 實收 duihuan
                 Tag = 0;
             else
             {
@@ -107,7 +107,21 @@ namespace BakeryOrder
             m_PayBy = 'C';
             textBoxCashGot.Enabled = false;
         }
-
+        private void btnExchange_Click(object sender, EventArgs e)
+        {
+            //检查是否可以兑换
+            if (true)
+            {
+            SetButtonVisualStyleExcept(sender as Button);
+            labelCashGot.Visible = labelChange.Visible = false;
+            m_PayBy = 'D';
+            textBoxCashGot.Enabled = false;                
+            }
+            else
+            {
+                MessageBox.Show("没有可以兑换");
+            }
+        }
 
         TextBox m_Current = null;
         private void btnNumberX_Click(object sender, EventArgs e)
@@ -130,7 +144,7 @@ namespace BakeryOrder
                 m_Current = sender as TextBox;
         }
 
-        private void btnClear_Click(object sender, EventArgs e)
+        private void btnClear_Click(object sender, EventArgs e) 
         {
             if (m_Current == null) return;
             Button btn = sender as Button;
@@ -223,6 +237,8 @@ namespace BakeryOrder
             btZhekou88.UseVisualStyleBackColor = true;
             btn.UseVisualStyleBackColor = false;
         }
+
+
 
 
        

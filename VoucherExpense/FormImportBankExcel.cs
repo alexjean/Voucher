@@ -95,7 +95,8 @@ namespace VoucherExpense
                 if (r.ID != 1)   // ID 1是給零用金的特殊帳號
                 {
                     acc = new CBankAccountForComboBox();
-                    acc.Name = r.ShowName;
+                    acc.Name = r.ShowName; 
+
                     acc.ID = r.ID;
                     list.Add(acc);
                 }

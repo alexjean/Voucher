@@ -357,6 +357,12 @@
     <Compile Include="FormRecipePriceUpdate.Designer.cs">
       <DependentUpon>FormRecipePriceUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormSalesForecast.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSalesForecast.Designer.cs">
+      <DependentUpon>FormSalesForecast.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormScraps.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -595,6 +601,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormRecipePriceUpdate.resx">
       <DependentUpon>FormRecipePriceUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSalesForecast.resx">
+      <DependentUpon>FormSalesForecast.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormScraps.resx">
       <DependentUpon>FormScraps.cs</DependentUpon>

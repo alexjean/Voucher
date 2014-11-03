@@ -110,6 +110,8 @@ namespace VoucherExpense {
         
         private AccountingTitleDataTable tableAccountingTitle;
         
+        private View_UnitSalesDataTable tableView_UnitSales;
+        
         private global::System.Data.DataRelation relationFK_Recipe_RecipeDetail;
         
         private global::System.Data.DataRelation relationFK_Vendor_Voucher;
@@ -292,6 +294,9 @@ namespace VoucherExpense {
                 }
                 if ((ds.Tables["AccountingTitle"] != null)) {
                     base.Tables.Add(new AccountingTitleDataTable(ds.Tables["AccountingTitle"]));
+                }
+                if ((ds.Tables["View_UnitSales"] != null)) {
+                    base.Tables.Add(new View_UnitSalesDataTable(ds.Tables["View_UnitSales"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -743,6 +748,16 @@ namespace VoucherExpense {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public View_UnitSalesDataTable View_UnitSales {
+            get {
+                return this.tableView_UnitSales;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.BrowsableAttribute(true)]
         [global::System.ComponentModel.DesignerSerializationVisibilityAttribute(global::System.ComponentModel.DesignerSerializationVisibility.Visible)]
         public override global::System.Data.SchemaSerializationMode SchemaSerializationMode {
@@ -936,6 +951,9 @@ namespace VoucherExpense {
                 }
                 if ((ds.Tables["AccountingTitle"] != null)) {
                     base.Tables.Add(new AccountingTitleDataTable(ds.Tables["AccountingTitle"]));
+                }
+                if ((ds.Tables["View_UnitSales"] != null)) {
+                    base.Tables.Add(new View_UnitSalesDataTable(ds.Tables["View_UnitSales"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -1228,6 +1246,12 @@ namespace VoucherExpense {
                     this.tableAccountingTitle.InitVars();
                 }
             }
+            this.tableView_UnitSales = ((View_UnitSalesDataTable)(base.Tables["View_UnitSales"]));
+            if ((initTable == true)) {
+                if ((this.tableView_UnitSales != null)) {
+                    this.tableView_UnitSales.InitVars();
+                }
+            }
             this.relationFK_Recipe_RecipeDetail = this.Relations["FK_Recipe_RecipeDetail"];
             this.relationFK_Vendor_Voucher = this.Relations["FK_Vendor_Voucher"];
             this.relationFK_Ingredient_VoucherDetail = this.Relations["FK_Ingredient_VoucherDetail"];
@@ -1337,6 +1361,8 @@ namespace VoucherExpense {
             base.Tables.Add(this.tableAccVouchDetail);
             this.tableAccountingTitle = new AccountingTitleDataTable();
             base.Tables.Add(this.tableAccountingTitle);
+            this.tableView_UnitSales = new View_UnitSalesDataTable();
+            base.Tables.Add(this.tableView_UnitSales);
             this.relationFK_Recipe_RecipeDetail = new global::System.Data.DataRelation("FK_Recipe_RecipeDetail", new global::System.Data.DataColumn[] {
                         this.tableRecipe.RecipeIDColumn}, new global::System.Data.DataColumn[] {
                         this.tableRecipeDetail.RecipeIDColumn}, false);
@@ -1651,6 +1677,12 @@ namespace VoucherExpense {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private bool ShouldSerializeView_UnitSales() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void SchemaChanged(object sender, global::System.ComponentModel.CollectionChangeEventArgs e) {
             if ((e.Action == global::System.ComponentModel.CollectionChangeAction.Remove)) {
                 this.InitVars();
@@ -1832,6 +1864,9 @@ namespace VoucherExpense {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public delegate void AccountingTitleRowChangeEventHandler(object sender, AccountingTitleRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public delegate void View_UnitSalesRowChangeEventHandler(object sender, View_UnitSalesRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -17998,6 +18033,297 @@ namespace VoucherExpense {
         }
         
         /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class View_UnitSalesDataTable : global::System.Data.TypedTableBase<View_UnitSalesRow> {
+            
+            private global::System.Data.DataColumn columnPrintTime;
+            
+            private global::System.Data.DataColumn columnName;
+            
+            private global::System.Data.DataColumn columnNo;
+            
+            private global::System.Data.DataColumn columnProductID;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public View_UnitSalesDataTable() {
+                this.TableName = "View_UnitSales";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal View_UnitSalesDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected View_UnitSalesDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn PrintTimeColumn {
+                get {
+                    return this.columnPrintTime;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn NameColumn {
+                get {
+                    return this.columnName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn NoColumn {
+                get {
+                    return this.columnNo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ProductIDColumn {
+                get {
+                    return this.columnProductID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public View_UnitSalesRow this[int index] {
+                get {
+                    return ((View_UnitSalesRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event View_UnitSalesRowChangeEventHandler View_UnitSalesRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event View_UnitSalesRowChangeEventHandler View_UnitSalesRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event View_UnitSalesRowChangeEventHandler View_UnitSalesRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event View_UnitSalesRowChangeEventHandler View_UnitSalesRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void AddView_UnitSalesRow(View_UnitSalesRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public View_UnitSalesRow AddView_UnitSalesRow(System.DateTime PrintTime, string Name, decimal No, int ProductID) {
+                View_UnitSalesRow rowView_UnitSalesRow = ((View_UnitSalesRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        PrintTime,
+                        Name,
+                        No,
+                        ProductID};
+                rowView_UnitSalesRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowView_UnitSalesRow);
+                return rowView_UnitSalesRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                View_UnitSalesDataTable cln = ((View_UnitSalesDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new View_UnitSalesDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.columnPrintTime = base.Columns["PrintTime"];
+                this.columnName = base.Columns["Name"];
+                this.columnNo = base.Columns["No"];
+                this.columnProductID = base.Columns["ProductID"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.columnPrintTime = new global::System.Data.DataColumn("PrintTime", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPrintTime);
+                this.columnName = new global::System.Data.DataColumn("Name", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnName);
+                this.columnNo = new global::System.Data.DataColumn("No", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNo);
+                this.columnProductID = new global::System.Data.DataColumn("ProductID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnProductID);
+                this.columnName.MaxLength = 50;
+                this.columnProductID.AllowDBNull = false;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public View_UnitSalesRow NewView_UnitSalesRow() {
+                return ((View_UnitSalesRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new View_UnitSalesRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(View_UnitSalesRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.View_UnitSalesRowChanged != null)) {
+                    this.View_UnitSalesRowChanged(this, new View_UnitSalesRowChangeEvent(((View_UnitSalesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.View_UnitSalesRowChanging != null)) {
+                    this.View_UnitSalesRowChanging(this, new View_UnitSalesRowChangeEvent(((View_UnitSalesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.View_UnitSalesRowDeleted != null)) {
+                    this.View_UnitSalesRowDeleted(this, new View_UnitSalesRowChangeEvent(((View_UnitSalesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.View_UnitSalesRowDeleting != null)) {
+                    this.View_UnitSalesRowDeleting(this, new View_UnitSalesRowChangeEvent(((View_UnitSalesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void RemoveView_UnitSalesRow(View_UnitSalesRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                DamaiDataSet ds = new DamaiDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "View_UnitSalesDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
         public partial class BakeryConfigRow : global::System.Data.DataRow {
@@ -28683,6 +29009,116 @@ namespace VoucherExpense {
         }
         
         /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class View_UnitSalesRow : global::System.Data.DataRow {
+            
+            private View_UnitSalesDataTable tableView_UnitSales;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal View_UnitSalesRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableView_UnitSales = ((View_UnitSalesDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public System.DateTime PrintTime {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableView_UnitSales.PrintTimeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("表“View_UnitSales”中列“PrintTime”的值为 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tableView_UnitSales.PrintTimeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Name {
+                get {
+                    try {
+                        return ((string)(this[this.tableView_UnitSales.NameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("表“View_UnitSales”中列“Name”的值为 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tableView_UnitSales.NameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal No {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableView_UnitSales.NoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("表“View_UnitSales”中列“No”的值为 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tableView_UnitSales.NoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int ProductID {
+                get {
+                    return ((int)(this[this.tableView_UnitSales.ProductIDColumn]));
+                }
+                set {
+                    this[this.tableView_UnitSales.ProductIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsPrintTimeNull() {
+                return this.IsNull(this.tableView_UnitSales.PrintTimeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetPrintTimeNull() {
+                this[this.tableView_UnitSales.PrintTimeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsNameNull() {
+                return this.IsNull(this.tableView_UnitSales.NameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetNameNull() {
+                this[this.tableView_UnitSales.NameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsNoNull() {
+                return this.IsNull(this.tableView_UnitSales.NoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetNoNull() {
+                this[this.tableView_UnitSales.NoColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -30130,6 +30566,40 @@ namespace VoucherExpense {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public AccountingTitleRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public class View_UnitSalesRowChangeEvent : global::System.EventArgs {
+            
+            private View_UnitSalesRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public View_UnitSalesRowChangeEvent(View_UnitSalesRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public View_UnitSalesRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -55476,6 +55946,176 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
     }
     
     /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class View_UnitSalesTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private global::System.Data.SqlClient.SqlConnection _connection;
+        
+        private global::System.Data.SqlClient.SqlTransaction _transaction;
+        
+        private global::System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public View_UnitSalesTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        protected internal global::System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        internal global::System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        internal global::System.Data.SqlClient.SqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        protected global::System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "View_UnitSales";
+            tableMapping.ColumnMappings.Add("PrintTime", "PrintTime");
+            tableMapping.ColumnMappings.Add("Name", "Name");
+            tableMapping.ColumnMappings.Add("No", "No");
+            tableMapping.ColumnMappings.Add("ProductID", "ProductID");
+            this._adapter.TableMappings.Add(tableMapping);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::VoucherExpense.Properties.Settings.Default.DamaiConnectionString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "SELECT PrintTime, Name, No, ProductID FROM View_UnitSales";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(DamaiDataSet.View_UnitSalesDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual DamaiDataSet.View_UnitSalesDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            DamaiDataSet.View_UnitSalesDataTable dataTable = new DamaiDataSet.View_UnitSalesDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+    }
+    
+    /// <summary>
     ///TableAdapterManager is used to coordinate TableAdapters in the dataset to enable Hierarchical Update scenarios
     ///</summary>
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -56552,21 +57192,21 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._shiftTableTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.ShiftTable.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._recipeTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Recipe.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._shiftTableTableAdapter.Update(updatedRows));
+                    result = (result + this._recipeTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._shipmentTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Shipment.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._productScrappedTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.ProductScrapped.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._shipmentTableAdapter.Update(updatedRows));
+                    result = (result + this._productScrappedTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -56588,21 +57228,21 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._productScrappedTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.ProductScrapped.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._shiftTableTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.ShiftTable.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._productScrappedTableAdapter.Update(updatedRows));
+                    result = (result + this._shiftTableTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._recipeTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Recipe.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._shipmentTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Shipment.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._recipeTableAdapter.Update(updatedRows));
+                    result = (result + this._shipmentTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -56642,12 +57282,12 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._expenseTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Expense.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._cashierTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Cashier.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._expenseTableAdapter.Update(updatedRows));
+                    result = (result + this._cashierTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -56660,21 +57300,12 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._accVouchDetailTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.AccVouchDetail.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._expenseTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Expense.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._accVouchDetailTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._accountingTitleTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.AccountingTitle.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._accountingTitleTableAdapter.Update(updatedRows));
+                    result = (result + this._expenseTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -56696,21 +57327,12 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._syncMD5OldTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.SyncMD5Old.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._accountingTitleTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.AccountingTitle.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._syncMD5OldTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._operatorTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Operator.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._operatorTableAdapter.Update(updatedRows));
+                    result = (result + this._accountingTitleTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -56723,30 +57345,30 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._syncTableTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.SyncTable.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._syncTableTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._cashierTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Cashier.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._cashierTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
             if ((this._productClassTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.ProductClass.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._productClassTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._operatorTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Operator.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._operatorTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._syncMD5OldTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.SyncMD5Old.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._syncMD5OldTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -56759,12 +57381,30 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._apartmentTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Apartment.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._accVouchDetailTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.AccVouchDetail.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._apartmentTableAdapter.Update(updatedRows));
+                    result = (result + this._accVouchDetailTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._syncTableTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.SyncTable.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._syncTableTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._inventoryDetailTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.InventoryDetail.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._inventoryDetailTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -56777,12 +57417,12 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._drawerRecordTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.DrawerRecord.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._onDutyDataTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.OnDutyData.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._drawerRecordTableAdapter.Update(updatedRows));
+                    result = (result + this._onDutyDataTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -56795,12 +57435,12 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._inventoryDetailTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.InventoryDetail.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._drawerRecordTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.DrawerRecord.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._inventoryDetailTableAdapter.Update(updatedRows));
+                    result = (result + this._drawerRecordTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -56840,12 +57480,12 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._onDutyDataTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.OnDutyData.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._hRDetailTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.HRDetail.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._onDutyDataTableAdapter.Update(updatedRows));
+                    result = (result + this._hRDetailTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -56858,12 +57498,12 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._orderItemTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.OrderItem.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._apartmentTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Apartment.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._orderItemTableAdapter.Update(updatedRows));
+                    result = (result + this._apartmentTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -56876,12 +57516,12 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._hRDetailTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.HRDetail.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._orderItemTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.OrderItem.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._hRDetailTableAdapter.Update(updatedRows));
+                    result = (result + this._orderItemTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -56947,19 +57587,19 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._shiftTableTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.ShiftTable.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._recipeTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Recipe.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._shiftTableTableAdapter.Update(addedRows));
+                    result = (result + this._recipeTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._shipmentTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Shipment.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._productScrappedTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.ProductScrapped.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._shipmentTableAdapter.Update(addedRows));
+                    result = (result + this._productScrappedTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -56979,19 +57619,19 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._productScrappedTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.ProductScrapped.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._shiftTableTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.ShiftTable.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._productScrappedTableAdapter.Update(addedRows));
+                    result = (result + this._shiftTableTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._recipeTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Recipe.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._shipmentTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Shipment.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._recipeTableAdapter.Update(addedRows));
+                    result = (result + this._shipmentTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -57027,11 +57667,11 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._expenseTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Expense.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._cashierTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Cashier.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._expenseTableAdapter.Update(addedRows));
+                    result = (result + this._cashierTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -57043,19 +57683,11 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._accVouchDetailTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.AccVouchDetail.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._expenseTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Expense.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._accVouchDetailTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._accountingTitleTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.AccountingTitle.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._accountingTitleTableAdapter.Update(addedRows));
+                    result = (result + this._expenseTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -57075,19 +57707,11 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._syncMD5OldTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.SyncMD5Old.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._accountingTitleTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.AccountingTitle.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._syncMD5OldTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._operatorTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Operator.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._operatorTableAdapter.Update(addedRows));
+                    result = (result + this._accountingTitleTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -57099,27 +57723,27 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._syncTableTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.SyncTable.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._syncTableTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._cashierTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Cashier.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._cashierTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             if ((this._productClassTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.ProductClass.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._productClassTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._operatorTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Operator.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._operatorTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._syncMD5OldTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.SyncMD5Old.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._syncMD5OldTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -57131,11 +57755,27 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._apartmentTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Apartment.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._accVouchDetailTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.AccVouchDetail.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._apartmentTableAdapter.Update(addedRows));
+                    result = (result + this._accVouchDetailTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._syncTableTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.SyncTable.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._syncTableTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._inventoryDetailTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.InventoryDetail.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._inventoryDetailTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -57147,11 +57787,11 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._drawerRecordTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.DrawerRecord.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._onDutyDataTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.OnDutyData.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._drawerRecordTableAdapter.Update(addedRows));
+                    result = (result + this._onDutyDataTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -57163,11 +57803,11 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._inventoryDetailTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.InventoryDetail.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._drawerRecordTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.DrawerRecord.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._inventoryDetailTableAdapter.Update(addedRows));
+                    result = (result + this._drawerRecordTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -57203,11 +57843,11 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._onDutyDataTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.OnDutyData.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._hRDetailTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.HRDetail.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._onDutyDataTableAdapter.Update(addedRows));
+                    result = (result + this._hRDetailTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -57219,11 +57859,11 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._orderItemTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.OrderItem.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._apartmentTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Apartment.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._orderItemTableAdapter.Update(addedRows));
+                    result = (result + this._apartmentTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -57235,11 +57875,11 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._hRDetailTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.HRDetail.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._orderItemTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.OrderItem.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._hRDetailTableAdapter.Update(addedRows));
+                    result = (result + this._orderItemTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -57317,11 +57957,11 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._hRDetailTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.HRDetail.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._orderItemTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.OrderItem.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._hRDetailTableAdapter.Update(deletedRows));
+                    result = (result + this._orderItemTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -57333,11 +57973,11 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._orderItemTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.OrderItem.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._apartmentTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Apartment.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._orderItemTableAdapter.Update(deletedRows));
+                    result = (result + this._apartmentTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -57349,11 +57989,11 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._onDutyDataTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.OnDutyData.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._hRDetailTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.HRDetail.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._onDutyDataTableAdapter.Update(deletedRows));
+                    result = (result + this._hRDetailTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -57389,11 +58029,11 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._inventoryDetailTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.InventoryDetail.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._drawerRecordTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.DrawerRecord.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._inventoryDetailTableAdapter.Update(deletedRows));
+                    result = (result + this._drawerRecordTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -57405,11 +58045,11 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._drawerRecordTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.DrawerRecord.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._onDutyDataTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.OnDutyData.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._drawerRecordTableAdapter.Update(deletedRows));
+                    result = (result + this._onDutyDataTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -57421,35 +58061,11 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._apartmentTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Apartment.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._inventoryDetailTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.InventoryDetail.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._apartmentTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._photosTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Photos.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._photosTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._productClassTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.ProductClass.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._productClassTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._cashierTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Cashier.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._cashierTableAdapter.Update(deletedRows));
+                    result = (result + this._inventoryDetailTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -57461,11 +58077,27 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._shipmentDetailTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.ShipmentDetail.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._accVouchDetailTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.AccVouchDetail.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._shipmentDetailTableAdapter.Update(deletedRows));
+                    result = (result + this._accVouchDetailTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._photosTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Photos.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._photosTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._syncMD5OldTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.SyncMD5Old.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._syncMD5OldTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -57477,11 +58109,27 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._syncMD5OldTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.SyncMD5Old.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._productClassTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.ProductClass.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._syncMD5OldTableAdapter.Update(deletedRows));
+                    result = (result + this._productClassTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._shipmentDetailTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.ShipmentDetail.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._shipmentDetailTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._accountingTitleTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.AccountingTitle.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._accountingTitleTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -57501,19 +58149,11 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._accountingTitleTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.AccountingTitle.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._expenseTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Expense.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._accountingTitleTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._accVouchDetailTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.AccVouchDetail.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._accVouchDetailTableAdapter.Update(deletedRows));
+                    result = (result + this._expenseTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -57525,11 +58165,11 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._expenseTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Expense.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._cashierTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Cashier.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._expenseTableAdapter.Update(deletedRows));
+                    result = (result + this._cashierTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -57565,19 +58205,19 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._recipeTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Recipe.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._shipmentTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Shipment.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._recipeTableAdapter.Update(deletedRows));
+                    result = (result + this._shipmentTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._productScrappedTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.ProductScrapped.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._shiftTableTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.ShiftTable.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._productScrappedTableAdapter.Update(deletedRows));
+                    result = (result + this._shiftTableTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -57597,19 +58237,19 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._shipmentTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Shipment.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._productScrappedTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.ProductScrapped.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._shipmentTableAdapter.Update(deletedRows));
+                    result = (result + this._productScrappedTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._shiftTableTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.ShiftTable.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._recipeTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Recipe.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._shiftTableTableAdapter.Update(deletedRows));
+                    result = (result + this._recipeTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }

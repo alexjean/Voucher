@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCard));
             this.tbCardBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
+            this.tbCardBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
@@ -50,12 +51,12 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.tbCardClassBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tbCardBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.tbCardBindingNavigator)).BeginInit();
             this.tbCardBindingNavigator.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tbCardBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbCardDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbCardClassBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbCardBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // tbCardBindingNavigator
@@ -76,7 +77,8 @@
             this.bindingNavigatorSeparator2,
             this.bindingNavigatorAddNewItem,
             this.bindingNavigatorDeleteItem,
-            this.tbCardBindingNavigatorSaveItem});
+            this.tbCardBindingNavigatorSaveItem,
+            this.toolStripButton1});
             this.tbCardBindingNavigator.Location = new System.Drawing.Point(0, 0);
             this.tbCardBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.tbCardBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
@@ -96,6 +98,10 @@
             this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorAddNewItem.Text = "新添";
+            // 
+            // tbCardBindingSource
+            // 
+            this.tbCardBindingSource.DataSource = typeof(Member.tbCard);
             // 
             // bindingNavigatorCountItem
             // 
@@ -238,9 +244,15 @@
             // 
             this.tbCardClassBindingSource.DataSource = typeof(Member.tbCardClass);
             // 
-            // tbCardBindingSource
+            // toolStripButton1
             // 
-            this.tbCardBindingSource.DataSource = typeof(Member.tbCard);
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(36, 22);
+            this.toolStripButton1.Text = "导入";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // FormCard
             // 
@@ -255,9 +267,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.tbCardBindingNavigator)).EndInit();
             this.tbCardBindingNavigator.ResumeLayout(false);
             this.tbCardBindingNavigator.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tbCardBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbCardDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbCardClassBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbCardBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -286,5 +298,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
     }
 }

@@ -182,27 +182,35 @@ namespace VoucherExpense
                     var data = rowView.Row as MyInventoryRow;
                     data.CheckDay = maxDate;       // 盤點日
                     int inventoryID = data.InventoryID;
-                    // 從食材表中有Code的,加入vEDataSet.InventoryDetail
-                    foreach (var ingredient in m_DataSet.Ingredient)
+                    //检查详表是否已经存在（为了防止删除数据时出现异常造成数据没有删除而产生重复数据）
+                    if (m_DataSet.InventoryDetail.Where(c => c.InventoryID == inventoryID) == null)
                     {
-                        if (ingredient.IsCodeNull()) continue;
-                        if (ingredient.Code <= 0) continue;    // 無代号食材不納入盤點
-                        var detail = m_DataSet.InventoryDetail.NewInventoryDetailRow();
-                        detail.ID = Guid.NewGuid();
-                        detail.IngredientID = ingredient.IngredientID;
-                        detail.InventoryID = inventoryID;
-                        m_DataSet.InventoryDetail.AddInventoryDetailRow(detail);
+                        // 從食材表中有Code的,加入vEDataSet.InventoryDetail
+                        foreach (var ingredient in m_DataSet.Ingredient)
+                        {
+                            if (ingredient.IsCodeNull()) continue;
+                            if (ingredient.Code <= 0) continue;    // 無代号食材不納入盤點
+                            var detail = m_DataSet.InventoryDetail.NewInventoryDetailRow();
+                            detail.ID = Guid.NewGuid();
+                            detail.IngredientID = ingredient.IngredientID;
+                            detail.InventoryID = inventoryID;
+                            m_DataSet.InventoryDetail.AddInventoryDetailRow(detail);
+                        }
                     }
-                    // 產品表中有Code的,加入vEDataSet.InventoryProducts
-                    foreach (var product in m_OrderSet.Product)
+                    //添加新详单时检查数据
+                    if (m_DataSet.InventoryProducts.Where(c => c.InventoryID == inventoryID) == null)
                     {
-                        if (product.IsClassNull()) continue;
-                        if (product.Code <= 0) continue;
-                        var inventoryProducts = m_DataSet.InventoryProducts.NewInventoryProductsRow();
-                        inventoryProducts.ID = Guid.NewGuid();
-                        inventoryProducts.ProductID = product.ProductID;
-                        inventoryProducts.InventoryID = inventoryID;
-                        m_DataSet.InventoryProducts.AddInventoryProductsRow(inventoryProducts);
+                        // 產品表中有Code的,加入vEDataSet.InventoryProducts
+                        foreach (var product in m_OrderSet.Product)
+                        {
+                            if (product.IsClassNull()) continue;
+                            if (product.Code <= 0) continue;
+                            var inventoryProducts = m_DataSet.InventoryProducts.NewInventoryProductsRow();
+                            inventoryProducts.ID = Guid.NewGuid();
+                            inventoryProducts.ProductID = product.ProductID;
+                            inventoryProducts.InventoryID = inventoryID;
+                            m_DataSet.InventoryProducts.AddInventoryProductsRow(inventoryProducts);
+                        }
                     }
                     inventoryBindingSource.ResetBindings(false);  // inventoryDetailBindingSource 會連動,不用自己呼叫
                     chBoxHide.Checked = false;                    // 初創立,要看到所有有產品碼的

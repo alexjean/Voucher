@@ -54,7 +54,7 @@ namespace VoucherExpense
             InitializeComponent();
         }
 
-        HardwareConfig m_Cfg=new HardwareConfig();
+        HardwareConfig m_Cfg; //=new HardwareConfig();
         // 店長DB
         MyDataSet m_DataSet = new MyDataSet();
         MyOrderSet m_OrderSet;
@@ -67,7 +67,7 @@ namespace VoucherExpense
         int storeid;
         private void FormCashierAuthen_Load(object sender, EventArgs e)
         {
-            m_Cfg.Load();
+            m_Cfg= MyFunction.HardwareCfg;
             btnCloundSyncAuto.Visible = m_Cfg.EnableCloudSync;
 
 #if UseSQLServer

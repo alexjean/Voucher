@@ -19,7 +19,8 @@ namespace VoucherExpense
 
         SqlConnection LocalServer, CloudServer;
         bool AllowLeave = true;
-        HardwareConfig m_Cfg = new HardwareConfig();
+        HardwareConfig m_Cfg ;
+        // = new HardwareConfig();
 
         private void FormAutoSync_Load(object sender, EventArgs e)
         {
@@ -30,7 +31,8 @@ namespace VoucherExpense
             else if (now.Date > todayPicker.MaxDate) todayPicker.Value = todayPicker.MaxDate;
             else todayPicker.Value = now.Date;
 
-            m_Cfg.Load();
+            //m_Cfg.Load();
+            m_Cfg = MyFunction.HardwareCfg;
             statusStrip1.Visible = m_Cfg.EnableCloudSync;
         }
 
@@ -55,6 +57,8 @@ namespace VoucherExpense
             {
                 SqlConnection conn;
                 ShowStatus("開啟" + msg + "資料庫!");
+//                Message("IP:" + server + " DB:" + database);
+//                Message("User:" + userId + " pass:" + password);
                 conn = new SqlConnection(DB.SqlConnectString(server, database, userId, password));
                 conn.Open();
                 return conn;

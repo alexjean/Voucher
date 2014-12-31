@@ -33,12 +33,11 @@
             this.columnHeader品名 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader量 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader金額 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.pictureBoxPhoto = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.labelTotal = new System.Windows.Forms.Label();
             this.pictureBoxOrdered = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPhoto)).BeginInit();
+            this.myImgControl1 = new MyControlLibrary.MyImgControl();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrdered)).BeginInit();
             this.SuspendLayout();
             // 
@@ -75,18 +74,6 @@
             this.columnHeader金額.Text = "金额";
             this.columnHeader金額.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // pictureBoxPhoto
-            // 
-            this.pictureBoxPhoto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.pictureBoxPhoto.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBoxPhoto.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pictureBoxPhoto.Location = new System.Drawing.Point(275, 0);
-            this.pictureBoxPhoto.Name = "pictureBoxPhoto";
-            this.pictureBoxPhoto.Size = new System.Drawing.Size(749, 768);
-            this.pictureBoxPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBoxPhoto.TabIndex = 2;
-            this.pictureBoxPhoto.TabStop = false;
-            // 
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
@@ -121,24 +108,35 @@
             this.pictureBoxOrdered.TabIndex = 8;
             this.pictureBoxOrdered.TabStop = false;
             // 
+            // myImgControl1
+            // 
+            this.myImgControl1.BackColor = System.Drawing.Color.Black;
+            this.myImgControl1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.myImgControl1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.myImgControl1.Location = new System.Drawing.Point(275, 0);
+            this.myImgControl1.Margin = new System.Windows.Forms.Padding(4);
+            this.myImgControl1.MyStr = null;
+            this.myImgControl1.Name = "myImgControl1";
+            this.myImgControl1.Size = new System.Drawing.Size(749, 768);
+            this.myImgControl1.TabIndex = 9;
+            // 
             // FormCustomer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Azure;
             this.ClientSize = new System.Drawing.Size(1024, 768);
+            this.Controls.Add(this.myImgControl1);
             this.Controls.Add(this.labelTotal);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lvCustomer);
             this.Controls.Add(this.pictureBoxOrdered);
-            this.Controls.Add(this.pictureBoxPhoto);
             this.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormCustomer";
             this.Text = "客顯";
             this.Load += new System.EventHandler(this.FormCustomer_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPhoto)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrdered)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -151,10 +149,10 @@
         private System.Windows.Forms.ColumnHeader columnHeader品名;
         private System.Windows.Forms.ColumnHeader columnHeader量;
         private System.Windows.Forms.ColumnHeader columnHeader金額;
-        private System.Windows.Forms.PictureBox pictureBoxPhoto;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelTotal;
         private System.Windows.Forms.PictureBox pictureBoxOrdered;
+        private MyControlLibrary.MyImgControl myImgControl1;
     }
 }

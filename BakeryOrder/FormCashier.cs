@@ -281,7 +281,7 @@ namespace BakeryOrder
             }
             Image img = Bitmap.FromFile(small);
             imgShow(img);
-          //  myImgControl1.BackgroundImage = img;
+            //  myImgControl1.BackgroundImage = img;
             Application.DoEvents();           // 先把前面做的顯示出來
             if (m_FormCustomer != null)
             {
@@ -511,7 +511,7 @@ namespace BakeryOrder
             checkBoxTest.Visible = true;
             checkBoxTest.Checked = true;
             btnTest.Visible = true;
-            m_CashierID = 1;  m_CashierName="测试员";
+            m_CashierID = 1; m_CashierName = "测试员";
             textBox1.Focus();
             textBox1.SelectAll();
 
@@ -660,7 +660,7 @@ namespace BakeryOrder
                 order = null;
                 return 0;
             }
-            
+
         }
 
         int CreateUpdateDrawerRecord(ref int maxID, int associateOrderID)
@@ -710,7 +710,7 @@ namespace BakeryOrder
         /// <param name="CurrentOrder"></param>
         /// <param name="moneyGot"></param>
         /// <param name="printTwice"></param>
-        void Print(BakeryOrderSet.OrderRow CurrentOrder, double moneyGot,bool printTwice)
+        void Print(BakeryOrderSet.OrderRow CurrentOrder, double moneyGot, bool printTwice)
         {
             //byte[] PrintChinese = new byte[] { };
             byte[] BorderMode = new byte[] { 0x1c, 0x21, 0x28 };
@@ -731,15 +731,15 @@ namespace BakeryOrder
 
             Buf.Append("\r\n");
 
-            if (MemberInfo.CardNumber!=null)
+            if (MemberInfo.CardNumber != null)
             {
-                 Buf.Append("会员卡号："+MemberInfo.CardNumber.ToString()+"\r\n");
+                Buf.Append("会员卡号：" + MemberInfo.CardNumber.ToString() + "\r\n");
             }
             if (MemberInfo.MemberName != null)
             {
-                Buf.Append("会员姓名："+MemberInfo.MemberName.ToString()+"\r\n");
+                Buf.Append("会员姓名：" + MemberInfo.MemberName.ToString() + "\r\n");
             }
-            if (MemberInfo.MemberPoint!=null)
+            if (MemberInfo.MemberPoint != null)
             {
                 Buf.Append("会员麦子" + MemberInfo.MemberPoint.ToString() + "\r\n");
             }
@@ -767,12 +767,12 @@ namespace BakeryOrder
             }
             Buf.Append("- - - - - - - - - - - - - - - -\r\n");
             Buf.Append("小计:        " + d2str(no, 7) + d2str(discount, 12) + "\r\n");
-            if ((!CurrentOrder.IsDiscountRateNull())&&CurrentOrder.DiscountRate < 1)
+            if ((!CurrentOrder.IsDiscountRateNull()) && CurrentOrder.DiscountRate < 1)
             {
                 string temp = CurrentOrder.DiscountRate.ToString();
-                Buf.Append("打"+temp.Remove(0,2)+"折:  ");
+                Buf.Append("打" + temp.Remove(0, 2) + "折:  ");
                 Buf.Append(d2str(discount, 4));
-                Buf.Append("* "+temp+"=");
+                Buf.Append("* " + temp + "=");
                 Buf.Append(d2str(discount * (double)CurrentOrder.DiscountRate, 10) + "\r\n");
             }
             if ((!CurrentOrder.IsDeductNull()) && (CurrentOrder.Deduct != 0))
@@ -819,8 +819,8 @@ namespace BakeryOrder
                 RawPrint.SendManagedBytes(m_Printer.PrinterName, CutPaper);
                 if (printTwice)
                 {
-                    ByteBuilder InnerUseWarning=new ByteBuilder();
-                    InnerUseWarning.DefaultEncoding=Encoding.GetEncoding("GB2312");
+                    ByteBuilder InnerUseWarning = new ByteBuilder();
+                    InnerUseWarning.DefaultEncoding = Encoding.GetEncoding("GB2312");
                     InnerUseWarning.Append("内部联不给客户\r\n");
 
                     RawPrint.SendManagedBytes(m_Printer.PrinterName, InnerUseWarning.ToBytes());
@@ -856,7 +856,7 @@ namespace BakeryOrder
             }
             m_CurrentOrder.Income = (decimal)CalcTotal();
             //            m_CurrentOrder.PayBy = PayByFromBtn().ToString();
-            Print(m_CurrentOrder, 0,true);
+            Print(m_CurrentOrder, 0, true);
             if (!this.checkBoxTest.Checked)
                 RawPrint.SendManagedBytes(m_Printer.PrinterName, m_CashDrawer);
             CreateUpdateDrawerRecord(ref m_MaxDrawerRecordID, m_CurrentOrder.ID % 10000);
@@ -864,7 +864,7 @@ namespace BakeryOrder
             //richTextBox1.Text = "";
             textBox1.SelectAll();
             textBox1.Focus();
-////////////////////////清空当前会员
+            ////////////////////////清空当前会员
             //            DoNewOrder();
         }
 
@@ -928,9 +928,10 @@ namespace BakeryOrder
         }
 
         private void btnNewOrder_Click(object sender, EventArgs e)
-        {        
+        {
             MemberInfo.Set();
-           // richTextBox1.Text = "";
+            // richTextBox1.Text = "";
+            myImgControl1.changetext("");
             textBox1.SelectAll();
             textBox1.Focus();
             DoNewOrder();
@@ -1028,7 +1029,7 @@ namespace BakeryOrder
                         if (Row.Index < count && (ItemRows[Row.Index] == null))   // 有重複的,以第一個為準
                             ItemRows[Row.Index] = Row;
                         else
-                            ItemDeleted.Add(Row); 
+                            ItemDeleted.Add(Row);
                     }
                 }
                 int i = 0;
@@ -1083,7 +1084,7 @@ namespace BakeryOrder
             btnCashDrawer.Enabled = isLogin;
             btnStatics.Enabled = isLogin;
             btnPrint.Enabled = isLogin;
-            btnNewOrder.Enabled = isLogin;
+            btnNewOrder.Enabled = isLogin; 
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -1130,7 +1131,7 @@ namespace BakeryOrder
                         SetLoginStatus(true);
                         ClearOrderInfoOnScreen();
                         lvItems.Items.Clear();
-                      //  textBox1.Focus();
+                        //  textBox1.Focus();
                         return;
                     }
                     else
@@ -1252,16 +1253,29 @@ namespace BakeryOrder
             if (DicPayBy.TryGetValue(payBy, out str)) return str;
             return DicPayBy.First().Value;
         }
-
+        // 列表中产品个数
+        public int productNO;
         private void btnDoCashier_Click(object sender, EventArgs e)
         {
+
             if (m_DataSealed)
             {
                 MessageBoxShow("今日資料己封印! 無法打單");
                 return;
             }
             if (lvItems.Items.Count == 0)
+            {
                 return;
+            }
+            else
+            {
+                productNO = 0;
+                foreach (ListViewItem item in lvItems.Items)
+                {
+                    MenuItemForTag item1 = (MenuItemForTag)item.Tag;
+                    productNO += (int)item1.No;
+                }
+            }
             if (m_CurrentOrder == null)
             {
                 CreateOrder(out m_CurrentOrder, m_MaxOrderID);
@@ -1281,8 +1295,8 @@ namespace BakeryOrder
                 textBox1.SelectAll();
                 textBox1.Focus();
 
-                
-                 if (form.Tag.GetType() == typeof(decimal))
+
+                if (form.Tag.GetType() == typeof(decimal))
                     moneyGot = (decimal)(form.Tag);
                 else
                     moneyGot = 0m;
@@ -1298,7 +1312,7 @@ namespace BakeryOrder
                     labelTotal.Text = m_CurrentOrder.Income.ToString();
                 }
                 labelClass.Text = PayByChinese(m_CurrentOrder.PayBy[0]);
-                Print(m_CurrentOrder, (double)moneyGot,true);
+                Print(m_CurrentOrder, (double)moneyGot, true);
                 if (!this.checkBoxTest.Checked)
                     RawPrint.SendManagedBytes(m_Printer.PrinterName, m_CashDrawer);   // 彈出錢箱
                 CreateUpdateDrawerRecord(ref m_MaxDrawerRecordID, m_CurrentOrder.ID % 10000);
@@ -1365,7 +1379,7 @@ namespace BakeryOrder
                     }
                     Image img = Bitmap.FromFile(small);
                     imgShow(img);
-                  //  myImgControl1.BackgroundImage = img;
+                    //  myImgControl1.BackgroundImage = img;
                     if (m_FormCustomer != null)
                         m_FormCustomer.SetPicture(img);
                 }
@@ -1374,9 +1388,10 @@ namespace BakeryOrder
 
         private void FormCashier_Activated(object sender, EventArgs e)
         {
-            
+
             textBox1.Focus();
-              
+            textBox1.SelectAll();
+
         }
         /// <summary>
         /// 图片+会员信息显示
@@ -1385,17 +1400,53 @@ namespace BakeryOrder
         private void imgShow(Image img)
         {
             pictureBoxOrdered.Controls.Clear();
-            var myimg = new MyControlLibrary.MyImgControl();
-            myimg.MyColor = MemberInfo.CardColor;
-            myimg.Myalpha = 0;
-            myimg.BackgroundImage = img;
-            myimg.MyStrColor = Color.Black;
-            myimg.MyStr =  MemberInfo.ResultStr;
-            myimg.Dock = DockStyle.Fill;
-            pictureBoxOrdered.Controls.Add(myimg);
-
+           // var myimg = new MyControlLibrary.MyImgControl();
+            myImgControl1.MyColor = MemberInfo.CardColor;
+            myImgControl1.Myalpha = 0;
+            myImgControl1.BackgroundImage = img;
+            myImgControl1.MyStrColor = Color.Black;
+            pictureBoxOrdered.Controls.Add(myImgControl1);
         }
-    #region  会员卡处理
+        #region  会员卡处理
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char KeyChar = e.KeyChar;
+            if (KeyChar == (char)Keys.Enter)
+            {
+                string str = textBox1.Text;
+                string restr = @"[^\d]*";
+                string mstr = System.Text.RegularExpressions.Regex.Replace(str, restr, "");
+                if (mstr.Length >= 16)
+                {
+                    DataTable dt = ReadDB(mstr.Substring(0, 16));
+                    if (dt.Rows.Count > 0)
+                    {
+                        MessageBox.Show(dt.Rows.Count.ToString()); MessageBox.Show(dt.Rows[0][0].ToString());
+                        MemberInfo.MemberId = dt.Rows[0]["MemberId"].ToString();
+                        MemberInfo.MemberName = dt.Rows[0]["MemberName"].ToString();
+                        MemberInfo.MemberSex = dt.Rows[0]["MemberSex"].ToString();
+                        MemberInfo.MemberLevel = dt.Rows[0]["MemberLevel"].ToString();
+                        MemberInfo.MemberPoint = dt.Rows[0]["MemberPoint"].ToString();
+                        MemberInfo.CardNumber = dt.Rows[0]["CardNumber"].ToString();
+                        MemberInfo.CardStatus = dt.Rows[0]["CardStatus"].ToString();
+                        MemberInfo.CardClassName = dt.Rows[0]["CardClassName"].ToString();
+                        //会员卡颜色CardColor
+                        MemberInfo.CardColor = Color.FromName(dt.Rows[0]["CardColor"].ToString());
+                        MemberInfo.ResultStr = MemberInfo.MemberName + MemberInfo.CardNumber;
+                        // richTextBox1.Text = MemberInfo.MemberId;
+                        myImgControl1.changetext(MemberInfo.ResultStr);
+                    }
+                    else
+                    {
+                        MemberInfo.Set();
+                        myImgControl1.changetext("没有查到此卡，可能没有激活或者激活没有超过24小时，也可能不是本店会员卡");
+                    }
+                    textBox1.SelectAll();
+                    textBox1.Focus();
+                }
+            }
+        }
+
         /// <summary>
         ///  会员卡刷卡处理
         /// </summary>
@@ -1403,37 +1454,39 @@ namespace BakeryOrder
         /// <param name="e"></param>
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            if (textBox1.TextLength < 20)//刷卡接收信息textbox字符串长度小于卡号长度不作处理
-            {
-                MemberInfo.ResultStr = "测试";
-            }
-            else
-            {
-                string str = textBox1.Text; ;
-                string restr = @"[^\d]*";
-                string mstr = System.Text.RegularExpressions.Regex.Replace(str, restr, "");
-                DataTable dt = ReadDB(mstr.Substring(0, 16));
-                if (dt != null)
-                {
-                    MemberInfo.MemberId = dt.Rows[0]["MemberId"].ToString();
-                    MemberInfo.MemberName = dt.Rows[0]["MemberName"].ToString();
-                    MemberInfo.MemberSex = dt.Rows[0]["MemberSex"].ToString();
-                    MemberInfo.MemberLevel = dt.Rows[0]["MemberLevel"].ToString();
-                    MemberInfo.MemberPoint = dt.Rows[0]["MemberPoint"].ToString();
-                    MemberInfo.CardNumber = dt.Rows[0]["CardNumber"].ToString();
-                    MemberInfo.CardStatus = dt.Rows[0]["CardStatus"].ToString();
-                    MemberInfo.CardClassName = dt.Rows[0]["CardClassName"].ToString();
-                    //会员卡颜色
-                    MemberInfo.CardColor = Color.FromArgb(255, 255, 255); 
-                    MemberInfo.ResultStr = "";
-                   // richTextBox1.Text = MemberInfo.MemberId;
-                }
-                else
-                {
-                    MemberInfo.Set();
-                    MemberInfo.ResultStr = "没有查到此卡，可能没有激活或者激活没有超过24小时，也可能不是本店会员卡";
-                }
-            }
+            //if (textBox1.TextLength < 16)//刷卡接收信息textbox字符串长度小于卡号长度不作处理
+            //{
+            //   // MemberInfo.ResultStr = "测试";
+            //}
+            //else
+            //{
+            //    string str = textBox1.Text;
+            //    MessageBox.Show(str);
+            //    string restr = @"[^\d]*";
+            //    string mstr = System.Text.RegularExpressions.Regex.Replace(str, restr, "");
+            //    MessageBox.Show(str+"   "+mstr);
+            //    //DataTable dt = ReadDB(mstr.Substring(0, 16));
+            //    //if (dt != null)
+            //    //{
+            //    //    MemberInfo.MemberId = dt.Rows[0]["MemberId"].ToString();
+            //    //    MemberInfo.MemberName = dt.Rows[0]["MemberName"].ToString();
+            //    //    MemberInfo.MemberSex = dt.Rows[0]["MemberSex"].ToString();
+            //    //    MemberInfo.MemberLevel = dt.Rows[0]["MemberLevel"].ToString();
+            //    //    MemberInfo.MemberPoint = dt.Rows[0]["MemberPoint"].ToString();
+            //    //    MemberInfo.CardNumber = dt.Rows[0]["CardNumber"].ToString();
+            //    //    MemberInfo.CardStatus = dt.Rows[0]["CardStatus"].ToString();
+            //    //    MemberInfo.CardClassName = dt.Rows[0]["CardClassName"].ToString();
+            //    //    //会员卡颜色CardColor
+            //    //    MemberInfo.CardColor = Color.FromName(dt.Rows[0]["CardColor"].ToString());
+            //    //    MemberInfo.ResultStr = "";
+            //    //   // richTextBox1.Text = MemberInfo.MemberId;
+            //    //}
+            //    //else
+            //    //{
+            //    //    MemberInfo.Set();
+            //    //    MemberInfo.ResultStr = "没有查到此卡，可能没有激活或者激活没有超过24小时，也可能不是本店会员卡";
+            //    //}
+            //}
 
         }
         /// <summary>
@@ -1443,35 +1496,39 @@ namespace BakeryOrder
         /// <returns></returns>
         DataTable ReadDB(string memberCard)
         {
-             string constr = "server=192.168.88.103;uid=sa;database=wheat;pwd=123456;";
+            string constr = "server=192.168.88.245;uid=sa;database=wheat;pwd=123456;";
             //MemberId	MemberName	MemberSex	MemberLevel	MemberPoint	CardNumber	CardStatus	CardClassName	cardColor
-//,cardclass.cardColor
-            string sqlstr = "select member.MemberId,member.MemberName,member.MemberSex,member.MemberLevel,member.MemberPoint,card.CardNumber,card.CardStatus,cardclass.CardClassName"+ 
-            " from tbMember member,tbCard card,tbCardClass cardclass where member.MemberCard=card.CardId and card.CardNumber= "+memberCard+" and cardclass.CardClassId=card.CardClassId;";
+            //,cardclass.cardColor
+            string sqlstr = "select member.MemberId,member.MemberName,member.MemberSex,member.MemberLevel,member.MemberPoint,card.CardNumber,card.CardStatus,cardclass.CardClassName,cardclass.CardColor" +
+           " from tbMember member,tbCard card,tbCardClass cardclass where member.MemberCard=card.CardId and card.CardNumber= " + memberCard + " and cardclass.CardClassId=card.CardClassId;";
             using (SqlConnection connection = new SqlConnection(constr))
             {
                 //using (SqlCommand cmd = new SqlCommand(sqlstr,connection))
                 {
                     try
                     {
-                        SqlDataAdapter da = new SqlDataAdapter(sqlstr,connection );
+                        SqlDataAdapter da = new SqlDataAdapter(sqlstr, connection);
                         DataSet ds = new DataSet();
                         //da.SelectCommand = cmd;
                         connection.Open();
                         da.Fill(ds);
-                        DataTable dt=ds.Tables[0];
+                        DataTable dt = ds.Tables[0];
                         connection.Close();
                         return dt;
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
-                        ex.Message.ToString();;
+                        ex.Message.ToString(); ;
                         connection.Close();
                         return null;
                     }
- 
+
                 }
             }
+        }
+        public void UpdateDB()
+        {
+
         }
         public static void Read(string path, out string res)
         {
@@ -1484,7 +1541,9 @@ namespace BakeryOrder
             }
             sr.Close();
         }
-       
+
+
+
     }
     public static class MemberInfo{
 

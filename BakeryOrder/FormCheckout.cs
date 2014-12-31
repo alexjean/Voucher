@@ -109,18 +109,18 @@ namespace BakeryOrder
         }
         private void btnExchange_Click(object sender, EventArgs e)
         {
-            //检查是否可以兑换
-            if (true)
-            {
-            SetButtonVisualStyleExcept(sender as Button);
-            labelCashGot.Visible = labelChange.Visible = false;
-            m_PayBy = 'D';
-            textBoxCashGot.Enabled = false;                
-            }
-            else
-            {
-                MessageBox.Show("没有可以兑换");
-            }
+            ////检查是否可以兑换
+            //if (MemberInfo.)
+            //{
+            //SetButtonVisualStyleExcept(sender as Button);
+            //labelCashGot.Visible = labelChange.Visible = false;
+            //m_PayBy = 'D';
+            //textBoxCashGot.Enabled = false;                
+            //}
+            //else
+            //{
+            //    MessageBox.Show("没有可以兑换");
+            //}
         }
 
         TextBox m_Current = null;

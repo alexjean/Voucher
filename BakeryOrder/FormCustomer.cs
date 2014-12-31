@@ -16,6 +16,7 @@ namespace BakeryOrder
         public FormCustomer()
         {
             InitializeComponent();
+
         }
 
         string[] m_Files = null;
@@ -25,6 +26,7 @@ namespace BakeryOrder
         const int m_DefaultInterval = 4000;
         private void FormCustomer_Load(object sender, EventArgs e)
         {
+
             Screen[] scr = Screen.AllScreens;
             if (scr.Count() > 1)
             {
@@ -70,28 +72,40 @@ namespace BakeryOrder
             catch { }
             m_Files = Directory.GetFiles(m_Path,"*.jpg");
             if (m_Files.Count()==0) return;
-            pictureBoxPhoto.ImageLocation =  m_Files[m_Count];
+            imgShow(Image.FromFile(m_Files[m_Count]));
             timer1.Interval = m_DefaultInterval;
             timer1.Start();
 
         }
-
+        string showstr = "ssdds";//测试用 
+        private void imgShow(Image img)
+        {
+            this.myImgControl1.BackgroundImage = img;
+            this.myImgControl1.MyStrColor = Color.Red;
+            this.myImgControl1.MyStr = showstr;
+            this.myImgControl1.changetext(showstr);    
+        }
         private void timer1_Tick(object sender, EventArgs e)
         {
             m_Count++;
+            showstr += m_Count;
             if (m_Count >= m_Files.Count()) m_Count = 0;
             timer1.Interval = m_DefaultInterval;
-            pictureBoxPhoto.BringToFront();
-            pictureBoxPhoto.ImageLocation = m_Files[m_Count];
-            if (pictureBoxPhoto.Dock!=DockStyle.Fill)
-                pictureBoxPhoto.Dock = DockStyle.Fill;
+            //this.panel1.BringToFront();
+            //myImgControl1.ImageLocation = m_Files[m_Count];
+            //myImgControl1.BackgroundImage = Image.FromFile(m_Files[m_Count]);
+            //myImgControl1.MyStr = "333";
+           // myImgControl1.Refresh();
+            imgShow(Image.FromFile(m_Files[m_Count]));
+            if (this.myImgControl1.Dock != DockStyle.Fill)
+                this.myImgControl1.Dock = DockStyle.Fill;
         }
 
         public void SetTimer(int tick)
         {
             timer1.Interval = tick;
-            if (pictureBoxPhoto.Dock != DockStyle.Right) 
-                pictureBoxPhoto.Dock = DockStyle.Right;
+            if (this.myImgControl1.Dock != DockStyle.Right)
+                this.myImgControl1.Dock = DockStyle.Right;
         }
 
         public void ShowTotal(double total)

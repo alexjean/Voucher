@@ -71,9 +71,11 @@
             this.cashierTableAdapter = new BakeryOrder.BakeryOrderSetTableAdapters.CashierTableAdapter();
             this.headerTableAdapter = new BakeryOrder.BakeryOrderSetTableAdapters.HeaderTableAdapter();
             this.pictureBoxOrdered = new System.Windows.Forms.Panel();
+            this.myImgControl1 = new MyControlLibrary.MyImgControl();
             this.tabControl1.SuspendLayout();
             this.panelLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).BeginInit();
+            this.pictureBoxOrdered.SuspendLayout();
             this.SuspendLayout();
             // 
             // lvItems
@@ -460,10 +462,12 @@
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox1.Font = new System.Drawing.Font("PMingLiU", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.Location = new System.Drawing.Point(132, 408);
+            this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(0, 14);
+            this.textBox1.Size = new System.Drawing.Size(0, 21);
             this.textBox1.TabIndex = 16;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             // 
             // productTableAdapter
             // 
@@ -484,10 +488,21 @@
             // 
             // pictureBoxOrdered
             // 
+            this.pictureBoxOrdered.Controls.Add(this.myImgControl1);
             this.pictureBoxOrdered.Location = new System.Drawing.Point(18, 472);
             this.pictureBoxOrdered.Name = "pictureBoxOrdered";
             this.pictureBoxOrdered.Size = new System.Drawing.Size(200, 147);
             this.pictureBoxOrdered.TabIndex = 20;
+            // 
+            // myImgControl1
+            // 
+            this.myImgControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.myImgControl1.Location = new System.Drawing.Point(0, 0);
+            this.myImgControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.myImgControl1.MyStr = null;
+            this.myImgControl1.Name = "myImgControl1";
+            this.myImgControl1.Size = new System.Drawing.Size(200, 147);
+            this.myImgControl1.TabIndex = 0;
             // 
             // FormCashier
             // 
@@ -523,6 +538,7 @@
             this.panelLogin.ResumeLayout(false);
             this.panelLogin.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).EndInit();
+            this.pictureBoxOrdered.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -572,6 +588,7 @@
         private System.Windows.Forms.Button btnTest;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Panel pictureBoxOrdered;
+        private MyControlLibrary.MyImgControl myImgControl1;
     }
 }
 

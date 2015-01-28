@@ -1,0 +1,401 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="WheatDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="WheatDBModelStoreContainer">
+          <EntitySet Name="tbCard" EntityType="WheatDBModel.Store.tbCard" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbMember" EntityType="WheatDBModel.Store.tbMember" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbMemberAndCard" EntityType="WheatDBModel.Store.tbMemberAndCard" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbMemberInfo" EntityType="WheatDBModel.Store.tbMemberInfo" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbMemberScore" EntityType="WheatDBModel.Store.tbMemberScore" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_tbMemberAndCard_tbCard" Association="WheatDBModel.Store.FK_tbMemberAndCard_tbCard">
+            <End Role="tbCard" EntitySet="tbCard" />
+            <End Role="tbMemberAndCard" EntitySet="tbMemberAndCard" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbMemberAndCard_tbMember1" Association="WheatDBModel.Store.FK_tbMemberAndCard_tbMember1">
+            <End Role="tbMember" EntitySet="tbMember" />
+            <End Role="tbMemberAndCard" EntitySet="tbMemberAndCard" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbMemberInfo_tbMember" Association="WheatDBModel.Store.FK_tbMemberInfo_tbMember">
+            <End Role="tbMember" EntitySet="tbMember" />
+            <End Role="tbMemberInfo" EntitySet="tbMemberInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbMemberScore_tbMember" Association="WheatDBModel.Store.FK_tbMemberScore_tbMember">
+            <End Role="tbMember" EntitySet="tbMember" />
+            <End Role="tbMemberScore" EntitySet="tbMemberScore" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tbCard">
+          <Key>
+            <PropertyRef Name="CardID" />
+          </Key>
+          <Property Name="CardID" Type="int" Nullable="false" />
+          <Property Name="CardNumber" Type="nchar" MaxLength="16" />
+          <Property Name="CardKey" Type="nchar" MaxLength="8" />
+          <Property Name="Cardstate" Type="int" />
+          <Property Name="UpdateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbMember">
+          <Key>
+            <PropertyRef Name="MemberID" />
+          </Key>
+          <Property Name="MemberID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="11" />
+          <Property Name="Password" Type="varchar" MaxLength="32" />
+          <Property Name="RegisterTime" Type="datetime" />
+          <Property Name="LastLoginTime" Type="datetime" />
+          <Property Name="State" Type="int" />
+          <Property Name="Del" Type="bit" />
+          <Property Name="Lock" Type="bit" />
+          <Property Name="UpdateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbMemberAndCard">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="MemberID" Type="uniqueidentifier" />
+          <Property Name="CardID" Type="int" />
+          <Property Name="Del" Type="bit" />
+          <Property Name="UpdateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbMemberInfo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="MemberID" Type="uniqueidentifier" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="3" />
+          <Property Name="FristName" Type="nvarchar" MaxLength="3" />
+          <Property Name="Sex" Type="int" />
+          <Property Name="Birthday" Type="varchar" MaxLength="4" />
+          <Property Name="IDCard" Type="varchar" MaxLength="18" />
+          <Property Name="Email" Type="varchar" MaxLength="15" />
+          <Property Name="Address" Type="varchar" MaxLength="10" />
+          <Property Name="DetailedAddress" Type="nvarchar" MaxLength="20" />
+          <Property Name="UpdateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbMemberScore">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="MemberID" Type="uniqueidentifier" />
+          <Property Name="Score" Type="int" />
+          <Property Name="Bread" Type="int" />
+          <Property Name="UpdateTime" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_tbMemberAndCard_tbCard">
+          <End Role="tbCard" Type="WheatDBModel.Store.tbCard" Multiplicity="0..1" />
+          <End Role="tbMemberAndCard" Type="WheatDBModel.Store.tbMemberAndCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCard">
+              <PropertyRef Name="CardID" />
+            </Principal>
+            <Dependent Role="tbMemberAndCard">
+              <PropertyRef Name="CardID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbMemberAndCard_tbMember1">
+          <End Role="tbMember" Type="WheatDBModel.Store.tbMember" Multiplicity="0..1" />
+          <End Role="tbMemberAndCard" Type="WheatDBModel.Store.tbMemberAndCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbMember">
+              <PropertyRef Name="MemberID" />
+            </Principal>
+            <Dependent Role="tbMemberAndCard">
+              <PropertyRef Name="MemberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbMemberInfo_tbMember">
+          <End Role="tbMember" Type="WheatDBModel.Store.tbMember" Multiplicity="0..1" />
+          <End Role="tbMemberInfo" Type="WheatDBModel.Store.tbMemberInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbMember">
+              <PropertyRef Name="MemberID" />
+            </Principal>
+            <Dependent Role="tbMemberInfo">
+              <PropertyRef Name="MemberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbMemberScore_tbMember">
+          <End Role="tbMember" Type="WheatDBModel.Store.tbMember" Multiplicity="0..1" />
+          <End Role="tbMemberScore" Type="WheatDBModel.Store.tbMemberScore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbMember">
+              <PropertyRef Name="MemberID" />
+            </Principal>
+            <Dependent Role="tbMemberScore">
+              <PropertyRef Name="MemberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WheatDBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="MemberDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbCards" EntityType="WheatDBModel.tbCard" />
+          <EntitySet Name="tbMembers" EntityType="WheatDBModel.tbMember" />
+          <EntitySet Name="tbMemberAndCards" EntityType="WheatDBModel.tbMemberAndCard" />
+          <EntitySet Name="tbMemberInfoes" EntityType="WheatDBModel.tbMemberInfo" />
+          <EntitySet Name="tbMemberScores" EntityType="WheatDBModel.tbMemberScore" />
+          <AssociationSet Name="FK_tbMemberAndCard_tbCard" Association="WheatDBModel.FK_tbMemberAndCard_tbCard">
+            <End Role="tbCard" EntitySet="tbCards" />
+            <End Role="tbMemberAndCard" EntitySet="tbMemberAndCards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbMemberAndCard_tbMember1" Association="WheatDBModel.FK_tbMemberAndCard_tbMember1">
+            <End Role="tbMember" EntitySet="tbMembers" />
+            <End Role="tbMemberAndCard" EntitySet="tbMemberAndCards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbMemberInfo_tbMember" Association="WheatDBModel.FK_tbMemberInfo_tbMember">
+            <End Role="tbMember" EntitySet="tbMembers" />
+            <End Role="tbMemberInfo" EntitySet="tbMemberInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbMemberScore_tbMember" Association="WheatDBModel.FK_tbMemberScore_tbMember">
+            <End Role="tbMember" EntitySet="tbMembers" />
+            <End Role="tbMemberScore" EntitySet="tbMemberScores" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tbCard">
+          <Key>
+            <PropertyRef Name="CardID" />
+          </Key>
+          <Property Name="CardID" Type="Int32" Nullable="false" />
+          <Property Name="CardNumber" Type="String" MaxLength="16" Unicode="true" FixedLength="true" />
+          <Property Name="CardKey" Type="String" MaxLength="8" Unicode="true" FixedLength="true" />
+          <Property Name="Cardstate" Type="Int32" />
+          <Property Name="UpdateTime" Type="DateTime" />
+          <NavigationProperty Name="tbMemberAndCards" Relationship="WheatDBModel.FK_tbMemberAndCard_tbCard" FromRole="tbCard" ToRole="tbMemberAndCard" />
+        </EntityType>
+        <EntityType Name="tbMember">
+          <Key>
+            <PropertyRef Name="MemberID" />
+          </Key>
+          <Property Name="MemberID" Type="Guid" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="11" Unicode="false" FixedLength="false" />
+          <Property Name="Password" Type="String" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="RegisterTime" Type="DateTime" />
+          <Property Name="LastLoginTime" Type="DateTime" />
+          <Property Name="State" Type="Int32" />
+          <Property Name="Del" Type="Boolean" />
+          <Property Name="Lock" Type="Boolean" />
+          <Property Name="UpdateTime" Type="DateTime" />
+          <NavigationProperty Name="tbMemberAndCards" Relationship="WheatDBModel.FK_tbMemberAndCard_tbMember1" FromRole="tbMember" ToRole="tbMemberAndCard" />
+          <NavigationProperty Name="tbMemberInfoes" Relationship="WheatDBModel.FK_tbMemberInfo_tbMember" FromRole="tbMember" ToRole="tbMemberInfo" />
+          <NavigationProperty Name="tbMemberScores" Relationship="WheatDBModel.FK_tbMemberScore_tbMember" FromRole="tbMember" ToRole="tbMemberScore" />
+        </EntityType>
+        <EntityType Name="tbMemberAndCard">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberID" Type="Guid" />
+          <Property Name="CardID" Type="Int32" />
+          <Property Name="Del" Type="Boolean" />
+          <Property Name="UpdateTime" Type="DateTime" />
+          <NavigationProperty Name="tbCard" Relationship="WheatDBModel.FK_tbMemberAndCard_tbCard" FromRole="tbMemberAndCard" ToRole="tbCard" />
+          <NavigationProperty Name="tbMember" Relationship="WheatDBModel.FK_tbMemberAndCard_tbMember1" FromRole="tbMemberAndCard" ToRole="tbMember" />
+        </EntityType>
+        <EntityType Name="tbMemberInfo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberID" Type="Guid" />
+          <Property Name="LastName" Type="String" MaxLength="3" Unicode="true" FixedLength="false" />
+          <Property Name="FristName" Type="String" MaxLength="3" Unicode="true" FixedLength="false" />
+          <Property Name="Sex" Type="Int32" />
+          <Property Name="Birthday" Type="String" MaxLength="4" Unicode="false" FixedLength="false" />
+          <Property Name="IDCard" Type="String" MaxLength="18" Unicode="false" FixedLength="false" />
+          <Property Name="Email" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="Address" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="DetailedAddress" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="UpdateTime" Type="DateTime" />
+          <NavigationProperty Name="tbMember" Relationship="WheatDBModel.FK_tbMemberInfo_tbMember" FromRole="tbMemberInfo" ToRole="tbMember" />
+        </EntityType>
+        <EntityType Name="tbMemberScore">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="MemberID" Type="Guid" />
+          <Property Name="Score" Type="Int32" />
+          <Property Name="Bread" Type="Int32" />
+          <Property Name="UpdateTime" Type="DateTime" />
+          <NavigationProperty Name="tbMember" Relationship="WheatDBModel.FK_tbMemberScore_tbMember" FromRole="tbMemberScore" ToRole="tbMember" />
+        </EntityType>
+        <Association Name="FK_tbMemberAndCard_tbCard">
+          <End Role="tbCard" Type="WheatDBModel.tbCard" Multiplicity="0..1" />
+          <End Role="tbMemberAndCard" Type="WheatDBModel.tbMemberAndCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCard">
+              <PropertyRef Name="CardID" />
+            </Principal>
+            <Dependent Role="tbMemberAndCard">
+              <PropertyRef Name="CardID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbMemberAndCard_tbMember1">
+          <End Role="tbMember" Type="WheatDBModel.tbMember" Multiplicity="0..1" />
+          <End Role="tbMemberAndCard" Type="WheatDBModel.tbMemberAndCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbMember">
+              <PropertyRef Name="MemberID" />
+            </Principal>
+            <Dependent Role="tbMemberAndCard">
+              <PropertyRef Name="MemberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbMemberInfo_tbMember">
+          <End Role="tbMember" Type="WheatDBModel.tbMember" Multiplicity="0..1" />
+          <End Role="tbMemberInfo" Type="WheatDBModel.tbMemberInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbMember">
+              <PropertyRef Name="MemberID" />
+            </Principal>
+            <Dependent Role="tbMemberInfo">
+              <PropertyRef Name="MemberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbMemberScore_tbMember">
+          <End Role="tbMember" Type="WheatDBModel.tbMember" Multiplicity="0..1" />
+          <End Role="tbMemberScore" Type="WheatDBModel.tbMemberScore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbMember">
+              <PropertyRef Name="MemberID" />
+            </Principal>
+            <Dependent Role="tbMemberScore">
+              <PropertyRef Name="MemberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WheatDBModelStoreContainer" CdmEntityContainer="MemberDBEntities">
+          <EntitySetMapping Name="tbCards">
+            <EntityTypeMapping TypeName="WheatDBModel.tbCard">
+              <MappingFragment StoreEntitySet="tbCard">
+                <ScalarProperty Name="CardID" ColumnName="CardID" />
+                <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
+                <ScalarProperty Name="CardKey" ColumnName="CardKey" />
+                <ScalarProperty Name="Cardstate" ColumnName="Cardstate" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbMembers">
+            <EntityTypeMapping TypeName="WheatDBModel.tbMember">
+              <MappingFragment StoreEntitySet="tbMember">
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="RegisterTime" ColumnName="RegisterTime" />
+                <ScalarProperty Name="LastLoginTime" ColumnName="LastLoginTime" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Del" ColumnName="Del" />
+                <ScalarProperty Name="Lock" ColumnName="Lock" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbMemberAndCards">
+            <EntityTypeMapping TypeName="WheatDBModel.tbMemberAndCard">
+              <MappingFragment StoreEntitySet="tbMemberAndCard">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="CardID" ColumnName="CardID" />
+                <ScalarProperty Name="Del" ColumnName="Del" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbMemberInfoes">
+            <EntityTypeMapping TypeName="WheatDBModel.tbMemberInfo">
+              <MappingFragment StoreEntitySet="tbMemberInfo">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FristName" ColumnName="FristName" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="IDCard" ColumnName="IDCard" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="DetailedAddress" ColumnName="DetailedAddress" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbMemberScores">
+            <EntityTypeMapping TypeName="WheatDBModel.tbMemberScore">
+              <MappingFragment StoreEntitySet="tbMemberScore">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="Bread" ColumnName="Bread" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="ModelMember">
+        <EntityTypeShape EntityType="WheatDBModel.tbCard" Width="1.5" PointX="0.75" PointY="0.875" Height="2.1610522460937496" IsExpanded="true" />
+        <EntityTypeShape EntityType="WheatDBModel.tbMember" Width="1.5" PointX="0.75" PointY="4.25" Height="3.3071704101562496" IsExpanded="true" />
+        <EntityTypeShape EntityType="WheatDBModel.tbMemberAndCard" Width="1.5" PointX="3" PointY="2.75" Height="2.3520719401041656" IsExpanded="true" />
+        <EntityTypeShape EntityType="WheatDBModel.tbMemberInfo" Width="1.5" PointX="3" PointY="6" Height="3.3071704101562505" IsExpanded="true" />
+        <EntityTypeShape EntityType="WheatDBModel.tbMemberScore" Width="1.5" PointX="3" PointY="10" Height="2.1610522460937496" IsExpanded="true" />
+        <AssociationConnector Association="WheatDBModel.FK_tbMemberAndCard_tbCard" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="1.8124995" />
+          <ConnectorPoint PointX="3.75" PointY="1.8124995" />
+          <ConnectorPoint PointX="3.75" PointY="2.75" />
+        </AssociationConnector>
+        <AssociationConnector Association="WheatDBModel.FK_tbMemberAndCard_tbMember1" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="4.6760359700520828" />
+          <ConnectorPoint PointX="3" PointY="4.6760359700520828" />
+        </AssociationConnector>
+        <AssociationConnector Association="WheatDBModel.FK_tbMemberInfo_tbMember" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="6.7785852050781248" />
+          <ConnectorPoint PointX="3" PointY="6.7785852050781248" />
+        </AssociationConnector>
+        <AssociationConnector Association="WheatDBModel.FK_tbMemberScore_tbMember" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.5" PointY="7.55717041015625" />
+          <ConnectorPoint PointX="1.5" PointY="11.080526123046875" />
+          <ConnectorPoint PointX="3" PointY="11.080526123046875" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

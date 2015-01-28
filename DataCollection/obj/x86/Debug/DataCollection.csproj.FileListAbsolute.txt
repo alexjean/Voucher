@@ -1,9 +1,0 @@
-D:\VoucherExpense10\DataCollection\bin\Debug\DataCollection.exe
-D:\VoucherExpense10\DataCollection\bin\Debug\DataCollection.pdb
-D:\VoucherExpense10\DataCollection\obj\x86\Debug\DataCollection.Form1.resources
-D:\VoucherExpense10\DataCollection\obj\x86\Debug\DataCollection.Properties.Resources.resources
-D:\VoucherExpense10\DataCollection\obj\x86\Debug\DataCollection.csproj.GenerateResource.Cache
-D:\VoucherExpense10\DataCollection\obj\x86\Debug\DataCollection.exe
-D:\VoucherExpense10\DataCollection\obj\x86\Debug\DataCollection.pdb
-D:\VoucherExpense10\DataCollection\obj\x86\Debug\DataCollection.FormStart.resources
-D:\VoucherExpense10\DataCollection\bin\Debug\DataCollection.exe.config

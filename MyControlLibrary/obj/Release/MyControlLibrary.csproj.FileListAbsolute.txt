@@ -1,0 +1,16 @@
+C:\Users\liuyanxu\Desktop\MyControlLibrary\bin\Release\MyControlLibrary.dll
+C:\Users\liuyanxu\Desktop\MyControlLibrary\bin\Release\MyControlLibrary.pdb
+C:\Users\liuyanxu\Desktop\MyControlLibrary\obj\Release\MyControlLibrary.Properties.Resources.resources
+C:\Users\liuyanxu\Desktop\MyControlLibrary\obj\Release\MyControlLibrary.MyImgControl.resources
+C:\Users\liuyanxu\Desktop\MyControlLibrary\obj\Release\MyControlLibrary.csproj.GenerateResource.Cache
+C:\Users\liuyanxu\Desktop\MyControlLibrary\obj\Release\MyControlLibrary.dll
+C:\Users\liuyanxu\Desktop\MyControlLibrary\obj\Release\MyControlLibrary.pdb
+C:\Users\liuyanxu\Desktop\MyControlLibrary\obj\Release\MyControlLibrary.csprojResolveAssemblyReference.cache
+D:\MyControlLibrary\bin\Release\MyControlLibrary.dll
+D:\MyControlLibrary\bin\Release\MyControlLibrary.pdb
+D:\MyControlLibrary\obj\Release\MyControlLibrary.csprojResolveAssemblyReference.cache
+D:\MyControlLibrary\obj\Release\MyControlLibrary.Properties.Resources.resources
+D:\MyControlLibrary\obj\Release\MyControlLibrary.MyImgControl.resources
+D:\MyControlLibrary\obj\Release\MyControlLibrary.csproj.GenerateResource.Cache
+D:\MyControlLibrary\obj\Release\MyControlLibrary.dll
+D:\MyControlLibrary\obj\Release\MyControlLibrary.pdb

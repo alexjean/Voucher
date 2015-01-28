@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace BakeryOrder
 {
-    class MenuItemForTag
+   public class MenuItemForTag
     {
         public int id;
 //        public int code;     // 全面改成ProductID

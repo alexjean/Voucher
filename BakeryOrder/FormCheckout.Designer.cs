@@ -66,14 +66,13 @@
             this.btZhekou8 = new System.Windows.Forms.Button();
             this.labelDiscount = new System.Windows.Forms.Label();
             this.labelzhekou = new System.Windows.Forms.Label();
-            this.btnExchange = new System.Windows.Forms.Button();
             this.panelLogin.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnCash
             // 
             this.btnCash.BackColor = System.Drawing.Color.SeaShell;
-            this.btnCash.Location = new System.Drawing.Point(12, 26);
+            this.btnCash.Location = new System.Drawing.Point(53, 18);
             this.btnCash.Name = "btnCash";
             this.btnCash.Size = new System.Drawing.Size(75, 53);
             this.btnCash.TabIndex = 12;
@@ -84,7 +83,7 @@
             // btnCard
             // 
             this.btnCard.BackColor = System.Drawing.Color.SeaShell;
-            this.btnCard.Location = new System.Drawing.Point(103, 26);
+            this.btnCard.Location = new System.Drawing.Point(144, 18);
             this.btnCard.Name = "btnCard";
             this.btnCard.Size = new System.Drawing.Size(75, 53);
             this.btnCard.TabIndex = 13;
@@ -95,7 +94,7 @@
             // btnCoupon
             // 
             this.btnCoupon.BackColor = System.Drawing.Color.SeaShell;
-            this.btnCoupon.Location = new System.Drawing.Point(194, 26);
+            this.btnCoupon.Location = new System.Drawing.Point(235, 18);
             this.btnCoupon.Name = "btnCoupon";
             this.btnCoupon.Size = new System.Drawing.Size(75, 53);
             this.btnCoupon.TabIndex = 14;
@@ -482,24 +481,12 @@
             this.labelzhekou.TabIndex = 32;
             this.labelzhekou.Text = "折扣";
             // 
-            // btnExchange
-            // 
-            this.btnExchange.BackColor = System.Drawing.Color.SeaShell;
-            this.btnExchange.Location = new System.Drawing.Point(285, 26);
-            this.btnExchange.Name = "btnExchange";
-            this.btnExchange.Size = new System.Drawing.Size(75, 53);
-            this.btnExchange.TabIndex = 34;
-            this.btnExchange.Text = "兑换";
-            this.btnExchange.UseVisualStyleBackColor = true;
-            this.btnExchange.Click += new System.EventHandler(this.btnExchange_Click);
-            // 
             // FormCheckout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(749, 550);
-            this.Controls.Add(this.btnExchange);
             this.Controls.Add(this.labelDiscount);
             this.Controls.Add(this.labelzhekou);
             this.Controls.Add(this.btZhekou8);
@@ -576,6 +563,5 @@
         private System.Windows.Forms.Button btZhekou8;
         private System.Windows.Forms.Label labelDiscount;
         private System.Windows.Forms.Label labelzhekou;
-        private System.Windows.Forms.Button btnExchange;
     }
 }

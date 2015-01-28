@@ -77,18 +77,26 @@ namespace BakeryOrder
             timer1.Start();
 
         }
-        string showstr = "ssdds";//测试用 
+
         private void imgShow(Image img)
         {
             this.myImgControl1.BackgroundImage = img;
             this.myImgControl1.MyStrColor = Color.Red;
-            this.myImgControl1.MyStr = showstr;
-            this.myImgControl1.changetext(showstr);    
+            this.myImgControl1.MyStr = "";
+            if (FormCashier.memberInfo!=null)
+            {
+                this.myImgControl1.changetext("尊敬的会员您好！");  
+            }
+            else
+            {
+                this.myImgControl1.changetext("");    
+            }
+           
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
             m_Count++;
-            showstr += m_Count;
+
             if (m_Count >= m_Files.Count()) m_Count = 0;
             timer1.Interval = m_DefaultInterval;
             //this.panel1.BringToFront();

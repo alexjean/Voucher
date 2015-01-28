@@ -13,6 +13,7 @@ namespace BakeryOrder
         [STAThread]
         static void Main()
         {
+    
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             string EncryptedPasword = "mpwfCblfsz";   // loveBakery

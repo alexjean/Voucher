@@ -433,11 +433,11 @@ namespace VoucherExpense
         private decimal CalcSaleList(int month,int from,int to)
         {
             int count = m_SaleList.Count;
-            if (count <= 1)
+            if (count <1)
             {
                 MessageBox.Show("請選擇產品列表");
                 return decimal.MinValue;    // 不可能是負 
-            }
+            }  
             int year = MyFunction.IntHeaderYear;
 
             labelMessage.Text = "載入資料中.";
@@ -473,8 +473,8 @@ namespace VoucherExpense
                         total += it.Price * it.No;
                 }
                 decimal income = 0;
-                if (!row.IsIncomeNull()) income = row.Income;
-                if (total!=0m) deductRate = income  / total;
+               if (!row.IsIncomeNull()) income = row.Income;
+               if (total!=0m) deductRate = income  / total;
                 int hr = 0;
                 if (!row.IsPrintTimeNull()) hr=row.PrintTime.Hour;
                 foreach (var it in items)
@@ -501,6 +501,7 @@ namespace VoucherExpense
                 progressBar1.Increment(1);
                 Application.DoEvents();
             }
+            ///出货计算
             foreach (var row in m_OrderSet.Shipment)
             {
                 decimal discountRate = 0.88m, deductRate = 1m;

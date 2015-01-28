@@ -11,6 +11,7 @@ namespace BakeryOrder
 {
     public partial class FormCheckout : Form
     {
+        public static int ExchangeNo=0;
         int m_X = 0, m_Y=0;
         BakeryOrderSet.OrderRow m_Order;
         decimal m_Total;
@@ -34,7 +35,7 @@ namespace BakeryOrder
             DialogResult = DialogResult.OK;
             if (m_PayBy == 'A')
                 Tag = m_MoneyGot;
-            else if (m_PayBy == 'B' || m_PayBy=='C'||m_PayBy=='D')  // 刷卡及券沒有 實收 duihuan
+            else if (m_PayBy == 'B' || m_PayBy=='C')  // 刷卡及券沒有 實收 
                 Tag = 0;
             else
             {
@@ -47,16 +48,95 @@ namespace BakeryOrder
             m_Order.DiscountRate = m_DiscountRate;
             m_Order.OldID = 0;
             m_Order.RCashierID = 0;
-            m_Order.MemberID = MemberInfo.MemberId;
+            if (FormCashier.memberInfo == null)
+            {
+                //m_Order.MemberID = "0"; 
+            }
+            else
+            {
+                m_Order.MemberID = FormCashier.memberInfo.MemberID.ToString();
+            }
+            if (m_Debuct==0&&FormCashier.memberScore!=null)
+            {
+                Score(FormCashier.memberScore.MemberID.ToString(),FormCashier.BreadNO);
+            }
+            if (m_Debuct > 0 && FormCashier.memberScore != null)
+            {
+ //减去兑换面包值，此单不可累计麦子
+                Bread(FormCashier.memberScore.MemberID.ToString(), ExchangeNo);
+                //设定打印 兑换面包数
+                FormCashier.ExBread = ExchangeNo;
+                //修改列表中面包数为0，用于打印积分为0，不影响有积分的单子
+                FormCashier.BreadNO = 0;
+            }
             Close();
         }
+        /// <summary>
+        /// 修改指定会员的积分
+        /// </summary>
+        /// <param name="memberid"></param>
+        /// <param name="AddValue"></param>
+        public static void Score(string memberid,int AddValue)
+        {
+            using (MemberDBEntities memberdb = new MemberDBEntities())
+            {
+                try
+                {
+                    memberdb.ExecuteStoreCommand("update tbMemberScore set Score=Score+"+AddValue+" where MemberID='"+memberid+"'");
+                }
+                catch (Exception ex)
+                {
+                    Form form = new FormMessage("更新会员积分时出错,原因:" + ex.Message);
+                    form.ShowDialog();
+                } 
+            }
+          
+        }
+        /// <summary>
+        /// 修改指定会员的可兑换面包数
+        /// </summary>
+        /// <param name="memberid"></param>
+        /// <param name="AddValue"></param>
+        public static void Bread(string memberid, int AddValue)
+        {
+            using (MemberDBEntities memberdb = new MemberDBEntities())
+            {
+                try
+                {
+                    memberdb.ExecuteStoreCommand("update tbMemberScore set Bread=Bread-" + AddValue + " where MemberID='" + memberid + "'");
+                }
+                catch (Exception ex)
+                {
+                    Form form = new FormMessage("更新会员数据时出错,原因:" + ex.Message);
+                    form.ShowDialog();
+                }
+            }
 
+        }
         private void btnCancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
             Close();
         }
 
+        /// <summary>
+        /// 计算兑换面包带来的优惠价格
+        /// </summary>
+        /// <param name="m">面包个数</param>
+        /// <param name="n">开始Index 0</param>
+        /// <returns></returns>
+        double Foo(double m, int n)
+        {
+            var item = (FormCashier.listBread.GetRange(n, 1).FirstOrDefault());
+            if ((m - item.No) <= 0)
+            {
+                return m * item.Price;
+            }
+            else
+            {
+                return item.Price * item.No + Foo(m - item.No, n+1);
+            }
+        }
         private void FormCheckout_Load(object sender, EventArgs e)
         {
             Location = new Point(m_X, m_Y);
@@ -74,6 +154,33 @@ namespace BakeryOrder
             btnNumber8.Click += btnNumberX_Click;
             btnNumber9.Click += btnNumberX_Click;
             btnNumber100.Click += btnNumberX_Click;
+            if (FormCashier.memberScore!=null)
+            {
+                if (FormCashier.memberScore.Bread>0)
+                {
+                    int num = 0;
+                    if (FormCashier.BreadNO >= FormCashier.memberScore.Bread)
+                    {
+                        num = (int)FormCashier.memberScore.Bread;
+                    }
+                    FormMessage form = new FormMessage("请输入兑换面包数不大于"+num,2);
+                    form.ShowDialog();
+                    if (ExchangeNo>0)
+                    {
+                        try
+                        {
+                            double ExchangeOfMoney = Foo((double)ExchangeNo, 0);
+                            textBoxDeduct.Text = ExchangeOfMoney.ToString();
+                        }
+                        catch (Exception ex)
+                        {
+
+                            FormMessage exForm = new FormMessage("兑换面包后台计算出错，请暂停兑换面包操作并通知技术人员"+ex);
+                        }
+                        
+                    }
+                }
+            }
         }
 
         void SetButtonVisualStyleExcept(Button btn)
@@ -107,21 +214,7 @@ namespace BakeryOrder
             m_PayBy = 'C';
             textBoxCashGot.Enabled = false;
         }
-        private void btnExchange_Click(object sender, EventArgs e)
-        {
-            ////检查是否可以兑换
-            //if (MemberInfo.)
-            //{
-            //SetButtonVisualStyleExcept(sender as Button);
-            //labelCashGot.Visible = labelChange.Visible = false;
-            //m_PayBy = 'D';
-            //textBoxCashGot.Enabled = false;                
-            //}
-            //else
-            //{
-            //    MessageBox.Show("没有可以兑换");
-            //}
-        }
+
 
         TextBox m_Current = null;
         private void btnNumberX_Click(object sender, EventArgs e)
@@ -146,6 +239,7 @@ namespace BakeryOrder
 
         private void btnClear_Click(object sender, EventArgs e) 
         {
+            ExchangeNo = 0;
             if (m_Current == null) return;
             Button btn = sender as Button;
             m_Current.Focus();

@@ -18,6 +18,10 @@ namespace BakeryOrder
     public partial class FormCashier : Form
     {
 
+        public static tbMemberInfo memberInfo ;
+        public static tbMemberScore memberScore;
+        public static tbCard card;
+        public static List<MenuItemForTag> listBread=new List<MenuItemForTag>();
         #region ======== Shared function with EditBakeryMenu.cs ======
         private static class MyLayout
         {
@@ -651,7 +655,11 @@ namespace BakeryOrder
                 order.PayBy = DicPayBy.First().Key.ToString();
                 order.OldID = 0;
                 order.RCashierID = 0;
-                order.MemberID = MemberInfo.MemberId;
+                if (memberInfo != null)
+                {
+
+                    order.MemberID = memberInfo.MemberID.ToString();
+                }
                 return order.ID;
             }
             catch (Exception ex)
@@ -731,19 +739,12 @@ namespace BakeryOrder
 
             Buf.Append("\r\n");
 
-            if (MemberInfo.CardNumber != null)
+            if (card!=null)
             {
-                Buf.Append("会员卡号：" + MemberInfo.CardNumber.ToString() + "\r\n");
-            }
-            if (MemberInfo.MemberName != null)
-            {
-                Buf.Append("会员姓名：" + MemberInfo.MemberName.ToString() + "\r\n");
-            }
-            if (MemberInfo.MemberPoint != null)
-            {
-                Buf.Append("会员麦子" + MemberInfo.MemberPoint.ToString() + "\r\n");
-            }
-
+                 Buf.Append("会员卡号：" + card.CardNumber.ToString() + "\r\n");
+                 Buf.Append("面包数" + memberScore.Bread.ToString() + "麦子" + memberScore.Score.ToString() + "\r\n");
+                 Buf.Append("本次兑换面包"+ExBread+"获得麦子数" + BreadNO + "\r\n");
+            } 
             Buf.Append(m_Printer.Address + "\r\n");
             Buf.AppendPadRight(m_Printer.Tel, 19);
             n = (CurrentOrder.ID % 1000);
@@ -860,7 +861,7 @@ namespace BakeryOrder
             if (!this.checkBoxTest.Checked)
                 RawPrint.SendManagedBytes(m_Printer.PrinterName, m_CashDrawer);
             CreateUpdateDrawerRecord(ref m_MaxDrawerRecordID, m_CurrentOrder.ID % 10000);
-            MemberInfo.Set();
+            SetMemberNull();
             //richTextBox1.Text = "";
             textBox1.SelectAll();
             textBox1.Focus();
@@ -913,6 +914,12 @@ namespace BakeryOrder
 
         private void DoNewOrder()
         {
+            /*-----------恢复初始状态-----------*/
+            SetMemberNull();
+            myImgControl1.changetext("");
+            textBox1.SelectAll();
+            textBox1.Focus();
+            /*----------------------*/
             int no = CreateOrder(out m_CurrentOrder, m_MaxOrderID) % 10000;
             if (m_CurrentOrder == null) return;    // 錯誤產生
             foreach (ListViewItem lv in lvItems.Items)
@@ -929,11 +936,7 @@ namespace BakeryOrder
 
         private void btnNewOrder_Click(object sender, EventArgs e)
         {
-            MemberInfo.Set();
-            // richTextBox1.Text = "";
-            myImgControl1.changetext("");
-            textBox1.SelectAll();
-            textBox1.Focus();
+
             DoNewOrder();
 
         }
@@ -1086,7 +1089,7 @@ namespace BakeryOrder
             btnPrint.Enabled = isLogin;
             btnNewOrder.Enabled = isLogin; 
         }
-
+        tbMemberScore ob;
         private void btnLogin_Click(object sender, EventArgs e)
         {
             ReLoadAllData();
@@ -1142,6 +1145,8 @@ namespace BakeryOrder
                 }
             }
             MessageBoxShow("沒有找到此收銀員!");
+
+          
         }
 
         bool m_FocusID = true;
@@ -1255,9 +1260,12 @@ namespace BakeryOrder
         }
         // 列表中产品个数
         public int productNO;
+        //列表中的面包数
+        public static int BreadNO=0;
+        public static int ExBread=0;
         private void btnDoCashier_Click(object sender, EventArgs e)
         {
-
+            listBread.Clear();
             if (m_DataSealed)
             {
                 MessageBoxShow("今日資料己封印! 無法打單");
@@ -1270,10 +1278,16 @@ namespace BakeryOrder
             else
             {
                 productNO = 0;
+                BreadNO = 0;
                 foreach (ListViewItem item in lvItems.Items)
                 {
                     MenuItemForTag item1 = (MenuItemForTag)item.Tag;
                     productNO += (int)item1.No;
+                    if (item1.classcode==1)
+                    {
+                        BreadNO += (int)item1.No;
+                        listBread.Add(item1);
+                    }
                 }
             }
             if (m_CurrentOrder == null)
@@ -1290,12 +1304,6 @@ namespace BakeryOrder
             Form form = new FormCheckout(tabControl1.Left + 8, 8, m_CurrentOrder, (decimal)CalcTotal());
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                MemberInfo.Set();
-                //richTextBox1.Text = "";
-                textBox1.SelectAll();
-                textBox1.Focus();
-
-
                 if (form.Tag.GetType() == typeof(decimal))
                     moneyGot = (decimal)(form.Tag);
                 else
@@ -1316,6 +1324,9 @@ namespace BakeryOrder
                 if (!this.checkBoxTest.Checked)
                     RawPrint.SendManagedBytes(m_Printer.PrinterName, m_CashDrawer);   // 彈出錢箱
                 CreateUpdateDrawerRecord(ref m_MaxDrawerRecordID, m_CurrentOrder.ID % 10000);
+                SetMemberNull();
+                textBox1.SelectAll();
+                textBox1.Focus();
             }
         }
 
@@ -1393,6 +1404,14 @@ namespace BakeryOrder
             textBox1.SelectAll();
 
         }
+        public static void SetMemberNull()
+        {
+            memberInfo = null;
+            memberScore = null;
+            card = null;
+
+        }
+        #region 图片+会员信息显示
         /// <summary>
         /// 图片+会员信息显示
         /// </summary>
@@ -1401,176 +1420,102 @@ namespace BakeryOrder
         {
             pictureBoxOrdered.Controls.Clear();
            // var myimg = new MyControlLibrary.MyImgControl();
-            myImgControl1.MyColor = MemberInfo.CardColor;
+            myImgControl1.MyColor = Color.White;
             myImgControl1.Myalpha = 0;
             myImgControl1.BackgroundImage = img;
             myImgControl1.MyStrColor = Color.Black;
             pictureBoxOrdered.Controls.Add(myImgControl1);
         }
+        #endregion
+
+
         #region  会员卡处理
+        /// <summary>
+        /// memberdb.ExecuteStoreCommand("update tbMemberScore set bread=Bread+1 where id=1");积分修改时用这种sql语句 同步不会出错
+        /// </summary>
+
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            char KeyChar = e.KeyChar;
-            if (KeyChar == (char)Keys.Enter)
+            using (MemberDBEntities memberdb = new MemberDBEntities())
             {
-                string str = textBox1.Text;
-                string restr = @"[^\d]*";
-                string mstr = System.Text.RegularExpressions.Regex.Replace(str, restr, "");
-                if (mstr.Length >= 16)
+                try
                 {
-                    DataTable dt = ReadDB(mstr.Substring(0, 16));
-                    if (dt.Rows.Count > 0)
+
+                    char KeyChar = e.KeyChar;
+                    if (KeyChar == (char)Keys.Enter)
                     {
-                        MessageBox.Show(dt.Rows.Count.ToString()); MessageBox.Show(dt.Rows[0][0].ToString());
-                        MemberInfo.MemberId = dt.Rows[0]["MemberId"].ToString();
-                        MemberInfo.MemberName = dt.Rows[0]["MemberName"].ToString();
-                        MemberInfo.MemberSex = dt.Rows[0]["MemberSex"].ToString();
-                        MemberInfo.MemberLevel = dt.Rows[0]["MemberLevel"].ToString();
-                        MemberInfo.MemberPoint = dt.Rows[0]["MemberPoint"].ToString();
-                        MemberInfo.CardNumber = dt.Rows[0]["CardNumber"].ToString();
-                        MemberInfo.CardStatus = dt.Rows[0]["CardStatus"].ToString();
-                        MemberInfo.CardClassName = dt.Rows[0]["CardClassName"].ToString();
-                        //会员卡颜色CardColor
-                        MemberInfo.CardColor = Color.FromName(dt.Rows[0]["CardColor"].ToString());
-                        MemberInfo.ResultStr = MemberInfo.MemberName + MemberInfo.CardNumber;
-                        // richTextBox1.Text = MemberInfo.MemberId;
-                        myImgControl1.changetext(MemberInfo.ResultStr);
+                        string str = textBox1.Text;
+                        string restr = @"[^\d]*";
+                        string mstr = System.Text.RegularExpressions.Regex.Replace(str, restr, "");
+                        if (mstr.Length >= 16)
+                        {
+                            card = memberdb.CreateObjectSet<tbCard>().Where<tbCard>(p => p.CardNumber == mstr.Substring(0, 16)).FirstOrDefault();
+                            if (card == null)
+                            {
+                                myImgControl1.changetext("不存在此卡！");
+                            }
+                            else
+                            {
+                                if (card.Cardstate == 1)
+                                {
+                                    tbMemberAndCard mc = card.tbMemberAndCards.FirstOrDefault();
+                                    if (mc == null)
+                                    {
+                                        myImgControl1.changetext("卡还没有绑定会员！");
+                                        SetMemberNull();
+                                    }
+                                    else
+                                    {
+                                        memberInfo = mc.tbMember.tbMemberInfoes.FirstOrDefault();
+                                        memberScore = mc.tbMember.tbMemberScores.FirstOrDefault();
+                                        StringBuilder InfoStr = new StringBuilder();
+                                        InfoStr.Append(memberInfo.FristName);
+                                        if (memberInfo.Sex == 1)
+                                        {
+                                            InfoStr.Append("先生");
+                                        }
+                                        else
+                                        {
+                                            InfoStr.Append("女士");
+                                        }
+                                        //判断是否生日当天，如果是，提示
+                                        InfoStr.Append("\r\n可换面包数" + memberScore.Bread + "\r\n麦子数" + memberScore.Score);
+                                        myImgControl1.changetext(InfoStr.ToString());
+                                    }
+                                }
+                                else
+                                {
+                                    myImgControl1.changetext("此卡没有激活或者已经挂失！");
+                                    SetMemberNull();
+                                }
+                            }
+                            
+                            textBox1.SelectAll();
+                            textBox1.Focus();
+                        }
                     }
-                    else
-                    {
-                        MemberInfo.Set();
-                        myImgControl1.changetext("没有查到此卡，可能没有激活或者激活没有超过24小时，也可能不是本店会员卡");
-                    }
-                    textBox1.SelectAll();
-                    textBox1.Focus();
+
+
+                }
+                catch (Exception ex)
+                {
+                    Form form = new FormMessage("刷卡异常" + ex.Message);
+                    form.ShowDialog();
                 }
             }
         }
 
-        /// <summary>
-        ///  会员卡刷卡处理
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            //if (textBox1.TextLength < 16)//刷卡接收信息textbox字符串长度小于卡号长度不作处理
-            //{
-            //   // MemberInfo.ResultStr = "测试";
-            //}
-            //else
-            //{
-            //    string str = textBox1.Text;
-            //    MessageBox.Show(str);
-            //    string restr = @"[^\d]*";
-            //    string mstr = System.Text.RegularExpressions.Regex.Replace(str, restr, "");
-            //    MessageBox.Show(str+"   "+mstr);
-            //    //DataTable dt = ReadDB(mstr.Substring(0, 16));
-            //    //if (dt != null)
-            //    //{
-            //    //    MemberInfo.MemberId = dt.Rows[0]["MemberId"].ToString();
-            //    //    MemberInfo.MemberName = dt.Rows[0]["MemberName"].ToString();
-            //    //    MemberInfo.MemberSex = dt.Rows[0]["MemberSex"].ToString();
-            //    //    MemberInfo.MemberLevel = dt.Rows[0]["MemberLevel"].ToString();
-            //    //    MemberInfo.MemberPoint = dt.Rows[0]["MemberPoint"].ToString();
-            //    //    MemberInfo.CardNumber = dt.Rows[0]["CardNumber"].ToString();
-            //    //    MemberInfo.CardStatus = dt.Rows[0]["CardStatus"].ToString();
-            //    //    MemberInfo.CardClassName = dt.Rows[0]["CardClassName"].ToString();
-            //    //    //会员卡颜色CardColor
-            //    //    MemberInfo.CardColor = Color.FromName(dt.Rows[0]["CardColor"].ToString());
-            //    //    MemberInfo.ResultStr = "";
-            //    //   // richTextBox1.Text = MemberInfo.MemberId;
-            //    //}
-            //    //else
-            //    //{
-            //    //    MemberInfo.Set();
-            //    //    MemberInfo.ResultStr = "没有查到此卡，可能没有激活或者激活没有超过24小时，也可能不是本店会员卡";
-            //    //}
-            //}
+            
+        }
 
-        }
-        /// <summary>
-        ///  获取会员信息
-        /// </summary>
-        /// <param name="memberCard"></param>
-        /// <returns></returns>
-        DataTable ReadDB(string memberCard)
-        {
-            string constr = "server=192.168.88.245;uid=sa;database=wheat;pwd=123456;";
-            //MemberId	MemberName	MemberSex	MemberLevel	MemberPoint	CardNumber	CardStatus	CardClassName	cardColor
-            //,cardclass.cardColor
-            string sqlstr = "select member.MemberId,member.MemberName,member.MemberSex,member.MemberLevel,member.MemberPoint,card.CardNumber,card.CardStatus,cardclass.CardClassName,cardclass.CardColor" +
-           " from tbMember member,tbCard card,tbCardClass cardclass where member.MemberCard=card.CardId and card.CardNumber= " + memberCard + " and cardclass.CardClassId=card.CardClassId;";
-            using (SqlConnection connection = new SqlConnection(constr))
-            {
-                //using (SqlCommand cmd = new SqlCommand(sqlstr,connection))
-                {
-                    try
-                    {
-                        SqlDataAdapter da = new SqlDataAdapter(sqlstr, connection);
-                        DataSet ds = new DataSet();
-                        //da.SelectCommand = cmd;
-                        connection.Open();
-                        da.Fill(ds);
-                        DataTable dt = ds.Tables[0];
-                        connection.Close();
-                        return dt;
-                    }
-                    catch (Exception ex)
-                    {
-                        ex.Message.ToString(); ;
-                        connection.Close();
-                        return null;
-                    }
+       
 
-                }
-            }
-        }
-        public void UpdateDB()
-        {
-
-        }
-        public static void Read(string path, out string res)
-        {
-            StreamReader sr = new StreamReader(path, Encoding.Default);
-            String line;
-            res = null;
-            while ((line = sr.ReadLine()) != null)
-            {
-                res = res + line.ToString();
-            }
-            sr.Close();
-        }
 
 
 
     }
-    public static class MemberInfo{
 
-        public static string MemberId { get; set; }
-        public static string MemberName { get; set; }
-        public static string MemberSex { get; set; }
-        public static string MemberLevel { get; set; }
-        public static string MemberPoint { get; set; }
-        public static string CardNumber { get; set; }
-        public static string CardStatus { get; set; }
-        public static string CardClassName { get; set; }
-        public static Color CardColor { get; set; }
-        public static string ResultStr { get; set; }
- //MemberId	MemberName	MemberSex	MemberLevel	MemberPoint	CardNumber	CardStatus	CardClassName	cardColor
-        public static void Set()
-        {
-            MemberInfo.MemberId = null;
-            MemberInfo.MemberName = null;
-            MemberInfo.MemberSex = null;
-            MemberInfo.MemberLevel = null;
-            MemberInfo.MemberPoint = null;
-            MemberInfo.CardNumber = null;
-            MemberInfo.CardStatus = null;
-            MemberInfo.CardClassName = null;
-            MemberInfo.CardColor = Color.White;
-            MemberInfo.ResultStr = "";
-        }
-    }
 #endregion
 }

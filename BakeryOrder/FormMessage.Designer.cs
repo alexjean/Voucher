@@ -31,8 +31,10 @@
             this.btnConfirm = new System.Windows.Forms.Button();
             this.textBoxMessage = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnYes = new System.Windows.Forms.Button();
             this.btnNo = new System.Windows.Forms.Button();
+            this.btnYes = new System.Windows.Forms.Button();
+            this.btAdd = new System.Windows.Forms.Button();
+            this.btMinus = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,6 +61,8 @@
             // panel1
             // 
             this.panel1.BackgroundImage = global::BakeryOrder.Properties.Resources.Powder;
+            this.panel1.Controls.Add(this.btMinus);
+            this.panel1.Controls.Add(this.btAdd);
             this.panel1.Controls.Add(this.btnNo);
             this.panel1.Controls.Add(this.btnYes);
             this.panel1.Controls.Add(this.btnConfirm);
@@ -67,16 +71,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(387, 193);
             this.panel1.TabIndex = 2;
-            // 
-            // btnYes
-            // 
-            this.btnYes.Location = new System.Drawing.Point(64, 118);
-            this.btnYes.Name = "btnYes";
-            this.btnYes.Size = new System.Drawing.Size(75, 47);
-            this.btnYes.TabIndex = 2;
-            this.btnYes.Text = "要";
-            this.btnYes.UseVisualStyleBackColor = true;
-            this.btnYes.Click += new System.EventHandler(this.btnYes_Click);
             // 
             // btnNo
             // 
@@ -88,6 +82,36 @@
             this.btnNo.UseVisualStyleBackColor = true;
             this.btnNo.Click += new System.EventHandler(this.btnNo_Click);
             // 
+            // btnYes
+            // 
+            this.btnYes.Location = new System.Drawing.Point(64, 118);
+            this.btnYes.Name = "btnYes";
+            this.btnYes.Size = new System.Drawing.Size(75, 47);
+            this.btnYes.TabIndex = 2;
+            this.btnYes.Text = "要";
+            this.btnYes.UseVisualStyleBackColor = true;
+            this.btnYes.Click += new System.EventHandler(this.btnYes_Click);
+            // 
+            // btAdd
+            // 
+            this.btAdd.Location = new System.Drawing.Point(98, 98);
+            this.btAdd.Name = "btAdd";
+            this.btAdd.Size = new System.Drawing.Size(41, 48);
+            this.btAdd.TabIndex = 4;
+            this.btAdd.Text = "+";
+            this.btAdd.UseVisualStyleBackColor = true;
+            this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
+            // 
+            // btMinus
+            // 
+            this.btMinus.Location = new System.Drawing.Point(247, 98);
+            this.btMinus.Name = "btMinus";
+            this.btMinus.Size = new System.Drawing.Size(41, 48);
+            this.btMinus.TabIndex = 5;
+            this.btMinus.Text = "-";
+            this.btMinus.UseVisualStyleBackColor = true;
+            this.btMinus.Click += new System.EventHandler(this.btMinus_Click);
+            // 
             // FormMessage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -95,7 +119,7 @@
             this.BackgroundImage = global::BakeryOrder.Properties.Resources.Wheat;
             this.ClientSize = new System.Drawing.Size(412, 217);
             this.Controls.Add(this.panel1);
-            this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormMessage";
@@ -116,5 +140,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnNo;
         private System.Windows.Forms.Button btnYes;
+        private System.Windows.Forms.Button btMinus;
+        private System.Windows.Forms.Button btAdd;
     }
 }

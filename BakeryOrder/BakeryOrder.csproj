@@ -67,6 +67,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -144,6 +147,11 @@
     <Compile Include="FormSystemSetup.Designer.cs">
       <DependentUpon>FormSystemSetup.cs</DependentUpon>
     </Compile>
+    <Compile Include="ModelMember.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelMember.edmx</DependentUpon>
+    </Compile>
     <Compile Include="ModifyPassword.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -205,6 +213,11 @@
     <None Include="BakeryOrderSet.xss">
       <DependentUpon>BakeryOrderSet.xsd</DependentUpon>
     </None>
+    <EntityDeploy Include="ModelMember.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelMember.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Properties\DataSources\MemberDBEntities.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

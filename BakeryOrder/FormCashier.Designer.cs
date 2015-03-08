@@ -72,6 +72,7 @@
             this.headerTableAdapter = new BakeryOrder.BakeryOrderSetTableAdapters.HeaderTableAdapter();
             this.pictureBoxOrdered = new System.Windows.Forms.Panel();
             this.myImgControl1 = new MyControlLibrary.MyImgControl();
+            this.lshow = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.panelLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).BeginInit();
@@ -90,7 +91,7 @@
             this.lvItems.HideSelection = false;
             this.lvItems.Location = new System.Drawing.Point(1, 0);
             this.lvItems.Name = "lvItems";
-            this.lvItems.Size = new System.Drawing.Size(234, 398);
+            this.lvItems.Size = new System.Drawing.Size(234, 348);
             this.lvItems.TabIndex = 0;
             this.lvItems.UseCompatibleStateImageBehavior = false;
             this.lvItems.View = System.Windows.Forms.View.Details;
@@ -152,6 +153,7 @@
             this.tabControl1.Size = new System.Drawing.Size(783, 768);
             this.tabControl1.TabIndex = 3;
             this.tabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPage1
             // 
@@ -176,7 +178,7 @@
             // 
             // labelTotal
             // 
-            this.labelTotal.Location = new System.Drawing.Point(152, 431);
+            this.labelTotal.Location = new System.Drawing.Point(152, 381);
             this.labelTotal.Name = "labelTotal";
             this.labelTotal.Size = new System.Drawing.Size(55, 20);
             this.labelTotal.TabIndex = 4;
@@ -186,7 +188,7 @@
             // labelClass
             // 
             this.labelClass.AutoSize = true;
-            this.labelClass.Location = new System.Drawing.Point(106, 433);
+            this.labelClass.Location = new System.Drawing.Point(106, 383);
             this.labelClass.Name = "labelClass";
             this.labelClass.Size = new System.Drawing.Size(40, 16);
             this.labelClass.TabIndex = 5;
@@ -417,7 +419,7 @@
             // btnDoCashier
             // 
             this.btnDoCashier.BackColor = System.Drawing.Color.SeaShell;
-            this.btnDoCashier.Location = new System.Drawing.Point(1, 404);
+            this.btnDoCashier.Location = new System.Drawing.Point(1, 354);
             this.btnDoCashier.Name = "btnDoCashier";
             this.btnDoCashier.Size = new System.Drawing.Size(75, 53);
             this.btnDoCashier.TabIndex = 12;
@@ -428,7 +430,7 @@
             // labelDeductTitle
             // 
             this.labelDeductTitle.AutoSize = true;
-            this.labelDeductTitle.Location = new System.Drawing.Point(106, 408);
+            this.labelDeductTitle.Location = new System.Drawing.Point(106, 358);
             this.labelDeductTitle.Name = "labelDeductTitle";
             this.labelDeductTitle.Size = new System.Drawing.Size(40, 16);
             this.labelDeductTitle.TabIndex = 13;
@@ -437,7 +439,7 @@
             // 
             // labelDeduct
             // 
-            this.labelDeduct.Location = new System.Drawing.Point(152, 406);
+            this.labelDeduct.Location = new System.Drawing.Point(152, 356);
             this.labelDeduct.Name = "labelDeduct";
             this.labelDeduct.Size = new System.Drawing.Size(55, 20);
             this.labelDeduct.TabIndex = 14;
@@ -461,11 +463,11 @@
             this.textBox1.BackColor = System.Drawing.Color.White;
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox1.Font = new System.Drawing.Font("PMingLiU", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(132, 408);
+            this.textBox1.Location = new System.Drawing.Point(132, 358);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(0, 21);
-            this.textBox1.TabIndex = 16;
+            this.textBox1.TabIndex = 1;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             // 
@@ -489,7 +491,7 @@
             // pictureBoxOrdered
             // 
             this.pictureBoxOrdered.Controls.Add(this.myImgControl1);
-            this.pictureBoxOrdered.Location = new System.Drawing.Point(18, 472);
+            this.pictureBoxOrdered.Location = new System.Drawing.Point(18, 487);
             this.pictureBoxOrdered.Name = "pictureBoxOrdered";
             this.pictureBoxOrdered.Size = new System.Drawing.Size(200, 147);
             this.pictureBoxOrdered.TabIndex = 20;
@@ -498,11 +500,19 @@
             // 
             this.myImgControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.myImgControl1.Location = new System.Drawing.Point(0, 0);
-            this.myImgControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.myImgControl1.Margin = new System.Windows.Forms.Padding(4);
             this.myImgControl1.MyStr = null;
             this.myImgControl1.Name = "myImgControl1";
             this.myImgControl1.Size = new System.Drawing.Size(200, 147);
             this.myImgControl1.TabIndex = 0;
+            // 
+            // lshow
+            // 
+            this.lshow.AutoSize = true;
+            this.lshow.Location = new System.Drawing.Point(18, 414);
+            this.lshow.Name = "lshow";
+            this.lshow.Size = new System.Drawing.Size(0, 16);
+            this.lshow.TabIndex = 21;
             // 
             // FormCashier
             // 
@@ -510,6 +520,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(1024, 768);
+            this.Controls.Add(this.lshow);
             this.Controls.Add(this.pictureBoxOrdered);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.btnTest);
@@ -589,6 +600,7 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Panel pictureBoxOrdered;
         private MyControlLibrary.MyImgControl myImgControl1;
+        private System.Windows.Forms.Label lshow;
     }
 }
 

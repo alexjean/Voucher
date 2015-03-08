@@ -48,6 +48,7 @@ namespace BakeryOrder
             m_Order.DiscountRate = m_DiscountRate;
             m_Order.OldID = 0;
             m_Order.RCashierID = 0;
+            m_Order.ExBread = ExchangeNo;
             if (FormCashier.memberInfo == null)
             {
                 //m_Order.MemberID = "0"; 
@@ -56,14 +57,14 @@ namespace BakeryOrder
             {
                 m_Order.MemberID = FormCashier.memberInfo.MemberID.ToString();
             }
-            if (m_Debuct==0&&FormCashier.memberScore!=null)
-            {
-                Score(FormCashier.memberScore.MemberID.ToString(),FormCashier.BreadNO);
-            }
+            //if (m_Debuct==0&&FormCashier.memberScore!=null)
+            //{
+            //    Score(FormCashier.memberScore.MemberID.ToString(),FormCashier.BreadNO);
+            //}
             if (m_Debuct > 0 && FormCashier.memberScore != null)
             {
- //减去兑换面包值，此单不可累计麦子
-                Bread(FormCashier.memberScore.MemberID.ToString(), ExchangeNo);
+                //减去兑换面包值，此单不可累计麦子
+                //Bread(FormCashier.memberScore.MemberID.ToString(), ExchangeNo);
                 //设定打印 兑换面包数
                 FormCashier.ExBread = ExchangeNo;
                 //修改列表中面包数为0，用于打印积分为0，不影响有积分的单子
@@ -71,48 +72,48 @@ namespace BakeryOrder
             }
             Close();
         }
-        /// <summary>
-        /// 修改指定会员的积分
-        /// </summary>
-        /// <param name="memberid"></param>
-        /// <param name="AddValue"></param>
-        public static void Score(string memberid,int AddValue)
-        {
-            using (MemberDBEntities memberdb = new MemberDBEntities())
-            {
-                try
-                {
-                    memberdb.ExecuteStoreCommand("update tbMemberScore set Score=Score+"+AddValue+" where MemberID='"+memberid+"'");
-                }
-                catch (Exception ex)
-                {
-                    Form form = new FormMessage("更新会员积分时出错,原因:" + ex.Message);
-                    form.ShowDialog();
-                } 
-            }
+        ///// <summary>
+        ///// 修改指定会员的积分
+        ///// </summary>
+        ///// <param name="memberid"></param>
+        ///// <param name="AddValue"></param>
+        //public static void Score(string memberid,int AddValue)
+        //{
+        //    using (MemberDBEntities memberdb = new MemberDBEntities())
+        //    {
+        //        try
+        //        {
+        //            memberdb.ExecuteStoreCommand("update tbMemberScore set Score=Score+"+AddValue+" where MemberID='"+memberid+"'");
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Form form = new FormMessage("更新会员积分时出错,原因:" + ex.Message);
+        //            form.ShowDialog();
+        //        } 
+        //    }
           
-        }
-        /// <summary>
-        /// 修改指定会员的可兑换面包数
-        /// </summary>
-        /// <param name="memberid"></param>
-        /// <param name="AddValue"></param>
-        public static void Bread(string memberid, int AddValue)
-        {
-            using (MemberDBEntities memberdb = new MemberDBEntities())
-            {
-                try
-                {
-                    memberdb.ExecuteStoreCommand("update tbMemberScore set Bread=Bread-" + AddValue + " where MemberID='" + memberid + "'");
-                }
-                catch (Exception ex)
-                {
-                    Form form = new FormMessage("更新会员数据时出错,原因:" + ex.Message);
-                    form.ShowDialog();
-                }
-            }
+        //}
+        ///// <summary>
+        ///// 修改指定会员的可兑换面包数
+        ///// </summary>
+        ///// <param name="memberid"></param>
+        ///// <param name="AddValue"></param>
+        //public static void Bread(string memberid, int AddValue)
+        //{
+        //    using (MemberDBEntities memberdb = new MemberDBEntities())
+        //    {
+        //        try
+        //        {
+        //            memberdb.ExecuteStoreCommand("update tbMemberScore set Bread=Bread-" + AddValue + " where MemberID='" + memberid + "'");
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Form form = new FormMessage("更新会员数据时出错,原因:" + ex.Message);
+        //            form.ShowDialog();
+        //        }
+        //    }
 
-        }
+        //}
         private void btnCancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
@@ -127,7 +128,7 @@ namespace BakeryOrder
         /// <returns></returns>
         double Foo(double m, int n)
         {
-            var item = (FormCashier.listBread.GetRange(n, 1).FirstOrDefault());
+            var item =mylist.GetRange(n, 1).FirstOrDefault();
             if ((m - item.No) <= 0)
             {
                 return m * item.Price;
@@ -137,6 +138,8 @@ namespace BakeryOrder
                 return item.Price * item.No + Foo(m - item.No, n+1);
             }
         }
+        List<MenuItemForTag> mylist;
+        
         private void FormCheckout_Load(object sender, EventArgs e)
         {
             Location = new Point(m_X, m_Y);
@@ -169,8 +172,12 @@ namespace BakeryOrder
                     {
                         try
                         {
+                            //对面包list进行价格降序排列
+                            mylist = (FormCashier.listBread.OrderByDescending(o => o.Price)).ToList();
+                            //计算出兑换优惠价格
                             double ExchangeOfMoney = Foo((double)ExchangeNo, 0);
                             textBoxDeduct.Text = ExchangeOfMoney.ToString();
+                            textBoxDeduct.Enabled = false;
                         }
                         catch (Exception ex)
                         {

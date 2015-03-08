@@ -292,6 +292,10 @@ namespace BakeryOrder
                 m_FormCustomer.SetTimer(45000);   // 停止轉圖, 同時會把Dock改成Right,露出結帳單
                 m_FormCustomer.SetPicture(img);
             }
+            if (!textBox1.Focused)
+            {
+                textBox1.Focus();
+            }
         }
         // 輸出的Label[,] 放到tabPage.Tag去
         private void InitFoodMenu(TabPage tabPage, int menuId, out Label[,] FoodName)
@@ -916,6 +920,7 @@ namespace BakeryOrder
         {
             /*-----------恢复初始状态-----------*/
             SetMemberNull();
+            lshow.Text = "";
             myImgControl1.changetext("");
             textBox1.SelectAll();
             textBox1.Focus();
@@ -1089,7 +1094,7 @@ namespace BakeryOrder
             btnPrint.Enabled = isLogin;
             btnNewOrder.Enabled = isLogin; 
         }
-        tbMemberScore ob;
+
         private void btnLogin_Click(object sender, EventArgs e)
         {
             ReLoadAllData();
@@ -1324,10 +1329,12 @@ namespace BakeryOrder
                 if (!this.checkBoxTest.Checked)
                     RawPrint.SendManagedBytes(m_Printer.PrinterName, m_CashDrawer);   // 彈出錢箱
                 CreateUpdateDrawerRecord(ref m_MaxDrawerRecordID, m_CurrentOrder.ID % 10000);
+                //结账后清空当前会员信息，刷卡获取焦点
                 SetMemberNull();
                 textBox1.SelectAll();
                 textBox1.Focus();
-            }
+            }       
+               
         }
 
         private void btnTest_Click(object sender, EventArgs e)
@@ -1409,7 +1416,6 @@ namespace BakeryOrder
             memberInfo = null;
             memberScore = null;
             card = null;
-
         }
         #region 图片+会员信息显示
         /// <summary>
@@ -1421,9 +1427,10 @@ namespace BakeryOrder
             pictureBoxOrdered.Controls.Clear();
            // var myimg = new MyControlLibrary.MyImgControl();
             myImgControl1.MyColor = Color.White;
-            myImgControl1.Myalpha = 0;
+            myImgControl1.Myalpha = 30;
             myImgControl1.BackgroundImage = img;
-            myImgControl1.MyStrColor = Color.Black;
+        
+            myImgControl1.MyStrColor = Color.DarkRed;
             pictureBoxOrdered.Controls.Add(myImgControl1);
         }
         #endregion
@@ -1444,6 +1451,7 @@ namespace BakeryOrder
                     char KeyChar = e.KeyChar;
                     if (KeyChar == (char)Keys.Enter)
                     {
+                        SetMemberNull();
                         string str = textBox1.Text;
                         string restr = @"[^\d]*";
                         string mstr = System.Text.RegularExpressions.Regex.Replace(str, restr, "");
@@ -1453,6 +1461,7 @@ namespace BakeryOrder
                             if (card == null)
                             {
                                 myImgControl1.changetext("不存在此卡！");
+                                lshow.Text = "不存在此卡！";
                             }
                             else
                             {
@@ -1462,6 +1471,7 @@ namespace BakeryOrder
                                     if (mc == null)
                                     {
                                         myImgControl1.changetext("卡还没有绑定会员！");
+                                        lshow.Text = "卡还没有绑定会员！！";
                                         SetMemberNull();
                                     }
                                     else
@@ -1481,11 +1491,13 @@ namespace BakeryOrder
                                         //判断是否生日当天，如果是，提示
                                         InfoStr.Append("\r\n可换面包数" + memberScore.Bread + "\r\n麦子数" + memberScore.Score);
                                         myImgControl1.changetext(InfoStr.ToString());
+                                        lshow.Text = InfoStr.ToString();
                                     }
                                 }
                                 else
                                 {
                                     myImgControl1.changetext("此卡没有激活或者已经挂失！");
+                                    lshow.Text = "此卡没有激活或者已经挂失！";
                                     SetMemberNull();
                                 }
                             }
@@ -1510,7 +1522,16 @@ namespace BakeryOrder
             
         }
 
-       
+       void TodayExBread()
+       {}
+
+       private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+       {
+           if (!textBox1.Focused)
+           {
+               textBox1.Focus();
+           }
+       }
 
 
 

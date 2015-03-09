@@ -6285,6 +6285,8 @@ namespace VoucherExpense {
             
             private global::System.Data.DataColumn columnStoreId;
             
+            private global::System.Data.DataColumn columnExBread;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public OrderDataTable() {
@@ -6432,6 +6434,14 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ExBreadColumn {
+                get {
+                    return this.columnExBread;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -6467,7 +6477,7 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public OrderRow AddOrderRow(int ID, int CashierID, System.DateTime PrintTime, decimal Income, int BranchID, decimal Deduct, decimal DiscountRate, string PayBy, int OldID, int RCashierID, bool Deleted, byte[] MD5, string MemberId, int StoreId) {
+            public OrderRow AddOrderRow(int ID, int CashierID, System.DateTime PrintTime, decimal Income, int BranchID, decimal Deduct, decimal DiscountRate, string PayBy, int OldID, int RCashierID, bool Deleted, byte[] MD5, string MemberId, int StoreId, int ExBread) {
                 OrderRow rowOrderRow = ((OrderRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ID,
@@ -6483,7 +6493,8 @@ namespace VoucherExpense {
                         Deleted,
                         MD5,
                         MemberId,
-                        StoreId};
+                        StoreId,
+                        ExBread};
                 rowOrderRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowOrderRow);
                 return rowOrderRow;
@@ -6527,6 +6538,7 @@ namespace VoucherExpense {
                 this.columnMD5 = base.Columns["MD5"];
                 this.columnMemberId = base.Columns["MemberId"];
                 this.columnStoreId = base.Columns["StoreId"];
+                this.columnExBread = base.Columns["ExBread"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6560,6 +6572,8 @@ namespace VoucherExpense {
                 base.Columns.Add(this.columnMemberId);
                 this.columnStoreId = new global::System.Data.DataColumn("StoreId", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnStoreId);
+                this.columnExBread = new global::System.Data.DataColumn("ExBread", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnExBread);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AllowDBNull = false;
@@ -21306,6 +21320,22 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int ExBread {
+                get {
+                    try {
+                        return ((int)(this[this.tableOrder.ExBreadColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("表“Order”中列“ExBread”的值为 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tableOrder.ExBreadColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsPrintTimeNull() {
                 return this.IsNull(this.tableOrder.PrintTimeColumn);
             }
@@ -21422,6 +21452,18 @@ namespace VoucherExpense {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetStoreIdNull() {
                 this[this.tableOrder.StoreIdColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsExBreadNull() {
+                return this.IsNull(this.tableOrder.ExBreadColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetExBreadNull() {
+                this[this.tableOrder.ExBreadColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -37496,6 +37538,7 @@ SELECT ID, Fingerprintmachine, OnDutyCode, TimeMark, IO2, ApartmentID FROM OnDut
             tableMapping.ColumnMappings.Add("MD5", "MD5");
             tableMapping.ColumnMappings.Add("MemberId", "MemberId");
             tableMapping.ColumnMappings.Add("StoreId", "StoreId");
+            tableMapping.ColumnMappings.Add("ExBread", "ExBread");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
@@ -37523,7 +37566,7 @@ SELECT ID, Fingerprintmachine, OnDutyCode, TimeMark, IO2, ApartmentID FROM OnDut
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_MD5", global::System.Data.SqlDbType.Binary, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MD5", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [Order] ([ID], [CashierID], [PrintTime], [Income], [BranchID], [Deduct], [DiscountRate], [PayBy], [OldID], [RCashierID], [Deleted], [MD5], [MemberId], [StoreId]) VALUES (@ID, @CashierID, @PrintTime, @Income, @BranchID, @Deduct, @DiscountRate, @PayBy, @OldID, @RCashierID, @Deleted, @MD5, @MemberId, @StoreId)";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [Order] ([ID], [CashierID], [PrintTime], [Income], [BranchID], [Deduct], [DiscountRate], [PayBy], [OldID], [RCashierID], [Deleted], [MD5], [MemberId], [StoreId], [ExBread]) VALUES (@ID, @CashierID, @PrintTime, @Income, @BranchID, @Deduct, @DiscountRate, @PayBy, @OldID, @RCashierID, @Deleted, @MD5, @MemberId, @StoreId, @ExBread)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CashierID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CashierID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -37539,6 +37582,7 @@ SELECT ID, Fingerprintmachine, OnDutyCode, TimeMark, IO2, ApartmentID FROM OnDut
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@MD5", global::System.Data.SqlDbType.Binary, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MD5", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@MemberId", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "MemberId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@StoreId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StoreId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ExBread", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ExBread", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
             this._adapter.UpdateCommand.CommandText = @"UPDATE [Order] SET [ID] = @ID, [CashierID] = @CashierID, [PrintTime] = @PrintTime, [Income] = @Income, [BranchID] = @BranchID, [Deduct] = @Deduct, [DiscountRate] = @DiscountRate, [PayBy] = @PayBy, [OldID] = @OldID, [RCashierID] = @RCashierID, [Deleted] = @Deleted, [MD5] = @MD5 WHERE (([ID] = @Original_ID) AND ([CashierID] = @Original_CashierID) AND ((@IsNull_PrintTime = 1 AND [PrintTime] IS NULL) OR ([PrintTime] = @Original_PrintTime)) AND ((@IsNull_Income = 1 AND [Income] IS NULL) OR ([Income] = @Original_Income)) AND ((@IsNull_BranchID = 1 AND [BranchID] IS NULL) OR ([BranchID] = @Original_BranchID)) AND ((@IsNull_Deduct = 1 AND [Deduct] IS NULL) OR ([Deduct] = @Original_Deduct)) AND ((@IsNull_DiscountRate = 1 AND [DiscountRate] IS NULL) OR ([DiscountRate] = @Original_DiscountRate)) AND ((@IsNull_PayBy = 1 AND [PayBy] IS NULL) OR ([PayBy] = @Original_PayBy)) AND ([OldID] = @Original_OldID) AND ([RCashierID] = @Original_RCashierID) AND ((@IsNull_Deleted = 1 AND [Deleted] IS NULL) OR ([Deleted] = @Original_Deleted)) AND ((@IsNull_MD5 = 1 AND [MD5] IS NULL) OR ([MD5] = @Original_MD5)));
@@ -37592,7 +37636,7 @@ SELECT ID, CashierID, PrintTime, Income, BranchID, Deduct, DiscountRate, PayBy, 
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT ID, CashierID, PrintTime, Income, BranchID, Deduct, DiscountRate, PayBy, O" +
-                "ldID, RCashierID, Deleted, MD5, MemberId, StoreId FROM [Order]";
+                "ldID, RCashierID, Deleted, MD5, MemberId, StoreId, ExBread FROM [Order]";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -37742,7 +37786,7 @@ SELECT ID, CashierID, PrintTime, Income, BranchID, Deduct, DiscountRate, PayBy, 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int ID, int CashierID, global::System.Nullable<global::System.DateTime> PrintTime, global::System.Nullable<decimal> Income, global::System.Nullable<int> BranchID, global::System.Nullable<decimal> Deduct, global::System.Nullable<decimal> DiscountRate, string PayBy, int OldID, int RCashierID, global::System.Nullable<bool> Deleted, byte[] MD5, string MemberId, global::System.Nullable<int> StoreId) {
+        public virtual int Insert(int ID, int CashierID, global::System.Nullable<global::System.DateTime> PrintTime, global::System.Nullable<decimal> Income, global::System.Nullable<int> BranchID, global::System.Nullable<decimal> Deduct, global::System.Nullable<decimal> DiscountRate, string PayBy, int OldID, int RCashierID, global::System.Nullable<bool> Deleted, byte[] MD5, string MemberId, global::System.Nullable<int> StoreId, global::System.Nullable<int> ExBread) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(ID));
             this.Adapter.InsertCommand.Parameters[1].Value = ((int)(CashierID));
             if ((PrintTime.HasValue == true)) {
@@ -37806,6 +37850,12 @@ SELECT ID, CashierID, PrintTime, Income, BranchID, Deduct, DiscountRate, PayBy, 
             }
             else {
                 this.Adapter.InsertCommand.Parameters[13].Value = global::System.DBNull.Value;
+            }
+            if ((ExBread.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[14].Value = ((int)(ExBread.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[14].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 

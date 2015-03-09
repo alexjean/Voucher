@@ -445,6 +445,11 @@ namespace VoucherExpense
                 newOrder.MemberId = order.MemberId;
                 str += order.MemberId;
             }
+            if (!order.IsExBreadNull())
+            {
+                newOrder.ExBread = order.ExBread;
+                str += order.ExBread;
+            }
             if (!order.IsPrintTimeNull())
             {
                 newOrder.PrintTime = order.PrintTime;           

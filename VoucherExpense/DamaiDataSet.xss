@@ -18,7 +18,7 @@
     <Shape ID="DesignTable:InventoryDetail" ZOrder="19" X="1430" Y="404" Height="272" Width="249" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="217" />
     <Shape ID="DesignTable:InventoryProducts" ZOrder="18" X="1791" Y="61" Height="209" Width="268" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="154" />
     <Shape ID="DesignTable:OnDutyData" ZOrder="40" X="1162" Y="26" Height="209" Width="229" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="154" />
-    <Shape ID="DesignTable:Order" ZOrder="35" X="4437" Y="40" Height="335" Width="195" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="280" />
+    <Shape ID="DesignTable:Order" ZOrder="35" X="4437" Y="40" Height="305" Width="186" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="254" />
     <Shape ID="DesignTable:Recipe" ZOrder="17" X="2084" Y="33" Height="230" Width="193" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="175" />
     <Shape ID="DesignTable:Requests" ZOrder="39" X="3052" Y="35" Height="335" Width="208" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="280" />
     <Shape ID="DesignTable:VEHeader" ZOrder="41" X="73" Y="401" Height="188" Width="213" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="133" />
@@ -104,7 +104,7 @@
       <RoutePoints>
         <Point>
           <X>4529</X>
-          <Y>375</Y>
+          <Y>345</Y>
         </Point>
         <Point>
           <X>4529</X>

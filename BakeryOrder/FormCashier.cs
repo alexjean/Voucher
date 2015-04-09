@@ -745,6 +745,7 @@ namespace BakeryOrder
 
             if (card!=null)
             {
+                 Buf.Append("会员测试单，如给您带来不便请原谅！\r\n");
                  Buf.Append("会员卡号：" + card.CardNumber.ToString() + "\r\n");
                  Buf.Append("面包数" + memberScore.Bread.ToString() + "麦子" + memberScore.Score.ToString() + "\r\n");
                  Buf.Append("本次兑换面包"+ExBread+"获得麦子数" + BreadNO + "\r\n");
@@ -1465,7 +1466,7 @@ namespace BakeryOrder
                             }
                             else
                             {
-                                if (card.Cardstate == 1)
+                                if (card.Cardstate == 2)
                                 {
                                     tbMemberAndCard mc = card.tbMemberAndCards.FirstOrDefault();
                                     if (mc == null)
@@ -1480,7 +1481,7 @@ namespace BakeryOrder
                                         memberScore = mc.tbMember.tbMemberScores.FirstOrDefault();
                                         StringBuilder InfoStr = new StringBuilder();
                                         InfoStr.Append(memberInfo.FristName);
-                                        if (memberInfo.Sex == 1)
+                                        if (memberInfo!=null&&memberInfo.Sex == 1)
                                         {
                                             InfoStr.Append("先生");
                                         }

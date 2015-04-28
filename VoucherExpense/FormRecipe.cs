@@ -104,7 +104,7 @@ namespace VoucherExpense
             }
             foreach (var recipe in m_DataSet.Recipe)
             {
-                if (recipe.IsFinalProductIDNull() || recipe.FinalProductID <= 0)   // 該配方沒有最終產品,才列入
+                //if (recipe.IsFinalProductIDNull() || recipe.FinalProductID <= 0)   // 該配方沒有最終產品,才列入
                 {
                     string name = "配方:";
                     if (recipe.IsRecipeNameNull()) name += recipe.RecipeID.ToString();

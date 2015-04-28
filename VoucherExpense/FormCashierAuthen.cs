@@ -128,13 +128,15 @@ namespace VoucherExpense
             m_TextBoxPaths.Add(textBoxPOS1);
             m_TextBoxPaths.Add(textBoxPOS2);
             m_TextBoxPaths.Add(textBoxPOS3);
+            m_TextBoxPaths.Add(textBoxPOS4);
+            m_TextBoxPaths.Add(textBoxPOS5);
+            m_TextBoxPaths.Add(textBoxPOS6);
 
 //            btnCloundSyncAuto.Text = "雲端同步\n\n收取收銀机資料\n\n自動循環";
         }
 
         void HideBackupOption()
         {
-            labelBackup.Visible = false;
             textBoxBackupDir.Visible=false;
             btnBackupDir.Visible=false;
         }
@@ -319,6 +321,9 @@ namespace VoucherExpense
             if (PathSameWarning(path, Application.StartupPath, "本程式")) return;
             if (PathSameWarning(path, textBoxPOS2.Text, "收銀机2")) return;
             if (PathSameWarning(path, textBoxPOS3.Text, "收銀机3")) return;
+            if (PathSameWarning(path, textBoxPOS4.Text, "收銀机4")) return;
+            if (PathSameWarning(path, textBoxPOS5.Text, "收銀机5")) return;
+            if (PathSameWarning(path, textBoxPOS6.Text, "收銀机6")) return;
             if (PathSameWarning(path, textBoxBackupDir.Text, "備份位置")) return;
             textBoxPOS1.Text = path;
         }
@@ -334,6 +339,9 @@ namespace VoucherExpense
             if (PathSameWarning(path, Application.StartupPath, "本程式")) return;
             if (PathSameWarning(path, textBoxPOS1.Text, "收銀机1")) return;
             if (PathSameWarning(path, textBoxPOS3.Text, "收銀机3")) return;
+            if (PathSameWarning(path, textBoxPOS4.Text, "收銀机4")) return;
+            if (PathSameWarning(path, textBoxPOS5.Text, "收銀机5")) return;
+            if (PathSameWarning(path, textBoxPOS6.Text, "收銀机6")) return;
             if (PathSameWarning(path, textBoxBackupDir.Text, "備份位置")) return;
             textBoxPOS2.Text = path;
         }
@@ -349,9 +357,73 @@ namespace VoucherExpense
             if (PathSameWarning(path, Application.StartupPath, "本程式")) return;
             if (PathSameWarning(path, textBoxPOS1.Text, "收銀机1")) return;
             if (PathSameWarning(path, textBoxPOS2.Text, "收銀机2")) return;
+            if (PathSameWarning(path, textBoxPOS4.Text, "收銀机4")) return;
+            if (PathSameWarning(path, textBoxPOS5.Text, "收銀机5")) return;
+            if (PathSameWarning(path, textBoxPOS6.Text, "收銀机6")) return;
             if (PathSameWarning(path, textBoxBackupDir.Text, "備份位置")) return;
             textBoxPOS3.Text = path;
         }
+
+        private void btnBrowse4_Click(object sender, EventArgs e)
+        {
+            if (folderBrowserDialog.ShowDialog() != DialogResult.OK) return;
+            string path = folderBrowserDialog.SelectedPath.Trim();
+            if (path.Length == 0)
+            {
+                textBoxPOS4.Text = "";
+                return;
+            }
+            if (PathSameWarning(path, Application.StartupPath, "本程式")) return;
+            if (PathSameWarning(path, textBoxPOS1.Text, "收銀机1")) return;
+            if (PathSameWarning(path, textBoxPOS2.Text, "收銀机2")) return;
+            if (PathSameWarning(path, textBoxPOS3.Text, "收銀机3")) return;
+            if (PathSameWarning(path, textBoxPOS5.Text, "收銀机5")) return;
+            if (PathSameWarning(path, textBoxPOS6.Text, "收銀机6")) return;
+            if (PathSameWarning(path, textBoxBackupDir.Text, "備份位置")) return;
+            textBoxPOS4.Text = path;
+
+        }
+
+        private void btnBrowse5_Click(object sender, EventArgs e)
+        {
+            if (folderBrowserDialog.ShowDialog() != DialogResult.OK) return;
+            string path = folderBrowserDialog.SelectedPath.Trim();
+            if (path.Length == 0)
+            {
+                textBoxPOS5.Text = "";
+                return;
+            }
+            if (PathSameWarning(path, Application.StartupPath, "本程式")) return;
+            if (PathSameWarning(path, textBoxPOS1.Text, "收銀机1")) return;
+            if (PathSameWarning(path, textBoxPOS2.Text, "收銀机2")) return;
+            if (PathSameWarning(path, textBoxPOS3.Text, "收銀机3")) return;
+            if (PathSameWarning(path, textBoxPOS4.Text, "收銀机4")) return;
+            if (PathSameWarning(path, textBoxPOS6.Text, "收銀机6")) return;
+            if (PathSameWarning(path, textBoxBackupDir.Text, "備份位置")) return;
+            textBoxPOS5.Text = path;
+
+        }
+
+        private void btnBrowse6_Click(object sender, EventArgs e)
+        {
+            if (folderBrowserDialog.ShowDialog() != DialogResult.OK) return;
+            string path = folderBrowserDialog.SelectedPath.Trim();
+            if (path.Length == 0)
+            {
+                textBoxPOS6.Text = "";
+                return;
+            }
+            if (PathSameWarning(path, Application.StartupPath, "本程式")) return;
+            if (PathSameWarning(path, textBoxPOS1.Text, "收銀机1")) return;
+            if (PathSameWarning(path, textBoxPOS2.Text, "收銀机2")) return;
+            if (PathSameWarning(path, textBoxPOS3.Text, "收銀机3")) return;
+            if (PathSameWarning(path, textBoxPOS4.Text, "收銀机4")) return;
+            if (PathSameWarning(path, textBoxPOS5.Text, "收銀机5")) return;
+            if (PathSameWarning(path, textBoxBackupDir.Text, "備份位置")) return;
+            textBoxPOS6.Text = path;
+
+        }
+
 
         private void btnBackupDir_Click(object sender, EventArgs e)
         {
@@ -366,6 +438,9 @@ namespace VoucherExpense
             if (PathSameWarning(path, textBoxPOS1.Text, "收銀机1")) return;
             if (PathSameWarning(path, textBoxPOS2.Text, "收銀机2")) return;
             if (PathSameWarning(path, textBoxPOS3.Text, "收銀机3")) return;
+            if (PathSameWarning(path, textBoxPOS4.Text, "收銀机4")) return;
+            if (PathSameWarning(path, textBoxPOS5.Text, "收銀机5")) return;
+            if (PathSameWarning(path, textBoxPOS6.Text, "收銀机6")) return;
             textBoxBackupDir.Text = path;
         }
 
@@ -396,6 +471,9 @@ namespace VoucherExpense
                 if      (node.Name == "POS1") textBoxPOS1.Text = dir.Value;
                 else if (node.Name == "POS2") textBoxPOS2.Text = dir.Value;
                 else if (node.Name == "POS3") textBoxPOS3.Text = dir.Value;
+                else if (node.Name == "POS4") textBoxPOS4.Text = dir.Value;
+                else if (node.Name == "POS5") textBoxPOS5.Text = dir.Value;
+                else if (node.Name == "POS6") textBoxPOS6.Text = dir.Value;
                 else if (node.Name == "Backup") textBoxBackupDir.Text = dir.Value;
             }
         }
@@ -1314,6 +1392,7 @@ namespace VoucherExpense
             Form form = new FormAutoSync();
             form.ShowDialog();
         }
+
 
  
     }

@@ -21,7 +21,7 @@
     <ComPort Name="COM1" />
     <ReceiptPrinter Name="Zonerich AB-58MK USB" />
     <DotPrinter Name="EPSON LQ-730K ESC/P 2" />
-    <DataSource IsServer="YES" DataDir="EPRT+YCj5fNrqGtQkgdrFxd/qclQ1i9AIGGO3PrxJw7O0j/wt/ai9WQ00/4AOhzu/6JgQw8gCtM=" UserName="sZM/bLSyqv0j4SXhyzDavo1sJn8QGahl" Password="wS4zmgr+ahF21XXsgXwKYhRDYDrg0cz9" BackupDir="Pkce2PnPHlY=" SqlServerIP="IjX6V1Zao77WbjMrsxSOQt2WsHitYzDO35jDC9rqoBM=" SqlUserID="yFiE/KqBxfg=" SqlPassword="cCsauyIuKESO+YocYe3GILceac2pUUrqubNVPwcDOp8=" SqlDatabase="j5aX472fW6tYvbQbJFkEaLNo8vOIB6MgGa/xgCD0l/4=" EnableCloudSync="YES" SqlServerIPCloud="u+EJLVKVPCY=" SqlUserIDCloud="u+EJLVKVPCY=" SqlPasswordCloud="u+EJLVKVPCY=" />
+    <DataSource IsServer="YES" DataDir="EPRT+YCj5fNrqGtQkgdrFxd/qclQ1i9AIGGO3PrxJw7O0j/wt/ai9WQ00/4AOhzu/6JgQw8gCtM=" UserName="sZM/bLSyqv0j4SXhyzDavo1sJn8QGahl" Password="wS4zmgr+ahF21XXsgXwKYhRDYDrg0cz9" BackupDir="Pkce2PnPHlY=" SqlServerIP="IjX6V1Zao77WbjMrsxSOQt2WsHitYzDO35jDC9rqoBM=" SqlUserID="yFiE/KqBxfg=" SqlPassword="cCsauyIuKESO+YocYe3GILceac2pUUrqubNVPwcDOp8=" SqlDatabase="j5aX472fW6tYvbQbJFkEaLNo8vOIB6MgjmZJ2dR5EqU=" EnableCloudSync="YES" SqlServerIPCloud="u+EJLVKVPCY=" SqlUserIDCloud="u+EJLVKVPCY=" SqlPasswordCloud="u+EJLVKVPCY=" />
   </Profile>
   <Profile Name="尚都云">
     <ComPort Name="COM1" />

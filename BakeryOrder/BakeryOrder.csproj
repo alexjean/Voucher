@@ -63,7 +63,7 @@
   <ItemGroup>
     <Reference Include="MyControlLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\MyControlLibrary\bin\Release\MyControlLibrary.dll</HintPath>
+      <HintPath>..\MyControlLibrary\bin\Debug\MyControlLibrary.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

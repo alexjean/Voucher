@@ -21,3 +21,11 @@ D:\VoucherExpense10\MyControlLibrary\obj\Debug\MyControlLibrary.MyImgControl.res
 D:\VoucherExpense10\MyControlLibrary\obj\Debug\MyControlLibrary.csproj.GenerateResource.Cache
 D:\VoucherExpense10\MyControlLibrary\obj\Debug\MyControlLibrary.dll
 D:\VoucherExpense10\MyControlLibrary\obj\Debug\MyControlLibrary.pdb
+D:\HotZones\Restaurant10\VoucherExpense10\MyControlLibrary\bin\Debug\MyControlLibrary.dll
+D:\HotZones\Restaurant10\VoucherExpense10\MyControlLibrary\bin\Debug\MyControlLibrary.pdb
+D:\HotZones\Restaurant10\VoucherExpense10\MyControlLibrary\obj\Debug\MyControlLibrary.csprojResolveAssemblyReference.cache
+D:\HotZones\Restaurant10\VoucherExpense10\MyControlLibrary\obj\Debug\MyControlLibrary.Properties.Resources.resources
+D:\HotZones\Restaurant10\VoucherExpense10\MyControlLibrary\obj\Debug\MyControlLibrary.MyImgControl.resources
+D:\HotZones\Restaurant10\VoucherExpense10\MyControlLibrary\obj\Debug\MyControlLibrary.csproj.GenerateResource.Cache
+D:\HotZones\Restaurant10\VoucherExpense10\MyControlLibrary\obj\Debug\MyControlLibrary.dll
+D:\HotZones\Restaurant10\VoucherExpense10\MyControlLibrary\obj\Debug\MyControlLibrary.pdb

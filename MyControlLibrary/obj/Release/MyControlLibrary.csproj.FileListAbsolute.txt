@@ -14,3 +14,11 @@ D:\MyControlLibrary\obj\Release\MyControlLibrary.MyImgControl.resources
 D:\MyControlLibrary\obj\Release\MyControlLibrary.csproj.GenerateResource.Cache
 D:\MyControlLibrary\obj\Release\MyControlLibrary.dll
 D:\MyControlLibrary\obj\Release\MyControlLibrary.pdb
+D:\HotZones\Restaurant10\VoucherExpense10\MyControlLibrary\bin\Release\MyControlLibrary.dll
+D:\HotZones\Restaurant10\VoucherExpense10\MyControlLibrary\bin\Release\MyControlLibrary.pdb
+D:\HotZones\Restaurant10\VoucherExpense10\MyControlLibrary\obj\Release\MyControlLibrary.csprojResolveAssemblyReference.cache
+D:\HotZones\Restaurant10\VoucherExpense10\MyControlLibrary\obj\Release\MyControlLibrary.Properties.Resources.resources
+D:\HotZones\Restaurant10\VoucherExpense10\MyControlLibrary\obj\Release\MyControlLibrary.MyImgControl.resources
+D:\HotZones\Restaurant10\VoucherExpense10\MyControlLibrary\obj\Release\MyControlLibrary.csproj.GenerateResource.Cache
+D:\HotZones\Restaurant10\VoucherExpense10\MyControlLibrary\obj\Release\MyControlLibrary.dll
+D:\HotZones\Restaurant10\VoucherExpense10\MyControlLibrary\obj\Release\MyControlLibrary.pdb

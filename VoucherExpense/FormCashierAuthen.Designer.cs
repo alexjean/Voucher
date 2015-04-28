@@ -29,18 +29,14 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.Label label1;
-            System.Windows.Forms.Label label2;
-            System.Windows.Forms.Label label3;
             System.Windows.Forms.Label labelTime;
             System.Windows.Forms.Label label5;
             System.Windows.Forms.Label label6;
             System.Windows.Forms.Label label7;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCashierAuthen));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.labelBackup = new System.Windows.Forms.Label();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.bakeryOrderSet = new VoucherExpense.BakeryOrderSet();
             this.cashierBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cashierBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
@@ -96,9 +92,12 @@
             this.tabPageReadme = new System.Windows.Forms.TabPage();
             this.listBoxReadme = new System.Windows.Forms.ListBox();
             this.tabControl2 = new System.Windows.Forms.TabControl();
-            label1 = new System.Windows.Forms.Label();
-            label2 = new System.Windows.Forms.Label();
-            label3 = new System.Windows.Forms.Label();
+            this.btnBrowse4 = new System.Windows.Forms.Button();
+            this.textBoxPOS4 = new System.Windows.Forms.TextBox();
+            this.btnBrowse5 = new System.Windows.Forms.Button();
+            this.textBoxPOS5 = new System.Windows.Forms.TextBox();
+            this.btnBrowse6 = new System.Windows.Forms.Button();
+            this.textBoxPOS6 = new System.Windows.Forms.TextBox();
             labelTime = new System.Windows.Forms.Label();
             label5 = new System.Windows.Forms.Label();
             label6 = new System.Windows.Forms.Label();
@@ -117,33 +116,6 @@
             this.tabPageReadme.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(161, 38);
-            label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(68, 16);
-            label1.TabIndex = 7;
-            label1.Text = "收銀机 1";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(161, 100);
-            label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(68, 16);
-            label2.TabIndex = 8;
-            label2.Text = "收銀机 2";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(161, 159);
-            label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(68, 16);
-            label3.TabIndex = 9;
-            label3.Text = "收銀机 3";
             // 
             // labelTime
             // 
@@ -180,15 +152,6 @@
             label7.Size = new System.Drawing.Size(40, 16);
             label7.TabIndex = 10;
             label7.Text = "電話";
-            // 
-            // labelBackup
-            // 
-            this.labelBackup.AutoSize = true;
-            this.labelBackup.Location = new System.Drawing.Point(161, 220);
-            this.labelBackup.Name = "labelBackup";
-            this.labelBackup.Size = new System.Drawing.Size(72, 16);
-            this.labelBackup.TabIndex = 15;
-            this.labelBackup.Text = "備份位置";
             // 
             // bakeryOrderSet
             // 
@@ -227,7 +190,7 @@
             this.cashierBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.cashierBindingNavigator.Name = "cashierBindingNavigator";
             this.cashierBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.cashierBindingNavigator.Size = new System.Drawing.Size(249, 25);
+            this.cashierBindingNavigator.Size = new System.Drawing.Size(248, 25);
             this.cashierBindingNavigator.TabIndex = 0;
             this.cashierBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -244,7 +207,7 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 22);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(28, 22);
             this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
@@ -340,7 +303,7 @@
             this.dgvCashier.Name = "dgvCashier";
             this.dgvCashier.RowHeadersVisible = false;
             this.dgvCashier.RowTemplate.Height = 24;
-            this.dgvCashier.Size = new System.Drawing.Size(488, 644);
+            this.dgvCashier.Size = new System.Drawing.Size(488, 681);
             this.dgvCashier.TabIndex = 1;
             this.dgvCashier.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.cashierDataGridView_CellFormatting);
             this.dgvCashier.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.cashierDataGridView_DataError);
@@ -348,9 +311,9 @@
             // dataGridViewCheckBoxColumn1
             // 
             this.dataGridViewCheckBoxColumn1.DataPropertyName = "InPosition";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.NullValue = false;
-            this.dataGridViewCheckBoxColumn1.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.NullValue = false;
+            this.dataGridViewCheckBoxColumn1.DefaultCellStyle = dataGridViewCellStyle10;
             this.dataGridViewCheckBoxColumn1.HeaderText = "在職";
             this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
             this.dataGridViewCheckBoxColumn1.Width = 48;
@@ -358,8 +321,8 @@
             // CashierIDColumn
             // 
             this.CashierIDColumn.DataPropertyName = "CashierID";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.CashierIDColumn.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.CashierIDColumn.DefaultCellStyle = dataGridViewCellStyle11;
             this.CashierIDColumn.FillWeight = 65F;
             this.CashierIDColumn.HeaderText = "No";
             this.CashierIDColumn.Name = "CashierIDColumn";
@@ -410,9 +373,9 @@
             // dataGridViewTextBoxColumn5
             // 
             this.dataGridViewTextBoxColumn5.DataPropertyName = "LastUpdated";
-            dataGridViewCellStyle6.Format = "MM-dd hh:mm";
-            dataGridViewCellStyle6.NullValue = null;
-            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle12.Format = "MM-dd hh:mm";
+            dataGridViewCellStyle12.NullValue = null;
+            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle12;
             this.dataGridViewTextBoxColumn5.HeaderText = "更新時間";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.ReadOnly = true;
@@ -439,55 +402,55 @@
             // 
             // textBoxPOS1
             // 
-            this.textBoxPOS1.Location = new System.Drawing.Point(2, 62);
+            this.textBoxPOS1.Location = new System.Drawing.Point(65, 38);
             this.textBoxPOS1.Name = "textBoxPOS1";
-            this.textBoxPOS1.Size = new System.Drawing.Size(431, 27);
+            this.textBoxPOS1.Size = new System.Drawing.Size(364, 27);
             this.textBoxPOS1.TabIndex = 4;
             // 
             // textBoxPOS2
             // 
-            this.textBoxPOS2.Location = new System.Drawing.Point(2, 121);
+            this.textBoxPOS2.Location = new System.Drawing.Point(65, 71);
             this.textBoxPOS2.Name = "textBoxPOS2";
-            this.textBoxPOS2.Size = new System.Drawing.Size(431, 27);
+            this.textBoxPOS2.Size = new System.Drawing.Size(364, 27);
             this.textBoxPOS2.TabIndex = 5;
             // 
             // textBoxPOS3
             // 
-            this.textBoxPOS3.Location = new System.Drawing.Point(2, 180);
+            this.textBoxPOS3.Location = new System.Drawing.Point(65, 104);
             this.textBoxPOS3.Name = "textBoxPOS3";
-            this.textBoxPOS3.Size = new System.Drawing.Size(431, 27);
+            this.textBoxPOS3.Size = new System.Drawing.Size(364, 27);
             this.textBoxPOS3.TabIndex = 6;
             // 
             // btnBrowse1
             // 
             this.btnBrowse1.AutoSize = true;
-            this.btnBrowse1.Location = new System.Drawing.Point(259, 33);
+            this.btnBrowse1.Location = new System.Drawing.Point(6, 39);
             this.btnBrowse1.Name = "btnBrowse1";
-            this.btnBrowse1.Size = new System.Drawing.Size(75, 26);
+            this.btnBrowse1.Size = new System.Drawing.Size(53, 26);
             this.btnBrowse1.TabIndex = 10;
-            this.btnBrowse1.Text = "瀏覽";
+            this.btnBrowse1.Text = "POS1";
             this.btnBrowse1.UseVisualStyleBackColor = true;
             this.btnBrowse1.Click += new System.EventHandler(this.btnBrowse1_Click);
             // 
             // btnBrowse2
             // 
             this.btnBrowse2.AutoSize = true;
-            this.btnBrowse2.Location = new System.Drawing.Point(259, 95);
+            this.btnBrowse2.Location = new System.Drawing.Point(6, 72);
             this.btnBrowse2.Name = "btnBrowse2";
-            this.btnBrowse2.Size = new System.Drawing.Size(75, 26);
+            this.btnBrowse2.Size = new System.Drawing.Size(53, 26);
             this.btnBrowse2.TabIndex = 11;
-            this.btnBrowse2.Text = "瀏覽";
+            this.btnBrowse2.Text = "POS2";
             this.btnBrowse2.UseVisualStyleBackColor = true;
             this.btnBrowse2.Click += new System.EventHandler(this.btnBrowse2_Click);
             // 
             // btnBrowse3
             // 
             this.btnBrowse3.AutoSize = true;
-            this.btnBrowse3.Location = new System.Drawing.Point(259, 154);
+            this.btnBrowse3.Location = new System.Drawing.Point(6, 104);
             this.btnBrowse3.Name = "btnBrowse3";
-            this.btnBrowse3.Size = new System.Drawing.Size(75, 26);
+            this.btnBrowse3.Size = new System.Drawing.Size(53, 26);
             this.btnBrowse3.TabIndex = 12;
-            this.btnBrowse3.Text = "瀏覽";
+            this.btnBrowse3.Text = "POS3";
             this.btnBrowse3.UseVisualStyleBackColor = true;
             this.btnBrowse3.Click += new System.EventHandler(this.btnBrowse3_Click);
             // 
@@ -536,19 +499,19 @@
             // btnBackupDir
             // 
             this.btnBackupDir.AutoSize = true;
-            this.btnBackupDir.Location = new System.Drawing.Point(259, 213);
+            this.btnBackupDir.Location = new System.Drawing.Point(6, 235);
             this.btnBackupDir.Name = "btnBackupDir";
-            this.btnBackupDir.Size = new System.Drawing.Size(75, 26);
+            this.btnBackupDir.Size = new System.Drawing.Size(50, 26);
             this.btnBackupDir.TabIndex = 16;
-            this.btnBackupDir.Text = "瀏覽";
+            this.btnBackupDir.Text = "備份";
             this.btnBackupDir.UseVisualStyleBackColor = true;
             this.btnBackupDir.Click += new System.EventHandler(this.btnBackupDir_Click);
             // 
             // textBoxBackupDir
             // 
-            this.textBoxBackupDir.Location = new System.Drawing.Point(2, 239);
+            this.textBoxBackupDir.Location = new System.Drawing.Point(65, 234);
             this.textBoxBackupDir.Name = "textBoxBackupDir";
-            this.textBoxBackupDir.Size = new System.Drawing.Size(431, 27);
+            this.textBoxBackupDir.Size = new System.Drawing.Size(364, 27);
             this.textBoxBackupDir.TabIndex = 14;
             // 
             // btnUpdateProduct
@@ -567,10 +530,10 @@
             this.tabControl1.Controls.Add(this.tabPageDaily);
             this.tabControl1.Controls.Add(this.tabPagePosDir);
             this.tabControl1.Controls.Add(this.tabPagePrinter);
-            this.tabControl1.Location = new System.Drawing.Point(494, 361);
+            this.tabControl1.Location = new System.Drawing.Point(494, 392);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(447, 311);
+            this.tabControl1.Size = new System.Drawing.Size(447, 317);
             this.tabControl1.TabIndex = 21;
             // 
             // tabPageDaily
@@ -587,7 +550,7 @@
             this.tabPageDaily.Location = new System.Drawing.Point(4, 26);
             this.tabPageDaily.Name = "tabPageDaily";
             this.tabPageDaily.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageDaily.Size = new System.Drawing.Size(439, 281);
+            this.tabPageDaily.Size = new System.Drawing.Size(439, 287);
             this.tabPageDaily.TabIndex = 2;
             this.tabPageDaily.Text = "日常操作";
             // 
@@ -613,25 +576,28 @@
             // 
             // tabPagePosDir
             // 
+            this.tabPagePosDir.AutoScroll = true;
             this.tabPagePosDir.BackColor = System.Drawing.Color.Azure;
             this.tabPagePosDir.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.tabPagePosDir.Controls.Add(this.btnBrowse6);
+            this.tabPagePosDir.Controls.Add(this.textBoxPOS6);
+            this.tabPagePosDir.Controls.Add(this.btnBrowse5);
+            this.tabPagePosDir.Controls.Add(this.textBoxPOS5);
+            this.tabPagePosDir.Controls.Add(this.btnBrowse4);
+            this.tabPagePosDir.Controls.Add(this.textBoxPOS4);
             this.tabPagePosDir.Controls.Add(this.textBoxBackupDir);
             this.tabPagePosDir.Controls.Add(this.btnBackupDir);
             this.tabPagePosDir.Controls.Add(this.btnConfigSave);
             this.tabPagePosDir.Controls.Add(this.textBoxPOS1);
-            this.tabPagePosDir.Controls.Add(this.labelBackup);
             this.tabPagePosDir.Controls.Add(this.btnBrowse2);
-            this.tabPagePosDir.Controls.Add(label3);
             this.tabPagePosDir.Controls.Add(this.btnBrowse1);
             this.tabPagePosDir.Controls.Add(this.btnBrowse3);
-            this.tabPagePosDir.Controls.Add(label2);
             this.tabPagePosDir.Controls.Add(this.textBoxPOS2);
-            this.tabPagePosDir.Controls.Add(label1);
             this.tabPagePosDir.Controls.Add(this.textBoxPOS3);
             this.tabPagePosDir.Location = new System.Drawing.Point(4, 26);
             this.tabPagePosDir.Name = "tabPagePosDir";
             this.tabPagePosDir.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePosDir.Size = new System.Drawing.Size(439, 281);
+            this.tabPagePosDir.Size = new System.Drawing.Size(439, 287);
             this.tabPagePosDir.TabIndex = 0;
             this.tabPagePosDir.Text = "收銀机網路位置";
             // 
@@ -651,7 +617,7 @@
             this.tabPagePrinter.Location = new System.Drawing.Point(4, 26);
             this.tabPagePrinter.Name = "tabPagePrinter";
             this.tabPagePrinter.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePrinter.Size = new System.Drawing.Size(439, 281);
+            this.tabPagePrinter.Size = new System.Drawing.Size(439, 287);
             this.tabPagePrinter.TabIndex = 1;
             this.tabPagePrinter.Text = "印表抬頭設定";
             // 
@@ -722,7 +688,7 @@
             this.tabPageReadme.Location = new System.Drawing.Point(4, 26);
             this.tabPageReadme.Name = "tabPageReadme";
             this.tabPageReadme.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageReadme.Size = new System.Drawing.Size(446, 320);
+            this.tabPageReadme.Size = new System.Drawing.Size(446, 351);
             this.tabPageReadme.TabIndex = 0;
             this.tabPageReadme.Text = "授權提示";
             this.tabPageReadme.UseVisualStyleBackColor = true;
@@ -754,7 +720,7 @@
             " \t年度開帳全部授權消除,需重新授權"});
             this.listBoxReadme.Location = new System.Drawing.Point(3, 3);
             this.listBoxReadme.Name = "listBoxReadme";
-            this.listBoxReadme.Size = new System.Drawing.Size(440, 314);
+            this.listBoxReadme.Size = new System.Drawing.Size(440, 345);
             this.listBoxReadme.TabIndex = 3;
             // 
             // tabControl2
@@ -766,15 +732,69 @@
             this.tabControl2.Location = new System.Drawing.Point(494, 5);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(454, 350);
+            this.tabControl2.Size = new System.Drawing.Size(454, 381);
             this.tabControl2.TabIndex = 22;
+            // 
+            // btnBrowse4
+            // 
+            this.btnBrowse4.AutoSize = true;
+            this.btnBrowse4.Location = new System.Drawing.Point(6, 137);
+            this.btnBrowse4.Name = "btnBrowse4";
+            this.btnBrowse4.Size = new System.Drawing.Size(53, 26);
+            this.btnBrowse4.TabIndex = 18;
+            this.btnBrowse4.Text = "POS4";
+            this.btnBrowse4.UseVisualStyleBackColor = true;
+            this.btnBrowse4.Click += new System.EventHandler(this.btnBrowse4_Click);
+            // 
+            // textBoxPOS4
+            // 
+            this.textBoxPOS4.Location = new System.Drawing.Point(65, 137);
+            this.textBoxPOS4.Name = "textBoxPOS4";
+            this.textBoxPOS4.Size = new System.Drawing.Size(364, 27);
+            this.textBoxPOS4.TabIndex = 17;
+            // 
+            // btnBrowse5
+            // 
+            this.btnBrowse5.AutoSize = true;
+            this.btnBrowse5.Location = new System.Drawing.Point(6, 169);
+            this.btnBrowse5.Name = "btnBrowse5";
+            this.btnBrowse5.Size = new System.Drawing.Size(53, 26);
+            this.btnBrowse5.TabIndex = 20;
+            this.btnBrowse5.Text = "POS5";
+            this.btnBrowse5.UseVisualStyleBackColor = true;
+            this.btnBrowse5.Click += new System.EventHandler(this.btnBrowse5_Click);
+            // 
+            // textBoxPOS5
+            // 
+            this.textBoxPOS5.Location = new System.Drawing.Point(65, 169);
+            this.textBoxPOS5.Name = "textBoxPOS5";
+            this.textBoxPOS5.Size = new System.Drawing.Size(364, 27);
+            this.textBoxPOS5.TabIndex = 19;
+            // 
+            // btnBrowse6
+            // 
+            this.btnBrowse6.AutoSize = true;
+            this.btnBrowse6.Location = new System.Drawing.Point(6, 201);
+            this.btnBrowse6.Name = "btnBrowse6";
+            this.btnBrowse6.Size = new System.Drawing.Size(53, 26);
+            this.btnBrowse6.TabIndex = 22;
+            this.btnBrowse6.Text = "POS6";
+            this.btnBrowse6.UseVisualStyleBackColor = true;
+            this.btnBrowse6.Click += new System.EventHandler(this.btnBrowse6_Click);
+            // 
+            // textBoxPOS6
+            // 
+            this.textBoxPOS6.Location = new System.Drawing.Point(65, 201);
+            this.textBoxPOS6.Name = "textBoxPOS6";
+            this.textBoxPOS6.Size = new System.Drawing.Size(364, 27);
+            this.textBoxPOS6.TabIndex = 21;
             // 
             // FormCashierAuthen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Azure;
-            this.ClientSize = new System.Drawing.Size(953, 672);
+            this.ClientSize = new System.Drawing.Size(953, 709);
             this.Controls.Add(this.tabControl2);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.chBoxOnlyInPosition);
@@ -853,7 +873,6 @@
         private System.Windows.Forms.TabPage tabPageDaily;
         private System.Windows.Forms.Button btnDailyReport;
         private System.Drawing.Printing.PrintDocument printDocument1;
-        private System.Windows.Forms.Label labelBackup;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn CashierIDColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCashierName;
@@ -865,5 +884,11 @@
         private System.Windows.Forms.TabPage tabPageReadme;
         private System.Windows.Forms.ListBox listBoxReadme;
         private System.Windows.Forms.TabControl tabControl2;
+        private System.Windows.Forms.Button btnBrowse6;
+        private System.Windows.Forms.TextBox textBoxPOS6;
+        private System.Windows.Forms.Button btnBrowse5;
+        private System.Windows.Forms.TextBox textBoxPOS5;
+        private System.Windows.Forms.Button btnBrowse4;
+        private System.Windows.Forms.TextBox textBoxPOS4;
     }
 }

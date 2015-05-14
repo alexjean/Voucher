@@ -518,16 +518,16 @@ namespace VoucherExpense
                 newOrder.PayBy = order.PayBy;
                 str+= order.PayBy.ToString();
             }
-            if (!order.IsMemberIdNull())
-            {
-                newOrder.MemberId = order.MemberId;
-                str += order.MemberId;
-            }
-            if (!order.IsExBreadNull())
-            {
-                newOrder.ExBread = order.ExBread;
-                str += order.ExBread;
-            }
+            //if (!order.IsMemberIDNull())
+            //{
+            //    newOrder.MemberId = order.MemberID;
+            //    str += order.MemberID;
+            //}
+            //if (!order.IsExBreadNull())
+            //{
+            //    newOrder.ExBread = order.ExBread;
+            //    str += order.ExBread;
+            //}
             if (!order.IsPrintTimeNull())
             {
                 newOrder.PrintTime = order.PrintTime;           

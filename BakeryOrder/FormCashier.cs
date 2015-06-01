@@ -292,10 +292,10 @@ namespace BakeryOrder
                 m_FormCustomer.SetTimer(45000);   // 停止轉圖, 同時會把Dock改成Right,露出結帳單
                 m_FormCustomer.SetPicture(img);
             }
-            if (!textBox1.Focused)
-            {
-                textBox1.Focus();
-            }
+            //if (!textBox1.Focused)
+            //{
+            //    textBox1.Focus();
+            //}
         }
         // 輸出的Label[,] 放到tabPage.Tag去
         private void InitFoodMenu(TabPage tabPage, int menuId, out Label[,] FoodName)
@@ -466,7 +466,8 @@ namespace BakeryOrder
                 headerTableAdapter.Fill(bakeryOrderSet.Header);
                 productTableAdapter.Fill(bakeryOrderSet.Product);
                 cashierTableAdapter.Fill(bakeryOrderSet.Cashier);
-                //// m_PosID存在 [Cashier.CashierName] where CashierID= int.Max , 每次店長修改權限存檔時放進去
+                // 己更改PosID在收取資料時由店長電腦填寫
+                //// m_PosID存在 [Cashier.CashierName] where CashierID= int.Max , 每次店長修改權限存檔時放進去 
                 //var cashiers = from row in bakeryOrderSet.Cashier where (row.CashierID == int.MinValue) select row;
                 //if (cashiers.Count() != 0)
                 //{
@@ -520,8 +521,8 @@ namespace BakeryOrder
             checkBoxTest.Checked = true;
             btnTest.Visible = true;
             m_CashierID = 1; m_CashierName = "测试员";
-            textBox1.Focus();
-            textBox1.SelectAll();
+            //textBox1.Focus();
+            //textBox1.SelectAll();
 
 #endif
             for (int i = 0; i <= 9; i++)
@@ -553,7 +554,6 @@ namespace BakeryOrder
             }
             else
                 SetLoginStatus(true);
-
         }
 
         int LoadData(int m, int d)
@@ -659,11 +659,11 @@ namespace BakeryOrder
                 order.PayBy = DicPayBy.First().Key.ToString();
                 order.OldID = 0;
                 order.RCashierID = 0;
-                if (memberInfo != null)
-                {
+                //if (memberInfo != null)
+                //{
 
-                    order.MemberID = memberInfo.MemberID.ToString();
-                }
+                //    order.MemberID = memberInfo.MemberID.ToString();
+                //}
                 return order.ID;
             }
             catch (Exception ex)
@@ -868,8 +868,8 @@ namespace BakeryOrder
             CreateUpdateDrawerRecord(ref m_MaxDrawerRecordID, m_CurrentOrder.ID % 10000);
             SetMemberNull();
             //richTextBox1.Text = "";
-            textBox1.SelectAll();
-            textBox1.Focus();
+            //textBox1.SelectAll();
+            //textBox1.Focus();
             ////////////////////////清空当前会员
             //            DoNewOrder();
         }
@@ -923,8 +923,10 @@ namespace BakeryOrder
             SetMemberNull();
             lshow.Text = "";
             myImgControl1.changetext("");
-            textBox1.SelectAll();
-            textBox1.Focus();
+            //textBox1.SelectAll();
+            //textBox1.Focus();
+            MemberCode = "";
+            labelMemberCode.Text = "";
             /*----------------------*/
             int no = CreateOrder(out m_CurrentOrder, m_MaxOrderID) % 10000;
             if (m_CurrentOrder == null) return;    // 錯誤產生
@@ -942,7 +944,6 @@ namespace BakeryOrder
 
         private void btnNewOrder_Click(object sender, EventArgs e)
         {
-
             DoNewOrder();
 
         }
@@ -1307,7 +1308,7 @@ namespace BakeryOrder
                 return;
             }
             decimal moneyGot = 0;
-            Form form = new FormCheckout(tabControl1.Left + 8, 8, m_CurrentOrder, (decimal)CalcTotal());
+            Form form = new FormCheckout(tabControl1.Left + 8, 8, m_CurrentOrder, (decimal)CalcTotal(),this);
             if (form.ShowDialog(this) == DialogResult.OK)
             {
                 if (form.Tag.GetType() == typeof(decimal))
@@ -1332,10 +1333,10 @@ namespace BakeryOrder
                 CreateUpdateDrawerRecord(ref m_MaxDrawerRecordID, m_CurrentOrder.ID % 10000);
                 //结账后清空当前会员信息，刷卡获取焦点
                 SetMemberNull();
-                textBox1.SelectAll();
-                textBox1.Focus();
-            }       
-               
+                //textBox1.SelectAll();
+                //textBox1.Focus();
+            }
+            textBoxCashierID.Focus();   // 停留在Button上導至 KeyPress等KeyPreview不Work
         }
 
         private void btnTest_Click(object sender, EventArgs e)
@@ -1408,8 +1409,8 @@ namespace BakeryOrder
         private void FormCashier_Activated(object sender, EventArgs e)
         {
 
-            textBox1.Focus();
-            textBox1.SelectAll();
+            //textBox1.Focus();
+            //textBox1.SelectAll();
 
         }
         public static void SetMemberNull()
@@ -1442,102 +1443,129 @@ namespace BakeryOrder
         /// memberdb.ExecuteStoreCommand("update tbMemberScore set bread=Bread+1 where id=1");积分修改时用这种sql语句 同步不会出错
         /// </summary>
 
-        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            using (MemberDBEntities memberdb = new MemberDBEntities())
-            {
-                try
-                {
+        //private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        //{
+        //    using (MemberDBEntities memberdb = new MemberDBEntities())
+        //    {
+        //        try
+        //        {
 
-                    char KeyChar = e.KeyChar;
-                    if (KeyChar == (char)Keys.Enter)
-                    {
-                        SetMemberNull();
-                        string str = textBox1.Text;
-                        string restr = @"[^\d]*";
-                        string mstr = System.Text.RegularExpressions.Regex.Replace(str, restr, "");
-                        if (mstr.Length >= 16)
-                        {
-                            card = memberdb.CreateObjectSet<tbCard>().Where<tbCard>(p => p.CardNumber == mstr.Substring(0, 16)).FirstOrDefault();
-                            if (card == null)
-                            {
-                                myImgControl1.changetext("不存在此卡！");
-                                lshow.Text = "不存在此卡！";
-                            }
-                            else
-                            {
-                                if (card.Cardstate == 2)
-                                {
-                                    tbMemberAndCard mc = card.tbMemberAndCards.FirstOrDefault();
-                                    if (mc == null)
-                                    {
-                                        myImgControl1.changetext("卡还没有绑定会员！");
-                                        lshow.Text = "卡还没有绑定会员！！";
-                                        SetMemberNull();
-                                    }
-                                    else
-                                    {
-                                        memberInfo = mc.tbMember.tbMemberInfoes.FirstOrDefault();
-                                        memberScore = mc.tbMember.tbMemberScores.FirstOrDefault();
-                                        StringBuilder InfoStr = new StringBuilder();
-                                        InfoStr.Append(memberInfo.FristName);
-                                        if (memberInfo!=null&&memberInfo.Sex == 1)
-                                        {
-                                            InfoStr.Append("先生");
-                                        }
-                                        else
-                                        {
-                                            InfoStr.Append("女士");
-                                        }
-                                        //判断是否生日当天，如果是，提示
-                                        InfoStr.Append("\r\n可换面包数" + memberScore.Bread + "\r\n麦子数" + memberScore.Score);
-                                        myImgControl1.changetext(InfoStr.ToString());
-                                        lshow.Text = InfoStr.ToString();
-                                    }
-                                }
-                                else
-                                {
-                                    myImgControl1.changetext("此卡没有激活或者已经挂失！");
-                                    lshow.Text = "此卡没有激活或者已经挂失！";
-                                    SetMemberNull();
-                                }
-                            }
+        //            char KeyChar = e.KeyChar;
+        //            if (KeyChar == (char)Keys.Enter)
+        //            {
+        //                SetMemberNull();
+        //                string str = textBox1.Text;
+        //                string restr = @"[^\d]*";
+        //                string mstr = System.Text.RegularExpressions.Regex.Replace(str, restr, "");
+        //                if (mstr.Length >= 16)
+        //                {
+        //                    card = memberdb.CreateObjectSet<tbCard>().Where<tbCard>(p => p.CardNumber == mstr.Substring(0, 16)).FirstOrDefault();
+        //                    if (card == null)
+        //                    {
+        //                        myImgControl1.changetext("不存在此卡！");
+        //                        lshow.Text = "不存在此卡！";
+        //                    }
+        //                    else
+        //                    {
+        //                        if (card.Cardstate == 2)
+        //                        {
+        //                            tbMemberAndCard mc = card.tbMemberAndCards.FirstOrDefault();
+        //                            if (mc == null)
+        //                            {
+        //                                myImgControl1.changetext("卡还没有绑定会员！");
+        //                                lshow.Text = "卡还没有绑定会员！！";
+        //                                SetMemberNull();
+        //                            }
+        //                            else
+        //                            {
+        //                                memberInfo = mc.tbMember.tbMemberInfoes.FirstOrDefault();
+        //                                memberScore = mc.tbMember.tbMemberScores.FirstOrDefault();
+        //                                StringBuilder InfoStr = new StringBuilder();
+        //                                InfoStr.Append(memberInfo.FristName);
+        //                                if (memberInfo!=null&&memberInfo.Sex == 1)
+        //                                {
+        //                                    InfoStr.Append("先生");
+        //                                }
+        //                                else
+        //                                {
+        //                                    InfoStr.Append("女士");
+        //                                }
+        //                                //判断是否生日当天，如果是，提示
+        //                                InfoStr.Append("\r\n可换面包数" + memberScore.Bread + "\r\n麦子数" + memberScore.Score);
+        //                                myImgControl1.changetext(InfoStr.ToString());
+        //                                lshow.Text = InfoStr.ToString();
+        //                            }
+        //                        }
+        //                        else
+        //                        {
+        //                            myImgControl1.changetext("此卡没有激活或者已经挂失！");
+        //                            lshow.Text = "此卡没有激活或者已经挂失！";
+        //                            SetMemberNull();
+        //                        }
+        //                    }
                             
-                            textBox1.SelectAll();
-                            textBox1.Focus();
-                        }
-                    }
+        //                    textBox1.SelectAll();
+        //                    textBox1.Focus();
+        //                }
+        //            }
 
 
-                }
-                catch (Exception ex)
-                {
-                    Form form = new FormMessage("刷卡异常" + ex.Message);
-                    form.ShowDialog();
-                }
-            }
-        }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Form form = new FormMessage("刷卡异常" + ex.Message);
+        //            form.ShowDialog();
+        //        }
+        //    }
+        //}
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
+        //private void textBox1_TextChanged(object sender, EventArgs e)
+        //{
             
-        }
+        //}
 
        void TodayExBread()
        {}
 
-       private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+       //private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+       //{
+       //    if (!textBox1.Focused)
+       //    {
+       //        textBox1.Focus();
+       //    }
+       //}
+
+       private string CodeCache = "";
+       public string MemberCode;
+       private void FormCashier_KeyPress(object sender, KeyPressEventArgs e)
        {
-           if (!textBox1.Focused)
-           {
-               textBox1.Focus();
-           }
-       }
+           if (char.IsDigit(e.KeyChar))
+                CodeCache += (char)e.KeyChar;
+        }
 
+        // 因為 Button會攔掉Return, KeyPreview=true也沒用,只好override ProcessDialogKey
+        protected override bool ProcessDialogKey(Keys keyData)
+        {
+            if (keyData == Keys.Return)
+            {
+                if (CodeCache.Length == 17) // 支付寶的支付碼長度是17
+                {
+                    MemberCode = CodeCache;
+                    labelMemberCode.Text = "支付码 " + MemberCode;
+                }
+                CodeCache = "";
+                if (lvItems.Items.Count != 0)
+                    btnDoCashier.PerformClick();
+                return false;      // 吃掉Return
+            }
+            else 
+                return base.ProcessDialogKey(keyData);
+        }
 
-
+       
 
     }
+
 
 #endregion
 }

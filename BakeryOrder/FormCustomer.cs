@@ -190,5 +190,11 @@ namespace BakeryOrder
             GC.Collect();
         }
 
+        private string CodeCache = "";
+        private void FormCustomer_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            CodeCache += (char)e.KeyChar;
+        }
+
     }
 }

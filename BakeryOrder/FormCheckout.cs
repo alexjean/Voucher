@@ -20,8 +20,10 @@ namespace BakeryOrder
         decimal m_Income;
         char m_PayBy='A';
         decimal m_DiscountRate = 1;
-        public FormCheckout(int x,int y,BakeryOrderSet.OrderRow order,decimal total)
+        FormCashier m_Form;
+        public FormCheckout(int x,int y,BakeryOrderSet.OrderRow order,decimal total,FormCashier form)
         {
+            m_Form = form;
             m_X = x;
             m_Y = y;
             m_Order = order;
@@ -48,28 +50,28 @@ namespace BakeryOrder
             m_Order.DiscountRate = m_DiscountRate;
             m_Order.OldID = 0;
             m_Order.RCashierID = 0;
-            m_Order.ExBread = ExchangeNo;
-            if (FormCashier.memberInfo == null)
-            {
-                //m_Order.MemberID = "0"; 
-            }
-            else
-            {
-                m_Order.MemberID = FormCashier.memberInfo.MemberID.ToString();
-            }
+            //m_Order.ExBread = ExchangeNo;
+            //if (FormCashier.memberInfo == null)
+            //{
+            //    m_Order.MemberID = "0"; 
+            //}
+            //else
+            //{
+            //    m_Order.MemberID = FormCashier.memberInfo.MemberID.ToString();
+            //}
             //if (m_Debuct==0&&FormCashier.memberScore!=null)
             //{
             //    Score(FormCashier.memberScore.MemberID.ToString(),FormCashier.BreadNO);
             //}
-            if (m_Debuct > 0 && FormCashier.memberScore != null)
-            {
-                //减去兑换面包值，此单不可累计麦子
-                //Bread(FormCashier.memberScore.MemberID.ToString(), ExchangeNo);
-                //设定打印 兑换面包数
-                FormCashier.ExBread = ExchangeNo;
-                //修改列表中面包数为0，用于打印积分为0，不影响有积分的单子
-                FormCashier.BreadNO = 0;
-            }
+            //if (m_Debuct > 0 && FormCashier.memberScore != null)
+            //{
+            //    //减去兑换面包值，此单不可累计麦子
+            //    //Bread(FormCashier.memberScore.MemberID.ToString(), ExchangeNo);
+            //    //设定打印 兑换面包数
+            //    FormCashier.ExBread = ExchangeNo;
+            //    //修改列表中面包数为0，用于打印积分为0，不影响有积分的单子
+            //    FormCashier.BreadNO = 0;
+            //}
             Close();
         }
         ///// <summary>
@@ -118,6 +120,7 @@ namespace BakeryOrder
         {
             DialogResult = DialogResult.Cancel;
             Close();
+            Application.DoEvents();
         }
 
         /// <summary>
@@ -188,6 +191,11 @@ namespace BakeryOrder
                     }
                 }
             }
+            if (m_Form.MemberCode != "" && m_Form.MemberCode!=null)
+            {
+                textBoxCashGot.Enabled = false;
+                textBoxCashGot.Text = "刷支付宝不收现金";
+            }
         }
 
         void SetButtonVisualStyleExcept(Button btn)
@@ -222,14 +230,31 @@ namespace BakeryOrder
             textBoxCashGot.Enabled = false;
         }
 
+        private void EnableKeyboard()
+        {
+            this.KeyUp    -= new System.Windows.Forms.KeyEventHandler(this.FormCheckout_KeyUp);
+            this.KeyDown  -= new System.Windows.Forms.KeyEventHandler(this.FormCheckout_KeyDown);
+            this.KeyPress -= new System.Windows.Forms.KeyPressEventHandler(this.FormCheckout_KeyPress);
+        }
+
+        private void DisableKeyboard()
+        {
+            this.KeyUp    += new System.Windows.Forms.KeyEventHandler(this.FormCheckout_KeyUp);
+            this.KeyDown  += new System.Windows.Forms.KeyEventHandler(this.FormCheckout_KeyDown);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.FormCheckout_KeyPress);
+        }
 
         TextBox m_Current = null;
         private void btnNumberX_Click(object sender, EventArgs e)
         {
             if (m_Current == null) return;
             Button btn = sender as Button;
+            EnableKeyboard();
             m_Current.Focus();
             SendKeys.Send(btn.Text);
+            Application.DoEvents();
+            DisableKeyboard();
+
         }
 
         private void textBoxCashGot_Enter(object sender, EventArgs e)
@@ -249,9 +274,12 @@ namespace BakeryOrder
             ExchangeNo = 0;
             if (m_Current == null) return;
             Button btn = sender as Button;
+            EnableKeyboard();
             m_Current.Focus();
             m_Current.SelectAll();
             SendKeys.Send("\b");
+            Application.DoEvents();
+            DisableKeyboard();
         }
 
         private void btnNumber100_Click(object sender, EventArgs e)
@@ -339,11 +367,29 @@ namespace BakeryOrder
             btn.UseVisualStyleBackColor = false;
         }
 
+        private void FormCheckout_KeyDown(object sender, KeyEventArgs e)
+        {
+            e.Handled = true;
+        }
 
+        private void FormCheckout_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
 
+        private void FormCheckout_KeyUp(object sender, KeyEventArgs e)
+        {
+            e.Handled = true;
+        }
 
-       
-
+        // 因為 Button會攔掉Return, KeyPreview=true也沒用,只好override ProcessDialogKey
+        protected override bool ProcessDialogKey(Keys keyData)
+        {
+            if (keyData == Keys.Return)
+                return false;      // 吃掉Return
+            else
+                return base.ProcessDialogKey(keyData);
+        }
       
     }
 }

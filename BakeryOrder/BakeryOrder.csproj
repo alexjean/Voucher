@@ -11,7 +11,8 @@
     <RootNamespace>BakeryOrder</RootNamespace>
     <AssemblyName>BakeryOrder</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -89,6 +90,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BakeryOrderSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Class\AlipayClass.cs" />
     <Compile Include="Class\BakeryConfig.cs" />
     <Compile Include="Class\ByteBuilder.cs" />
     <Compile Include="Class\DataDefine.cs">
@@ -231,6 +233,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="RSA_KeyFile\alipay_rsa_public_key.pem" />
+    <None Include="RSA_KeyFile\rsa_private_key.pem" />
+    <None Include="RSA_KeyFile\rsa_public_key.pem" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Chair.ico" />
@@ -240,6 +245,13 @@
     <None Include="Resources\Wheat.jpg" />
     <None Include="Resources\Powder.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\sdk-0511-2\AopSdk.csproj">
+      <Project>{9C11CAE5-5188-4E71-825B-68FC3135728A}</Project>
+      <Name>AopSdk</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

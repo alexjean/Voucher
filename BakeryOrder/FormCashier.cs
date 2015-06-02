@@ -11,6 +11,12 @@ using System.Drawing.Drawing2D;
 using System.Xml;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
+using Com.Alipay;
+using System.Threading;
+using Aop.Api;
+using Aop.Api.Request;
+using Aop.Api.Response;
+
 
 namespace BakeryOrder
 {
@@ -551,11 +557,15 @@ namespace BakeryOrder
             if (m_CashierID < 0)
             {
                 SetLoginStatus(false);
+                return;
             }
-            else
-                SetLoginStatus(true);
+            SetLoginStatus(true);
+            m_Alipay = new DoAlipay();
+            m_Alipay.Setup();
         }
 
+        public DoAlipay m_Alipay;
+   
         int LoadData(int m, int d)
         {
             string sql = "Where INT(ID/1000000)=" + m.ToString("d2") + d.ToString("d2");
@@ -1258,7 +1268,7 @@ namespace BakeryOrder
         //    return DicPayBy.First().Key;
         //}
 
-        Dictionary<char, string> DicPayBy = new Dictionary<char, string> { { 'A', "现金" }, { 'B', "刷卡" }, { 'C', "券  " }, { 'D', "券  " } };
+        Dictionary<char, string> DicPayBy = new Dictionary<char, string> { { 'A', "现金" }, { 'B', "刷卡" }, { 'C', "券  " }, { 'D', "支付宝" } };
         string PayByChinese(char payBy)
         {
             string str;
@@ -1327,6 +1337,12 @@ namespace BakeryOrder
                     labelTotal.Text = m_CurrentOrder.Income.ToString();
                 }
                 labelClass.Text = PayByChinese(m_CurrentOrder.PayBy[0]);
+
+                if (m_CurrentOrder.PayBy[0] == 'D')  // 支付宝
+                {
+                    Alipay_RSA_Submit("20150602"+m_CurrentOrder.ID.ToString(), MemberCode, m_CurrentOrder.Income / 100m);
+                }
+
                 Print(m_CurrentOrder, (double)moneyGot, true);
                 if (!this.checkBoxTest.Checked)
                     RawPrint.SendManagedBytes(m_Printer.PrinterName, m_CashDrawer);   // 彈出錢箱
@@ -1534,6 +1550,7 @@ namespace BakeryOrder
        //        textBox1.Focus();
        //    }
        //}
+       #endregion
 
        private string CodeCache = "";
        public string MemberCode;
@@ -1562,10 +1579,91 @@ namespace BakeryOrder
                 return base.ProcessDialogKey(keyData);
         }
 
+
+        protected void Alipay_RSA_Submit(string out_trade_no, string auth_code, decimal total_fee)
+        {
+            //线上联调时，请输入真实的外部订单号    out_trade_no
+            //线上联调时，请输入真实的条码          auto_code
+            string total_amount = total_fee.ToString();
+
+            List<StrPair> list = new List<StrPair>();
+            StrPair trade_no_pair = new StrPair("out_trade_no", out_trade_no);
+            string trade_no_str = DoAlipay.List2Jason(new List<StrPair> { trade_no_pair });
+            list.Add(trade_no_pair);
+            list.Add(new StrPair("scene", "bar_code"));
+            list.Add(new StrPair("auth_code", auth_code));
+            list.Add(new StrPair("total_amount", total_amount));
+            list.Add(new StrPair("discountable_amount", "0.00"));
+            list.Add(new StrPair("subject", "原麦山丘-条码支付"));
+            list.Add(new StrPair("body", "abc"));
+
+            List<StrPair> goods = new List<StrPair>();
+            goods.Add(new StrPair("goods_id", "apple-01"));
+            goods.Add(new StrPair("goods_name", "ipad"));
+            goods.Add(new StrPair("goods_category", "7788230"));
+            goods.Add(new StrPair("price", "88.00"));
+            goods.Add(new StrPair("quantity", "1"));
+
+            goods.Add(new StrPair("goods_id", "apple-02"));
+            goods.Add(new StrPair("goods_name", "iphone"));
+            goods.Add(new StrPair("goods_category", "7788231"));
+            goods.Add(new StrPair("price", "88.00"));
+            goods.Add(new StrPair("quantity", "1"));
+
+            list.Add(new StrPair("goods_detail", DoAlipay.List2Jason(goods)));
+            list.Add(new StrPair("operator_id", "op001"));
+            list.Add(new StrPair("store_id", "pudong001"));
+            list.Add(new StrPair("terminal_id", "t_001"));
+
+            string expire_time = System.DateTime.Now.AddHours(1).ToString("yyyy-MM-dd HH:mm:ss");
+            list.Add(new StrPair("time_expire", expire_time));
+
+            AlipayTradePayResponse payResponse = m_Alipay.Pay(DoAlipay.List2Jason(list));
+
+            string result = payResponse.Body;
+
+            if (payResponse != null)
+            {
+
+                switch (payResponse.Code)
+                {
+                    case ResultCode.SUCCESS:
+                        System.Console.Write("支付成功");
+                        result = payResponse.Body;
+                        break;
+
+
+                    case ResultCode.INRROCESS:
+
+                        //根据业务需要，选择是否新起线程进行轮询
+                        //ParameterizedThreadStart ParStart = new ParameterizedThreadStart(LoopQuery);
+                        //Thread myThread = new Thread(ParStart);
+                        //object o = payResponse;
+                        //myThread.Start(o);
+
+                        //返回支付处理中，需要进行轮询
+                        AlipayTradeQueryResponse queryResponse = m_Alipay.LoopQuery(trade_no_str);   //用订单号trade_no进行轮询也是可以的。
+                        if (queryResponse != null)
+                        {
+                            result = queryResponse.Body;
+                        }
+                        break;
+
+                    case ResultCode.FAIL:
+                        m_Alipay.Cancel(trade_no_str);
+                        break;
+                }
+            }
+            MessageBox.Show(result);
+        }
+
+
        
 
     }
 
 
-#endregion
+
+
+
 }

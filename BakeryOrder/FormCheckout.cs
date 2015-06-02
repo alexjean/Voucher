@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+
 namespace BakeryOrder
 {
     public partial class FormCheckout : Form
@@ -39,6 +40,10 @@ namespace BakeryOrder
                 Tag = m_MoneyGot;
             else if (m_PayBy == 'B' || m_PayBy=='C')  // 刷卡及券沒有 實收 
                 Tag = 0;
+            else if (m_PayBy == 'D')     // D重定義為支付宝
+            {
+                Tag = 0;
+            }
             else
             {
                 MessageBox.Show("未知的付款方式!");
@@ -195,6 +200,10 @@ namespace BakeryOrder
             {
                 textBoxCashGot.Enabled = false;
                 textBoxCashGot.Text = "刷支付宝不收现金";
+                btnCoupon.Enabled = false;
+                btnCash.Enabled = false;
+                btnCard.Enabled = false;
+                m_PayBy = 'D';
             }
         }
 
@@ -390,6 +399,9 @@ namespace BakeryOrder
             else
                 return base.ProcessDialogKey(keyData);
         }
-      
+
+
+
+
     }
 }

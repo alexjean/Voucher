@@ -16,14 +16,16 @@ namespace BakeryOrder
         int m_CashierID;
         PrintInfo m_Printer;
         int m_PosID = 0;
+        int m_StoreID = 0;
         string m_CashierName="";
         public bool isReturn=false;//是否有退货员使用
-        public FormSystemSetup(BakeryOrderSet bakeryOrderSet,int id,PrintInfo printer,int posID,string cashierName)
+        public FormSystemSetup(BakeryOrderSet bakeryOrderSet,int id,PrintInfo printer,int posID,int storeID,string cashierName)
         {
             m_CashierID = id;
             m_BakeryOrderSet = bakeryOrderSet;
             m_Printer   = printer;
             m_PosID     = posID;
+            m_StoreID   = storeID;
             m_CashierName=cashierName;
             InitializeComponent();
         }
@@ -214,17 +216,22 @@ namespace BakeryOrder
             listBoxInfo.Items.Add(CashierName(m_CashierID) + "你好!, 你的登入号是 " + m_CashierID.ToString() + " 号");
             DateTime now=DateTime.Now;
             listBoxInfo.Items.Add("今天是"+now.ToString("MM月dd日")+" "+now.DayOfWeek.ToString());
-            if (m_PosID <= 0 || m_PosID>9)
+            if (m_StoreID <= 0 || m_StoreID >999)
+                listBoxInfo.Items.Add("系統管理員尚未指定本店号");
+            else
+                listBoxInfo.Items.Add("系統管理員指定本店号為 <" + m_StoreID + ">");
+            if (m_PosID <= 0 || m_PosID > 9)
                 listBoxInfo.Items.Add("店長尚未指定本机机号");
             else
                 listBoxInfo.Items.Add("店長指定本机為 <收銀机" + m_PosID + ">");
+            listBoxInfo.Items.Add("支付宝店名為 <" + m_Printer.AlipayTitle + ">");
         }
 
         private void btnLoginReturns_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
             Close();
-            Form formreturnpurchase = new FormReturnedPurchase(m_CashierID,m_Printer,m_PosID,m_CashierName);
+            Form formreturnpurchase = new FormReturnedPurchase(m_CashierID,m_Printer,m_PosID,m_StoreID,m_CashierName);
             this.Hide();
             formreturnpurchase.ShowDialog();
             

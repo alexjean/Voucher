@@ -64,7 +64,7 @@ namespace VoucherExpense
         MyOrderItemAdapter OrderItemAdapter = new MyOrderItemAdapter();
         MyDrawerRecordAdapter DrawerAdapter = new MyDrawerRecordAdapter();
         MyProductAdapter ProductAdapter     = new MyProductAdapter();
-        int storeid;
+        int m_StoreID=0;
         private void FormCashierAuthen_Load(object sender, EventArgs e)
         {
             m_Cfg= MyFunction.HardwareCfg;
@@ -107,9 +107,10 @@ namespace VoucherExpense
                     }
                     if (!a0.IsAppartementCodeNull())
                     {
-                        storeid = a0.AppartementCode;
+                        m_StoreID = a0.AppartementCode;
                     }
                 }
+                labelStoreID.Text = m_StoreID.ToString();
                 chBoxOnlyInPosition_CheckedChanged(null, null);
                 DateTime now = DateTime.Now;
                 todayPicker.MinDate = new DateTime(MyFunction.IntHeaderYear, 1, 1);
@@ -568,7 +569,7 @@ namespace VoucherExpense
                // newOrder.ItemArray = order.ItemArray;
                 CopyOrderRow(order, newOrder);
                 newOrder.ID = newID;
-                newOrder.StoreId = storeid;
+                newOrder.StoreId = m_StoreID;
                 newOrder.EndEdit();
                 m_OrderSet.Order.AddOrderRow(newOrder);
             }
@@ -711,7 +712,7 @@ namespace VoucherExpense
 
         private void btnGetDataFromPOS_Click(object sender, EventArgs e)
         {
-            if (storeid==null)
+            if (m_StoreID==null)
             {
                 MessageBox.Show("没有设置当前店部门编码，请先修改部门资料再收取数据");
                 return;
@@ -1118,16 +1119,24 @@ namespace VoucherExpense
         BakeryConfig BakeryConfig = null;
         string BakeryConfigName = "FormCashier";
         string BakeryTableName  = "PrintTitle";
-        string PrintConfig2Xml(string configName,string tableName,int posNo=0)
+        string PrintConfig2Xml(string configName, string tableName,int posID,int storeID)
         {
             string title = textBoxPrintTitle.Text.TrimEnd();
             string addr  = textBoxPrintAddress.Text.TrimEnd();
             string tel   = textBoxPrintTelephone.Text.TrimEnd();
+            string alipayTitle = textBoxAlipayTitle.Text.Trim();
 
             StringBuilder xml = new StringBuilder("<" + configName + " Name=\"" + tableName + "\">", 512);
             xml.Append("<Print Title=\""+title+"\" Addr=\""+addr+"\" Tel=\""+tel+"\"");
-            if (posNo > 0 && posNo<=9)
-                xml.Append(" PosNo=\""+posNo.ToString()+"\"");
+            xml.Append(" AlipayTitle=\""+alipayTitle+"\"");
+            if (storeID > 0 && storeID <=999)
+            {
+                xml.Append(" StoreID=\"" + storeID.ToString() + "\"");
+            }
+            if (posID > 0 && posID <= 9)
+            {
+                xml.Append(" PosNo=\"" + posID.ToString() + "\"");
+            }
             xml.Append(" />");
             xml.Append("</" + configName + ">");
             return xml.ToString();
@@ -1148,12 +1157,14 @@ namespace VoucherExpense
                 if (attr != null) textBoxPrintAddress.Text = attr.Value;
                 attr = node.Attributes["Tel"];
                 if (attr != null) textBoxPrintTelephone.Text = attr.Value;
+                attr = node.Attributes["AlipayTitle"];
+                if (attr != null) textBoxAlipayTitle.Text = attr.Value;
             }
         }
 
         private void btnSavePrintTitle_Click(object sender, EventArgs e)
         {
-            string content=PrintConfig2Xml(BakeryConfigName,BakeryTableName);
+            string content=PrintConfig2Xml(BakeryConfigName,BakeryTableName,posID:0,storeID:0);
             if (BakeryConfig.Save(BakeryConfigName, BakeryTableName, content))
                 MessageBox.Show("本机存檔成功!");
         }
@@ -1172,7 +1183,7 @@ namespace VoucherExpense
                 if (dir.Length <= 0) continue;
                 BakeryConfigMDB bakeryConfig = new BakeryConfigMDB(dir);
                 Message("更新收銀机<" + i.ToString() + "> 印表抬頭設定");
-                xmlContent=PrintConfig2Xml(BakeryConfigName,BakeryTableName,i);
+                xmlContent=PrintConfig2Xml(BakeryConfigName,BakeryTableName,posID:i,storeID:m_StoreID);
                 bakeryConfig.Save(BakeryConfigName, BakeryTableName,xmlContent);
             }
             Message("所有收銀机都更新完畢!");

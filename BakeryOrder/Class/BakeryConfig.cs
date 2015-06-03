@@ -16,6 +16,7 @@ namespace BakeryOrder
         public string Title;
         public string Address;
         public string Tel;
+        public string AlipayTitle;
     }
 
     class BakeryConfig

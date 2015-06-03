@@ -423,6 +423,7 @@ namespace BakeryOrder
         const string m_ProductDir = "Photos\\Products";
         const string m_SmallDir = m_ProductDir + "\\Small";
         int m_PosID = 0;    // FormCashier的m_PosID己經不使用,由店長收取資料時填取
+        int m_StoreID = 0;
         int m_CashierID = -1;
         string m_CashierName = "";
         PrintInfo m_Printer = new PrintInfo();
@@ -454,8 +455,12 @@ namespace BakeryOrder
                 if (attr != null) m_Printer.Address = attr.Value;
                 attr = node.Attributes["Tel"];
                 if (attr != null) m_Printer.Tel = attr.Value;
+                attr = node.Attributes["AlipayTitle"];
+                if (attr != null) m_Printer.AlipayTitle = attr.Value;
                 attr = node.Attributes["PosNo"];
                 if (attr != null && attr.Value != null) int.TryParse(attr.Value, out m_PosID);
+                attr = node.Attributes["StoreID"];
+                if (attr != null && attr.Value != null) int.TryParse(attr.Value, out m_StoreID);
             }
         }
 
@@ -774,7 +779,7 @@ namespace BakeryOrder
             double no = 0;
             double discount = 0;
 
-            foreach (ListViewItem item in lvItems.Items)  // 印可折扣項
+            foreach (ListViewItem item in lvItems.Items)  
             {
                 mItem = (MenuItemForTag)item.Tag;
                 Item2Buffer(Buf, mItem);
@@ -894,7 +899,7 @@ namespace BakeryOrder
         private void btnStatics_Click(object sender, EventArgs e)
         {
             if (m_FormStatics == null)
-                m_FormStatics = new FormStatics(bakeryOrderSet, m_OrderTableAdapter, m_CashierID, m_Printer, m_DataSealed, m_PosID, m_CashierName);
+                m_FormStatics = new FormStatics(bakeryOrderSet, m_OrderTableAdapter, m_CashierID, m_Printer, m_DataSealed, m_PosID,m_StoreID, m_CashierName);
             DialogResult result = m_FormStatics.ShowDialog();
             if (result == DialogResult.Abort)
             {
@@ -1340,7 +1345,9 @@ namespace BakeryOrder
 
                 if (m_CurrentOrder.PayBy[0] == 'D')  // 支付宝
                 {
-                    Alipay_RSA_Submit("20150602"+m_CurrentOrder.ID.ToString(), MemberCode, m_CurrentOrder.Income / 100m);
+
+                    Alipay_RSA_Submit(DateTime.Now.Year.ToString()+m_CurrentOrder.ID.ToString()+DateTime.Now.Millisecond.ToString(), MemberCode, m_CurrentOrder,
+                        m_Printer.AlipayTitle);
                 }
 
                 Print(m_CurrentOrder, (double)moneyGot, true);
@@ -1565,7 +1572,7 @@ namespace BakeryOrder
         {
             if (keyData == Keys.Return)
             {
-                if (CodeCache.Length == 17) // 支付寶的支付碼長度是17
+//                if (CodeCache.Length == 17) // 支付寶的支付碼長度是17
                 {
                     MemberCode = CodeCache;
                     labelMemberCode.Text = "支付码 " + MemberCode;
@@ -1579,46 +1586,65 @@ namespace BakeryOrder
                 return base.ProcessDialogKey(keyData);
         }
 
+        string ToJasonA(string Key, string Value)   // 多加逗號
+        {
+            return ("\"" + Key + "\":\"" + Value + "\",");
+        }
 
-        protected void Alipay_RSA_Submit(string out_trade_no, string auth_code, decimal total_fee)
+        string ToJason(string Key, string Value)
+        {
+            return ("\"" + Key + "\":\"" + Value + "\"");
+        }
+
+
+        protected void Alipay_RSA_Submit(string out_trade_no, string auth_code,BakeryOrderSet.OrderRow Current,string alipayTitle)
         {
             //线上联调时，请输入真实的外部订单号    out_trade_no
             //线上联调时，请输入真实的条码          auto_code
-            string total_amount = total_fee.ToString();
+            decimal total_fee = Current.Income ;
+            string total_amount = total_fee.ToString("F2");
 
-            List<StrPair> list = new List<StrPair>();
-            StrPair trade_no_pair = new StrPair("out_trade_no", out_trade_no);
-            string trade_no_str = DoAlipay.List2Jason(new List<StrPair> { trade_no_pair });
-            list.Add(trade_no_pair);
-            list.Add(new StrPair("scene", "bar_code"));
-            list.Add(new StrPair("auth_code", auth_code));
-            list.Add(new StrPair("total_amount", total_amount));
-            list.Add(new StrPair("discountable_amount", "0.00"));
-            list.Add(new StrPair("subject", "原麦山丘-条码支付"));
-            list.Add(new StrPair("body", "abc"));
-
-            List<StrPair> goods = new List<StrPair>();
-            goods.Add(new StrPair("goods_id", "apple-01"));
-            goods.Add(new StrPair("goods_name", "ipad"));
-            goods.Add(new StrPair("goods_category", "7788230"));
-            goods.Add(new StrPair("price", "88.00"));
-            goods.Add(new StrPair("quantity", "1"));
-
-            goods.Add(new StrPair("goods_id", "apple-02"));
-            goods.Add(new StrPair("goods_name", "iphone"));
-            goods.Add(new StrPair("goods_category", "7788231"));
-            goods.Add(new StrPair("price", "88.00"));
-            goods.Add(new StrPair("quantity", "1"));
-
-            list.Add(new StrPair("goods_detail", DoAlipay.List2Jason(goods)));
-            list.Add(new StrPair("operator_id", "op001"));
-            list.Add(new StrPair("store_id", "pudong001"));
-            list.Add(new StrPair("terminal_id", "t_001"));
+            StringBuilder content = new StringBuilder();
+            content.Append('{');
+            string trade_no_str = ToJason("out_trade_no", out_trade_no);
+            content.Append(trade_no_str + ",");
+            content.Append(ToJasonA("scene"         , "bar_code"));
+            content.Append(ToJasonA("auth_code"     , auth_code));
+            content.Append(ToJasonA("total_amount"  , total_amount));
+            content.Append(ToJasonA("discountable_amount", "0.00"));
+            content.Append(ToJasonA("subject"       , alipayTitle));
+            content.Append(ToJasonA("body"          , "面包饮料"));
+            
+            if (lvItems.Items.Count > 0)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("[");
+                foreach (ListViewItem item in lvItems.Items)
+                {
+                    var mItem = (MenuItemForTag)item.Tag;
+                    string id = mItem.ProductID.ToString();
+                    string no = ((int)mItem.No).ToString();
+                    string price = ((decimal)mItem.Price).ToString();
+                    sb.Append('{');
+                    //sb.Append(ToJasonA("goods_id"        , id  ));
+                    sb.Append(ToJasonA("goods_name" , mItem.name ));
+                    //sb.Append(ToJasonA("goods_category"  , "0" ));
+                    sb.Append(ToJasonA("price"      , price      ));
+                    sb.Append(ToJason ("quantity"   , no         ));
+                    sb.Append("},");
+                }
+                sb.Remove(sb.Length-1,1);   // 移除多餘逗號
+                sb.Append("],");             
+                content.Append("\"goods_detail\":"+sb.ToString());    // goods_detail的Value不是字串,加方括號不加引號
+            }
+            content.Append(ToJasonA("operator_id"   , "op"+m_CashierID.ToString()));
+            content.Append(ToJasonA("store_id"      , "ym"+m_StoreID.ToString()));
+            content.Append(ToJasonA("terminal_id"   , "pos"+m_PosID.ToString()));
 
             string expire_time = System.DateTime.Now.AddHours(1).ToString("yyyy-MM-dd HH:mm:ss");
-            list.Add(new StrPair("time_expire", expire_time));
-
-            AlipayTradePayResponse payResponse = m_Alipay.Pay(DoAlipay.List2Jason(list));
+            content.Append(ToJason("time_expire", expire_time));     // 最後一個不加逗號
+            content.Append('}');
+            AlipayTradePayResponse payResponse = m_Alipay.Pay(content.ToString());
 
             string result = payResponse.Body;
 

@@ -33,10 +33,13 @@
             System.Windows.Forms.Label label5;
             System.Windows.Forms.Label label6;
             System.Windows.Forms.Label label7;
+            System.Windows.Forms.Label label1;
+            System.Windows.Forms.Label label2;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCashierAuthen));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.labelStoreID = new System.Windows.Forms.Label();
             this.bakeryOrderSet = new VoucherExpense.BakeryOrderSet();
             this.cashierBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cashierBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
@@ -81,7 +84,14 @@
             this.btnCloundSyncAuto = new System.Windows.Forms.Button();
             this.btnDailyReport = new System.Windows.Forms.Button();
             this.tabPagePosDir = new System.Windows.Forms.TabPage();
+            this.btnBrowse6 = new System.Windows.Forms.Button();
+            this.textBoxPOS6 = new System.Windows.Forms.TextBox();
+            this.btnBrowse5 = new System.Windows.Forms.Button();
+            this.textBoxPOS5 = new System.Windows.Forms.TextBox();
+            this.btnBrowse4 = new System.Windows.Forms.Button();
+            this.textBoxPOS4 = new System.Windows.Forms.TextBox();
             this.tabPagePrinter = new System.Windows.Forms.TabPage();
+            this.textBoxAlipayTitle = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.btnSaveToAllPos = new System.Windows.Forms.Button();
             this.btnSavePrintTitle = new System.Windows.Forms.Button();
@@ -92,16 +102,12 @@
             this.tabPageReadme = new System.Windows.Forms.TabPage();
             this.listBoxReadme = new System.Windows.Forms.ListBox();
             this.tabControl2 = new System.Windows.Forms.TabControl();
-            this.btnBrowse4 = new System.Windows.Forms.Button();
-            this.textBoxPOS4 = new System.Windows.Forms.TextBox();
-            this.btnBrowse5 = new System.Windows.Forms.Button();
-            this.textBoxPOS5 = new System.Windows.Forms.TextBox();
-            this.btnBrowse6 = new System.Windows.Forms.Button();
-            this.textBoxPOS6 = new System.Windows.Forms.TextBox();
             labelTime = new System.Windows.Forms.Label();
             label5 = new System.Windows.Forms.Label();
             label6 = new System.Windows.Forms.Label();
             label7 = new System.Windows.Forms.Label();
+            label1 = new System.Windows.Forms.Label();
+            label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cashierBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cashierBindingNavigator)).BeginInit();
@@ -129,7 +135,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new System.Drawing.Point(32, 51);
+            label5.Location = new System.Drawing.Point(25, 51);
             label5.Name = "label5";
             label5.Size = new System.Drawing.Size(72, 16);
             label5.TabIndex = 6;
@@ -138,7 +144,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new System.Drawing.Point(32, 95);
+            label6.Location = new System.Drawing.Point(25, 95);
             label6.Name = "label6";
             label6.Size = new System.Drawing.Size(40, 16);
             label6.TabIndex = 8;
@@ -147,11 +153,39 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new System.Drawing.Point(32, 139);
+            label7.Location = new System.Drawing.Point(25, 139);
             label7.Name = "label7";
             label7.Size = new System.Drawing.Size(40, 16);
             label7.TabIndex = 10;
             label7.Text = "電話";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(27, 16);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(40, 16);
+            label1.TabIndex = 17;
+            label1.Text = "店号";
+            // 
+            // labelStoreID
+            // 
+            this.labelStoreID.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.labelStoreID.Location = new System.Drawing.Point(121, 16);
+            this.labelStoreID.Name = "labelStoreID";
+            this.labelStoreID.Size = new System.Drawing.Size(36, 16);
+            this.labelStoreID.TabIndex = 18;
+            this.labelStoreID.Text = "0";
+            this.labelStoreID.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(27, 185);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(88, 16);
+            label2.TabIndex = 20;
+            label2.Text = "支付宝店名";
             // 
             // bakeryOrderSet
             // 
@@ -311,9 +345,9 @@
             // dataGridViewCheckBoxColumn1
             // 
             this.dataGridViewCheckBoxColumn1.DataPropertyName = "InPosition";
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.NullValue = false;
-            this.dataGridViewCheckBoxColumn1.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.NullValue = false;
+            this.dataGridViewCheckBoxColumn1.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewCheckBoxColumn1.HeaderText = "在職";
             this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
             this.dataGridViewCheckBoxColumn1.Width = 48;
@@ -321,8 +355,8 @@
             // CashierIDColumn
             // 
             this.CashierIDColumn.DataPropertyName = "CashierID";
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.CashierIDColumn.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.CashierIDColumn.DefaultCellStyle = dataGridViewCellStyle2;
             this.CashierIDColumn.FillWeight = 65F;
             this.CashierIDColumn.HeaderText = "No";
             this.CashierIDColumn.Name = "CashierIDColumn";
@@ -373,9 +407,9 @@
             // dataGridViewTextBoxColumn5
             // 
             this.dataGridViewTextBoxColumn5.DataPropertyName = "LastUpdated";
-            dataGridViewCellStyle12.Format = "MM-dd hh:mm";
-            dataGridViewCellStyle12.NullValue = null;
-            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle3.Format = "MM-dd hh:mm";
+            dataGridViewCellStyle3.NullValue = null;
+            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewTextBoxColumn5.HeaderText = "更新時間";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.ReadOnly = true;
@@ -601,10 +635,68 @@
             this.tabPagePosDir.TabIndex = 0;
             this.tabPagePosDir.Text = "收銀机網路位置";
             // 
+            // btnBrowse6
+            // 
+            this.btnBrowse6.AutoSize = true;
+            this.btnBrowse6.Location = new System.Drawing.Point(6, 201);
+            this.btnBrowse6.Name = "btnBrowse6";
+            this.btnBrowse6.Size = new System.Drawing.Size(53, 26);
+            this.btnBrowse6.TabIndex = 22;
+            this.btnBrowse6.Text = "POS6";
+            this.btnBrowse6.UseVisualStyleBackColor = true;
+            this.btnBrowse6.Click += new System.EventHandler(this.btnBrowse6_Click);
+            // 
+            // textBoxPOS6
+            // 
+            this.textBoxPOS6.Location = new System.Drawing.Point(65, 201);
+            this.textBoxPOS6.Name = "textBoxPOS6";
+            this.textBoxPOS6.Size = new System.Drawing.Size(364, 27);
+            this.textBoxPOS6.TabIndex = 21;
+            // 
+            // btnBrowse5
+            // 
+            this.btnBrowse5.AutoSize = true;
+            this.btnBrowse5.Location = new System.Drawing.Point(6, 169);
+            this.btnBrowse5.Name = "btnBrowse5";
+            this.btnBrowse5.Size = new System.Drawing.Size(53, 26);
+            this.btnBrowse5.TabIndex = 20;
+            this.btnBrowse5.Text = "POS5";
+            this.btnBrowse5.UseVisualStyleBackColor = true;
+            this.btnBrowse5.Click += new System.EventHandler(this.btnBrowse5_Click);
+            // 
+            // textBoxPOS5
+            // 
+            this.textBoxPOS5.Location = new System.Drawing.Point(65, 169);
+            this.textBoxPOS5.Name = "textBoxPOS5";
+            this.textBoxPOS5.Size = new System.Drawing.Size(364, 27);
+            this.textBoxPOS5.TabIndex = 19;
+            // 
+            // btnBrowse4
+            // 
+            this.btnBrowse4.AutoSize = true;
+            this.btnBrowse4.Location = new System.Drawing.Point(6, 137);
+            this.btnBrowse4.Name = "btnBrowse4";
+            this.btnBrowse4.Size = new System.Drawing.Size(53, 26);
+            this.btnBrowse4.TabIndex = 18;
+            this.btnBrowse4.Text = "POS4";
+            this.btnBrowse4.UseVisualStyleBackColor = true;
+            this.btnBrowse4.Click += new System.EventHandler(this.btnBrowse4_Click);
+            // 
+            // textBoxPOS4
+            // 
+            this.textBoxPOS4.Location = new System.Drawing.Point(65, 137);
+            this.textBoxPOS4.Name = "textBoxPOS4";
+            this.textBoxPOS4.Size = new System.Drawing.Size(364, 27);
+            this.textBoxPOS4.TabIndex = 17;
+            // 
             // tabPagePrinter
             // 
             this.tabPagePrinter.BackColor = System.Drawing.Color.Azure;
             this.tabPagePrinter.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.tabPagePrinter.Controls.Add(label2);
+            this.tabPagePrinter.Controls.Add(this.textBoxAlipayTitle);
+            this.tabPagePrinter.Controls.Add(this.labelStoreID);
+            this.tabPagePrinter.Controls.Add(label1);
             this.tabPagePrinter.Controls.Add(this.label8);
             this.tabPagePrinter.Controls.Add(this.btnSaveToAllPos);
             this.tabPagePrinter.Controls.Add(this.btnSavePrintTitle);
@@ -621,10 +713,18 @@
             this.tabPagePrinter.TabIndex = 1;
             this.tabPagePrinter.Text = "印表抬頭設定";
             // 
+            // textBoxAlipayTitle
+            // 
+            this.textBoxAlipayTitle.Location = new System.Drawing.Point(123, 180);
+            this.textBoxAlipayTitle.MaxLength = 18;
+            this.textBoxAlipayTitle.Name = "textBoxAlipayTitle";
+            this.textBoxAlipayTitle.Size = new System.Drawing.Size(264, 27);
+            this.textBoxAlipayTitle.TabIndex = 19;
+            // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(77, 218);
+            this.label8.Location = new System.Drawing.Point(87, 263);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(268, 16);
             this.label8.TabIndex = 16;
@@ -633,7 +733,7 @@
             // btnSaveToAllPos
             // 
             this.btnSaveToAllPos.AutoSize = true;
-            this.btnSaveToAllPos.Location = new System.Drawing.Point(138, 180);
+            this.btnSaveToAllPos.Location = new System.Drawing.Point(148, 225);
             this.btnSaveToAllPos.Name = "btnSaveToAllPos";
             this.btnSaveToAllPos.Size = new System.Drawing.Size(146, 26);
             this.btnSaveToAllPos.TabIndex = 15;
@@ -644,7 +744,7 @@
             // btnSavePrintTitle
             // 
             this.btnSavePrintTitle.AutoSize = true;
-            this.btnSavePrintTitle.Location = new System.Drawing.Point(212, 6);
+            this.btnSavePrintTitle.Location = new System.Drawing.Point(212, 11);
             this.btnSavePrintTitle.Name = "btnSavePrintTitle";
             this.btnSavePrintTitle.Size = new System.Drawing.Size(82, 26);
             this.btnSavePrintTitle.TabIndex = 14;
@@ -734,60 +834,6 @@
             this.tabControl2.SelectedIndex = 0;
             this.tabControl2.Size = new System.Drawing.Size(454, 381);
             this.tabControl2.TabIndex = 22;
-            // 
-            // btnBrowse4
-            // 
-            this.btnBrowse4.AutoSize = true;
-            this.btnBrowse4.Location = new System.Drawing.Point(6, 137);
-            this.btnBrowse4.Name = "btnBrowse4";
-            this.btnBrowse4.Size = new System.Drawing.Size(53, 26);
-            this.btnBrowse4.TabIndex = 18;
-            this.btnBrowse4.Text = "POS4";
-            this.btnBrowse4.UseVisualStyleBackColor = true;
-            this.btnBrowse4.Click += new System.EventHandler(this.btnBrowse4_Click);
-            // 
-            // textBoxPOS4
-            // 
-            this.textBoxPOS4.Location = new System.Drawing.Point(65, 137);
-            this.textBoxPOS4.Name = "textBoxPOS4";
-            this.textBoxPOS4.Size = new System.Drawing.Size(364, 27);
-            this.textBoxPOS4.TabIndex = 17;
-            // 
-            // btnBrowse5
-            // 
-            this.btnBrowse5.AutoSize = true;
-            this.btnBrowse5.Location = new System.Drawing.Point(6, 169);
-            this.btnBrowse5.Name = "btnBrowse5";
-            this.btnBrowse5.Size = new System.Drawing.Size(53, 26);
-            this.btnBrowse5.TabIndex = 20;
-            this.btnBrowse5.Text = "POS5";
-            this.btnBrowse5.UseVisualStyleBackColor = true;
-            this.btnBrowse5.Click += new System.EventHandler(this.btnBrowse5_Click);
-            // 
-            // textBoxPOS5
-            // 
-            this.textBoxPOS5.Location = new System.Drawing.Point(65, 169);
-            this.textBoxPOS5.Name = "textBoxPOS5";
-            this.textBoxPOS5.Size = new System.Drawing.Size(364, 27);
-            this.textBoxPOS5.TabIndex = 19;
-            // 
-            // btnBrowse6
-            // 
-            this.btnBrowse6.AutoSize = true;
-            this.btnBrowse6.Location = new System.Drawing.Point(6, 201);
-            this.btnBrowse6.Name = "btnBrowse6";
-            this.btnBrowse6.Size = new System.Drawing.Size(53, 26);
-            this.btnBrowse6.TabIndex = 22;
-            this.btnBrowse6.Text = "POS6";
-            this.btnBrowse6.UseVisualStyleBackColor = true;
-            this.btnBrowse6.Click += new System.EventHandler(this.btnBrowse6_Click);
-            // 
-            // textBoxPOS6
-            // 
-            this.textBoxPOS6.Location = new System.Drawing.Point(65, 201);
-            this.textBoxPOS6.Name = "textBoxPOS6";
-            this.textBoxPOS6.Size = new System.Drawing.Size(364, 27);
-            this.textBoxPOS6.TabIndex = 21;
             // 
             // FormCashierAuthen
             // 
@@ -890,5 +936,7 @@
         private System.Windows.Forms.TextBox textBoxPOS5;
         private System.Windows.Forms.Button btnBrowse4;
         private System.Windows.Forms.TextBox textBoxPOS4;
+        private System.Windows.Forms.TextBox textBoxAlipayTitle;
+        private System.Windows.Forms.Label labelStoreID;
     }
 }

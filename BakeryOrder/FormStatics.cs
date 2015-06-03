@@ -25,10 +25,11 @@ namespace BakeryOrder
         BakeryOrderSetTableAdapters.OrderTableAdapter m_OrderTableAdapter;
         int m_CashierID = 0;
         int m_PosID = 0;
+        int m_StoreID = 0;
         PrintInfo m_Printer;
         bool m_DataSealed = false;
         string m_CasherierName = "";
-        public FormStatics(BakeryOrderSet bakeryOrderSet,BakeryOrderSetTableAdapters.OrderTableAdapter adapter,int cashierID,PrintInfo printer,bool dataSealed,int posID,string cashierName)
+        public FormStatics(BakeryOrderSet bakeryOrderSet,BakeryOrderSetTableAdapters.OrderTableAdapter adapter,int cashierID,PrintInfo printer,bool dataSealed,int posID,int storeID,string cashierName)
         {
             m_BakeryOrderSet    = bakeryOrderSet;
             m_OrderTableAdapter = adapter;
@@ -36,11 +37,12 @@ namespace BakeryOrder
             m_Printer           = printer;
             m_DataSealed        = dataSealed;
             m_PosID             = posID;
+            m_StoreID           = storeID;
             m_CasherierName = cashierName;
             InitializeComponent();
         }
         bool isReturn;//是否有退货窗体调用
-        public FormStatics(BakeryOrderSet bakeryOrderSet, BakeryOrderSetTableAdapters.OrderTableAdapter adapter, int cashierID, PrintInfo printer, bool dataSealed, int posID,bool IsReturn)
+        public FormStatics(BakeryOrderSet bakeryOrderSet, BakeryOrderSetTableAdapters.OrderTableAdapter adapter, int cashierID, PrintInfo printer, bool dataSealed, int posID,int storeID,bool IsReturn)
         {
             m_BakeryOrderSet = bakeryOrderSet;
             m_OrderTableAdapter = adapter;
@@ -48,6 +50,7 @@ namespace BakeryOrder
             m_Printer = printer;
             m_DataSealed = dataSealed;
             m_PosID = posID;
+            m_StoreID = storeID;
             isReturn = IsReturn;
             InitializeComponent();
         }
@@ -564,7 +567,7 @@ namespace BakeryOrder
 
         private void btnSystemSetup_Click(object sender, EventArgs e)
         {
-            Form form = new FormSystemSetup(m_BakeryOrderSet, m_CashierID,m_Printer,m_PosID,m_CasherierName);
+            Form form = new FormSystemSetup(m_BakeryOrderSet, m_CashierID,m_Printer,m_PosID,m_StoreID,m_CasherierName);
             DialogResult result=form.ShowDialog();
             if ((result == DialogResult.Abort) || (result==DialogResult.Cancel))
             {

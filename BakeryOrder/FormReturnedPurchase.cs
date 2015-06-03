@@ -15,11 +15,12 @@ namespace BakeryOrder
     public partial class FormReturnedPurchase : Form
     {
 
-        public FormReturnedPurchase(int Cashierid, PrintInfo printer, int posID,string Cashiername)
+        public FormReturnedPurchase(int Cashierid, PrintInfo printer, int posID,int storeID,string Cashiername)
         {
             m_CashierID = Cashierid;
             m_Printer = printer;
             m_PosID = posID;
+            m_StoreID = storeID;
             m_CashierName = Cashiername;
             InitializeComponent();
         }
@@ -78,7 +79,7 @@ namespace BakeryOrder
             //Form formdetailed = new FormDetailed();
             //formdetailed.ShowDialog();
             if (m_FormStatics == null)
-                m_FormStatics = new FormStatics(bakeryOrderSet, m_OrderTableAdapter, m_CashierID, m_Printer, m_DataSealed, m_PosID,true);
+                m_FormStatics = new FormStatics(bakeryOrderSet, m_OrderTableAdapter, m_CashierID, m_Printer, m_DataSealed, m_PosID,m_StoreID,true);
             DialogResult result = m_FormStatics.ShowDialog();
             if (result == DialogResult.Abort)
             {
@@ -484,6 +485,7 @@ namespace BakeryOrder
         const string m_ProductDir = "Photos\\Products";
         const string m_SmallDir = m_ProductDir + "\\Small";
         int m_PosID = 0;    // FormCashier的m_PosID己經不使用,由店長收取資料時填取
+        int m_StoreID = 0;
         int m_CashierID = -1;
         int m_CashierID1 = -1;
         string m_CashierName = "";

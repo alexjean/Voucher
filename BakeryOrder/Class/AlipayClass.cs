@@ -73,7 +73,7 @@ namespace Com.Alipay
             return sb.ToString();
         }
 
-        public AlipayTradePayResponse Pay(string biz_content)
+            public AlipayTradePayResponse Pay(string biz_content)
         {
             AlipayTradePayRequest payRequst = new AlipayTradePayRequest();
             payRequst.BizContent = biz_content;

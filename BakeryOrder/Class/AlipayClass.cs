@@ -55,6 +55,7 @@ namespace Com.Alipay
         //    return debugPath+"\\RSA_KeyFile\\";
         //}
         IAopClient m_Client;
+        
 
         public void Setup()
         {
@@ -62,7 +63,8 @@ namespace Com.Alipay
                                             sign_type       , alipay_public_key        , charset);
         }
 
-        public static string List2Jason(List<StrPair> cmd)
+
+        public static string List2Json(List<StrPair> cmd)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("{");
@@ -73,21 +75,21 @@ namespace Com.Alipay
             return sb.ToString();
         }
 
-            public AlipayTradePayResponse Pay(string biz_content)
+        public AlipayTradePayResponse Pay(string content)
         {
             AlipayTradePayRequest payRequst = new AlipayTradePayRequest();
-            payRequst.BizContent = biz_content;
-
-            Dictionary<string, string> paramsDict = (Dictionary<string, string>)payRequst.GetParameters();
-            
+            payRequst.BizContent = content;
+            //Dictionary<string, string> paramsDict = (Dictionary<string, string>)payRequst.GetParameters();
             AlipayTradePayResponse payResponse = m_Client.Execute(payRequst);
             return payResponse;
         }
 
-        public AlipayTradeCancelResponse Cancel(string biz_content)
+        public AlipayTradeCancelResponse Cancel(string OutTradeNo)
         {
+            List<StrPair> list = new List<StrPair>() { new StrPair("out_trade_no", OutTradeNo) };
+            string content = List2Json(list);
             AlipayTradeCancelRequest cancelRequest = new AlipayTradeCancelRequest();
-            cancelRequest.BizContent = biz_content;
+            cancelRequest.BizContent = content;
             AlipayTradeCancelResponse cancelResponse = m_Client.Execute(cancelRequest);
 
 
@@ -100,7 +102,7 @@ namespace Com.Alipay
                     // 新开一个线程重试撤销
                     ParameterizedThreadStart ParStart = new ParameterizedThreadStart(cancelOrderRetry);
                     Thread myThread = new Thread(ParStart);
-                    object o = biz_content;
+                    object o = content;
                     myThread.Start(o);
                 }
             }
@@ -120,7 +122,7 @@ namespace Com.Alipay
                 Thread.Sleep(5000);
                 AlipayTradeCancelRequest cancelRequest = new AlipayTradeCancelRequest();
                 cancelRequest.BizContent = o.ToString();
-                // Dictionary<string, string> paramsDict = (Dictionary<string, string>)cancelRequest.GetParameters();
+                Dictionary<string, string> paramsDict = (Dictionary<string, string>)cancelRequest.GetParameters();
                 AlipayTradeCancelResponse cancelResponse = m_Client.Execute(cancelRequest);
 
                 if (null != cancelResponse)
@@ -128,7 +130,7 @@ namespace Com.Alipay
                     if (cancelResponse.Code == ResultCode.FAIL)
                     {
                         //if (cancelResponse.Body.Contains("\"retry_flag\":\"N\""))		
-                        if (cancelResponse.RetryFlag == "N")
+                        if (cancelResponse.RetryFlag == "N")  // 再重試也不會成功
                         {
                             break;
                         }
@@ -149,29 +151,36 @@ namespace Com.Alipay
         }
 
 
+        public AlipayTradeQueryResponse Query(string TradeNoStr)
+        {
+            AlipayTradeQueryRequest queryRequst = new AlipayTradeQueryRequest();
+            List<StrPair> list = new List<StrPair>() { new StrPair("out_trade_no", TradeNoStr) };
+            queryRequst.BizContent = List2Json(list);
+            return m_Client.Execute(queryRequst);
+        }
+
+
+
         public AlipayTradeQueryResponse LoopQuery(string biz_content)
         {
-            AlipayTradeQueryRequest payRequst = new AlipayTradeQueryRequest();
-            payRequst.BizContent = biz_content;
-            Dictionary<string, string> paramsDict = (Dictionary<string, string>)payRequst.GetParameters();
-            AlipayTradeQueryResponse payResponse = null;
+            AlipayTradeQueryRequest queryRequst = new AlipayTradeQueryRequest();
+            queryRequst.BizContent = biz_content;
+            Dictionary<string, string> paramsDict = (Dictionary<string, string>)queryRequst.GetParameters();
+            AlipayTradeQueryResponse queryResponse = null;
             for (int i = 1; i <= 6; i++)
             {
                 Thread.Sleep(5000);
-                payResponse = m_Client.Execute(payRequst);
-                if (string.Compare(payResponse.Code, ResultCode.SUCCESS, false) == 0)
+                queryResponse = m_Client.Execute(queryRequst);
+                if (string.Compare(queryResponse.Code, ResultCode.SUCCESS, false) == 0)
                 {
-                    if (payResponse.TradeStatus == "TRADE_FINISHED"
-                        || payResponse.TradeStatus == "TRADE_SUCCESS"
-                        || payResponse.TradeStatus == "TRADE_CLOSED")
+                    if (queryResponse.TradeStatus == "TRADE_FINISHED"
+                        || queryResponse.TradeStatus == "TRADE_SUCCESS"
+                        || queryResponse.TradeStatus == "TRADE_CLOSED")
                         break;
                 }
 
             }
-            List<StrPair> list = new List<StrPair>() { new StrPair("out_trade_no", payResponse.OutTradeNo) };
-            biz_content = List2Jason(list);
-            Cancel(biz_content);
-            return payResponse;
+            return queryResponse;
         }
     }
 

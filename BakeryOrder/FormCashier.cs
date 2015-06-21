@@ -1345,11 +1345,15 @@ namespace BakeryOrder
 
                 if (m_CurrentOrder.PayBy[0] == 'D')  // 支付宝
                 {
-
-                    Alipay_RSA_Submit(DateTime.Now.Year.ToString()+m_CurrentOrder.ID.ToString()+DateTime.Now.Millisecond.ToString(), MemberCode, m_CurrentOrder,
-                        m_Printer.AlipayTitle);
+                    if (!Alipay_RSA_Submit(m_CurrentOrder.ID, MemberCode, m_CurrentOrder, m_Printer.AlipayTitle))
+                    {
+                        MemberCode = "";
+                        labelMemberCode.Text = "";
+                        labelClass.Text = "";
+                        m_CurrentOrder.PayBy= "A";
+                        return;    // 支付宝支付取消了, 單子不印, DB不記錄, 改成現金單
+                    }
                 }
-
                 Print(m_CurrentOrder, (double)moneyGot, true);
                 if (!this.checkBoxTest.Checked)
                     RawPrint.SendManagedBytes(m_Printer.PrinterName, m_CashDrawer);   // 彈出錢箱
@@ -1586,19 +1590,21 @@ namespace BakeryOrder
                 return base.ProcessDialogKey(keyData);
         }
 
-        string ToJasonA(string Key, string Value)   // 多加逗號
+        string ToJsonA(string Key, string Value)   // 多加逗號
         {
             return ("\"" + Key + "\":\"" + Value + "\",");
         }
 
-        string ToJason(string Key, string Value)
+        string ToJson(string Key, string Value)
         {
             return ("\"" + Key + "\":\"" + Value + "\"");
         }
 
 
-        protected void Alipay_RSA_Submit(string out_trade_no, string auth_code,BakeryOrderSet.OrderRow Current,string alipayTitle)
+        protected bool Alipay_RSA_Submit(int orderID, string auth_code,BakeryOrderSet.OrderRow Current,string alipayTitle)
         {
+            DateTime now=DateTime.Now;
+            string out_trade_no = m_StoreID.ToString("d3")+m_PosID.ToString()+(now.Year % 10).ToString() + orderID.ToString() + now.Millisecond.ToString();
             //线上联调时，请输入真实的外部订单号    out_trade_no
             //线上联调时，请输入真实的条码          auto_code
             decimal total_fee = Current.Income ;
@@ -1606,14 +1612,16 @@ namespace BakeryOrder
 
             StringBuilder content = new StringBuilder();
             content.Append('{');
-            string trade_no_str = ToJason("out_trade_no", out_trade_no);
+            string trade_no_str = ToJson("out_trade_no", out_trade_no);
             content.Append(trade_no_str + ",");
-            content.Append(ToJasonA("scene"         , "bar_code"));
-            content.Append(ToJasonA("auth_code"     , auth_code));
-            content.Append(ToJasonA("total_amount"  , total_amount));
-            content.Append(ToJasonA("discountable_amount", "0.00"));
-            content.Append(ToJasonA("subject"       , alipayTitle));
-            content.Append(ToJasonA("body"          , "面包饮料"));
+            content.Append(ToJsonA("scene"         , "bar_code"));
+            content.Append(ToJsonA("auth_code"     , auth_code));
+            content.Append(ToJsonA("total_amount"  , total_amount));
+            content.Append(ToJsonA("discountable_amount", "0.00"));
+            if (alipayTitle == null || alipayTitle == "")
+                alipayTitle = "原麦某店";
+            content.Append(ToJsonA("subject"       , alipayTitle));
+            content.Append(ToJsonA("body"          , "面包饮料"));
             
             if (lvItems.Items.Count > 0)
             {
@@ -1627,60 +1635,28 @@ namespace BakeryOrder
                     string price = ((decimal)mItem.Price).ToString();
                     sb.Append('{');
                     //sb.Append(ToJasonA("goods_id"        , id  ));
-                    sb.Append(ToJasonA("goods_name" , mItem.name ));
+                    sb.Append(ToJsonA("goods_name" , mItem.name ));
                     //sb.Append(ToJasonA("goods_category"  , "0" ));
-                    sb.Append(ToJasonA("price"      , price      ));
-                    sb.Append(ToJason ("quantity"   , no         ));
+                    sb.Append(ToJsonA("price"      , price      ));
+                    sb.Append(ToJson ("quantity"   , no         ));
                     sb.Append("},");
                 }
                 sb.Remove(sb.Length-1,1);   // 移除多餘逗號
                 sb.Append("],");             
                 content.Append("\"goods_detail\":"+sb.ToString());    // goods_detail的Value不是字串,加方括號不加引號
             }
-            content.Append(ToJasonA("operator_id"   , "op"+m_CashierID.ToString()));
-            content.Append(ToJasonA("store_id"      , "ym"+m_StoreID.ToString()));
-            content.Append(ToJasonA("terminal_id"   , "pos"+m_PosID.ToString()));
+            content.Append(ToJsonA("operator_id"   , "op"+m_CashierID.ToString()));
+            content.Append(ToJsonA("store_id"      , "ym"+m_StoreID.ToString()));
+            content.Append(ToJsonA("terminal_id"   , "pos"+m_PosID.ToString()));
 
             string expire_time = System.DateTime.Now.AddHours(1).ToString("yyyy-MM-dd HH:mm:ss");
-            content.Append(ToJason("time_expire", expire_time));     // 最後一個不加逗號
+            content.Append(ToJson("time_expire", expire_time));     // 最後一個不加逗號
             content.Append('}');
-            AlipayTradePayResponse payResponse = m_Alipay.Pay(content.ToString());
 
-            string result = payResponse.Body;
-
-            if (payResponse != null)
-            {
-
-                switch (payResponse.Code)
-                {
-                    case ResultCode.SUCCESS:
-                        System.Console.Write("支付成功");
-                        result = payResponse.Body;
-                        break;
-
-
-                    case ResultCode.INRROCESS:
-
-                        //根据业务需要，选择是否新起线程进行轮询
-                        //ParameterizedThreadStart ParStart = new ParameterizedThreadStart(LoopQuery);
-                        //Thread myThread = new Thread(ParStart);
-                        //object o = payResponse;
-                        //myThread.Start(o);
-
-                        //返回支付处理中，需要进行轮询
-                        AlipayTradeQueryResponse queryResponse = m_Alipay.LoopQuery(trade_no_str);   //用订单号trade_no进行轮询也是可以的。
-                        if (queryResponse != null)
-                        {
-                            result = queryResponse.Body;
-                        }
-                        break;
-
-                    case ResultCode.FAIL:
-                        m_Alipay.Cancel(trade_no_str);
-                        break;
-                }
-            }
-            MessageBox.Show(result);
+            Form form = new FormAlipay(tabControl1.Left + 8, 8, out_trade_no, m_Alipay, content.ToString());
+            DialogResult result = form.ShowDialog();
+            if      (result == DialogResult.OK)     return true;
+            return false;
         }
 
 

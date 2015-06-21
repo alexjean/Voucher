@@ -99,6 +99,12 @@
     <Compile Include="Class\Encrypt.cs" />
     <Compile Include="Class\HardwareConfig.cs" />
     <Compile Include="Class\RawPrint.cs" />
+    <Compile Include="FormAlipay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAlipay.Designer.cs">
+      <DependentUpon>FormAlipay.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormCashier.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -166,6 +172,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormAlipay.resx">
+      <DependentUpon>FormAlipay.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormCashier.resx">
       <DependentUpon>FormCashier.cs</DependentUpon>
     </EmbeddedResource>
@@ -223,6 +232,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModelMember.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="packages.config" />
     <None Include="Properties\DataSources\MemberDBEntities.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

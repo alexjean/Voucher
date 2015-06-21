@@ -59,6 +59,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label13 = new System.Windows.Forms.Label();
+            this.labelAlipayNo = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -85,7 +86,7 @@
             this.lvItems.HideSelection = false;
             this.lvItems.Location = new System.Drawing.Point(2, 0);
             this.lvItems.Name = "lvItems";
-            this.lvItems.Size = new System.Drawing.Size(226, 399);
+            this.lvItems.Size = new System.Drawing.Size(226, 371);
             this.lvItems.TabIndex = 2;
             this.lvItems.UseCompatibleStateImageBehavior = false;
             this.lvItems.View = System.Windows.Forms.View.Details;
@@ -157,7 +158,7 @@
             // 
             // labelDeduct
             // 
-            this.labelDeduct.Location = new System.Drawing.Point(85, 441);
+            this.labelDeduct.Location = new System.Drawing.Point(85, 415);
             this.labelDeduct.Name = "labelDeduct";
             this.labelDeduct.Size = new System.Drawing.Size(124, 25);
             this.labelDeduct.TabIndex = 6;
@@ -165,7 +166,7 @@
             // 
             // labelIncome
             // 
-            this.labelIncome.Location = new System.Drawing.Point(85, 407);
+            this.labelIncome.Location = new System.Drawing.Point(85, 381);
             this.labelIncome.Name = "labelIncome";
             this.labelIncome.Size = new System.Drawing.Size(124, 25);
             this.labelIncome.TabIndex = 7;
@@ -185,7 +186,7 @@
             // 
             this.btnClass.BackColor = System.Drawing.Color.SeaShell;
             this.btnClass.Enabled = false;
-            this.btnClass.Location = new System.Drawing.Point(2, 394);
+            this.btnClass.Location = new System.Drawing.Point(2, 367);
             this.btnClass.Name = "btnClass";
             this.btnClass.Size = new System.Drawing.Size(75, 53);
             this.btnClass.TabIndex = 12;
@@ -367,12 +368,21 @@
             this.label13.TabIndex = 13;
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // labelAlipayNo
+            // 
+            this.labelAlipayNo.Location = new System.Drawing.Point(4, 454);
+            this.labelAlipayNo.Name = "labelAlipayNo";
+            this.labelAlipayNo.Size = new System.Drawing.Size(228, 25);
+            this.labelAlipayNo.TabIndex = 14;
+            this.labelAlipayNo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // FormStatics
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Azure;
             this.ClientSize = new System.Drawing.Size(1024, 768);
+            this.Controls.Add(this.labelAlipayNo);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.lvItems);
@@ -428,5 +438,6 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label labelAlipayNo;
     }
 }

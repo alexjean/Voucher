@@ -159,6 +159,7 @@ namespace BakeryOrder
             {
                 if      (Row.PayBy == "B") b.Text += "卡";
                 else if (Row.PayBy == "C") b.Text += "券";
+                else if (Row.PayBy == "D") b.Text += "支";
             }
             decimal income = 0;
             if (!Row.IsIncomeNull()) income = Math.Round(Row.Income,2);
@@ -246,7 +247,7 @@ namespace BakeryOrder
                 lvItems.Columns[i].Text = m_ListViewItemBackup[i];
         }
 
-        Dictionary<char, string> DicPayBy = new Dictionary<char, string> { { 'A', "现金" }, { 'B', "刷卡" }, { 'C', "券" } };
+        Dictionary<char, string> DicPayBy = new Dictionary<char, string> { { 'A', "现金" }, { 'B', "刷卡" }, { 'C', "券" }, { 'D', "支付宝" } };
         private bool ShowOrder(BakeryOrderSet.OrderRow order)
         {
             BakeryOrderSet.OrderItemRow[] items = order.GetOrderItemRows();

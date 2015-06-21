@@ -2427,6 +2427,10 @@ namespace BakeryOrder {
             
             private global::System.Data.DataColumn columnRCashierID;
             
+            private global::System.Data.DataColumn columnOutTradeNo;
+            
+            private global::System.Data.DataColumn columnOpenID;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public OrderDataTable() {
@@ -2550,6 +2554,22 @@ namespace BakeryOrder {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn OutTradeNoColumn {
+                get {
+                    return this.columnOutTradeNo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn OpenIDColumn {
+                get {
+                    return this.columnOpenID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2585,7 +2605,7 @@ namespace BakeryOrder {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public OrderRow AddOrderRow(int ID, int CashierID, System.DateTime PrintTime, decimal Income, int BranchID, decimal Deduct, decimal DiscountRate, string PayBy, bool Deleted, int OldID, int RCashierID) {
+            public OrderRow AddOrderRow(int ID, int CashierID, System.DateTime PrintTime, decimal Income, int BranchID, decimal Deduct, decimal DiscountRate, string PayBy, bool Deleted, int OldID, int RCashierID, string OutTradeNo, string OpenID) {
                 OrderRow rowOrderRow = ((OrderRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ID,
@@ -2598,7 +2618,9 @@ namespace BakeryOrder {
                         PayBy,
                         Deleted,
                         OldID,
-                        RCashierID};
+                        RCashierID,
+                        OutTradeNo,
+                        OpenID};
                 rowOrderRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowOrderRow);
                 return rowOrderRow;
@@ -2639,6 +2661,8 @@ namespace BakeryOrder {
                 this.columnDeleted = base.Columns["Deleted"];
                 this.columnOldID = base.Columns["OldID"];
                 this.columnRCashierID = base.Columns["RCashierID"];
+                this.columnOutTradeNo = base.Columns["OutTradeNo"];
+                this.columnOpenID = base.Columns["OpenID"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2666,11 +2690,17 @@ namespace BakeryOrder {
                 base.Columns.Add(this.columnOldID);
                 this.columnRCashierID = new global::System.Data.DataColumn("RCashierID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRCashierID);
+                this.columnOutTradeNo = new global::System.Data.DataColumn("OutTradeNo", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOutTradeNo);
+                this.columnOpenID = new global::System.Data.DataColumn("OpenID", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOpenID);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AllowDBNull = false;
                 this.columnID.Unique = true;
                 this.columnPayBy.MaxLength = 1;
+                this.columnOutTradeNo.MaxLength = 255;
+                this.columnOpenID.MaxLength = 32;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3834,6 +3864,38 @@ namespace BakeryOrder {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string OutTradeNo {
+                get {
+                    try {
+                        return ((string)(this[this.tableOrder.OutTradeNoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("資料表 \'Order\' 中資料行 \'OutTradeNo\' 的值是 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tableOrder.OutTradeNoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string OpenID {
+                get {
+                    try {
+                        return ((string)(this[this.tableOrder.OpenIDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("資料表 \'Order\' 中資料行 \'OpenID\' 的值是 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tableOrder.OpenIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsCashierIDNull() {
                 return this.IsNull(this.tableOrder.CashierIDColumn);
             }
@@ -3950,6 +4012,30 @@ namespace BakeryOrder {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetRCashierIDNull() {
                 this[this.tableOrder.RCashierIDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsOutTradeNoNull() {
+                return this.IsNull(this.tableOrder.OutTradeNoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetOutTradeNoNull() {
+                this[this.tableOrder.OutTradeNoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsOpenIDNull() {
+                return this.IsNull(this.tableOrder.OpenIDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetOpenIDNull() {
+                this[this.tableOrder.OpenIDColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6969,10 +7055,12 @@ namespace BakeryOrder.BakeryOrderSetTableAdapters {
             tableMapping.ColumnMappings.Add("Deleted", "Deleted");
             tableMapping.ColumnMappings.Add("OldID", "OldID");
             tableMapping.ColumnMappings.Add("RCashierID", "RCashierID");
+            tableMapping.ColumnMappings.Add("OutTradeNo", "OutTradeNo");
+            tableMapping.ColumnMappings.Add("OpenID", "OpenID");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `Order` WHERE ((`ID` = ?) AND ((? = 1 AND `CashierID` IS NULL) OR (`CashierID` = ?)) AND ((? = 1 AND `PrintTime` IS NULL) OR (`PrintTime` = ?)) AND ((? = 1 AND `Income` IS NULL) OR (`Income` = ?)) AND ((? = 1 AND `BranchID` IS NULL) OR (`BranchID` = ?)) AND ((? = 1 AND `Deduct` IS NULL) OR (`Deduct` = ?)) AND ((? = 1 AND `DiscountRate` IS NULL) OR (`DiscountRate` = ?)) AND ((? = 1 AND `PayBy` IS NULL) OR (`PayBy` = ?)) AND ((? = 1 AND `Deleted` IS NULL) OR (`Deleted` = ?)) AND ((? = 1 AND `OldID` IS NULL) OR (`OldID` = ?)) AND ((? = 1 AND `RCashierID` IS NULL) OR (`RCashierID` = ?)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `Order` WHERE ((`ID` = ?) AND ((? = 1 AND `CashierID` IS NULL) OR (`CashierID` = ?)) AND ((? = 1 AND `PrintTime` IS NULL) OR (`PrintTime` = ?)) AND ((? = 1 AND `Income` IS NULL) OR (`Income` = ?)) AND ((? = 1 AND `BranchID` IS NULL) OR (`BranchID` = ?)) AND ((? = 1 AND `Deduct` IS NULL) OR (`Deduct` = ?)) AND ((? = 1 AND `DiscountRate` IS NULL) OR (`DiscountRate` = ?)) AND ((? = 1 AND `PayBy` IS NULL) OR (`PayBy` = ?)) AND ((? = 1 AND `Deleted` IS NULL) OR (`Deleted` = ?)) AND ((? = 1 AND `OldID` IS NULL) OR (`OldID` = ?)) AND ((? = 1 AND `RCashierID` IS NULL) OR (`RCashierID` = ?)) AND ((? = 1 AND `OpenID` IS NULL) OR (`OpenID` = ?)) AND ((? = 1 AND `OutTradeNo` IS NULL) OR (`OutTradeNo` = ?)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_CashierID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CashierID", global::System.Data.DataRowVersion.Original, true, null));
@@ -6995,11 +7083,15 @@ namespace BakeryOrder.BakeryOrderSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_OldID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OldID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_RCashierID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "RCashierID", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_RCashierID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "RCashierID", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_OpenID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OpenID", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_OpenID", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OpenID", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_OutTradeNo", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OutTradeNo", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_OutTradeNo", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OutTradeNo", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
             this._adapter.InsertCommand.CommandText = "INSERT INTO `Order` (`ID`, `CashierID`, `PrintTime`, `Income`, `BranchID`, `Deduc" +
-                "t`, `DiscountRate`, `PayBy`, `Deleted`, `OldID`, `RCashierID`) VALUES (?, ?, ?, " +
-                "?, ?, ?, ?, ?, ?, ?, ?)";
+                "t`, `DiscountRate`, `PayBy`, `Deleted`, `OldID`, `RCashierID`, `OpenID`, `OutTra" +
+                "deNo`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("CashierID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CashierID", global::System.Data.DataRowVersion.Current, false, null));
@@ -7012,9 +7104,11 @@ namespace BakeryOrder.BakeryOrderSetTableAdapters {
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Deleted", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Deleted", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("OldID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OldID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("RCashierID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "RCashierID", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("OpenID", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OpenID", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("OutTradeNo", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OutTradeNo", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE `Order` SET `ID` = ?, `CashierID` = ?, `PrintTime` = ?, `Income` = ?, `BranchID` = ?, `Deduct` = ?, `DiscountRate` = ?, `PayBy` = ?, `Deleted` = ?, `OldID` = ?, `RCashierID` = ? WHERE ((`ID` = ?) AND ((? = 1 AND `CashierID` IS NULL) OR (`CashierID` = ?)) AND ((? = 1 AND `PrintTime` IS NULL) OR (`PrintTime` = ?)) AND ((? = 1 AND `Income` IS NULL) OR (`Income` = ?)) AND ((? = 1 AND `BranchID` IS NULL) OR (`BranchID` = ?)) AND ((? = 1 AND `Deduct` IS NULL) OR (`Deduct` = ?)) AND ((? = 1 AND `DiscountRate` IS NULL) OR (`DiscountRate` = ?)) AND ((? = 1 AND `PayBy` IS NULL) OR (`PayBy` = ?)) AND ((? = 1 AND `Deleted` IS NULL) OR (`Deleted` = ?)) AND ((? = 1 AND `OldID` IS NULL) OR (`OldID` = ?)) AND ((? = 1 AND `RCashierID` IS NULL) OR (`RCashierID` = ?)))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE `Order` SET `ID` = ?, `CashierID` = ?, `PrintTime` = ?, `Income` = ?, `BranchID` = ?, `Deduct` = ?, `DiscountRate` = ?, `PayBy` = ?, `Deleted` = ?, `OldID` = ?, `RCashierID` = ?, `OpenID` = ?, `OutTradeNo` = ? WHERE ((`ID` = ?) AND ((? = 1 AND `CashierID` IS NULL) OR (`CashierID` = ?)) AND ((? = 1 AND `PrintTime` IS NULL) OR (`PrintTime` = ?)) AND ((? = 1 AND `Income` IS NULL) OR (`Income` = ?)) AND ((? = 1 AND `BranchID` IS NULL) OR (`BranchID` = ?)) AND ((? = 1 AND `Deduct` IS NULL) OR (`Deduct` = ?)) AND ((? = 1 AND `DiscountRate` IS NULL) OR (`DiscountRate` = ?)) AND ((? = 1 AND `PayBy` IS NULL) OR (`PayBy` = ?)) AND ((? = 1 AND `Deleted` IS NULL) OR (`Deleted` = ?)) AND ((? = 1 AND `OldID` IS NULL) OR (`OldID` = ?)) AND ((? = 1 AND `RCashierID` IS NULL) OR (`RCashierID` = ?)) AND ((? = 1 AND `OpenID` IS NULL) OR (`OpenID` = ?)) AND ((? = 1 AND `OutTradeNo` IS NULL) OR (`OutTradeNo` = ?)))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("CashierID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CashierID", global::System.Data.DataRowVersion.Current, false, null));
@@ -7027,6 +7121,8 @@ namespace BakeryOrder.BakeryOrderSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Deleted", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Deleted", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("OldID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OldID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("RCashierID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "RCashierID", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("OpenID", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OpenID", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("OutTradeNo", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OutTradeNo", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_CashierID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CashierID", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_CashierID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CashierID", global::System.Data.DataRowVersion.Original, false, null));
@@ -7048,6 +7144,10 @@ namespace BakeryOrder.BakeryOrderSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_OldID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OldID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_RCashierID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "RCashierID", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_RCashierID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "RCashierID", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_OpenID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OpenID", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_OpenID", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OpenID", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_OutTradeNo", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OutTradeNo", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_OutTradeNo", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OutTradeNo", global::System.Data.DataRowVersion.Original, false, null));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7064,7 +7164,7 @@ namespace BakeryOrder.BakeryOrderSetTableAdapters {
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT ID, CashierID, PrintTime, Income, BranchID, Deduct, DiscountRate, PayBy, D" +
-                "eleted, OldID, RCashierID FROM [Order]";
+                "eleted, OldID, RCashierID, OpenID, OutTradeNo FROM [Order]";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -7125,7 +7225,7 @@ namespace BakeryOrder.BakeryOrderSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_ID, int Original_CashierID, global::System.Nullable<global::System.DateTime> Original_PrintTime, global::System.Nullable<decimal> Original_Income, global::System.Nullable<int> Original_BranchID, global::System.Nullable<decimal> Original_Deduct, global::System.Nullable<decimal> Original_DiscountRate, string Original_PayBy, bool Original_Deleted, global::System.Nullable<int> Original_OldID, int Original_RCashierID) {
+        public virtual int Delete(int Original_ID, int Original_CashierID, global::System.Nullable<global::System.DateTime> Original_PrintTime, global::System.Nullable<decimal> Original_Income, global::System.Nullable<int> Original_BranchID, global::System.Nullable<decimal> Original_Deduct, global::System.Nullable<decimal> Original_DiscountRate, string Original_PayBy, bool Original_Deleted, global::System.Nullable<int> Original_OldID, int Original_RCashierID, string Original_OpenID, string Original_OutTradeNo) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
             this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
             this.Adapter.DeleteCommand.Parameters[2].Value = ((int)(Original_CashierID));
@@ -7189,6 +7289,22 @@ namespace BakeryOrder.BakeryOrderSetTableAdapters {
             }
             this.Adapter.DeleteCommand.Parameters[19].Value = ((object)(0));
             this.Adapter.DeleteCommand.Parameters[20].Value = ((int)(Original_RCashierID));
+            if ((Original_OpenID == null)) {
+                this.Adapter.DeleteCommand.Parameters[21].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[22].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[21].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[22].Value = ((string)(Original_OpenID));
+            }
+            if ((Original_OutTradeNo == null)) {
+                this.Adapter.DeleteCommand.Parameters[23].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[24].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[23].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[24].Value = ((string)(Original_OutTradeNo));
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -7209,7 +7325,7 @@ namespace BakeryOrder.BakeryOrderSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int ID, int CashierID, global::System.Nullable<global::System.DateTime> PrintTime, global::System.Nullable<decimal> Income, global::System.Nullable<int> BranchID, global::System.Nullable<decimal> Deduct, global::System.Nullable<decimal> DiscountRate, string PayBy, bool Deleted, global::System.Nullable<int> OldID, int RCashierID) {
+        public virtual int Insert(int ID, int CashierID, global::System.Nullable<global::System.DateTime> PrintTime, global::System.Nullable<decimal> Income, global::System.Nullable<int> BranchID, global::System.Nullable<decimal> Deduct, global::System.Nullable<decimal> DiscountRate, string PayBy, bool Deleted, global::System.Nullable<int> OldID, int RCashierID, string OpenID, string OutTradeNo) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(ID));
             this.Adapter.InsertCommand.Parameters[1].Value = ((int)(CashierID));
             if ((PrintTime.HasValue == true)) {
@@ -7256,6 +7372,18 @@ namespace BakeryOrder.BakeryOrderSetTableAdapters {
                 this.Adapter.InsertCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
             this.Adapter.InsertCommand.Parameters[10].Value = ((int)(RCashierID));
+            if ((OpenID == null)) {
+                this.Adapter.InsertCommand.Parameters[11].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[11].Value = ((string)(OpenID));
+            }
+            if ((OutTradeNo == null)) {
+                this.Adapter.InsertCommand.Parameters[12].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[12].Value = ((string)(OutTradeNo));
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -7288,6 +7416,8 @@ namespace BakeryOrder.BakeryOrderSetTableAdapters {
                     bool Deleted, 
                     global::System.Nullable<int> OldID, 
                     int RCashierID, 
+                    string OpenID, 
+                    string OutTradeNo, 
                     int Original_ID, 
                     int Original_CashierID, 
                     global::System.Nullable<global::System.DateTime> Original_PrintTime, 
@@ -7298,7 +7428,9 @@ namespace BakeryOrder.BakeryOrderSetTableAdapters {
                     string Original_PayBy, 
                     bool Original_Deleted, 
                     global::System.Nullable<int> Original_OldID, 
-                    int Original_RCashierID) {
+                    int Original_RCashierID, 
+                    string Original_OpenID, 
+                    string Original_OutTradeNo) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(ID));
             this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(CashierID));
             if ((PrintTime.HasValue == true)) {
@@ -7345,69 +7477,97 @@ namespace BakeryOrder.BakeryOrderSetTableAdapters {
                 this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
             this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(RCashierID));
-            this.Adapter.UpdateCommand.Parameters[11].Value = ((int)(Original_ID));
-            this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[13].Value = ((int)(Original_CashierID));
-            if ((Original_PrintTime.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[15].Value = ((System.DateTime)(Original_PrintTime.Value));
+            if ((OpenID == null)) {
+                this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[15].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((string)(OpenID));
             }
-            if ((Original_Income.HasValue == true)) {
+            if ((OutTradeNo == null)) {
+                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((string)(OutTradeNo));
+            }
+            this.Adapter.UpdateCommand.Parameters[13].Value = ((int)(Original_ID));
+            this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[15].Value = ((int)(Original_CashierID));
+            if ((Original_PrintTime.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[17].Value = ((decimal)(Original_Income.Value));
+                this.Adapter.UpdateCommand.Parameters[17].Value = ((System.DateTime)(Original_PrintTime.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[17].Value = global::System.DBNull.Value;
             }
-            if ((Original_BranchID.HasValue == true)) {
+            if ((Original_Income.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[19].Value = ((int)(Original_BranchID.Value));
+                this.Adapter.UpdateCommand.Parameters[19].Value = ((decimal)(Original_Income.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[19].Value = global::System.DBNull.Value;
             }
-            if ((Original_Deduct.HasValue == true)) {
+            if ((Original_BranchID.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[20].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[21].Value = ((decimal)(Original_Deduct.Value));
+                this.Adapter.UpdateCommand.Parameters[21].Value = ((int)(Original_BranchID.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[20].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[21].Value = global::System.DBNull.Value;
             }
-            if ((Original_DiscountRate.HasValue == true)) {
+            if ((Original_Deduct.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[22].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[23].Value = ((decimal)(Original_DiscountRate.Value));
+                this.Adapter.UpdateCommand.Parameters[23].Value = ((decimal)(Original_Deduct.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[22].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[23].Value = global::System.DBNull.Value;
             }
-            if ((Original_PayBy == null)) {
+            if ((Original_DiscountRate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[24].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[25].Value = ((decimal)(Original_DiscountRate.Value));
+            }
+            else {
                 this.Adapter.UpdateCommand.Parameters[24].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[25].Value = global::System.DBNull.Value;
             }
-            else {
-                this.Adapter.UpdateCommand.Parameters[24].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[25].Value = ((string)(Original_PayBy));
+            if ((Original_PayBy == null)) {
+                this.Adapter.UpdateCommand.Parameters[26].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[27].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[26].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[27].Value = ((bool)(Original_Deleted));
+            else {
+                this.Adapter.UpdateCommand.Parameters[26].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[27].Value = ((string)(Original_PayBy));
+            }
+            this.Adapter.UpdateCommand.Parameters[28].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[29].Value = ((bool)(Original_Deleted));
             if ((Original_OldID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[28].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[29].Value = ((int)(Original_OldID.Value));
+                this.Adapter.UpdateCommand.Parameters[30].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[31].Value = ((int)(Original_OldID.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[28].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[29].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[30].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[31].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[30].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[31].Value = ((int)(Original_RCashierID));
+            this.Adapter.UpdateCommand.Parameters[32].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[33].Value = ((int)(Original_RCashierID));
+            if ((Original_OpenID == null)) {
+                this.Adapter.UpdateCommand.Parameters[34].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[35].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[34].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[35].Value = ((string)(Original_OpenID));
+            }
+            if ((Original_OutTradeNo == null)) {
+                this.Adapter.UpdateCommand.Parameters[36].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[37].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[36].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[37].Value = ((string)(Original_OutTradeNo));
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -7439,6 +7599,8 @@ namespace BakeryOrder.BakeryOrderSetTableAdapters {
                     bool Deleted, 
                     global::System.Nullable<int> OldID, 
                     int RCashierID, 
+                    string OpenID, 
+                    string OutTradeNo, 
                     int Original_ID, 
                     int Original_CashierID, 
                     global::System.Nullable<global::System.DateTime> Original_PrintTime, 
@@ -7449,8 +7611,10 @@ namespace BakeryOrder.BakeryOrderSetTableAdapters {
                     string Original_PayBy, 
                     bool Original_Deleted, 
                     global::System.Nullable<int> Original_OldID, 
-                    int Original_RCashierID) {
-            return this.Update(Original_ID, CashierID, PrintTime, Income, BranchID, Deduct, DiscountRate, PayBy, Deleted, OldID, RCashierID, Original_ID, Original_CashierID, Original_PrintTime, Original_Income, Original_BranchID, Original_Deduct, Original_DiscountRate, Original_PayBy, Original_Deleted, Original_OldID, Original_RCashierID);
+                    int Original_RCashierID, 
+                    string Original_OpenID, 
+                    string Original_OutTradeNo) {
+            return this.Update(Original_ID, CashierID, PrintTime, Income, BranchID, Deduct, DiscountRate, PayBy, Deleted, OldID, RCashierID, OpenID, OutTradeNo, Original_ID, Original_CashierID, Original_PrintTime, Original_Income, Original_BranchID, Original_Deduct, Original_DiscountRate, Original_PayBy, Original_Deleted, Original_OldID, Original_RCashierID, Original_OpenID, Original_OutTradeNo);
         }
     }
     

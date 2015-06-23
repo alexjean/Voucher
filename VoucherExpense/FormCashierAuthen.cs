@@ -519,10 +519,10 @@ namespace VoucherExpense
                 newOrder.PayBy = order.PayBy;
                 str+= order.PayBy.ToString();
             }
-            if (!order.IsOutTradeNoNull())
+            if (!order.IsTradeNoNull())
             {                                                  
-                newOrder.OutTradeNo = order.OutTradeNo;        
-                str += order.OutTradeNo;
+                newOrder.TradeNo = order.TradeNo;        
+                str += order.TradeNo;
             }                                                  
             if (!order.IsOpenIDNull())
             {
@@ -568,6 +568,7 @@ namespace VoucherExpense
                 newOrder = mainOrders.First();
                 newOrder.BeginEdit();
 //                newOrder.ItemArray = order.ItemArray;   // ID應該是相同的
+                order.BranchID = m_StoreID;  // 不管POS怎麼設 , 店長收來時再強制設一次 BranchID
                 CopyOrderRow(order, newOrder);
                 newOrder.EndEdit();
             }
@@ -577,9 +578,9 @@ namespace VoucherExpense
              
                 newOrder.BeginEdit();
                // newOrder.ItemArray = order.ItemArray;
+                order.BranchID = m_StoreID;  // 不管POS怎麼設 , 店長收來時再強制設一次 BranchID
                 CopyOrderRow(order, newOrder);
                 newOrder.ID = newID;
-                newOrder.BranchID = m_StoreID;
                 newOrder.EndEdit();
                 m_OrderSet.Order.AddOrderRow(newOrder);
             }

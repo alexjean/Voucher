@@ -18,7 +18,8 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <PublishUrl>http://localhost/VoucherExpense/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
@@ -135,6 +136,7 @@
       <DependentUpon>BakeryOrderSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="AccTitleList.cs" />
+    <Compile Include="Class\AlipayClass.cs" />
     <Compile Include="Class\BakeryConfig.cs" />
     <Compile Include="Class\DB.cs" />
     <Compile Include="DamaiDataSet.Designer.cs">
@@ -194,6 +196,12 @@
     </Compile>
     <Compile Include="FormAccVoucher.Designer.cs">
       <DependentUpon>FormAccVoucher.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormAlipay1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAlipay1.Designer.cs">
+      <DependentUpon>FormAlipay1.cs</DependentUpon>
     </Compile>
     <Compile Include="FormApartment.cs">
       <SubType>Form</SubType>
@@ -511,6 +519,9 @@
     <EmbeddedResource Include="FormAccVoucher.resx">
       <DependentUpon>FormAccVoucher.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAlipay1.resx">
+      <DependentUpon>FormAlipay1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormApartment.resx">
       <DependentUpon>FormApartment.cs</DependentUpon>
@@ -884,6 +895,12 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\sdk-0511-2\AopSdk.csproj">
+      <Project>{9C11CAE5-5188-4E71-825B-68FC3135728A}</Project>
+      <Name>AopSdk</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

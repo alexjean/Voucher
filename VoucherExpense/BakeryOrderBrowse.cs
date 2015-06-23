@@ -9,6 +9,7 @@ using System.Windows.Forms;
 #if UseSQLServer
 using MyOrderRow        = VoucherExpense.DamaiDataSet.OrderRow;
 using MyDrawerRecordRow = VoucherExpense.DamaiDataSet.DrawerRecordRow;
+using Com.Alipay;
 #else
 using MyOrderRow        = VoucherExpense.BakeryOrderSet.OrderRow;
 using MyDrawerRecordRow = VoucherExpense.BakeryOrderSet.DrawerRecordRow;
@@ -415,15 +416,19 @@ namespace VoucherExpense
             if (!row.IsIncomeNull())
                 income=Math.Round( row.Income,2);
             labelTotal.Text =  income.ToString("N0");
-            if (row.IsOutTradeNoNull())
+            if (row.IsTradeNoNull())
             {
                 labelAlipayNo.Text = "";
                 labelAlipayNo.Visible = false;
+                btnAlipayRefund.Visible = false;
             }
             else
             {
-                labelAlipayNo.Text = "支付宝号" + row.OutTradeNo;
+                m_TradeNo = row.TradeNo;
+                m_Amount  = row.Income;
+                labelAlipayNo.Text = "支付宝号" + m_TradeNo;
                 labelAlipayNo.Visible = true;
+                btnAlipayRefund.Visible = true;
             }
             if (!ShowOrder(row))         // return false 總額不符
                 labelTotal.Text +=  "???";
@@ -695,6 +700,21 @@ namespace VoucherExpense
                 result=cbBoxDay.Items.Add(i.ToString() + "日");
             }
             cbBoxDay.SelectedIndex = 0;
+        }
+
+
+        DoAlipay m_Alipay=null;
+        string m_TradeNo;      // m_TradeNo m_Amount在 MouseClick()時,是支付宝支付 填入值
+        decimal m_Amount;
+        private void btnAlipayRefund_Click(object sender, EventArgs e)
+        {
+            if (m_Alipay == null)
+            {
+                m_Alipay = new DoAlipay();
+                m_Alipay.Setup();
+            }
+            Form form = new FormAlipay1(m_Alipay, m_TradeNo, m_Amount.ToString("N2"));
+            form.ShowDialog();
         }
 
 

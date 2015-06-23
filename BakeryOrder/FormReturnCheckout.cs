@@ -25,20 +25,29 @@ namespace BakeryOrder
         private void FormReturnCheckout_Load(object sender, EventArgs e)
         {
             Location = new Point(m_X, m_Y);
-                labelTotal.Text = m_Total.ToString();
-                labelIncome.Text = m_Total.ToString();
+            labelTotal.Text = m_Total.ToString();
+            labelIncome.Text = m_Total.ToString();
+            try
+            {
                 dateTimePicker1.MaxDate = DateTime.Now;
-                btnNumber0.Click += btnNumberX_Click;
-                btnNumber1.Click += btnNumberX_Click;
-                btnNumber2.Click += btnNumberX_Click;
-                btnNumber3.Click += btnNumberX_Click;
-                btnNumber4.Click += btnNumberX_Click;
-                btnNumber5.Click += btnNumberX_Click;
-                btnNumber6.Click += btnNumberX_Click;
-                btnNumber7.Click += btnNumberX_Click;
-                btnNumber8.Click += btnNumberX_Click;
-                btnNumber9.Click += btnNumberX_Click;
-                btnNumber100.Click += btnNumberX_Click;
+                dateTimePicker1.Value = DateTime.Now.Date;
+                dateTimePicker1.MinDate = new DateTime(DateTime.Now.Year, 1, 1);
+            }
+            catch (Exception ex)
+            {
+                string msg = ex.Message;
+            }
+            btnNumber0.Click += btnNumberX_Click;
+            btnNumber1.Click += btnNumberX_Click;
+            btnNumber2.Click += btnNumberX_Click;
+            btnNumber3.Click += btnNumberX_Click;
+            btnNumber4.Click += btnNumberX_Click;
+            btnNumber5.Click += btnNumberX_Click;
+            btnNumber6.Click += btnNumberX_Click;
+            btnNumber7.Click += btnNumberX_Click;
+            btnNumber8.Click += btnNumberX_Click;
+            btnNumber9.Click += btnNumberX_Click;
+            btnNumber100.Click += btnNumberX_Click;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -69,7 +78,7 @@ namespace BakeryOrder
                 DialogResult = DialogResult.OK;
                 if (m_PayBy == 'A')
                     Tag = m_MoneyGot;
-                else if (m_PayBy == 'B' || m_PayBy == 'C')  // 刷卡及券沒有 實收
+                else if (m_PayBy == 'B' || m_PayBy == 'C' || m_PayBy=='D')  // 刷卡及券沒有 實收
                     Tag = 0;
                 else
                 {
@@ -239,7 +248,7 @@ namespace BakeryOrder
         {
             if (tBPosId.TextLength == tBPosId.MaxLength)
             {
-                tBNo.Focus(); oldordertext();
+                tBNo.Focus(); OldOrderText();
             }
         }
 
@@ -276,25 +285,20 @@ namespace BakeryOrder
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
             tBPosId.Focus();
-          oldordertext ();
+            OldOrderText();
         }
-        void oldordertext ()
-    {
-        string[] s = dateTimePicker1.Text.Split('/');
-        if (s[1].Length==1)
+
+        void OldOrderText()
         {
-            s[1] = 0 + s[1];
-        }
-        if (s[2].Length == 1)
-        {
-            s[2] = 0 + s[2];
-        }
-        textBoxOldOrder.Text = s[1] + s[2] + tBPosId.Text + tBNo.Text;
+            string[] s = dateTimePicker1.Text.Split('/');
+            if (s[1].Length==1)   s[1] = 0 + s[1];
+            if (s[2].Length == 1) s[2] = 0 + s[2];
+            textBoxOldOrder.Text = s[1] + s[2] + tBPosId.Text + tBNo.Text;
         }
 
         private void tBNo_TextChanged(object sender, EventArgs e)
         {
-            oldordertext();
+            OldOrderText();
         }
 
         private void btnCash_Click(object sender, EventArgs e)

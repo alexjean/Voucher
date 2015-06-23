@@ -86,7 +86,7 @@
             this.lvItems.HideSelection = false;
             this.lvItems.Location = new System.Drawing.Point(2, 0);
             this.lvItems.Name = "lvItems";
-            this.lvItems.Size = new System.Drawing.Size(226, 371);
+            this.lvItems.Size = new System.Drawing.Size(226, 336);
             this.lvItems.TabIndex = 2;
             this.lvItems.UseCompatibleStateImageBehavior = false;
             this.lvItems.View = System.Windows.Forms.View.Details;
@@ -158,7 +158,7 @@
             // 
             // labelDeduct
             // 
-            this.labelDeduct.Location = new System.Drawing.Point(85, 415);
+            this.labelDeduct.Location = new System.Drawing.Point(83, 380);
             this.labelDeduct.Name = "labelDeduct";
             this.labelDeduct.Size = new System.Drawing.Size(124, 25);
             this.labelDeduct.TabIndex = 6;
@@ -166,7 +166,7 @@
             // 
             // labelIncome
             // 
-            this.labelIncome.Location = new System.Drawing.Point(85, 381);
+            this.labelIncome.Location = new System.Drawing.Point(85, 346);
             this.labelIncome.Name = "labelIncome";
             this.labelIncome.Size = new System.Drawing.Size(124, 25);
             this.labelIncome.TabIndex = 7;
@@ -186,7 +186,7 @@
             // 
             this.btnClass.BackColor = System.Drawing.Color.SeaShell;
             this.btnClass.Enabled = false;
-            this.btnClass.Location = new System.Drawing.Point(2, 367);
+            this.btnClass.Location = new System.Drawing.Point(2, 332);
             this.btnClass.Name = "btnClass";
             this.btnClass.Size = new System.Drawing.Size(75, 53);
             this.btnClass.TabIndex = 12;
@@ -370,9 +370,9 @@
             // 
             // labelAlipayNo
             // 
-            this.labelAlipayNo.Location = new System.Drawing.Point(4, 454);
+            this.labelAlipayNo.Location = new System.Drawing.Point(4, 424);
             this.labelAlipayNo.Name = "labelAlipayNo";
-            this.labelAlipayNo.Size = new System.Drawing.Size(228, 25);
+            this.labelAlipayNo.Size = new System.Drawing.Size(228, 55);
             this.labelAlipayNo.TabIndex = 14;
             this.labelAlipayNo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 

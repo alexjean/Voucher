@@ -669,7 +669,7 @@ namespace BakeryOrder
                 order.Deleted = false;
                 // PrintTime在後面會設,NewRecord 如果有任一個Field沒設定是IsNull,再次Upate就會 並行違例.
                 // 舊的Record因為從Database讀出來時,就會有預設資料所以不會有問題
-                order.BranchID = 0;
+                order.BranchID = m_StoreID;
                 order.Deduct = 0;
                 order.PayBy = DicPayBy.First().Key.ToString();
                 order.OldID = 0;
@@ -1352,12 +1352,12 @@ namespace BakeryOrder
                         labelClass.Text = "";
                         m_CurrentOrder.PayBy = "A";
                         m_CurrentOrder.OpenID = "";
-                        m_CurrentOrder.OutTradeNo = "";
+                        m_CurrentOrder.TradeNo = "";
                         return;    // 支付宝支付取消了, 單子不印, DB不記錄, 改成現金單
                     }
                     else
                     {
-                        m_CurrentOrder.OutTradeNo = m_Alipay.LastOutTradeNo;
+                        m_CurrentOrder.TradeNo = m_Alipay.LastTradeNo;
                         m_CurrentOrder.OpenID = m_Alipay.LastOpenID;
                     }
                 }

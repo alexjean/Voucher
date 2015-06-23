@@ -297,8 +297,8 @@ namespace BakeryOrder
             decimal income = 0;
             if (!order.IsIncomeNull()) income = Math.Round(order.Income,2);
             labelIncome.Text = income.ToString();
-            if (order.IsOutTradeNoNull()) labelAlipayNo.Text = "";
-            else                          labelAlipayNo.Text = "支付宝号" + order.OutTradeNo;
+            if (order.IsTradeNoNull()) labelAlipayNo.Text = "";
+            else                       labelAlipayNo.Text = "支付宝号" + order.TradeNo;
             if (total != income)
             {
                 if (total == -income)

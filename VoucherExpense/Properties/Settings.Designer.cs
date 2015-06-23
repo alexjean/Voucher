@@ -54,9 +54,8 @@ namespace VoucherExpense.Properties {
             get {
                 return ((string)(this["BakeryOrderConnectionString"]));
             }
-            set
-            {
-                this["BakeryOrderConnectionString"] = value;
+            set {
+                this["BakeryOrderConnectionString"]=value;
             }
         }
         
@@ -68,9 +67,8 @@ namespace VoucherExpense.Properties {
             get {
                 return ((string)(this["SqlVeConnectionString"]));
             }
-            set
-            {
-                this["SqlVeConnectionString"] = value;
+            set {
+                this["SqlVeConnectionString"]=value;
             }
         }
         
@@ -82,9 +80,8 @@ namespace VoucherExpense.Properties {
             get {
                 return ((string)(this["DamaiConnectionString"]));
             }
-            set
-            {
-                this["DamaiConnectionString"] = value;
+            set {
+                this["DamaiConnectionString"]=value;
             }
         }
     }

@@ -91,6 +91,9 @@ namespace VoucherExpense
                 total.CreditCard += d.CreditCard;
                 total.CreditFee += d.CreditFee;
                 total.CreditNet += d.CreditNet;
+                total.Coupond += d.Coupond;
+                total.DeletedCount+=d.DeletedCount;
+                total.DeletedMoney+=d.DeletedMoney;
                 total.TwentyPDCount += d.TwentyPDCount;
                 total.TwentyPDMoney += d.TwentyPDMoney;
                 total.FifteenPDCount += d.FifteenPDCount;
@@ -98,6 +101,34 @@ namespace VoucherExpense
                 total.TenPDCount += d.TenPDCount;
                 total.TenPDMoney += d.TenPDMoney;
             }
+            try
+            {
+                //if (total.Coupond == 0)
+                //{
+                //    dgViewMonthly.Columns["Coupond"].Visible = false;
+                //}
+                if (total.DeletedCount == 0)
+                {
+                    dgViewMonthly.Columns["DeletedCount"].Visible = false;
+                    dgViewMonthly.Columns["DeletedMoney"].Visible = false;
+                }
+                if (total.TwentyPDCount == 0)
+                {
+                    dgViewMonthly.Columns["TwentyPDCount"].Visible = false;
+                    dgViewMonthly.Columns["TwentyPDMoney"].Visible = false;
+                }
+                if (total.FifteenPDCount == 0)
+                {
+                    dgViewMonthly.Columns["FifteenPDCount"].Visible = false;
+                    dgViewMonthly.Columns["FifteenPDMoney"].Visible = false;
+                }
+                if (total.TenPDCount == 0)
+                {
+                    dgViewMonthly.Columns["TenPDCount"].Visible = false;
+                    dgViewMonthly.Columns["TenPDMoney"].Visible = false;
+                }
+            }
+            catch { }
             labelCash.Text = total.Cash.ToString();
             labelCredit.Text = total.CreditCard.ToString();
             labelOrderCount.Text = total.OrderCount.ToString();

@@ -76,8 +76,6 @@ namespace BakeryOrder
 
         private void btnStatics_Click(object sender, EventArgs e)
         {
-            //Form formdetailed = new FormDetailed();
-            //formdetailed.ShowDialog();
             if (m_FormStatics == null)
                 m_FormStatics = new FormStatics(bakeryOrderSet, m_OrderTableAdapter, m_CashierID, m_Printer, m_DataSealed, m_PosID,m_StoreID,true);
             DialogResult result = m_FormStatics.ShowDialog();

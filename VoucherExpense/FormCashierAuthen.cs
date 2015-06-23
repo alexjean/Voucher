@@ -519,6 +519,16 @@ namespace VoucherExpense
                 newOrder.PayBy = order.PayBy;
                 str+= order.PayBy.ToString();
             }
+            if (!order.IsOutTradeNoNull())
+            {                                                  
+                newOrder.OutTradeNo = order.OutTradeNo;        
+                str += order.OutTradeNo;
+            }                                                  
+            if (!order.IsOpenIDNull())
+            {
+                newOrder.OpenID = order.OpenID;
+                str += order.OpenID;
+            }
             //if (!order.IsMemberIDNull())
             //{
             //    newOrder.MemberId = order.MemberID;
@@ -569,7 +579,7 @@ namespace VoucherExpense
                // newOrder.ItemArray = order.ItemArray;
                 CopyOrderRow(order, newOrder);
                 newOrder.ID = newID;
-                newOrder.StoreId = m_StoreID;
+                newOrder.BranchID = m_StoreID;
                 newOrder.EndEdit();
                 m_OrderSet.Order.AddOrderRow(newOrder);
             }
@@ -712,9 +722,9 @@ namespace VoucherExpense
 
         private void btnGetDataFromPOS_Click(object sender, EventArgs e)
         {
-            if (m_StoreID==null)
+            if (m_StoreID==0)
             {
-                MessageBox.Show("没有设置当前店部门编码，请先修改部门资料再收取数据");
+                MessageBox.Show("没有设置当前店部门编码，请系統管理員修改部门资料再收取数据");
                 return;
             }
             DateTime today = todayPicker.Value;

@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lvItems = new System.Windows.Forms.ListView();
             this.columnHeader代碼 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader品名 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -61,6 +61,7 @@
             this.labelDeduct = new System.Windows.Forms.Label();
             this.labelDeductLabel = new System.Windows.Forms.Label();
             this.labelReturned = new System.Windows.Forms.Label();
+            this.labelAlipayNo = new System.Windows.Forms.Label();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStatics)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hourStaticsBindingSource)).BeginInit();
@@ -193,8 +194,8 @@
             this.dgvStatics.AllowUserToAddRows = false;
             this.dgvStatics.AllowUserToDeleteRows = false;
             this.dgvStatics.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
-            this.dgvStatics.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.Azure;
+            this.dgvStatics.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvStatics.AutoGenerateColumns = false;
             this.dgvStatics.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.dgvStatics.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -215,8 +216,8 @@
             // ColumnHour
             // 
             this.ColumnHour.DataPropertyName = "Hour";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.ColumnHour.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.ColumnHour.DefaultCellStyle = dataGridViewCellStyle7;
             this.ColumnHour.HeaderText = "時間";
             this.ColumnHour.Name = "ColumnHour";
             this.ColumnHour.ReadOnly = true;
@@ -225,8 +226,8 @@
             // orderCountDataGridViewTextBoxColumn
             // 
             this.orderCountDataGridViewTextBoxColumn.DataPropertyName = "OrderCount";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.orderCountDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.orderCountDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle8;
             this.orderCountDataGridViewTextBoxColumn.HeaderText = "單數";
             this.orderCountDataGridViewTextBoxColumn.Name = "orderCountDataGridViewTextBoxColumn";
             this.orderCountDataGridViewTextBoxColumn.ReadOnly = true;
@@ -235,10 +236,10 @@
             // revenueDataGridViewTextBoxColumn
             // 
             this.revenueDataGridViewTextBoxColumn.DataPropertyName = "Revenue";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.Format = "N1";
-            dataGridViewCellStyle4.NullValue = null;
-            this.revenueDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle9.Format = "N1";
+            dataGridViewCellStyle9.NullValue = null;
+            this.revenueDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle9;
             this.revenueDataGridViewTextBoxColumn.HeaderText = "營收";
             this.revenueDataGridViewTextBoxColumn.Name = "revenueDataGridViewTextBoxColumn";
             this.revenueDataGridViewTextBoxColumn.ReadOnly = true;
@@ -246,10 +247,10 @@
             // averageDataGridViewTextBoxColumn
             // 
             this.averageDataGridViewTextBoxColumn.DataPropertyName = "Average";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle5.Format = "N1";
-            dataGridViewCellStyle5.NullValue = null;
-            this.averageDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle10.Format = "N1";
+            dataGridViewCellStyle10.NullValue = null;
+            this.averageDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle10;
             this.averageDataGridViewTextBoxColumn.HeaderText = "人均";
             this.averageDataGridViewTextBoxColumn.Name = "averageDataGridViewTextBoxColumn";
             this.averageDataGridViewTextBoxColumn.ReadOnly = true;
@@ -300,7 +301,7 @@
             this.cbBoxDay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbBoxDay.FormattingEnabled = true;
             this.cbBoxDay.IntegralHeight = false;
-            this.cbBoxDay.Location = new System.Drawing.Point(130, 459);
+            this.cbBoxDay.Location = new System.Drawing.Point(130, 505);
             this.cbBoxDay.Name = "cbBoxDay";
             this.cbBoxDay.Size = new System.Drawing.Size(71, 24);
             this.cbBoxDay.TabIndex = 58;
@@ -324,7 +325,7 @@
             "十月",
             "十一月",
             "十二月"});
-            this.cbBoxMonth.Location = new System.Drawing.Point(15, 459);
+            this.cbBoxMonth.Location = new System.Drawing.Point(15, 505);
             this.cbBoxMonth.Name = "cbBoxMonth";
             this.cbBoxMonth.Size = new System.Drawing.Size(71, 24);
             this.cbBoxMonth.TabIndex = 57;
@@ -356,12 +357,22 @@
             this.labelReturned.Text = "退貨號";
             this.labelReturned.Visible = false;
             // 
+            // labelAlipayNo
+            // 
+            this.labelAlipayNo.Location = new System.Drawing.Point(-1, 459);
+            this.labelAlipayNo.Name = "labelAlipayNo";
+            this.labelAlipayNo.Size = new System.Drawing.Size(229, 16);
+            this.labelAlipayNo.TabIndex = 62;
+            this.labelAlipayNo.Text = "支付宝号";
+            this.labelAlipayNo.Visible = false;
+            // 
             // BakeryOrderBrowse
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Azure;
             this.ClientSize = new System.Drawing.Size(908, 637);
+            this.Controls.Add(this.labelAlipayNo);
             this.Controls.Add(this.labelReturned);
             this.Controls.Add(this.labelDeductLabel);
             this.Controls.Add(this.labelDeduct);
@@ -418,5 +429,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label labelTotalAverage;
         private System.Windows.Forms.Label labelReturned;
+        private System.Windows.Forms.Label labelAlipayNo;
     }
 }

@@ -297,6 +297,7 @@ namespace VoucherExpense
             {
                 if (Row.PayBy == "B")      b.Text += "卡";
                 else if (Row.PayBy == "C") b.Text += "券";
+                else if (Row.PayBy == "D") b.Text += "支";
             }
             decimal income = 0;
             if (!Row.IsIncomeNull())
@@ -403,7 +404,7 @@ namespace VoucherExpense
             {
                 labelDeductLabel.Visible = true;
                 labelDeduct.Visible = true;
-                labelDeduct.Text = row.Deduct.ToString();
+                labelDeduct.Text = row.Deduct.ToString("N0");
             }
             else
             {
@@ -414,6 +415,16 @@ namespace VoucherExpense
             if (!row.IsIncomeNull())
                 income=Math.Round( row.Income,2);
             labelTotal.Text =  income.ToString("N0");
+            if (row.IsOutTradeNoNull())
+            {
+                labelAlipayNo.Text = "";
+                labelAlipayNo.Visible = false;
+            }
+            else
+            {
+                labelAlipayNo.Text = "支付宝号" + row.OutTradeNo;
+                labelAlipayNo.Visible = true;
+            }
             if (!ShowOrder(row))         // return false 總額不符
                 labelTotal.Text +=  "???";
 

@@ -374,7 +374,7 @@
             this.labelAlipayNo.Name = "labelAlipayNo";
             this.labelAlipayNo.Size = new System.Drawing.Size(228, 25);
             this.labelAlipayNo.TabIndex = 14;
-            this.labelAlipayNo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelAlipayNo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // FormStatics
             // 

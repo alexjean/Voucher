@@ -422,7 +422,7 @@ namespace BakeryOrder
         FormStatics m_FormStatics = null;
         const string m_ProductDir = "Photos\\Products";
         const string m_SmallDir = m_ProductDir + "\\Small";
-        int m_PosID = 0;    // FormCashier的m_PosID己經不使用,由店長收取資料時填取
+        int m_PosID = 0;    // FormCashier的m_PosID,由店長填取
         int m_StoreID = 0;
         int m_CashierID = -1;
         string m_CashierName = "";
@@ -1350,8 +1350,15 @@ namespace BakeryOrder
                         MemberCode = "";
                         labelMemberCode.Text = "";
                         labelClass.Text = "";
-                        m_CurrentOrder.PayBy= "A";
+                        m_CurrentOrder.PayBy = "A";
+                        m_CurrentOrder.OpenID = "";
+                        m_CurrentOrder.OutTradeNo = "";
                         return;    // 支付宝支付取消了, 單子不印, DB不記錄, 改成現金單
+                    }
+                    else
+                    {
+                        m_CurrentOrder.OutTradeNo = m_Alipay.LastOutTradeNo;
+                        m_CurrentOrder.OpenID = m_Alipay.LastOpenID;
                     }
                 }
                 Print(m_CurrentOrder, (double)moneyGot, true);
@@ -1655,7 +1662,7 @@ namespace BakeryOrder
 
             Form form = new FormAlipay(tabControl1.Left + 8, 8, out_trade_no, m_Alipay, content.ToString());
             DialogResult result = form.ShowDialog();
-            if      (result == DialogResult.OK)     return true;
+            if (result == DialogResult.OK) return true;  // OK回來, OutTradeNo及OpenID存在m_Alipay的變數內 LastOutTradeNo,LastOpenID
             return false;
         }
 

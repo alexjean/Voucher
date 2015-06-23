@@ -61,18 +61,17 @@ namespace BakeryOrder
                 {
                     Message(wex.Message);
                     MessageBox.Show("发生网络错误, 无法连至支付宝服务器!");
+                    this.DialogResult = DialogResult.Cancel;
+                    Close();
                     return;
                 }
                 catch (Exception ex)
                 {
                     Message(ex.Message);
                     MessageBox.Show("发生错误!");
-                    return;
-                }
-                finally
-                {
                     this.DialogResult = DialogResult.Cancel;
                     Close();
+                    return;
                 }
                 m_Canceled = true;
                 switch (cancelResponse.Code)
@@ -92,10 +91,11 @@ namespace BakeryOrder
             Close();
         }
 
-        void SaveToDB(AlipayTradePayResponse payResponse)
+        void SaveToDB(string OutTradeNo,string OpenId)
         {
-            // 存支付宝交易号 , OpenID, 帳號?
-            Message(payResponse.Msg);
+            // 存支付宝 OutTradeNo , OpenID, 帳號?
+            m_Alipay.LastOutTradeNo = OutTradeNo;
+            m_Alipay.LastOpenID = OpenId;
         }
 
         private void FormAlipay_Shown(object sender, EventArgs e)
@@ -111,18 +111,17 @@ namespace BakeryOrder
             {
                 Message(wex.Message);
                 MessageBox.Show("发生网络错误, 无法连至支付宝服务器!");
+                this.DialogResult = DialogResult.Cancel;
+                Close();
                 return;
             }
             catch (Exception ex)
             {
                 Message(ex.Message);
                 MessageBox.Show("发生错误!");
-                return;
-            }
-            finally 
-            {
                 this.DialogResult = DialogResult.Cancel;
                 Close();
+                return;
             }
             string result = payResponse.Body;
             if (payResponse != null)
@@ -132,7 +131,8 @@ namespace BakeryOrder
                     case ResultCode.SUCCESS:
                         Message("支付成功!!! 金額 " + payResponse.TotalAmount);
                         Message("交易號<"+payResponse.TradeNo+">");
-                        SaveToDB(payResponse);
+                        Message(payResponse.Msg);
+                        SaveToDB(payResponse.OutTradeNo,payResponse.OpenId);
                         btnSuccess.Enabled = true;
                         break;
                     case ResultCode.INRROCESS:
@@ -169,18 +169,17 @@ namespace BakeryOrder
             {
                 Message(wex.Message);
                 MessageBox.Show("发生网络错误, 无法连至支付宝服务器!");
+                this.DialogResult = DialogResult.Cancel;
+                Close();
                 return;
             }
             catch (Exception ex)
             {
                 Message(ex.Message);
                 MessageBox.Show("发生错误!");
-                return;
-            }
-            finally
-            {
                 this.DialogResult = DialogResult.Cancel;
                 Close();
+                return;
             }
 
 
@@ -190,7 +189,10 @@ namespace BakeryOrder
                 {
                     switch(queryResponse.TradeStatus)
                     {
-                        case "TRADE_SUCCESS":   Message("==>交易支付成功"); btnSuccess.Enabled = true; return;
+                        case "TRADE_SUCCESS":   Message("==>交易支付成功"); 
+                                                btnSuccess.Enabled = true;
+                                                SaveToDB(queryResponse.OutTradeNo, queryResponse.OpenId);
+                                                return;
                         case "TRADE_FINISHED":  Message("==>交易结束，不可退款"); return;
                         case "TRADE_CLOSED":    Message("==>" + queryResponse.Msg + ":" + queryResponse.SubMsg);   return;
                         case "WAIT_BUYER_PAY":  Message("==>交易创建，等待买家付款..."); return;

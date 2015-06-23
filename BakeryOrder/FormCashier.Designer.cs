@@ -508,7 +508,6 @@
             this.labelMemberCode.Name = "labelMemberCode";
             this.labelMemberCode.Size = new System.Drawing.Size(234, 24);
             this.labelMemberCode.TabIndex = 22;
-            this.labelMemberCode.Text = "會員碼";
             this.labelMemberCode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // FormCashier

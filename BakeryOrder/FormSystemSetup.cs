@@ -97,7 +97,7 @@ namespace BakeryOrder
             else if (!order.IsPayByNull())
             {
                 if      (order.PayBy == "B") addNote += "卡";
-                else if (order.PayBy == "C") addNote += "券";
+                else if (order.PayBy == "C") addNote += "支";
             }
             if (income < 0) addNote+="退";
             if (addNote.Length == 0) addNote = "  ";
@@ -175,7 +175,7 @@ namespace BakeryOrder
             Buf.Append("首单时间 " + first.ToString("HH:mm:ss") + "\r\n");
             Buf.Append("末单时间 " + last.ToString("HH:mm:ss") + "\r\n");
             Buf.Append("删单 "+ deletedCount.ToString("d").PadLeft(3) + " 笔, 退货 " +returnedCount.ToString("d").PadLeft(3) +" 笔\r\n");
-            Buf.Append("用券 " + couponCount.ToString("d").PadLeft(3) + " 笔");
+            Buf.Append("支宝 " + couponCount.ToString("d").PadLeft(3) + " 笔");
             if (couponCount==0) Buf.Append("\r\n");
             else                Buf.Append(", " + coupon.ToString("f0").PadLeft(5) + "元\r\n");
             Buf.Append("刷卡 " + creditCount.ToString("d").PadLeft(3) + " 笔, " + credit.ToString("f0").PadLeft(5) + "元\r\n");

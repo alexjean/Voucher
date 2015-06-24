@@ -480,7 +480,7 @@ namespace VoucherExpense
         }
 
         MD5 m_MD5 = new MD5CryptoServiceProvider();
-        void CopyOrderRow(BakeryOrderSet.OrderRow order, MyOrderRow newOrder)
+        void CopyOrderRow_SpecialInDeleted(BakeryOrderSet.OrderRow order, MyOrderRow newOrder)
         {
             string str = "";
             if (!order.IsBranchIDNull())
@@ -500,7 +500,11 @@ namespace VoucherExpense
             }
             if (!order.IsDeletedNull())
             {
-                newOrder.Deleted = order.Deleted;
+                if (newOrder.IsDeletedNull())       // 店長電腦無刪除狀態,以POS為準
+                    newOrder.Deleted = order.Deleted;
+                else if (order.Deleted)             // POS是刪除的,一定上傳
+                    newOrder.Deleted = order.Deleted;
+                // POS沒刪, 店長電腦有狀態,則保留店長狀態
                 if (newOrder.Deleted) str += '1';     // SQL的bit是0 1
                 else                  str += '0';
             }
@@ -569,7 +573,7 @@ namespace VoucherExpense
                 newOrder.BeginEdit();
 //                newOrder.ItemArray = order.ItemArray;   // ID應該是相同的
                 order.BranchID = m_StoreID;  // 不管POS怎麼設 , 店長收來時再強制設一次 BranchID
-                CopyOrderRow(order, newOrder);
+                CopyOrderRow_SpecialInDeleted(order, newOrder);
                 newOrder.EndEdit();
             }
             else
@@ -579,7 +583,7 @@ namespace VoucherExpense
                 newOrder.BeginEdit();
                // newOrder.ItemArray = order.ItemArray;
                 order.BranchID = m_StoreID;  // 不管POS怎麼設 , 店長收來時再強制設一次 BranchID
-                CopyOrderRow(order, newOrder);
+                CopyOrderRow_SpecialInDeleted(order, newOrder);
                 newOrder.ID = newID;
                 newOrder.EndEdit();
                 m_OrderSet.Order.AddOrderRow(newOrder);
@@ -1289,7 +1293,7 @@ namespace VoucherExpense
             y += height;
             PrintMoney("現金" , cash   , x , y               , w);
             PrintMoney("刷卡" , credit , x , y + height      , w);
-            PrintMoney("券  " , coupon , x , y + height * 2  , w);
+            PrintMoney("支宝" , coupon , x , y + height * 2  , w);
             PrintMoney("檔數" , no     , x , y + height * 3  , w ,"f0");
             PrintMoney("單均" , ave    , x , y + height * 4  , w);
 

@@ -38,12 +38,8 @@ namespace BakeryOrder
             DialogResult = DialogResult.OK;
             if (m_PayBy == 'A')
                 Tag = m_MoneyGot;
-            else if (m_PayBy == 'B' || m_PayBy=='C')  // 刷卡及券沒有 實收 
+            else if (m_PayBy == 'B' || m_PayBy == 'C')  // 刷卡及支付宝沒有 實收 
                 Tag = 0;
-            else if (m_PayBy == 'D')     // D重定義為支付宝
-            {
-                Tag = 0;
-            }
             else
             {
                 MessageBox.Show("未知的付款方式!");
@@ -203,7 +199,7 @@ namespace BakeryOrder
                 btnCoupon.Enabled = false;
                 btnCash.Enabled = false;
                 btnCard.Enabled = false;
-                m_PayBy = 'D';
+                m_PayBy = 'C';
             }
         }
 

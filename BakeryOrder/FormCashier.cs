@@ -830,7 +830,17 @@ namespace BakeryOrder
                 Buf.Append("        找零             "); Buf.Append(d2str(moneyGot - (double)CurrentOrder.Income, 7) + "\r\n");
             }
             else
-                Buf.Append(PayByChinese(CurrentOrder.PayBy[0]) + ":              " + d2str((double)CurrentOrder.Income, 13) + "\r\n");
+            {
+                if (CurrentOrder.PayBy[0] == 'C')  // 支付宝交易列印相關訊息
+                {
+                    Buf.Append(PayByChinese(CurrentOrder.PayBy[0]) + "付:          " + d2str((double)CurrentOrder.Income, 13) + "\r\n");
+                    Buf.Append("买家帐号:" + m_Alipay.LastBuyerLogonID + "\r\n");
+                    Buf.Append("交易类型:条码支付   支付宝交易号:" + "\r\n");
+                    Buf.Append(m_Alipay.LastTradeNo + "\r\n");
+                }
+                else 
+                    Buf.Append(PayByChinese(CurrentOrder.PayBy[0]) + ":              " + d2str((double)CurrentOrder.Income, 13) + "\r\n");
+            }
             Buf.Append(NormalMode);
             Buf.Append("* * * * * * * * * * * * * * * *\r\n\r\n\r\n\r\n\r\n\r\n");
             Buf.Append("\f");
@@ -1273,7 +1283,7 @@ namespace BakeryOrder
         //    return DicPayBy.First().Key;
         //}
 
-        Dictionary<char, string> DicPayBy = new Dictionary<char, string> { { 'A', "现金" }, { 'B', "刷卡" }, { 'C', "券  " }, { 'D', "支付宝" } };
+        Dictionary<char, string> DicPayBy = new Dictionary<char, string> { { 'A', "现金" }, { 'B', "刷卡" }, { 'C', "支付宝" } };
         string PayByChinese(char payBy)
         {
             string str;
@@ -1343,7 +1353,7 @@ namespace BakeryOrder
                 }
                 labelClass.Text = PayByChinese(m_CurrentOrder.PayBy[0]);
 
-                if (m_CurrentOrder.PayBy[0] == 'D')  // 支付宝
+                if (m_CurrentOrder.PayBy[0] == 'C')  // 支付宝
                 {
                     if (!Alipay_RSA_Submit(m_CurrentOrder.ID, MemberCode, m_CurrentOrder, m_Printer.AlipayTitle))
                     {

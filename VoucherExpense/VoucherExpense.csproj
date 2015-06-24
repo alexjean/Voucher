@@ -136,7 +136,7 @@
       <DependentUpon>BakeryOrderSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="AccTitleList.cs" />
-    <Compile Include="Class\AlipayClass.cs" />
+    <Compile Include="Class\AlipayClass1.cs" />
     <Compile Include="Class\BakeryConfig.cs" />
     <Compile Include="Class\DB.cs" />
     <Compile Include="DamaiDataSet.Designer.cs">

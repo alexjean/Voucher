@@ -283,6 +283,7 @@ namespace VoucherExpense
             yy = MyLayout.OffsetY + y * HeightY;
             TextBox b = new TextBox();
             b.MouseClick+=new MouseEventHandler(b_MouseClick);
+            b.MouseDoubleClick += new MouseEventHandler(b_MouseDoubleClick);
             b.Multiline = true;
             b.Font = SystemFonts.MenuFont;
             b.AutoSize = false;
@@ -297,8 +298,8 @@ namespace VoucherExpense
             if (!Row.IsPayByNull())
             {
                 if (Row.PayBy == "B")      b.Text += "卡";
-                else if (Row.PayBy == "C") b.Text += "券";
-                else if (Row.PayBy == "D") b.Text += "支";
+                else if (Row.PayBy == "C") b.Text += "支";
+                else if (Row.PayBy == "D") b.Text += "D";
             }
             decimal income = 0;
             if (!Row.IsIncomeNull())
@@ -426,6 +427,8 @@ namespace VoucherExpense
             {
                 m_TradeNo = row.TradeNo;
                 m_Amount  = row.Income;
+                m_OrderRow = row;
+                m_LastClick = t;
                 labelAlipayNo.Text = "支付宝号" + m_TradeNo;
                 labelAlipayNo.Visible = true;
                 btnAlipayRefund.Visible = true;
@@ -433,6 +436,54 @@ namespace VoucherExpense
             if (!ShowOrder(row))         // return false 總額不符
                 labelTotal.Text +=  "???";
 
+        }
+
+        private void UpdateDeletedMark(MyOrderRow order, bool mark)
+        {
+            order.BeginEdit();
+            order.Deleted = mark;
+            order.EndEdit();
+            try
+            {
+                if (order.RowState != DataRowState.Unchanged)   // 不用管Deleted,Detached不會發生
+                {
+                    m_OrderTableAdapter.Update(order);
+                    order.AcceptChanges();     // Update應該隱含AcceptChanges
+                }
+            }
+            catch (Exception E)
+            {
+                if (E.GetType() != typeof(System.Data.DBConcurrencyException))
+                    MessageBox.Show(E.Message + "Update(CurrentOrder) 出錯");
+                else
+                {
+                    MessageBox.Show("Update(Order)發生並行違例,可能是別台己經改過這張單子,或新Order有初值未設定!");
+                    MessageBox.Show("請重啟程式,你必需重新修改!");
+                }
+            }
+        }
+
+        private void b_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            //if (m_DataSealed)
+            //{
+            //    MessageBox.Show("今日資料己封印,無法更改刪除狀態!");
+            //    return;
+            //}
+            TextBox t = (TextBox)sender;
+            var order = t.Tag as MyOrderRow;
+            if (MessageBox.Show("要更改刪除狀態?","",MessageBoxButtons.YesNo) != DialogResult.Yes)
+                return;
+            bool deleted=true;
+            if (!order.IsDeletedNull() && order.Deleted)
+            {
+                deleted = false;
+                if (order.OldID > 0)  t.BackColor = Color.Red;
+                else                  t.BackColor = tabControl1.TabPages[0].BackColor;
+            }
+            else
+                t.BackColor = Color.Green;
+            UpdateDeletedMark(order, deleted);
         }
 
         private void btnOrderList_Click(object sender, EventArgs e)
@@ -704,8 +755,10 @@ namespace VoucherExpense
 
 
         DoAlipay m_Alipay=null;
-        string m_TradeNo;      // m_TradeNo m_Amount在 MouseClick()時,是支付宝支付 填入值
+        string m_TradeNo;       // m_TradeNo m_Amount在 MouseClick()時,是支付宝支付 填入值
         decimal m_Amount;
+        MyOrderRow m_OrderRow;  // 在MouseClick時填入
+        TextBox m_LastClick;    // 在MouseClick時填入
         private void btnAlipayRefund_Click(object sender, EventArgs e)
         {
             if (m_Alipay == null)
@@ -715,6 +768,14 @@ namespace VoucherExpense
             }
             Form form = new FormAlipay1(m_Alipay, m_TradeNo, m_Amount.ToString("N2"));
             form.ShowDialog();
+            if (m_Alipay.RefundedOrCanceled)   // 在FormAlipay1裏面設定
+            {
+                if (m_LastClick != null)
+                {
+                    m_LastClick.BackColor = Color.Green;
+                    UpdateDeletedMark(m_OrderRow, true);
+                }
+            }
         }
 
 

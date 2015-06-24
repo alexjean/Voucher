@@ -91,11 +91,12 @@ namespace BakeryOrder
             Close();
         }
 
-        void SaveToDB(string AliTradeNo,string OpenId)
+        void SaveToDB(string AliTradeNo,string OpenId,string BuyerLogonId)
         {
             // 存支付宝 OutTradeNo , OpenID, 帳號?
             m_Alipay.LastTradeNo = AliTradeNo;
             m_Alipay.LastOpenID = OpenId;
+            m_Alipay.LastBuyerLogonID = BuyerLogonId;
         }
 
         private void FormAlipay_Shown(object sender, EventArgs e)
@@ -132,7 +133,7 @@ namespace BakeryOrder
                         Message("支付成功!!! 金額 " + payResponse.TotalAmount);
                         Message("交易號<"+payResponse.TradeNo+">");
                         Message(payResponse.Msg);
-                        SaveToDB(payResponse.TradeNo,payResponse.OpenId);
+                        SaveToDB(payResponse.TradeNo,payResponse.OpenId,payResponse.BuyerLogonId);
                         btnSuccess.Enabled = true;
                         break;
                     case ResultCode.INRROCESS:
@@ -191,7 +192,7 @@ namespace BakeryOrder
                     {
                         case "TRADE_SUCCESS":   Message("==>交易支付成功"); 
                                                 btnSuccess.Enabled = true;
-                                                SaveToDB(queryResponse.TradeNo, queryResponse.OpenId);
+                                                SaveToDB(queryResponse.TradeNo, queryResponse.OpenId,queryResponse.BuyerLogonId);
                                                 return;
                         case "TRADE_FINISHED":  Message("==>交易结束，不可退款"); return;
                         case "TRADE_CLOSED":    Message("==>交易己关闭或已全额退款!"); return;

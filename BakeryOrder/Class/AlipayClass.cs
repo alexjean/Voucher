@@ -35,30 +35,17 @@ namespace Com.Alipay
         public string sign_type ="RSA";
         public string alipay_public_key = KeyFilePath()+"alipay_rsa_public_key.pem";
         public string charset="utf-8";
-        public static string KeyFilePath() { return @"D:\HotZones\Restaurant10\VoucherExpense10\BakeryOrder\RSA_KeyFile\"; }
         public string LastTradeNo;      // 為了協助WinForm傳參數特別加的 支付宝的交易號
         public string LastOpenID;       // 為了協助WinForm傳參數特別加的 客戶的OpenID
-        //{
-        //    string debugPath = Application.ExecutablePath;   //   ..\bin\Debug\BakeryOrder.Exe 要退三個 \
-        //    int i;
-        //    i=debugPath.LastIndexOf('\\');
-        //    if (i>0)
-        //    {
-        //        debugPath = debugPath.Substring(0, i);
-        //        i = debugPath.LastIndexOf('\\');
-        //        if (i > 0)
-        //        {
-        //            debugPath = debugPath.Substring(0, i);
-        //            i = debugPath.LastIndexOf('\\');
-        //            if (i>0)
-        //                debugPath = debugPath.Substring(0, i);
-        //        }
-        //    }
-        //    return debugPath+"\\RSA_KeyFile\\";
-        //}
-        IAopClient m_Client;
-        
+        public string LastBuyerLogonID; // 支付宝要求小票上要印出客人支付宝號
+        public static string KeyFilePath()
+        //{ return @"D:\HotZones\Restaurant10\VoucherExpense10\BakeryOrder\RSA_KeyFile\"; }
+        {
+            string path = System.IO.Directory.GetCurrentDirectory();
+            return path+@"\RSA_KeyFile\";
+        }
 
+        IAopClient m_Client;
         public void Setup()
         {
             m_Client = new DefaultAopClient(serverUrl, appId, merchant_private_key , "", version,

@@ -31,7 +31,13 @@
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -46,28 +52,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgViewMonthly = new System.Windows.Forms.DataGridView();
-            this.Coupond = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Deduct = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ReturnedCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ReturnedMoney = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreditNet = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreditFee = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DeletedCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DeletedMoney = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TwentyPDCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TwentyPDMoney = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FifteenPDCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FifteenPDMoney = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TenPDCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TenPDMoney = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.monthlyReportDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bakeryOrderSet = new VoucherExpense.BakeryOrderSet();
             this.comboBoxMonth = new System.Windows.Forms.ComboBox();
             this.labelOrderCount = new System.Windows.Forms.Label();
@@ -82,12 +68,26 @@
             this.revenueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cashDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.creditCardDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Coupond = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.orderCountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.avePerPersonDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.monthlyReportDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.Deduct = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ReturnedCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ReturnedMoney = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreditNet = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreditFee = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DeletedCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DeletedMoney = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TwentyPDCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TwentyPDMoney = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FifteenPDCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FifteenPDMoney = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TenPDCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TenPDMoney = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgViewMonthly)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.monthlyReportDataBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).BeginInit();
             this.SuspendLayout();
             // 
             // dgViewMonthly
@@ -143,149 +143,9 @@
             this.dgViewMonthly.Size = new System.Drawing.Size(1618, 597);
             this.dgViewMonthly.TabIndex = 0;
             // 
-            // Coupond
+            // monthlyReportDataBindingSource
             // 
-            this.Coupond.DataPropertyName = "Coupond";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Coupond.DefaultCellStyle = dataGridViewCellStyle7;
-            this.Coupond.HeaderText = "券";
-            this.Coupond.Name = "Coupond";
-            this.Coupond.ReadOnly = true;
-            this.Coupond.Width = 80;
-            // 
-            // Deduct
-            // 
-            this.Deduct.DataPropertyName = "Deduct";
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Deduct.DefaultCellStyle = dataGridViewCellStyle10;
-            this.Deduct.HeaderText = "优惠";
-            this.Deduct.Name = "Deduct";
-            this.Deduct.ReadOnly = true;
-            this.Deduct.Width = 64;
-            // 
-            // ReturnedCount
-            // 
-            this.ReturnedCount.DataPropertyName = "ReturnedCount";
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.ReturnedCount.DefaultCellStyle = dataGridViewCellStyle11;
-            this.ReturnedCount.HeaderText = "退單";
-            this.ReturnedCount.Name = "ReturnedCount";
-            this.ReturnedCount.ReadOnly = true;
-            this.ReturnedCount.Width = 64;
-            // 
-            // ReturnedMoney
-            // 
-            this.ReturnedMoney.DataPropertyName = "ReturnedMoney";
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.ReturnedMoney.DefaultCellStyle = dataGridViewCellStyle12;
-            this.ReturnedMoney.HeaderText = "退金額";
-            this.ReturnedMoney.Name = "ReturnedMoney";
-            this.ReturnedMoney.ReadOnly = true;
-            this.ReturnedMoney.Width = 80;
-            // 
-            // CreditNet
-            // 
-            this.CreditNet.DataPropertyName = "CreditNet";
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.CreditNet.DefaultCellStyle = dataGridViewCellStyle13;
-            this.CreditNet.HeaderText = "刷卡淨收";
-            this.CreditNet.Name = "CreditNet";
-            this.CreditNet.ReadOnly = true;
-            // 
-            // CreditFee
-            // 
-            this.CreditFee.DataPropertyName = "CreditFee";
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.CreditFee.DefaultCellStyle = dataGridViewCellStyle14;
-            this.CreditFee.HeaderText = "手續費";
-            this.CreditFee.Name = "CreditFee";
-            this.CreditFee.ReadOnly = true;
-            this.CreditFee.Width = 80;
-            // 
-            // DeletedCount
-            // 
-            this.DeletedCount.DataPropertyName = "DeletedCount";
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.DeletedCount.DefaultCellStyle = dataGridViewCellStyle15;
-            this.DeletedCount.HeaderText = "癈單";
-            this.DeletedCount.Name = "DeletedCount";
-            this.DeletedCount.ReadOnly = true;
-            this.DeletedCount.Width = 64;
-            // 
-            // DeletedMoney
-            // 
-            this.DeletedMoney.DataPropertyName = "DeletedMoney";
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.DeletedMoney.DefaultCellStyle = dataGridViewCellStyle16;
-            this.DeletedMoney.HeaderText = "癈金額";
-            this.DeletedMoney.Name = "DeletedMoney";
-            this.DeletedMoney.ReadOnly = true;
-            this.DeletedMoney.Width = 80;
-            // 
-            // TwentyPDCount
-            // 
-            this.TwentyPDCount.DataPropertyName = "TwentyPDCount";
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.TwentyPDCount.DefaultCellStyle = dataGridViewCellStyle17;
-            this.TwentyPDCount.HeaderText = "八折单数";
-            this.TwentyPDCount.Name = "TwentyPDCount";
-            this.TwentyPDCount.ReadOnly = true;
-            // 
-            // TwentyPDMoney
-            // 
-            this.TwentyPDMoney.DataPropertyName = "TwentyPDMoney";
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.TwentyPDMoney.DefaultCellStyle = dataGridViewCellStyle18;
-            this.TwentyPDMoney.HeaderText = "八折金额";
-            this.TwentyPDMoney.Name = "TwentyPDMoney";
-            this.TwentyPDMoney.ReadOnly = true;
-            // 
-            // FifteenPDCount
-            // 
-            this.FifteenPDCount.DataPropertyName = "FifteenPDCount";
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.FifteenPDCount.DefaultCellStyle = dataGridViewCellStyle19;
-            this.FifteenPDCount.HeaderText = "八五单数";
-            this.FifteenPDCount.Name = "FifteenPDCount";
-            this.FifteenPDCount.ReadOnly = true;
-            // 
-            // FifteenPDMoney
-            // 
-            this.FifteenPDMoney.DataPropertyName = "FifteenPDMoney";
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.FifteenPDMoney.DefaultCellStyle = dataGridViewCellStyle20;
-            this.FifteenPDMoney.HeaderText = "八五金额";
-            this.FifteenPDMoney.Name = "FifteenPDMoney";
-            this.FifteenPDMoney.ReadOnly = true;
-            // 
-            // TenPDCount
-            // 
-            this.TenPDCount.DataPropertyName = "TenPDCount";
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.TenPDCount.DefaultCellStyle = dataGridViewCellStyle21;
-            this.TenPDCount.HeaderText = "九折单数";
-            this.TenPDCount.Name = "TenPDCount";
-            this.TenPDCount.ReadOnly = true;
-            // 
-            // TenPDMoney
-            // 
-            this.TenPDMoney.DataPropertyName = "TenPDMoney";
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.TenPDMoney.DefaultCellStyle = dataGridViewCellStyle22;
-            this.TenPDMoney.HeaderText = "九折金额";
-            this.TenPDMoney.Name = "TenPDMoney";
-            this.TenPDMoney.ReadOnly = true;
-            // 
-            // Column1
-            // 
-            this.Column1.DataPropertyName = "Date";
-            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle23.Format = "dd";
-            this.Column1.DefaultCellStyle = dataGridViewCellStyle23;
-            this.Column1.HeaderText = "日期";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Width = 64;
+            this.monthlyReportDataBindingSource.DataSource = typeof(VoucherExpense.MonthlyReportData);
             // 
             // bakeryOrderSet
             // 
@@ -429,6 +289,16 @@
             this.creditCardDataGridViewTextBoxColumn.ReadOnly = true;
             this.creditCardDataGridViewTextBoxColumn.Width = 80;
             // 
+            // Coupond
+            // 
+            this.Coupond.DataPropertyName = "Coupond";
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Coupond.DefaultCellStyle = dataGridViewCellStyle7;
+            this.Coupond.HeaderText = "支付宝";
+            this.Coupond.Name = "Coupond";
+            this.Coupond.ReadOnly = true;
+            this.Coupond.Width = 80;
+            // 
             // orderCountDataGridViewTextBoxColumn
             // 
             this.orderCountDataGridViewTextBoxColumn.DataPropertyName = "OrderCount";
@@ -449,9 +319,139 @@
             this.avePerPersonDataGridViewTextBoxColumn.ReadOnly = true;
             this.avePerPersonDataGridViewTextBoxColumn.Width = 64;
             // 
-            // monthlyReportDataBindingSource
+            // Deduct
             // 
-            this.monthlyReportDataBindingSource.DataSource = typeof(VoucherExpense.MonthlyReportData);
+            this.Deduct.DataPropertyName = "Deduct";
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Deduct.DefaultCellStyle = dataGridViewCellStyle10;
+            this.Deduct.HeaderText = "优惠";
+            this.Deduct.Name = "Deduct";
+            this.Deduct.ReadOnly = true;
+            this.Deduct.Width = 64;
+            // 
+            // ReturnedCount
+            // 
+            this.ReturnedCount.DataPropertyName = "ReturnedCount";
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.ReturnedCount.DefaultCellStyle = dataGridViewCellStyle11;
+            this.ReturnedCount.HeaderText = "退單";
+            this.ReturnedCount.Name = "ReturnedCount";
+            this.ReturnedCount.ReadOnly = true;
+            this.ReturnedCount.Width = 64;
+            // 
+            // ReturnedMoney
+            // 
+            this.ReturnedMoney.DataPropertyName = "ReturnedMoney";
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.ReturnedMoney.DefaultCellStyle = dataGridViewCellStyle12;
+            this.ReturnedMoney.HeaderText = "退金額";
+            this.ReturnedMoney.Name = "ReturnedMoney";
+            this.ReturnedMoney.ReadOnly = true;
+            this.ReturnedMoney.Width = 80;
+            // 
+            // CreditNet
+            // 
+            this.CreditNet.DataPropertyName = "CreditNet";
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.CreditNet.DefaultCellStyle = dataGridViewCellStyle13;
+            this.CreditNet.HeaderText = "刷卡淨收";
+            this.CreditNet.Name = "CreditNet";
+            this.CreditNet.ReadOnly = true;
+            // 
+            // CreditFee
+            // 
+            this.CreditFee.DataPropertyName = "CreditFee";
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.CreditFee.DefaultCellStyle = dataGridViewCellStyle14;
+            this.CreditFee.HeaderText = "手續費";
+            this.CreditFee.Name = "CreditFee";
+            this.CreditFee.ReadOnly = true;
+            this.CreditFee.Width = 80;
+            // 
+            // DeletedCount
+            // 
+            this.DeletedCount.DataPropertyName = "DeletedCount";
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.DeletedCount.DefaultCellStyle = dataGridViewCellStyle15;
+            this.DeletedCount.HeaderText = "癈單";
+            this.DeletedCount.Name = "DeletedCount";
+            this.DeletedCount.ReadOnly = true;
+            this.DeletedCount.Width = 64;
+            // 
+            // DeletedMoney
+            // 
+            this.DeletedMoney.DataPropertyName = "DeletedMoney";
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.DeletedMoney.DefaultCellStyle = dataGridViewCellStyle16;
+            this.DeletedMoney.HeaderText = "癈金額";
+            this.DeletedMoney.Name = "DeletedMoney";
+            this.DeletedMoney.ReadOnly = true;
+            this.DeletedMoney.Width = 80;
+            // 
+            // TwentyPDCount
+            // 
+            this.TwentyPDCount.DataPropertyName = "TwentyPDCount";
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.TwentyPDCount.DefaultCellStyle = dataGridViewCellStyle17;
+            this.TwentyPDCount.HeaderText = "八折单数";
+            this.TwentyPDCount.Name = "TwentyPDCount";
+            this.TwentyPDCount.ReadOnly = true;
+            // 
+            // TwentyPDMoney
+            // 
+            this.TwentyPDMoney.DataPropertyName = "TwentyPDMoney";
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.TwentyPDMoney.DefaultCellStyle = dataGridViewCellStyle18;
+            this.TwentyPDMoney.HeaderText = "八折金额";
+            this.TwentyPDMoney.Name = "TwentyPDMoney";
+            this.TwentyPDMoney.ReadOnly = true;
+            // 
+            // FifteenPDCount
+            // 
+            this.FifteenPDCount.DataPropertyName = "FifteenPDCount";
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.FifteenPDCount.DefaultCellStyle = dataGridViewCellStyle19;
+            this.FifteenPDCount.HeaderText = "八五单数";
+            this.FifteenPDCount.Name = "FifteenPDCount";
+            this.FifteenPDCount.ReadOnly = true;
+            // 
+            // FifteenPDMoney
+            // 
+            this.FifteenPDMoney.DataPropertyName = "FifteenPDMoney";
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.FifteenPDMoney.DefaultCellStyle = dataGridViewCellStyle20;
+            this.FifteenPDMoney.HeaderText = "八五金额";
+            this.FifteenPDMoney.Name = "FifteenPDMoney";
+            this.FifteenPDMoney.ReadOnly = true;
+            // 
+            // TenPDCount
+            // 
+            this.TenPDCount.DataPropertyName = "TenPDCount";
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.TenPDCount.DefaultCellStyle = dataGridViewCellStyle21;
+            this.TenPDCount.HeaderText = "九折单数";
+            this.TenPDCount.Name = "TenPDCount";
+            this.TenPDCount.ReadOnly = true;
+            // 
+            // TenPDMoney
+            // 
+            this.TenPDMoney.DataPropertyName = "TenPDMoney";
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.TenPDMoney.DefaultCellStyle = dataGridViewCellStyle22;
+            this.TenPDMoney.HeaderText = "九折金额";
+            this.TenPDMoney.Name = "TenPDMoney";
+            this.TenPDMoney.ReadOnly = true;
+            // 
+            // Column1
+            // 
+            this.Column1.DataPropertyName = "Date";
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle23.Format = "dd";
+            this.Column1.DefaultCellStyle = dataGridViewCellStyle23;
+            this.Column1.HeaderText = "日期";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 64;
             // 
             // MonthlyReportBakery
             // 
@@ -476,8 +476,8 @@
             this.Load += new System.EventHandler(this.MonthlyReportBakery_Load);
             this.Shown += new System.EventHandler(this.MonthlyReportBakery_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.dgViewMonthly)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.monthlyReportDataBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).EndInit();
             this.ResumeLayout(false);
 
         }

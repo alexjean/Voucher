@@ -98,8 +98,9 @@
             this.btnCoupon.Name = "btnCoupon";
             this.btnCoupon.Size = new System.Drawing.Size(75, 53);
             this.btnCoupon.TabIndex = 14;
-            this.btnCoupon.Text = "券";
+            this.btnCoupon.Text = "支付宝";
             this.btnCoupon.UseVisualStyleBackColor = true;
+            this.btnCoupon.Visible = false;
             this.btnCoupon.Click += new System.EventHandler(this.btnCoupon_Click);
             // 
             // label3

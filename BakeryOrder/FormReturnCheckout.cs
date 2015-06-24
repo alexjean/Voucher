@@ -78,7 +78,7 @@ namespace BakeryOrder
                 DialogResult = DialogResult.OK;
                 if (m_PayBy == 'A')
                     Tag = m_MoneyGot;
-                else if (m_PayBy == 'B' || m_PayBy == 'C' || m_PayBy=='D')  // 刷卡及券沒有 實收
+                else if (m_PayBy == 'B' || m_PayBy == 'C')  // 刷卡及支付宝沒有 實收
                     Tag = 0;
                 else
                 {

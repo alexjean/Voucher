@@ -139,4 +139,13 @@
   <data name="VoucherExpense" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\VoucherExpense.gz;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="alipay_rsa_public_key" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\RSA_KeyFile\alipay_rsa_public_key.pem;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="rsa_private_key" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\RSA_KeyFile\rsa_private_key.pem;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="rsa_public_key" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\RSA_KeyFile\rsa_public_key.pem;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

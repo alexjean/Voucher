@@ -37,7 +37,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.labelTotal = new System.Windows.Forms.Label();
             this.pictureBoxOrdered = new System.Windows.Forms.PictureBox();
-            this.myImgControl1 = new MyControlLibrary.MyImgControl();
+            this.SlideShowImg = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrdered)).BeginInit();
             this.SuspendLayout();
             // 
@@ -108,17 +108,16 @@
             this.pictureBoxOrdered.TabIndex = 8;
             this.pictureBoxOrdered.TabStop = false;
             // 
-            // myImgControl1
+            // SlideShowImg
             // 
-            this.myImgControl1.BackColor = System.Drawing.Color.Black;
-            this.myImgControl1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.myImgControl1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.myImgControl1.Location = new System.Drawing.Point(275, 0);
-            this.myImgControl1.Margin = new System.Windows.Forms.Padding(4);
-            this.myImgControl1.MyStr = null;
-            this.myImgControl1.Name = "myImgControl1";
-            this.myImgControl1.Size = new System.Drawing.Size(749, 768);
-            this.myImgControl1.TabIndex = 9;
+            this.SlideShowImg.BackColor = System.Drawing.Color.Black;
+            this.SlideShowImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.SlideShowImg.Dock = System.Windows.Forms.DockStyle.Right;
+            this.SlideShowImg.Location = new System.Drawing.Point(275, 0);
+            this.SlideShowImg.Margin = new System.Windows.Forms.Padding(4);
+            this.SlideShowImg.Name = "SlideShowImg";
+            this.SlideShowImg.Size = new System.Drawing.Size(749, 768);
+            this.SlideShowImg.TabIndex = 9;
             // 
             // FormCustomer
             // 
@@ -126,7 +125,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Azure;
             this.ClientSize = new System.Drawing.Size(1024, 768);
-            this.Controls.Add(this.myImgControl1);
+            this.Controls.Add(this.SlideShowImg);
             this.Controls.Add(this.labelTotal);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lvCustomer);
@@ -155,6 +154,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelTotal;
         private System.Windows.Forms.PictureBox pictureBoxOrdered;
-        private MyControlLibrary.MyImgControl myImgControl1;
+        private System.Windows.Forms.PictureBox SlideShowImg;
     }
 }

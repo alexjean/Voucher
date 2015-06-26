@@ -559,14 +559,15 @@ namespace BakeryOrder
                 Directory.CreateDirectory(m_ProductDir);
             if (!Directory.Exists(m_SmallDir))
                 Directory.CreateDirectory(m_SmallDir);
+            m_Alipay = new DoAlipay();
+            m_Alipay.Setup();
             if (m_CashierID < 0)
             {
                 SetLoginStatus(false);
                 return;
-            }
+            }   
             SetLoginStatus(true);
-            m_Alipay = new DoAlipay();
-            m_Alipay.Setup();
+            // 後面別放東西上面 return掉了
         }
 
         public DoAlipay m_Alipay;
@@ -946,8 +947,8 @@ namespace BakeryOrder
         {
             /*-----------恢复初始状态-----------*/
             SetMemberNull();
-            lshow.Text = "";
-            myImgControl1.changetext("");
+            //lshow.Text = "";
+            //myImgControl1.changetext("");
             //textBox1.SelectAll();
             //textBox1.Focus();
             MemberCode = "";
@@ -1470,14 +1471,15 @@ namespace BakeryOrder
         /// <param name="img"></param>
         private void imgShow(Image img)
         {
-            pictureBoxOrdered.Controls.Clear();
-           // var myimg = new MyControlLibrary.MyImgControl();
-            myImgControl1.MyColor = Color.White;
-            myImgControl1.Myalpha = 30;
-            myImgControl1.BackgroundImage = img;
+            pictureBoxOrdered.BackgroundImage = img;
+           // pictureBoxOrdered.Controls.Clear();
+           //// var myimg = new MyControlLibrary.MyImgControl();
+           // myImgControl1.MyColor = Color.White;
+           // myImgControl1.Myalpha = 30;
+           // myImgControl1.BackgroundImage = img;
         
-            myImgControl1.MyStrColor = Color.DarkRed;
-            pictureBoxOrdered.Controls.Add(myImgControl1);
+           // myImgControl1.MyStrColor = Color.DarkRed;
+           // pictureBoxOrdered.Controls.Add(myImgControl1);
         }
         #endregion
 

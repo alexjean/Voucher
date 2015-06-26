@@ -101,6 +101,8 @@ namespace BakeryOrder
 
         private void FormAlipay_Shown(object sender, EventArgs e)
         {
+            if (m_Alipay == null)
+                MessageBox.Show("無法使用支付宝服務, 支付宝組件啟動失敗或未安裝所需組件!");
             Message("訂單<" + m_TradeNoStr + "> 支付請求发起中...");
             Application.DoEvents();
             AlipayTradePayResponse payResponse=null;

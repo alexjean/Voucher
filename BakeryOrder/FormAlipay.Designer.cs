@@ -46,6 +46,7 @@
             this.btnSuccess.TabIndex = 0;
             this.btnSuccess.Text = "支付成功印单";
             this.btnSuccess.UseVisualStyleBackColor = true;
+            this.btnSuccess.Visible = false;
             this.btnSuccess.Click += new System.EventHandler(this.btnSuccess_Click);
             // 
             // btnCancel

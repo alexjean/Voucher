@@ -36,7 +36,7 @@ namespace BakeryOrder
             }
             if (!Directory.Exists(m_Path))
             {
-                MessageBox.Show("照片目錄不存在!");
+                MessageBox.Show("客屏展示照片目錄不存在!");
                 return;
             }
             // 圖太大的先縮圖
@@ -80,17 +80,18 @@ namespace BakeryOrder
 
         private void imgShow(Image img)
         {
-            this.myImgControl1.BackgroundImage = img;
-            this.myImgControl1.MyStrColor = Color.Red;
-            this.myImgControl1.MyStr = "";
-            if (FormCashier.memberInfo!=null)
-            {
-                this.myImgControl1.changetext("尊敬的会员您好！");  
-            }
-            else
-            {
-                this.myImgControl1.changetext("");    
-            }
+            SlideShowImg.BackgroundImage = img;
+            //this.myImgControl1.BackgroundImage = img;
+            //this.myImgControl1.MyStrColor = Color.Red;
+            //this.myImgControl1.MyStr = "";
+            //if (FormCashier.memberInfo!=null)
+            //{
+            //    this.myImgControl1.changetext("尊敬的会员您好！");  
+            //}
+            //else
+            //{
+            //    this.myImgControl1.changetext("");    
+            //}
            
         }
         private void timer1_Tick(object sender, EventArgs e)
@@ -105,15 +106,15 @@ namespace BakeryOrder
             //myImgControl1.MyStr = "333";
            // myImgControl1.Refresh();
             imgShow(Image.FromFile(m_Files[m_Count]));
-            if (this.myImgControl1.Dock != DockStyle.Fill)
-                this.myImgControl1.Dock = DockStyle.Fill;
+            if (this.SlideShowImg.Dock != DockStyle.Fill)
+                this.SlideShowImg.Dock = DockStyle.Fill;
         }
 
         public void SetTimer(int tick)
         {
             timer1.Interval = tick;
-            if (this.myImgControl1.Dock != DockStyle.Right)
-                this.myImgControl1.Dock = DockStyle.Right;
+            if (this.SlideShowImg.Dock != DockStyle.Right)
+                this.SlideShowImg.Dock = DockStyle.Right;
         }
 
         public void ShowTotal(double total)

@@ -70,13 +70,11 @@
             this.cashierTableAdapter = new BakeryOrder.BakeryOrderSetTableAdapters.CashierTableAdapter();
             this.headerTableAdapter = new BakeryOrder.BakeryOrderSetTableAdapters.HeaderTableAdapter();
             this.pictureBoxOrdered = new System.Windows.Forms.Panel();
-            this.myImgControl1 = new MyControlLibrary.MyImgControl();
             this.lshow = new System.Windows.Forms.Label();
             this.labelMemberCode = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.panelLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).BeginInit();
-            this.pictureBoxOrdered.SuspendLayout();
             this.SuspendLayout();
             // 
             // lvItems
@@ -477,21 +475,10 @@
             // 
             // pictureBoxOrdered
             // 
-            this.pictureBoxOrdered.Controls.Add(this.myImgControl1);
             this.pictureBoxOrdered.Location = new System.Drawing.Point(18, 487);
             this.pictureBoxOrdered.Name = "pictureBoxOrdered";
             this.pictureBoxOrdered.Size = new System.Drawing.Size(200, 147);
             this.pictureBoxOrdered.TabIndex = 20;
-            // 
-            // myImgControl1
-            // 
-            this.myImgControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.myImgControl1.Location = new System.Drawing.Point(0, 0);
-            this.myImgControl1.Margin = new System.Windows.Forms.Padding(4);
-            this.myImgControl1.MyStr = null;
-            this.myImgControl1.Name = "myImgControl1";
-            this.myImgControl1.Size = new System.Drawing.Size(200, 147);
-            this.myImgControl1.TabIndex = 0;
             // 
             // lshow
             // 
@@ -547,7 +534,6 @@
             this.panelLogin.ResumeLayout(false);
             this.panelLogin.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).EndInit();
-            this.pictureBoxOrdered.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -596,7 +582,6 @@
         private System.Windows.Forms.Label labelDeduct;
         private System.Windows.Forms.Button btnTest;
         private System.Windows.Forms.Panel pictureBoxOrdered;
-        private MyControlLibrary.MyImgControl myImgControl1;
         private System.Windows.Forms.Label lshow;
         private System.Windows.Forms.Label labelMemberCode;
     }

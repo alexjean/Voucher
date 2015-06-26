@@ -31,7 +31,7 @@ namespace Com.Alipay
         public string serverUrl ="https://openapi.alipay.com/gateway.do";
         public string appId = "2015051300073986";
         public string merchant_private_key = KeyFilePath()+"rsa_private_key.pem";
-        public string version   ="0.92";
+        public string version   ="0.95";
         public string sign_type ="RSA";
         public string alipay_public_key = KeyFilePath()+"alipay_rsa_public_key.pem";
         public string charset="utf-8";

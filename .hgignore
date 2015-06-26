@@ -24,3 +24,5 @@ Docs/*
 VoucherExpense/Resources/?ואµָ.PNG
 SyncCloud/bin/*
 SyncCloud/obj/*
+syntax: regexp
+sdk-0511-2/*

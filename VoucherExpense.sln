@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BakeryOrder", "BakeryOrder\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyncCloud", "SyncCloud\SyncCloud.csproj", "{F9D66AC0-FE35-4C51-9B6F-626325FD4AF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AopSdk", "sdk-0511-2\AopSdk.csproj", "{9C11CAE5-5188-4E71-825B-68FC3135728A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,16 +52,6 @@ Global
 		{F9D66AC0-FE35-4C51-9B6F-626325FD4AF6}.Release|Mixed Platforms.Build.0 = Release|x86
 		{F9D66AC0-FE35-4C51-9B6F-626325FD4AF6}.Release|x86.ActiveCfg = Release|x86
 		{F9D66AC0-FE35-4C51-9B6F-626325FD4AF6}.Release|x86.Build.0 = Release|x86
-		{9C11CAE5-5188-4E71-825B-68FC3135728A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9C11CAE5-5188-4E71-825B-68FC3135728A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9C11CAE5-5188-4E71-825B-68FC3135728A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{9C11CAE5-5188-4E71-825B-68FC3135728A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{9C11CAE5-5188-4E71-825B-68FC3135728A}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{9C11CAE5-5188-4E71-825B-68FC3135728A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9C11CAE5-5188-4E71-825B-68FC3135728A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9C11CAE5-5188-4E71-825B-68FC3135728A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{9C11CAE5-5188-4E71-825B-68FC3135728A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{9C11CAE5-5188-4E71-825B-68FC3135728A}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

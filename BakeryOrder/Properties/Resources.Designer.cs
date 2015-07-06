@@ -61,6 +61,16 @@ namespace BakeryOrder.Properties {
         }
         
         /// <summary>
+        ///   查詢類型 System.Byte[] 的當地語系化資源。
+        /// </summary>
+        internal static byte[] alipay_rsa_public_key {
+            get {
+                object obj = ResourceManager.GetObject("alipay_rsa_public_key", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 (圖示) 的類型 System.Drawing.Icon 當地語系化資源。
         /// </summary>
         internal static System.Drawing.Icon Chair {
@@ -77,6 +87,26 @@ namespace BakeryOrder.Properties {
             get {
                 object obj = ResourceManager.GetObject("Powder", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類型 System.Byte[] 的當地語系化資源。
+        /// </summary>
+        internal static byte[] rsa_private_key {
+            get {
+                object obj = ResourceManager.GetObject("rsa_private_key", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類型 System.Byte[] 的當地語系化資源。
+        /// </summary>
+        internal static byte[] rsa_public_key {
+            get {
+                object obj = ResourceManager.GetObject("rsa_public_key", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         

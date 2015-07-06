@@ -108,7 +108,15 @@ namespace Aop.Api.Util
         {
             try
             {   // === AlexModified for hide KeyFile ================
-                string sPublicKeyPEM = File.ReadAllText(publicKeyPem);
+                //string sPublicKeyPEM = File.ReadAllText(publicKeyPem);
+                string sPublicKeyPEM;
+                string fileName = Path.GetFileNameWithoutExtension(publicKeyPem);
+                if (fileName == "alipay_rsa_public_key")
+                    sPublicKeyPEM = Encoding.UTF8.GetString(global::BakeryOrder.Properties.Resources.alipay_rsa_public_key);
+                else if (fileName == "rsa_public_key")
+                    sPublicKeyPEM = Encoding.ASCII.GetString(global::BakeryOrder.Properties.Resources.rsa_public_key);
+                else
+                    sPublicKeyPEM = File.ReadAllText(publicKeyPem);
                 // ==================================================
                 RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
                 rsa.PersistKeyInCsp = false;
@@ -194,7 +202,15 @@ namespace Aop.Api.Util
         {
             try
             {   // === AlexModified for hide KeyFile ================
-                string sPublicKeyPEM = File.ReadAllText(publicKeyPem);
+                //string sPublicKeyPEM = File.ReadAllText(publicKeyPem);
+                string sPublicKeyPEM;
+                string fileName=Path.GetFileNameWithoutExtension(publicKeyPem);
+                if (fileName == "alipay_rsa_public_key")
+                    sPublicKeyPEM = Encoding.UTF8.GetString(global::BakeryOrder.Properties.Resources.alipay_rsa_public_key);
+                else if (fileName=="rsa_public_key")
+                    sPublicKeyPEM = Encoding.ASCII.GetString(global::BakeryOrder.Properties.Resources.rsa_public_key);
+                else
+                    sPublicKeyPEM = File.ReadAllText(publicKeyPem);
                 // ==================================================
                 RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
                 rsa.PersistKeyInCsp = false;
@@ -285,7 +301,16 @@ namespace Aop.Api.Util
             // === AlexModified for hide KeyFile ================
             if (Path.GetFileName(filename) == "rsa_private_key.pem")
             {
-
+                byte[] data = global::BakeryOrder.Properties.Resources.rsa_private_key;
+                byte[] res = null;
+                if (data[0] != 0x30) res = GetPem("RSA PRIVATE KEY", data);
+                try
+                {
+                    RSACryptoServiceProvider rsa = DecodeRSAPrivateKey(res);
+                    return rsa;
+                }
+                catch (Exception ex) { }
+                return null;
             }
             // ==================================================
             using (System.IO.FileStream fs = System.IO.File.OpenRead(filename))
@@ -293,18 +318,13 @@ namespace Aop.Api.Util
                 byte[] data = new byte[fs.Length];
                 byte[] res = null;
                 fs.Read(data, 0, data.Length);
-                if (data[0] != 0x30)
-                {
-                    res = GetPem("RSA PRIVATE KEY", data);
-                }
+                if (data[0] != 0x30)  res = GetPem("RSA PRIVATE KEY", data);
                 try
                 {
                     RSACryptoServiceProvider rsa = DecodeRSAPrivateKey(res);
                     return rsa;
                 }
-                catch (Exception ex)
-                {
-                }
+                catch (Exception ex)  { }
                 return null;
             }
         }

@@ -1637,6 +1637,7 @@ namespace BakeryOrder
             content.Append(ToJsonA("auth_code"     , auth_code));
             content.Append(ToJsonA("total_amount"  , total_amount));
             content.Append(ToJsonA("discountable_amount", "0.00"));
+//            content.Append(ToJsonA("discountable_amount", total_amount));   // 特殊版, 支付宝可打折
             if (alipayTitle == null || alipayTitle == "")
                 alipayTitle = "原麦某店";
             content.Append(ToJsonA("subject"       , alipayTitle));

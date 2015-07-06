@@ -40,10 +40,11 @@ namespace VoucherExpense
             listBoxMsg.Items.Add(msg);
         }
 
+        int m_CancelRetryCount = 0;
         private void btnCancel_Click(object sender, EventArgs e)
         {
             if (m_Canceled)
-                Message("本单已撤消!");
+                MessageBox.Show("本单已五次撤消没有成功, 将直接离开!  请记录客户手机帐单截屏含支付宝交易号,人工退款");
             else
             {
                 Message("撤消本支付请求中... 單號<"+m_TradeNoStr+">");
@@ -51,6 +52,7 @@ namespace VoucherExpense
                 try
                 {
                     cancelResponse = m_Alipay.CancelByTradeNo(m_TradeNoStr);
+                    m_CancelRetryCount++;
                 }
                 catch (System.Net.WebException wex)
                 {
@@ -68,19 +70,26 @@ namespace VoucherExpense
                     Close();
                     return;
                 }
-                m_Canceled = true;
                 switch (cancelResponse.Code)
                 {
                     case ResultCode.SUCCESS:
                             Message("支付撤消成功! 交易号<" + cancelResponse.TradeNo + ">");
                             m_Alipay.RefundedOrCanceled = true;
+                            m_Canceled = true;
                             MessageBox.Show("本單撤消成功!");
                             break;
                     case ResultCode.FAIL: Message("支付撤消失敗! <" + cancelResponse.Msg+">");
                             Message("");
                             Message(cancelResponse.SubMsg);
                             Message("");
-                            return;   // 再按一次,因m_Canceled=true;就直接離開
+                            if (m_CancelRetryCount >= 5)
+                                m_Canceled = true;
+                            return;   // 按五次,因m_Canceled=true;就直接離開
+                    default:
+                            Message("不明原因, 撤消可能沒有成功!");
+                            if (m_CancelRetryCount > 5)
+                                m_Canceled = true;
+                            return;
                 }
             }
             this.DialogResult=DialogResult.Cancel;

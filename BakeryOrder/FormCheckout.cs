@@ -357,16 +357,16 @@ namespace BakeryOrder
             labelDiscount.Text = (m_Total - Math.Floor(m_Total * (decimal)0.88)).ToString();//直接移除小数
         }
 
-        private void btZhekou8_Click(object sender, EventArgs e)
+        private void btZhekou95_Click(object sender, EventArgs e)
         {
             SetZhekouButtonVisualStyleExcept(sender as Button);
-            m_DiscountRate = 0.8m;
-            labelDiscount.Text = (m_Total - Math.Floor(m_Total * (decimal)0.8)).ToString();//直接移除小数
+            m_DiscountRate = 0.95m;
+            labelDiscount.Text = (m_Total - Math.Floor(m_Total * (decimal)0.95)).ToString();//直接移除小数
         }
 
         void SetZhekouButtonVisualStyleExcept(Button btn)
         {
-            btZhekou8.UseVisualStyleBackColor = true;
+            btZhekou95.UseVisualStyleBackColor = true;
             btZhekou85.UseVisualStyleBackColor = true;
             btZhekou88.UseVisualStyleBackColor = true;
             btn.UseVisualStyleBackColor = false;

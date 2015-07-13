@@ -63,7 +63,7 @@
             this.btnCalc = new System.Windows.Forms.Button();
             this.btZhekou85 = new System.Windows.Forms.Button();
             this.btZhekou88 = new System.Windows.Forms.Button();
-            this.btZhekou8 = new System.Windows.Forms.Button();
+            this.btZhekou95 = new System.Windows.Forms.Button();
             this.labelDiscount = new System.Windows.Forms.Label();
             this.labelzhekou = new System.Windows.Forms.Label();
             this.panelLogin.SuspendLayout();
@@ -432,9 +432,9 @@
             // btZhekou85
             // 
             this.btZhekou85.BackColor = System.Drawing.Color.SeaShell;
-            this.btZhekou85.Location = new System.Drawing.Point(146, 98);
+            this.btZhekou85.Location = new System.Drawing.Point(58, 97);
             this.btZhekou85.Name = "btZhekou85";
-            this.btZhekou85.Size = new System.Drawing.Size(64, 38);
+            this.btZhekou85.Size = new System.Drawing.Size(75, 38);
             this.btZhekou85.TabIndex = 29;
             this.btZhekou85.Text = "85折";
             this.btZhekou85.UseVisualStyleBackColor = true;
@@ -443,24 +443,24 @@
             // btZhekou88
             // 
             this.btZhekou88.BackColor = System.Drawing.Color.SeaShell;
-            this.btZhekou88.Location = new System.Drawing.Point(239, 98);
+            this.btZhekou88.Location = new System.Drawing.Point(149, 97);
             this.btZhekou88.Name = "btZhekou88";
-            this.btZhekou88.Size = new System.Drawing.Size(64, 38);
+            this.btZhekou88.Size = new System.Drawing.Size(75, 38);
             this.btZhekou88.TabIndex = 30;
             this.btZhekou88.Text = "88折";
             this.btZhekou88.UseVisualStyleBackColor = true;
             this.btZhekou88.Click += new System.EventHandler(this.btZhekou88_Click);
             // 
-            // btZhekou8
+            // btZhekou95
             // 
-            this.btZhekou8.BackColor = System.Drawing.Color.SeaShell;
-            this.btZhekou8.Location = new System.Drawing.Point(57, 98);
-            this.btZhekou8.Name = "btZhekou8";
-            this.btZhekou8.Size = new System.Drawing.Size(64, 38);
-            this.btZhekou8.TabIndex = 31;
-            this.btZhekou8.Text = "8折";
-            this.btZhekou8.UseVisualStyleBackColor = true;
-            this.btZhekou8.Click += new System.EventHandler(this.btZhekou8_Click);
+            this.btZhekou95.BackColor = System.Drawing.Color.SeaShell;
+            this.btZhekou95.Location = new System.Drawing.Point(240, 97);
+            this.btZhekou95.Name = "btZhekou95";
+            this.btZhekou95.Size = new System.Drawing.Size(75, 38);
+            this.btZhekou95.TabIndex = 31;
+            this.btZhekou95.Text = "95折";
+            this.btZhekou95.UseVisualStyleBackColor = true;
+            this.btZhekou95.Click += new System.EventHandler(this.btZhekou95_Click);
             // 
             // labelDiscount
             // 
@@ -490,7 +490,7 @@
             this.ClientSize = new System.Drawing.Size(749, 550);
             this.Controls.Add(this.labelDiscount);
             this.Controls.Add(this.labelzhekou);
-            this.Controls.Add(this.btZhekou8);
+            this.Controls.Add(this.btZhekou95);
             this.Controls.Add(this.btZhekou88);
             this.Controls.Add(this.btnCalc);
             this.Controls.Add(this.labelChange);
@@ -565,7 +565,7 @@
         private System.Windows.Forms.Button btnCalc;
         private System.Windows.Forms.Button btZhekou88;
         private System.Windows.Forms.Button btZhekou85;
-        private System.Windows.Forms.Button btZhekou8;
+        private System.Windows.Forms.Button btZhekou95;
         private System.Windows.Forms.Label labelDiscount;
         private System.Windows.Forms.Label labelzhekou;
     }

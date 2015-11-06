@@ -70,12 +70,15 @@
             this.departmentTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cbCorp = new System.Windows.Forms.ComboBox();
+            this.corpListBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.corpListTableAdapter = new GetMoney.GetMoneyDataSetTableAdapters.CorpListTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.getMoneyDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.requestsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.requestsBindingNavigator)).BeginInit();
             this.requestsBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.requestsDataGridView)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.corpListBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // getMoneyDataSet
@@ -96,7 +99,7 @@
             // 
             this.tableAdapterManager.ApplierTableAdapter = null;
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.DepartmentTableAdapter = null;
+            this.tableAdapterManager.CorpListTableAdapter = null;
             this.tableAdapterManager.OperatorTableAdapter = null;
             this.tableAdapterManager.RequestsTableAdapter = this.requestsTableAdapter;
             this.tableAdapterManager.UpdateOrder = GetMoney.GetMoneyDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
@@ -383,6 +386,7 @@
             // 
             // dateOfPaymentDateTimePicker
             // 
+            this.dateOfPaymentDateTimePicker.CalendarFont = new System.Drawing.Font("新細明體", 12F);
             this.dateOfPaymentDateTimePicker.Enabled = false;
             this.dateOfPaymentDateTimePicker.Font = new System.Drawing.Font("新細明體", 12F);
             this.dateOfPaymentDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
@@ -397,10 +401,10 @@
             this.dateOfPaymentTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.dateOfPaymentTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.requestsBindingSource, "DateOfPayment", true));
             this.dateOfPaymentTextBox.Enabled = false;
-            this.dateOfPaymentTextBox.Font = new System.Drawing.Font("新細明體", 10F);
+            this.dateOfPaymentTextBox.Font = new System.Drawing.Font("新細明體", 12F);
             this.dateOfPaymentTextBox.Location = new System.Drawing.Point(602, 349);
             this.dateOfPaymentTextBox.Name = "dateOfPaymentTextBox";
-            this.dateOfPaymentTextBox.Size = new System.Drawing.Size(161, 23);
+            this.dateOfPaymentTextBox.Size = new System.Drawing.Size(161, 27);
             this.dateOfPaymentTextBox.TabIndex = 7;
             this.dateOfPaymentTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -442,10 +446,10 @@
             this.billingDateTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.billingDateTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.requestsBindingSource, "BillingDate", true));
             this.billingDateTextBox.Enabled = false;
-            this.billingDateTextBox.Font = new System.Drawing.Font("新細明體", 10F);
+            this.billingDateTextBox.Font = new System.Drawing.Font("新細明體", 12F);
             this.billingDateTextBox.Location = new System.Drawing.Point(682, 191);
             this.billingDateTextBox.Name = "billingDateTextBox";
-            this.billingDateTextBox.Size = new System.Drawing.Size(96, 23);
+            this.billingDateTextBox.Size = new System.Drawing.Size(96, 27);
             this.billingDateTextBox.TabIndex = 2;
             this.billingDateTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -483,11 +487,24 @@
             // cbCorp
             // 
             this.cbCorp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.cbCorp.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.corpListBindingSource, "CorpID", true));
+            this.cbCorp.DataSource = this.corpListBindingSource;
+            this.cbCorp.DisplayMember = "CorpName";
             this.cbCorp.FormattingEnabled = true;
             this.cbCorp.Location = new System.Drawing.Point(517, 4);
             this.cbCorp.Name = "cbCorp";
             this.cbCorp.Size = new System.Drawing.Size(225, 24);
             this.cbCorp.TabIndex = 4;
+            this.cbCorp.ValueMember = "CorpID";
+            // 
+            // corpListBindingSource
+            // 
+            this.corpListBindingSource.DataMember = "CorpList";
+            this.corpListBindingSource.DataSource = this.getMoneyDataSet;
+            // 
+            // corpListTableAdapter
+            // 
+            this.corpListTableAdapter.ClearBeforeFill = true;
             // 
             // FormGetMoney
             // 
@@ -515,6 +532,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.requestsDataGridView)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.corpListBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -562,6 +580,8 @@
         private System.Windows.Forms.TextBox listNumberTextBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cbCorp;
+        private System.Windows.Forms.BindingSource corpListBindingSource;
+        private GetMoneyDataSetTableAdapters.CorpListTableAdapter corpListTableAdapter;
     }
 }
 

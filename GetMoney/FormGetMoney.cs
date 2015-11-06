@@ -76,8 +76,13 @@ namespace GetMoney
 
         private void FormGetMoney_Load(object sender, EventArgs e)
         {
-            this.requestsTableAdapter.Fill(this.getMoneyDataSet.Requests);
-
+            // TODO: 這行程式碼會將資料載入 'getMoneyDataSet.CorpList' 資料表。您可以視需要進行移動或移除。
+            this.corpListTableAdapter.Fill(this.getMoneyDataSet.CorpList);
+            //this.requestsTableAdapter.Fill(this.getMoneyDataSet.Requests);
+            GetMoneyDataSetTableAdapters.CorpListTableAdapter corpAdapter = new GetMoneyDataSetTableAdapters.CorpListTableAdapter();
+            corpAdapter.ClearBeforeFill = true;
+            corpAdapter.Fill(getMoneyDataSet.CorpList);
+            cbCorp.DataSource = getMoneyDataSet.CorpList;
         }
 
 

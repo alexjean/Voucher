@@ -1358,13 +1358,20 @@ namespace BakeryOrder
                 {
                     if (!Alipay_RSA_Submit(m_CurrentOrder.ID, MemberCode, m_CurrentOrder, m_Printer.AlipayTitle))
                     {
+                        // 支付宝取消,記錄成刪單,  OpenID為"00000"時,代表Order.TradeNo存的是OutTradeNo
+                        m_CurrentOrder.TradeNo = m_Alipay.LastTradeNo;    // 此時記的應該是OutTradeNo
+                        m_CurrentOrder.OpenID  = m_Alipay.LastOpenID;     // 應該是"00000"
+                        m_CurrentOrder.PrintTime = DateTime.Now;
+                        m_CurrentOrder.Deleted = true;
+                        SaveOrder(m_CurrentOrder);                        // 不管成功失敗了 
+
                         MemberCode = "";
                         labelMemberCode.Text = "";
                         labelClass.Text = "";
                         m_CurrentOrder.PayBy = "A";
                         m_CurrentOrder.OpenID = "";
                         m_CurrentOrder.TradeNo = "";
-                        return;    // 支付宝支付取消了, 單子不印, DB不記錄, 改成現金單
+                        return;    // 支付宝支付取消了, 單子不印, 改成現金單
                     }
                     else
                     {
@@ -1675,7 +1682,7 @@ namespace BakeryOrder
 
             Form form = new FormAlipay(tabControl1.Left + 8, 8, out_trade_no, m_Alipay, content.ToString());
             DialogResult result = form.ShowDialog();
-            if (result == DialogResult.OK) return true;  // OK回來, OutTradeNo及OpenID存在m_Alipay的變數內 LastOutTradeNo,LastOpenID
+            if (result == DialogResult.OK) return true;  // OK回來, TradeNo或OutTradeNo及OpenID存在m_Alipay的變數內 LastOutTradeNo,LastOpenID
             return false;
         }
 

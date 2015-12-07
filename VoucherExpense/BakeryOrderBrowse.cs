@@ -425,11 +425,15 @@ namespace VoucherExpense
             }
             else
             {
-                m_TradeNo = row.TradeNo;
+                m_OutTradeNo = m_TradeNo = null;
+                if ((!row.IsOpenIDNull()) && row.OpenID == "00000")
+                    m_OutTradeNo = row.TradeNo;
+                else
+                    m_TradeNo    = row.TradeNo;
                 m_Amount  = row.Income;
                 m_OrderRow = row;
                 m_LastClick = t;
-                labelAlipayNo.Text = "支付宝号" + m_TradeNo;
+                labelAlipayNo.Text = "支付宝号" + row.TradeNo;
                 labelAlipayNo.Visible = true;
                 btnAlipayRefund.Visible = true;
             }
@@ -756,6 +760,7 @@ namespace VoucherExpense
 
         DoAlipay m_Alipay=null;
         string m_TradeNo;       // m_TradeNo m_Amount在 MouseClick()時,是支付宝支付 填入值
+        string m_OutTradeNo;    // 假如 order.OpenID=="00000" 表示是 OutTradeNo
         decimal m_Amount;
         MyOrderRow m_OrderRow;  // 在MouseClick時填入
         TextBox m_LastClick;    // 在MouseClick時填入
@@ -766,7 +771,7 @@ namespace VoucherExpense
                 m_Alipay = new DoAlipay();
                 m_Alipay.Setup();
             }
-            Form form = new FormAlipay1(m_Alipay, m_TradeNo, m_Amount.ToString("N2"));
+            Form form = new FormAlipay1(m_Alipay, m_TradeNo,m_OutTradeNo, m_Amount.ToString("N2"));
             form.ShowDialog();
             if (m_Alipay.RefundedOrCanceled)   // 在FormAlipay1裏面設定
             {

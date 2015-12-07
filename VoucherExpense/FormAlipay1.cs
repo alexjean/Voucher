@@ -19,12 +19,14 @@ namespace VoucherExpense
     {
         DoAlipay m_Alipay;
         string m_RefundAmount ;
-        string m_TradeNoStr;   // 這裏使用支付宝交易號, 在BakeryOrder使用的是OutTradeNo
+        string m_TradeNoStr;    // 這裏使用支付宝交易號, 在BakeryOrder使用的是OutTradeNo
+        string m_OutTradeNoStr; // 萬一支付宝交易為null, 就使用OutTradeNo
         bool m_Canceled = false;
 
-        public FormAlipay1(DoAlipay alipay, string trade_no_str, string refund_amount)
+        public FormAlipay1(DoAlipay alipay, string TradeNoStr, string OutTradeNoStr,string refund_amount)
         {
-            m_TradeNoStr = trade_no_str;
+            m_TradeNoStr    = TradeNoStr;
+            m_OutTradeNoStr = OutTradeNoStr;
             m_Alipay = alipay;
             m_RefundAmount=refund_amount;
             InitializeComponent();
@@ -47,11 +49,20 @@ namespace VoucherExpense
                 MessageBox.Show("本单已五次撤消没有成功, 将直接离开!  请记录客户手机帐单截屏含支付宝交易号,人工退款");
             else
             {
-                Message("撤消本支付请求中... 單號<"+m_TradeNoStr+">");
+
                 AlipayTradeCancelResponse cancelResponse = null;
                 try
                 {
-                    cancelResponse = m_Alipay.CancelByTradeNo(m_TradeNoStr);
+                    if (m_TradeNoStr != null)
+                    {
+                        Message("撤消本支付请求中... 交易號<" + m_TradeNoStr + ">");
+                        cancelResponse = m_Alipay.CancelByTradeNo(m_TradeNoStr);
+                    }
+                    else
+                    {
+                        Message("撤消本支付请求中... 單號<" + m_OutTradeNoStr + ">");
+                        cancelResponse = m_Alipay.CancelByOutTradeNo(m_OutTradeNoStr);
+                    }
                     m_CancelRetryCount++;
                 }
                 catch (System.Net.WebException wex)

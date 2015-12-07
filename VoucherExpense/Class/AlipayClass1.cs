@@ -74,7 +74,7 @@ namespace Com.Alipay
             return payResponse;
         }
 
-        public AlipayTradeCancelResponse Cancel(string OutTradeNo)
+        public AlipayTradeCancelResponse CancelByOutTradeNo(string OutTradeNo)
         {
             return Cancel1("out_trade_no", OutTradeNo);
         }

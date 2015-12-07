@@ -19,7 +19,7 @@ namespace BakeryOrder
     {
         DoAlipay m_Alipay;
         string m_Content ;
-        string m_TradeNoStr;
+        string m_OutTradeNoStr;
         bool m_Canceled = false;
         int m_X = 0;
         int m_Y = 0;
@@ -28,7 +28,7 @@ namespace BakeryOrder
         {
             m_X = x;
             m_Y = y;
-            m_TradeNoStr = trade_no_str;
+            m_OutTradeNoStr = trade_no_str;
             m_Alipay = alipay;
             m_Content = content;
             InitializeComponent();
@@ -52,27 +52,29 @@ namespace BakeryOrder
                 MessageBox.Show("本单已五次撤消没有成功, 将不印单无记录直接离开!  请记录客户手机帐单截屏含支付宝交易号,人工退款");
             else
             {
-                Message("撤消本支付请求中... 單號<"+m_TradeNoStr+">");
+                Message("撤消本支付请求中... 單號<"+m_OutTradeNoStr+">");
                 AlipayTradeCancelResponse cancelResponse = null;
                 try
                 {
-                    cancelResponse = m_Alipay.Cancel(m_TradeNoStr);
+                    cancelResponse = m_Alipay.Cancel(m_OutTradeNoStr);
                 }
                 catch (System.Net.WebException wex)
                 {
                     Message(wex.Message);
                     MessageBox.Show("发生网络错误, 无法连至支付宝服务器!");
-                    this.DialogResult = DialogResult.Cancel;
-                    Close();
-                    return;
+                    goto Cancel;
+                    //this.DialogResult = DialogResult.Cancel;
+                    //Close();
+                    //return;
                 }
                 catch (Exception ex)
                 {
                     Message(ex.Message);
                     MessageBox.Show("发生错误!");
-                    this.DialogResult = DialogResult.Cancel;
-                    Close();
-                    return;
+                    goto Cancel;
+                    //this.DialogResult = DialogResult.Cancel;
+                    //Close();
+                    //return;
                 }
                 m_Canceled = true;
                 switch (cancelResponse.Code)
@@ -96,6 +98,8 @@ namespace BakeryOrder
                             return;
                 }
             }
+        Cancel:
+            SaveToDB(m_OutTradeNoStr, "00000", "00000");   // 取消失敗,可能只有OutTradeNo,沒有TradeNo及OpenID等等, OpenID="00000"代表TradeNo存的是OutTradeNo
             this.DialogResult=DialogResult.Cancel;
             Close();
         }
@@ -112,7 +116,7 @@ namespace BakeryOrder
         {
             if (m_Alipay == null)
                 MessageBox.Show("無法使用支付宝服務, 支付宝組件啟動失敗或未安裝所需組件!");
-            Message("訂單<" + m_TradeNoStr + "> 支付請求发起中...");
+            Message("訂單<" + m_OutTradeNoStr + "> 支付請求发起中...");
             Application.DoEvents();
             AlipayTradePayResponse payResponse=null;
             try
@@ -175,7 +179,7 @@ namespace BakeryOrder
             AlipayTradeQueryResponse queryResponse = null;
             try
             {
-                queryResponse = m_Alipay.Query(m_TradeNoStr);
+                queryResponse = m_Alipay.Query(m_OutTradeNoStr);
             }
             catch (System.Net.WebException wex)
             {

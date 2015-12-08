@@ -24,11 +24,11 @@ namespace BakeryOrder
         int m_X = 0;
         int m_Y = 0;
 
-        public FormAlipay(int x,int y,string trade_no_str,DoAlipay alipay,string content)
+        public FormAlipay(int x,int y,string out_trade_no_str,DoAlipay alipay,string content)
         {
             m_X = x;
             m_Y = y;
-            m_OutTradeNoStr = trade_no_str;
+            m_OutTradeNoStr = out_trade_no_str;
             m_Alipay = alipay;
             m_Content = content;
             InitializeComponent();
@@ -63,38 +63,40 @@ namespace BakeryOrder
                     Message(wex.Message);
                     MessageBox.Show("发生网络错误, 无法连至支付宝服务器!");
                     goto Cancel;
-                    //this.DialogResult = DialogResult.Cancel;
-                    //Close();
-                    //return;
                 }
                 catch (Exception ex)
                 {
                     Message(ex.Message);
                     MessageBox.Show("发生错误!");
                     goto Cancel;
-                    //this.DialogResult = DialogResult.Cancel;
-                    //Close();
-                    //return;
                 }
-                m_Canceled = true;
+                m_CancelRetryCount++;
                 switch (cancelResponse.Code)
                 {
                     case ResultCode.SUCCESS:
                             Message("支付撤消成功! 交易号<" + cancelResponse.TradeNo + ">");
                             MessageBox.Show("本單撤消成功!");
                             m_Canceled = true;
-                            break;
+                            SaveToDB(m_OutTradeNoStr, "00000", "00000");
+                            goto Cancel;
                     case ResultCode.FAIL: Message("支付撤消失敗! <" + cancelResponse.Msg+">");
                             Message("");
                             Message(cancelResponse.SubMsg);
                             Message("");
                             if (m_CancelRetryCount >= 5)
+                            {
                                 m_Canceled = true;
-                            return;   // 按五次,因m_Canceled=true;就直接離開
+                                goto Cancel;
+                            }
+                            return;
+                            // 按五次,因m_Canceled=true;就直接離開
                     default:
                             Message("不明原因, 撤消可能沒有成功!");
                             if (m_CancelRetryCount > 5)
+                            {
                                 m_Canceled = true;
+                                goto Cancel;
+                            }
                             return;
                 }
             }
@@ -127,17 +129,13 @@ namespace BakeryOrder
             {
                 Message(wex.Message);
                 MessageBox.Show("发生网络错误, 无法连至支付宝服务器!");
-                this.DialogResult = DialogResult.Cancel;
-                Close();
-                return;
+                goto CancelClose;
             }
             catch (Exception ex)
             {
                 Message(ex.Message);
                 MessageBox.Show("发生错误!");
-                this.DialogResult = DialogResult.Cancel;
-                Close();
-                return;
+                goto CancelClose;
             }
             string result = payResponse.Body;
             if (payResponse != null)
@@ -161,11 +159,16 @@ namespace BakeryOrder
                         Message("");
                         Message(payResponse.SubMsg);
                         Message("");
-                        btnCancel_Click(null, null);    
+                        btnCancel_Click(null, null);     // Cancel_Click中有存檔   
                         break;
                 }
             }
-            
+            return;
+
+        CancelClose:
+            SaveToDB(m_OutTradeNoStr, "00000", "00000");     // 不明失敗均記錄存檔為刪單
+            this.DialogResult = DialogResult.Cancel;
+            Close();
         }
 
         private void btnSuccess_Click(object sender, EventArgs e)

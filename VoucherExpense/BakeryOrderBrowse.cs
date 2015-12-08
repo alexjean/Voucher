@@ -469,11 +469,14 @@ namespace VoucherExpense
 
         private void b_MouseDoubleClick(object sender, MouseEventArgs e)
         {
+            MessageBox.Show("無法從店長電腦更改刪除狀態!請在相對應收銀机更改後重新收取");
+            return;
             //if (m_DataSealed)
             //{
             //    MessageBox.Show("今日資料己封印,無法更改刪除狀態!");
             //    return;
             //}
+            /*
             TextBox t = (TextBox)sender;
             var order = t.Tag as MyOrderRow;
             if (MessageBox.Show("要更改刪除狀態?","",MessageBoxButtons.YesNo) != DialogResult.Yes)
@@ -488,6 +491,7 @@ namespace VoucherExpense
             else
                 t.BackColor = Color.Green;
             UpdateDeletedMark(order, deleted);
+            */
         }
 
         private void btnOrderList_Click(object sender, EventArgs e)

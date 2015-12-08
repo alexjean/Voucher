@@ -122,7 +122,10 @@ namespace VoucherExpense
             AlipayTradeRefundResponse refundResponse=null;
             try
             {
-                refundResponse = m_Alipay.Refund(m_TradeNoStr, m_RefundAmount,"原麦山丘退款");
+                if (m_TradeNoStr!=null)
+                    refundResponse = m_Alipay.RefundByTradeNo   (m_TradeNoStr   , m_RefundAmount,"原麦山丘退款");
+                else
+                    refundResponse = m_Alipay.RefundByOutTradeNo(m_OutTradeNoStr, m_RefundAmount, "原麦山丘退款");
             }
             catch (System.Net.WebException wex)
             {
@@ -153,8 +156,6 @@ namespace VoucherExpense
                     Message("");
                     return;   
             }
-
-
             this.DialogResult = DialogResult.OK;
             Close();
         }
@@ -164,7 +165,10 @@ namespace VoucherExpense
             AlipayTradeQueryResponse queryResponse = null;
             try
             {
-                queryResponse = m_Alipay.QueryByTradeNo(m_TradeNoStr);
+                if (m_TradeNoStr!=null)
+                    queryResponse = m_Alipay.QueryByTradeNo(m_TradeNoStr);
+                else
+                    queryResponse = m_Alipay.QueryByOutTradeNo(m_OutTradeNoStr);
             }
             catch (System.Net.WebException wex)
             {

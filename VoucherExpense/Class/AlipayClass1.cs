@@ -160,10 +160,10 @@ namespace Com.Alipay
         }
 
 
-        public AlipayTradeQueryResponse Query(string TradeNoStr)
+        public AlipayTradeQueryResponse QueryByOutTradeNo(string OutTradeNoStr)
         {
             AlipayTradeQueryRequest queryRequst = new AlipayTradeQueryRequest();
-            List<StrPair> list = new List<StrPair>() { new StrPair("out_trade_no", TradeNoStr) };
+            List<StrPair> list = new List<StrPair>() { new StrPair("out_trade_no", OutTradeNoStr) };
             queryRequst.BizContent = List2Json(list);
             return m_Client.Execute(queryRequst);
         }
@@ -192,13 +192,26 @@ namespace Com.Alipay
             return queryResponse;
         }
 
-        public AlipayTradeRefundResponse Refund(string trade_no,string refund_amount,string refund_reason)
+        public AlipayTradeRefundResponse RefundByTradeNo(string trade_no,string refund_amount,string refund_reason)
         {
             List<StrPair> list = new List<StrPair>();
             list.Add(new StrPair("trade_no"     , trade_no      ));
             list.Add(new StrPair("refund_amount", refund_amount ));
             list.Add(new StrPair("refund_reason", refund_reason ));
             string content=List2Json(list);
+            AlipayTradeRefundRequest refundRequst = new AlipayTradeRefundRequest();
+            refundRequst.BizContent = content;
+            //Dictionary<string, string> paramsDict = (Dictionary<string, string>)payRequst.GetParameters();
+            return m_Client.Execute(refundRequst);
+        }
+
+        public AlipayTradeRefundResponse RefundByOutTradeNo(string out_trade_no, string refund_amount, string refund_reason)
+        {
+            List<StrPair> list = new List<StrPair>();
+            list.Add(new StrPair("out_trade_no", out_trade_no));
+            list.Add(new StrPair("refund_amount", refund_amount));
+            list.Add(new StrPair("refund_reason", refund_reason));
+            string content = List2Json(list);
             AlipayTradeRefundRequest refundRequst = new AlipayTradeRefundRequest();
             refundRequst.BizContent = content;
             //Dictionary<string, string> paramsDict = (Dictionary<string, string>)payRequst.GetParameters();

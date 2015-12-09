@@ -675,6 +675,8 @@ namespace BakeryOrder
                 order.PayBy = DicPayBy.First().Key.ToString();
                 order.OldID = 0;
                 order.RCashierID = 0;
+                order.TradeNo = "";
+                order.OpenID = "";
                 //if (memberInfo != null)
                 //{
 
@@ -1036,6 +1038,7 @@ namespace BakeryOrder
                 if (CurrentOrder.RowState != DataRowState.Unchanged)   // Unchanged不存, Added Modified要存,程式不准改,理論上不會有Modified
                 {
                     m_OrderTableAdapter.Update(CurrentOrder);          // Update內含了AcceptChanges,不用再呼叫 
+                    CurrentOrder.AcceptChanges();
                 }
             }
             catch (Exception E)
@@ -1365,12 +1368,13 @@ namespace BakeryOrder
                         m_CurrentOrder.Deleted = true;
                         SaveOrder(m_CurrentOrder);                        // 不管成功失敗了 
 
-                        MemberCode = "";
-                        labelMemberCode.Text = "";
-                        labelClass.Text = "";
-                        m_CurrentOrder.PayBy = "A";
-                        m_CurrentOrder.OpenID = "";
-                        m_CurrentOrder.TradeNo = "";
+                        DoNewOrder();
+                        //MemberCode = "";
+                        //labelMemberCode.Text = "";
+                        //labelClass.Text = "";
+                        //m_CurrentOrder.PayBy = "A";
+                        //m_CurrentOrder.OpenID = "";
+                        //m_CurrentOrder.TradeNo = "";
                         return;    // 支付宝支付取消了, 單子不印, 改成現金單
                     }
                     else
@@ -1381,8 +1385,11 @@ namespace BakeryOrder
                 }
                 Print(m_CurrentOrder, (double)moneyGot, true);
                 if (!this.checkBoxTest.Checked)
-                    RawPrint.SendManagedBytes(m_Printer.PrinterName, m_CashDrawer);   // 彈出錢箱
-                CreateUpdateDrawerRecord(ref m_MaxDrawerRecordID, m_CurrentOrder.ID % 10000);
+                    if (m_CurrentOrder.PayBy == "A")
+                    {   // 只有現金才彈出錢箱  
+                        RawPrint.SendManagedBytes(m_Printer.PrinterName, m_CashDrawer);     // 彈出錢箱
+                        CreateUpdateDrawerRecord(ref m_MaxDrawerRecordID, m_CurrentOrder.ID % 10000);
+                    }
                 //结账后清空当前会员信息，刷卡获取焦点
                 SetMemberNull();
                 //textBox1.SelectAll();

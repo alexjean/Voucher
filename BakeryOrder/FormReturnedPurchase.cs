@@ -885,8 +885,11 @@ namespace BakeryOrder
             //            m_CurrentOrder.PayBy = PayByFromBtn().ToString();
             Print(m_CurrentOrder, 0);
             if (!this.checkBoxTest.Checked)
-                RawPrint.SendManagedBytes(m_Printer.PrinterName, m_CashDrawer);
-            CreateUpdateDrawerRecord(ref m_MaxDrawerRecordID, m_CurrentOrder.ID % 10000);
+                if (m_CurrentOrder.PayBy == "A")   // 現金才彈出錢箱
+                {
+                    RawPrint.SendManagedBytes(m_Printer.PrinterName, m_CashDrawer);
+                    CreateUpdateDrawerRecord(ref m_MaxDrawerRecordID, m_CurrentOrder.ID % 10000);
+                }
             //            DoNewOrder();
         }
 

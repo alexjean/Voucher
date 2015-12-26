@@ -324,7 +324,7 @@ namespace BakeryOrder
         {
             SetButtonVisualStyleExcept(sender as Button);
             //labelCashGot.Visible = labelChange.Visible = false;
-            m_PayBy = 'C';
+            m_PayBy = 'D';
             //textBoxCashGot.Enabled = false;
         }
         void SetButtonVisualStyleExcept(Button btn)

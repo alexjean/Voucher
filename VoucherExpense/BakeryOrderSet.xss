@@ -12,13 +12,13 @@
     <Shape ID="DesignTable:Header" ZOrder="1" X="1302" Y="369" Height="125" Width="197" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="70" />
     <Shape ID="DesignTable:OrderItem" ZOrder="5" X="1292" Y="82" Height="258" Width="214" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="184" />
     <Shape ID="DesignTable:Product" ZOrder="4" X="1754" Y="70" Height="355" Width="199" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="281" />
-    <Shape ID="DesignTable:Order" ZOrder="3" X="964" Y="68" Height="335" Width="188" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="280" />
+    <Shape ID="DesignTable:Order" ZOrder="3" X="964" Y="68" Height="305" Width="182" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="254" />
   </Shapes>
   <Connectors>
     <Connector ID="DesignRelation:{B0060338-846F-4601-A61E-B7F15D59AE65}1" ZOrder="2" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>1152</X>
+          <X>1146</X>
           <Y>113</Y>
         </Point>
         <Point>

@@ -33,6 +33,8 @@
             this.btnCoupon = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.panelLogin = new System.Windows.Forms.Panel();
+            this.labelCouponGot = new System.Windows.Forms.Label();
+            this.textBoxCouponGot = new System.Windows.Forms.TextBox();
             this.textBoxDeduct = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxCashGot = new System.Windows.Forms.TextBox();
@@ -66,6 +68,8 @@
             this.btZhekou95 = new System.Windows.Forms.Button();
             this.labelDiscount = new System.Windows.Forms.Label();
             this.labelzhekou = new System.Windows.Forms.Label();
+            this.labelCouponGot2 = new System.Windows.Forms.Label();
+            this.labelCouponGot1 = new System.Windows.Forms.Label();
             this.panelLogin.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -98,9 +102,8 @@
             this.btnCoupon.Name = "btnCoupon";
             this.btnCoupon.Size = new System.Drawing.Size(75, 53);
             this.btnCoupon.TabIndex = 14;
-            this.btnCoupon.Text = "支付宝";
+            this.btnCoupon.Text = "劵";
             this.btnCoupon.UseVisualStyleBackColor = true;
-            this.btnCoupon.Visible = false;
             this.btnCoupon.Click += new System.EventHandler(this.btnCoupon_Click);
             // 
             // label3
@@ -108,7 +111,7 @@
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label3.Location = new System.Drawing.Point(7, 84);
+            this.label3.Location = new System.Drawing.Point(20, 64);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(54, 21);
             this.label3.TabIndex = 15;
@@ -118,6 +121,8 @@
             // 
             this.panelLogin.BackColor = System.Drawing.Color.Transparent;
             this.panelLogin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelLogin.Controls.Add(this.labelCouponGot);
+            this.panelLogin.Controls.Add(this.textBoxCouponGot);
             this.panelLogin.Controls.Add(this.label3);
             this.panelLogin.Controls.Add(this.textBoxDeduct);
             this.panelLogin.Controls.Add(this.label2);
@@ -139,10 +144,34 @@
             this.panelLogin.Size = new System.Drawing.Size(327, 529);
             this.panelLogin.TabIndex = 15;
             // 
+            // labelCouponGot
+            // 
+            this.labelCouponGot.AutoSize = true;
+            this.labelCouponGot.BackColor = System.Drawing.Color.Transparent;
+            this.labelCouponGot.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.labelCouponGot.Location = new System.Drawing.Point(20, 109);
+            this.labelCouponGot.Name = "labelCouponGot";
+            this.labelCouponGot.Size = new System.Drawing.Size(54, 21);
+            this.labelCouponGot.TabIndex = 17;
+            this.labelCouponGot.Text = "收券";
+            this.labelCouponGot.Visible = false;
+            // 
+            // textBoxCouponGot
+            // 
+            this.textBoxCouponGot.Font = new System.Drawing.Font("微軟正黑體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBoxCouponGot.Location = new System.Drawing.Point(92, 101);
+            this.textBoxCouponGot.MaxLength = 6;
+            this.textBoxCouponGot.Name = "textBoxCouponGot";
+            this.textBoxCouponGot.Size = new System.Drawing.Size(194, 35);
+            this.textBoxCouponGot.TabIndex = 16;
+            this.textBoxCouponGot.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.textBoxCouponGot.Visible = false;
+            this.textBoxCouponGot.Enter += new System.EventHandler(this.textBoxCouponGot_Enter);
+            // 
             // textBoxDeduct
             // 
             this.textBoxDeduct.Font = new System.Drawing.Font("微軟正黑體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBoxDeduct.Location = new System.Drawing.Point(92, 76);
+            this.textBoxDeduct.Location = new System.Drawing.Point(92, 56);
             this.textBoxDeduct.MaxLength = 6;
             this.textBoxDeduct.Name = "textBoxDeduct";
             this.textBoxDeduct.Size = new System.Drawing.Size(194, 35);
@@ -155,7 +184,7 @@
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label2.Location = new System.Drawing.Point(7, 19);
+            this.label2.Location = new System.Drawing.Point(20, 19);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(54, 21);
             this.label2.TabIndex = 13;
@@ -320,7 +349,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label8.Location = new System.Drawing.Point(42, 334);
+            this.label8.Location = new System.Drawing.Point(42, 321);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(54, 21);
             this.label8.TabIndex = 18;
@@ -340,7 +369,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label4.Location = new System.Drawing.Point(42, 196);
+            this.label4.Location = new System.Drawing.Point(42, 198);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(54, 21);
             this.label4.TabIndex = 20;
@@ -351,7 +380,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label5.ForeColor = System.Drawing.Color.Red;
-            this.label5.Location = new System.Drawing.Point(42, 375);
+            this.label5.Location = new System.Drawing.Point(42, 362);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(54, 21);
             this.label5.TabIndex = 21;
@@ -362,7 +391,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label6.ForeColor = System.Drawing.Color.Red;
-            this.label6.Location = new System.Drawing.Point(42, 291);
+            this.label6.Location = new System.Drawing.Point(42, 280);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(54, 21);
             this.label6.TabIndex = 22;
@@ -382,7 +411,7 @@
             // 
             this.labelDeduct.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.labelDeduct.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.labelDeduct.Location = new System.Drawing.Point(127, 190);
+            this.labelDeduct.Location = new System.Drawing.Point(127, 192);
             this.labelDeduct.Name = "labelDeduct";
             this.labelDeduct.Size = new System.Drawing.Size(104, 32);
             this.labelDeduct.TabIndex = 24;
@@ -392,7 +421,7 @@
             // 
             this.labelIncome.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.labelIncome.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.labelIncome.Location = new System.Drawing.Point(127, 285);
+            this.labelIncome.Location = new System.Drawing.Point(127, 274);
             this.labelIncome.Name = "labelIncome";
             this.labelIncome.Size = new System.Drawing.Size(104, 32);
             this.labelIncome.TabIndex = 25;
@@ -402,7 +431,7 @@
             // 
             this.labelCashGot.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.labelCashGot.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.labelCashGot.Location = new System.Drawing.Point(127, 328);
+            this.labelCashGot.Location = new System.Drawing.Point(127, 315);
             this.labelCashGot.Name = "labelCashGot";
             this.labelCashGot.Size = new System.Drawing.Size(104, 32);
             this.labelCashGot.TabIndex = 26;
@@ -412,7 +441,7 @@
             // 
             this.labelChange.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.labelChange.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.labelChange.Location = new System.Drawing.Point(127, 369);
+            this.labelChange.Location = new System.Drawing.Point(127, 356);
             this.labelChange.Name = "labelChange";
             this.labelChange.Size = new System.Drawing.Size(104, 32);
             this.labelChange.TabIndex = 27;
@@ -432,7 +461,7 @@
             // btZhekou85
             // 
             this.btZhekou85.BackColor = System.Drawing.Color.SeaShell;
-            this.btZhekou85.Location = new System.Drawing.Point(58, 97);
+            this.btZhekou85.Location = new System.Drawing.Point(53, 97);
             this.btZhekou85.Name = "btZhekou85";
             this.btZhekou85.Size = new System.Drawing.Size(75, 38);
             this.btZhekou85.TabIndex = 29;
@@ -443,7 +472,7 @@
             // btZhekou88
             // 
             this.btZhekou88.BackColor = System.Drawing.Color.SeaShell;
-            this.btZhekou88.Location = new System.Drawing.Point(149, 97);
+            this.btZhekou88.Location = new System.Drawing.Point(144, 97);
             this.btZhekou88.Name = "btZhekou88";
             this.btZhekou88.Size = new System.Drawing.Size(75, 38);
             this.btZhekou88.TabIndex = 30;
@@ -454,7 +483,7 @@
             // btZhekou95
             // 
             this.btZhekou95.BackColor = System.Drawing.Color.SeaShell;
-            this.btZhekou95.Location = new System.Drawing.Point(240, 97);
+            this.btZhekou95.Location = new System.Drawing.Point(235, 97);
             this.btZhekou95.Name = "btZhekou95";
             this.btZhekou95.Size = new System.Drawing.Size(75, 38);
             this.btZhekou95.TabIndex = 31;
@@ -466,7 +495,7 @@
             // 
             this.labelDiscount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.labelDiscount.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.labelDiscount.Location = new System.Drawing.Point(127, 232);
+            this.labelDiscount.Location = new System.Drawing.Point(127, 233);
             this.labelDiscount.Name = "labelDiscount";
             this.labelDiscount.Size = new System.Drawing.Size(104, 32);
             this.labelDiscount.TabIndex = 33;
@@ -476,11 +505,34 @@
             // 
             this.labelzhekou.AutoSize = true;
             this.labelzhekou.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.labelzhekou.Location = new System.Drawing.Point(42, 238);
+            this.labelzhekou.Location = new System.Drawing.Point(42, 239);
             this.labelzhekou.Name = "labelzhekou";
             this.labelzhekou.Size = new System.Drawing.Size(54, 21);
             this.labelzhekou.TabIndex = 32;
             this.labelzhekou.Text = "折扣";
+            // 
+            // labelCouponGot2
+            // 
+            this.labelCouponGot2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelCouponGot2.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.labelCouponGot2.Location = new System.Drawing.Point(127, 397);
+            this.labelCouponGot2.Name = "labelCouponGot2";
+            this.labelCouponGot2.Size = new System.Drawing.Size(104, 32);
+            this.labelCouponGot2.TabIndex = 35;
+            this.labelCouponGot2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelCouponGot2.Visible = false;
+            // 
+            // labelCouponGot1
+            // 
+            this.labelCouponGot1.AutoSize = true;
+            this.labelCouponGot1.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.labelCouponGot1.ForeColor = System.Drawing.Color.Red;
+            this.labelCouponGot1.Location = new System.Drawing.Point(42, 403);
+            this.labelCouponGot1.Name = "labelCouponGot1";
+            this.labelCouponGot1.Size = new System.Drawing.Size(54, 21);
+            this.labelCouponGot1.TabIndex = 34;
+            this.labelCouponGot1.Text = "收券";
+            this.labelCouponGot1.Visible = false;
             // 
             // FormCheckout
             // 
@@ -488,6 +540,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(749, 550);
+            this.Controls.Add(this.labelCouponGot2);
+            this.Controls.Add(this.labelCouponGot1);
             this.Controls.Add(this.labelDiscount);
             this.Controls.Add(this.labelzhekou);
             this.Controls.Add(this.btZhekou95);
@@ -568,5 +622,9 @@
         private System.Windows.Forms.Button btZhekou95;
         private System.Windows.Forms.Label labelDiscount;
         private System.Windows.Forms.Label labelzhekou;
+        private System.Windows.Forms.Label labelCouponGot;
+        private System.Windows.Forms.TextBox textBoxCouponGot;
+        private System.Windows.Forms.Label labelCouponGot2;
+        private System.Windows.Forms.Label labelCouponGot1;
     }
 }

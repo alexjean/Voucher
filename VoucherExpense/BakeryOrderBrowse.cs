@@ -352,6 +352,14 @@ namespace VoucherExpense
                 total += money;
                 count++;
             }
+            // 計算折扣
+            if (!order.IsDiscountRateNull())
+            {
+                decimal discountRate = order.DiscountRate;
+                if (discountRate != 0m && discountRate != 1m)
+                    total = Math.Floor(total * discountRate);
+            }
+
             lvItems.Columns[1].Text = "ID " + PureIDStr(order.ID) + (order.Deleted ? " deleted" : "");
             lvItems.Columns[2].Text = count.ToString();
             lvItems.Columns[3].Text = total.ToString("N0");
@@ -416,11 +424,27 @@ namespace VoucherExpense
             decimal income = 0;
             if (!row.IsIncomeNull())
                 income=Math.Round( row.Income,2);
-            labelTotal.Text =  income.ToString("N0");
-            if (row.IsTradeNoNull())
+            if (!row.IsDiscountRateNull() && row.DiscountRate != 1m)
+                labelTotal.Text = (row.DiscountRate*100).ToString("F0") + "折 "+income.ToString("N0");
+            else
+                labelTotal.Text = income.ToString("N0");
+
+            labelAlipayNo.Text = "";
+            if (row.PayBy[0] == 'D')
             {
-                labelAlipayNo.Text = "";
-                labelAlipayNo.Visible = false;
+                labelAlipayNo.Text += "收券 ";
+                if (!row.IsCouponIncomeNull())
+                    labelAlipayNo.Text += row.CouponIncome.ToString("N0");
+                if (!row.IsCashIncomeNull() && row.CashIncome != 0m)
+                    labelAlipayNo.Text += " 收现 " + row.CashIncome.ToString("N0");
+                labelAlipayNo.Text += "\r\n";
+                labelAlipayNo.Visible = true;
+            }
+
+
+            if (row.IsTradeNoNull() || row.TradeNo=="")
+            {
+//                labelAlipayNo.Visible = false;
                 btnAlipayRefund.Visible = false;
             }
             else
@@ -433,7 +457,7 @@ namespace VoucherExpense
                 m_Amount  = row.Income;
                 m_OrderRow = row;
                 m_LastClick = t;
-                labelAlipayNo.Text = "支付宝号" + row.TradeNo;
+                labelAlipayNo.Text += "支付宝号" + row.TradeNo;
                 labelAlipayNo.Visible = true;
                 btnAlipayRefund.Visible = true;
             }

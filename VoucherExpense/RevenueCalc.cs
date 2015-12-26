@@ -321,8 +321,8 @@ namespace VoucherExpense
         public MonthlyReportData Statics(BakeryOrderSet orderSet)
 #endif
         {
-            decimal cash = 0, credit = 0, deduct = 0;
-            decimal coupond = 0, deletedMoney = 0, returnedMoney = 0, TwentyPDMoney = 0, FifteenPDMoney = 0, TenPDMoney=0;
+            decimal cash = 0, credit = 0, deduct = 0,alipay=0,coupon=0;
+            decimal deletedMoney = 0, returnedMoney = 0, TwentyPDMoney = 0, FifteenPDMoney = 0, TenPDMoney=0;
             int orderCount = 0, deletedCount = 0, returnedCount = 0, TwentyPDCount = 0, FifteenPDCount=0, TenPDCount=0;
             MonthlyReportData data = new MonthlyReportData();
             foreach (var row in orderSet.Order)
@@ -341,7 +341,19 @@ namespace VoucherExpense
                 else if (row.PayBy == "B")
                     credit += income;
                 else if (row.PayBy == "C")
-                    coupond += income;
+                    alipay += income;
+                else if (row.PayBy == "D")
+                {
+                    if (!row.IsCashIncomeNull())
+                        cash += row.CashIncome;
+                    if (!row.IsCouponIncomeNull())
+                    {
+                        if (row.CouponIncome > income)
+                            coupon += income;            // 收券大於應收,只計應收
+                        else
+                            coupon += row.CouponIncome;
+                    }
+                }
                 if (!row.IsDeductNull()) deduct += row.Deduct;
                 if (income >= 0)     // 退貨的不計入單數
                     orderCount++;    //  一單一人
@@ -371,15 +383,16 @@ namespace VoucherExpense
             }
             data.OrderCount = orderCount;
             data.Cash    = Math.Round(cash);
-            data.Coupond = Math.Round(coupond);
+            data.Alipay = Math.Round(alipay);
+            data.Coupon = Math.Round(coupon);
             data.Deduct = Math.Round(deduct);
             data.Date = m_WorkingDay.Date;
             data.CreditCard = Math.Round(credit);
             data.CreditFee = Math.Round(FeeRate * data.CreditCard, 2);
             data.CreditNet = data.CreditCard - data.CreditFee;
             if (orderCount != 0)
-                data.AvePerPerson = Math.Round((cash + credit + coupond) / orderCount, 1);
-            data.Revenue = Math.Round(cash + credit + coupond);
+                data.AvePerPerson = Math.Round((cash + credit + alipay) / orderCount, 1);
+            data.Revenue = Math.Round(cash + credit + alipay);
 
             data.DeletedCount = deletedCount;
             data.DeletedMoney = Math.Round(deletedMoney);

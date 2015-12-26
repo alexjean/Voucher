@@ -282,6 +282,7 @@ namespace BakeryOrder
                 item.LabelNo.Text = item.name;
             else
                 item.LabelNo.Text = item.name + "  " + item.NoToString();
+
             string idStr = item.id.ToString();
             string small = m_SmallDir + "\\" + idStr + ".jpg";
             if (!File.Exists(small))
@@ -827,10 +828,16 @@ namespace BakeryOrder
                 Buf.Append("应收:   ========>  ");
                 Buf.Append(d2str((double)CurrentOrder.Income, 13) + "\r\n");
             }
+            if (CurrentOrder.PayBy[0]=='D')
+            {   
+                Buf.Append("        收券             ");
+                if (!CurrentOrder.IsCashIncomeNull())
+                    Buf.Append(d2str((double)CurrentOrder.CouponIncome,7) + "\r\n");
+            }
             if (moneyGot > 0)
             {
-                Buf.Append("        实收             "); Buf.Append(d2str(moneyGot, 7) + "\r\n");
-                Buf.Append("        找零             "); Buf.Append(d2str(moneyGot - (double)CurrentOrder.Income, 7) + "\r\n");
+                Buf.Append("        收现             "); Buf.Append(d2str(moneyGot, 7) + "\r\n");
+                Buf.Append("        找零             "); Buf.Append(d2str(moneyGot - (double)CurrentOrder.Income+(double)CurrentOrder.CouponIncome, 7) + "\r\n");
             }
             else
             {
@@ -1287,7 +1294,7 @@ namespace BakeryOrder
         //    return DicPayBy.First().Key;
         //}
 
-        Dictionary<char, string> DicPayBy = new Dictionary<char, string> { { 'A', "现金" }, { 'B', "刷卡" }, { 'C', "支付宝" } };
+        Dictionary<char, string> DicPayBy = new Dictionary<char, string> { { 'A', "现金" }, { 'B', "刷卡" }, { 'C', "支付宝" }, { 'D', "券入" } };
         string PayByChinese(char payBy)
         {
             string str;
@@ -1380,13 +1387,13 @@ namespace BakeryOrder
                     else
                     {
                         m_CurrentOrder.TradeNo = m_Alipay.LastTradeNo;
-                        m_CurrentOrder.OpenID = m_Alipay.LastOpenID;
+                        m_CurrentOrder.OpenID  = m_Alipay.LastOpenID;
                     }
                 }
                 Print(m_CurrentOrder, (double)moneyGot, true);
                 if (!this.checkBoxTest.Checked)
-                    if (m_CurrentOrder.PayBy == "A")
-                    {   // 只有現金才彈出錢箱  
+                    if (m_CurrentOrder.PayBy == "A" || m_CurrentOrder.PayBy=="D")
+                    {   // 只有現金和收券才彈出錢箱  
                         RawPrint.SendManagedBytes(m_Printer.PrinterName, m_CashDrawer);     // 彈出錢箱
                         CreateUpdateDrawerRecord(ref m_MaxDrawerRecordID, m_CurrentOrder.ID % 10000);
                     }

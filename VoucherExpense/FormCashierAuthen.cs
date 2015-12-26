@@ -533,6 +533,16 @@ namespace VoucherExpense
                 newOrder.OpenID = order.OpenID;
                 str += order.OpenID;
             }
+            if (!order.IsCashIncomeNull())
+            {
+                newOrder.CashIncome = order.CashIncome;
+                str += order.CashIncome.ToString("N2");
+            }
+            if (!order.IsCouponIncomeNull())
+            {
+                newOrder.CouponIncome = order.CouponIncome;
+                str += order.CouponIncome.ToString("N2");
+            }
             //if (!order.IsMemberIDNull())
             //{
             //    newOrder.MemberId = order.MemberID;
@@ -882,7 +892,7 @@ namespace VoucherExpense
                 mainHeader.Revenue      = s.Revenue;
                 mainHeader.Cash         = s.Cash;
                 mainHeader.CreditCard   = s.CreditCard;
-                mainHeader.Coupond      = s.Coupond;
+                mainHeader.Coupond      = s.Alipay;
 #endif
                 mainHeader.Closed = true;
                 HeaderAdapter.Update(m_OrderSet.Header);
@@ -1250,15 +1260,16 @@ namespace VoucherExpense
         }
 
 
-        private void GetStatics(out int orderCount, out decimal sum, out decimal averagePerOrder, out decimal cash, out decimal credit,out decimal coupon,out Dictionary<int,decimal> cashiers)
+        private void GetStatics(out int orderCount, out decimal sum, out decimal averagePerOrder, out decimal cash, out decimal credit,out decimal alipay,out decimal coupon,out Dictionary<int,decimal> cashiers)
         {
             sum = 0;
             orderCount = 0;
-            cash = credit = coupon = 0;
+            cash = credit = alipay = coupon=0;
             averagePerOrder = 0;
             cashiers = new Dictionary<int,decimal>();
             foreach (var Row in m_OrderSet.Order)
             {
+                if (!Row.IsDeletedNull() && Row.Deleted) continue;
                 int id=Row.CashierID;
                 if (!cashiers.Keys.Contains(id))
                     cashiers.Add(id, 0m);
@@ -1271,7 +1282,19 @@ namespace VoucherExpense
                     cash += income;
                 }
                 else if (Row.PayBy[0] == 'B') credit += income;
-                else if (Row.PayBy[0] == 'C') coupon += income;
+                else if (Row.PayBy[0] == 'C') alipay += income;
+                else if (Row.PayBy[0] == 'D')
+                {
+                    if (!Row.IsCouponIncomeNull() && Row.CouponIncome >= income) // 收券額大於應收,只計入應收
+                        coupon += income;
+                    else
+                        coupon += Row.CouponIncome;
+                    if (!Row.IsCashIncomeNull())
+                    {
+                        cashiers[id] += Row.CashIncome;
+                        cash += income;
+                    }
+                }
                 else
                 {
                     cashiers[id] = cashiers[id] + income;
@@ -1285,17 +1308,18 @@ namespace VoucherExpense
         private void DrawStatics(int x, int y, int height, int width)
         {
             int no;
-            decimal ave, sum, cash, credit, coupon;
+            decimal ave, sum, cash, credit, alipay,coupon;
             Dictionary<int,decimal> cashiers;
-            GetStatics(out no, out sum, out ave, out cash, out credit, out coupon,out  cashiers);
+            GetStatics(out no, out sum, out ave, out cash, out credit, out alipay,out coupon,out  cashiers);
             int w = width / 2 - 30;
             PrintMoney("營收" , sum, x, y, w);
             y += height;
             PrintMoney("現金" , cash   , x , y               , w);
             PrintMoney("刷卡" , credit , x , y + height      , w);
-            PrintMoney("支宝" , coupon , x , y + height * 2  , w);
-            PrintMoney("檔數" , no     , x , y + height * 3  , w ,"f0");
-            PrintMoney("單均" , ave    , x , y + height * 4  , w);
+            PrintMoney("支宝" , alipay , x , y + height * 2  , w);
+            PrintMoney("券  " , coupon , x , y + height * 3  , w);
+            PrintMoney("檔數" , no     , x , y + height * 4  , w ,"f0");
+            PrintMoney("單均" , ave    , x , y + height * 5  , w);
 
             int x1 = x + width / 2;
             int y1 = y;
@@ -1341,7 +1365,7 @@ namespace VoucherExpense
             for (; x1 <= inner.Left + BlockWidth ; x1 += BlockWidth)
                     m_Graphics.DrawRectangle(pen, new Rectangle(x1, y - 2, w, h));   // 方框寬w 高h
             x1 = inner.Left;
-            int y2 = half;
+            int y2 = half-height;
             DrawStr("收銀對帳單浮貼處"    , x1, y);
             DrawStr("銀行回單附於本表後方", x1, y2 - height);
             DrawStr("異常單說明"         , x1, y2);
@@ -1354,10 +1378,10 @@ namespace VoucherExpense
             //DrawLine(x1, y2 - 2, x1 + w, y2 - 2);   // 統計那格上方那條橫線
             DrawStatics(x1, y2, height, w);
 
-            y2 = y2 + height * 7;
-            DrawStr("單據 授權簽字 電腦資料"  , x1, y2);
+            y2 = y2 + height * 8;
+            DrawStr("單據 授權 電腦"  , x1, y2);
             y2 += height;
-            DrawStr("各金額 均核對無誤後簽字!", x1, y2);
+            DrawStr("各金額均核對無誤!", x1, y2);
             y2 += height;
             DrawLine(x1, y2, x1 + w, y2);           // 簽字上方那條橫線
 //            DrawStr("店長簽字", x1, y2);

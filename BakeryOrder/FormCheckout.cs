@@ -17,8 +17,10 @@ namespace BakeryOrder
         BakeryOrderSet.OrderRow m_Order;
         decimal m_Total;
         decimal m_MoneyGot;
-        decimal m_Debuct = 0;
-        decimal m_Income;
+        decimal m_Deduct = 0;
+        decimal m_Income = 0;
+        decimal m_CashIncome  =0;
+        decimal m_CouponIncome=0;
         char m_PayBy='A';
         decimal m_DiscountRate = 1;
         FormCashier m_Form;
@@ -40,16 +42,22 @@ namespace BakeryOrder
                 Tag = m_MoneyGot;
             else if (m_PayBy == 'B' || m_PayBy == 'C')  // 刷卡及支付宝沒有 實收 
                 Tag = 0;
+            else if (m_PayBy == 'D')   // 收券
+            {
+                Tag = m_MoneyGot;
+            }
             else
             {
                 MessageBox.Show("未知的付款方式!");
                 return;
             }
-            m_Order.Deduct = m_Debuct;
-            m_Order.Income = m_Income;
-            m_Order.PayBy = m_PayBy.ToString();
+            m_Order.Deduct  = m_Deduct;
+            m_Order.Income  = m_Income;
+            m_Order.PayBy   = m_PayBy.ToString();
             m_Order.DiscountRate = m_DiscountRate;
-            m_Order.OldID = 0;
+            m_Order.CashIncome   = m_CashIncome;
+            m_Order.CouponIncome = m_CouponIncome;
+            m_Order.OldID      = 0;
             m_Order.RCashierID = 0;
             //m_Order.ExBread = ExchangeNo;
             //if (FormCashier.memberInfo == null)
@@ -185,10 +193,8 @@ namespace BakeryOrder
                         }
                         catch (Exception ex)
                         {
-
                             FormMessage exForm = new FormMessage("兑换面包后台计算出错，请暂停兑换面包操作并通知技术人员"+ex);
                         }
-                        
                     }
                 }
             }
@@ -216,7 +222,10 @@ namespace BakeryOrder
             SetButtonVisualStyleExcept(sender as Button);
             labelCashGot.Visible = labelChange.Visible = true;
             m_PayBy = 'A';  // 請參照FormCashier的 Dictionary<char,string> DicPayBy
+            labelCouponGot1.Visible = labelCouponGot2.Visible = labelCouponGot.Visible = textBoxCouponGot.Visible = false;
             textBoxCashGot.Enabled = true;
+            textBoxCashGot.Focus();
+            textBoxCouponGot.Text = "";
         }
 
         private void btnCard_Click(object sender, EventArgs e)
@@ -224,15 +233,20 @@ namespace BakeryOrder
             SetButtonVisualStyleExcept(sender as Button);
             labelCashGot.Visible=labelChange.Visible = false;
             m_PayBy = 'B';
+            labelCouponGot1.Visible = labelCouponGot2.Visible = labelCouponGot.Visible = textBoxCouponGot.Visible = false;
             textBoxCashGot.Enabled = false;
+            textBoxCashGot.Text = "";
+            textBoxDeduct.Focus();
         }
 
         private void btnCoupon_Click(object sender, EventArgs e)
         {
             SetButtonVisualStyleExcept(sender as Button);
-            labelCashGot.Visible = labelChange.Visible = false;
-            m_PayBy = 'C';
-            textBoxCashGot.Enabled = false;
+            labelCashGot.Visible = labelChange.Visible = true;
+            m_PayBy = 'D';
+            labelCouponGot1.Visible= labelCouponGot2.Visible=labelCouponGot.Visible = textBoxCouponGot.Visible = true;
+            textBoxCashGot.Enabled = true;
+            textBoxCashGot.Focus();
         }
 
         private void EnableKeyboard()
@@ -274,6 +288,12 @@ namespace BakeryOrder
                 m_Current = sender as TextBox;
         }
 
+        private void textBoxCouponGot_Enter(object sender, EventArgs e)
+        {
+            if (m_Current != sender)
+                m_Current = sender as TextBox;
+        }
+
         private void btnClear_Click(object sender, EventArgs e) 
         {
             ExchangeNo = 0;
@@ -292,11 +312,18 @@ namespace BakeryOrder
 
         }
 
+        // 收券不找零, 所以couponGot可能比Income大, 此時couponIncome=couponGot > Income
+        // 收券兼收現時,就會產生cashIncome.
+        // 其他收款模式Income為m_Total-deduct-discount , cashIncome忽略不處理
+        // 現金收款模式時, cashIncome視同Income,cashIncome不予處理
         private void btnCalc_Click(object sender, EventArgs e)
         {
-            decimal cashGot = 0, deduct = 0, change = 0, discount = 0;
+            decimal cashGot = 0 , deduct = 0, change = 0, discount = 0;
+            decimal cashIncome=0, couponIncome = 0;
             if (!decimal.TryParse(labelDiscount.Text, out discount) || discount == 0)
-            { labelDiscount.Text = ""; }
+            {
+                labelDiscount.Text = "";
+            }
             if (!decimal.TryParse(textBoxDeduct.Text, out deduct) || deduct == 0)
                 labelDeduct.Text = "";
             else
@@ -308,30 +335,77 @@ namespace BakeryOrder
                 }
                 labelDeduct.Text = deduct.ToString();
             }
+
             m_Income = m_Total - deduct - discount;
             labelIncome.Text = m_Income.ToString();
-
             if (!decimal.TryParse(textBoxCashGot.Text, out cashGot) || cashGot == 0)
-                labelChange.Text=labelCashGot.Text = "";
-            else
             {
-                if (cashGot < 0)
-                {
-                    MessageBox.Show("收現不可為負值!");
-                    return;
-                }
+                labelChange.Text=labelCashGot.Text = "";
+                cashGot=0;
+            }
+            if (cashGot < 0)
+            {
+                MessageBox.Show("收現不可為負值!");
+                return;
+            }
+            if (m_PayBy=='A')
+            {
                 change = cashGot - m_Total + deduct + discount;
+                cashIncome=m_Income;  // 以前的資料不會填m_Income
                 if (change < 0)
                 {
                     MessageBox.Show("找零不可為負值!");
                     return;
                 }
-                labelCashGot.Text = cashGot.ToString();
-                labelChange.Text = change.ToString();
             }
+            else if (m_PayBy == 'D')
+            {
+                if (!decimal.TryParse(textBoxCouponGot.Text, out couponIncome) || couponIncome == 0)
+                {
+                    MessageBox.Show("券模式, 收券金額不能等於零!");
+                    return;
+                }
+                if (couponIncome<0)
+                {
+                    MessageBox.Show("券模式, 收券金額不能小於零!");
+                    return;
+                }
+                if (cashGot==0)
+                {
+                    change=0;
+                    cashIncome=0;
+                    if (couponIncome < m_Income)
+                    {
+                        MessageBox.Show("收券金額小於貨款！");
+                        return;
+                    }
+                }
+                else
+                {
+                    if ((couponIncome>=m_Income) && (cashGot>0))
+                    {
+                        MessageBox.Show("收券金額己大於貨款,不應再收現金,收現請填 0");
+                        return;
+                    }
+                    change = cashGot+couponIncome-m_Total+deduct+discount;
+                    if (change < 0)
+                    {
+                        MessageBox.Show("找零不可為負值!");
+                        return;
+                    }
+                    cashIncome = cashGot-change;
+                }
+                labelCouponGot2.Text = couponIncome.ToString();
+            }
+            else
+                change = 0;
+            labelCashGot.Text = cashGot.ToString();
+            labelChange.Text = change.ToString();
 
             m_MoneyGot = cashGot;
-            m_Debuct   = deduct;
+            m_Deduct   = deduct;
+            m_CashIncome = cashIncome;
+            m_CouponIncome = couponIncome;
         }
 
         private void FormCheckout_Shown(object sender, EventArgs e)
@@ -395,9 +469,5 @@ namespace BakeryOrder
             else
                 return base.ProcessDialogKey(keyData);
         }
-
-
-
-
     }
 }

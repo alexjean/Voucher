@@ -432,7 +432,7 @@ namespace VoucherExpense
                 total.OrderCount += d.OrderCount;
                 total.Cash       += d.Cash;
                 total.CreditCard += d.CreditCard;
-                total.Coupond    += d.Coupond;
+                total.Alipay    += d.Alipay;
             }
             reportList = list;
             return total;

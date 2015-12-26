@@ -247,7 +247,7 @@ namespace BakeryOrder
                 lvItems.Columns[i].Text = m_ListViewItemBackup[i];
         }
 
-        Dictionary<char, string> DicPayBy = new Dictionary<char, string> { { 'A', "现金" }, { 'B', "刷卡" }, { 'C', "支付宝" } };
+        Dictionary<char, string> DicPayBy = new Dictionary<char, string> { { 'A', "现金" }, { 'B', "刷卡" }, { 'C', "支付宝" }, { 'D', "券入" } };
         private bool ShowOrder(BakeryOrderSet.OrderRow order)
         {
             BakeryOrderSet.OrderItemRow[] items = order.GetOrderItemRows();
@@ -268,6 +268,14 @@ namespace BakeryOrder
                 total += money;
                 count++;
             }
+            // 計算折扣
+            if (!order.IsDiscountRateNull())
+            {
+                decimal discountRate = order.DiscountRate;
+                if (discountRate != 0m && discountRate != 1m)
+                    total = Math.Floor(total * discountRate);
+            }
+
             lvItems.Columns[1].Text = "ID " + (order.ID % 10000).ToString() + (order.Deleted ? " deleted" : "")+(order.RCashierID>0 ? " 退货" : "");
             lvItems.Columns[2].Text = count.ToString();
             lvItems.Columns[3].Text = total.ToString();
@@ -296,9 +304,23 @@ namespace BakeryOrder
                 labelDeduct.Text = "";
             decimal income = 0;
             if (!order.IsIncomeNull()) income = Math.Round(order.Income,2);
-            labelIncome.Text = income.ToString();
-            if (order.IsTradeNoNull()) labelAlipayNo.Text = "";
-            else                       labelAlipayNo.Text = "支付宝号" + order.TradeNo;
+
+            if (!order.IsDiscountRateNull() && order.DiscountRate != 1m)
+                labelIncome.Text = (order.DiscountRate * 100).ToString("F0") + "折 " + income.ToString("N0");
+            else
+                labelIncome.Text = income.ToString("N0");
+
+            //labelIncome.Text = income.ToString();
+            labelAlipayNo.Text = "";
+            if (order.PayBy[0] == 'D')
+            {
+                if (!order.IsCouponIncomeNull()) 
+                    labelAlipayNo.Text += "收券 "  + order.CouponIncome.ToString();
+                if (!order.IsCashIncomeNull() && order.CashIncome!=0m)
+                    labelAlipayNo.Text += " 收现 " + order.CashIncome.ToString();
+            }
+            if (order.IsTradeNoNull() || order.TradeNo=="") labelAlipayNo.Text += "";
+            else                       labelAlipayNo.Text += "支付宝号" + order.TradeNo;
             if (total != income)
             {
                 if (total == -income)
@@ -318,7 +340,6 @@ namespace BakeryOrder
                     MessageBoxShow("計算金額<" + total.ToString() + ">不符 " + order.Income.ToString());
                     return false;
                 }
-
             }
             return true;
         }

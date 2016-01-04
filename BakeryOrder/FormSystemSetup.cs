@@ -145,8 +145,8 @@ namespace BakeryOrder
             Buf.Append("- - - - - - - - - - - - - - - - - - - -\r\n");
             //  計算統計數字
             int count = 0;
-            int deletedCount = 0, creditCount = 0, couponCount = 0, returnedCount = 0, cashCount = 0;
-            decimal total = 0m, credit = 0m, coupon = 0m, cash = 0m;
+            int deletedCount = 0, creditCount = 0, alipayCount = 0,couponCount=0, returnedCount = 0, cashCount = 0;
+            decimal total = 0m, credit = 0m, alipay = 0m, coupon=0m,cash = 0m;
             DateTime first = new DateTime(2050, 10, 31);
             DateTime last  = new DateTime(2012, 10, 31);
             foreach (var order in m_BakeryOrderSet.Order)
@@ -156,28 +156,41 @@ namespace BakeryOrder
                 decimal income = 0;
                 if (!order.IsIncomeNull()) income = order.Income;
                 if (income < 0) returnedCount++;
-                if (!order.IsDeletedNull() && order.Deleted)  deletedCount++;
-                if (!order.IsPayByNull())
+                if (!order.IsDeletedNull() && order.Deleted) deletedCount++;
+                else
                 {
-                    if (order.PayBy=="A") { cashCount++; cash += income; }
-                    if (order.PayBy == "B") { creditCount++; credit += income; }
-                    if (order.PayBy == "C") { couponCount++; coupon += income; }
+                    if (!order.IsPayByNull())
+                    {
+                        if (order.PayBy == "A") { cashCount++;   cash   += income; }
+                        if (order.PayBy == "B") { creditCount++; credit += income; }
+                        if (order.PayBy == "C") { alipayCount++; alipay += income; }
+                        if (order.PayBy == "D") 
+                        {
+                            couponCount++;
+                            if (!order.IsCashIncomeNull() && order.CouponIncome>0m) cash += order.CashIncome;
+                            if (!order.IsCashIncomeNull())
+                            {
+                                if (order.CouponIncome > income) coupon += income;
+                                else                             coupon += order.CouponIncome;
+                            }
+                        }
+                    }
+                    if (!order.IsPrintTimeNull())
+                    {
+                        if (order.PrintTime < first) first = order.PrintTime;
+                        if (order.PrintTime > last) last = order.PrintTime;
+                    }
+                    count++;
+                    total += income;
                 }
-                if (!order.IsPrintTimeNull())
-                {
-                    if (order.PrintTime < first) first = order.PrintTime;
-                    if (order.PrintTime > last ) last  = order.PrintTime;
-                }
-                count++;
-                total += income;
             }            
             Buf.Append("收银 < " + cashierIDName + " >\r\n");
             Buf.Append("首单时间 " + first.ToString("HH:mm:ss") + "\r\n");
             Buf.Append("末单时间 " + last.ToString("HH:mm:ss") + "\r\n");
             Buf.Append("删单 "+ deletedCount.ToString("d").PadLeft(3) + " 笔, 退货 " +returnedCount.ToString("d").PadLeft(3) +" 笔\r\n");
-            Buf.Append("支宝 " + couponCount.ToString("d").PadLeft(3) + " 笔");
-            if (couponCount==0) Buf.Append("\r\n");
-            else                Buf.Append(", " + coupon.ToString("f0").PadLeft(5) + "元\r\n");
+            Buf.Append("支宝 " + alipayCount.ToString("d").PadLeft(3) + " 笔");
+            if (alipayCount==0) Buf.Append("\r\n");
+            else                Buf.Append(", " + alipay.ToString("f0").PadLeft(5) + "元\r\n");
             Buf.Append("刷卡 " + creditCount.ToString("d").PadLeft(3) + " 笔, " + credit.ToString("f0").PadLeft(5) + "元\r\n");
             Buf.Append("现金 " + cashCount.ToString("d").PadLeft(3) + " 笔, " + cash.ToString("f0").PadLeft(5) + "元\r\n");
             Buf.Append("共   " + count.ToString("d").PadLeft(3)       + " 笔, " + total.ToString("f0").PadLeft(5)  + "元\r\n");

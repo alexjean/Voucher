@@ -336,7 +336,7 @@ namespace VoucherExpense
                     deletedCount++;
                     continue;
                 }
-                if (row.IsPayByNull() || row.PayBy == "A")   // A現金 B刷卡 C券
+                if (row.IsPayByNull() || row.PayBy == "A")   // A現金 B刷卡 C支付宝 D券
                     cash += income;
                 else if (row.PayBy == "B")
                     credit += income;

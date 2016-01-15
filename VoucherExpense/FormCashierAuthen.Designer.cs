@@ -102,6 +102,23 @@
             this.tabPageReadme = new System.Windows.Forms.TabPage();
             this.listBoxReadme = new System.Windows.Forms.ListBox();
             this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.textBoxLetter7 = new System.Windows.Forms.TextBox();
+            this.checkBoxLetter7 = new System.Windows.Forms.CheckBox();
+            this.textBoxLetter6 = new System.Windows.Forms.TextBox();
+            this.checkBoxLetter6 = new System.Windows.Forms.CheckBox();
+            this.textBoxLetter5 = new System.Windows.Forms.TextBox();
+            this.checkBoxLetter5 = new System.Windows.Forms.CheckBox();
+            this.textBoxLetter4 = new System.Windows.Forms.TextBox();
+            this.checkBoxLetter4 = new System.Windows.Forms.CheckBox();
+            this.textBoxLetter3 = new System.Windows.Forms.TextBox();
+            this.checkBoxLetter3 = new System.Windows.Forms.CheckBox();
+            this.textBoxLetter1 = new System.Windows.Forms.TextBox();
+            this.checkBoxLetter2 = new System.Windows.Forms.CheckBox();
+            this.textBoxLetter2 = new System.Windows.Forms.TextBox();
+            this.btnSaveLetter = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.checkBoxLetter1 = new System.Windows.Forms.CheckBox();
             labelTime = new System.Windows.Forms.Label();
             label5 = new System.Windows.Forms.Label();
             label6 = new System.Windows.Forms.Label();
@@ -121,6 +138,7 @@
             this.tabPagePrinter.SuspendLayout();
             this.tabPageReadme.SuspendLayout();
             this.tabControl2.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelTime
@@ -168,6 +186,15 @@
             label1.TabIndex = 17;
             label1.Text = "店号";
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(27, 185);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(88, 16);
+            label2.TabIndex = 20;
+            label2.Text = "支付宝店名";
+            // 
             // labelStoreID
             // 
             this.labelStoreID.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -177,15 +204,6 @@
             this.labelStoreID.TabIndex = 18;
             this.labelStoreID.Text = "0";
             this.labelStoreID.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(27, 185);
-            label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(88, 16);
-            label2.TabIndex = 20;
-            label2.Text = "支付宝店名";
             // 
             // bakeryOrderSet
             // 
@@ -224,7 +242,7 @@
             this.cashierBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.cashierBindingNavigator.Name = "cashierBindingNavigator";
             this.cashierBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.cashierBindingNavigator.Size = new System.Drawing.Size(248, 25);
+            this.cashierBindingNavigator.Size = new System.Drawing.Size(247, 25);
             this.cashierBindingNavigator.TabIndex = 0;
             this.cashierBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -241,7 +259,7 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(28, 22);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(27, 22);
             this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
@@ -724,11 +742,11 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(87, 263);
+            this.label8.Location = new System.Drawing.Point(71, 263);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(268, 16);
+            this.label8.Size = new System.Drawing.Size(304, 16);
             this.label8.TabIndex = 16;
-            this.label8.Text = "更新印表抬頭時 收銀机号也同時設定";
+            this.label8.Text = "更新印表抬頭時 店号 收銀机号也同時設定";
             // 
             // btnSaveToAllPos
             // 
@@ -790,7 +808,7 @@
             this.tabPageReadme.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageReadme.Size = new System.Drawing.Size(446, 351);
             this.tabPageReadme.TabIndex = 0;
-            this.tabPageReadme.Text = "授權提示";
+            this.tabPageReadme.Text = "操作說明";
             this.tabPageReadme.UseVisualStyleBackColor = true;
             // 
             // listBoxReadme
@@ -829,11 +847,195 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl2.Controls.Add(this.tabPageReadme);
+            this.tabControl2.Controls.Add(this.tabPage1);
             this.tabControl2.Location = new System.Drawing.Point(494, 5);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
             this.tabControl2.Size = new System.Drawing.Size(454, 381);
             this.tabControl2.TabIndex = 22;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.AutoScroll = true;
+            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.tabPage1.Controls.Add(this.textBoxLetter7);
+            this.tabPage1.Controls.Add(this.checkBoxLetter7);
+            this.tabPage1.Controls.Add(this.textBoxLetter6);
+            this.tabPage1.Controls.Add(this.checkBoxLetter6);
+            this.tabPage1.Controls.Add(this.textBoxLetter5);
+            this.tabPage1.Controls.Add(this.checkBoxLetter5);
+            this.tabPage1.Controls.Add(this.textBoxLetter4);
+            this.tabPage1.Controls.Add(this.checkBoxLetter4);
+            this.tabPage1.Controls.Add(this.textBoxLetter3);
+            this.tabPage1.Controls.Add(this.checkBoxLetter3);
+            this.tabPage1.Controls.Add(this.textBoxLetter1);
+            this.tabPage1.Controls.Add(this.checkBoxLetter2);
+            this.tabPage1.Controls.Add(this.textBoxLetter2);
+            this.tabPage1.Controls.Add(this.btnSaveLetter);
+            this.tabPage1.Controls.Add(this.label3);
+            this.tabPage1.Controls.Add(this.checkBoxLetter1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 26);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(446, 351);
+            this.tabPage1.TabIndex = 1;
+            this.tabPage1.Text = "小票軟文設定";
+            // 
+            // textBoxLetter7
+            // 
+            this.textBoxLetter7.Location = new System.Drawing.Point(6, 1008);
+            this.textBoxLetter7.Multiline = true;
+            this.textBoxLetter7.Name = "textBoxLetter7";
+            this.textBoxLetter7.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxLetter7.Size = new System.Drawing.Size(297, 159);
+            this.textBoxLetter7.TabIndex = 16;
+            // 
+            // checkBoxLetter7
+            // 
+            this.checkBoxLetter7.AutoSize = true;
+            this.checkBoxLetter7.Location = new System.Drawing.Point(322, 1071);
+            this.checkBoxLetter7.Name = "checkBoxLetter7";
+            this.checkBoxLetter7.Size = new System.Drawing.Size(67, 20);
+            this.checkBoxLetter7.TabIndex = 15;
+            this.checkBoxLetter7.Text = "軟文7";
+            this.checkBoxLetter7.UseVisualStyleBackColor = true;
+            // 
+            // textBoxLetter6
+            // 
+            this.textBoxLetter6.Location = new System.Drawing.Point(6, 846);
+            this.textBoxLetter6.Multiline = true;
+            this.textBoxLetter6.Name = "textBoxLetter6";
+            this.textBoxLetter6.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxLetter6.Size = new System.Drawing.Size(297, 159);
+            this.textBoxLetter6.TabIndex = 14;
+            // 
+            // checkBoxLetter6
+            // 
+            this.checkBoxLetter6.AutoSize = true;
+            this.checkBoxLetter6.Location = new System.Drawing.Point(322, 909);
+            this.checkBoxLetter6.Name = "checkBoxLetter6";
+            this.checkBoxLetter6.Size = new System.Drawing.Size(67, 20);
+            this.checkBoxLetter6.TabIndex = 13;
+            this.checkBoxLetter6.Text = "軟文6";
+            this.checkBoxLetter6.UseVisualStyleBackColor = true;
+            // 
+            // textBoxLetter5
+            // 
+            this.textBoxLetter5.Location = new System.Drawing.Point(6, 681);
+            this.textBoxLetter5.Multiline = true;
+            this.textBoxLetter5.Name = "textBoxLetter5";
+            this.textBoxLetter5.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxLetter5.Size = new System.Drawing.Size(297, 159);
+            this.textBoxLetter5.TabIndex = 12;
+            // 
+            // checkBoxLetter5
+            // 
+            this.checkBoxLetter5.AutoSize = true;
+            this.checkBoxLetter5.Location = new System.Drawing.Point(322, 744);
+            this.checkBoxLetter5.Name = "checkBoxLetter5";
+            this.checkBoxLetter5.Size = new System.Drawing.Size(67, 20);
+            this.checkBoxLetter5.TabIndex = 11;
+            this.checkBoxLetter5.Text = "軟文5";
+            this.checkBoxLetter5.UseVisualStyleBackColor = true;
+            // 
+            // textBoxLetter4
+            // 
+            this.textBoxLetter4.Location = new System.Drawing.Point(6, 516);
+            this.textBoxLetter4.Multiline = true;
+            this.textBoxLetter4.Name = "textBoxLetter4";
+            this.textBoxLetter4.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxLetter4.Size = new System.Drawing.Size(297, 159);
+            this.textBoxLetter4.TabIndex = 10;
+            // 
+            // checkBoxLetter4
+            // 
+            this.checkBoxLetter4.AutoSize = true;
+            this.checkBoxLetter4.Location = new System.Drawing.Point(322, 579);
+            this.checkBoxLetter4.Name = "checkBoxLetter4";
+            this.checkBoxLetter4.Size = new System.Drawing.Size(67, 20);
+            this.checkBoxLetter4.TabIndex = 9;
+            this.checkBoxLetter4.Text = "軟文4";
+            this.checkBoxLetter4.UseVisualStyleBackColor = true;
+            // 
+            // textBoxLetter3
+            // 
+            this.textBoxLetter3.Location = new System.Drawing.Point(6, 351);
+            this.textBoxLetter3.Multiline = true;
+            this.textBoxLetter3.Name = "textBoxLetter3";
+            this.textBoxLetter3.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxLetter3.Size = new System.Drawing.Size(297, 159);
+            this.textBoxLetter3.TabIndex = 8;
+            // 
+            // checkBoxLetter3
+            // 
+            this.checkBoxLetter3.AutoSize = true;
+            this.checkBoxLetter3.Location = new System.Drawing.Point(322, 414);
+            this.checkBoxLetter3.Name = "checkBoxLetter3";
+            this.checkBoxLetter3.Size = new System.Drawing.Size(67, 20);
+            this.checkBoxLetter3.TabIndex = 7;
+            this.checkBoxLetter3.Text = "軟文3";
+            this.checkBoxLetter3.UseVisualStyleBackColor = true;
+            // 
+            // textBoxLetter1
+            // 
+            this.textBoxLetter1.Location = new System.Drawing.Point(6, 21);
+            this.textBoxLetter1.Multiline = true;
+            this.textBoxLetter1.Name = "textBoxLetter1";
+            this.textBoxLetter1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxLetter1.Size = new System.Drawing.Size(297, 159);
+            this.textBoxLetter1.TabIndex = 6;
+            this.textBoxLetter1.Text = "我梦见全人类中了一种一说谎就爆炸的病毒。走在大街上，四面噼里啪啦像过年放烟花。我穿越人群轰鸣，来到你家楼下，大声喊着我爱你，终于让你明白我说的不是谎话。你流着泪说" +
+    "我也是，炸成了天边一朵红霞。\r\n\r\nby 小岩井";
+            // 
+            // checkBoxLetter2
+            // 
+            this.checkBoxLetter2.AutoSize = true;
+            this.checkBoxLetter2.Location = new System.Drawing.Point(322, 254);
+            this.checkBoxLetter2.Name = "checkBoxLetter2";
+            this.checkBoxLetter2.Size = new System.Drawing.Size(67, 20);
+            this.checkBoxLetter2.TabIndex = 5;
+            this.checkBoxLetter2.Text = "軟文2";
+            this.checkBoxLetter2.UseVisualStyleBackColor = true;
+            // 
+            // textBoxLetter2
+            // 
+            this.textBoxLetter2.Location = new System.Drawing.Point(6, 186);
+            this.textBoxLetter2.Multiline = true;
+            this.textBoxLetter2.Name = "textBoxLetter2";
+            this.textBoxLetter2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxLetter2.Size = new System.Drawing.Size(297, 159);
+            this.textBoxLetter2.TabIndex = 4;
+            this.textBoxLetter2.Text = resources.GetString("textBoxLetter2.Text");
+            // 
+            // btnSaveLetter
+            // 
+            this.btnSaveLetter.AutoSize = true;
+            this.btnSaveLetter.Location = new System.Drawing.Point(309, 2);
+            this.btnSaveLetter.Name = "btnSaveLetter";
+            this.btnSaveLetter.Size = new System.Drawing.Size(113, 26);
+            this.btnSaveLetter.TabIndex = 3;
+            this.btnSaveLetter.Text = "存檔 更新POS";
+            this.btnSaveLetter.UseVisualStyleBackColor = true;
+            this.btnSaveLetter.Click += new System.EventHandler(this.btnSaveLetter_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(39, 2);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(204, 16);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "勾選的軟文,將隨机挑一列印";
+            // 
+            // checkBoxLetter1
+            // 
+            this.checkBoxLetter1.AutoSize = true;
+            this.checkBoxLetter1.Location = new System.Drawing.Point(322, 84);
+            this.checkBoxLetter1.Name = "checkBoxLetter1";
+            this.checkBoxLetter1.Size = new System.Drawing.Size(67, 20);
+            this.checkBoxLetter1.TabIndex = 1;
+            this.checkBoxLetter1.Text = "軟文1";
+            this.checkBoxLetter1.UseVisualStyleBackColor = true;
             // 
             // FormCashierAuthen
             // 
@@ -868,6 +1070,8 @@
             this.tabPagePrinter.PerformLayout();
             this.tabPageReadme.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -938,5 +1142,22 @@
         private System.Windows.Forms.TextBox textBoxPOS4;
         private System.Windows.Forms.TextBox textBoxAlipayTitle;
         private System.Windows.Forms.Label labelStoreID;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.Button btnSaveLetter;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBoxLetter1;
+        private System.Windows.Forms.TextBox textBoxLetter2;
+        private System.Windows.Forms.TextBox textBoxLetter3;
+        private System.Windows.Forms.TextBox textBoxLetter4;
+        private System.Windows.Forms.TextBox textBoxLetter5;
+        private System.Windows.Forms.TextBox textBoxLetter6;
+        private System.Windows.Forms.TextBox textBoxLetter7;
+        private System.Windows.Forms.CheckBox checkBoxLetter1;
+        private System.Windows.Forms.CheckBox checkBoxLetter2;
+        private System.Windows.Forms.CheckBox checkBoxLetter3;
+        private System.Windows.Forms.CheckBox checkBoxLetter4;
+        private System.Windows.Forms.CheckBox checkBoxLetter5;
+        private System.Windows.Forms.CheckBox checkBoxLetter6;
+        private System.Windows.Forms.CheckBox checkBoxLetter7;
     }
 }

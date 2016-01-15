@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Manage")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Maidaren")]
+[assembly: AssemblyCompany("AlexJean")]
 [assembly: AssemblyProduct("Manage")]
-[assembly: AssemblyCopyright("Copyright (C) AlexJean 2009-2012")]
+[assembly: AssemblyCopyright("Copyright (C) AlexJean 2008-2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 //      組建編號
 //      修訂編號
 //
-[assembly: AssemblyVersion("2.9.9.0")]
-[assembly: AssemblyFileVersion("2.9.9.0")]
+[assembly: AssemblyVersion("3.0.0.0")]
+[assembly: AssemblyFileVersion("3.0.0.0")]

@@ -121,6 +121,7 @@ namespace VoucherExpense
                 LoadCfg();
                 BakeryConfig = new BakeryConfig(MapPath.DataDir);
                 LoadBakeryConfig();
+                LoadLetterConfig();
             }
             catch (Exception ex)
             {
@@ -1144,7 +1145,9 @@ namespace VoucherExpense
         BakeryConfig BakeryConfig = null;
         string BakeryConfigName = "FormCashier";
         string BakeryTableName  = "PrintTitle";
-        string PrintConfig2Xml(string configName, string tableName,int posID,int storeID)
+        string LetterTableName = "Letter";
+        int LetterNumber = 7;
+        string PrintBakeryConfig2Xml(string configName, string tableName,int posID,int storeID)
         {
             string title = textBoxPrintTitle.Text.TrimEnd();
             string addr  = textBoxPrintAddress.Text.TrimEnd();
@@ -1169,10 +1172,10 @@ namespace VoucherExpense
 
         void LoadBakeryConfig()
         {
-            XmlNode root=BakeryConfig.Load(BakeryConfigName, BakeryTableName);
+            XmlNode root = BakeryConfig.Load(BakeryConfigName, BakeryTableName);
             if (root == null) return;
             XmlNode node = root.FirstChild;
-            if (node==null) return;
+            if (node == null) return;
             if (node.Name == "Print")
             {
                 XmlAttribute attr;
@@ -1187,11 +1190,126 @@ namespace VoucherExpense
             }
         }
 
+        class StrBool
+        {
+            public string Text;
+            public bool   Checked;
+            public StrBool(string text,bool b)
+            {
+                Text = text;
+                Checked = b;
+            }
+        }
+        string PrintLetterConfig2Xml(string configName, string tableName)
+        {
+            List<StrBool> list=new List<StrBool>();
+            for(int i=1;i<=LetterNumber;i++)
+            {
+                Control[] controls;
+                string controlName ="textBoxLetter"+i.ToString();
+                string checkBoxName="checkBoxLetter"+i.ToString();
+                controls=Controls.Find(checkBoxName,true);
+                if (controls.Length>0 && controls[0].GetType()==typeof(CheckBox))
+                {
+                    CheckBox checkBox=(CheckBox)controls[0];
+                    controls=Controls.Find(controlName,true);     // 這種找法,所以最多只能有9個 1-9
+                    if (controls.Length>0 && controls[0].GetType()==typeof(TextBox))
+                    {
+                        TextBox textBox=(TextBox)controls[0]; 
+                        StrBool sb=new StrBool(textBox.Text.TrimEnd(),checkBox.Checked);
+                        list.Add(sb);
+                    }
+                }
+            }
+            StringBuilder xml = new StringBuilder("<" + configName + " Name=\"" + tableName + "\">", 512);
+            foreach(StrBool sb in list)
+            {
+                xml.Append("<LetterText Checked=\"");
+                if (sb.Checked) xml.Append("YES");
+                else            xml.Append("NO");
+                xml.Append("\">");
+                xml.Append(sb.Text);
+                xml.Append("</LetterText>");
+            }
+            xml.Append("</" + configName + ">");
+            return xml.ToString();
+        }
+
+
+        void LoadLetterConfig()
+        {
+            XmlNode root = BakeryConfig.Load(BakeryConfigName, LetterTableName);
+            if (root == null) return;
+            XmlNode node = root.FirstChild;
+            for (int i = 1; i <= LetterNumber; i++)
+            {
+                if (node == null) return;
+                string textBoxName  = "textBoxLetter"  + i.ToString();
+                Control[] controls= Controls.Find(textBoxName,true);
+                if (controls.Length <= 0)
+                {
+                    MessageBox.Show("程式出錯,<" + textBoxName + "> 找不到!");
+                    break;
+                }
+                if (controls[0].GetType() != typeof(TextBox))
+                {
+                    MessageBox.Show("程式出錯,<" + textBoxName + "> 不是TextBox!");
+                    break;   
+                }
+                TextBox textBox=(TextBox)controls[0];
+                if (node.Name == "LetterText")
+                {
+                    textBox.Text = node.InnerText;
+                }
+                string checkBoxName = "checkBoxLetter" + i.ToString();
+                controls = Controls.Find(checkBoxName, true);
+                if (controls.Length <= 0)
+                {
+                    MessageBox.Show("程式出錯,<" + checkBoxName + "> 找不到!");
+                    break;
+                }
+                if (controls[0].GetType() != typeof(CheckBox))
+                {
+                    MessageBox.Show("程式出錯,<" + checkBoxName + "> 不是CheckBox!");
+                    break;
+                }
+                CheckBox checkBox = (CheckBox)controls[0];
+                XmlAttribute attr = node.Attributes["Checked"];
+                if (attr != null && attr.Value == "YES")
+                     checkBox.Checked = true;
+                else checkBox.Checked = false;
+                node = node.NextSibling;
+            }   // end of for
+        }
+
         private void btnSavePrintTitle_Click(object sender, EventArgs e)
         {
-            string content=PrintConfig2Xml(BakeryConfigName,BakeryTableName,posID:0,storeID:0);
+            string content=PrintBakeryConfig2Xml(BakeryConfigName,BakeryTableName,posID:0,storeID:0);
             if (BakeryConfig.Save(BakeryConfigName, BakeryTableName, content))
                 MessageBox.Show("本机存檔成功!");
+        }
+
+        private void btnSaveLetter_Click(object sender, EventArgs e)
+        {
+            tabPageReadme.Show();
+            ClearMessage();
+            string content = PrintLetterConfig2Xml(BakeryConfigName, LetterTableName);
+            if (BakeryConfig.Save(BakeryConfigName,LetterTableName,content))
+                Message("軟文設定本机存檔成功!"); 
+            int i = 0;
+            string dir;
+            foreach (TextBox box in m_TextBoxPaths)
+            {
+                dir = box.Text.Trim();
+                i++;
+                if (dir.Length <= 0) continue;
+                BakeryConfigMDB bakeryConfig = new BakeryConfigMDB(dir);
+                Message("更新收銀机<" + i.ToString() + "> 軟文設定");
+                bakeryConfig.Save(BakeryConfigName, LetterTableName, content);
+            }
+            Message("所有收銀机軟文設定都更新完畢!");
+            Message("收銀机必需重新登入更新才會生效!");
+
         }
 
         // 各POS存的和店長處不同,多了PosNo
@@ -1208,7 +1326,7 @@ namespace VoucherExpense
                 if (dir.Length <= 0) continue;
                 BakeryConfigMDB bakeryConfig = new BakeryConfigMDB(dir);
                 Message("更新收銀机<" + i.ToString() + "> 印表抬頭設定");
-                xmlContent=PrintConfig2Xml(BakeryConfigName,BakeryTableName,posID:i,storeID:m_StoreID);
+                xmlContent=PrintBakeryConfig2Xml(BakeryConfigName,BakeryTableName,posID:i,storeID:m_StoreID);
                 bakeryConfig.Save(BakeryConfigName, BakeryTableName,xmlContent);
             }
             Message("所有收銀机都更新完畢!");
@@ -1444,6 +1562,8 @@ namespace VoucherExpense
         }
 
 
+
+        
  
     }
 }

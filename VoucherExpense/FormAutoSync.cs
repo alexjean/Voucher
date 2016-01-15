@@ -990,9 +990,13 @@ namespace VoucherExpense
         {
             AllowLeave = false;
             btnExit.Enabled = false;
+            btnClearMessage.Enabled = false;
+            btnStartSync.Enabled = false;
             Application.DoEvents();
             CloudSyncOnce();
             btnExit.Enabled = true;
+            btnClearMessage.Enabled = true;
+            btnStartSync.Enabled = true;
             AllowLeave = true;
         }
 

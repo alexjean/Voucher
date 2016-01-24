@@ -418,7 +418,7 @@ namespace BakeryOrder
         }
 
 
-
+        Random m_Random = new Random();
         FormCustomer m_FormCustomer = null;
         FormStatics m_FormStatics = null;
         const string m_ProductDir = "Photos\\Products";
@@ -440,6 +440,8 @@ namespace BakeryOrder
         BakeryConfig m_BakeryConfig = new BakeryConfig(".");
         string BakeryConfigName = "FormCashier";
         string BakeryTableName = "PrintTitle";
+        string LetterTableName = "Letter";
+        List<string> m_LetterList = null;
 
         void LoadBakeryConfig()
         {
@@ -465,12 +467,33 @@ namespace BakeryOrder
             }
         }
 
+        List<string> LoadLetterConfig()
+        {
+            List<string> list = new List<string>();
+            XmlNode root = m_BakeryConfig.Load(BakeryConfigName, LetterTableName);
+            if (root == null) return list;
+            XmlNode node = root.FirstChild;
+            for (int i = 1; i <= 100; i++) // 根據存檔端,設100 forsafe
+            {
+                if (node == null) return list;
+                string letter="";
+                if (node.Name == "LetterText")
+                    letter = node.InnerText;
+                XmlAttribute attr = node.Attributes["Checked"];
+                if (attr != null && attr.Value == "YES")
+                    list.Add(letter);
+                node = node.NextSibling;
+            }   // end of for
+            return list;
+        }
+
 
         void ReLoadAllData()
         {
             m_Cfg.Load();
             if (m_Cfg.PrinterName != null) m_Printer.PrinterName = m_Cfg.PrinterName;
             LoadBakeryConfig();
+            m_LetterList = LoadLetterConfig();
             m_Today = DateTime.Now;
             //            productTableAdapter1.Connection = MapPath.BasicConnection;
             try
@@ -852,11 +875,18 @@ namespace BakeryOrder
                     Buf.Append(PayByChinese(CurrentOrder.PayBy[0]) + ":              " + d2str((double)CurrentOrder.Income, 13) + "\r\n");
             }
             Buf.Append(NormalMode);
-            Buf.Append("* * * * * * * * * * * * * * * *\r\n\r\n\r\n\r\n\r\n\r\n");
-            Buf.Append("\f");
+            Buf.Append("* * * * * * * * * * * * * * * *\r\n");
+            ByteBuilder LetterText = GetRandomLetterAligned();
+            ByteBuilder PageAndFormFeed = new ByteBuilder();
+            PageAndFormFeed.DefaultEncoding = Encoding.GetEncoding("GB2312");
+            PageAndFormFeed.Append("\r\n\r\n\r\n\r\n\r\n\f");
+
             if (!checkBoxTest.Checked)
             {
                 RawPrint.SendManagedBytes(m_Printer.PrinterName, Buf.ToBytes());
+                if (LetterText.Count!=0)
+                    RawPrint.SendManagedBytes(m_Printer.PrinterName, LetterText.ToBytes());
+                RawPrint.SendManagedBytes(m_Printer.PrinterName, PageAndFormFeed.ToBytes());
                 RawPrint.SendManagedBytes(m_Printer.PrinterName, CutPaper);
                 if (printTwice)
                 {
@@ -866,14 +896,46 @@ namespace BakeryOrder
 
                     RawPrint.SendManagedBytes(m_Printer.PrinterName, InnerUseWarning.ToBytes());
                     RawPrint.SendManagedBytes(m_Printer.PrinterName, Buf.ToBytes());
+                    RawPrint.SendManagedBytes(m_Printer.PrinterName, PageAndFormFeed.ToBytes());
                     RawPrint.SendManagedBytes(m_Printer.PrinterName, CutPaper);
                 }
             }
             else
             {
                 string str = Buf.ToString();
+                if (LetterText.Count != 0)
+                    str += LetterText;
                 File.WriteAllBytes("Test.txt", Encoding.UTF8.GetBytes(str));
             }
+        }
+
+        ByteBuilder GetRandomLetterAligned()
+        {
+            ByteBuilder LetterText=new ByteBuilder();
+            LetterText.DefaultEncoding = Encoding.GetEncoding("GB2312");
+            int n = 0;
+            if (m_LetterList.Count > 0)
+            {
+                int rdm = m_Random.Next(m_LetterList.Count);
+                LetterText.Append("\r\n");
+                foreach (char c in m_LetterList[rdm])
+                {
+                    LetterText.Append(new string(c,1));
+                    if (c == '\n' || c=='\r')    // 假設 \r\n一定連著
+                        n = 0;
+                    else
+                    {
+                        if (c >= 256) n += 2;
+                        else n += 1;
+                        if (n >= 32)
+                        {
+                            LetterText.Append("\r\n");
+                            n = 0;
+                        }
+                    }
+                }
+            }
+            return LetterText;
         }
 
         byte[] m_CashDrawer = new byte[] { 0x1B, (byte)'p', 0, 150, 100 };

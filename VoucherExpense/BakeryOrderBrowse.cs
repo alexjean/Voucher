@@ -337,6 +337,7 @@ namespace VoucherExpense
             int count = 0; ;
             foreach (var item in items)
             {
+                if (item.RowState == DataRowState.Deleted) continue;
                 if (item.IsNoNull()) continue;
                 if (item.IsProductIDNull()) continue;
                 if (item.IsPriceNull()) item.Price = 0m;

@@ -459,6 +459,9 @@ namespace VoucherExpense
             Application.DoEvents();
 
             bool[] debug = new bool[count];   // items code會重複, 不知為何 ,只好用此辦法
+            CSaleItem lostProduct = new CSaleItem();   
+            lostProduct.Total = 0;
+            lostProduct.Volume = 0;
             foreach (var row in m_OrderSet.Order)
             {
                 if (!row.IsDeletedNull() && row.Deleted) continue; // 刪單不計
@@ -477,27 +480,39 @@ namespace VoucherExpense
                 }
                 decimal income = 0;
                if (!row.IsIncomeNull()) income = row.Income;
-               if (total!=0m) deductRate = income  / total;
+               if (total != 0m) deductRate = income / total;
                 int hr = 0;
                 if (!row.IsPrintTimeNull()) hr=row.PrintTime.Hour;
                 foreach (var it in items)
                 {
+                    if (it.RowState == DataRowState.Deleted) continue; // 己刪除的
                     if (it.IsProductIDNull()) continue;
+                    bool notFound = true;
                     for (int i = 0; i < m_SaleList.Count; i++)
                     {
                         CSaleItem m = m_SaleList[i];
                         if (m.ProductID == it.ProductID)
                         {
-                            if (debug[i]) break;        // 重複算了二次, items存入有bug,只好先跳掉
+                            notFound = false;
+                            if (debug[i])
+                                break;        // 重複算了二次, items存入有bug,只好先跳掉
                             debug[i] = true;
                             if (income >= 0)            // 收入為負,退貨不計也不減回數量,計成本並回扣收入
                                 m.AddVolume( it.No , hr );
                             if (it.Discount)
-                                m.Total += (it.Price * it.No * discountRate)*deductRate;   
+                                m.Total += (it.Price * it.No * discountRate) * deductRate;
                             else
                                 m.Total += it.Price * it.No*deductRate;
                             break;
                         }
+                    }
+                    if (notFound)   // 產品表和OrderItem一定不Match了,所以找不到
+                    {
+                        if (it.Discount)
+                            lostProduct.Total += (it.Price * it.No * discountRate) * deductRate;
+                        else
+                            lostProduct.Total += it.Price * it.No * deductRate;
+
                     }
                 }
 

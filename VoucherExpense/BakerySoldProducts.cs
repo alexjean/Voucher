@@ -400,6 +400,8 @@ namespace VoucherExpense
                 m_OrderSet.Order.Rows.Clear();  
                 m_OrderSet.ShipmentDetail.Rows.Clear();
                 m_OrderSet.Shipment.Rows.Clear();
+                IsSold = cBSold.Checked;
+                IsShipment = cBShipment.Checked;
                 if (IsSold)
                 {
                     m_OrderAdapter.FillBySelectStr(m_OrderSet.Order, "Select * From [Order] " + sql + " Order by ID");
@@ -451,7 +453,7 @@ namespace VoucherExpense
             }
             labelMessage.Text = "計算中...";
 
- InitProgressBar(m_OrderSet.Order.Count+m_OrderSet.Shipment.Count);  //此处不用区分 是出货（出货数+0）还售货（售货数+0）还是出货和售货的和
+            InitProgressBar(m_OrderSet.Order.Count+m_OrderSet.Shipment.Count);  //此处不用区分 是出货（出货数+0）还售货（售货数+0）还是出货和售货的和
 
 
             Application.DoEvents();
@@ -459,6 +461,7 @@ namespace VoucherExpense
             bool[] debug = new bool[count];   // items code會重複, 不知為何 ,只好用此辦法
             foreach (var row in m_OrderSet.Order)
             {
+                if (!row.IsDeletedNull() && row.Deleted) continue; // 刪單不計
                 decimal discountRate=0.88m,deductRate=1m;
                 if (!row.IsDiscountRateNull()) discountRate=row.DiscountRate;
                 var items = row.GetOrderItemRows();

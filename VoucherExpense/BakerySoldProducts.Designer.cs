@@ -704,6 +704,8 @@
             // 
             this.cBSold.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cBSold.AutoSize = true;
+            this.cBSold.Checked = true;
+            this.cBSold.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cBSold.Location = new System.Drawing.Point(824, 179);
             this.cBSold.Name = "cBSold";
             this.cBSold.Size = new System.Drawing.Size(59, 20);
@@ -773,7 +775,7 @@
             this.Controls.Add(this.cbBoxFrom);
             this.Controls.Add(this.cbBoxMonth);
             this.Controls.Add(this.dgViewSale);
-            this.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "BakerySoldProducts";
             this.Text = "焙焙銷售統計";

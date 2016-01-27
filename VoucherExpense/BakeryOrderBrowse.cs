@@ -272,12 +272,10 @@ namespace VoucherExpense
             page.Font = new Font("標楷體", 14.25f);
             return page;
         }
-        void CreateLabel(TabPage tabPage, int x, int y, MyOrderRow Row)
+        void CreateLabel(TabPage tabPage, int x, int y, MyOrderRow Row,int WidthX,int HeightY )
         {
             if (Row == null) return;
             string mark = "St" + tabPage.Name + DateTime.Now.Ticks.ToString();  //避免多次進入,label重名了
-            int WidthX = (tabPage.Width - MyLayout.OffsetX) / MyLayout.NoX;
-            int HeightY = (tabPage.Height - MyLayout.OffsetY) / MyLayout.NoY;
             int xx, yy;
             xx = MyLayout.OffsetX + x * WidthX;
             yy = MyLayout.OffsetY + y * HeightY;
@@ -440,8 +438,6 @@ namespace VoucherExpense
                 labelAlipayNo.Text += "\r\n";
                 labelAlipayNo.Visible = true;
             }
-
-
             if (row.IsTradeNoNull() || row.TradeNo=="")
             {
 //                labelAlipayNo.Visible = false;
@@ -459,7 +455,10 @@ namespace VoucherExpense
                 m_LastClick = t;
                 labelAlipayNo.Text += "支付宝号" + row.TradeNo;
                 labelAlipayNo.Visible = true;
-                btnAlipayRefund.Visible = true;
+                if (!row.IsDeletedNull() && row.Deleted)  // 只有己刪單的才准作業支付宝
+                    btnAlipayRefund.Visible = true;
+                else
+                    btnAlipayRefund.Visible = false;
             }
             if (!ShowOrder(row))         // return false 總額不符
                 labelTotal.Text +=  "???";
@@ -545,6 +544,9 @@ namespace VoucherExpense
             TabPage page=null;
             decimal total = 0;
             int count = 0;
+            // 一直加Tab,加行時 Height會改變, 所以先在前面算好餘裕
+            int WidthX = (m_TabPageStatics.Width - MyLayout.OffsetX) / MyLayout.NoX;
+            int HeightY = (m_TabPageStatics.Height - MyLayout.OffsetY - 60) / MyLayout.NoY;
 
             foreach (var gr in groups)
             {
@@ -560,7 +562,7 @@ namespace VoucherExpense
                     {
                         if (page == null)
                             page=AddTabControl1Item(tabName);
-                        CreateLabel(page, x, y, order);
+                        CreateLabel(page, x, y, order,WidthX,HeightY);
                         if (!order.Deleted)
                         {
                             total += order.Income;
@@ -605,7 +607,7 @@ namespace VoucherExpense
                 {
                     if (page==null)
                         page = AddTabControl1Item(tabName);
-                    CreateLabel(page, x, y, order);
+                    CreateLabel(page, x, y, order,WidthX,HeightY);
                     if (!order.Deleted)
                     {
                         total += order.Income;

@@ -375,7 +375,7 @@
             this.btnAlipayRefund.Name = "btnAlipayRefund";
             this.btnAlipayRefund.Size = new System.Drawing.Size(111, 41);
             this.btnAlipayRefund.TabIndex = 63;
-            this.btnAlipayRefund.Text = "支付宝退款";
+            this.btnAlipayRefund.Text = "支付宝作业";
             this.btnAlipayRefund.UseVisualStyleBackColor = true;
             this.btnAlipayRefund.Visible = false;
             this.btnAlipayRefund.Click += new System.EventHandler(this.btnAlipayRefund_Click);

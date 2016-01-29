@@ -501,11 +501,11 @@ namespace VoucherExpense
             }
             if (!order.IsDeletedNull())
             {
-                if (newOrder.IsDeletedNull())       // 店長電腦無刪除狀態,以POS為準
-                    newOrder.Deleted = order.Deleted;
-                else if (order.Deleted)             // POS是刪除的,一定上傳
-                    newOrder.Deleted = order.Deleted;
                 // POS沒刪, 店長電腦有狀態,則保留店長狀態
+                //if (newOrder.IsDeletedNull())       // 店長電腦無刪除狀態,以POS為準
+                //    newOrder.Deleted = order.Deleted;
+                //else if (order.Deleted)             // POS是刪除的,一定上傳
+                    newOrder.Deleted = order.Deleted;
                 if (newOrder.Deleted) str += '1';     // SQL的bit是0 1
                 else                  str += '0';
             }
@@ -571,6 +571,8 @@ namespace VoucherExpense
 #endif 
         }
 
+
+        
         void CopyOrder(BakeryOrderSet.OrderRow order,int posID)
         {
             int newID = OrderIDWithPOS(order.ID, posID);
@@ -637,6 +639,12 @@ namespace VoucherExpense
                 }
                 index++;
             }
+            // 要刪除不在mdb內的OrderItemRow
+            if (index < count)   // 店長端的OrderItem比較多,一定是換Pos號收取資料了,多的要刪
+            {
+                for (int i = index; i < count; i++)
+                    mainItems[i].Delete();
+            }
         }
 
         string SqlOrder ;    // 資料定義為 MMDDN99999  N POS机号, 店長收資料時,再自動填上        
@@ -675,6 +683,19 @@ namespace VoucherExpense
                 itemAdapter.FillBySelectStr  (posBakerySet.OrderItem   , "Select * From [OrderItem] "   + SqlOrderMdb);
                 foreach (BakeryOrderSet.OrderRow order in posBakerySet.Order)
                     CopyOrder(order,posID);
+                // 刪除沒有在posBakerySet.Order的
+                foreach(var order in m_OrderSet.Order)
+                {
+                    if (order.RowState == DataRowState.Unchanged)  // 只有Unchanged才有可能是多的,進去查下ID
+                    {
+                        int no=order.ID%1000000;  // 只檢查單號,忽略日期
+                        if (no / 100000 != posID) continue;
+                        no %= 100000;
+                        var posOrders = from posOrder in posBakerySet.Order where (posOrder.ID % 100000) == no select posOrder;
+                        if (posOrders.Count() <= 0)   // POS mdb中找不到這筆,一定是換POS交叉抓了, 刪掉. 因為FK設為Cascade所以自動刪對應的OrderItem
+                            order.Delete();
+                    }
+                }
                 Message("寫入本地資料庫! 共 "+posBakerySet.Order.Count.ToString()+" 筆");
                 OrderAdapter.Update(m_OrderSet.Order);
                 OrderItemAdapter.Update(m_OrderSet.OrderItem);
@@ -735,6 +756,8 @@ namespace VoucherExpense
             int serialPart = id % 100000;
             return dayPart + serialPart + pos * 100000;
         }
+
+
 
         private void btnGetDataFromPOS_Click(object sender, EventArgs e)
         {

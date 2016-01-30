@@ -651,7 +651,39 @@ namespace VoucherExpense
         string SqlDrawer;    // 資料定義為 MMDDN99999  N POS机号, id最多10萬筆
         string SqlOrderMdb;
         string SqlDrawerMdb;
-        bool GetCashierData(int posID, string dir,DateTime today)
+        bool CheckPOSSetup(int storeID, int posID, string dir)
+        {
+            BakeryConfigMDB posConfig = new BakeryConfigMDB(dir);
+            XmlNode root=posConfig.Load(BakeryConfigName, BakeryTableName);
+            if (root == null)
+            {
+                Message("無法檢查收銀机<" + posConfig + ">設定,請檢查POS是否开机中!");
+                return false;
+            }
+            XmlNode node = root.FirstChild;
+            if (node == null)
+            {
+                Message("讀不到收銀机<" + posID + ">机号及店号設定, 請檢查印表机設定 或 收銀机網路位置!");
+                return false;
+            }
+            int pos=0, store=0;
+            if (node.Name == "Print")
+            {
+                XmlAttribute attr;
+                attr = node.Attributes["PosNo"];
+                if (attr != null && attr.Value != null) int.TryParse(attr.Value, out pos);
+                attr = node.Attributes["StoreID"];
+                if (attr != null && attr.Value != null) int.TryParse(attr.Value, out store);
+            }
+            if (pos == 0 || store == 0 || pos!=posID || store!=storeID)
+            {
+                Message("收銀机<" + posID + "> 其机号<" + pos + ">店号<" + store + ">,顯然有誤.請檢查印表机設定 或 收銀机網路位置!");
+                return false;
+            }
+            return true;
+        }
+
+        bool GetCashierData(int storeID,int posID, string dir,DateTime today)
         {
             string sID = "收銀机<" + posID.ToString() + "> ";
             dir = dir.Trim();
@@ -665,17 +697,21 @@ namespace VoucherExpense
                 Message(sID+ " 網路位置過短!",true);
                 return false;
             }
-            Message("--------開始匯入" + sID);
-            string connStr=MapPath.ConnectString(dir+"\\BakeryOrder.mdb",MapPath.BakeryPass+"Bakery");
+            string connStr = MapPath.ConnectString(dir + "\\BakeryOrder.mdb", MapPath.BakeryPass + "Bakery");
             BakeryOrderSet posBakerySet = new BakeryOrderSet();
-            System.Data.OleDb.OleDbConnection dbConnection   = new System.Data.OleDb.OleDbConnection(connStr);
+            System.Data.OleDb.OleDbConnection dbConnection = new System.Data.OleDb.OleDbConnection(connStr);
+            BakeryOrderAdapter orderAdapter = new BakeryOrderAdapter();
+            BakeryOrderItemAdapter itemAdapter = new BakeryOrderItemAdapter();
+            BakeryDrawerRecordAdapter drawerAdapter = new BakeryDrawerRecordAdapter();
+            
+            drawerAdapter.Connection = dbConnection;
+            orderAdapter.Connection = dbConnection;
+            itemAdapter.Connection = dbConnection;
+
+            Message("------檢查收銀机設定--------");
+            if (!CheckPOSSetup(storeID, posID, dir)) return false;
+            Message("--------開始匯入" + sID);
             // 收銀机DB
-            BakeryOrderAdapter        orderAdapter   = new BakeryOrderAdapter();
-            BakeryOrderItemAdapter    itemAdapter    = new BakeryOrderItemAdapter();
-            BakeryDrawerRecordAdapter drawerAdapter  = new BakeryDrawerRecordAdapter();
-            drawerAdapter.Connection    = dbConnection;
-            orderAdapter.Connection     = dbConnection;
-            itemAdapter.Connection      = dbConnection;
             try
             {
                 Message("讀取本日交易明細!");
@@ -807,7 +843,10 @@ namespace VoucherExpense
             int count = m_TextBoxPaths.Count;
             int success = 0;
             for (int i = 0; i < count; i++)
-                if (GetCashierData(i + 1, m_TextBoxPaths[i].Text, today)) success++;
+            {
+                string dir=m_TextBoxPaths[i].Text;
+                if (GetCashierData(m_StoreID,i + 1,dir , today)) success++;
+            }
             Message("共成功匯入了 " + success.ToString() + " 台收銀机的資料!");
         }
 
@@ -1307,7 +1346,7 @@ namespace VoucherExpense
 
         private void btnSavePrintTitle_Click(object sender, EventArgs e)
         {
-            string content=PrintBakeryConfig2Xml(BakeryConfigName,BakeryTableName,posID:0,storeID:0);
+            string content=PrintBakeryConfig2Xml(BakeryConfigName,BakeryTableName,posID:0,storeID:m_StoreID);
             if (BakeryConfig.Save(BakeryConfigName, BakeryTableName, content))
                 MessageBox.Show("本机存檔成功!");
         }

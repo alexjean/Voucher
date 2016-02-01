@@ -675,7 +675,7 @@ namespace BakeryOrder
             Buf.Append(d2str(mItem.No, 4));
             Buf.Append(d2str(mItem.Price, 5));
             Buf.Append(d2str(mItem.Money(), 7));
-            Buf.Append("\r\n");
+            Buf.Append("\r\n        ");
         }
 
         // m_MaxOrderID在SaveOrder時才去更新
@@ -771,6 +771,7 @@ namespace BakeryOrder
             byte[] NormalMode = new byte[] { 0x1c, 0x21, 0 };
             byte[] CutPaper = new byte[] { 0x1B, (byte)'i' };
             int n;
+            string LFSpace = "\r\n        ";
 
             ByteBuilder Buf = new ByteBuilder(2048);
             Buf.DefaultEncoding = Encoding.GetEncoding("GB2312");
@@ -780,28 +781,28 @@ namespace BakeryOrder
 
 
             Buf.Append(BorderMode);                                      // 設定列印模式28
-            Buf.Append(m_Printer.Title + "\r\n");
+            Buf.Append("        "+m_Printer.Title + "\r\n"); 
             Buf.Append(NormalMode);                                      // 設定列印模式正常 
 
-            Buf.Append("\r\n");
-
+            //Buf.Append("\r\n");
+            Buf.Append(LFSpace);
             if (card!=null)
             {
                  Buf.Append("会员测试单，如给您带来不便请原谅！\r\n");
                  Buf.Append("会员卡号：" + card.CardNumber.ToString() + "\r\n");
                  Buf.Append("面包数" + memberScore.Bread.ToString() + "麦子" + memberScore.Score.ToString() + "\r\n");
                  Buf.Append("本次兑换面包"+ExBread+"获得麦子数" + BreadNO + "\r\n");
-            } 
-            Buf.Append(m_Printer.Address + "\r\n");
+            }
+            Buf.Append(m_Printer.Address ); Buf.Append(LFSpace);
             Buf.AppendPadRight(m_Printer.Tel, 19);
             n = (CurrentOrder.ID % 1000);
-            Buf.Append("序号:" + m_PosID.ToString() + "-" + n.ToString("d4") + "\r\n");
+            Buf.Append("序号:" + m_PosID.ToString() + "-" + n.ToString("d4")); Buf.Append(LFSpace);
             Buf.AppendPadRight("时间:" + CurrentOrder.PrintTime.ToString("yy/MM/dd HH:mm"), 19);
             Buf.Append("收银" + m_CashierID.ToString("d03") + m_CashierName + "\r\n\r\n");
-
             Buf.Append(BorderMode);                                      // 設定列印模式28
-            Buf.Append("  品名        数量 单价   金额\r\n");
-            Buf.Append("- - - - - - - - - - - - - - - -\r\n");
+            Buf.Append("        ");
+            Buf.Append("  品名        数量 单价   金额"); Buf.Append(LFSpace);
+            Buf.Append("- - - - - - - - - - - - - - - -");      Buf.Append(LFSpace);
             MenuItemForTag mItem;
             double no = 0;
             double discount = 0;
@@ -813,15 +814,15 @@ namespace BakeryOrder
                 no += mItem.No;
                 discount += mItem.Money();
             }
-            Buf.Append("- - - - - - - - - - - - - - - -\r\n");
-            Buf.Append("小计:        " + d2str(no, 7) + d2str(discount, 12) + "\r\n");
+            Buf.Append("- - - - - - - - - - - - - - - -");      Buf.Append(LFSpace);
+            Buf.Append("小计:        " + d2str(no, 7) + d2str(discount, 12)); Buf.Append(LFSpace);
             if ((!CurrentOrder.IsDiscountRateNull()) && CurrentOrder.DiscountRate < 1)
             {
                 string temp = CurrentOrder.DiscountRate.ToString();
                 Buf.Append("打" + temp.Remove(0, 2) + "折:  ");
                 Buf.Append(d2str(discount, 4));
                 Buf.Append("* " + temp + "=");
-                Buf.Append(d2str(discount * (double)CurrentOrder.DiscountRate, 10) + "\r\n");
+                Buf.Append(d2str(discount * (double)CurrentOrder.DiscountRate, 10)); Buf.Append(LFSpace);
             }
             if ((!CurrentOrder.IsDeductNull()) && (CurrentOrder.Deduct != 0))
             {
@@ -841,7 +842,7 @@ namespace BakeryOrder
                 //}
 
                 Buf.Append("优惠:              ");
-                Buf.Append(d2str((double)-CurrentOrder.Deduct, 13) + "\r\n");
+                Buf.Append(d2str((double)-CurrentOrder.Deduct, 13)); Buf.Append(LFSpace);
                 //Buf.Append("应收:   ========>  ");
                 //Buf.Append(d2str((double)CurrentOrder.Income, 13) + "\r\n");
             }
@@ -849,33 +850,34 @@ namespace BakeryOrder
                 || ((!CurrentOrder.IsDiscountRateNull()) && CurrentOrder.DiscountRate < 1))
             {
                 Buf.Append("应收:   ========>  ");
-                Buf.Append(d2str((double)CurrentOrder.Income, 13) + "\r\n");
+                Buf.Append(d2str((double)CurrentOrder.Income, 13)  );  Buf.Append(LFSpace);
             }
             if (CurrentOrder.PayBy[0]=='D')
             {   
                 Buf.Append("        收券             ");
                 if (!CurrentOrder.IsCashIncomeNull())
-                    Buf.Append(d2str((double)CurrentOrder.CouponIncome,7) + "\r\n");
+                    Buf.Append(d2str((double)CurrentOrder.CouponIncome, 7)); Buf.Append(LFSpace);
             }
             if (moneyGot > 0)
             {
-                Buf.Append("        收现             "); Buf.Append(d2str(moneyGot, 7) + "\r\n");
-                Buf.Append("        找零             "); Buf.Append(d2str(moneyGot - (double)CurrentOrder.Income+(double)CurrentOrder.CouponIncome, 7) + "\r\n");
+                Buf.Append("        收现             "); Buf.Append(d2str(moneyGot, 7)); Buf.Append(LFSpace);
+                Buf.Append("        找零             "); Buf.Append(d2str(moneyGot - (double)CurrentOrder.Income + (double)CurrentOrder.CouponIncome, 7));
             }
             else
             {
                 if (CurrentOrder.PayBy[0] == 'C')  // 支付宝交易列印相關訊息
                 {
-                    Buf.Append(PayByChinese(CurrentOrder.PayBy[0]) + "付:          " + d2str((double)CurrentOrder.Income, 13) + "\r\n");
-                    Buf.Append("买家帐号:" + m_Alipay.LastBuyerLogonID + "\r\n");
-                    Buf.Append("交易类型:条码支付   支付宝交易号:" + "\r\n");
-                    Buf.Append(m_Alipay.LastTradeNo + "\r\n");
+                    Buf.Append(PayByChinese(CurrentOrder.PayBy[0]) + "付:          " + d2str((double)CurrentOrder.Income, 13)); Buf.Append(LFSpace);
+                    Buf.Append("买家帐号:" + m_Alipay.LastBuyerLogonID);    Buf.Append(LFSpace);
+                    Buf.Append("交易类型:条码支付   支付宝交易号:");         Buf.Append(LFSpace);
+                    Buf.Append(m_Alipay.LastTradeNo);                       
                 }
-                else 
-                    Buf.Append(PayByChinese(CurrentOrder.PayBy[0]) + ":              " + d2str((double)CurrentOrder.Income, 13) + "\r\n");
+                else
+                    Buf.Append(PayByChinese(CurrentOrder.PayBy[0]) + ":              " + d2str((double)CurrentOrder.Income, 13));
             }
+            Buf.Append("\r\n");
             Buf.Append(NormalMode);
-            Buf.Append("* * * * * * * * * * * * * * * *\r\n");
+            Buf.Append("        * * * * * * * * * * * * * * * *"); Buf.Append(LFSpace);
             ByteBuilder LetterText = GetRandomLetterAligned();
             ByteBuilder PageAndFormFeed = new ByteBuilder();
             PageAndFormFeed.DefaultEncoding = Encoding.GetEncoding("GB2312");
@@ -892,7 +894,7 @@ namespace BakeryOrder
                 {
                     ByteBuilder InnerUseWarning = new ByteBuilder();
                     InnerUseWarning.DefaultEncoding = Encoding.GetEncoding("GB2312");
-                    InnerUseWarning.Append("内部联不给客户\r\n");
+                    InnerUseWarning.Append("        内部联不给客户\r\n");
 
                     RawPrint.SendManagedBytes(m_Printer.PrinterName, InnerUseWarning.ToBytes());
                     RawPrint.SendManagedBytes(m_Printer.PrinterName, Buf.ToBytes());
@@ -917,19 +919,23 @@ namespace BakeryOrder
             if (m_LetterList.Count > 0)
             {
                 int rdm = m_Random.Next(m_LetterList.Count);
-                LetterText.Append("\r\n");
+                LetterText.Append("\r\n        ");
                 foreach (char c in m_LetterList[rdm])
                 {
+                    
                     LetterText.Append(new string(c,1));
-                    if (c == '\n' || c=='\r')    // 假設 \r\n一定連著
+                    if (c == '\n' || c == '\r')    // 假設 \r\n一定連著
+                    {
                         n = 0;
+                        if (c == '\n') LetterText.Append("        ");
+                    }
                     else
                     {
                         if (c >= 256) n += 2;
                         else n += 1;
                         if (n >= 32)
                         {
-                            LetterText.Append("\r\n");
+                            LetterText.Append("\r\n        ");
                             n = 0;
                         }
                     }

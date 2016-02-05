@@ -801,8 +801,8 @@ namespace BakeryOrder
             Buf.Append("收银" + m_CashierID.ToString("d03") + m_CashierName + "\r\n\r\n");
             Buf.Append(BorderMode);                                      // 設定列印模式28
             Buf.Append("        ");
-            Buf.Append("  品名        数量 单价   金额"); Buf.Append(LFSpace);
-            Buf.Append("- - - - - - - - - - - - - - - -");      Buf.Append(LFSpace);
+            Buf.Append("  品名        数量 单价   金额");           Buf.Append(LFSpace);
+            Buf.Append("- - - - - - - - - - - - - - - -");         Buf.Append(LFSpace);
             MenuItemForTag mItem;
             double no = 0;
             double discount = 0;

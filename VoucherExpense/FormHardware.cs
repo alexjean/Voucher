@@ -90,6 +90,7 @@ namespace VoucherExpense
 
             chBoxCloudSync.Checked       = Config.EnableCloudSync;
             textBoxSqlServerIPCloud.Text = Config.SqlServerIPCloud;
+            textBoxSharedDatabase.Text   = Config.SharedDatabaseCloud;
             textBoxSqlUserIDCloud.Text   = Config.SqlUserIDCloud;
             textBoxSqlPasswordCloud.Text = Config.SqlPasswordCloud;
             
@@ -136,6 +137,7 @@ namespace VoucherExpense
 
             Config.EnableCloudSync  = chBoxCloudSync.Checked;
             Config.SqlServerIPCloud = textBoxSqlServerIPCloud.Text.Trim();
+            Config.SharedDatabaseCloud = textBoxSharedDatabase.Text.Trim();
             Config.SqlUserIDCloud   = textBoxSqlUserIDCloud.Text.Trim();
             Config.SqlPasswordCloud = textBoxSqlPasswordCloud.Text.Trim();
             Config.Save();

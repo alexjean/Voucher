@@ -66,7 +66,8 @@
             this.textBoxSqlDatabase = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label11 = new System.Windows.Forms.Label();
+            this.btnTestCloud = new System.Windows.Forms.Button();
+            this.btnTestLocal = new System.Windows.Forms.Button();
             this.chBoxCloudSync = new System.Windows.Forms.CheckBox();
             this.textBoxSqlUserIDCloud = new System.Windows.Forms.TextBox();
             this.textBoxSqlPasswordCloud = new System.Windows.Forms.TextBox();
@@ -77,8 +78,8 @@
             this.textBoxSqlUserID = new System.Windows.Forms.TextBox();
             this.textBoxSqlPassword = new System.Windows.Forms.TextBox();
             this.btnSaveSql = new System.Windows.Forms.Button();
-            this.btnTestLocal = new System.Windows.Forms.Button();
-            this.btnTestCloud = new System.Windows.Forms.Button();
+            this.textBoxSharedDatabase = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -92,6 +93,12 @@
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 16;
             this.listBox1.Items.AddRange(new object[] {
+            "",
+            "1 云端資料庫, 分單店及共享. 云端單店資料庫名稱規定和店長端同名.",
+            "   只需設定共享資料庫(含產品食材配方部門)",
+            "",
+            "---------------------------------------------------------------------------------" +
+                "--------------",
             "",
             "            XP資料庫目錄共享設定 (以 \\Voucher 為例)",
             "",
@@ -444,7 +451,7 @@
             // 
             // textBoxSqlDatabase
             // 
-            this.textBoxSqlDatabase.Location = new System.Drawing.Point(106, 88);
+            this.textBoxSqlDatabase.Location = new System.Drawing.Point(106, 91);
             this.textBoxSqlDatabase.Name = "textBoxSqlDatabase";
             this.textBoxSqlDatabase.Size = new System.Drawing.Size(169, 27);
             this.textBoxSqlDatabase.TabIndex = 9;
@@ -452,17 +459,18 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(30, 91);
+            this.label8.Location = new System.Drawing.Point(30, 96);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(56, 16);
+            this.label8.Size = new System.Drawing.Size(72, 16);
             this.label8.TabIndex = 10;
-            this.label8.Text = "資料庫";
+            this.label8.Text = "店資料庫";
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.textBoxSharedDatabase);
+            this.groupBox4.Controls.Add(this.label11);
             this.groupBox4.Controls.Add(this.btnTestCloud);
             this.groupBox4.Controls.Add(this.btnTestLocal);
-            this.groupBox4.Controls.Add(this.label11);
             this.groupBox4.Controls.Add(this.chBoxCloudSync);
             this.groupBox4.Controls.Add(this.textBoxSqlUserIDCloud);
             this.groupBox4.Controls.Add(this.textBoxSqlPasswordCloud);
@@ -484,19 +492,30 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "SQL設定";
             // 
-            // label11
+            // btnTestCloud
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(320, 96);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(184, 16);
-            this.label11.TabIndex = 25;
-            this.label11.Text = "雲端資料庫名稱必需相同";
+            this.btnTestCloud.Location = new System.Drawing.Point(395, 205);
+            this.btnTestCloud.Name = "btnTestCloud";
+            this.btnTestCloud.Size = new System.Drawing.Size(96, 29);
+            this.btnTestCloud.TabIndex = 27;
+            this.btnTestCloud.Text = "試連雲端";
+            this.btnTestCloud.UseVisualStyleBackColor = true;
+            this.btnTestCloud.Click += new System.EventHandler(this.btnTestCloud_Click);
+            // 
+            // btnTestLocal
+            // 
+            this.btnTestLocal.Location = new System.Drawing.Point(109, 205);
+            this.btnTestLocal.Name = "btnTestLocal";
+            this.btnTestLocal.Size = new System.Drawing.Size(96, 29);
+            this.btnTestLocal.TabIndex = 26;
+            this.btnTestLocal.Text = "試連本机";
+            this.btnTestLocal.UseVisualStyleBackColor = true;
+            this.btnTestLocal.Click += new System.EventHandler(this.btnTestLocal_Click);
             // 
             // chBoxCloudSync
             // 
             this.chBoxCloudSync.AutoSize = true;
-            this.chBoxCloudSync.Location = new System.Drawing.Point(323, 26);
+            this.chBoxCloudSync.Location = new System.Drawing.Point(347, 23);
             this.chBoxCloudSync.Name = "chBoxCloudSync";
             this.chBoxCloudSync.Size = new System.Drawing.Size(123, 20);
             this.chBoxCloudSync.TabIndex = 24;
@@ -505,21 +524,21 @@
             // 
             // textBoxSqlUserIDCloud
             // 
-            this.textBoxSqlUserIDCloud.Location = new System.Drawing.Point(323, 131);
+            this.textBoxSqlUserIDCloud.Location = new System.Drawing.Point(347, 128);
             this.textBoxSqlUserIDCloud.Name = "textBoxSqlUserIDCloud";
             this.textBoxSqlUserIDCloud.Size = new System.Drawing.Size(169, 27);
             this.textBoxSqlUserIDCloud.TabIndex = 22;
             // 
             // textBoxSqlPasswordCloud
             // 
-            this.textBoxSqlPasswordCloud.Location = new System.Drawing.Point(323, 164);
+            this.textBoxSqlPasswordCloud.Location = new System.Drawing.Point(347, 161);
             this.textBoxSqlPasswordCloud.Name = "textBoxSqlPasswordCloud";
             this.textBoxSqlPasswordCloud.Size = new System.Drawing.Size(169, 27);
             this.textBoxSqlPasswordCloud.TabIndex = 23;
             // 
             // textBoxSqlServerIPCloud
             // 
-            this.textBoxSqlServerIPCloud.Location = new System.Drawing.Point(323, 55);
+            this.textBoxSqlServerIPCloud.Location = new System.Drawing.Point(347, 55);
             this.textBoxSqlServerIPCloud.Name = "textBoxSqlServerIPCloud";
             this.textBoxSqlServerIPCloud.Size = new System.Drawing.Size(169, 27);
             this.textBoxSqlServerIPCloud.TabIndex = 20;
@@ -573,25 +592,21 @@
             this.btnSaveSql.UseVisualStyleBackColor = true;
             this.btnSaveSql.Click += new System.EventHandler(this.btnSaveSql_Click);
             // 
-            // btnTestLocal
+            // textBoxSharedDatabase
             // 
-            this.btnTestLocal.Location = new System.Drawing.Point(109, 205);
-            this.btnTestLocal.Name = "btnTestLocal";
-            this.btnTestLocal.Size = new System.Drawing.Size(96, 29);
-            this.btnTestLocal.TabIndex = 26;
-            this.btnTestLocal.Text = "試連本机";
-            this.btnTestLocal.UseVisualStyleBackColor = true;
-            this.btnTestLocal.Click += new System.EventHandler(this.btnTestLocal_Click);
+            this.textBoxSharedDatabase.Location = new System.Drawing.Point(347, 91);
+            this.textBoxSharedDatabase.Name = "textBoxSharedDatabase";
+            this.textBoxSharedDatabase.Size = new System.Drawing.Size(169, 27);
+            this.textBoxSharedDatabase.TabIndex = 28;
             // 
-            // btnTestCloud
+            // label11
             // 
-            this.btnTestCloud.Location = new System.Drawing.Point(395, 205);
-            this.btnTestCloud.Name = "btnTestCloud";
-            this.btnTestCloud.Size = new System.Drawing.Size(96, 29);
-            this.btnTestCloud.TabIndex = 27;
-            this.btnTestCloud.Text = "試連雲端";
-            this.btnTestCloud.UseVisualStyleBackColor = true;
-            this.btnTestCloud.Click += new System.EventHandler(this.btnTestCloud_Click);
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(292, 96);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(56, 16);
+            this.label11.TabIndex = 29;
+            this.label11.Text = "共享庫";
             // 
             // FormHardware
             // 
@@ -674,12 +689,13 @@
         private System.Windows.Forms.Button btnSaveSql;
         private System.Windows.Forms.Label labelDataBase;
         private System.Windows.Forms.TextBox textBoxProfileName;
-        private System.Windows.Forms.Label label11;
         private System.Windows.Forms.CheckBox chBoxCloudSync;
         private System.Windows.Forms.TextBox textBoxSqlUserIDCloud;
         private System.Windows.Forms.TextBox textBoxSqlPasswordCloud;
         private System.Windows.Forms.TextBox textBoxSqlServerIPCloud;
         private System.Windows.Forms.Button btnTestLocal;
         private System.Windows.Forms.Button btnTestCloud;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox textBoxSharedDatabase;
     }
 }

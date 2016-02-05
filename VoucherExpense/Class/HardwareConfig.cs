@@ -28,6 +28,7 @@ namespace VoucherExpense
 
         public bool enableCloudSync;
         public string sqlServerIPCloud;
+        public string SharedDatabaseCloud;
         public string sqlUserIDCloud;
         public string sqlPasswordCloud;
     }
@@ -52,6 +53,7 @@ namespace VoucherExpense
 
         public bool EnableCloudSync;
         public string SqlServerIPCloud;
+        public string SharedDatabaseCloud;
         public string SqlUserIDCloud;
         public string SqlPasswordCloud;
 
@@ -152,6 +154,7 @@ namespace VoucherExpense
                 GetEncryptedAttrib(Server, "SqlServerIPCloud", ref curr.sqlServerIPCloud);
                 GetEncryptedAttrib(Server, "SqlUserIDCloud"  , ref curr.sqlUserIDCloud);
                 GetEncryptedAttrib(Server, "SqlPasswordCloud", ref curr.sqlPasswordCloud);
+                GetEncryptedAttrib(Server, "SharedDatabaseCloud", ref curr.SharedDatabaseCloud);
             }
         }
 
@@ -176,6 +179,7 @@ namespace VoucherExpense
 
             EnableCloudSync  = curr.enableCloudSync;
             SqlServerIPCloud = curr.sqlServerIPCloud;
+            SharedDatabaseCloud = curr.SharedDatabaseCloud;
             SqlUserIDCloud   = curr.sqlUserIDCloud;
             SqlPasswordCloud = curr.sqlPasswordCloud;
         }
@@ -198,10 +202,11 @@ namespace VoucherExpense
             curr.sqlUserID   = SqlUserID;
             curr.sqlPassword = SqlPassword;
 
-            curr.enableCloudSync  = EnableCloudSync;
-            curr.sqlServerIPCloud = SqlServerIPCloud;
-            curr.sqlUserIDCloud   = SqlUserIDCloud;
-            curr.sqlPasswordCloud = SqlPasswordCloud;
+            curr.enableCloudSync    = EnableCloudSync;
+            curr.sqlServerIPCloud   = SqlServerIPCloud;
+            curr.SharedDatabaseCloud= SharedDatabaseCloud;
+            curr.sqlUserIDCloud     = SqlUserIDCloud;
+            curr.sqlPasswordCloud   = SqlPasswordCloud;
         }
 
         public void Load()
@@ -274,6 +279,7 @@ namespace VoucherExpense
 
             UpdateXmlAttrib(doc, node, "DataSource", "EnableCloudSync", (EnableCloudSync ? "YES" : "NO"));
             UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlServerIPCloud", curr.sqlServerIPCloud);
+            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SharedDatabaseCloud", curr.SharedDatabaseCloud);
             UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlUserIDCloud", curr.sqlUserIDCloud);
             UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlPasswordCloud", curr.sqlPasswordCloud);
         }

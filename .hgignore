@@ -24,5 +24,17 @@ Docs/*
 VoucherExpense/Resources/?åàµÈ.PNG
 SyncCloud/bin/*
 SyncCloud/obj/*
-syntax: regexp
+BakeryOrder/FormCashier.cs.orig
+BakeryOrder/RSA_KeyFile/ForTest/*.*
+GetMoney/bin/*
 sdk-0511-2/*
+GetMoney/obj/*
+DataCollection/DataCollection.csproj
+GetMoney/GetMoney.csproj.user
+Member/Member.csproj
+VoucherExpense.sln.orig
+VoucherExpense.v12.suo
+VoucherExpense/Resources/?´Ú?.PNG
+VoucherExpense/Voucher.Designer.cs.orig
+VoucherExpense/FormHome.cs.orig
+VoucherExpense/FormHome.Designer.cs.orig

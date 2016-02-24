@@ -30,9 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormApartment));
-            this.vEDataSet = new VoucherExpense.VEDataSet();
             this.apartmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.apartmentTableAdapter = new VoucherExpense.VEDataSetTableAdapters.ApartmentTableAdapter();
             this.apartmentBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -46,14 +44,23 @@
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.apartmentBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.apartmentDataGridView = new System.Windows.Forms.DataGridView();
+            this.apartmentSQLAdapter = new VoucherExpense.DamaiDataSetTableAdapters.ApartmentTableAdapter();
+            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             this.columnApartmentID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AppartementCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ApartmentAllName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IsCurrent = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.apartmentSQLAdapter = new VoucherExpense.DamaiDataSetTableAdapters.ApartmentTableAdapter();
-            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
+            this.LocalServerIP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DatabaseName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LocalUserID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LocalPassword = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CloudServerIP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CloudSharedDatabase = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CloudUserID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CloudPassword = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.apartmentBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.apartmentBindingNavigator)).BeginInit();
             this.apartmentBindingNavigator.SuspendLayout();
@@ -61,19 +68,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             this.SuspendLayout();
             // 
-            // vEDataSet
-            // 
-            this.vEDataSet.DataSetName = "VEDataSet";
-            this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // apartmentBindingSource
             // 
             this.apartmentBindingSource.DataMember = "Apartment";
-            this.apartmentBindingSource.DataSource = this.vEDataSet;
-            // 
-            // apartmentTableAdapter
-            // 
-            this.apartmentTableAdapter.ClearBeforeFill = true;
+            this.apartmentBindingSource.DataSource = this.damaiDataSet;
             // 
             // apartmentBindingNavigator
             // 
@@ -100,7 +98,7 @@
             this.apartmentBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.apartmentBindingNavigator.Name = "apartmentBindingNavigator";
             this.apartmentBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.apartmentBindingNavigator.Size = new System.Drawing.Size(760, 25);
+            this.apartmentBindingNavigator.Size = new System.Drawing.Size(1467, 25);
             this.apartmentBindingNavigator.TabIndex = 0;
             this.apartmentBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -117,7 +115,7 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 22);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(27, 22);
             this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
@@ -206,13 +204,30 @@
             this.AppartementCode,
             this.dataGridViewTextBoxColumn2,
             this.ApartmentAllName,
-            this.IsCurrent});
+            this.IsCurrent,
+            this.LocalServerIP,
+            this.DatabaseName,
+            this.LocalUserID,
+            this.LocalPassword,
+            this.CloudServerIP,
+            this.CloudSharedDatabase,
+            this.CloudUserID,
+            this.CloudPassword});
             this.apartmentDataGridView.DataSource = this.apartmentBindingSource;
             this.apartmentDataGridView.Location = new System.Drawing.Point(0, 28);
             this.apartmentDataGridView.Name = "apartmentDataGridView";
             this.apartmentDataGridView.RowTemplate.Height = 24;
-            this.apartmentDataGridView.Size = new System.Drawing.Size(760, 654);
+            this.apartmentDataGridView.Size = new System.Drawing.Size(1527, 654);
             this.apartmentDataGridView.TabIndex = 1;
+            // 
+            // apartmentSQLAdapter
+            // 
+            this.apartmentSQLAdapter.ClearBeforeFill = true;
+            // 
+            // damaiDataSet
+            // 
+            this.damaiDataSet.DataSetName = "DamaiDataSet";
+            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // columnApartmentID
             // 
@@ -239,7 +254,7 @@
             this.ApartmentAllName.DataPropertyName = "ApartmentAllName";
             this.ApartmentAllName.HeaderText = "部门全称";
             this.ApartmentAllName.Name = "ApartmentAllName";
-            this.ApartmentAllName.Width = 300;
+            this.ApartmentAllName.Width = 240;
             // 
             // IsCurrent
             // 
@@ -247,21 +262,79 @@
             this.IsCurrent.HeaderText = "此部門";
             this.IsCurrent.Name = "IsCurrent";
             // 
-            // apartmentSQLAdapter
+            // LocalServerIP
             // 
-            this.apartmentSQLAdapter.ClearBeforeFill = true;
+            this.LocalServerIP.DataPropertyName = "LocalServerIP";
+            this.LocalServerIP.HeaderText = "LocalServerIP";
+            this.LocalServerIP.Name = "LocalServerIP";
             // 
-            // damaiDataSet
+            // DatabaseName
             // 
-            this.damaiDataSet.DataSetName = "DamaiDataSet";
-            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.DatabaseName.DataPropertyName = "DatabaseName";
+            this.DatabaseName.HeaderText = "DatabaseName";
+            this.DatabaseName.Name = "DatabaseName";
+            // 
+            // LocalUserID
+            // 
+            this.LocalUserID.DataPropertyName = "LocalUserID";
+            this.LocalUserID.HeaderText = "LocalUserID";
+            this.LocalUserID.Name = "LocalUserID";
+            // 
+            // LocalPassword
+            // 
+            this.LocalPassword.DataPropertyName = "LocalPassword";
+            this.LocalPassword.HeaderText = "LocalPassword";
+            this.LocalPassword.Name = "LocalPassword";
+            // 
+            // CloudServerIP
+            // 
+            this.CloudServerIP.DataPropertyName = "CloudServerIP";
+            this.CloudServerIP.HeaderText = "CloudServerIP";
+            this.CloudServerIP.Name = "CloudServerIP";
+            // 
+            // CloudSharedDatabase
+            // 
+            this.CloudSharedDatabase.DataPropertyName = "CloudSharedDatabase";
+            this.CloudSharedDatabase.HeaderText = "CloudSharedDatabase";
+            this.CloudSharedDatabase.Name = "CloudSharedDatabase";
+            // 
+            // CloudUserID
+            // 
+            this.CloudUserID.DataPropertyName = "CloudUserID";
+            this.CloudUserID.HeaderText = "CloudUserID";
+            this.CloudUserID.Name = "CloudUserID";
+            // 
+            // CloudPassword
+            // 
+            this.CloudPassword.DataPropertyName = "CloudPassword";
+            this.CloudPassword.HeaderText = "CloudPassword";
+            this.CloudPassword.Name = "CloudPassword";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(387, 1);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 24);
+            this.comboBox1.TabIndex = 2;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(321, 5);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(56, 16);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "此部門";
             // 
             // FormApartment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SeaShell;
-            this.ClientSize = new System.Drawing.Size(760, 684);
+            this.ClientSize = new System.Drawing.Size(1467, 684);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.apartmentDataGridView);
             this.Controls.Add(this.apartmentBindingNavigator);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
@@ -269,7 +342,6 @@
             this.Name = "FormApartment";
             this.Text = "編修部門";
             this.Load += new System.EventHandler(this.FormApartment_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.apartmentBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.apartmentBindingNavigator)).EndInit();
             this.apartmentBindingNavigator.ResumeLayout(false);
@@ -283,9 +355,7 @@
 
         #endregion
 
-        private VEDataSet vEDataSet;
         private System.Windows.Forms.BindingSource apartmentBindingSource;
-        private VEDataSetTableAdapters.ApartmentTableAdapter apartmentTableAdapter;
         private System.Windows.Forms.BindingNavigator apartmentBindingNavigator;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
@@ -299,12 +369,22 @@
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.ToolStripButton apartmentBindingNavigatorSaveItem;
         private System.Windows.Forms.DataGridView apartmentDataGridView;
+        private DamaiDataSetTableAdapters.ApartmentTableAdapter apartmentSQLAdapter;
+        private DamaiDataSet damaiDataSet;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnApartmentID;
         private System.Windows.Forms.DataGridViewTextBoxColumn AppartementCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn ApartmentAllName;
         private System.Windows.Forms.DataGridViewCheckBoxColumn IsCurrent;
-        private DamaiDataSetTableAdapters.ApartmentTableAdapter apartmentSQLAdapter;
-        private DamaiDataSet damaiDataSet;
+        private System.Windows.Forms.DataGridViewTextBoxColumn LocalServerIP;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DatabaseName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn LocalUserID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn LocalPassword;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CloudServerIP;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CloudSharedDatabase;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CloudUserID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CloudPassword;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label1;
     }
 }

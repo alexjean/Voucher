@@ -110,6 +110,8 @@ namespace VoucherExpense {
         
         private AccountingTitleDataTable tableAccountingTitle;
         
+        private OperatorAuthListDataTable tableOperatorAuthList;
+        
         private global::System.Data.DataRelation relationFK_Recipe_RecipeDetail;
         
         private global::System.Data.DataRelation relationFK_Vendor_Voucher;
@@ -135,6 +137,8 @@ namespace VoucherExpense {
         private global::System.Data.DataRelation relationFK_ShipmentDetail_Shipment;
         
         private global::System.Data.DataRelation relationFK_AccVouchDetail_AccVouch;
+        
+        private global::System.Data.DataRelation relationFK_OperatorAuthList_Operator;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -292,6 +296,9 @@ namespace VoucherExpense {
                 }
                 if ((ds.Tables["AccountingTitle"] != null)) {
                     base.Tables.Add(new AccountingTitleDataTable(ds.Tables["AccountingTitle"]));
+                }
+                if ((ds.Tables["OperatorAuthList"] != null)) {
+                    base.Tables.Add(new OperatorAuthListDataTable(ds.Tables["OperatorAuthList"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -743,6 +750,16 @@ namespace VoucherExpense {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public OperatorAuthListDataTable OperatorAuthList {
+            get {
+                return this.tableOperatorAuthList;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.BrowsableAttribute(true)]
         [global::System.ComponentModel.DesignerSerializationVisibilityAttribute(global::System.ComponentModel.DesignerSerializationVisibility.Visible)]
         public override global::System.Data.SchemaSerializationMode SchemaSerializationMode {
@@ -936,6 +953,9 @@ namespace VoucherExpense {
                 }
                 if ((ds.Tables["AccountingTitle"] != null)) {
                     base.Tables.Add(new AccountingTitleDataTable(ds.Tables["AccountingTitle"]));
+                }
+                if ((ds.Tables["OperatorAuthList"] != null)) {
+                    base.Tables.Add(new OperatorAuthListDataTable(ds.Tables["OperatorAuthList"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -1228,6 +1248,12 @@ namespace VoucherExpense {
                     this.tableAccountingTitle.InitVars();
                 }
             }
+            this.tableOperatorAuthList = ((OperatorAuthListDataTable)(base.Tables["OperatorAuthList"]));
+            if ((initTable == true)) {
+                if ((this.tableOperatorAuthList != null)) {
+                    this.tableOperatorAuthList.InitVars();
+                }
+            }
             this.relationFK_Recipe_RecipeDetail = this.Relations["FK_Recipe_RecipeDetail"];
             this.relationFK_Vendor_Voucher = this.Relations["FK_Vendor_Voucher"];
             this.relationFK_Ingredient_VoucherDetail = this.Relations["FK_Ingredient_VoucherDetail"];
@@ -1241,6 +1267,7 @@ namespace VoucherExpense {
             this.relationFK_Shipment_Customer = this.Relations["FK_Shipment_Customer"];
             this.relationFK_ShipmentDetail_Shipment = this.Relations["FK_ShipmentDetail_Shipment"];
             this.relationFK_AccVouchDetail_AccVouch = this.Relations["FK_AccVouchDetail_AccVouch"];
+            this.relationFK_OperatorAuthList_Operator = this.Relations["FK_OperatorAuthList_Operator"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1337,6 +1364,8 @@ namespace VoucherExpense {
             base.Tables.Add(this.tableAccVouchDetail);
             this.tableAccountingTitle = new AccountingTitleDataTable();
             base.Tables.Add(this.tableAccountingTitle);
+            this.tableOperatorAuthList = new OperatorAuthListDataTable();
+            base.Tables.Add(this.tableOperatorAuthList);
             this.relationFK_Recipe_RecipeDetail = new global::System.Data.DataRelation("FK_Recipe_RecipeDetail", new global::System.Data.DataColumn[] {
                         this.tableRecipe.RecipeIDColumn}, new global::System.Data.DataColumn[] {
                         this.tableRecipeDetail.RecipeIDColumn}, false);
@@ -1389,6 +1418,10 @@ namespace VoucherExpense {
                         this.tableAccVouch.IDColumn}, new global::System.Data.DataColumn[] {
                         this.tableAccVouchDetail.MainIDColumn}, false);
             this.Relations.Add(this.relationFK_AccVouchDetail_AccVouch);
+            this.relationFK_OperatorAuthList_Operator = new global::System.Data.DataRelation("FK_OperatorAuthList_Operator", new global::System.Data.DataColumn[] {
+                        this.tableOperator.OperatorIDColumn}, new global::System.Data.DataColumn[] {
+                        this.tableOperatorAuthList.OperatorIDColumn}, false);
+            this.Relations.Add(this.relationFK_OperatorAuthList_Operator);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1651,6 +1684,12 @@ namespace VoucherExpense {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private bool ShouldSerializeOperatorAuthList() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void SchemaChanged(object sender, global::System.ComponentModel.CollectionChangeEventArgs e) {
             if ((e.Action == global::System.ComponentModel.CollectionChangeAction.Remove)) {
                 this.InitVars();
@@ -1832,6 +1871,9 @@ namespace VoucherExpense {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public delegate void AccountingTitleRowChangeEventHandler(object sender, AccountingTitleRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public delegate void OperatorAuthListRowChangeEventHandler(object sender, OperatorAuthListRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -11351,6 +11393,22 @@ namespace VoucherExpense {
             
             private global::System.Data.DataColumn columnIsCurrent;
             
+            private global::System.Data.DataColumn columnLocalServerIP;
+            
+            private global::System.Data.DataColumn columnDatabaseName;
+            
+            private global::System.Data.DataColumn columnLocalUserID;
+            
+            private global::System.Data.DataColumn columnLocalPassword;
+            
+            private global::System.Data.DataColumn columnCloudServerIP;
+            
+            private global::System.Data.DataColumn columnCloudSharedDatabase;
+            
+            private global::System.Data.DataColumn columnCloudUserID;
+            
+            private global::System.Data.DataColumn columnCloudPassword;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ApartmentDataTable() {
@@ -11426,6 +11484,70 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn LocalServerIPColumn {
+                get {
+                    return this.columnLocalServerIP;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn DatabaseNameColumn {
+                get {
+                    return this.columnDatabaseName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn LocalUserIDColumn {
+                get {
+                    return this.columnLocalUserID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn LocalPasswordColumn {
+                get {
+                    return this.columnLocalPassword;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn CloudServerIPColumn {
+                get {
+                    return this.columnCloudServerIP;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn CloudSharedDatabaseColumn {
+                get {
+                    return this.columnCloudSharedDatabase;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn CloudUserIDColumn {
+                get {
+                    return this.columnCloudUserID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn CloudPasswordColumn {
+                get {
+                    return this.columnCloudPassword;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -11461,14 +11583,22 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ApartmentRow AddApartmentRow(int ApartmentID, int AppartementCode, string ApartmentName, string ApartmentAllName, bool IsCurrent) {
+            public ApartmentRow AddApartmentRow(int ApartmentID, int AppartementCode, string ApartmentName, string ApartmentAllName, bool IsCurrent, string LocalServerIP, string DatabaseName, string LocalUserID, string LocalPassword, string CloudServerIP, string CloudSharedDatabase, string CloudUserID, string CloudPassword) {
                 ApartmentRow rowApartmentRow = ((ApartmentRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ApartmentID,
                         AppartementCode,
                         ApartmentName,
                         ApartmentAllName,
-                        IsCurrent};
+                        IsCurrent,
+                        LocalServerIP,
+                        DatabaseName,
+                        LocalUserID,
+                        LocalPassword,
+                        CloudServerIP,
+                        CloudSharedDatabase,
+                        CloudUserID,
+                        CloudPassword};
                 rowApartmentRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowApartmentRow);
                 return rowApartmentRow;
@@ -11503,6 +11633,14 @@ namespace VoucherExpense {
                 this.columnApartmentName = base.Columns["ApartmentName"];
                 this.columnApartmentAllName = base.Columns["ApartmentAllName"];
                 this.columnIsCurrent = base.Columns["IsCurrent"];
+                this.columnLocalServerIP = base.Columns["LocalServerIP"];
+                this.columnDatabaseName = base.Columns["DatabaseName"];
+                this.columnLocalUserID = base.Columns["LocalUserID"];
+                this.columnLocalPassword = base.Columns["LocalPassword"];
+                this.columnCloudServerIP = base.Columns["CloudServerIP"];
+                this.columnCloudSharedDatabase = base.Columns["CloudSharedDatabase"];
+                this.columnCloudUserID = base.Columns["CloudUserID"];
+                this.columnCloudPassword = base.Columns["CloudPassword"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -11518,12 +11656,36 @@ namespace VoucherExpense {
                 base.Columns.Add(this.columnApartmentAllName);
                 this.columnIsCurrent = new global::System.Data.DataColumn("IsCurrent", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIsCurrent);
+                this.columnLocalServerIP = new global::System.Data.DataColumn("LocalServerIP", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLocalServerIP);
+                this.columnDatabaseName = new global::System.Data.DataColumn("DatabaseName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDatabaseName);
+                this.columnLocalUserID = new global::System.Data.DataColumn("LocalUserID", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLocalUserID);
+                this.columnLocalPassword = new global::System.Data.DataColumn("LocalPassword", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLocalPassword);
+                this.columnCloudServerIP = new global::System.Data.DataColumn("CloudServerIP", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCloudServerIP);
+                this.columnCloudSharedDatabase = new global::System.Data.DataColumn("CloudSharedDatabase", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCloudSharedDatabase);
+                this.columnCloudUserID = new global::System.Data.DataColumn("CloudUserID", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCloudUserID);
+                this.columnCloudPassword = new global::System.Data.DataColumn("CloudPassword", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCloudPassword);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnApartmentID}, true));
                 this.columnApartmentID.AllowDBNull = false;
                 this.columnApartmentID.Unique = true;
                 this.columnApartmentName.MaxLength = 10;
                 this.columnApartmentAllName.MaxLength = 255;
+                this.columnLocalServerIP.MaxLength = 255;
+                this.columnDatabaseName.MaxLength = 255;
+                this.columnLocalUserID.MaxLength = 255;
+                this.columnLocalPassword.MaxLength = 255;
+                this.columnCloudServerIP.MaxLength = 255;
+                this.columnCloudSharedDatabase.MaxLength = 255;
+                this.columnCloudUserID.MaxLength = 255;
+                this.columnCloudPassword.MaxLength = 255;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -18043,6 +18205,297 @@ namespace VoucherExpense {
         }
         
         /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class OperatorAuthListDataTable : global::System.Data.TypedTableBase<OperatorAuthListRow> {
+            
+            private global::System.Data.DataColumn columnID;
+            
+            private global::System.Data.DataColumn columnOperatorID;
+            
+            private global::System.Data.DataColumn columnApartmentID;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public OperatorAuthListDataTable() {
+                this.TableName = "OperatorAuthList";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal OperatorAuthListDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected OperatorAuthListDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn IDColumn {
+                get {
+                    return this.columnID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn OperatorIDColumn {
+                get {
+                    return this.columnOperatorID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ApartmentIDColumn {
+                get {
+                    return this.columnApartmentID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public OperatorAuthListRow this[int index] {
+                get {
+                    return ((OperatorAuthListRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event OperatorAuthListRowChangeEventHandler OperatorAuthListRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event OperatorAuthListRowChangeEventHandler OperatorAuthListRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event OperatorAuthListRowChangeEventHandler OperatorAuthListRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event OperatorAuthListRowChangeEventHandler OperatorAuthListRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void AddOperatorAuthListRow(OperatorAuthListRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public OperatorAuthListRow AddOperatorAuthListRow(System.Guid ID, OperatorRow parentOperatorRowByFK_OperatorAuthList_Operator, int ApartmentID) {
+                OperatorAuthListRow rowOperatorAuthListRow = ((OperatorAuthListRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        ID,
+                        null,
+                        ApartmentID};
+                if ((parentOperatorRowByFK_OperatorAuthList_Operator != null)) {
+                    columnValuesArray[1] = parentOperatorRowByFK_OperatorAuthList_Operator[0];
+                }
+                rowOperatorAuthListRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowOperatorAuthListRow);
+                return rowOperatorAuthListRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public OperatorAuthListRow FindByID(System.Guid ID) {
+                return ((OperatorAuthListRow)(this.Rows.Find(new object[] {
+                            ID})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                OperatorAuthListDataTable cln = ((OperatorAuthListDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new OperatorAuthListDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.columnID = base.Columns["ID"];
+                this.columnOperatorID = base.Columns["OperatorID"];
+                this.columnApartmentID = base.Columns["ApartmentID"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.columnID = new global::System.Data.DataColumn("ID", typeof(global::System.Guid), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnID);
+                this.columnOperatorID = new global::System.Data.DataColumn("OperatorID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOperatorID);
+                this.columnApartmentID = new global::System.Data.DataColumn("ApartmentID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnApartmentID);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnID}, true));
+                this.columnID.AllowDBNull = false;
+                this.columnID.Unique = true;
+                this.columnOperatorID.AllowDBNull = false;
+                this.columnApartmentID.AllowDBNull = false;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public OperatorAuthListRow NewOperatorAuthListRow() {
+                return ((OperatorAuthListRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new OperatorAuthListRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(OperatorAuthListRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.OperatorAuthListRowChanged != null)) {
+                    this.OperatorAuthListRowChanged(this, new OperatorAuthListRowChangeEvent(((OperatorAuthListRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.OperatorAuthListRowChanging != null)) {
+                    this.OperatorAuthListRowChanging(this, new OperatorAuthListRowChangeEvent(((OperatorAuthListRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.OperatorAuthListRowDeleted != null)) {
+                    this.OperatorAuthListRowDeleted(this, new OperatorAuthListRowChangeEvent(((OperatorAuthListRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.OperatorAuthListRowDeleting != null)) {
+                    this.OperatorAuthListRowDeleting(this, new OperatorAuthListRowChangeEvent(((OperatorAuthListRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void RemoveOperatorAuthListRow(OperatorAuthListRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                DamaiDataSet ds = new DamaiDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "OperatorAuthListDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
         public partial class BakeryConfigRow : global::System.Data.DataRow {
@@ -24404,6 +24857,134 @@ namespace VoucherExpense {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string LocalServerIP {
+                get {
+                    try {
+                        return ((string)(this[this.tableApartment.LocalServerIPColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("資料表 \'Apartment\' 中資料行 \'LocalServerIP\' 的值是 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tableApartment.LocalServerIPColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string DatabaseName {
+                get {
+                    try {
+                        return ((string)(this[this.tableApartment.DatabaseNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("資料表 \'Apartment\' 中資料行 \'DatabaseName\' 的值是 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tableApartment.DatabaseNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string LocalUserID {
+                get {
+                    try {
+                        return ((string)(this[this.tableApartment.LocalUserIDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("資料表 \'Apartment\' 中資料行 \'LocalUserID\' 的值是 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tableApartment.LocalUserIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string LocalPassword {
+                get {
+                    try {
+                        return ((string)(this[this.tableApartment.LocalPasswordColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("資料表 \'Apartment\' 中資料行 \'LocalPassword\' 的值是 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tableApartment.LocalPasswordColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string CloudServerIP {
+                get {
+                    try {
+                        return ((string)(this[this.tableApartment.CloudServerIPColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("資料表 \'Apartment\' 中資料行 \'CloudServerIP\' 的值是 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tableApartment.CloudServerIPColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string CloudSharedDatabase {
+                get {
+                    try {
+                        return ((string)(this[this.tableApartment.CloudSharedDatabaseColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("資料表 \'Apartment\' 中資料行 \'CloudSharedDatabase\' 的值是 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tableApartment.CloudSharedDatabaseColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string CloudUserID {
+                get {
+                    try {
+                        return ((string)(this[this.tableApartment.CloudUserIDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("資料表 \'Apartment\' 中資料行 \'CloudUserID\' 的值是 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tableApartment.CloudUserIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string CloudPassword {
+                get {
+                    try {
+                        return ((string)(this[this.tableApartment.CloudPasswordColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("資料表 \'Apartment\' 中資料行 \'CloudPassword\' 的值是 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tableApartment.CloudPasswordColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsAppartementCodeNull() {
                 return this.IsNull(this.tableApartment.AppartementCodeColumn);
             }
@@ -24448,6 +25029,102 @@ namespace VoucherExpense {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetIsCurrentNull() {
                 this[this.tableApartment.IsCurrentColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsLocalServerIPNull() {
+                return this.IsNull(this.tableApartment.LocalServerIPColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetLocalServerIPNull() {
+                this[this.tableApartment.LocalServerIPColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsDatabaseNameNull() {
+                return this.IsNull(this.tableApartment.DatabaseNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetDatabaseNameNull() {
+                this[this.tableApartment.DatabaseNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsLocalUserIDNull() {
+                return this.IsNull(this.tableApartment.LocalUserIDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetLocalUserIDNull() {
+                this[this.tableApartment.LocalUserIDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsLocalPasswordNull() {
+                return this.IsNull(this.tableApartment.LocalPasswordColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetLocalPasswordNull() {
+                this[this.tableApartment.LocalPasswordColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsCloudServerIPNull() {
+                return this.IsNull(this.tableApartment.CloudServerIPColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetCloudServerIPNull() {
+                this[this.tableApartment.CloudServerIPColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsCloudSharedDatabaseNull() {
+                return this.IsNull(this.tableApartment.CloudSharedDatabaseColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetCloudSharedDatabaseNull() {
+                this[this.tableApartment.CloudSharedDatabaseColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsCloudUserIDNull() {
+                return this.IsNull(this.tableApartment.CloudUserIDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetCloudUserIDNull() {
+                this[this.tableApartment.CloudUserIDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsCloudPasswordNull() {
+                return this.IsNull(this.tableApartment.CloudPasswordColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetCloudPasswordNull() {
+                this[this.tableApartment.CloudPasswordColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -27806,6 +28483,17 @@ namespace VoucherExpense {
             public void SetEditCustomerNull() {
                 this[this.tableOperator.EditCustomerColumn] = global::System.Convert.DBNull;
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public OperatorAuthListRow[] GetOperatorAuthListRows() {
+                if ((this.Table.ChildRelations["FK_OperatorAuthList_Operator"] == null)) {
+                    return new OperatorAuthListRow[0];
+                }
+                else {
+                    return ((OperatorAuthListRow[])(base.GetChildRows(this.Table.ChildRelations["FK_OperatorAuthList_Operator"])));
+                }
+            }
         }
         
         /// <summary>
@@ -28780,6 +29468,65 @@ namespace VoucherExpense {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetAccountClassNull() {
                 this[this.tableAccountingTitle.AccountClassColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class OperatorAuthListRow : global::System.Data.DataRow {
+            
+            private OperatorAuthListDataTable tableOperatorAuthList;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal OperatorAuthListRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableOperatorAuthList = ((OperatorAuthListDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public System.Guid ID {
+                get {
+                    return ((global::System.Guid)(this[this.tableOperatorAuthList.IDColumn]));
+                }
+                set {
+                    this[this.tableOperatorAuthList.IDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int OperatorID {
+                get {
+                    return ((int)(this[this.tableOperatorAuthList.OperatorIDColumn]));
+                }
+                set {
+                    this[this.tableOperatorAuthList.OperatorIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int ApartmentID {
+                get {
+                    return ((int)(this[this.tableOperatorAuthList.ApartmentIDColumn]));
+                }
+                set {
+                    this[this.tableOperatorAuthList.ApartmentIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public OperatorRow OperatorRow {
+                get {
+                    return ((OperatorRow)(this.GetParentRow(this.Table.ParentRelations["FK_OperatorAuthList_Operator"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_OperatorAuthList_Operator"]);
+                }
             }
         }
         
@@ -30231,6 +30978,40 @@ namespace VoucherExpense {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public AccountingTitleRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public class OperatorAuthListRowChangeEvent : global::System.EventArgs {
+            
+            private OperatorAuthListRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public OperatorAuthListRowChangeEvent(OperatorAuthListRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public OperatorAuthListRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -45142,10 +45923,18 @@ SELECT ShiftID, ApartmentID, TableName, TableMonth, KeyinID, LastUpdated, Locked
             tableMapping.ColumnMappings.Add("ApartmentName", "ApartmentName");
             tableMapping.ColumnMappings.Add("ApartmentAllName", "ApartmentAllName");
             tableMapping.ColumnMappings.Add("IsCurrent", "IsCurrent");
+            tableMapping.ColumnMappings.Add("LocalServerIP", "LocalServerIP");
+            tableMapping.ColumnMappings.Add("DatabaseName", "DatabaseName");
+            tableMapping.ColumnMappings.Add("LocalUserID", "LocalUserID");
+            tableMapping.ColumnMappings.Add("LocalPassword", "LocalPassword");
+            tableMapping.ColumnMappings.Add("CloudServerIP", "CloudServerIP");
+            tableMapping.ColumnMappings.Add("CloudSharedDatabase", "CloudSharedDatabase");
+            tableMapping.ColumnMappings.Add("CloudUserID", "CloudUserID");
+            tableMapping.ColumnMappings.Add("CloudPassword", "CloudPassword");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[Apartment] WHERE (([ApartmentID] = @Original_ApartmentID) AND ((@IsNull_AppartementCode = 1 AND [AppartementCode] IS NULL) OR ([AppartementCode] = @Original_AppartementCode)) AND ((@IsNull_ApartmentName = 1 AND [ApartmentName] IS NULL) OR ([ApartmentName] = @Original_ApartmentName)) AND ((@IsNull_ApartmentAllName = 1 AND [ApartmentAllName] IS NULL) OR ([ApartmentAllName] = @Original_ApartmentAllName)) AND ((@IsNull_IsCurrent = 1 AND [IsCurrent] IS NULL) OR ([IsCurrent] = @Original_IsCurrent)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [Apartment] WHERE (([ApartmentID] = @Original_ApartmentID) AND ((@IsNull_AppartementCode = 1 AND [AppartementCode] IS NULL) OR ([AppartementCode] = @Original_AppartementCode)) AND ((@IsNull_ApartmentName = 1 AND [ApartmentName] IS NULL) OR ([ApartmentName] = @Original_ApartmentName)) AND ((@IsNull_ApartmentAllName = 1 AND [ApartmentAllName] IS NULL) OR ([ApartmentAllName] = @Original_ApartmentAllName)) AND ((@IsNull_IsCurrent = 1 AND [IsCurrent] IS NULL) OR ([IsCurrent] = @Original_IsCurrent)) AND ((@IsNull_CloudPassword = 1 AND [CloudPassword] IS NULL) OR ([CloudPassword] = @Original_CloudPassword)) AND ((@IsNull_CloudServerIP = 1 AND [CloudServerIP] IS NULL) OR ([CloudServerIP] = @Original_CloudServerIP)) AND ((@IsNull_CloudSharedDatabase = 1 AND [CloudSharedDatabase] IS NULL) OR ([CloudSharedDatabase] = @Original_CloudSharedDatabase)) AND ((@IsNull_CloudUserID = 1 AND [CloudUserID] IS NULL) OR ([CloudUserID] = @Original_CloudUserID)) AND ((@IsNull_DatabaseName = 1 AND [DatabaseName] IS NULL) OR ([DatabaseName] = @Original_DatabaseName)) AND ((@IsNull_LocalPassword = 1 AND [LocalPassword] IS NULL) OR ([LocalPassword] = @Original_LocalPassword)) AND ((@IsNull_LocalServerIP = 1 AND [LocalServerIP] IS NULL) OR ([LocalServerIP] = @Original_LocalServerIP)) AND ((@IsNull_LocalUserID = 1 AND [LocalUserID] IS NULL) OR ([LocalUserID] = @Original_LocalUserID)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ApartmentID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ApartmentID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_AppartementCode", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AppartementCode", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
@@ -45156,26 +45945,82 @@ SELECT ShiftID, ApartmentID, TableName, TableMonth, KeyinID, LastUpdated, Locked
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ApartmentAllName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ApartmentAllName", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_IsCurrent", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsCurrent", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IsCurrent", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsCurrent", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_CloudPassword", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudPassword", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CloudPassword", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudPassword", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_CloudServerIP", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudServerIP", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CloudServerIP", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudServerIP", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_CloudSharedDatabase", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudSharedDatabase", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CloudSharedDatabase", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudSharedDatabase", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_CloudUserID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudUserID", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CloudUserID", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudUserID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_DatabaseName", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DatabaseName", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_DatabaseName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DatabaseName", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_LocalPassword", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LocalPassword", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LocalPassword", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LocalPassword", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_LocalServerIP", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LocalServerIP", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LocalServerIP", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LocalServerIP", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_LocalUserID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LocalUserID", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LocalUserID", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LocalUserID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[Apartment] ([ApartmentID], [AppartementCode], [ApartmentName], [ApartmentAllName], [IsCurrent]) VALUES (@ApartmentID, @AppartementCode, @ApartmentName, @ApartmentAllName, @IsCurrent);
-SELECT ApartmentID, AppartementCode, ApartmentName, ApartmentAllName, IsCurrent FROM Apartment WHERE (ApartmentID = @ApartmentID)";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [Apartment] ([ApartmentID], [AppartementCode], [ApartmentName], [ApartmentAllName], [IsCurrent], [CloudPassword], [CloudServerIP], [CloudSharedDatabase], [CloudUserID], [DatabaseName], [LocalPassword], [LocalServerIP], [LocalUserID]) VALUES (@ApartmentID, @AppartementCode, @ApartmentName, @ApartmentAllName, @IsCurrent, @CloudPassword, @CloudServerIP, @CloudSharedDatabase, @CloudUserID, @DatabaseName, @LocalPassword, @LocalServerIP, @LocalUserID);
+SELECT ApartmentID, AppartementCode, ApartmentName, ApartmentAllName, IsCurrent, CloudPassword, CloudServerIP, CloudSharedDatabase, CloudUserID, DatabaseName, LocalPassword, LocalServerIP, LocalUserID FROM Apartment WHERE (ApartmentID = @ApartmentID)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ApartmentID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ApartmentID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AppartementCode", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AppartementCode", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ApartmentName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ApartmentName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ApartmentAllName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ApartmentAllName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsCurrent", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsCurrent", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CloudPassword", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudPassword", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CloudServerIP", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudServerIP", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CloudSharedDatabase", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudSharedDatabase", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CloudUserID", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudUserID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DatabaseName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DatabaseName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LocalPassword", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LocalPassword", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LocalServerIP", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LocalServerIP", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LocalUserID", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LocalUserID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Apartment] SET [ApartmentID] = @ApartmentID, [AppartementCode] = @AppartementCode, [ApartmentName] = @ApartmentName, [ApartmentAllName] = @ApartmentAllName, [IsCurrent] = @IsCurrent WHERE (([ApartmentID] = @Original_ApartmentID) AND ((@IsNull_AppartementCode = 1 AND [AppartementCode] IS NULL) OR ([AppartementCode] = @Original_AppartementCode)) AND ((@IsNull_ApartmentName = 1 AND [ApartmentName] IS NULL) OR ([ApartmentName] = @Original_ApartmentName)) AND ((@IsNull_ApartmentAllName = 1 AND [ApartmentAllName] IS NULL) OR ([ApartmentAllName] = @Original_ApartmentAllName)) AND ((@IsNull_IsCurrent = 1 AND [IsCurrent] IS NULL) OR ([IsCurrent] = @Original_IsCurrent)));
-SELECT ApartmentID, AppartementCode, ApartmentName, ApartmentAllName, IsCurrent FROM Apartment WHERE (ApartmentID = @ApartmentID)";
+            this._adapter.UpdateCommand.CommandText = "UPDATE [Apartment] SET [ApartmentID] = @ApartmentID, [AppartementCode] = @Apparte" +
+                "mentCode, [ApartmentName] = @ApartmentName, [ApartmentAllName] = @ApartmentAllNa" +
+                "me, [IsCurrent] = @IsCurrent, [CloudPassword] = @CloudPassword, [CloudServerIP] " +
+                "= @CloudServerIP, [CloudSharedDatabase] = @CloudSharedDatabase, [CloudUserID] = " +
+                "@CloudUserID, [DatabaseName] = @DatabaseName, [LocalPassword] = @LocalPassword, " +
+                "[LocalServerIP] = @LocalServerIP, [LocalUserID] = @LocalUserID WHERE (([Apartmen" +
+                "tID] = @Original_ApartmentID) AND ((@IsNull_AppartementCode = 1 AND [Appartement" +
+                "Code] IS NULL) OR ([AppartementCode] = @Original_AppartementCode)) AND ((@IsNull" +
+                "_ApartmentName = 1 AND [ApartmentName] IS NULL) OR ([ApartmentName] = @Original_" +
+                "ApartmentName)) AND ((@IsNull_ApartmentAllName = 1 AND [ApartmentAllName] IS NUL" +
+                "L) OR ([ApartmentAllName] = @Original_ApartmentAllName)) AND ((@IsNull_IsCurrent" +
+                " = 1 AND [IsCurrent] IS NULL) OR ([IsCurrent] = @Original_IsCurrent)) AND ((@IsN" +
+                "ull_CloudPassword = 1 AND [CloudPassword] IS NULL) OR ([CloudPassword] = @Origin" +
+                "al_CloudPassword)) AND ((@IsNull_CloudServerIP = 1 AND [CloudServerIP] IS NULL) " +
+                "OR ([CloudServerIP] = @Original_CloudServerIP)) AND ((@IsNull_CloudSharedDatabas" +
+                "e = 1 AND [CloudSharedDatabase] IS NULL) OR ([CloudSharedDatabase] = @Original_C" +
+                "loudSharedDatabase)) AND ((@IsNull_CloudUserID = 1 AND [CloudUserID] IS NULL) OR" +
+                " ([CloudUserID] = @Original_CloudUserID)) AND ((@IsNull_DatabaseName = 1 AND [Da" +
+                "tabaseName] IS NULL) OR ([DatabaseName] = @Original_DatabaseName)) AND ((@IsNull" +
+                "_LocalPassword = 1 AND [LocalPassword] IS NULL) OR ([LocalPassword] = @Original_" +
+                "LocalPassword)) AND ((@IsNull_LocalServerIP = 1 AND [LocalServerIP] IS NULL) OR " +
+                "([LocalServerIP] = @Original_LocalServerIP)) AND ((@IsNull_LocalUserID = 1 AND [" +
+                "LocalUserID] IS NULL) OR ([LocalUserID] = @Original_LocalUserID)));\r\nSELECT Apar" +
+                "tmentID, AppartementCode, ApartmentName, ApartmentAllName, IsCurrent, CloudPassw" +
+                "ord, CloudServerIP, CloudSharedDatabase, CloudUserID, DatabaseName, LocalPasswor" +
+                "d, LocalServerIP, LocalUserID FROM Apartment WHERE (ApartmentID = @ApartmentID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ApartmentID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ApartmentID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AppartementCode", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AppartementCode", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ApartmentName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ApartmentName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ApartmentAllName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ApartmentAllName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsCurrent", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsCurrent", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CloudPassword", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudPassword", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CloudServerIP", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudServerIP", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CloudSharedDatabase", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudSharedDatabase", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CloudUserID", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudUserID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DatabaseName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DatabaseName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LocalPassword", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LocalPassword", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LocalServerIP", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LocalServerIP", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LocalUserID", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LocalUserID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ApartmentID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ApartmentID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_AppartementCode", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AppartementCode", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AppartementCode", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AppartementCode", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
@@ -45185,6 +46030,22 @@ SELECT ApartmentID, AppartementCode, ApartmentName, ApartmentAllName, IsCurrent 
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ApartmentAllName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ApartmentAllName", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_IsCurrent", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsCurrent", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IsCurrent", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsCurrent", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_CloudPassword", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudPassword", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CloudPassword", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudPassword", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_CloudServerIP", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudServerIP", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CloudServerIP", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudServerIP", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_CloudSharedDatabase", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudSharedDatabase", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CloudSharedDatabase", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudSharedDatabase", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_CloudUserID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudUserID", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CloudUserID", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudUserID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_DatabaseName", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DatabaseName", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_DatabaseName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DatabaseName", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_LocalPassword", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LocalPassword", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LocalPassword", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LocalPassword", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_LocalServerIP", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LocalServerIP", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LocalServerIP", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LocalServerIP", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_LocalUserID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LocalUserID", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LocalUserID", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LocalUserID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -45200,8 +46061,9 @@ SELECT ApartmentID, AppartementCode, ApartmentName, ApartmentAllName, IsCurrent 
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ApartmentID, AppartementCode, ApartmentName, ApartmentAllName, IsCurrent F" +
-                "ROM dbo.Apartment";
+            this._commandCollection[0].CommandText = "SELECT ApartmentID, AppartementCode, ApartmentName, ApartmentAllName, IsCurrent, " +
+                "CloudPassword, CloudServerIP, CloudSharedDatabase, CloudUserID, DatabaseName, Lo" +
+                "calPassword, LocalServerIP, LocalUserID FROM Apartment";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -45262,7 +46124,7 @@ SELECT ApartmentID, AppartementCode, ApartmentName, ApartmentAllName, IsCurrent 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_ApartmentID, global::System.Nullable<int> Original_AppartementCode, string Original_ApartmentName, string Original_ApartmentAllName, global::System.Nullable<bool> Original_IsCurrent) {
+        public virtual int Delete(int Original_ApartmentID, global::System.Nullable<int> Original_AppartementCode, string Original_ApartmentName, string Original_ApartmentAllName, global::System.Nullable<bool> Original_IsCurrent, string Original_CloudPassword, string Original_CloudServerIP, string Original_CloudSharedDatabase, string Original_CloudUserID, string Original_DatabaseName, string Original_LocalPassword, string Original_LocalServerIP, string Original_LocalUserID) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ApartmentID));
             if ((Original_AppartementCode.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
@@ -45296,6 +46158,70 @@ SELECT ApartmentID, AppartementCode, ApartmentName, ApartmentAllName, IsCurrent 
                 this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[8].Value = global::System.DBNull.Value;
             }
+            if ((Original_CloudPassword == null)) {
+                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[10].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[10].Value = ((string)(Original_CloudPassword));
+            }
+            if ((Original_CloudServerIP == null)) {
+                this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[12].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[12].Value = ((string)(Original_CloudServerIP));
+            }
+            if ((Original_CloudSharedDatabase == null)) {
+                this.Adapter.DeleteCommand.Parameters[13].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[14].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[13].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[14].Value = ((string)(Original_CloudSharedDatabase));
+            }
+            if ((Original_CloudUserID == null)) {
+                this.Adapter.DeleteCommand.Parameters[15].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[16].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[15].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[16].Value = ((string)(Original_CloudUserID));
+            }
+            if ((Original_DatabaseName == null)) {
+                this.Adapter.DeleteCommand.Parameters[17].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[18].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[17].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[18].Value = ((string)(Original_DatabaseName));
+            }
+            if ((Original_LocalPassword == null)) {
+                this.Adapter.DeleteCommand.Parameters[19].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[20].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[19].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[20].Value = ((string)(Original_LocalPassword));
+            }
+            if ((Original_LocalServerIP == null)) {
+                this.Adapter.DeleteCommand.Parameters[21].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[22].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[21].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[22].Value = ((string)(Original_LocalServerIP));
+            }
+            if ((Original_LocalUserID == null)) {
+                this.Adapter.DeleteCommand.Parameters[23].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[24].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[23].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[24].Value = ((string)(Original_LocalUserID));
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -45316,7 +46242,7 @@ SELECT ApartmentID, AppartementCode, ApartmentName, ApartmentAllName, IsCurrent 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int ApartmentID, global::System.Nullable<int> AppartementCode, string ApartmentName, string ApartmentAllName, global::System.Nullable<bool> IsCurrent) {
+        public virtual int Insert(int ApartmentID, global::System.Nullable<int> AppartementCode, string ApartmentName, string ApartmentAllName, global::System.Nullable<bool> IsCurrent, string CloudPassword, string CloudServerIP, string CloudSharedDatabase, string CloudUserID, string DatabaseName, string LocalPassword, string LocalServerIP, string LocalUserID) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(ApartmentID));
             if ((AppartementCode.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[1].Value = ((int)(AppartementCode.Value));
@@ -45342,6 +46268,54 @@ SELECT ApartmentID, AppartementCode, ApartmentName, ApartmentAllName, IsCurrent 
             else {
                 this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
+            if ((CloudPassword == null)) {
+                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[5].Value = ((string)(CloudPassword));
+            }
+            if ((CloudServerIP == null)) {
+                this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[6].Value = ((string)(CloudServerIP));
+            }
+            if ((CloudSharedDatabase == null)) {
+                this.Adapter.InsertCommand.Parameters[7].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[7].Value = ((string)(CloudSharedDatabase));
+            }
+            if ((CloudUserID == null)) {
+                this.Adapter.InsertCommand.Parameters[8].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[8].Value = ((string)(CloudUserID));
+            }
+            if ((DatabaseName == null)) {
+                this.Adapter.InsertCommand.Parameters[9].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[9].Value = ((string)(DatabaseName));
+            }
+            if ((LocalPassword == null)) {
+                this.Adapter.InsertCommand.Parameters[10].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[10].Value = ((string)(LocalPassword));
+            }
+            if ((LocalServerIP == null)) {
+                this.Adapter.InsertCommand.Parameters[11].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[11].Value = ((string)(LocalServerIP));
+            }
+            if ((LocalUserID == null)) {
+                this.Adapter.InsertCommand.Parameters[12].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[12].Value = ((string)(LocalUserID));
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -45362,7 +46336,33 @@ SELECT ApartmentID, AppartementCode, ApartmentName, ApartmentAllName, IsCurrent 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int ApartmentID, global::System.Nullable<int> AppartementCode, string ApartmentName, string ApartmentAllName, global::System.Nullable<bool> IsCurrent, int Original_ApartmentID, global::System.Nullable<int> Original_AppartementCode, string Original_ApartmentName, string Original_ApartmentAllName, global::System.Nullable<bool> Original_IsCurrent) {
+        public virtual int Update(
+                    int ApartmentID, 
+                    global::System.Nullable<int> AppartementCode, 
+                    string ApartmentName, 
+                    string ApartmentAllName, 
+                    global::System.Nullable<bool> IsCurrent, 
+                    string CloudPassword, 
+                    string CloudServerIP, 
+                    string CloudSharedDatabase, 
+                    string CloudUserID, 
+                    string DatabaseName, 
+                    string LocalPassword, 
+                    string LocalServerIP, 
+                    string LocalUserID, 
+                    int Original_ApartmentID, 
+                    global::System.Nullable<int> Original_AppartementCode, 
+                    string Original_ApartmentName, 
+                    string Original_ApartmentAllName, 
+                    global::System.Nullable<bool> Original_IsCurrent, 
+                    string Original_CloudPassword, 
+                    string Original_CloudServerIP, 
+                    string Original_CloudSharedDatabase, 
+                    string Original_CloudUserID, 
+                    string Original_DatabaseName, 
+                    string Original_LocalPassword, 
+                    string Original_LocalServerIP, 
+                    string Original_LocalUserID) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(ApartmentID));
             if ((AppartementCode.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(AppartementCode.Value));
@@ -45388,38 +46388,150 @@ SELECT ApartmentID, AppartementCode, ApartmentName, ApartmentAllName, IsCurrent 
             else {
                 this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_ApartmentID));
-            if ((Original_AppartementCode.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_AppartementCode.Value));
+            if ((CloudPassword == null)) {
+                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(CloudPassword));
+            }
+            if ((CloudServerIP == null)) {
+                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(CloudServerIP));
+            }
+            if ((CloudSharedDatabase == null)) {
                 this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
-            if ((Original_ApartmentName == null)) {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(1));
+            else {
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(CloudSharedDatabase));
+            }
+            if ((CloudUserID == null)) {
+                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(CloudUserID));
+            }
+            if ((DatabaseName == null)) {
                 this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((string)(Original_ApartmentName));
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((string)(DatabaseName));
             }
-            if ((Original_ApartmentAllName == null)) {
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(1));
+            if ((LocalPassword == null)) {
+                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((string)(LocalPassword));
+            }
+            if ((LocalServerIP == null)) {
                 this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((string)(Original_ApartmentAllName));
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((string)(LocalServerIP));
             }
-            if ((Original_IsCurrent.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((bool)(Original_IsCurrent.Value));
+            if ((LocalUserID == null)) {
+                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[13].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((string)(LocalUserID));
+            }
+            this.Adapter.UpdateCommand.Parameters[13].Value = ((int)(Original_ApartmentID));
+            if ((Original_AppartementCode.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((int)(Original_AppartementCode.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[15].Value = global::System.DBNull.Value;
+            }
+            if ((Original_ApartmentName == null)) {
+                this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[17].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[17].Value = ((string)(Original_ApartmentName));
+            }
+            if ((Original_ApartmentAllName == null)) {
+                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[19].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[19].Value = ((string)(Original_ApartmentAllName));
+            }
+            if ((Original_IsCurrent.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[20].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[21].Value = ((bool)(Original_IsCurrent.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[20].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[21].Value = global::System.DBNull.Value;
+            }
+            if ((Original_CloudPassword == null)) {
+                this.Adapter.UpdateCommand.Parameters[22].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[23].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[22].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[23].Value = ((string)(Original_CloudPassword));
+            }
+            if ((Original_CloudServerIP == null)) {
+                this.Adapter.UpdateCommand.Parameters[24].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[25].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[24].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[25].Value = ((string)(Original_CloudServerIP));
+            }
+            if ((Original_CloudSharedDatabase == null)) {
+                this.Adapter.UpdateCommand.Parameters[26].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[27].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[26].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[27].Value = ((string)(Original_CloudSharedDatabase));
+            }
+            if ((Original_CloudUserID == null)) {
+                this.Adapter.UpdateCommand.Parameters[28].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[29].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[28].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[29].Value = ((string)(Original_CloudUserID));
+            }
+            if ((Original_DatabaseName == null)) {
+                this.Adapter.UpdateCommand.Parameters[30].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[31].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[30].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[31].Value = ((string)(Original_DatabaseName));
+            }
+            if ((Original_LocalPassword == null)) {
+                this.Adapter.UpdateCommand.Parameters[32].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[33].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[32].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[33].Value = ((string)(Original_LocalPassword));
+            }
+            if ((Original_LocalServerIP == null)) {
+                this.Adapter.UpdateCommand.Parameters[34].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[35].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[34].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[35].Value = ((string)(Original_LocalServerIP));
+            }
+            if ((Original_LocalUserID == null)) {
+                this.Adapter.UpdateCommand.Parameters[36].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[37].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[36].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[37].Value = ((string)(Original_LocalUserID));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -45441,8 +46553,33 @@ SELECT ApartmentID, AppartementCode, ApartmentName, ApartmentAllName, IsCurrent 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(global::System.Nullable<int> AppartementCode, string ApartmentName, string ApartmentAllName, global::System.Nullable<bool> IsCurrent, int Original_ApartmentID, global::System.Nullable<int> Original_AppartementCode, string Original_ApartmentName, string Original_ApartmentAllName, global::System.Nullable<bool> Original_IsCurrent) {
-            return this.Update(Original_ApartmentID, AppartementCode, ApartmentName, ApartmentAllName, IsCurrent, Original_ApartmentID, Original_AppartementCode, Original_ApartmentName, Original_ApartmentAllName, Original_IsCurrent);
+        public virtual int Update(
+                    global::System.Nullable<int> AppartementCode, 
+                    string ApartmentName, 
+                    string ApartmentAllName, 
+                    global::System.Nullable<bool> IsCurrent, 
+                    string CloudPassword, 
+                    string CloudServerIP, 
+                    string CloudSharedDatabase, 
+                    string CloudUserID, 
+                    string DatabaseName, 
+                    string LocalPassword, 
+                    string LocalServerIP, 
+                    string LocalUserID, 
+                    int Original_ApartmentID, 
+                    global::System.Nullable<int> Original_AppartementCode, 
+                    string Original_ApartmentName, 
+                    string Original_ApartmentAllName, 
+                    global::System.Nullable<bool> Original_IsCurrent, 
+                    string Original_CloudPassword, 
+                    string Original_CloudServerIP, 
+                    string Original_CloudSharedDatabase, 
+                    string Original_CloudUserID, 
+                    string Original_DatabaseName, 
+                    string Original_LocalPassword, 
+                    string Original_LocalServerIP, 
+                    string Original_LocalUserID) {
+            return this.Update(Original_ApartmentID, AppartementCode, ApartmentName, ApartmentAllName, IsCurrent, CloudPassword, CloudServerIP, CloudSharedDatabase, CloudUserID, DatabaseName, LocalPassword, LocalServerIP, LocalUserID, Original_ApartmentID, Original_AppartementCode, Original_ApartmentName, Original_ApartmentAllName, Original_IsCurrent, Original_CloudPassword, Original_CloudServerIP, Original_CloudSharedDatabase, Original_CloudUserID, Original_DatabaseName, Original_LocalPassword, Original_LocalServerIP, Original_LocalUserID);
         }
     }
     
@@ -55771,6 +56908,315 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
     }
     
     /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class OperatorAuthListTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private global::System.Data.SqlClient.SqlConnection _connection;
+        
+        private global::System.Data.SqlClient.SqlTransaction _transaction;
+        
+        private global::System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public OperatorAuthListTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        protected internal global::System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        internal global::System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        internal global::System.Data.SqlClient.SqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        protected global::System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "OperatorAuthList";
+            tableMapping.ColumnMappings.Add("ID", "ID");
+            tableMapping.ColumnMappings.Add("OperatorID", "OperatorID");
+            tableMapping.ColumnMappings.Add("ApartmentID", "ApartmentID");
+            this._adapter.TableMappings.Add(tableMapping);
+            this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.DeleteCommand.Connection = this.Connection;
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[OperatorAuthList] WHERE (([ID] = @Original_ID) AND ([OperatorI" +
+                "D] = @Original_OperatorID) AND ([ApartmentID] = @Original_ApartmentID))";
+            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.UniqueIdentifier, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_OperatorID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OperatorID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ApartmentID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ApartmentID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.InsertCommand.Connection = this.Connection;
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[OperatorAuthList] ([ID], [OperatorID], [ApartmentID]) VALUES (" +
+                "@ID, @OperatorID, @ApartmentID);\r\nSELECT ID, OperatorID, ApartmentID FROM Operat" +
+                "orAuthList WHERE (ID = @ID)";
+            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.UniqueIdentifier, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@OperatorID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OperatorID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ApartmentID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ApartmentID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.UpdateCommand.Connection = this.Connection;
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[OperatorAuthList] SET [ID] = @ID, [OperatorID] = @OperatorID, [ApartmentID] = @ApartmentID WHERE (([ID] = @Original_ID) AND ([OperatorID] = @Original_OperatorID) AND ([ApartmentID] = @Original_ApartmentID));
+SELECT ID, OperatorID, ApartmentID FROM OperatorAuthList WHERE (ID = @ID)";
+            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.UniqueIdentifier, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@OperatorID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OperatorID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ApartmentID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ApartmentID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.UniqueIdentifier, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_OperatorID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OperatorID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ApartmentID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ApartmentID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::VoucherExpense.Properties.Settings.Default.DamaiConnectionString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "SELECT ID, OperatorID, ApartmentID FROM dbo.OperatorAuthList";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(DamaiDataSet.OperatorAuthListDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual DamaiDataSet.OperatorAuthListDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            DamaiDataSet.OperatorAuthListDataTable dataTable = new DamaiDataSet.OperatorAuthListDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(DamaiDataSet.OperatorAuthListDataTable dataTable) {
+            return this.Adapter.Update(dataTable);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(DamaiDataSet dataSet) {
+            return this.Adapter.Update(dataSet, "OperatorAuthList");
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow dataRow) {
+            return this.Adapter.Update(new global::System.Data.DataRow[] {
+                        dataRow});
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow[] dataRows) {
+            return this.Adapter.Update(dataRows);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
+        public virtual int Delete(System.Guid Original_ID, int Original_OperatorID, int Original_ApartmentID) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((System.Guid)(Original_ID));
+            this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_OperatorID));
+            this.Adapter.DeleteCommand.Parameters[2].Value = ((int)(Original_ApartmentID));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
+            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.DeleteCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.DeleteCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
+        public virtual int Insert(System.Guid ID, int OperatorID, int ApartmentID) {
+            this.Adapter.InsertCommand.Parameters[0].Value = ((System.Guid)(ID));
+            this.Adapter.InsertCommand.Parameters[1].Value = ((int)(OperatorID));
+            this.Adapter.InsertCommand.Parameters[2].Value = ((int)(ApartmentID));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
+            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.InsertCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.InsertCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(System.Guid ID, int OperatorID, int ApartmentID, System.Guid Original_ID, int Original_OperatorID, int Original_ApartmentID) {
+            this.Adapter.UpdateCommand.Parameters[0].Value = ((System.Guid)(ID));
+            this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(OperatorID));
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(ApartmentID));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((System.Guid)(Original_ID));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_OperatorID));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_ApartmentID));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
+            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.UpdateCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.UpdateCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(int OperatorID, int ApartmentID, System.Guid Original_ID, int Original_OperatorID, int Original_ApartmentID) {
+            return this.Update(Original_ID, OperatorID, ApartmentID, Original_ID, Original_OperatorID, Original_ApartmentID);
+        }
+    }
+    
+    /// <summary>
     ///TableAdapterManager is used to coordinate TableAdapters in the dataset to enable Hierarchical Update scenarios
     ///</summary>
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -55867,6 +57313,8 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
         private AccVouchDetailTableAdapter _accVouchDetailTableAdapter;
         
         private AccountingTitleTableAdapter _accountingTitleTableAdapter;
+        
+        private OperatorAuthListTableAdapter _operatorAuthListTableAdapter;
         
         private bool _backupDataSetBeforeUpdate;
         
@@ -56487,6 +57935,20 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
+            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
+            "a", "System.Drawing.Design.UITypeEditor")]
+        public OperatorAuthListTableAdapter OperatorAuthListTableAdapter {
+            get {
+                return this._operatorAuthListTableAdapter;
+            }
+            set {
+                this._operatorAuthListTableAdapter = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public bool BackupDataSetBeforeUpdate {
             get {
                 return this._backupDataSetBeforeUpdate;
@@ -56676,6 +58138,10 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                             && (this._accountingTitleTableAdapter.Connection != null))) {
                     return this._accountingTitleTableAdapter.Connection;
                 }
+                if (((this._operatorAuthListTableAdapter != null) 
+                            && (this._operatorAuthListTableAdapter.Connection != null))) {
+                    return this._operatorAuthListTableAdapter.Connection;
+                }
                 return null;
             }
             set {
@@ -56818,6 +58284,9 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                 if ((this._accountingTitleTableAdapter != null)) {
                     count = (count + 1);
                 }
+                if ((this._operatorAuthListTableAdapter != null)) {
+                    count = (count + 1);
+                }
                 return count;
             }
         }
@@ -56847,6 +58316,42 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(updatedRows);
                 }
             }
+            if ((this._recipeTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Recipe.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._recipeTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._productScrappedTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.ProductScrapped.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._productScrappedTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._operatorTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Operator.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._operatorTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._voucherTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Voucher.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._voucherTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             if ((this._shiftTableTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.ShiftTable.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
@@ -56871,33 +58376,6 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._inventoryTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._voucherTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Voucher.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._voucherTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._productScrappedTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.ProductScrapped.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._productScrappedTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._recipeTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Recipe.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._recipeTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -56937,6 +58415,15 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(updatedRows);
                 }
             }
+            if ((this._cashierTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Cashier.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._cashierTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             if ((this._expenseTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.Expense.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
@@ -56955,21 +58442,12 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._accVouchDetailTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.AccVouchDetail.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._operatorAuthListTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.OperatorAuthList.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._accVouchDetailTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._accountingTitleTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.AccountingTitle.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._accountingTitleTableAdapter.Update(updatedRows));
+                    result = (result + this._operatorAuthListTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -57000,39 +58478,12 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._operatorTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Operator.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._operatorTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
             if ((this._shipmentDetailTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.ShipmentDetail.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._shipmentDetailTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._syncTableTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.SyncTable.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._syncTableTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._cashierTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Cashier.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._cashierTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -57045,6 +58496,24 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(updatedRows);
                 }
             }
+            if ((this._syncTableTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.SyncTable.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._syncTableTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._accountingTitleTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.AccountingTitle.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._accountingTitleTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             if ((this._photosTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.Photos.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
@@ -57054,12 +58523,21 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._apartmentTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Apartment.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._accVouchDetailTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.AccVouchDetail.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._apartmentTableAdapter.Update(updatedRows));
+                    result = (result + this._accVouchDetailTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._inventoryDetailTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.InventoryDetail.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._inventoryDetailTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -57072,12 +58550,12 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._drawerRecordTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.DrawerRecord.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._onDutyDataTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.OnDutyData.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._drawerRecordTableAdapter.Update(updatedRows));
+                    result = (result + this._onDutyDataTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -57090,12 +58568,12 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._inventoryDetailTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.InventoryDetail.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._drawerRecordTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.DrawerRecord.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._inventoryDetailTableAdapter.Update(updatedRows));
+                    result = (result + this._drawerRecordTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -57135,12 +58613,12 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._onDutyDataTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.OnDutyData.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._hRDetailTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.HRDetail.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._onDutyDataTableAdapter.Update(updatedRows));
+                    result = (result + this._hRDetailTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -57153,12 +58631,12 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._orderItemTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.OrderItem.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._apartmentTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Apartment.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._orderItemTableAdapter.Update(updatedRows));
+                    result = (result + this._apartmentTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -57171,12 +58649,12 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._hRDetailTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.HRDetail.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._orderItemTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.OrderItem.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._hRDetailTableAdapter.Update(updatedRows));
+                    result = (result + this._orderItemTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -57242,6 +58720,38 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allAddedRows.AddRange(addedRows);
                 }
             }
+            if ((this._recipeTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Recipe.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._recipeTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._productScrappedTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.ProductScrapped.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._productScrappedTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._operatorTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Operator.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._operatorTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._voucherTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Voucher.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._voucherTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
             if ((this._shiftTableTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.ShiftTable.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
@@ -57263,30 +58773,6 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._inventoryTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._voucherTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Voucher.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._voucherTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._productScrappedTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.ProductScrapped.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._productScrappedTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._recipeTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Recipe.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._recipeTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -57322,6 +58808,14 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allAddedRows.AddRange(addedRows);
                 }
             }
+            if ((this._cashierTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Cashier.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._cashierTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
             if ((this._expenseTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.Expense.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
@@ -57338,19 +58832,11 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._accVouchDetailTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.AccVouchDetail.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._operatorAuthListTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.OperatorAuthList.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._accVouchDetailTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._accountingTitleTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.AccountingTitle.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._accountingTitleTableAdapter.Update(addedRows));
+                    result = (result + this._operatorAuthListTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -57378,35 +58864,11 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._operatorTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Operator.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._operatorTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             if ((this._shipmentDetailTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.ShipmentDetail.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._shipmentDetailTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._syncTableTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.SyncTable.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._syncTableTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._cashierTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Cashier.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._cashierTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -57418,6 +58880,22 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allAddedRows.AddRange(addedRows);
                 }
             }
+            if ((this._syncTableTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.SyncTable.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._syncTableTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._accountingTitleTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.AccountingTitle.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._accountingTitleTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
             if ((this._photosTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.Photos.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
@@ -57426,11 +58904,19 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._apartmentTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Apartment.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._accVouchDetailTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.AccVouchDetail.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._apartmentTableAdapter.Update(addedRows));
+                    result = (result + this._accVouchDetailTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._inventoryDetailTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.InventoryDetail.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._inventoryDetailTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -57442,11 +58928,11 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._drawerRecordTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.DrawerRecord.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._onDutyDataTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.OnDutyData.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._drawerRecordTableAdapter.Update(addedRows));
+                    result = (result + this._onDutyDataTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -57458,11 +58944,11 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._inventoryDetailTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.InventoryDetail.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._drawerRecordTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.DrawerRecord.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._inventoryDetailTableAdapter.Update(addedRows));
+                    result = (result + this._drawerRecordTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -57498,11 +58984,11 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._onDutyDataTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.OnDutyData.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._hRDetailTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.HRDetail.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._onDutyDataTableAdapter.Update(addedRows));
+                    result = (result + this._hRDetailTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -57514,11 +59000,11 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._orderItemTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.OrderItem.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._apartmentTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Apartment.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._orderItemTableAdapter.Update(addedRows));
+                    result = (result + this._apartmentTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -57530,11 +59016,11 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._hRDetailTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.HRDetail.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._orderItemTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.OrderItem.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._hRDetailTableAdapter.Update(addedRows));
+                    result = (result + this._orderItemTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -57612,11 +59098,11 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._hRDetailTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.HRDetail.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._orderItemTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.OrderItem.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._hRDetailTableAdapter.Update(deletedRows));
+                    result = (result + this._orderItemTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -57628,11 +59114,11 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._orderItemTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.OrderItem.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._apartmentTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Apartment.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._orderItemTableAdapter.Update(deletedRows));
+                    result = (result + this._apartmentTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -57644,11 +59130,11 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._onDutyDataTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.OnDutyData.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._hRDetailTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.HRDetail.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._onDutyDataTableAdapter.Update(deletedRows));
+                    result = (result + this._hRDetailTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -57684,11 +59170,11 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._inventoryDetailTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.InventoryDetail.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._drawerRecordTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.DrawerRecord.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._inventoryDetailTableAdapter.Update(deletedRows));
+                    result = (result + this._drawerRecordTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -57700,11 +59186,11 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._drawerRecordTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.DrawerRecord.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._onDutyDataTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.OnDutyData.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._drawerRecordTableAdapter.Update(deletedRows));
+                    result = (result + this._onDutyDataTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -57716,11 +59202,19 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._apartmentTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Apartment.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._inventoryDetailTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.InventoryDetail.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._apartmentTableAdapter.Update(deletedRows));
+                    result = (result + this._inventoryDetailTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._accVouchDetailTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.AccVouchDetail.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._accVouchDetailTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -57732,19 +59226,11 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._productClassTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.ProductClass.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._accountingTitleTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.AccountingTitle.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._productClassTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._cashierTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Cashier.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._cashierTableAdapter.Update(deletedRows));
+                    result = (result + this._accountingTitleTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -57756,19 +59242,19 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(deletedRows);
                 }
             }
+            if ((this._productClassTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.ProductClass.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._productClassTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
             if ((this._shipmentDetailTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.ShipmentDetail.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._shipmentDetailTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._operatorTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Operator.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._operatorTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -57796,19 +59282,11 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._accountingTitleTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.AccountingTitle.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._operatorAuthListTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.OperatorAuthList.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._accountingTitleTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._accVouchDetailTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.AccVouchDetail.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._accVouchDetailTableAdapter.Update(deletedRows));
+                    result = (result + this._operatorAuthListTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -57825,6 +59303,14 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._expenseTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._cashierTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Cashier.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._cashierTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -57860,30 +59346,6 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._recipeTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Recipe.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._recipeTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._productScrappedTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.ProductScrapped.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._productScrappedTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._voucherTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Voucher.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._voucherTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._inventoryTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.Inventory.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
@@ -57905,6 +59367,38 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._shiftTableTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._voucherTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Voucher.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._voucherTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._operatorTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Operator.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._operatorTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._productScrappedTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.ProductScrapped.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._productScrappedTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._recipeTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Recipe.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._recipeTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -58133,6 +59627,10 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
             }
             if (((this._accountingTitleTableAdapter != null) 
                         && (this.MatchTableAdapterConnection(this._accountingTitleTableAdapter.Connection) == false))) {
+                throw new global::System.ArgumentException("所有以 TableAdapterManager 管理的 TableAdapters 必須使用相同的連接字串。");
+            }
+            if (((this._operatorAuthListTableAdapter != null) 
+                        && (this.MatchTableAdapterConnection(this._operatorAuthListTableAdapter.Connection) == false))) {
                 throw new global::System.ArgumentException("所有以 TableAdapterManager 管理的 TableAdapters 必須使用相同的連接字串。");
             }
             global::System.Data.IDbConnection workConnection = this.Connection;
@@ -58553,6 +60051,15 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                         adaptersWithAcceptChangesDuringUpdate.Add(this._accountingTitleTableAdapter.Adapter);
                     }
                 }
+                if ((this._operatorAuthListTableAdapter != null)) {
+                    revertConnections.Add(this._operatorAuthListTableAdapter, this._operatorAuthListTableAdapter.Connection);
+                    this._operatorAuthListTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
+                    this._operatorAuthListTableAdapter.Transaction = ((global::System.Data.SqlClient.SqlTransaction)(workTransaction));
+                    if (this._operatorAuthListTableAdapter.Adapter.AcceptChangesDuringUpdate) {
+                        this._operatorAuthListTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
+                        adaptersWithAcceptChangesDuringUpdate.Add(this._operatorAuthListTableAdapter.Adapter);
+                    }
+                }
                 // 
                 //---- Perform updates -----------
                 //
@@ -58782,6 +60289,10 @@ SELECT Name, LastUpdated, InitialValue, TitleCode, AccountClass, IsDebt, IsVirtu
                 if ((this._accountingTitleTableAdapter != null)) {
                     this._accountingTitleTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._accountingTitleTableAdapter]));
                     this._accountingTitleTableAdapter.Transaction = null;
+                }
+                if ((this._operatorAuthListTableAdapter != null)) {
+                    this._operatorAuthListTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._operatorAuthListTableAdapter]));
+                    this._operatorAuthListTableAdapter.Transaction = null;
                 }
                 if ((0 < adaptersWithAcceptChangesDuringUpdate.Count)) {
                     global::System.Data.Common.DataAdapter[] adapters = new System.Data.Common.DataAdapter[adaptersWithAcceptChangesDuringUpdate.Count];

@@ -11678,13 +11678,21 @@ namespace VoucherExpense {
                 this.columnApartmentID.Unique = true;
                 this.columnApartmentName.MaxLength = 10;
                 this.columnApartmentAllName.MaxLength = 255;
+                this.columnLocalServerIP.AllowDBNull = false;
                 this.columnLocalServerIP.MaxLength = 255;
+                this.columnDatabaseName.AllowDBNull = false;
                 this.columnDatabaseName.MaxLength = 255;
+                this.columnLocalUserID.AllowDBNull = false;
                 this.columnLocalUserID.MaxLength = 255;
+                this.columnLocalPassword.AllowDBNull = false;
                 this.columnLocalPassword.MaxLength = 255;
+                this.columnCloudServerIP.AllowDBNull = false;
                 this.columnCloudServerIP.MaxLength = 255;
+                this.columnCloudSharedDatabase.AllowDBNull = false;
                 this.columnCloudSharedDatabase.MaxLength = 255;
+                this.columnCloudUserID.AllowDBNull = false;
                 this.columnCloudUserID.MaxLength = 255;
+                this.columnCloudPassword.AllowDBNull = false;
                 this.columnCloudPassword.MaxLength = 255;
             }
             
@@ -24859,12 +24867,7 @@ namespace VoucherExpense {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string LocalServerIP {
                 get {
-                    try {
-                        return ((string)(this[this.tableApartment.LocalServerIPColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("資料表 \'Apartment\' 中資料行 \'LocalServerIP\' 的值是 DBNull。", e);
-                    }
+                    return ((string)(this[this.tableApartment.LocalServerIPColumn]));
                 }
                 set {
                     this[this.tableApartment.LocalServerIPColumn] = value;
@@ -24875,12 +24878,7 @@ namespace VoucherExpense {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string DatabaseName {
                 get {
-                    try {
-                        return ((string)(this[this.tableApartment.DatabaseNameColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("資料表 \'Apartment\' 中資料行 \'DatabaseName\' 的值是 DBNull。", e);
-                    }
+                    return ((string)(this[this.tableApartment.DatabaseNameColumn]));
                 }
                 set {
                     this[this.tableApartment.DatabaseNameColumn] = value;
@@ -24891,12 +24889,7 @@ namespace VoucherExpense {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string LocalUserID {
                 get {
-                    try {
-                        return ((string)(this[this.tableApartment.LocalUserIDColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("資料表 \'Apartment\' 中資料行 \'LocalUserID\' 的值是 DBNull。", e);
-                    }
+                    return ((string)(this[this.tableApartment.LocalUserIDColumn]));
                 }
                 set {
                     this[this.tableApartment.LocalUserIDColumn] = value;
@@ -24907,12 +24900,7 @@ namespace VoucherExpense {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string LocalPassword {
                 get {
-                    try {
-                        return ((string)(this[this.tableApartment.LocalPasswordColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("資料表 \'Apartment\' 中資料行 \'LocalPassword\' 的值是 DBNull。", e);
-                    }
+                    return ((string)(this[this.tableApartment.LocalPasswordColumn]));
                 }
                 set {
                     this[this.tableApartment.LocalPasswordColumn] = value;
@@ -24923,12 +24911,7 @@ namespace VoucherExpense {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string CloudServerIP {
                 get {
-                    try {
-                        return ((string)(this[this.tableApartment.CloudServerIPColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("資料表 \'Apartment\' 中資料行 \'CloudServerIP\' 的值是 DBNull。", e);
-                    }
+                    return ((string)(this[this.tableApartment.CloudServerIPColumn]));
                 }
                 set {
                     this[this.tableApartment.CloudServerIPColumn] = value;
@@ -24939,12 +24922,7 @@ namespace VoucherExpense {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string CloudSharedDatabase {
                 get {
-                    try {
-                        return ((string)(this[this.tableApartment.CloudSharedDatabaseColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("資料表 \'Apartment\' 中資料行 \'CloudSharedDatabase\' 的值是 DBNull。", e);
-                    }
+                    return ((string)(this[this.tableApartment.CloudSharedDatabaseColumn]));
                 }
                 set {
                     this[this.tableApartment.CloudSharedDatabaseColumn] = value;
@@ -24955,12 +24933,7 @@ namespace VoucherExpense {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string CloudUserID {
                 get {
-                    try {
-                        return ((string)(this[this.tableApartment.CloudUserIDColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("資料表 \'Apartment\' 中資料行 \'CloudUserID\' 的值是 DBNull。", e);
-                    }
+                    return ((string)(this[this.tableApartment.CloudUserIDColumn]));
                 }
                 set {
                     this[this.tableApartment.CloudUserIDColumn] = value;
@@ -24971,12 +24944,7 @@ namespace VoucherExpense {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string CloudPassword {
                 get {
-                    try {
-                        return ((string)(this[this.tableApartment.CloudPasswordColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("資料表 \'Apartment\' 中資料行 \'CloudPassword\' 的值是 DBNull。", e);
-                    }
+                    return ((string)(this[this.tableApartment.CloudPasswordColumn]));
                 }
                 set {
                     this[this.tableApartment.CloudPasswordColumn] = value;
@@ -25029,102 +24997,6 @@ namespace VoucherExpense {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetIsCurrentNull() {
                 this[this.tableApartment.IsCurrentColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsLocalServerIPNull() {
-                return this.IsNull(this.tableApartment.LocalServerIPColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetLocalServerIPNull() {
-                this[this.tableApartment.LocalServerIPColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsDatabaseNameNull() {
-                return this.IsNull(this.tableApartment.DatabaseNameColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetDatabaseNameNull() {
-                this[this.tableApartment.DatabaseNameColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsLocalUserIDNull() {
-                return this.IsNull(this.tableApartment.LocalUserIDColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetLocalUserIDNull() {
-                this[this.tableApartment.LocalUserIDColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsLocalPasswordNull() {
-                return this.IsNull(this.tableApartment.LocalPasswordColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetLocalPasswordNull() {
-                this[this.tableApartment.LocalPasswordColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsCloudServerIPNull() {
-                return this.IsNull(this.tableApartment.CloudServerIPColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetCloudServerIPNull() {
-                this[this.tableApartment.CloudServerIPColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsCloudSharedDatabaseNull() {
-                return this.IsNull(this.tableApartment.CloudSharedDatabaseColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetCloudSharedDatabaseNull() {
-                this[this.tableApartment.CloudSharedDatabaseColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsCloudUserIDNull() {
-                return this.IsNull(this.tableApartment.CloudUserIDColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetCloudUserIDNull() {
-                this[this.tableApartment.CloudUserIDColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsCloudPasswordNull() {
-                return this.IsNull(this.tableApartment.CloudPasswordColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetCloudPasswordNull() {
-                this[this.tableApartment.CloudPasswordColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -45934,7 +45806,7 @@ SELECT ShiftID, ApartmentID, TableName, TableMonth, KeyinID, LastUpdated, Locked
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [Apartment] WHERE (([ApartmentID] = @Original_ApartmentID) AND ((@IsNull_AppartementCode = 1 AND [AppartementCode] IS NULL) OR ([AppartementCode] = @Original_AppartementCode)) AND ((@IsNull_ApartmentName = 1 AND [ApartmentName] IS NULL) OR ([ApartmentName] = @Original_ApartmentName)) AND ((@IsNull_ApartmentAllName = 1 AND [ApartmentAllName] IS NULL) OR ([ApartmentAllName] = @Original_ApartmentAllName)) AND ((@IsNull_IsCurrent = 1 AND [IsCurrent] IS NULL) OR ([IsCurrent] = @Original_IsCurrent)) AND ((@IsNull_CloudPassword = 1 AND [CloudPassword] IS NULL) OR ([CloudPassword] = @Original_CloudPassword)) AND ((@IsNull_CloudServerIP = 1 AND [CloudServerIP] IS NULL) OR ([CloudServerIP] = @Original_CloudServerIP)) AND ((@IsNull_CloudSharedDatabase = 1 AND [CloudSharedDatabase] IS NULL) OR ([CloudSharedDatabase] = @Original_CloudSharedDatabase)) AND ((@IsNull_CloudUserID = 1 AND [CloudUserID] IS NULL) OR ([CloudUserID] = @Original_CloudUserID)) AND ((@IsNull_DatabaseName = 1 AND [DatabaseName] IS NULL) OR ([DatabaseName] = @Original_DatabaseName)) AND ((@IsNull_LocalPassword = 1 AND [LocalPassword] IS NULL) OR ([LocalPassword] = @Original_LocalPassword)) AND ((@IsNull_LocalServerIP = 1 AND [LocalServerIP] IS NULL) OR ([LocalServerIP] = @Original_LocalServerIP)) AND ((@IsNull_LocalUserID = 1 AND [LocalUserID] IS NULL) OR ([LocalUserID] = @Original_LocalUserID)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [Apartment] WHERE (([ApartmentID] = @Original_ApartmentID) AND ((@IsNull_AppartementCode = 1 AND [AppartementCode] IS NULL) OR ([AppartementCode] = @Original_AppartementCode)) AND ((@IsNull_ApartmentName = 1 AND [ApartmentName] IS NULL) OR ([ApartmentName] = @Original_ApartmentName)) AND ((@IsNull_ApartmentAllName = 1 AND [ApartmentAllName] IS NULL) OR ([ApartmentAllName] = @Original_ApartmentAllName)) AND ((@IsNull_IsCurrent = 1 AND [IsCurrent] IS NULL) OR ([IsCurrent] = @Original_IsCurrent)) AND ([CloudPassword] = @Original_CloudPassword) AND ([CloudServerIP] = @Original_CloudServerIP) AND ([CloudSharedDatabase] = @Original_CloudSharedDatabase) AND ([CloudUserID] = @Original_CloudUserID) AND ([DatabaseName] = @Original_DatabaseName) AND ([LocalPassword] = @Original_LocalPassword) AND ([LocalServerIP] = @Original_LocalServerIP) AND ([LocalUserID] = @Original_LocalUserID))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ApartmentID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ApartmentID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_AppartementCode", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AppartementCode", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
@@ -45945,21 +45817,13 @@ SELECT ShiftID, ApartmentID, TableName, TableMonth, KeyinID, LastUpdated, Locked
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ApartmentAllName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ApartmentAllName", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_IsCurrent", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsCurrent", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IsCurrent", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsCurrent", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_CloudPassword", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudPassword", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CloudPassword", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudPassword", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_CloudServerIP", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudServerIP", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CloudServerIP", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudServerIP", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_CloudSharedDatabase", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudSharedDatabase", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CloudSharedDatabase", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudSharedDatabase", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_CloudUserID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudUserID", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CloudUserID", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudUserID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_DatabaseName", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DatabaseName", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_DatabaseName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DatabaseName", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_LocalPassword", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LocalPassword", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LocalPassword", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LocalPassword", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_LocalServerIP", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LocalServerIP", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LocalServerIP", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LocalServerIP", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_LocalUserID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LocalUserID", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LocalUserID", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LocalUserID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
@@ -45992,21 +45856,15 @@ SELECT ApartmentID, AppartementCode, ApartmentName, ApartmentAllName, IsCurrent,
                 "_ApartmentName = 1 AND [ApartmentName] IS NULL) OR ([ApartmentName] = @Original_" +
                 "ApartmentName)) AND ((@IsNull_ApartmentAllName = 1 AND [ApartmentAllName] IS NUL" +
                 "L) OR ([ApartmentAllName] = @Original_ApartmentAllName)) AND ((@IsNull_IsCurrent" +
-                " = 1 AND [IsCurrent] IS NULL) OR ([IsCurrent] = @Original_IsCurrent)) AND ((@IsN" +
-                "ull_CloudPassword = 1 AND [CloudPassword] IS NULL) OR ([CloudPassword] = @Origin" +
-                "al_CloudPassword)) AND ((@IsNull_CloudServerIP = 1 AND [CloudServerIP] IS NULL) " +
-                "OR ([CloudServerIP] = @Original_CloudServerIP)) AND ((@IsNull_CloudSharedDatabas" +
-                "e = 1 AND [CloudSharedDatabase] IS NULL) OR ([CloudSharedDatabase] = @Original_C" +
-                "loudSharedDatabase)) AND ((@IsNull_CloudUserID = 1 AND [CloudUserID] IS NULL) OR" +
-                " ([CloudUserID] = @Original_CloudUserID)) AND ((@IsNull_DatabaseName = 1 AND [Da" +
-                "tabaseName] IS NULL) OR ([DatabaseName] = @Original_DatabaseName)) AND ((@IsNull" +
-                "_LocalPassword = 1 AND [LocalPassword] IS NULL) OR ([LocalPassword] = @Original_" +
-                "LocalPassword)) AND ((@IsNull_LocalServerIP = 1 AND [LocalServerIP] IS NULL) OR " +
-                "([LocalServerIP] = @Original_LocalServerIP)) AND ((@IsNull_LocalUserID = 1 AND [" +
-                "LocalUserID] IS NULL) OR ([LocalUserID] = @Original_LocalUserID)));\r\nSELECT Apar" +
-                "tmentID, AppartementCode, ApartmentName, ApartmentAllName, IsCurrent, CloudPassw" +
-                "ord, CloudServerIP, CloudSharedDatabase, CloudUserID, DatabaseName, LocalPasswor" +
-                "d, LocalServerIP, LocalUserID FROM Apartment WHERE (ApartmentID = @ApartmentID)";
+                " = 1 AND [IsCurrent] IS NULL) OR ([IsCurrent] = @Original_IsCurrent)) AND ([Clou" +
+                "dPassword] = @Original_CloudPassword) AND ([CloudServerIP] = @Original_CloudServ" +
+                "erIP) AND ([CloudSharedDatabase] = @Original_CloudSharedDatabase) AND ([CloudUse" +
+                "rID] = @Original_CloudUserID) AND ([DatabaseName] = @Original_DatabaseName) AND " +
+                "([LocalPassword] = @Original_LocalPassword) AND ([LocalServerIP] = @Original_Loc" +
+                "alServerIP) AND ([LocalUserID] = @Original_LocalUserID));\r\nSELECT ApartmentID, A" +
+                "ppartementCode, ApartmentName, ApartmentAllName, IsCurrent, CloudPassword, Cloud" +
+                "ServerIP, CloudSharedDatabase, CloudUserID, DatabaseName, LocalPassword, LocalSe" +
+                "rverIP, LocalUserID FROM Apartment WHERE (ApartmentID = @ApartmentID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ApartmentID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ApartmentID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AppartementCode", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AppartementCode", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -46030,21 +45888,13 @@ SELECT ApartmentID, AppartementCode, ApartmentName, ApartmentAllName, IsCurrent,
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ApartmentAllName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ApartmentAllName", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_IsCurrent", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsCurrent", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IsCurrent", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsCurrent", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_CloudPassword", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudPassword", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CloudPassword", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudPassword", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_CloudServerIP", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudServerIP", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CloudServerIP", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudServerIP", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_CloudSharedDatabase", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudSharedDatabase", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CloudSharedDatabase", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudSharedDatabase", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_CloudUserID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudUserID", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CloudUserID", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CloudUserID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_DatabaseName", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DatabaseName", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_DatabaseName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DatabaseName", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_LocalPassword", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LocalPassword", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LocalPassword", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LocalPassword", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_LocalServerIP", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LocalServerIP", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LocalServerIP", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LocalServerIP", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_LocalUserID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LocalUserID", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LocalUserID", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LocalUserID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
@@ -46159,68 +46009,52 @@ SELECT ApartmentID, AppartementCode, ApartmentName, ApartmentAllName, IsCurrent,
                 this.Adapter.DeleteCommand.Parameters[8].Value = global::System.DBNull.Value;
             }
             if ((Original_CloudPassword == null)) {
-                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[10].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("Original_CloudPassword");
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[10].Value = ((string)(Original_CloudPassword));
+                this.Adapter.DeleteCommand.Parameters[9].Value = ((string)(Original_CloudPassword));
             }
             if ((Original_CloudServerIP == null)) {
-                this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[12].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("Original_CloudServerIP");
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[12].Value = ((string)(Original_CloudServerIP));
+                this.Adapter.DeleteCommand.Parameters[10].Value = ((string)(Original_CloudServerIP));
             }
             if ((Original_CloudSharedDatabase == null)) {
-                this.Adapter.DeleteCommand.Parameters[13].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[14].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("Original_CloudSharedDatabase");
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[13].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[14].Value = ((string)(Original_CloudSharedDatabase));
+                this.Adapter.DeleteCommand.Parameters[11].Value = ((string)(Original_CloudSharedDatabase));
             }
             if ((Original_CloudUserID == null)) {
-                this.Adapter.DeleteCommand.Parameters[15].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[16].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("Original_CloudUserID");
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[15].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[16].Value = ((string)(Original_CloudUserID));
+                this.Adapter.DeleteCommand.Parameters[12].Value = ((string)(Original_CloudUserID));
             }
             if ((Original_DatabaseName == null)) {
-                this.Adapter.DeleteCommand.Parameters[17].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[18].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("Original_DatabaseName");
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[17].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[18].Value = ((string)(Original_DatabaseName));
+                this.Adapter.DeleteCommand.Parameters[13].Value = ((string)(Original_DatabaseName));
             }
             if ((Original_LocalPassword == null)) {
-                this.Adapter.DeleteCommand.Parameters[19].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[20].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("Original_LocalPassword");
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[19].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[20].Value = ((string)(Original_LocalPassword));
+                this.Adapter.DeleteCommand.Parameters[14].Value = ((string)(Original_LocalPassword));
             }
             if ((Original_LocalServerIP == null)) {
-                this.Adapter.DeleteCommand.Parameters[21].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[22].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("Original_LocalServerIP");
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[21].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[22].Value = ((string)(Original_LocalServerIP));
+                this.Adapter.DeleteCommand.Parameters[15].Value = ((string)(Original_LocalServerIP));
             }
             if ((Original_LocalUserID == null)) {
-                this.Adapter.DeleteCommand.Parameters[23].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[24].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("Original_LocalUserID");
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[23].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[24].Value = ((string)(Original_LocalUserID));
+                this.Adapter.DeleteCommand.Parameters[16].Value = ((string)(Original_LocalUserID));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -46269,49 +46103,49 @@ SELECT ApartmentID, AppartementCode, ApartmentName, ApartmentAllName, IsCurrent,
                 this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             if ((CloudPassword == null)) {
-                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("CloudPassword");
             }
             else {
                 this.Adapter.InsertCommand.Parameters[5].Value = ((string)(CloudPassword));
             }
             if ((CloudServerIP == null)) {
-                this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("CloudServerIP");
             }
             else {
                 this.Adapter.InsertCommand.Parameters[6].Value = ((string)(CloudServerIP));
             }
             if ((CloudSharedDatabase == null)) {
-                this.Adapter.InsertCommand.Parameters[7].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("CloudSharedDatabase");
             }
             else {
                 this.Adapter.InsertCommand.Parameters[7].Value = ((string)(CloudSharedDatabase));
             }
             if ((CloudUserID == null)) {
-                this.Adapter.InsertCommand.Parameters[8].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("CloudUserID");
             }
             else {
                 this.Adapter.InsertCommand.Parameters[8].Value = ((string)(CloudUserID));
             }
             if ((DatabaseName == null)) {
-                this.Adapter.InsertCommand.Parameters[9].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("DatabaseName");
             }
             else {
                 this.Adapter.InsertCommand.Parameters[9].Value = ((string)(DatabaseName));
             }
             if ((LocalPassword == null)) {
-                this.Adapter.InsertCommand.Parameters[10].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("LocalPassword");
             }
             else {
                 this.Adapter.InsertCommand.Parameters[10].Value = ((string)(LocalPassword));
             }
             if ((LocalServerIP == null)) {
-                this.Adapter.InsertCommand.Parameters[11].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("LocalServerIP");
             }
             else {
                 this.Adapter.InsertCommand.Parameters[11].Value = ((string)(LocalServerIP));
             }
             if ((LocalUserID == null)) {
-                this.Adapter.InsertCommand.Parameters[12].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("LocalUserID");
             }
             else {
                 this.Adapter.InsertCommand.Parameters[12].Value = ((string)(LocalUserID));
@@ -46389,49 +46223,49 @@ SELECT ApartmentID, AppartementCode, ApartmentName, ApartmentAllName, IsCurrent,
                 this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             if ((CloudPassword == null)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("CloudPassword");
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(CloudPassword));
             }
             if ((CloudServerIP == null)) {
-                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("CloudServerIP");
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(CloudServerIP));
             }
             if ((CloudSharedDatabase == null)) {
-                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("CloudSharedDatabase");
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(CloudSharedDatabase));
             }
             if ((CloudUserID == null)) {
-                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("CloudUserID");
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(CloudUserID));
             }
             if ((DatabaseName == null)) {
-                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("DatabaseName");
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[9].Value = ((string)(DatabaseName));
             }
             if ((LocalPassword == null)) {
-                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("LocalPassword");
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[10].Value = ((string)(LocalPassword));
             }
             if ((LocalServerIP == null)) {
-                this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("LocalServerIP");
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[11].Value = ((string)(LocalServerIP));
             }
             if ((LocalUserID == null)) {
-                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("LocalUserID");
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[12].Value = ((string)(LocalUserID));
@@ -46470,68 +46304,52 @@ SELECT ApartmentID, AppartementCode, ApartmentName, ApartmentAllName, IsCurrent,
                 this.Adapter.UpdateCommand.Parameters[21].Value = global::System.DBNull.Value;
             }
             if ((Original_CloudPassword == null)) {
-                this.Adapter.UpdateCommand.Parameters[22].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[23].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("Original_CloudPassword");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[22].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[23].Value = ((string)(Original_CloudPassword));
+                this.Adapter.UpdateCommand.Parameters[22].Value = ((string)(Original_CloudPassword));
             }
             if ((Original_CloudServerIP == null)) {
-                this.Adapter.UpdateCommand.Parameters[24].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[25].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("Original_CloudServerIP");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[24].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[25].Value = ((string)(Original_CloudServerIP));
+                this.Adapter.UpdateCommand.Parameters[23].Value = ((string)(Original_CloudServerIP));
             }
             if ((Original_CloudSharedDatabase == null)) {
-                this.Adapter.UpdateCommand.Parameters[26].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[27].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("Original_CloudSharedDatabase");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[26].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[27].Value = ((string)(Original_CloudSharedDatabase));
+                this.Adapter.UpdateCommand.Parameters[24].Value = ((string)(Original_CloudSharedDatabase));
             }
             if ((Original_CloudUserID == null)) {
-                this.Adapter.UpdateCommand.Parameters[28].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[29].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("Original_CloudUserID");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[28].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[29].Value = ((string)(Original_CloudUserID));
+                this.Adapter.UpdateCommand.Parameters[25].Value = ((string)(Original_CloudUserID));
             }
             if ((Original_DatabaseName == null)) {
-                this.Adapter.UpdateCommand.Parameters[30].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[31].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("Original_DatabaseName");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[30].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[31].Value = ((string)(Original_DatabaseName));
+                this.Adapter.UpdateCommand.Parameters[26].Value = ((string)(Original_DatabaseName));
             }
             if ((Original_LocalPassword == null)) {
-                this.Adapter.UpdateCommand.Parameters[32].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[33].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("Original_LocalPassword");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[32].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[33].Value = ((string)(Original_LocalPassword));
+                this.Adapter.UpdateCommand.Parameters[27].Value = ((string)(Original_LocalPassword));
             }
             if ((Original_LocalServerIP == null)) {
-                this.Adapter.UpdateCommand.Parameters[34].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[35].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("Original_LocalServerIP");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[34].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[35].Value = ((string)(Original_LocalServerIP));
+                this.Adapter.UpdateCommand.Parameters[28].Value = ((string)(Original_LocalServerIP));
             }
             if ((Original_LocalUserID == null)) {
-                this.Adapter.UpdateCommand.Parameters[36].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[37].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("Original_LocalUserID");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[36].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[37].Value = ((string)(Original_LocalUserID));
+                this.Adapter.UpdateCommand.Parameters[29].Value = ((string)(Original_LocalUserID));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 

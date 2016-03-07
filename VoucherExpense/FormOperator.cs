@@ -1,17 +1,10 @@
-﻿//#define UseSQLServer
-using System;
+﻿using System;
 using System.Data;
 using System.Windows.Forms;
 
-#if (UseSQLServer)
 using MyOperatorRow = VoucherExpense.DamaiDataSet.OperatorRow;
 using MyDataSet = VoucherExpense.DamaiDataSet;
 using MyOperatorTable = VoucherExpense.DamaiDataSet.OperatorDataTable;
-#else
-using MyOperatorRow = VoucherExpense.VEDataSet.OperatorRow;
-using MyDataSet = VoucherExpense.VEDataSet;
-using MyOperatorTable = VoucherExpense.VEDataSet.OperatorDataTable;
-#endif
 
 namespace VoucherExpense
 {
@@ -23,11 +16,8 @@ namespace VoucherExpense
         }
 
         MyDataSet m_DataSet = new MyDataSet();
-#if (UseSQLServer)
         VoucherExpense.DamaiDataSetTableAdapters.OperatorTableAdapter operatorAdapter = new DamaiDataSetTableAdapters.OperatorTableAdapter();
-#else
-        VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter operatorAdapter = new VEDataSetTableAdapters.OperatorTableAdapter();
-#endif
+        VoucherExpense.DamaiDataSetTableAdapters.OperatorAuthListTableAdapter authListAdapter = new DamaiDataSetTableAdapters.OperatorAuthListTableAdapter();
 
         private void operatorBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
@@ -60,11 +50,9 @@ namespace VoucherExpense
             operatorBindingSource.DataSource = m_DataSet;
             try
             {
-#if (!UseSQLServer)
-                operatorAdapter.Connection = MapPath.VEConnection;
-#endif
-                this.operatorBindingSource.DataSource = m_DataSet;
                 this.operatorAdapter.Fill(m_DataSet.Operator);
+                this.authListAdapter.Fill(m_DataSet.OperatorAuthList);
+                this.operatorBindingSource.DataSource = m_DataSet;
                 MyFunction.SetFieldLength(operatorDataGridView, m_DataSet.Operator);
             }
             catch (Exception ex)
@@ -106,8 +94,9 @@ namespace VoucherExpense
                 string str = e.FormattedValue.ToString().Trim();
                 if (str.Length < 5)
                 {
-                    MessageBox.Show("登入名太短了!");
-                    e.Cancel = true;
+                    MessageBox.Show("登入名太短了! 系統自動加入8888");
+                    row.Cells[cellName].Value += "8888";
+                    //e.Cancel = true;
                     return;
                 }
                 for (int i = 0; i < view.Rows.Count; i++)
@@ -156,6 +145,38 @@ namespace VoucherExpense
             MyFunction.AddNewItem(operatorDataGridView, "operatorID", "operatorID", m_DataSet.Operator);
             DataGridViewRow row = operatorDataGridView.CurrentRow;
             row.Cells["LoginName"].Value = "Name" + row.Cells["operatorID"].Value.ToString();
+        }
+
+        string BtnName = "BtnAuthorizedList";
+        private void operatorDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView view=(DataGridView)sender;
+            if (view.Columns[e.ColumnIndex].Name != BtnName) return;
+            DataGridViewRow row=view.Rows[e.RowIndex];
+            DataGridViewCell cell=row.Cells["OperatorID"];
+            MessageBox.Show(e.RowIndex.ToString()+" OperatorID="+cell.Value.ToString());
+        }
+
+        private void operatorDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            DataGridView view = (DataGridView)sender;
+            foreach (DataGridViewRow row in view.Rows)
+            {
+                DataGridViewCell cell;
+                try {  cell = row.Cells[BtnName];  }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("程式錯誤! DataGridView.Columns[" + BtnName + "] 找不到!請找碼農.訊息<"+ex.Message+">");
+                    return;
+                }
+                if (cell.GetType() != typeof(DataGridViewButtonCell))
+                {
+                    MessageBox.Show("程式錯誤! DataGridView.Columns[" + BtnName + "] 不是ButtonCell!請找碼農");
+                    return;
+                }
+                DataGridViewButtonCell btnCell = (DataGridViewButtonCell)cell;
+                btnCell.Value = row.Cells["OperatorID"].Value.ToString();
+            }
         }
     }
 }

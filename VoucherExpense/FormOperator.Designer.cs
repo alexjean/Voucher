@@ -52,7 +52,7 @@
             this.StopAccount = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.LoginName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AuthorizedList = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.BtnAuthorizedList = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewCheckBoxColumn2 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.EditCustomer = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -231,7 +231,7 @@
             this.StopAccount,
             this.LoginName,
             this.dataGridViewTextBoxColumn5,
-            this.AuthorizedList,
+            this.BtnAuthorizedList,
             this.dataGridViewCheckBoxColumn1,
             this.dataGridViewCheckBoxColumn2,
             this.EditCustomer,
@@ -265,7 +265,9 @@
             this.operatorDataGridView.RowTemplate.Height = 24;
             this.operatorDataGridView.Size = new System.Drawing.Size(1062, 483);
             this.operatorDataGridView.TabIndex = 1;
+            this.operatorDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.operatorDataGridView_CellContentClick);
             this.operatorDataGridView.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.operatorDataGridView_CellValidating);
+            this.operatorDataGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.operatorDataGridView_DataBindingComplete);
             this.operatorDataGridView.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.operatorDataGridView_RowValidating);
             // 
             // OperatorID
@@ -298,10 +300,10 @@
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.Width = 80;
             // 
-            // AuthorizedList
+            // BtnAuthorizedList
             // 
-            this.AuthorizedList.HeaderText = "可登入門店";
-            this.AuthorizedList.Name = "AuthorizedList";
+            this.BtnAuthorizedList.HeaderText = "可登門店";
+            this.BtnAuthorizedList.Name = "BtnAuthorizedList";
             // 
             // dataGridViewCheckBoxColumn1
             // 
@@ -528,7 +530,7 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn StopAccount;
         private System.Windows.Forms.DataGridViewTextBoxColumn LoginName;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewButtonColumn AuthorizedList;
+        private System.Windows.Forms.DataGridViewButtonColumn BtnAuthorizedList;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn2;
         private System.Windows.Forms.DataGridViewCheckBoxColumn EditCustomer;

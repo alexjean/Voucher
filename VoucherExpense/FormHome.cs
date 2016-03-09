@@ -36,38 +36,48 @@ namespace VoucherExpense
             m_BranchName = branchName;
             SetFormTitle();
 
-            ToolStripMenuItem basic;
-            basic=(ToolStripMenuItem)menu1.Items["基本資料MenuItem"];
-            basic.Enabled = (Op.EditEmployee | Op.EditOperator | Op.EditAccountingTitle | 
-                             Op.EditIngredient  | Op.EditVendor | Op.EditBank);
+            ToolStripMenuItem basic,accounting,bank,it;
+            basic       = (ToolStripMenuItem)menu1.Items["基本資料MenuItem"];
+            accounting  = (ToolStripMenuItem)menu1.Items["會計MenuItem"];
+            it          = (ToolStripMenuItem)menu1.Items["IT維護MenuItem"];
+            bank        = (ToolStripMenuItem)menu1.Items["銀行MenuItem"];
+            basic.Enabled       = (Op.EditEmployee | Op.EditOperator | Op.EditIngredient | Op.EditVendor );
+            accounting.Enabled  = Op.EditAccountingTitle;
+            it.Enabled          = Op.IsSuper;
+            bank.Enabled        = Op.EditBank;
+
+
             bool manager = Op.IsManager;
             MyFunction.IsManager = manager;
             MyFunction.LockHR = Op.LockHR;
             MyFunction.LockInventory = Op.LockInventory;
-            basic.DropDownItems["操作員MenuItem"].Enabled   = Op.EditOperator;
-            basic.DropDownItems["硬體環境MenuItem"].Enabled = Op.IsSuper;
             basic.DropDownItems["食材表MenuItem"].Enabled   = Op.EditIngredient;
             basic.DropDownItems["配方表MenuItem"].Enabled   = Op.EditRecipe;
             basic.DropDownItems["產品表MenuItem"].Enabled   = Op.EditProduct;
             basic.DropDownItems["产品类别ToolStripMenuItem"].Enabled = Op.EditProduct;
             basic.DropDownItems["編修菜單MenuItem"].Enabled = Op.EditProduct;
             basic.DropDownItems["供應商MenuItem"].Enabled   = Op.EditVendor;
-            basic.DropDownItems["會計科目MenuItem"].Enabled = Op.EditAccountingTitle;
-            basic.DropDownItems["銀行帳號MenuItem"].Enabled = Op.EditBank ;
-            basic.DropDownItems["銀行帳號MenuItem"].Visible = Op.EditBank ;
-            basic.DropDownItems["傳票設定MenuItem"].Visible = Op.LockAccVoucher && Op.EditAccountingTitle;  // 核傳票+編修科目
-            basic.DropDownItems["年初開帳MenuItem"].Visible = Op.IsSuper;
-            basic.DropDownItems["編修部門MenuItem"].Visible = Op.IsSuper;
             basic.DropDownItems["客户MenuItem"].Visible = Op.EditCustomer;
-            會計MenuItem.Enabled = Op.EditAccountingTitle;
-            轉帳傳票MenuItem.Enabled = Op.EditAccountingTitle;                                              // 傳票和會計科目
+
+            轉帳傳票MenuItem.Enabled = Op.EditAccountingTitle;                                                   // 傳票和會計科目
+            accounting.DropDownItems["會計科目MenuItem"].Enabled = Op.LockAccVoucher && Op.EditAccountingTitle;
+            accounting.DropDownItems["傳票設定MenuItem"].Visible = Op.LockAccVoucher && Op.EditAccountingTitle;  // 核傳票+編修科目
+
+            bank.DropDownItems["銀行帳號MenuItem"].Enabled = Op.EditBank;
+            bank.DropDownItems["銀行帳號MenuItem"].Visible = Op.EditBank;
+
+            it.DropDownItems["操作員MenuItem"].Enabled   = Op.EditOperator;
+            it.DropDownItems["硬體環境MenuItem"].Enabled = Op.IsSuper;
+            it.DropDownItems["年初開帳MenuItem"].Visible = Op.IsSuper;
+            it.DropDownItems["編修部門MenuItem"].Visible = Op.IsSuper;
+
 
             menu1.Items["庫存MenuItem"].Enabled=  Op.EditInventory;
             menu1.Items["費用MenuItem"].Enabled = Op.EditExpense;
             menu1.Items["進貨MenuItem"].Enabled = Op.EditVoucher;
             menu1.Items["收入MenuItem"].Enabled = Op.RevenueOperate;
-            menu1.Items["銀行MenuItem"].Enabled = Op.EditBank;
             menu1.Items["報表MenuItem"].Enabled = manager;
+
             ToolStripMenuItem i = (ToolStripMenuItem)menu1.Items["查核MenuItem"];
             i.Enabled = Op.LockExpense || Op.LockVoucher || Op.LockAccVoucher;
             查核費用MenuItem.Enabled = Op.LockExpense;
@@ -88,8 +98,8 @@ namespace VoucherExpense
             {
                 if (!item.Enabled) item.Visible = false;
                 else
-                    foreach (ToolStripMenuItem it in item.DropDownItems)
-                        if (!it.Enabled) it.Visible = false;
+                    foreach (ToolStripMenuItem its in item.DropDownItems)
+                        if (!its.Enabled) its.Visible = false;
             }
 
  
@@ -515,5 +525,6 @@ namespace VoucherExpense
         {
             PopupOrRun("FormSalesForecast", typeof(FormSalesForecast));
         }
+
     }
 }

@@ -34,11 +34,18 @@ namespace VoucherExpense
                 RC2 alg = RC2.Create();
                 alg.Key = pdb.GetBytes(8);
                 alg.IV = pdb.GetBytes(8);
-                CryptoStream cs = new CryptoStream(ms, alg.CreateDecryptor(), CryptoStreamMode.Write);
-                cs.Write(cipherData, 0, cipherData.Length);
-                cs.Close();
-                byte[] decryptedData = ms.ToArray();
-                return decryptedData;
+                try
+                {
+                    CryptoStream cs = new CryptoStream(ms, alg.CreateDecryptor(), CryptoStreamMode.Write);
+                    cs.Write(cipherData, 0, cipherData.Length);
+                    cs.Close();
+                    byte[] decryptedData = ms.ToArray();
+                    return decryptedData;
+                }
+                catch
+                {
+                    return new byte[0];
+                }
             }
 
             #endregion

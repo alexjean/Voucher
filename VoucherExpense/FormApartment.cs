@@ -82,8 +82,9 @@ namespace VoucherExpense
             {
                 try
                 {
-                    if (plainR[col].ToString() == "") { encR[col] = ""; continue; }
-                    byte[] buf=Encoder.RC2Encrypt(Encoding.Unicode.GetBytes(plainR[col].ToString()),Key);
+                    string str = plainR[col].ToString().Trim();
+                    if (str == "") { encR[col] = ""; continue; }
+                    byte[] buf=Encoder.RC2Encrypt(Encoding.Unicode.GetBytes(str),Key);
                     encR[col] = Convert.ToBase64String(buf);
                 }
                 catch (Exception ex) { } // 資料有問題不處理

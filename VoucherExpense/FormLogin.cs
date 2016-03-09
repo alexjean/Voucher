@@ -1,5 +1,4 @@
-﻿//#define UseSQLServer
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,16 +12,16 @@ namespace VoucherExpense
     public partial class FormLogin : Form
     {
         HardwareConfig m_Cfg;
-        MapPath m_MapPath;
+//        MapPath m_MapPath;
         string m_BranchName="麥麥麥達人";
 
         void SetGlobalConnectionString(HardwareConfig cfg)
         {
-            global::VoucherExpense.Properties.Settings.Default.SqlVeConnectionString =
-                   "Data Source=" + cfg.SqlServerIP
-                  + ";Initial Catalog=" + cfg.SqlDatabase
-                  + ";Persist Security Info=True;User ID=" + cfg.SqlUserID
-                  + ";Password=" + cfg.SqlPassword;
+            //global::VoucherExpense.Properties.Settings.Default.SqlVeConnectionString =
+            //       "Data Source=" + cfg.SqlServerIP
+            //      + ";Initial Catalog=" + cfg.SqlDatabase
+            //      + ";Persist Security Info=True;User ID=" + cfg.SqlUserID
+            //      + ";Password=" + cfg.SqlPassword;
 
             global::VoucherExpense.Properties.Settings.Default.DamaiConnectionString =
                    "Data Source=" + cfg.SqlServerIP
@@ -42,11 +41,6 @@ namespace VoucherExpense
             SetGlobalConnectionString(m_Cfg = cfg);
             InitializeComponent();
             ShowLogin(false);
-#if (!UseSQLServer)
-            if (!cfg.IsServer)
-                MapPath.DeleteAllMapDriver();  // 因為一台機器,你只能用一個UserName login,ShareDocs可能用guest己經login
-            m_MapPath = new MapPath(timer1, progressBar1,cfg);
-#endif
         }
 
         private void FormLogin_Load(object sender, EventArgs e)
@@ -110,11 +104,7 @@ namespace VoucherExpense
 
         }
 
-#if (UseSQLServer)
         COperator GetCOperator(DamaiDataSet.OperatorRow r) 
-#else
-        COperator GetCOperator(VEDataSet.OperatorRow r) 
-#endif
         {
             COperator op = new COperator();
             if (!r.IsEditAccountingTitleNull())     op.EditAccountingTitle = r.EditAccountingTitle;
@@ -151,7 +141,6 @@ namespace VoucherExpense
             return op;
         }
 
-#if (UseSQLServer)
         DamaiDataSetTableAdapters.OperatorTableAdapter operatorSQLAdapter;
         DamaiDataSetTableAdapters.VEHeaderTableAdapter headerSQLAdapter;
         DamaiDataSetTableAdapters.ApartmentTableAdapter apartmentSQLAdapter;
@@ -181,14 +170,27 @@ namespace VoucherExpense
             }
             if (damaiDataSet.Apartment.Rows.Count != 0)
             {
-                var a0 = damaiDataSet.Apartment[0];
+                string Key = "LordAlex";
+                DamaiDataSet.ApartmentRow a0 = null;
                 foreach (var a in damaiDataSet.Apartment)
                 {
-                    if ((!a.IsIsCurrentNull()) && a.IsCurrent)  
+                    byte[] buf = Encoder.RC2Decrypt(Convert.FromBase64String(a.DatabaseName.Trim()), Key);
+                    string decoded = Encoding.Unicode.GetString(buf);
+                    if (decoded == m_Cfg.SqlDatabase.Trim())     // 不使用IsCurrent了
                     {
                         a0 = a;
                         break;
                     }
+                }
+                if (a0 == null)
+                {
+                    MessageBox.Show("部門資料庫內找不到<" + m_Cfg.SqlDatabase + ">,設定有誤無法登入,請找IT部門!");
+#if (DEBUG)                    
+                    a0 = damaiDataSet.Apartment[9];
+#else
+                    Close();
+                    return false;
+#endif
                 }
                 if (a0.IsApartmentNameNull())
                     m_BranchName = "分店" + a0.ApartmentID.ToString();
@@ -321,172 +323,6 @@ namespace VoucherExpense
                 }
             }
         }
-#else
-        private void ReadTable()
-        {
-            // 把 Net Use * /Delete /Yes 分開是因為 WinExec有執行時間, 太快回來,會Map先好, 又被Delete
-            if (!m_Cfg.IsServer)
-            {
-                btnLogin.Enabled = false;
-                m_MapPath.DoWaitUpdateProgressBar();
-                btnLogin.Enabled = true;
-            }
-
-            var operatorAdapter     = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
-            var headerAdapter       = new VoucherExpense.VEDataSetTableAdapters.HeaderTableAdapter();
-            var apartmentAdapter    = new VoucherExpense.VEDataSetTableAdapters.ApartmentTableAdapter();
-            operatorAdapter.Connection  = MapPath.VEConnection;
-            headerAdapter.Connection    = MapPath.VEConnection;
-            apartmentAdapter.Connection = MapPath.VEConnection;
-            try
-            {
-                operatorAdapter.Fill(veDataSet1.Operator);
-                headerAdapter.Fill(veDataSet1.Header);
-                apartmentAdapter.Fill(veDataSet1.Apartment);
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show("操作員資料庫讀取錯誤<"+ex.Message+">!  無法登入");
-                Close();
-            }
-            if (veDataSet1.Operator.Rows.Count == 0)
-            {
-                MessageBox.Show("資料庫內沒有設定任何操作員,無法登入");
-                Close();
-            }
-            if (veDataSet1.Apartment.Rows.Count != 0)
-            {
-                var a0 = veDataSet1.Apartment[0];
-                foreach (var a in veDataSet1.Apartment)
-                {
-                    if (!a.IsIsCurrentNull() && a.IsCurrent)
-                    {
-                        a0 = a;
-                        break;
-                    }
-                }
-                if (a0.IsApartmentNameNull())
-                    m_BranchName = "分店" + a0.ApartmentID.ToString();
-                else
-                    m_BranchName = a0.ApartmentName;
-            }
-
-            VEDataSet.HeaderRow header = null;
-            string sVersion = "";
-            if (veDataSet1.Header.Count > 0)
-            {
-                header = veDataSet1.Header[0];
-                if (!header.IsVersionNull()) sVersion = header.Version.Trim();
-            }
-            CheckAppVersion(sVersion);
-        }
-
-
-        bool DoUpdate()
-        {
-            if (m_Cfg.IsServer)
-            {
-                MessageBox.Show("只有遠端登入能自動更版!");
-                return false;
-            }
-            this.Cursor = Cursors.WaitCursor;
-            string newExeName = "Manage.exe";
-            string SourceFile = m_Cfg.DataDir + "\\" + newExeName;
-            string fullSource = Path.GetFullPath(SourceFile).ToLower();
-            string fullDest   = Path.GetFullPath(Application.ExecutablePath).ToLower();
-            if (fullSource == fullDest)
-            {
-                MessageBox.Show("目的和來源檔案相同! 無法更新");
-                return false;
-            }
-            string OldDesktop = "Manage_exe.old";
-            string filePath = Path.GetDirectoryName(Application.ExecutablePath).ToLower();
-            string destPath = filePath + "\\" + newExeName;
-            try
-            {
-                if (!File.Exists(SourceFile))
-                {
-                    MessageBox.Show("新版程式不存在! 無法更版");
-                    return false;
-                }
-                File.Delete(OldDesktop);
-                File.Delete(filePath + "\\" + OldDesktop);                               // 將現在執行檔改名成 OldDesk
-                File.Move(Application.ExecutablePath, filePath + "\\" + OldDesktop);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("原程式備份失敗! 原因:" + ex.Message);
-                return false;
-            }
-            try
-            {
-                if (File.Exists(destPath))
-                    File.Delete(destPath);
-                File.Copy(SourceFile, destPath);
-                this.Cursor = Cursors.Arrow;
-                MessageBox.Show("更版完成! 請執行<" + newExeName + ">,舊版備份為<" + OldDesktop + ">");
-                return true;
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show("新版烤貝或舊版更名過程失敗,原因:"+ex.Message+" 請手動烤貝或更名!新版名<" + newExeName + ">");
-                return false;
-            }
-        }
-
-        private COperator CheckLogin(string UserID,string Password)
-        {
-            if (UserID.Length == 0)
-            {
-                MessageBox.Show("請輸入帳號");
-                return null;
-            }
-            if (Password.Length == 0)
-            {
-                MessageBox.Show("請輸入密碼");
-                return null;
-            }
-            foreach (var r in veDataSet1.Operator)
-            {
-                if (r.LoginName.CompareTo(UserID) == 0)
-                {
-                    if (r.Password.CompareTo(Password) == 0)
-                    {
-                        if (r.StopAccount)
-                        {
-                            MessageBox.Show("此帳號己經停用!");
-                            return null;
-                        }
-                        return GetCOperator(r);
-                    }
-                    else
-                    {
-                        MessageBox.Show("密碼錯誤!");
-                        return null;
-                    }
-                }
-            }
-            MessageBox.Show("無此帳號!");
-            return null;
-        }
-
-        void GetHeaderYear()
-        {
-            if (veDataSet1.Header.Rows.Count > 0)   // Header內容在ReadFile 讀進來了
-            {
-                VEDataSet.HeaderRow headerRow = veDataSet1.Header[0];
-                if (headerRow != null)
-                {
-                    string str;
-                    str = headerRow.DataYear.Year.ToString().Trim();
-                    if (str != "") MyFunction.HeaderYear = str;
-                    MyFunction.IntHeaderYear = headerRow.DataYear.Year;
-                    MyFunction.LockAll = headerRow.Closed;
-                    MyFunction.IntHeaderMonth = headerRow.DataYear.Month;
-                }
-            }
-        }
-#endif
 
         private COperator CheckLogin()
         {
@@ -496,7 +332,6 @@ namespace VoucherExpense
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-
             var row = CheckLogin();
             if (row!=null)
             {
@@ -537,7 +372,6 @@ namespace VoucherExpense
                 Home.ShowDialog();
                 Close();
             }
-
 #endif
         }
 
@@ -561,12 +395,5 @@ namespace VoucherExpense
             textBoxUserID.Focus();
         }
 
-        private void cbxProfile_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-
- 
     }
 }

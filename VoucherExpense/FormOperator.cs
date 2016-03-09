@@ -54,6 +54,8 @@ namespace VoucherExpense
                 this.authListAdapter.Fill(m_DataSet.OperatorAuthList);
                 this.operatorBindingSource.DataSource = m_DataSet;
                 MyFunction.SetFieldLength(operatorDataGridView, m_DataSet.Operator);
+                DamaiDataSetTableAdapters.ApartmentTableAdapter apartment = new DamaiDataSetTableAdapters.ApartmentTableAdapter();
+                apartment.Fill(m_DataSet.Apartment);
             }
             catch (Exception ex)
             {
@@ -61,20 +63,22 @@ namespace VoucherExpense
             }
         }
 
+        string m_LoginName = "LoginName";
         private void operatorDataGridView_RowValidating(object sender, DataGridViewCellCancelEventArgs e)
         {
             // 自動產生內碼
             DataGridView view = (DataGridView)sender;
             MyFunction.SetCellMaxNo("OperatorID", view,0);
             DataGridViewRow row = view.CurrentRow;
-            object ob=row.Cells["LoginName"].Value;
+            object ob=row.Cells[m_LoginName].Value;
             if (ob != null)
                 if (!Convert.IsDBNull(ob))
                 {
                     string str=((string)ob).Trim();
                     if (str.Length < 5)
                     {
-                        MessageBox.Show("登入名太短了!");
+                        MessageBox.Show("登入名太短了! 系統自動加入8888");
+                        row.Cells[m_LoginName].Value += "8888";
                         e.Cancel = true;
                     }
                     return;
@@ -89,13 +93,13 @@ namespace VoucherExpense
             DataGridView view = (DataGridView)sender;
             string cellName = view.Columns[e.ColumnIndex].Name;
             DataGridViewRow row = view.Rows[e.RowIndex];
-            if (cellName == "LoginName")
+            if (cellName == m_LoginName)
             {
                 string str = e.FormattedValue.ToString().Trim();
                 if (str.Length < 5)
                 {
                     MessageBox.Show("登入名太短了! 系統自動加入8888");
-                    row.Cells[cellName].Value += "8888";
+                    row.Cells[m_LoginName].Value += "8888";
                     //e.Cancel = true;
                     return;
                 }
@@ -154,7 +158,14 @@ namespace VoucherExpense
             if (view.Columns[e.ColumnIndex].Name != BtnName) return;
             DataGridViewRow row=view.Rows[e.RowIndex];
             DataGridViewCell cell=row.Cells["OperatorID"];
-            MessageBox.Show(e.RowIndex.ToString()+" OperatorID="+cell.Value.ToString());
+            if (cell.ValueType != typeof(int))
+            {
+                MessageBox.Show("程式錯誤! DataGridView里的OperatorID不是int.請找碼農!");
+                return;
+            }
+            FormOperatorAuthList form = new FormOperatorAuthList((int)cell.Value,m_DataSet);
+            form.ShowDialog();
+
         }
 
         private void operatorDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)

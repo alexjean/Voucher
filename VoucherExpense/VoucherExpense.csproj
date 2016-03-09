@@ -1245,6 +1245,12 @@
     <Compile Include="FormOnDutyEmployee.Designer.cs">
       <DependentUpon>FormOnDutyEmployee.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormOperatorAuthList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormOperatorAuthList.Designer.cs">
+      <DependentUpon>FormOperatorAuthList.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormOrder.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1503,6 +1509,9 @@
     <EmbeddedResource Include="FormOnDutyEmployee.resx">
       <DependentUpon>FormOnDutyEmployee.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormOperatorAuthList.resx">
+      <DependentUpon>FormOperatorAuthList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormOrder.resx">
       <DependentUpon>FormOrder.cs</DependentUpon>

@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Linq;
 
 namespace VoucherExpense
 {
@@ -13,7 +14,8 @@ namespace VoucherExpense
     {
         HardwareConfig m_Cfg;
 //        MapPath m_MapPath;
-        string m_BranchName="麥麥麥達人";
+//        string m_BranchName="麥麥麥達人";
+        DamaiDataSet.ApartmentRow m_DefaultApartment = null;
 
         void SetGlobalConnectionString(HardwareConfig cfg)
         {
@@ -144,18 +146,21 @@ namespace VoucherExpense
         DamaiDataSetTableAdapters.OperatorTableAdapter operatorSQLAdapter;
         DamaiDataSetTableAdapters.VEHeaderTableAdapter headerSQLAdapter;
         DamaiDataSetTableAdapters.ApartmentTableAdapter apartmentSQLAdapter;
+        DamaiDataSetTableAdapters.OperatorAuthListTableAdapter authListSQLAdapter;
         DamaiDataSet damaiDataSet;
         private bool ReadTable()
         {
             operatorSQLAdapter  = new DamaiDataSetTableAdapters.OperatorTableAdapter();
             headerSQLAdapter    = new DamaiDataSetTableAdapters.VEHeaderTableAdapter();
             apartmentSQLAdapter = new DamaiDataSetTableAdapters.ApartmentTableAdapter();
+            authListSQLAdapter  = new DamaiDataSetTableAdapters.OperatorAuthListTableAdapter();
             damaiDataSet        = new DamaiDataSet();
             try
             {
                 operatorSQLAdapter.Fill(damaiDataSet.Operator);
                 headerSQLAdapter.Fill(damaiDataSet.VEHeader);
                 apartmentSQLAdapter.Fill(damaiDataSet.Apartment);
+                authListSQLAdapter.Fill(damaiDataSet.OperatorAuthList);
             }
             catch(Exception ex)
             {
@@ -171,31 +176,26 @@ namespace VoucherExpense
             if (damaiDataSet.Apartment.Rows.Count != 0)
             {
                 string Key = "LordAlex";
-                DamaiDataSet.ApartmentRow a0 = null;
                 foreach (var a in damaiDataSet.Apartment)
                 {
                     byte[] buf = Encoder.RC2Decrypt(Convert.FromBase64String(a.DatabaseName.Trim()), Key);
                     string decoded = Encoding.Unicode.GetString(buf);
                     if (decoded == m_Cfg.SqlDatabase.Trim())     // 不使用IsCurrent了
                     {
-                        a0 = a;
+                        m_DefaultApartment = a;
                         break;
                     }
                 }
-                if (a0 == null)
+                if (m_DefaultApartment == null)
                 {
                     MessageBox.Show("部門資料庫內找不到<" + m_Cfg.SqlDatabase + ">,設定有誤無法登入,請找IT部門!");
 #if (DEBUG)                    
-                    a0 = damaiDataSet.Apartment[9];
+                    m_DefaultApartment = damaiDataSet.Apartment[9];
 #else
                     Close();
                     return false;
 #endif
                 }
-                if (a0.IsApartmentNameNull())
-                    m_BranchName = "分店" + a0.ApartmentID.ToString();
-                else
-                    m_BranchName = a0.ApartmentName;
             }
 
             DamaiDataSet.VEHeaderRow header = null;
@@ -335,9 +335,30 @@ namespace VoucherExpense
             var row = CheckLogin();
             if (row!=null)
             {
+                if (m_DefaultApartment == null)
+                {
+                    MessageBox.Show("沒有預定要登入的門店!請找碼農!");
+                    return;
+                }
+                var authApartments = from auth in damaiDataSet.OperatorAuthList 
+                                     where auth.OperatorID == row.OperatorID
+                                     select auth;
+                var au = from a in authApartments where a.ApartmentID == m_DefaultApartment.ApartmentID select a;
+                if (au.Count() <= 0)
+                {
+                    MessageBox.Show("你在<" + m_DefaultApartment.ApartmentName.Trim() + ">店號" + m_DefaultApartment.AppartementCode.ToString() + ",沒有登入權限!");
+                    return;
+                }
+
                 GetHeaderYear();                // 呼叫Home之前要設好
                 Visible = false;
-                Form Home = new FormHome(row,m_Cfg,m_BranchName);
+                foreach (var ap in damaiDataSet.Apartment)
+                {
+                    var found = from a in authApartments where a.ApartmentID == ap.ApartmentID select a;
+                    if (found.Count() <= 0) ap.Delete();    // 不在授權表的拿掉
+                }
+                damaiDataSet.Apartment.AcceptChanges();
+                Form Home = new FormHome(row, m_Cfg, m_DefaultApartment,damaiDataSet.Apartment);
                 Home.ShowDialog();
                 Close();
             }
@@ -367,7 +388,7 @@ namespace VoucherExpense
             if (row != null)
             {
                 GetHeaderYear();
-                Form Home = new FormHome(row, m_Cfg, m_BranchName);
+                Form Home = new FormHome(row, m_Cfg, m_DefaultApartment,damaiDataSet.Apartment);   // Debug 把所有部門都放進去
                 Visible = false;
                 Home.ShowDialog();
                 Close();

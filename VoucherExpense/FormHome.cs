@@ -13,27 +13,32 @@ namespace VoucherExpense
     {
         COperator Operator;
         HardwareConfig m_Config;
-        string m_BranchName;
+        DamaiDataSet.ApartmentRow m_DefaultApartment;
         // 必需設好 Operator及m_Config才能呼叫SetFormTitle
         void SetFormTitle()
         {
             string str;
-            //if (m_Config.IsServer)  str = "本地";
-            //else                    str = "遠端";
-            str = m_BranchName;
+            string branchName;
+            if (m_Config.IsServer) str = "本店 ";
+            else                    str = "云端 ";
+            if (m_DefaultApartment.IsApartmentNameNull())
+                branchName = "分店" + m_DefaultApartment.ApartmentID.ToString();
+            else
+                branchName = m_DefaultApartment.ApartmentName;
+            str += branchName;
             string name = Operator.Name;
             this.Text = str + MyFunction.HeaderYear + "      " + name;
             if (MyFunction.LockAll) this.Text += " 鎖定中";
         }
 
-        public FormHome(COperator Op,HardwareConfig cfg,string branchName)
+        public FormHome(COperator Op,HardwareConfig cfg,DamaiDataSet.ApartmentRow apartment,DamaiDataSet.ApartmentDataTable authorizedApartment)
         {
             InitializeComponent();
 
             Operator=Op;
             MyFunction.OperatorID=Op.OperatorID;
             MyFunction.HardwareCfg=m_Config = cfg;
-            m_BranchName = branchName;
+            m_DefaultApartment=apartment;
             SetFormTitle();
 
             ToolStripMenuItem basic,accounting,bank,it;
@@ -211,7 +216,6 @@ namespace VoucherExpense
 
         private void 鎖定資料庫ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-#if UseSQLServer
             VoucherExpense.DamaiDataSet DataSet = new DamaiDataSet();
             var headerAdapter = new VoucherExpense.DamaiDataSetTableAdapters.VEHeaderTableAdapter();
             headerAdapter.Fill(DataSet.VEHeader);
@@ -224,21 +228,6 @@ namespace VoucherExpense
                 DataSet.VEHeader.AddVEHeaderRow(row);
             }
             var header = DataSet.VEHeader[0];
-#else
-            VoucherExpense.VEDataSet DataSet = new VEDataSet();
-            var headerAdapter = new VoucherExpense.VEDataSetTableAdapters.HeaderTableAdapter();
-            headerAdapter.Connection = MapPath.VEConnection;
-            headerAdapter.Fill(DataSet.Header);
-            if (DataSet.Header.Count==0)
-            {
-                var row=DataSet.Header.NewHeaderRow();
-                row.Closed=!MyFunction.LockAll;
-                int y=DateTime.Now.Year;
-                row.DataYear=new DateTime(y,1,1);
-                DataSet.Header.AddHeaderRow(row);
-            }
-            VEDataSet.HeaderRow header=DataSet.Header[0];
-#endif
             header.BeginEdit();
             header.Closed = !MyFunction.LockAll;
             header.EndEdit();

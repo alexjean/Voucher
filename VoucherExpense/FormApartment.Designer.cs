@@ -53,9 +53,6 @@
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.apartmentBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.apartmentDataGridView = new System.Windows.Forms.DataGridView();
-            this.apartmentSQLAdapter = new VoucherExpense.DamaiDataSetTableAdapters.ApartmentTableAdapter();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.columnApartmentID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AppartementCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -69,6 +66,7 @@
             this.CloudSharedDatabase = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CloudUserID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CloudPassword = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.apartmentSQLAdapter = new VoucherExpense.DamaiDataSetTableAdapters.ApartmentTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.apartmentBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.apartmentBindingNavigator)).BeginInit();
@@ -233,27 +231,6 @@
             this.apartmentDataGridView.Size = new System.Drawing.Size(1548, 654);
             this.apartmentDataGridView.TabIndex = 1;
             // 
-            // apartmentSQLAdapter
-            // 
-            this.apartmentSQLAdapter.ClearBeforeFill = true;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(387, 1);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 24);
-            this.comboBox1.TabIndex = 2;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(321, 5);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(56, 16);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "此部門";
-            // 
             // columnApartmentID
             // 
             this.columnApartmentID.DataPropertyName = "ApartmentID";
@@ -284,7 +261,7 @@
             // IsCurrent
             // 
             this.IsCurrent.DataPropertyName = "IsCurrent";
-            this.IsCurrent.HeaderText = "此部門";
+            this.IsCurrent.HeaderText = "";
             this.IsCurrent.Name = "IsCurrent";
             // 
             // LocalServerIP
@@ -359,14 +336,16 @@
             this.CloudPassword.Name = "CloudPassword";
             this.CloudPassword.Width = 110;
             // 
+            // apartmentSQLAdapter
+            // 
+            this.apartmentSQLAdapter.ClearBeforeFill = true;
+            // 
             // FormApartment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SeaShell;
             this.ClientSize = new System.Drawing.Size(1548, 684);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.apartmentDataGridView);
             this.Controls.Add(this.apartmentBindingNavigator);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
@@ -403,8 +382,6 @@
         private System.Windows.Forms.DataGridView apartmentDataGridView;
         private DamaiDataSetTableAdapters.ApartmentTableAdapter apartmentSQLAdapter;
         private DamaiDataSet damaiDataSet;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnApartmentID;
         private System.Windows.Forms.DataGridViewTextBoxColumn AppartementCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;

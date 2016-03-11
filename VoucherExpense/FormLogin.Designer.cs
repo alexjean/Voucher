@@ -39,11 +39,9 @@
             this.cbxProfile = new System.Windows.Forms.ComboBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.btnLogin = new System.Windows.Forms.Button();
-            this.veDataSet1 = new VoucherExpense.VEDataSet();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.veDataSet1)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -114,6 +112,7 @@
             // 
             // cbxProfile
             // 
+            this.cbxProfile.Enabled = false;
             this.cbxProfile.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.cbxProfile.FormattingEnabled = true;
             this.cbxProfile.ItemHeight = 20;
@@ -142,11 +141,6 @@
             this.btnLogin.UseVisualStyleBackColor = true;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
-            // veDataSet1
-            // 
-            this.veDataSet1.DataSetName = "VEDataSet";
-            this.veDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // FormLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -166,7 +160,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.veDataSet1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -180,7 +173,6 @@
         private System.Windows.Forms.Label labelPassword;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnLogin;
-        private VEDataSet veDataSet1;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ComboBox cbxProfile;

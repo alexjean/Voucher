@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Windows.Forms;
+using System.Linq;
 
 using MyOperatorRow = VoucherExpense.DamaiDataSet.OperatorRow;
 using MyDataSet = VoucherExpense.DamaiDataSet;
@@ -47,15 +48,14 @@ namespace VoucherExpense
         }
         private void FormOperator_Load(object sender, EventArgs e)
         {
-            operatorBindingSource.DataSource = m_DataSet;
             try
             {
-                this.operatorAdapter.Fill(m_DataSet.Operator);
-                this.authListAdapter.Fill(m_DataSet.OperatorAuthList);
+                operatorAdapter.Fill(m_DataSet.Operator);
+                authListAdapter.Fill(m_DataSet.OperatorAuthList);
+                var apartment = new DamaiDataSetTableAdapters.ApartmentTableAdapter();
+                apartment.Fill(m_DataSet.Apartment);
                 this.operatorBindingSource.DataSource = m_DataSet;
                 MyFunction.SetFieldLength(operatorDataGridView, m_DataSet.Operator);
-                DamaiDataSetTableAdapters.ApartmentTableAdapter apartment = new DamaiDataSetTableAdapters.ApartmentTableAdapter();
-                apartment.Fill(m_DataSet.Apartment);
             }
             catch (Exception ex)
             {
@@ -174,10 +174,15 @@ namespace VoucherExpense
             foreach (DataGridViewRow row in view.Rows)
             {
                 DataGridViewCell cell;
-                try {  cell = row.Cells[BtnName];  }
+                int operatorID;
+                try
+                {
+                    cell = row.Cells[BtnName];
+                    operatorID = (int)(row.Cells["OperatorID"].Value);
+                }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("程式錯誤! DataGridView.Columns[" + BtnName + "] 找不到!請找碼農.訊息<"+ex.Message+">");
+                    MessageBox.Show("程式錯誤在 DataGridView_DataBindingComplete, 請找碼農.訊息<"+ex.Message+">");
                     return;
                 }
                 if (cell.GetType() != typeof(DataGridViewButtonCell))
@@ -186,7 +191,17 @@ namespace VoucherExpense
                     return;
                 }
                 DataGridViewButtonCell btnCell = (DataGridViewButtonCell)cell;
-                btnCell.Value = row.Cells["OperatorID"].Value.ToString();
+                var authList = from auth in m_DataSet.OperatorAuthList where auth.OperatorID == operatorID select auth;
+                if (authList.Count() > 0)
+                {
+                    string str="";
+                    int apID = authList.First().ApartmentID;
+                    var ap=m_DataSet.Apartment.FindByApartmentID(apID);
+                    if (ap != null) str = ap.ApartmentName.Trim();
+                    if (authList.Count() == 1)
+                         btnCell.Value = str;
+                    else btnCell.Value = str+"(" + authList.Count().ToString() + ")";
+                }
             }
         }
     }

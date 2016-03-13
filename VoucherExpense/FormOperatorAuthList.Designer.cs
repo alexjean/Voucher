@@ -39,10 +39,10 @@
             this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
             this.operatorAuthListBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.operatorAuthListDataGridView = new System.Windows.Forms.DataGridView();
-            this.apartmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.columnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnOperatorID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvComboName = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.apartmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorAuthListBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorAuthListBindingNavigator)).BeginInit();
@@ -128,6 +128,7 @@
             // operatorAuthListDataGridView
             // 
             this.operatorAuthListDataGridView.AllowUserToAddRows = false;
+            this.operatorAuthListDataGridView.AllowUserToResizeRows = false;
             this.operatorAuthListDataGridView.AutoGenerateColumns = false;
             this.operatorAuthListDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
             this.operatorAuthListDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -141,11 +142,6 @@
             this.operatorAuthListDataGridView.RowTemplate.Height = 24;
             this.operatorAuthListDataGridView.Size = new System.Drawing.Size(429, 671);
             this.operatorAuthListDataGridView.TabIndex = 2;
-            // 
-            // apartmentBindingSource
-            // 
-            this.apartmentBindingSource.DataMember = "Apartment";
-            this.apartmentBindingSource.DataSource = this.damaiDataSet;
             // 
             // columnID
             // 
@@ -176,6 +172,11 @@
             this.dgvComboName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.dgvComboName.ValueMember = "ApartmentID";
             this.dgvComboName.Width = 360;
+            // 
+            // apartmentBindingSource
+            // 
+            this.apartmentBindingSource.DataMember = "Apartment";
+            this.apartmentBindingSource.DataSource = this.damaiDataSet;
             // 
             // FormOperatorAuthList
             // 

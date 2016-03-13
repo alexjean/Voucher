@@ -92,8 +92,9 @@ namespace VoucherExpense
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
             var row = this.operatorAuthListDataGridView.CurrentRow;
-            row.Cells["columnID"].Value       = Guid.NewGuid();
+            row.Cells["columnID"].Value         = Guid.NewGuid();
             row.Cells["columnOperatorID"].Value = m_OperatorID;
+            row.Cells["dgvComboName"].Value     = 1;
         }
     }
 }

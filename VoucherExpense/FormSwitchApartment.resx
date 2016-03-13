@@ -117,59 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="apartmentBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>158, 17</value>
+  </metadata>
   <metadata name="damaiDataSet.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <metadata name="operatorAuthListBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>150, 17</value>
-  </metadata>
-  <metadata name="operatorAuthListTableAdapter.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>572, 19</value>
-  </metadata>
-  <metadata name="operatorAuthListBindingNavigator.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>794, 17</value>
-  </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="bindingNavigatorAddNewItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAAUpJREFUOE9jGLzg7gL2/7fmcf6/Oofr/8UZvP+hwsSD60CNfx41/v/zsOH/yckC
-        pBtwfjov3ICDPSKkG3B8kiBQc93/Pw+q/u9oFydswKWZPP/PTuX7fxKo8Ui/0P993SJAzeX//94r+r++
-        Qeb/qhq5/0srFf/PL1X+P6tIFdPAU0B//nlYD9RUC8SV///cKwHivP9/72b+/3sn+f/f23H//92MAOKQ
-        /5NyNDENONQrDHbu3/ulQI0FQI3ZQI2pQI0J///digZqDPv/70bQ/3/X/f53peliGrCzXeL/lmap/+vA
-        zpX/v6RC8f/fWzFAjeH/p+Zp/J+QpfW/O0P3f3uq/v/mREPCYTIb6E+Qc//dCPjfk6FDWAM6APnz3w1/
-        IPb735qsT7oB3em6YP+CcH2cEekGtCQZ/G+IN/xfE2v8vzLahHQD6AQYGAAkI9iedfyIaQAAAABJRU5E
-        rkJggg==
-</value>
-  </data>
-  <data name="bindingNavigatorDeleteItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAAW9JREFUOE+1kE0ow2Ecx3dV3krt4oJaOSCTvIRkMqSxyITIzCQHDouEdnFwIOVC
-        DrhIDiQl5UTiNG/z2ppafy1S2gX/uDwfY6i1v7Hie3nqeb7fz+/7/FR/Ilwn0G0Exw4fV5GJlXlEZxXC
-        rIet9bAQvB5Ymgn2sLYAvSZEux7RUQFzE4qQt4bCXAYjPaHvnDoCkLpsRGMB2JqCTGLIijDlwqQ9bEMV
-        i9OIytR3EMNWcJ/BWH8A6j8/bOGFxwXNxYEvGbMQ9XnQ1/K78KfY3/VXzkMY0qFGG2H4RoLGQshJQNbG
-        86CNhdrsX9a/uQZTPhQl4rMY4OLofbl3aX7I8uwPC7y/g1YdjyVJuEvT8e1tfwUYteHUxCCfHChDeHmG
-        QQvokjlOU+PbWA0x3pZnILVVI3uvQyHsbiLnqnGmRCF1NYD8pDhpRxOH7HQoAKZGkFKjceszQbpSrumX
-        bO+G80MFwKUTxgfgcO/b8D9IpXoFiiMDHIQm0skAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="operatorAuthListBindingNavigatorSaveItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAAi9JREFUOE+tkt1L01EYx3//QvfdBF10W1NjOBerwa9cQ1k2DCvCXn6RZmm6TBMV
-        K9Oo+QbZCpdOWq0m4aQiX8AUKRFlKlmauaIlDjXFJoLB1/Oc/fK4ii6iB56bw/l8znlepP8Sz5+FQelr
-        XUKLdxEP3fNoagzhrmMadbVfYL8VwPXySZSWjKOw4C3yckdw/pwfKi5JBHZ1ArU1K/hbLK+swpTahUOp
-        T3mquCR5nyxwQWXFN/Xq70FwaH4ZuywvoNEosB70CIH7wRwXlJZ8Va9Hx0/4Y3ABMWYfCi5N4YClWQic
-        DTNccNH2QUVEbISHJ0LYJnuRkz2G5CSnENTfDnJB1tkRFYvEr3CfP4jNBjcUZQBms0MIaqo/c4FyakBF
-        /wx39n/CpvhGHD7yComJdUJwo3IKHe1gowSOHX8D69Fe3m1qGNVM36aXI3A3UqwvIct2IbhSNoE2H9gO
-        AM2uH2zu31F+bZY3lRpGNWdm+Nfh/cmtMBorhOBy4Rg8j4D7zlW2OGGY0rKj0pJuQ9qZogicxOB9HhgM
-        ZUJgyxtlMFBdFeYvE0TnMToZg+9nMDo5CyX3KvaYWjis2+2CXl8kBLSWjjtY/zYJCD6dfxPvAnMITC/i
-        QrEdsQYXg5sQm3APuvh8IcjMGGJ1L3F4q9GDLTtkPG7rga+9Dx3d/eh9PYi9Zis0+gbEMXi7th5abU60
-        4OSJHr6etGG0JDRnGhV1mxpGNdOrlATvjMsSgn8PSVoDbGg6a0b5NXsAAAAASUVORK5CYII=
-</value>
-  </data>
-  <metadata name="apartmentBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>378, 19</value>
+  <metadata name="damaiDataSet.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
   </metadata>
 </root>

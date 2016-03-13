@@ -14,6 +14,7 @@ namespace VoucherExpense
         COperator Operator;
         HardwareConfig m_Config;
         DamaiDataSet.ApartmentRow m_DefaultApartment;
+        DamaiDataSet.ApartmentDataTable m_AuthorizedApartment;
         // 必需設好 Operator及m_Config才能呼叫SetFormTitle
         void SetFormTitle()
         {
@@ -39,6 +40,7 @@ namespace VoucherExpense
             MyFunction.OperatorID=Op.OperatorID;
             MyFunction.HardwareCfg=m_Config = cfg;
             m_DefaultApartment=apartment;
+            m_AuthorizedApartment = authorizedApartment;
             SetFormTitle();
 
             ToolStripMenuItem basic,accounting,bank,it;
@@ -513,6 +515,12 @@ namespace VoucherExpense
         private void 销售预估ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PopupOrRun("FormSalesForecast", typeof(FormSalesForecast));
+        }
+
+        private void 切換門店ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!PopupMenu("FormSwitchApartment"))
+                Run("FormSwitchApartment", new FormSwitchApartment(m_AuthorizedApartment));
         }
 
     }

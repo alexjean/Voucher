@@ -1335,6 +1335,12 @@
     <Compile Include="FormShrink.Designer.cs">
       <DependentUpon>FormShrink.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormSwitchApartment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSwitchApartment.Designer.cs">
+      <DependentUpon>FormSwitchApartment.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormTitleSetup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1558,6 +1564,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormShrink.resx">
       <DependentUpon>FormShrink.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSwitchApartment.resx">
+      <DependentUpon>FormSwitchApartment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormTitleSetup.resx">
       <DependentUpon>FormTitleSetup.cs</DependentUpon>

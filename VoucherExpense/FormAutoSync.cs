@@ -51,7 +51,7 @@ namespace VoucherExpense
             Close();
         }
         
-        SqlConnection ConnectServer(string msg, string server, string database, string userId, string password)
+        SqlConnection ConnectServer(string msg,  string database, DB.SqlCredential lo)
         {
             try
             {
@@ -59,7 +59,7 @@ namespace VoucherExpense
                 ShowStatus("開啟" + msg + "資料庫!");
 //                Message("IP:" + server + " DB:" + database);
 //                Message("User:" + userId + " pass:" + password);
-                conn = new SqlConnection(DB.SqlConnectString(server, database, userId, password));
+                conn = new SqlConnection(DB.SqlConnectString(lo, database));
                 conn.Open();
                 return conn;
             }
@@ -72,9 +72,9 @@ namespace VoucherExpense
 
         bool ConnectBothServer()
         {
-            LocalServer = ConnectServer("本地", m_Cfg.SqlServerIP     , m_Cfg.SqlDatabase, m_Cfg.SqlUserID        , m_Cfg.SqlPassword);
+            LocalServer = ConnectServer("本地",  m_Cfg.Database, m_Cfg.Local);
             if (LocalServer == null) return false;
-            CloudServer = ConnectServer("雲端", m_Cfg.SqlServerIPCloud, m_Cfg.SqlDatabase, m_Cfg.SqlUserIDCloud   , m_Cfg.SqlPasswordCloud);
+            CloudServer = ConnectServer("雲端",  m_Cfg.Database, m_Cfg.Cloud);   // 除Region外,共用Local的DatabaseName
             if (CloudServer != null) return true;
             try
             {
@@ -1024,7 +1024,7 @@ namespace VoucherExpense
             if (MessageBox.Show("清除本地記憶後同步,會將本地所有資料上傳,\r\n耗癈大量時間,上次同步後在雲端所做變更可能被還原,\r\n確定清除嗎?",
                     "", MessageBoxButtons.OKCancel) != DialogResult.OK) return;
             if (LocalServer == null)
-                LocalServer = ConnectServer("本地", m_Cfg.SqlServerIP, m_Cfg.SqlDatabase, m_Cfg.SqlUserID, m_Cfg.SqlPassword);
+                LocalServer = ConnectServer("本地",  m_Cfg.Database, m_Cfg.Local);
             if (LocalServer == null) return;
             if (DB.DropTable(DB.SyncDataTable.SyncMD5Old.ToString(), LocalServer))
             {
@@ -1044,7 +1044,7 @@ namespace VoucherExpense
                     "", MessageBoxButtons.OKCancel) != DialogResult.OK) return;
 
             if (CloudServer == null)
-                CloudServer = ConnectServer("雲端", m_Cfg.SqlServerIPCloud, m_Cfg.SqlDatabase, m_Cfg.SqlUserIDCloud, m_Cfg.SqlPasswordCloud);
+                CloudServer = ConnectServer("雲端", m_Cfg.Database, m_Cfg.Cloud);
             if (CloudServer == null) return;
             if (DB.DropTable(DB.SyncDataTable.SyncMD5Old.ToString(), CloudServer))
             {

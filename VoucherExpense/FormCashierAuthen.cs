@@ -867,11 +867,11 @@ namespace VoucherExpense
         private void DoSqlBackup()
         {
             string strWeekDay = DateTime.Now.DayOfWeek.ToString().Substring(0, 3);
-            string name=m_Cfg.SqlDatabase + "_" + strWeekDay + ".bak";
+            string name=m_Cfg.Database + "_" + strWeekDay + ".bak";
             try
             {
-                string cmdTxt = "Backup Database " + m_Cfg.SqlDatabase + " TO DISK='"+name+"' WITH INIT";
-                SqlConnection conn = new SqlConnection(DB.SqlConnectString(m_Cfg.SqlServerIP, m_Cfg.SqlDatabase,m_Cfg.SqlUserID, m_Cfg.SqlPassword));
+                string cmdTxt = "Backup Database " + m_Cfg.Database + " TO DISK='"+name+"' WITH INIT";
+                SqlConnection conn = new SqlConnection(DB.SqlConnectString(m_Cfg.Local,m_Cfg.Database));
                 conn.Open();
                 SqlCommand sqlCmd = new SqlCommand(cmdTxt, conn);
                 sqlCmd.ExecuteNonQuery();

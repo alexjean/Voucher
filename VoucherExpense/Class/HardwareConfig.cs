@@ -21,16 +21,21 @@ namespace VoucherExpense
         public string backupDir;
         public string dotPrinterName;
 
-        public string sqlServerIP;
-        public string sqlDatabase;
-        public string sqlUserID;
-        public string sqlPassword;
-
+        public DB.SqlCredential Local=new DB.SqlCredential();
+        public DB.SqlCredential Cloud=new DB.SqlCredential();
         public bool enableCloudSync;
-        public string sqlServerIPCloud;
-        public string SharedDatabaseCloud;
-        public string sqlUserIDCloud;
-        public string sqlPasswordCloud;
+        public string database;
+        public string sharedDatabase;
+
+        //public string sqlServerIP;
+        //public string sqlDatabase;
+        //public string sqlUserID;
+        //public string sqlPassword;
+
+        //public string sqlServerIPCloud;
+        //public string SharedDatabaseCloud;
+        //public string sqlUserIDCloud;
+        //public string sqlPasswordCloud;
     }
 
     public class HardwareConfig
@@ -46,19 +51,24 @@ namespace VoucherExpense
         public string BackupDir;
         public string DotPrinterName;
 
-        public string SqlServerIP;
-        public string SqlDatabase;
-        public string SqlUserID;
-        public string SqlPassword;
-
         public bool EnableCloudSync;
-        public string SqlServerIPCloud;
-        public string SharedDatabaseCloud;
-        public string SqlUserIDCloud;
-        public string SqlPasswordCloud;
+        public DB.SqlCredential Local=new DB.SqlCredential();
+        public DB.SqlCredential Cloud=new DB.SqlCredential();
+        public string Database;
+        public string SharedDatabase;
+        //public string SqlServerIP;
+        //public string SqlDatabase;
+        //public string SqlUserID;
+        //public string SqlPassword;
+
+        //public string SqlServerIPCloud;
+        //public string SharedDatabaseCloud;
+        //public string SqlUserIDCloud;
+        //public string SqlPasswordCloud;
 
         public List<HardwareProfile> ProfileList = null;
         public HardwareProfile ActiveProfile = null;
+        public HardwareProfile LoginDefaultProfile = new HardwareProfile();
 
         public string MaskDataDir()
         {
@@ -143,19 +153,39 @@ namespace VoucherExpense
                 GetEncryptedAttrib(Server, "Password"   , ref curr.password);
                 GetEncryptedAttrib(Server, "BackupDir"  , ref curr.backupDir);
 
-                GetEncryptedAttrib(Server, "SqlServerIP", ref curr.sqlServerIP);
-                GetEncryptedAttrib(Server, "SqlUserID"  , ref curr.sqlUserID);
-                GetEncryptedAttrib(Server, "SqlPassword", ref curr.sqlPassword);
-                GetEncryptedAttrib(Server, "SqlDatabase", ref curr.sqlDatabase);
+                GetEncryptedAttrib(Server, "SqlServerIP", ref curr.Local.ServerIP);
+                GetEncryptedAttrib(Server, "SqlUserID"  , ref curr.Local.UserID);
+                GetEncryptedAttrib(Server, "SqlPassword", ref curr.Local.Password);
+                GetEncryptedAttrib(Server, "SqlDatabase", ref curr.database);
 
                 GetAttrib(Server, "EnableCloudSync", ref str);
                 if (str != null && str.ToUpper() == "YES") curr.enableCloudSync = true;
                 else curr.enableCloudSync = false;
-                GetEncryptedAttrib(Server, "SqlServerIPCloud", ref curr.sqlServerIPCloud);
-                GetEncryptedAttrib(Server, "SqlUserIDCloud"  , ref curr.sqlUserIDCloud);
-                GetEncryptedAttrib(Server, "SqlPasswordCloud", ref curr.sqlPasswordCloud);
-                GetEncryptedAttrib(Server, "SharedDatabaseCloud", ref curr.SharedDatabaseCloud);
+                GetEncryptedAttrib(Server, "SqlServerIPCloud", ref curr.Cloud.ServerIP);
+                GetEncryptedAttrib(Server, "SqlUserIDCloud"  , ref curr.Cloud.UserID);
+                GetEncryptedAttrib(Server, "SqlPasswordCloud", ref curr.Cloud.Password);
+                GetEncryptedAttrib(Server, "SharedDatabaseCloud", ref curr.sharedDatabase);
             }
+        }
+
+        public void CopyHardwareProfile(HardwareProfile from, HardwareProfile to)
+        {
+            to.profileName = from.profileName;
+            to.printerName = from.printerName;
+            to.comPortName = from.comPortName;
+            to.dataDir = from.dataDir;
+            to.userName = from.userName;
+            to.password = from.password;
+            to.isServer = from.isServer;
+            to.backupDir = from.backupDir;
+            to.dotPrinterName = from.dotPrinterName;
+
+            to.enableCloudSync = from.enableCloudSync;
+            to.database = from.database;
+            to.sharedDatabase = from.sharedDatabase;
+
+            to.Local = new DB.SqlCredential(from.Local);
+            to.Cloud = new DB.SqlCredential(from.Cloud);
         }
 
         public void SetDefaultAs(HardwareProfile curr)
@@ -172,16 +202,21 @@ namespace VoucherExpense
             BackupDir   =curr.backupDir;
             DotPrinterName=curr.dotPrinterName;
 
-            SqlServerIP =curr.sqlServerIP;
-            SqlDatabase =curr.sqlDatabase;
-            SqlUserID   =curr.sqlUserID;
-            SqlPassword =curr.sqlPassword;
+            EnableCloudSync = curr.enableCloudSync;
 
-            EnableCloudSync  = curr.enableCloudSync;
-            SqlServerIPCloud = curr.sqlServerIPCloud;
-            SharedDatabaseCloud = curr.SharedDatabaseCloud;
-            SqlUserIDCloud   = curr.sqlUserIDCloud;
-            SqlPasswordCloud = curr.sqlPasswordCloud;
+            Local = curr.Local;
+            Cloud = curr.Cloud;
+            Database = curr.database;
+            SharedDatabase = curr.sharedDatabase;
+            //SqlServerIP = curr.sqlServerIP;
+            //SqlDatabase =curr.sqlDatabase;
+            //SqlUserID   =curr.sqlUserID;
+            //SqlPassword =curr.sqlPassword;
+
+            //SqlServerIPCloud = curr.sqlServerIPCloud;
+            //SharedDatabaseCloud = curr.SharedDatabaseCloud;
+            //SqlUserIDCloud   = curr.sqlUserIDCloud;
+            //SqlPasswordCloud = curr.sqlPasswordCloud;
         }
 
         public void SaveDefaultTo(HardwareProfile curr)
@@ -197,16 +232,21 @@ namespace VoucherExpense
             curr.backupDir   = BackupDir;
             curr.dotPrinterName = DotPrinterName;
 
-            curr.sqlServerIP = SqlServerIP;
-            curr.sqlDatabase = SqlDatabase;
-            curr.sqlUserID   = SqlUserID;
-            curr.sqlPassword = SqlPassword;
+            curr.enableCloudSync = EnableCloudSync;
+            curr.database = Database;
+            curr.sharedDatabase = SharedDatabase;
 
-            curr.enableCloudSync    = EnableCloudSync;
-            curr.sqlServerIPCloud   = SqlServerIPCloud;
-            curr.SharedDatabaseCloud= SharedDatabaseCloud;
-            curr.sqlUserIDCloud     = SqlUserIDCloud;
-            curr.sqlPasswordCloud   = SqlPasswordCloud;
+            curr.Local = Local;
+            curr.Cloud = Cloud;
+            //curr.sqlServerIP = SqlServerIP;
+            //curr.sqlDatabase = SqlDatabase;
+            //curr.sqlUserID   = SqlUserID;
+            //curr.sqlPassword = SqlPassword;
+
+            //curr.sqlServerIPCloud   = SqlServerIPCloud;
+            //curr.SharedDatabaseCloud= SharedDatabaseCloud;
+            //curr.sqlUserIDCloud     = SqlUserIDCloud;
+            //curr.sqlPasswordCloud   = SqlPasswordCloud;
         }
 
         public void Load()
@@ -272,16 +312,16 @@ namespace VoucherExpense
             UpdateXmlAttribEncrypted(doc, node, "DataSource", "Password"    , curr.password);
             UpdateXmlAttribEncrypted(doc, node, "DataSource", "BackupDir"   , curr.backupDir);
 
-            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlServerIP" , curr.sqlServerIP);
-            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlUserID"   , curr.sqlUserID);
-            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlPassword" , curr.sqlPassword);
-            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlDatabase" , curr.sqlDatabase);
+            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlServerIP" , curr.Local.ServerIP);
+            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlUserID"   , curr.Local.UserID);
+            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlPassword" , curr.Local.Password);
+            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlDatabase" , curr.database);
 
             UpdateXmlAttrib(doc, node, "DataSource", "EnableCloudSync", (EnableCloudSync ? "YES" : "NO"));
-            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlServerIPCloud", curr.sqlServerIPCloud);
-            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SharedDatabaseCloud", curr.SharedDatabaseCloud);
-            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlUserIDCloud", curr.sqlUserIDCloud);
-            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlPasswordCloud", curr.sqlPasswordCloud);
+            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlServerIPCloud"    , curr.Cloud.ServerIP);
+            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SharedDatabaseCloud" , curr.sharedDatabase);
+            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlUserIDCloud"      , curr.Cloud.UserID);
+            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlPasswordCloud"    , curr.Cloud.Password);
         }
 
         public void SaveTo(string dir)

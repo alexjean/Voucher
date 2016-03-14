@@ -49,8 +49,8 @@ namespace VoucherExpense
                //    +"or SUBSTRING(CONVERT(char(10),printtime,112),1,8)='"+b.ToString()+"' "
                //    +"or SUBSTRING(CONVERT(char(10),printtime,112),1,8)='"+c.ToString()+"'");
                //    MessageBox.Show("计算成功")
-                   string str = " Data Source=" + MyFunction.HardwareCfg.SqlServerIP + " ; DataBase=" + MyFunction.HardwareCfg.SqlDatabase + ";uid=" + MyFunction.HardwareCfg.SqlUserID + ";pwd=" + MyFunction.HardwareCfg.SqlPassword + ";"; 
-                       SqlConnection con=new SqlConnection (str);
+                   string str = DB.SqlConnectString(MyFunction.HardwareCfg.Local,MyFunction.HardwareCfg.Database);
+                   SqlConnection con=new SqlConnection (str);
                    SqlCommand com=new SqlCommand (sqlstr,con);
                    SqlDataAdapter adapter=new SqlDataAdapter (com);
                    m_dtSales = new DataTable();

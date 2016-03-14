@@ -90,7 +90,8 @@ namespace VoucherExpense
         void Calculate(int monthFrom, int dayFrom, int monthTo, int dayTo, int id)
         {
             SqlConnection conn= new SqlConnection();
-            conn.ConnectionString="Data Source= "+MyFunction.HardwareCfg.SqlServerIP+" ; uid="+MyFunction.HardwareCfg.SqlUserID+" ;pwd= "+ MyFunction.HardwareCfg.SqlPassword+" ;database ="+MyFunction.HardwareCfg.SqlDatabase;
+            conn.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg.Local,MyFunction.HardwareCfg.Database);
+                //"Data Source= "+MyFunction.HardwareCfg.SqlServerIP+" ; uid="+MyFunction.HardwareCfg.SqlUserID+" ;pwd= "+ MyFunction.HardwareCfg.SqlPassword+" ;database ="+MyFunction.HardwareCfg.SqlDatabase;
             SqlDataAdapter da = new SqlDataAdapter();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = conn;

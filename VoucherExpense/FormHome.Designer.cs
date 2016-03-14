@@ -82,7 +82,7 @@
             this.鎖定資料庫MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.同步資料庫ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.登錄MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.切換門店ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.切換門店MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.修改密碼MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.单据ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.请款单ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -530,18 +530,18 @@
             // 登錄MenuItem
             // 
             this.登錄MenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.切換門店ToolStripMenuItem,
+            this.切換門店MenuItem,
             this.修改密碼MenuItem});
             this.登錄MenuItem.Name = "登錄MenuItem";
             this.登錄MenuItem.Size = new System.Drawing.Size(52, 20);
             this.登錄MenuItem.Text = "登錄";
             // 
-            // 切換門店ToolStripMenuItem
+            // 切換門店MenuItem
             // 
-            this.切換門店ToolStripMenuItem.Name = "切換門店ToolStripMenuItem";
-            this.切換門店ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.切換門店ToolStripMenuItem.Text = "切換門店";
-            this.切換門店ToolStripMenuItem.Click += new System.EventHandler(this.切換門店ToolStripMenuItem_Click);
+            this.切換門店MenuItem.Name = "切換門店MenuItem";
+            this.切換門店MenuItem.Size = new System.Drawing.Size(152, 22);
+            this.切換門店MenuItem.Text = "切換門店";
+            this.切換門店MenuItem.Click += new System.EventHandler(this.切換門店ToolStripMenuItem_Click);
             // 
             // 修改密碼MenuItem
             // 
@@ -703,7 +703,7 @@
         private System.Windows.Forms.ToolStripMenuItem 銀行帳號MenuItem;
         private System.Windows.Forms.ToolStripMenuItem 操作員MenuItem;
         private System.Windows.Forms.ToolStripMenuItem 登錄MenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 切換門店ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 切換門店MenuItem;
         private System.Windows.Forms.ToolStripMenuItem 修改密碼MenuItem;
 
     }

@@ -83,16 +83,17 @@ namespace VoucherExpense
             textBoxPassword.Text    = Config.Password;
             textBoxBackupDir.Text   = Config.BackupDir;
 
-            textBoxSqlServerIP.Text = Config.SqlServerIP;
-            textBoxSqlDatabase.Text = Config.SqlDatabase;
-            textBoxSqlUserID.Text   = Config.SqlUserID;
-            textBoxSqlPassword.Text = Config.SqlPassword;
+            textBoxSqlServerIP.Text = Config.Local.ServerIP;
+            textBoxSqlUserID.Text   = Config.Local.UserID;
+            textBoxSqlPassword.Text = Config.Local.Password;
 
-            chBoxCloudSync.Checked       = Config.EnableCloudSync;
-            textBoxSqlServerIPCloud.Text = Config.SqlServerIPCloud;
-            textBoxSharedDatabase.Text   = Config.SharedDatabaseCloud;
-            textBoxSqlUserIDCloud.Text   = Config.SqlUserIDCloud;
-            textBoxSqlPasswordCloud.Text = Config.SqlPasswordCloud;
+            chBoxCloudSync.Checked      = Config.EnableCloudSync;
+            textBoxSqlDatabase.Text     = Config.Database;
+            textBoxSharedDatabase.Text  = Config.SharedDatabase;
+
+            textBoxSqlServerIPCloud.Text = Config.Cloud.ServerIP;
+            textBoxSqlUserIDCloud.Text   = Config.Cloud.UserID;
+            textBoxSqlPasswordCloud.Text = Config.Cloud.Password;
             
 
             labelProgramVersion.Text = "程式版本 "+Application.ProductVersion.ToString();
@@ -129,17 +130,18 @@ namespace VoucherExpense
 
         private void btnSaveSql_Click(object sender, EventArgs e)
         {
-            Config.ProfileName = textBoxProfileName.Text.Trim();
-            Config.SqlServerIP = textBoxSqlServerIP.Text.Trim();
-            Config.SqlDatabase = textBoxSqlDatabase.Text.Trim();
-            Config.SqlUserID   = textBoxSqlUserID.Text.Trim();
-            Config.SqlPassword = textBoxSqlPassword.Text.Trim();
+            Config.ProfileName    = textBoxProfileName.Text.Trim();
+            Config.Database       = textBoxSqlDatabase.Text.Trim();
+            Config.SharedDatabase = textBoxSharedDatabase.Text.Trim();
+
+            Config.Local.ServerIP = textBoxSqlServerIP.Text.Trim();
+            Config.Local.UserID   = textBoxSqlUserID.Text.Trim();
+            Config.Local.Password = textBoxSqlPassword.Text.Trim();
 
             Config.EnableCloudSync  = chBoxCloudSync.Checked;
-            Config.SqlServerIPCloud = textBoxSqlServerIPCloud.Text.Trim();
-            Config.SharedDatabaseCloud = textBoxSharedDatabase.Text.Trim();
-            Config.SqlUserIDCloud   = textBoxSqlUserIDCloud.Text.Trim();
-            Config.SqlPasswordCloud = textBoxSqlPasswordCloud.Text.Trim();
+            Config.Cloud.ServerIP   = textBoxSqlServerIPCloud.Text.Trim();
+            Config.Cloud.UserID     = textBoxSqlUserIDCloud.Text.Trim();
+            Config.Cloud.Password   = textBoxSqlPasswordCloud.Text.Trim();
             Config.Save();
             MessageBox.Show("SQL設定存檔完成! 重新啟動程式後, 設定方生效.");
         }

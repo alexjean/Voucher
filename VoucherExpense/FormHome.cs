@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 
 namespace VoucherExpense
@@ -21,7 +22,7 @@ namespace VoucherExpense
             string str;
             string branchName;
             if (m_Config.IsServer) str = "本店 ";
-            else                    str = "云端 ";
+            else                   str = "云端 ";
             if (m_DefaultApartment.IsApartmentNameNull())
                 branchName = "分店" + m_DefaultApartment.ApartmentID.ToString();
             else
@@ -97,6 +98,9 @@ namespace VoucherExpense
             合併傳票MenuItem.Enabled = Op.LockAccVoucher;
             出货MenuItem.Enabled = Op.EditShipment||Op.LockShipment;
 
+            if (m_AuthorizedApartment.Rows.Count<=1) // 只有一家店可登入的就不顯示了
+                切換門店MenuItem.Enabled = false;
+
             if (MyFunction.LockAll)
                 i.DropDownItems["鎖定資料庫MenuItem"].Text = "解鎖資料庫";
             else
@@ -121,6 +125,7 @@ namespace VoucherExpense
                     MDIMaxmize = 0x225
                 }
         */
+
         private void CloseOpenedMenu(string formName)
         {
             foreach (Form Opened in this.MdiChildren)
@@ -256,6 +261,7 @@ namespace VoucherExpense
 
         private void FormHome_Load(object sender, EventArgs e)
         {
+            m_DelegateApartmentSwitchTo = new FormSwitchApartment.DelegateApartmentSwitchTo(ApartmentSwitchTo);
         }
 
         private void FormHome_SizeChanged(object sender, EventArgs e)
@@ -517,11 +523,84 @@ namespace VoucherExpense
             PopupOrRun("FormSalesForecast", typeof(FormSalesForecast));
         }
 
+        string Decrypt(string str)
+        {
+            if (str=="") return"";
+            byte[] buf = Encoder.RC2Decrypt(Convert.FromBase64String(str), "LordAlex");
+            return Encoding.Unicode.GetString(buf);
+        }
+
+
+        bool TestConn(DB.SqlCredential lo,string database)
+        {
+            string connStr = DB.SqlConnectString(lo,database);
+            SqlConnection conn = new SqlConnection(connStr);
+            try
+            {
+                conn.Open();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("資料庫<"+database+">連線失敗,原因:" + ex.Message);
+                return false;
+            }
+            conn.Close();
+            return true;
+        }
+
+        FormSwitchApartment.DelegateApartmentSwitchTo m_DelegateApartmentSwitchTo=null;  // 在FormLoad時設定,為傳參數回來設的Delegate
+        void ApartmentSwitchTo(int apartmentID)
+        {
+            if (apartmentID == m_DefaultApartment.ApartmentID)
+            {
+                MessageBox.Show("同一門店,不用切換!");
+                return;
+            }
+            var ap=m_AuthorizedApartment.FindByApartmentID(apartmentID);
+            if (ap == null)
+            {
+                MessageBox.Show("找不到ApartmentID<" + apartmentID.ToString() + ">,無法切換門店!");
+                return;
+            }
+            string Name = ap.IsApartmentNameNull()    ?"ID<"+apartmentID.ToString()+">" :ap.ApartmentName;
+            string Code = ap.IsAppartementCodeNull()?"未設店號"                         :ap.AppartementCode.ToString();
+            MessageBox.Show("切換至 "+Name+"<" +Code + ">");
+            string database = Decrypt(ap.DatabaseName);
+            if (database.Trim() == m_Config.LoginDefaultProfile.database.Trim())  // 只有LoginDefaultProfile可以使用店長本地登入 云端同步, 其餘的一律使用云端登入
+            {   // 是LoginDefaultProfile, 將LoginDefaultProfile取回.
+                m_Config.CopyHardwareProfile(m_Config.LoginDefaultProfile, m_Config.ActiveProfile);
+                m_Config.SetDefaultAs(m_Config.ActiveProfile);
+            }
+            else  // 切到不是HardwareConfig所指的那家店了,資料從[Apartment]取出,破壞性設定 ActiveProfile
+            {
+                DB.SqlCredential lo = new DB.SqlCredential();
+                lo.ServerIP = Decrypt(ap.CloudServerIP);
+                lo.UserID   = Decrypt(ap.CloudUserID);
+                lo.Password = Decrypt(ap.CloudPassword);
+                if (!TestConn(lo,database)) return;
+                m_Config.ProfileName = "AlphaGo<" + Name + ">";
+                m_Config.IsServer = false;
+                m_Config.EnableCloudSync = false;
+                m_Config.Local = lo;
+                m_Config.Database = database;
+                m_Config.SharedDatabase = "";
+                m_Config.Cloud.ServerIP = "";
+                m_Config.Cloud.UserID   = "";
+                m_Config.Cloud.Password = "";
+            }
+            global::VoucherExpense.Properties.Settings.Default.DamaiConnectionString = DB.SqlConnectString(m_Config.Local,m_Config.Database);
+            foreach (Form form in this.MdiChildren)
+                    form.Close();
+            Form Home = new FormHome(Operator, m_Config, ap, m_AuthorizedApartment);   // Debug 把所有部門都放進去
+            this.Visible = false;
+            Home.ShowDialog();
+            Close();
+        }
+
         private void 切換門店ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!PopupMenu("FormSwitchApartment"))
-                Run("FormSwitchApartment", new FormSwitchApartment(m_AuthorizedApartment));
+                Run("FormSwitchApartment", new FormSwitchApartment(m_AuthorizedApartment,m_DelegateApartmentSwitchTo));
         }
-
     }
 }

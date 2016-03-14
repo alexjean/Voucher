@@ -19,17 +19,7 @@ namespace VoucherExpense
 
         void SetGlobalConnectionString(HardwareConfig cfg)
         {
-            //global::VoucherExpense.Properties.Settings.Default.SqlVeConnectionString =
-            //       "Data Source=" + cfg.SqlServerIP
-            //      + ";Initial Catalog=" + cfg.SqlDatabase
-            //      + ";Persist Security Info=True;User ID=" + cfg.SqlUserID
-            //      + ";Password=" + cfg.SqlPassword;
-
-            global::VoucherExpense.Properties.Settings.Default.DamaiConnectionString =
-                   "Data Source=" + cfg.SqlServerIP
-                  + ";Initial Catalog=" + cfg.SqlDatabase
-                  + ";Persist Security Info=True;User ID=" + cfg.SqlUserID
-                  + ";Password=" + cfg.SqlPassword;
+            global::VoucherExpense.Properties.Settings.Default.DamaiConnectionString = DB.SqlConnectString(cfg.Local,cfg.Database);
         }
         public FormLogin()
         {
@@ -180,7 +170,7 @@ namespace VoucherExpense
                 {
                     byte[] buf = Encoder.RC2Decrypt(Convert.FromBase64String(a.DatabaseName.Trim()), Key);
                     string decoded = Encoding.Unicode.GetString(buf);
-                    if (decoded == m_Cfg.SqlDatabase.Trim())     // 不使用IsCurrent了
+                    if (decoded == m_Cfg.Database.Trim())     // 不使用IsCurrent了
                     {
                         m_DefaultApartment = a;
                         break;
@@ -188,7 +178,7 @@ namespace VoucherExpense
                 }
                 if (m_DefaultApartment == null)
                 {
-                    MessageBox.Show("部門資料庫內找不到<" + m_Cfg.SqlDatabase + ">,設定有誤無法登入,請找IT部門!");
+                    MessageBox.Show("部門資料庫內找不到<" + m_Cfg.Database + ">,設定有誤無法登入,請找IT部門!");
 #if (DEBUG)                    
                     m_DefaultApartment = damaiDataSet.Apartment[9];
 #else
@@ -358,6 +348,8 @@ namespace VoucherExpense
                     if (found.Count() <= 0) ap.Delete();    // 不在授權表的拿掉
                 }
                 damaiDataSet.Apartment.AcceptChanges();
+
+                m_Cfg.CopyHardwareProfile(m_Cfg.ActiveProfile, m_Cfg.LoginDefaultProfile);    // 為了讓FormHome切換時,ActiveProfile==LoginDefaultProfile 要用Local<->Cloud對應
                 Form Home = new FormHome(row, m_Cfg, m_DefaultApartment,damaiDataSet.Apartment);
                 Home.ShowDialog();
                 Close();
@@ -388,6 +380,8 @@ namespace VoucherExpense
             if (row != null)
             {
                 GetHeaderYear();
+                m_Cfg.CopyHardwareProfile(m_Cfg.ActiveProfile, m_Cfg.LoginDefaultProfile);         // 切換門店時, 比對LoginDefaultProfile,所以存下
+
                 Form Home = new FormHome(row, m_Cfg, m_DefaultApartment,damaiDataSet.Apartment);   // Debug 把所有部門都放進去
                 Visible = false;
                 Home.ShowDialog();

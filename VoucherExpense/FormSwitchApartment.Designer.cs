@@ -55,6 +55,7 @@
             this.apartmentDataGridView.DataSource = this.apartmentBindingSource;
             this.apartmentDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.apartmentDataGridView.Location = new System.Drawing.Point(0, 0);
+            this.apartmentDataGridView.MultiSelect = false;
             this.apartmentDataGridView.Name = "apartmentDataGridView";
             this.apartmentDataGridView.ReadOnly = true;
             this.apartmentDataGridView.RowHeadersVisible = false;
@@ -62,6 +63,7 @@
             this.apartmentDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.apartmentDataGridView.Size = new System.Drawing.Size(429, 431);
             this.apartmentDataGridView.TabIndex = 1;
+            this.apartmentDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.apartmentDataGridView_CellDoubleClick);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -104,7 +106,7 @@
             this.ClientSize = new System.Drawing.Size(429, 431);
             this.Controls.Add(this.apartmentDataGridView);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormSwitchApartment";
             this.Text = "切換門店";
             this.Load += new System.EventHandler(this.FormSwitchApartment_Load);

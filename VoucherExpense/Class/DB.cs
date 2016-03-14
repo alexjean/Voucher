@@ -9,8 +9,32 @@ using System.Security.Cryptography;
 
 namespace VoucherExpense
 {
-    static class DB
+    public static class DB
     {
+        public class SqlCredential
+        {
+            public string ServerIP;
+            public string UserID;
+            public string Password;
+            public SqlCredential() { }
+            public SqlCredential(SqlCredential from)
+            {
+                ServerIP = from.ServerIP;
+                UserID   = from.UserID;
+                Password = from.Password;
+            }
+        }
+
+        public static string SqlConnectString(SqlCredential lo, string database)
+        {
+            if (lo == null)
+            {
+                MessageBox.Show("SqlCredential 為Null on DB.SqlConnectString(...)");
+                return "";
+            }
+            return SqlConnectString(lo.ServerIP, database, lo.UserID, lo.Password);
+        }
+
         public static string SqlConnectString(string address, string database, string userID, string password)
         {
             return "Data Source=" + address + ";Initial Catalog=" + database

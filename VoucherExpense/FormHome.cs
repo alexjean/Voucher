@@ -586,7 +586,7 @@ namespace VoucherExpense
                 m_Config.EnableCloudSync = false;
                 m_Config.Local = lo;
                 m_Config.Database = database;
-                m_Config.SharedDatabase = "";
+                m_Config.SharedDatabase = Decrypt(ap.CloudSharedDatabase);
                 m_Config.Cloud.ServerIP = "";
                 m_Config.Cloud.UserID   = "";
                 m_Config.Cloud.Password = "";

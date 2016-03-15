@@ -389,7 +389,8 @@ namespace VoucherExpense
 #if UseSQLServer
                 sql = "Where (Floor(ID/1000000)>=" + DateStr(month, from)
                     + " And Floor(ID/1000000)<=" + DateStr(month, to) + ")";
-                sqlShipment = "where a.ShipTime>= '"+ year + DateStr(month, from) + "' and a.ShipTime< '"+ year + DateStr(month, to+1) + "'";
+                DateTime t = new DateTime(year, month, to).AddDays(1);
+                sqlShipment = "where a.ShipTime>= '"+ year + DateStr(month, from) + "' and a.ShipTime< '"+ t.Year.ToString() + DateStr(t.Month, t.Day) + "'";
 #else
                 sql = "Where (INT(ID/1000000)>=" + DateStr(month, from)
                     + " And INT(ID/1000000)<=" + DateStr(month, to) + ")";

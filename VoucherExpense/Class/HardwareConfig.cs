@@ -315,13 +315,14 @@ namespace VoucherExpense
             UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlServerIP" , curr.Local.ServerIP);
             UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlUserID"   , curr.Local.UserID);
             UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlPassword" , curr.Local.Password);
-            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlDatabase" , curr.database);
+            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlServerIPCloud", curr.Cloud.ServerIP);
+            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlUserIDCloud", curr.Cloud.UserID);
+            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlPasswordCloud", curr.Cloud.Password);
 
             UpdateXmlAttrib(doc, node, "DataSource", "EnableCloudSync", (EnableCloudSync ? "YES" : "NO"));
-            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlServerIPCloud"    , curr.Cloud.ServerIP);
-            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SharedDatabaseCloud" , curr.sharedDatabase);
-            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlUserIDCloud"      , curr.Cloud.UserID);
-            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlPasswordCloud"    , curr.Cloud.Password);
+            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlDatabase", curr.database);
+            UpdateXmlAttribEncrypted(doc, node, "DataSource", "SharedDatabaseCloud", curr.sharedDatabase);
+
         }
 
         public void SaveTo(string dir)

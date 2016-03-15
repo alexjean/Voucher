@@ -39,7 +39,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.dateOfPaymentTextBox = new System.Windows.Forms.TextBox();
             this.requestsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.vEDataSet = new VoucherExpense.VEDataSet();
+            this.damaiDataSet = new VoucherExpense.VEDataSet();
             this.billingDateTextBox = new System.Windows.Forms.TextBox();
             this.isCancelCheckBox = new System.Windows.Forms.CheckBox();
             this.listNumberTextBox = new System.Windows.Forms.TextBox();
@@ -75,7 +75,6 @@
             this.applicantTextBox = new System.Windows.Forms.TextBox();
             this.departmentTextBox = new System.Windows.Forms.TextBox();
             this.requestsDataGridView = new System.Windows.Forms.DataGridView();
-            this.pD = new System.Drawing.Printing.PrintDocument();
             this.dgvColRequestsID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvColOperatorID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -93,13 +92,14 @@
             this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.IsCancel = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.pD = new System.Drawing.Printing.PrintDocument();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.requestsBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.requestsBindingNavigator)).BeginInit();
             this.requestsBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.requestsDataGridView)).BeginInit();
@@ -172,7 +172,7 @@
             // 
             this.dateOfPaymentTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.requestsBindingSource, "DateOfPayment", true));
             this.dateOfPaymentTextBox.Enabled = false;
-            this.dateOfPaymentTextBox.Font = new System.Drawing.Font("PMingLiU", 10F);
+            this.dateOfPaymentTextBox.Font = new System.Drawing.Font("新細明體", 10F);
             this.dateOfPaymentTextBox.Location = new System.Drawing.Point(544, 211);
             this.dateOfPaymentTextBox.Name = "dateOfPaymentTextBox";
             this.dateOfPaymentTextBox.Size = new System.Drawing.Size(161, 23);
@@ -182,19 +182,19 @@
             // requestsBindingSource
             // 
             this.requestsBindingSource.DataMember = "Requests";
-            this.requestsBindingSource.DataSource = this.vEDataSet;
+            this.requestsBindingSource.DataSource = this.damaiDataSet;
             this.requestsBindingSource.Filter = "";
             // 
-            // vEDataSet
+            // damaiDataSet
             // 
-            this.vEDataSet.DataSetName = "VEDataSet";
-            this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.damaiDataSet.DataSetName = "DamaiDataSet";
+            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // billingDateTextBox
             // 
             this.billingDateTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.requestsBindingSource, "BillingDate", true));
             this.billingDateTextBox.Enabled = false;
-            this.billingDateTextBox.Font = new System.Drawing.Font("PMingLiU", 10F);
+            this.billingDateTextBox.Font = new System.Drawing.Font("新細明體", 10F);
             this.billingDateTextBox.Location = new System.Drawing.Point(615, 113);
             this.billingDateTextBox.Name = "billingDateTextBox";
             this.billingDateTextBox.Size = new System.Drawing.Size(87, 23);
@@ -218,7 +218,7 @@
             this.listNumberTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listNumberTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.requestsBindingSource, "ListNumber", true));
             this.listNumberTextBox.Enabled = false;
-            this.listNumberTextBox.Font = new System.Drawing.Font("PMingLiU", 9F);
+            this.listNumberTextBox.Font = new System.Drawing.Font("新細明體", 9F);
             this.listNumberTextBox.Location = new System.Drawing.Point(561, 88);
             this.listNumberTextBox.Name = "listNumberTextBox";
             this.listNumberTextBox.Size = new System.Drawing.Size(60, 15);
@@ -227,7 +227,7 @@
             // billingDateDateTimePicker
             // 
             this.billingDateDateTimePicker.Enabled = false;
-            this.billingDateDateTimePicker.Font = new System.Drawing.Font("PMingLiU", 12F);
+            this.billingDateDateTimePicker.Font = new System.Drawing.Font("新細明體", 12F);
             this.billingDateDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.billingDateDateTimePicker.Location = new System.Drawing.Point(704, 111);
             this.billingDateDateTimePicker.Name = "billingDateDateTimePicker";
@@ -238,7 +238,7 @@
             // dateOfPaymentDateTimePicker
             // 
             this.dateOfPaymentDateTimePicker.Enabled = false;
-            this.dateOfPaymentDateTimePicker.Font = new System.Drawing.Font("PMingLiU", 12F);
+            this.dateOfPaymentDateTimePicker.Font = new System.Drawing.Font("新細明體", 12F);
             this.dateOfPaymentDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateOfPaymentDateTimePicker.Location = new System.Drawing.Point(705, 209);
             this.dateOfPaymentDateTimePicker.Name = "dateOfPaymentDateTimePicker";
@@ -281,7 +281,7 @@
             this.requestsBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.requestsBindingNavigator.Name = "requestsBindingNavigator";
             this.requestsBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.requestsBindingNavigator.Size = new System.Drawing.Size(456, 25);
+            this.requestsBindingNavigator.Size = new System.Drawing.Size(449, 25);
             this.requestsBindingNavigator.TabIndex = 10;
             this.requestsBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -299,8 +299,8 @@
             // 
             this.bindingNavigatorCountItem.Enabled = false;
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(32, 22);
-            this.bindingNavigatorCountItem.Text = "/ {0}";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(27, 22);
+            this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
             // bindingNavigatorMoveFirstItem
@@ -400,7 +400,7 @@
             this.tSBtEndit.Image = ((System.Drawing.Image)(resources.GetObject("tSBtEndit.Image")));
             this.tSBtEndit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tSBtEndit.Name = "tSBtEndit";
-            this.tSBtEndit.Size = new System.Drawing.Size(36, 22);
+            this.tSBtEndit.Size = new System.Drawing.Size(35, 22);
             this.tSBtEndit.Text = "编辑";
             this.tSBtEndit.Click += new System.EventHandler(this.tSBtEndit_Click);
             // 
@@ -437,7 +437,7 @@
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(44, 22);
+            this.toolStripLabel1.Size = new System.Drawing.Size(43, 22);
             this.toolStripLabel1.Text = "日期：";
             // 
             // paymenMethodsTextBox
@@ -547,7 +547,7 @@
             this.requestsDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("PMingLiU", 12F);
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("新細明體", 12F);
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -579,16 +579,11 @@
             this.requestsDataGridView.RowHeadersVisible = false;
             this.requestsDataGridView.RowTemplate.Height = 23;
             this.requestsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.requestsDataGridView.Size = new System.Drawing.Size(1165, 256);
+            this.requestsDataGridView.Size = new System.Drawing.Size(1165, 255);
             this.requestsDataGridView.TabIndex = 0;
             this.requestsDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.requestsDataGridView_DataError);
             this.requestsDataGridView.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.requestsDataGridView_RowPostPaint);
             this.requestsDataGridView.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.requestsDataGridView_RowPrePaint);
-            // 
-            // pD
-            // 
-            this.pD.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.pd_PrintPage);
-            this.pD.QueryPageSettings += new System.Drawing.Printing.QueryPageSettingsEventHandler(this.pD_QueryPageSettings);
             // 
             // dgvColRequestsID
             // 
@@ -720,7 +715,6 @@
             this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
             this.dataGridViewTextBoxColumn13.ReadOnly = true;
             this.dataGridViewTextBoxColumn13.Visible = false;
-            this.dataGridViewTextBoxColumn13.Width = 81;
             // 
             // dataGridViewTextBoxColumn15
             // 
@@ -748,13 +742,18 @@
             this.IsCancel.ReadOnly = true;
             this.IsCancel.Width = 46;
             // 
+            // pD
+            // 
+            this.pD.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.pd_PrintPage);
+            this.pD.QueryPageSettings += new System.Drawing.Printing.QueryPageSettingsEventHandler(this.pD_QueryPageSettings);
+            // 
             // FormBillList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1165, 712);
             this.Controls.Add(this.splitContainer1);
-            this.Font = new System.Drawing.Font("PMingLiU", 12F);
+            this.Font = new System.Drawing.Font("新細明體", 12F);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormBillList";
             this.Text = "请款单";
@@ -766,7 +765,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.requestsBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.requestsBindingNavigator)).EndInit();
             this.requestsBindingNavigator.ResumeLayout(false);
             this.requestsBindingNavigator.PerformLayout();
@@ -779,7 +778,7 @@
 
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Panel panel1;
-        private VEDataSet vEDataSet;
+        private VEDataSet damaiDataSet;
         private System.Windows.Forms.BindingSource requestsBindingSource;
         private System.Windows.Forms.BindingNavigator requestsBindingNavigator;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;

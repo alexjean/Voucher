@@ -20,8 +20,10 @@ namespace VoucherExpense
 {
     public partial class FormBillList : Form
     {
-        public FormBillList()
+        DamaiDataSet.ApartmentRow m_DefaultApartment;
+        public FormBillList(DamaiDataSet.ApartmentRow defaultApartment)
         {
+            m_DefaultApartment = defaultApartment;
             InitializeComponent();
         }
         Image image;
@@ -35,6 +37,7 @@ namespace VoucherExpense
             requestsBindingSource.DataSource = m_DataSet;
 #if (UseSQLServer)
             var apartmentAdapter = new VoucherExpense.DamaiDataSetTableAdapters.ApartmentTableAdapter();
+            apartmentAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
 #else
             var apartmentAdapter = new VoucherExpense.VEDataSetTableAdapters.ApartmentTableAdapter();
             apartmentAdapter.Connection = MapPath.VEConnection;
@@ -44,24 +47,10 @@ namespace VoucherExpense
             RequestsAdapter.Fill(m_DataSet.Requests);
             this.requestsBindingSource.Sort = "requestsid desc";
            
-            //var apartment=vEDataSet.Apartment[0];
-            //Apartmentname= apartment.ApartmentAllName;
-            if (m_DataSet.Apartment.Rows.Count != 0)
-            {
-                var a0 = m_DataSet.Apartment[0];
-                foreach (var a in m_DataSet.Apartment)
-                {
-                    if (!a.IsIsCurrentNull() && a.IsCurrent)
-                    {
-                        a0 = a;
-                        break;
-                    }
-                }
-                if (a0.IsApartmentNameNull())
-                    Apartmentname = a0.ApartmentAllName;
-                else
-                    Apartmentname = a0.ApartmentAllName;
-            }
+            if (m_DefaultApartment.IsApartmentNameNull())
+                Apartmentname = m_DefaultApartment.ApartmentAllName;
+            else
+                Apartmentname = m_DefaultApartment.ApartmentAllName;
             textBox1.Text = Apartmentname;
             //设定打印机
             Config = MyFunction.HardwareCfg;

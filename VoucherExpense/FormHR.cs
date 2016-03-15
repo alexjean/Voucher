@@ -8,21 +8,12 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Drawing.Drawing2D;
-#if UseSQLServer
 using MyDataSet         = VoucherExpense.DamaiDataSet;
 using MyHRTable         = VoucherExpense.DamaiDataSet.HRDataTable;
 using MyHRDetailTable   = VoucherExpense.DamaiDataSet.HRDetailDataTable;
 using MyHRAdapter       = VoucherExpense.DamaiDataSetTableAdapters.HRTableAdapter;
 using MyHRDetailAdapter = VoucherExpense.DamaiDataSetTableAdapters.HRDetailTableAdapter;
 using MyHRRow           = VoucherExpense.DamaiDataSet.HRRow;
-#else
-using MyDataSet         = VoucherExpense.VEDataSet;
-using MyHRTable         = VoucherExpense.VEDataSet.HRDataTable;
-using MyHRDetailTable   = VoucherExpense.VEDataSet.HRDetailDataTable;
-using MyHRAdapter       = VoucherExpense.VEDataSetTableAdapters.HRTableAdapter;
-using MyHRDetailAdapter = VoucherExpense.VEDataSetTableAdapters.HRDetailTableAdapter;
-using MyHRRow           = VoucherExpense.VEDataSet.HRRow;
-#endif
 
 namespace VoucherExpense
 {
@@ -39,20 +30,13 @@ namespace VoucherExpense
         private void FormHR_Load(object sender, EventArgs e)
         {
             SetupBindingSource();
-#if UseSQLServer
             dgvHRDetail.DataSource = fKHRDetailHRBindingSource;
 
             var operatorAdapter  = new VoucherExpense.DamaiDataSetTableAdapters.OperatorTableAdapter();
             var apartmentAdapter = new VoucherExpense.DamaiDataSetTableAdapters.ApartmentTableAdapter();
-#else
-            dgvHRDetail.DataSource = hRHRDetailBindingSource;
-            var operatorAdapter  = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
-            var apartmentAdapter = new VoucherExpense.VEDataSetTableAdapters.ApartmentTableAdapter();
-            operatorAdapter.Connection  = MapPath.VEConnection;
-            apartmentAdapter.Connection = MapPath.VEConnection;
-            HRAdapter.Connection        = MapPath.VEConnection;
-            HRDetailAdapter.Connection  = MapPath.VEConnection;
-#endif
+            operatorAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+            apartmentAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+
             Try(() => operatorAdapter.Fill (m_DataSet.Operator));
             Try(() => apartmentAdapter.Fill(m_DataSet.Apartment));
             Try(() => HRAdapter.Fill       (m_DataSet.HR));

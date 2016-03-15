@@ -1433,7 +1433,7 @@ namespace VoucherExpense
                     if (!Row.IsCashIncomeNull())
                     {
                         cashiers[id] += Row.CashIncome;
-                        cash += income;
+                        cash += Row.CashIncome;
                     }
                 }
                 else

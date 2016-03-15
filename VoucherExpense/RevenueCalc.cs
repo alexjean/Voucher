@@ -391,8 +391,8 @@ namespace VoucherExpense
             data.CreditFee = Math.Round(FeeRate * data.CreditCard, 2);
             data.CreditNet = data.CreditCard - data.CreditFee;
             if (orderCount != 0)
-                data.AvePerPerson = Math.Round((cash + credit + alipay) / orderCount, 1);
-            data.Revenue = Math.Round(cash + credit + alipay);
+                data.AvePerPerson = Math.Round((cash + credit + alipay+coupon) / orderCount, 1);
+            data.Revenue = Math.Round(cash + credit + alipay+coupon);
 
             data.DeletedCount = deletedCount;
             data.DeletedMoney = Math.Round(deletedMoney);

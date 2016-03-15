@@ -144,6 +144,11 @@ namespace VoucherExpense
             headerSQLAdapter    = new DamaiDataSetTableAdapters.VEHeaderTableAdapter();
             apartmentSQLAdapter = new DamaiDataSetTableAdapters.ApartmentTableAdapter();
             authListSQLAdapter  = new DamaiDataSetTableAdapters.OperatorAuthListTableAdapter();
+
+            operatorSQLAdapter.Connection.ConnectionString = DB.SqlConnectString(m_Cfg);
+            apartmentSQLAdapter.Connection.ConnectionString = DB.SqlConnectString(m_Cfg);
+            authListSQLAdapter.Connection.ConnectionString = DB.SqlConnectString(m_Cfg);
+
             damaiDataSet        = new DamaiDataSet();
             try
             {

@@ -50,9 +50,13 @@ namespace VoucherExpense
         {
             try
             {
+                operatorAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+                authListAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+
                 operatorAdapter.Fill(m_DataSet.Operator);
                 authListAdapter.Fill(m_DataSet.OperatorAuthList);
                 var apartment = new DamaiDataSetTableAdapters.ApartmentTableAdapter();
+                apartment.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
                 apartment.Fill(m_DataSet.Apartment);
                 this.operatorBindingSource.DataSource = m_DataSet;
                 MyFunction.SetFieldLength(operatorDataGridView, m_DataSet.Operator);

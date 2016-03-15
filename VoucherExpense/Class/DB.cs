@@ -25,6 +25,13 @@ namespace VoucherExpense
             }
         }
 
+        // 只有在Region的資料庫才用這個
+        public static string SqlConnectString(HardwareConfig cfg)
+        {
+            if (cfg.IsServer)   return SqlConnectString(cfg.Local, cfg.Database);
+            else                return SqlConnectString(cfg.Local, cfg.SharedDatabase);
+        }
+
         public static string SqlConnectString(SqlCredential lo, string database)
         {
             if (lo == null)

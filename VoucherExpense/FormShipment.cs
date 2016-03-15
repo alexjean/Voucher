@@ -107,35 +107,19 @@ namespace VoucherExpense
         private void FormShipment_Load(object sender, EventArgs e)
         {
          try
-            {         // TODO: 这行代码将数据加载到表“damaiDataSet.ProductClass”中。您可以根据需要移动或删除它。
-            this.productClassTableAdapter.Fill(this.damaiDataSet.ProductClass);
-            // TODO: 这行代码将数据加载到表“damaiDataSet.ShipmentDetail”中。您可以根据需要移动或删除它。
-            this.shipmentDetailTableAdapter1.Fill(this.damaiDataSet.ShipmentDetail);
-            // TODO: 这行代码将数据加载到表“damaiDataSet.Product”中。您可以根据需要移动或删除它。
-            this.productTableAdapter1.Fill(this.damaiDataSet.Product);
-            // TODO: 这行代码将数据加载到表“damaiDataSet.Customer”中。您可以根据需要移动或删除它。
-            this.customerTableAdapter1.Fill(this.damaiDataSet.Customer);
-            // TODO: 这行代码将数据加载到表“damaiDataSet.AccountingTitle”中。您可以根据需要移动或删除它。
-            this.accountingTitleTableAdapter1.Fill(this.damaiDataSet.AccountingTitle);
-            // TODO: 这行代码将数据加载到表“damaiDataSet.Operator”中。您可以根据需要移动或删除它。
-            this.operatorTableAdapter1.Fill(this.damaiDataSet.Operator);
-            // TODO: 这行代码将数据加载到表“damaiDataSet.Shipment”中。您可以根据需要移动或删除它。
-            this.shipmentTableAdapter1.Fill(this.damaiDataSet.Shipment);
-      
+            {
+
+                this.productClassTableAdapter.Fill(this.damaiDataSet.ProductClass);
+                this.shipmentDetailTableAdapter1.Fill(this.damaiDataSet.ShipmentDetail);
+                this.productTableAdapter1.Fill(this.damaiDataSet.Product);
+                this.customerTableAdapter1.Fill(this.damaiDataSet.Customer);
+                this.accountingTitleTableAdapter1.Fill(this.damaiDataSet.AccountingTitle);
+                this.shipmentTableAdapter1.Fill(this.damaiDataSet.Shipment);
+
+                operatorTableAdapter1.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+                apartmentTableAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+                this.operatorTableAdapter1.Fill(this.damaiDataSet.Operator);
                 this.apartmentTableAdapter.Fill(this.damaiDataSet.Apartment);
-                // TODO: 这行代码将数据加载到表“vEDataSet.AccountingTitle”中。您可以根据需要移动或删除它。
-             //   this.accountingTitleTableAdapter.Fill(this.vEDataSet.AccountingTitle);
-                // TODO: 这行代码将数据加载到表“vEDataSet.Operator”中。您可以根据需要移动或删除它。
-             //   this.operatorTableAdapter.Fill(this.vEDataSet.Operator);
-                // TODO: 这行代码将数据加载到表“bakeryOrderSet.Product”中。您可以根据需要移动或删除它。
-               // this.productTableAdapter.Fill(this.bakeryOrderSet.Product);
-                // TODO: 这行代码将数据加载到表“sQLVEDataSet.ShipmentDetail”中。您可以根据需要移动或删除它。
-            //    this.shipmentDetailTableAdapter.Fill(this.sQLVEDataSet.ShipmentDetail);
-                // TODO: 这行代码将数据加载到表“sQLVEDataSet.Shipment”中。您可以根据需要移动或删除它。
-             //   this.shipmentTableAdapter.Fill(this.sQLVEDataSet.Shipment);
-               // this.customerTableAdapter.Fill(this.sQLVEDataSet.Customer);
-                // var operatorrow=vEDataSet.Operator.Select("OperatorID='" + MyFunction.OperatorID + "'");
-              //  var opertatorrow = from row in vEDataSet.Operator where row.OperatorID == MyFunction.OperatorID select row;
                 var opertatorrow = from row in damaiDataSet.Operator where row.OperatorID == MyFunction.OperatorID select row;
                 var ro = opertatorrow.First();
                 if (ro.IsEditShipmentNull())

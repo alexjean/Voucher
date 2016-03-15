@@ -25,6 +25,7 @@ namespace VoucherExpense
 
         private void FormOperatorAuthList_Load(object sender, EventArgs e)
         {
+            operatorAuthListTableAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);  
             var op = m_DataSet.Operator.FindByOperatorID(m_OperatorID);
             if (op == null)
             {

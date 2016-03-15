@@ -34,6 +34,7 @@ namespace VoucherExpense
 #if UseSQLServer
             var apartmentAdapter    = new VoucherExpense.DamaiDataSetTableAdapters.ApartmentTableAdapter();
             var HRAdapter           = new VoucherExpense.DamaiDataSetTableAdapters.HRTableAdapter();
+            apartmentAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
 #else
             var apartmentAdapter    = new VoucherExpense.VEDataSetTableAdapters.ApartmentTableAdapter();
             var HRAdapter           = new VoucherExpense.VEDataSetTableAdapters.HRTableAdapter();

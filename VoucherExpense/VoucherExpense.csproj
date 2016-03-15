@@ -1347,6 +1347,7 @@
     <Compile Include="FormTitleSetup.Designer.cs">
       <DependentUpon>FormTitleSetup.cs</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs" />
     <Compile Include="SQLVEDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

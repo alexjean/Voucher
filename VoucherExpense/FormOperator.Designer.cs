@@ -46,7 +46,6 @@
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.operatorBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
-            this.vEDataSet = new VoucherExpense.VEDataSet();
             this.operatorDataGridView = new System.Windows.Forms.DataGridView();
             this.OperatorID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StopAccount = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -82,7 +81,6 @@
             this.operatorBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -211,11 +209,6 @@
             this.operatorBindingNavigatorSaveItem.Size = new System.Drawing.Size(23, 24);
             this.operatorBindingNavigatorSaveItem.Text = "儲存資料";
             this.operatorBindingNavigatorSaveItem.Click += new System.EventHandler(this.operatorBindingNavigatorSaveItem_Click);
-            // 
-            // vEDataSet
-            // 
-            this.vEDataSet.DataSetName = "VEDataSet";
-            this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // operatorDataGridView
             // 
@@ -501,7 +494,6 @@
             this.operatorBindingNavigator.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -510,7 +502,6 @@
 
         #endregion
 
-        private VEDataSet vEDataSet;
         private System.Windows.Forms.BindingSource operatorBindingSource;
         private System.Windows.Forms.BindingNavigator operatorBindingNavigator;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;

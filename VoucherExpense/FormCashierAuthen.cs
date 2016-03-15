@@ -10,7 +10,7 @@ using System.Xml;
 using System.Drawing.Printing;
 using System.Collections;
 using System.IO;
-#if UseSQLServer
+
 using MyDataSet         = VoucherExpense.DamaiDataSet;
 using MyOrderSet        = VoucherExpense.DamaiDataSet;
 using MyCashierTable    = VoucherExpense.DamaiDataSet.CashierDataTable;
@@ -27,30 +27,15 @@ using MyOrderItemAdapter    = VoucherExpense.DamaiOrderItemAdapter;
 using MyDrawerRecordAdapter = VoucherExpense.DamaiDrawerRecordAdapter;
 using System.Security.Cryptography;
 using System.Data.SqlClient;
-#else
-using MyDataSet         = VoucherExpense.VEDataSet;
-using MyOrderSet        = VoucherExpense.BakeryOrderSet;
-using MyCashierTable    = VoucherExpense.BakeryOrderSet.CashierDataTable;
-using MyHeaderRow       = VoucherExpense.BakeryOrderSet.HeaderRow;
-using MyCashierRow      = VoucherExpense.BakeryOrderSet.CashierRow;
-using MyOrderRow        = VoucherExpense.BakeryOrderSet.OrderRow;
-using MyProductRow      = VoucherExpense.BakeryOrderSet.ProductRow;
-using MyHeaderAdapter       = VoucherExpense.BakeryOrderSetTableAdapters.HeaderTableAdapter;
-using MyCashierAdapter      = VoucherExpense.BakeryOrderSetTableAdapters.CashierTableAdapter;
-using MyProductAdapter      = VoucherExpense.BakeryOrderSetTableAdapters.ProductTableAdapter;
-
-using MyOrderAdapter        = VoucherExpense.BakeryOrderAdapter;
-using MyOrderItemAdapter    = VoucherExpense.BakeryOrderItemAdapter;
-using MyDrawerRecordAdapter = VoucherExpense.BakeryDrawerRecordAdapter;
-using System.Security.Cryptography;
-#endif
 
 namespace VoucherExpense
 {
     public partial class FormCashierAuthen : Form
     {
-        public FormCashierAuthen()
+        DamaiDataSet.ApartmentRow m_DefaultApartment;
+        public FormCashierAuthen(DamaiDataSet.ApartmentRow defaultApartment)
         {
+            m_DefaultApartment = defaultApartment;
             InitializeComponent();
         }
 
@@ -70,46 +55,40 @@ namespace VoucherExpense
             m_Cfg= MyFunction.HardwareCfg;
             btnCloundSyncAuto.Visible = m_Cfg.EnableCloudSync;
 
-#if UseSQLServer
+
             HideBackupOption();
             m_OrderSet = m_DataSet;
             var operatorAdapter = new VoucherExpense.DamaiDataSetTableAdapters.OperatorTableAdapter();
-            var apartmentAdapter = new VoucherExpense.DamaiDataSetTableAdapters.ApartmentTableAdapter();
-#else
-            m_OrderSet = new VoucherExpense.BakeryOrderSet();
-            var operatorAdapter = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
-            operatorAdapter.Connection  = MapPath.VEConnection;
-            HeaderAdapter.Connection    = MapPath.BakeryConnection;
-            OrderAdapter.Connection     = MapPath.BakeryConnection;
-            OrderItemAdapter.Connection = MapPath.BakeryConnection;
-            DrawerAdapter.Connection    = MapPath.BakeryConnection;
-            CashierAdapter.Connection   = MapPath.BakeryConnection;     // cashierTableAdapter宣告位置不同
-            ProductAdapter.Connection   = MapPath.BakeryConnection;
-#endif
+            operatorAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+            //var apartmentAdapter = new VoucherExpense.DamaiDataSetTableAdapters.ApartmentTableAdapter();
+            //apartmentAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+
             cashierBindingSource.DataSource  = m_OrderSet;
             operatorBindingSource.DataSource = m_DataSet;
             try
             {
                 operatorAdapter.Fill(m_DataSet.Operator);
                 CashierAdapter.Fill (m_OrderSet.Cashier);
-                apartmentAdapter.Fill(m_DataSet.Apartment);
+                //apartmentAdapter.Fill(m_DataSet.Apartment);
+                //if (m_DataSet.Apartment.Rows.Count != 0)
+                //{
+                //    var a0 = m_DataSet.Apartment[0];
+                //    foreach (var a in m_DataSet.Apartment)
+                //    {
+                //        if (!a.IsIsCurrentNull() && a.IsCurrent)
+                //        {
+                //            a0 = a;
+                //            break;
+                //        }
+                //    }
+                //    if (!a0.IsAppartementCodeNull())
+                //    {
+                //        m_StoreID = a0.AppartementCode;
+                //    }
+                //}
+                if (!m_DefaultApartment.IsAppartementCodeNull())
+                    m_StoreID = m_DefaultApartment.AppartementCode;
 
-                if (m_DataSet.Apartment.Rows.Count != 0)
-                {
-                    var a0 = m_DataSet.Apartment[0];
-                    foreach (var a in m_DataSet.Apartment)
-                    {
-                        if (!a.IsIsCurrentNull() && a.IsCurrent)
-                        {
-                            a0 = a;
-                            break;
-                        }
-                    }
-                    if (!a0.IsAppartementCodeNull())
-                    {
-                        m_StoreID = a0.AppartementCode;
-                    }
-                }
                 labelStoreID.Text = m_StoreID.ToString();
                 chBoxOnlyInPosition_CheckedChanged(null, null);
                 DateTime now = DateTime.Now;
@@ -964,18 +943,8 @@ namespace VoucherExpense
             {
                 Message("更新店長封印資訊時,錯誤:" + ex.Message,true);
             }
-#if (UseSQLServer)             
             DoSqlBackup();
-#else
-            dir=textBoxBackupDir.Text.Trim();
-            if (dir.Length > 0)
-            {
-                Message("備份至<" + dir + ">");
-                BackupData.DoBackup(".", dir);
-                Message("封印及備份完成！",true);
-            }
-            else
-#endif
+
                 Message("封印完成！");
         }
 
@@ -1072,19 +1041,11 @@ namespace VoucherExpense
         {
             ClearMessage();
             DirectoryInfo mainDirInfo = new DirectoryInfo(MapPath.DataDir+"Photos\\Products");
-#if (UseSQLServer)
             List<MyFileInfo> mainFileInfos;
             try
             {
                 ProductAdapter.Fill(m_OrderSet.Product);
                 mainFileInfos = GetFileInfoFromPhotosDB((short)PhotoTableID.Product);
-#else
-            List<FileInfo> mainFileInfos;
-            try
-            {
-                ProductAdapter.Fill(m_OrderSet.Product);
-                mainFileInfos = mainDirInfo.GetFiles("*.jpg").ToList<FileInfo>();
-#endif
             }
             catch (Exception ex)
             {

@@ -438,7 +438,10 @@ namespace VoucherExpense
 
         private void 收銀授權ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PopupOrRun("收銀授權", typeof(FormCashierAuthen));
+//            PopupOrRun("收銀授權", typeof(FormCashierAuthen));
+
+            if (!PopupMenu("收銀授權"))
+                Run("收銀授權", new FormCashierAuthen(m_DefaultApartment));
         }
 
         private void 分類MenuItem_Click(object sender, EventArgs e)

@@ -71,6 +71,7 @@ namespace VoucherExpense
             var operatorAdapter     = new VoucherExpense.DamaiDataSetTableAdapters.OperatorTableAdapter();
             var accTitleAdapter     = new VoucherExpense.DamaiDataSetTableAdapters.AccountingTitleTableAdapter();
             var HRAdapter           = new VoucherExpense.DamaiDataSetTableAdapters.HRTableAdapter();
+            operatorAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
 #else
             var bankAccountAdapter  = new VoucherExpense.VEDataSetTableAdapters.BankAccountTableAdapter();
             var operatorAdapter     = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();

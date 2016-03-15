@@ -47,6 +47,7 @@ namespace VoucherExpense
         {
             try
             {
+                apartmentSQLAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
                 this.apartmentSQLAdapter.Fill(this.damaiDataSet.Apartment);
                 foreach (var encryptedRow in damaiDataSet.Apartment)
                 {

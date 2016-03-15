@@ -46,9 +46,10 @@ namespace VoucherExpense
         private void Voucher_Load(object sender, EventArgs e)
         {
 #if UseSQLServer
-            var operatorAdapter         = new VoucherExpense.DamaiDataSetTableAdapters.OperatorTableAdapter();
             var accountingTitleAdapter  = new VoucherExpense.DamaiDataSetTableAdapters.AccountingTitleTableAdapter();
             var vendorAdapter           = new VoucherExpense.DamaiDataSetTableAdapters.VendorTableAdapter();
+            var operatorAdapter         = new VoucherExpense.DamaiDataSetTableAdapters.OperatorTableAdapter();
+            operatorAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
 #else
             var operatorAdapter         = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
             var accountingTitleAdapter  = new VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter();

@@ -75,6 +75,7 @@ namespace VoucherExpense
             var shiftDetailAdapter  = new VoucherExpense.DamaiDataSetTableAdapters.ShiftDetailTableAdapter();
             var hRAdapter           = new VoucherExpense.DamaiDataSetTableAdapters.HRTableAdapter();
             var operatorAdapter     = new VoucherExpense.DamaiDataSetTableAdapters.OperatorTableAdapter();
+            operatorAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
 #else
             var shiftDetailAdapter  = new VoucherExpense.VEDataSetTableAdapters.ShiftDetailTableAdapter();
             var hRAdapter           = new VoucherExpense.VEDataSetTableAdapters.HRTableAdapter();

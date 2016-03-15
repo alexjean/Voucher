@@ -35,7 +35,10 @@ namespace VoucherExpense
                 this.bankAccountTableAdapter.Fill(this.damaiDataSet.BankAccount);
                 this.customerTableAdapter.Fill(this.damaiDataSet.Customer);
                 this.vendorTableAdapter.Fill(this.damaiDataSet.Vendor);
+
+                operatorTableAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
                 this.operatorTableAdapter.Fill(this.damaiDataSet.Operator);
+
                 this.hRTableAdapter.Fill(this.damaiDataSet.HR);
                 this.accountingTitleTableAdapter.Fill(this.damaiDataSet.AccountingTitle);
 

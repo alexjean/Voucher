@@ -542,7 +542,12 @@ namespace VoucherExpense
             if (!order.IsOldIDNull())       newOrder.OldID      = order.OldID;
             if (!order.IsRCashierIDNull())  newOrder.RCashierID = order.RCashierID;
             str += newOrder.OldID.ToString();        // 這二個在SQL裏是NotNULL
-            str += newOrder.RCashierID.ToString();  
+            str += newOrder.RCashierID.ToString();
+            if (!order.IsMemberIDNull())
+            {
+                newOrder.MemberID = order.MemberID;
+                str += order.MemberID.ToString();
+            }
             // 計算MD5
 #if (UseSQLServer)
             byte[] md5 = m_MD5.ComputeHash(Encoding.Unicode.GetBytes(str));

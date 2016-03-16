@@ -60,6 +60,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label13 = new System.Windows.Forms.Label();
             this.labelAlipayNo = new System.Windows.Forms.Label();
+            this.labelMemberID = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -86,7 +87,7 @@
             this.lvItems.HideSelection = false;
             this.lvItems.Location = new System.Drawing.Point(2, 0);
             this.lvItems.Name = "lvItems";
-            this.lvItems.Size = new System.Drawing.Size(226, 336);
+            this.lvItems.Size = new System.Drawing.Size(226, 311);
             this.lvItems.TabIndex = 2;
             this.lvItems.UseCompatibleStateImageBehavior = false;
             this.lvItems.View = System.Windows.Forms.View.Details;
@@ -158,7 +159,7 @@
             // 
             // labelDeduct
             // 
-            this.labelDeduct.Location = new System.Drawing.Point(83, 380);
+            this.labelDeduct.Location = new System.Drawing.Point(83, 356);
             this.labelDeduct.Name = "labelDeduct";
             this.labelDeduct.Size = new System.Drawing.Size(124, 25);
             this.labelDeduct.TabIndex = 6;
@@ -166,7 +167,7 @@
             // 
             // labelIncome
             // 
-            this.labelIncome.Location = new System.Drawing.Point(85, 346);
+            this.labelIncome.Location = new System.Drawing.Point(85, 322);
             this.labelIncome.Name = "labelIncome";
             this.labelIncome.Size = new System.Drawing.Size(124, 25);
             this.labelIncome.TabIndex = 7;
@@ -186,7 +187,7 @@
             // 
             this.btnClass.BackColor = System.Drawing.Color.SeaShell;
             this.btnClass.Enabled = false;
-            this.btnClass.Location = new System.Drawing.Point(2, 332);
+            this.btnClass.Location = new System.Drawing.Point(2, 308);
             this.btnClass.Name = "btnClass";
             this.btnClass.Size = new System.Drawing.Size(75, 53);
             this.btnClass.TabIndex = 12;
@@ -376,12 +377,21 @@
             this.labelAlipayNo.TabIndex = 14;
             this.labelAlipayNo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // labelMemberID
+            // 
+            this.labelMemberID.Location = new System.Drawing.Point(4, 390);
+            this.labelMemberID.Name = "labelMemberID";
+            this.labelMemberID.Size = new System.Drawing.Size(228, 24);
+            this.labelMemberID.TabIndex = 15;
+            this.labelMemberID.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // FormStatics
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Azure;
             this.ClientSize = new System.Drawing.Size(1024, 768);
+            this.Controls.Add(this.labelMemberID);
             this.Controls.Add(this.labelAlipayNo);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label13);
@@ -439,5 +449,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label labelAlipayNo;
+        private System.Windows.Forms.Label labelMemberID;
     }
 }

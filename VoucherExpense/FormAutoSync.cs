@@ -658,6 +658,14 @@ namespace VoucherExpense
             return false;
         }
 
+        List<string> m_CloudBaseTable = new List<string> { "Operator", "Apartment", "OperatorAuthList" };
+        private bool RegionDatabase(string tableName)
+        {
+            foreach (string name in m_CloudBaseTable)
+                if (tableName == name) return true;
+            return false;            
+        }
+
         void LoadOrderItem(DataSet dataSet, DB.TableInfo tableInfo, SqlConnection conn)
         {
             try
@@ -824,6 +832,7 @@ namespace VoucherExpense
             {
                 string tableName = table.Key;
                 if (tableName.StartsWith("Sync")) continue;                            // 同步系統用檔案不用算Md5
+                if (RegionDatabase(tableName)) continue;                               // RegionDatabase暫不同步,將來再處理,只准云端蓋本地
                 //if (tableName != "Expense") continue;
                 DB.TableInfo tableInfoLocal = null, tableInfoCloud = null;
                 if (!TableInfoLocal.TryGetValue(tableName, out tableInfoLocal))
@@ -839,6 +848,7 @@ namespace VoucherExpense
                         msg += "-" + child.Name;
                 msg += "> ";
                 msg = msg.PadRight(35);
+
                 // 算出 所有Table MD5Now
                 // 比對新舊MD5 找出變更及新增資料 建差異表md5ResultLocal
                 // 算本地的MD5Now (Order OrderItem及DrawerRecord不算)

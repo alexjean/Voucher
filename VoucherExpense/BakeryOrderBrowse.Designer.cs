@@ -63,6 +63,7 @@
             this.labelReturned = new System.Windows.Forms.Label();
             this.labelAlipayNo = new System.Windows.Forms.Label();
             this.btnAlipayRefund = new System.Windows.Forms.Button();
+            this.labelMemberID = new System.Windows.Forms.Label();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStatics)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hourStaticsBindingSource)).BeginInit();
@@ -81,7 +82,7 @@
             this.lvItems.HideSelection = false;
             this.lvItems.Location = new System.Drawing.Point(2, 0);
             this.lvItems.Name = "lvItems";
-            this.lvItems.Size = new System.Drawing.Size(226, 350);
+            this.lvItems.Size = new System.Drawing.Size(226, 322);
             this.lvItems.TabIndex = 2;
             this.lvItems.UseCompatibleStateImageBehavior = false;
             this.lvItems.View = System.Windows.Forms.View.Details;
@@ -282,7 +283,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(46, 409);
+            this.label1.Location = new System.Drawing.Point(49, 353);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 16);
             this.label1.TabIndex = 6;
@@ -290,7 +291,7 @@
             // 
             // labelTotal
             // 
-            this.labelTotal.Location = new System.Drawing.Point(130, 409);
+            this.labelTotal.Location = new System.Drawing.Point(133, 353);
             this.labelTotal.Name = "labelTotal";
             this.labelTotal.Size = new System.Drawing.Size(71, 16);
             this.labelTotal.TabIndex = 7;
@@ -335,7 +336,7 @@
             // 
             // labelDeduct
             // 
-            this.labelDeduct.Location = new System.Drawing.Point(130, 381);
+            this.labelDeduct.Location = new System.Drawing.Point(133, 325);
             this.labelDeduct.Name = "labelDeduct";
             this.labelDeduct.Size = new System.Drawing.Size(71, 16);
             this.labelDeduct.TabIndex = 59;
@@ -344,7 +345,7 @@
             // labelDeductLabel
             // 
             this.labelDeductLabel.AutoSize = true;
-            this.labelDeductLabel.Location = new System.Drawing.Point(46, 381);
+            this.labelDeductLabel.Location = new System.Drawing.Point(49, 325);
             this.labelDeductLabel.Name = "labelDeductLabel";
             this.labelDeductLabel.Size = new System.Drawing.Size(40, 16);
             this.labelDeductLabel.TabIndex = 60;
@@ -353,7 +354,7 @@
             // labelReturned
             // 
             this.labelReturned.AutoSize = true;
-            this.labelReturned.Location = new System.Drawing.Point(-1, 353);
+            this.labelReturned.Location = new System.Drawing.Point(-1, 384);
             this.labelReturned.Name = "labelReturned";
             this.labelReturned.Size = new System.Drawing.Size(56, 16);
             this.labelReturned.TabIndex = 61;
@@ -380,12 +381,23 @@
             this.btnAlipayRefund.Visible = false;
             this.btnAlipayRefund.Click += new System.EventHandler(this.btnAlipayRefund_Click);
             // 
+            // labelMemberID
+            // 
+            this.labelMemberID.AutoSize = true;
+            this.labelMemberID.Location = new System.Drawing.Point(-1, 411);
+            this.labelMemberID.Name = "labelMemberID";
+            this.labelMemberID.Size = new System.Drawing.Size(40, 16);
+            this.labelMemberID.TabIndex = 64;
+            this.labelMemberID.Text = "会员";
+            this.labelMemberID.Visible = false;
+            // 
             // BakeryOrderBrowse
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Azure;
             this.ClientSize = new System.Drawing.Size(908, 637);
+            this.Controls.Add(this.labelMemberID);
             this.Controls.Add(this.btnAlipayRefund);
             this.Controls.Add(this.labelAlipayNo);
             this.Controls.Add(this.labelReturned);
@@ -446,5 +458,6 @@
         private System.Windows.Forms.Label labelReturned;
         private System.Windows.Forms.Label labelAlipayNo;
         private System.Windows.Forms.Button btnAlipayRefund;
+        private System.Windows.Forms.Label labelMemberID;
     }
 }

@@ -72,6 +72,7 @@
             this.pictureBoxOrdered = new System.Windows.Forms.Panel();
             this.lshow = new System.Windows.Forms.Label();
             this.labelMemberCode = new System.Windows.Forms.Label();
+            this.labelMemberID = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.panelLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).BeginInit();
@@ -497,12 +498,22 @@
             this.labelMemberCode.TabIndex = 22;
             this.labelMemberCode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // labelMemberID
+            // 
+            this.labelMemberID.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.labelMemberID.Location = new System.Drawing.Point(24, 414);
+            this.labelMemberID.Name = "labelMemberID";
+            this.labelMemberID.Size = new System.Drawing.Size(211, 24);
+            this.labelMemberID.TabIndex = 23;
+            this.labelMemberID.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // FormCashier
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(1024, 768);
+            this.Controls.Add(this.labelMemberID);
             this.Controls.Add(this.labelMemberCode);
             this.Controls.Add(this.lshow);
             this.Controls.Add(this.pictureBoxOrdered);
@@ -584,6 +595,7 @@
         private System.Windows.Forms.Panel pictureBoxOrdered;
         private System.Windows.Forms.Label lshow;
         private System.Windows.Forms.Label labelMemberCode;
+        private System.Windows.Forms.Label labelMemberID;
     }
 }
 

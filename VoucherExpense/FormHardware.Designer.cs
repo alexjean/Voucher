@@ -66,6 +66,8 @@
             this.textBoxSqlDatabase = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.textBoxSharedDatabase = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.btnTestCloud = new System.Windows.Forms.Button();
             this.btnTestLocal = new System.Windows.Forms.Button();
             this.chBoxCloudSync = new System.Windows.Forms.CheckBox();
@@ -78,8 +80,6 @@
             this.textBoxSqlUserID = new System.Windows.Forms.TextBox();
             this.textBoxSqlPassword = new System.Windows.Forms.TextBox();
             this.btnSaveSql = new System.Windows.Forms.Button();
-            this.textBoxSharedDatabase = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -95,8 +95,16 @@
             this.listBox1.Items.AddRange(new object[] {
             "",
             "1 云端資料庫, 分單店及共享. 云端單店資料庫名稱規定和店長端同名.",
-            "   只需設定共享資料庫(含產品食材配方部門)",
+            "   只需設定共享資料庫(含產品 食材 配方 部門 登入權限)",
             "",
+            "2 \'我是主机\' 有打勾時, 全部資料表都在店資料庫, 只有預設在",
+            "    HardwareCfg.xml的 本店資料庫此選項打勾.",
+            "",
+            "    雲端登入或部門切換後,\'我是主机\'此勾不打.  不打勾時,",
+            "    (產品 食材 配方 部門 登入權限)會從區域共享資料庫讀取,",
+            "",
+            "    若[Apartment]內的Sql共享資料庫名或IP位置帳密未設置正確,",
+            "    云端登入將失敗.",
             "---------------------------------------------------------------------------------" +
                 "--------------",
             "",
@@ -492,6 +500,22 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "SQL設定";
             // 
+            // textBoxSharedDatabase
+            // 
+            this.textBoxSharedDatabase.Location = new System.Drawing.Point(347, 91);
+            this.textBoxSharedDatabase.Name = "textBoxSharedDatabase";
+            this.textBoxSharedDatabase.Size = new System.Drawing.Size(169, 27);
+            this.textBoxSharedDatabase.TabIndex = 28;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(292, 96);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(56, 16);
+            this.label11.TabIndex = 29;
+            this.label11.Text = "共享庫";
+            // 
             // btnTestCloud
             // 
             this.btnTestCloud.Location = new System.Drawing.Point(395, 205);
@@ -591,22 +615,6 @@
             this.btnSaveSql.Text = "存檔";
             this.btnSaveSql.UseVisualStyleBackColor = true;
             this.btnSaveSql.Click += new System.EventHandler(this.btnSaveSql_Click);
-            // 
-            // textBoxSharedDatabase
-            // 
-            this.textBoxSharedDatabase.Location = new System.Drawing.Point(347, 91);
-            this.textBoxSharedDatabase.Name = "textBoxSharedDatabase";
-            this.textBoxSharedDatabase.Size = new System.Drawing.Size(169, 27);
-            this.textBoxSharedDatabase.TabIndex = 28;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(292, 96);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(56, 16);
-            this.label11.TabIndex = 29;
-            this.label11.Text = "共享庫";
             // 
             // FormHardware
             // 

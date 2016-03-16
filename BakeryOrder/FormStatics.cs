@@ -311,6 +311,8 @@ namespace BakeryOrder
                 labelIncome.Text = income.ToString("N0");
 
             //labelIncome.Text = income.ToString();
+            if (!order.IsMemberIDNull()) labelMemberID.Text = "会员"+order.MemberID;
+
             labelAlipayNo.Text = "";
             if (order.PayBy[0] == 'D')
             {

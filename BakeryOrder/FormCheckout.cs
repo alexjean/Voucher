@@ -198,7 +198,7 @@ namespace BakeryOrder
                     }
                 }
             }
-            if (m_Form.MemberCode != "" && m_Form.MemberCode!=null)
+            if (m_Form.PayCode != "" && m_Form.PayCode!=null)
             {
                 textBoxCashGot.Enabled = false;
                 textBoxCashGot.Text = "刷支付宝不收现金";

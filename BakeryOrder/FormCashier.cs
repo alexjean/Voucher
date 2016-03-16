@@ -701,6 +701,7 @@ namespace BakeryOrder
                 order.RCashierID = 0;
                 order.TradeNo = "";
                 order.OpenID = "";
+                
                 //if (memberInfo != null)
                 //{
 
@@ -786,17 +787,18 @@ namespace BakeryOrder
 
             //Buf.Append("\r\n");
             Buf.Append(LFSpace);
-            if (card!=null)
-            {
-                 Buf.Append("会员测试单，如给您带来不便请原谅！\r\n");
-                 Buf.Append("会员卡号：" + card.CardNumber.ToString() + "\r\n");
-                 Buf.Append("面包数" + memberScore.Bread.ToString() + "麦子" + memberScore.Score.ToString() + "\r\n");
-                 Buf.Append("本次兑换面包"+ExBread+"获得麦子数" + BreadNO + "\r\n");
-            }
+            //if (card!=null)
+            //{
+            //     Buf.Append("会员测试单，如给您带来不便请原谅！\r\n");
+            //     Buf.Append("会员卡号：" + card.CardNumber.ToString() + "\r\n");
+            //     Buf.Append("面包数" + memberScore.Bread.ToString() + "麦子" + memberScore.Score.ToString() + "\r\n");
+            //     Buf.Append("本次兑换面包"+ExBread+"获得麦子数" + BreadNO + "\r\n");
+            //}
             Buf.Append(m_Printer.Address ); Buf.Append(LFSpace);
             Buf.AppendPadRight(m_Printer.Tel, 19);
             n = (CurrentOrder.ID % 1000);
             Buf.Append("序号:" + m_PosID.ToString() + "-" + n.ToString("d4")); Buf.Append(LFSpace);
+            if (!CurrentOrder.IsMemberIDNull()) Buf.Append("会员卡号：" + CurrentOrder.MemberID.ToString() + "\r\n");
             Buf.AppendPadRight("时间:" + CurrentOrder.PrintTime.ToString("yy/MM/dd HH:mm"), 19);
             Buf.Append("收银" + m_CashierID.ToString("d03") + m_CashierName + "\r\n\r\n");
             Buf.Append(BorderMode);                                      // 設定列印模式28
@@ -1028,7 +1030,9 @@ namespace BakeryOrder
             //myImgControl1.changetext("");
             //textBox1.SelectAll();
             //textBox1.Focus();
-            MemberCode = "";
+            MemberID = "";
+            labelMemberID.Text = "";
+            PayCode = "";
             labelMemberCode.Text = "";
             /*----------------------*/
             int no = CreateOrder(out m_CurrentOrder, m_MaxOrderID) % 10000;
@@ -1431,10 +1435,10 @@ namespace BakeryOrder
                     labelTotal.Text = m_CurrentOrder.Income.ToString();
                 }
                 labelClass.Text = PayByChinese(m_CurrentOrder.PayBy[0]);
-
+                m_CurrentOrder.MemberID = MemberID;
                 if (m_CurrentOrder.PayBy[0] == 'C')  // 支付宝
                 {
-                    if (!Alipay_RSA_Submit(m_CurrentOrder.ID, MemberCode, m_CurrentOrder, m_Printer.AlipayTitle))
+                    if (!Alipay_RSA_Submit(m_CurrentOrder.ID, PayCode, m_CurrentOrder, m_Printer.AlipayTitle))
                     {
                         // 支付宝取消,記錄成刪單,  OpenID為"00000"時,代表Order.TradeNo存的是OutTradeNo
                         m_CurrentOrder.TradeNo = m_Alipay.LastTradeNo;    // 此時記的應該是OutTradeNo
@@ -1672,10 +1676,11 @@ namespace BakeryOrder
        #endregion
 
        private string CodeCache = "";
-       public string MemberCode;
+       public string PayCode;
+       public string MemberID;
        private void FormCashier_KeyPress(object sender, KeyPressEventArgs e)
        {
-           if (char.IsDigit(e.KeyChar))
+           if (char.IsDigit(e.KeyChar) || char.IsLetter(e.KeyChar))
                 CodeCache += (char)e.KeyChar;
         }
 
@@ -1685,13 +1690,26 @@ namespace BakeryOrder
             if (keyData == Keys.Return)
             {
 //                if (CodeCache.Length == 17) // 支付寶的支付碼長度是17
+                if (CodeCache[0] == 'Y')      // 是會員卡
                 {
-                    MemberCode = CodeCache;
-                    labelMemberCode.Text = "支付码 " + MemberCode;
+                    if (CodeCache[1] != 'M')
+                    {
+                        CodeCache = "";
+                        return false;
+                    }
+                    MemberID = CodeCache;
+                    labelMemberID.Text = "会员" + MemberID;
+                    CodeCache = "";
+                    return false;
                 }
-                CodeCache = "";
-                if (lvItems.Items.Count != 0)
-                    btnDoCashier.PerformClick();
+                else  // 頭不是YM ,支付宝或微信
+                {
+                    PayCode = CodeCache;
+                    labelMemberCode.Text = "支付码 " + PayCode;
+                    CodeCache = "";
+                    if (lvItems.Items.Count != 0)
+                        btnDoCashier.PerformClick();
+                }
                 return false;      // 吃掉Return
             }
             else 

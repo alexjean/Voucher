@@ -364,6 +364,7 @@ namespace VoucherExpense
             lvItems.Columns[3].Text = total.ToString("N0");
 
             labelReturned.Visible = false;
+            labelMemberID.Visible = false;
             if (!order.IsIncomeNull())
             {
                 if (!order.IsDeductNull())
@@ -390,6 +391,11 @@ namespace VoucherExpense
                         labelReturned.Text+="     時間 " + order.PrintTime.ToString("HH:mm:ss");
                     labelReturned.Visible = true;
                 }
+            }
+            if (!order.IsMemberIDNull())
+            {
+                labelMemberID.Text = "会员" + order.MemberID;
+                labelMemberID.Visible = true;
             }
             return true;
         }

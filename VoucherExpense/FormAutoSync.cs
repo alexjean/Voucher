@@ -17,7 +17,7 @@ namespace VoucherExpense
             InitializeComponent();
         }
 
-        SqlConnection LocalServer, CloudServer;
+        SqlConnection LocalServer, CloudServer,RegionServer;
         bool AllowLeave = true;
         HardwareConfig m_Cfg ;
         // = new HardwareConfig();
@@ -70,19 +70,33 @@ namespace VoucherExpense
             }
         }
 
-        bool ConnectBothServer()
+        bool ConnectAllServer()
         {
             LocalServer = ConnectServer("本地",  m_Cfg.Database, m_Cfg.Local);
             if (LocalServer == null) return false;
             CloudServer = ConnectServer("雲端",  m_Cfg.Database, m_Cfg.Cloud);   // 除Region外,共用Local的DatabaseName
-            if (CloudServer != null) return true;
-            try
+            if (CloudServer == null)
             {
-                LocalServer.Close();
-                LocalServer = null;
+                try
+                {
+                    LocalServer.Close();
+                    LocalServer = null;
+                }
+                catch { }
+                return false;
             }
-            catch { }
-            return false;
+            RegionServer = ConnectServer("區域", m_Cfg.SharedDatabase, m_Cfg.Cloud);
+            if (RegionServer == null)
+            {
+                try
+                {
+                    LocalServer.Close(); LocalServer = null;
+                    CloudServer.Close(); CloudServer = null;
+                }
+                catch { }
+                return false;
+            }
+            return true;
         }
 
         void Message(string msg)
@@ -91,7 +105,7 @@ namespace VoucherExpense
             Application.DoEvents();
         }
 
-        bool DoCheckSyncTable(string title, SqlConnection conn, ref Dictionary<string, List<DB.SqlColumnStruct>> dicStruct, ref Dictionary<string, DB.TableInfo> dicTableID)
+        bool DoCheckSyncTable(string title, SqlConnection conn, ref Dictionary<string, List<DB.SqlColumnStruct>> dicStruct, out Dictionary<string, DB.TableInfo> dicTableID)
         {
             if (!dicStruct.ContainsKey("SyncTable"))
             {
@@ -104,10 +118,11 @@ namespace VoucherExpense
                 Message(title + "SyncTable檢查失敗!");
                 goto FAIL;
             }
-            dicTableID = DB.GetTableID(conn);                   // 分別載入Local及Cloud的存在SyncTable中的TableID
+            dicTableID = DB.GetTableIDFromSyncTable(conn);                   // 分別載入Local及Cloud的存在SyncTable中的TableID
             return true;
         FAIL:
             Message("==========請重新執行=========================");
+            dicTableID = new Dictionary<string, DB.TableInfo>();
             return false;
         }
 
@@ -689,64 +704,60 @@ namespace VoucherExpense
             catch { }
         }
 
-
-        private void CloudSyncOnce()
+        string GetFatherByNameRule(string name)
         {
-            Message("=========開始同步  " + DateTime.Now.ToShortTimeString() + "  ===================");
-            if (!ConnectBothServer()) return;                                                           // 連本机 連雲端
-            Dictionary<string, List<DB.SqlColumnStruct>> StructLocal = DB.GetTablesName(LocalServer);    // 本机所有TableName
-            Dictionary<string, List<DB.SqlColumnStruct>> StructCloud = DB.GetTablesName(CloudServer);
-            var TableInfoLocal = new Dictionary<string, DB.TableInfo>();                                  // 在SyncTable內的TableName及TableID 
-            var TableInfoCloud = new Dictionary<string, DB.TableInfo>();
-            //if (!StructCloud.ContainsKey("SyncUpdatedVersion"))
-            //{
-            //    if (!DB.AskCreateDataTable("雲端", DB.SyncDataTable.SyncUpdatedVersion, CloudServer))
-            //        return;
-            //}
+            if      (name.Equals("ShiftDetail"))        return "ShiftTable";
+            else if (name.EndsWith("Detail"))           return name.Substring(0, name.Length - 6);
+            else if (name.EndsWith("Item"))             return name.Substring(0, name.Length - 4);
+            else if (name.Equals("InventoryProducts"))  return "Inventory";
+            return null;
+        }
 
-            if (!DoCheckSyncTable("本地", LocalServer, ref StructLocal, ref TableInfoLocal)) return;     // 檢查是否存在,再載入存於SyncTable的TableID
-            if (!DoCheckSyncTable("雲端", CloudServer, ref StructCloud, ref TableInfoCloud)) return;
-            if (!DoCheckSyncMD5Old("本地", LocalServer, ref StructLocal)) return;
-            if (!DoCheckSyncMD5Old("雲端", CloudServer, ref StructCloud)) return;
+        bool BuildStructTable(ref Dictionary<string, List<DB.SqlColumnStruct>> StructLocal, out Dictionary<string, DB.TableInfo> TableInfoLocal,
+                              ref Dictionary<string, List<DB.SqlColumnStruct>> StructCloud, out Dictionary<string, DB.TableInfo> TableInfoCloud,
+                              ref Dictionary<string,List<DB.SqlColumnStruct>> StructRegion, out Dictionary<string, DB.TableInfo> TableInfoRegion)
+        {
+            TableInfoCloud = new Dictionary<string, DB.TableInfo>();
+            TableInfoLocal = new Dictionary<string, DB.TableInfo>();
+            TableInfoRegion = new Dictionary<string, DB.TableInfo>();
+            if (!DoCheckSyncTable("本地", LocalServer, ref StructLocal, out TableInfoLocal)) return false;     // 檢查是否存在,再載入存於SyncTable的TableID
+            if (!DoCheckSyncTable("雲端", CloudServer, ref StructCloud, out TableInfoCloud)) return false;
+            if (!DoCheckSyncMD5Old("本地", LocalServer, ref StructLocal)) return false;
+            if (!DoCheckSyncMD5Old("雲端", CloudServer, ref StructCloud)) return false;
             ShowStatus("取得本地ForeignKey定義!");
             List<DB.ForeignKey> listFKLocal = DB.GetForeignKey(LocalServer);
             ShowStatus("取得雲ForeignKey定義!");
             List<DB.ForeignKey> listFKCloud = DB.GetForeignKey(CloudServer);
+            // Region資料庫目前沒有ForeignKey
 
-            //int updatedVersion;
-            //if (!DB.GetDeletedVersion(CloudServer, out updatedVersion))  // 雲端Deleted的版本号
-            //{
-            //    MessageBox.Show("無法取得或鎖定雲端己更新版本号!");
-            //    return;
-            //}
-            //Message("雲端己更新版本号為<"+updatedVersion.ToString()+">");
+            ShowStatus("取得區域資料庫結構!");
+            // 區域資料庫的同步不記憶在SyncMD5, 是雲端直接覆蓋本地, 故不用做[SyncTalbe] Map TableID
+            TableInfoRegion=DB.AssignTableID_InitTableInfo(RegionServer, StructRegion);
+            if (TableInfoRegion == null)
+            {
+                Message("=========區域資料庫(Region)結構讀取失敗!==========");
+                return false;
+            }
+
+
             Message("=========比對本地及雲端資料庫==================");
             // 填入 Struct及PrimaryKeys
-            foreach (string name in StructLocal.Keys.ToList())
-            {
-                StructLocal[name] = DB.GetStruct(name, LocalServer);
-                DB.TableInfo me;
-                if (TableInfoLocal.TryGetValue(name, out me))
-                {
-                    me.Struct = StructLocal[name];
-                    me.PrimaryKeys = (from pk in me.Struct where pk.IsPrimaryKey select pk).ToList();
-                }
-            }
-            foreach (string name in StructCloud.Keys.ToList())
-            {
-                StructCloud[name] = DB.GetStruct(name, CloudServer);
-                DB.TableInfo me;
-                if (TableInfoCloud.TryGetValue(name, out me))
-                {
-                    me.Struct = StructCloud[name];
-                    me.PrimaryKeys = (from pk in me.Struct where pk.IsPrimaryKey select pk).ToList();
-                }
-            }
+            DB.FillStructAndTableInfo(LocalServer , ref StructLocal , ref TableInfoLocal);
+            DB.FillStructAndTableInfo(CloudServer , ref StructCloud , ref TableInfoCloud);
+            DB.FillStructAndTableInfo(RegionServer, ref StructRegion, ref TableInfoRegion);
+
             // 比對Local及Cloud每個Table的檔案結構是否相同
             List<string> keys = StructLocal.Keys.ToList();
+            List<string> cloudKeys = StructCloud.Keys.ToList();
+            foreach (string cloud in cloudKeys)              // Cloud Database和Region相同的移除
+            {
+                if (StructRegion.ContainsKey(cloud))
+                    StructCloud.Remove(cloud);
+            }
             List<string> shouldRemoved = new List<string>();
             foreach (string local in keys)
             {
+                string errMsg;
                 string fatherName = null;
                 if (local == DB.SyncDataTable.SyncMD5Now.ToString()) continue;    // Md5Now檔案二端同時自動產生, 不用比較
                 if (local == "DrawerRecord")
@@ -757,23 +768,20 @@ namespace VoucherExpense
                 ShowStatus("比對 " + local);
                 if (StructCloud.ContainsKey(local))
                 {
-                    if (local.Equals("ShiftDetail")) fatherName = "ShiftTable";
-                    else if (local.EndsWith("Detail")) fatherName = local.Substring(0, local.Length - 6);
-                    else if (local.EndsWith("Item")) fatherName = local.Substring(0, local.Length - 4);
-                    else if (local.Equals("InventoryProducts")) fatherName = "Inventory";
-                    if (fatherName != null)
-                        if (!StructLocal.ContainsKey(fatherName)) fatherName = null;      // 例如BankDetail其實不是副檔,沒有主檔叫Bank
-                    string errMsg;
+                    fatherName = GetFatherByNameRule(local);
+                    if (fatherName != null)                                               // 根據命名規則有Father,結果找不到Father檔,有問題
+                        if (!StructLocal.ContainsKey(fatherName)) fatherName = null;      // 主檔不存在,表示不是副檔,只是取名為%Detail或%Item
+                                                                                          // 例如BankDetail其實不是副檔,沒有主檔叫Bank
                     if (!DB.SameStructWithPK(StructLocal[local], StructCloud[local],out errMsg))
                     {
                         Message(local+"不同 -> " +errMsg);
                         if (local.Length > 4 && local.Substring(0, 4) == "Sync")
                         {
                             MessageBox.Show("Table[Sync*] 為同步所需檔案,不可不同,同步停止!");
-                            return;
+                            return false;
                         }
                         shouldRemoved.Add(local);
-                        if (fatherName != null) shouldRemoved.Add(fatherName);  // 副檔不同,主檔也不同步. 主檔不存在,表示不是副檔,只是取名為%Detail或%Item
+                        if (fatherName != null) shouldRemoved.Add(fatherName);  // 副檔不同,主檔也不同步. 
                     }
                     else if (DB.GetFirstKeyType(StructLocal[local]) == DB.PrimaryKeyType.Unknown)
                     {
@@ -782,7 +790,7 @@ namespace VoucherExpense
                     }
                     else
                     {
-                        if (fatherName != null)
+                        if (fatherName != null)  // 建立子表
                         {
                             DB.TableInfo fatherInfo, fatherInfoCloud;
                             BuildChildInfo(fatherName, local, StructLocal, TableInfoLocal, listFKLocal, out fatherInfo);
@@ -810,9 +818,32 @@ namespace VoucherExpense
                         }
                     }
                 }
+                else if (StructRegion.ContainsKey(local))  // 比對區域和本地
+                {
+                    fatherName = GetFatherByNameRule(local);
+                    if (fatherName != null)
+                    {
+                        shouldRemoved.Add(fatherName);   // 目前區域資料庫同步不支援有子表的
+                        Message("區域資料庫暫不支援有子表的 " + fatherName+"+"+local);
+                    }
+                    else
+                    {
+                        if (!DB.SameStructWithPK(StructLocal[local], StructRegion[local], out errMsg))
+                        {
+                            Message(local + "不同 -> " + errMsg);
+                            shouldRemoved.Add(local);
+                            if (fatherName != null) shouldRemoved.Add(fatherName);  // 副檔不同,主檔也不同步. 
+                        }
+                        else if (DB.GetFirstKeyType(StructLocal[local]) == DB.PrimaryKeyType.Unknown)
+                        {
+                            Message("未知主Key   <" + local + ">");
+                            shouldRemoved.Add(local);
+                        }
+                    }
+                }
                 else
                 {
-                    Message("雲端無 " + local);
+                    Message("雲端及區域無 " + local);
                     shouldRemoved.Add(local);
                 }
                 if (fatherName != null) shouldRemoved.Add(local);  // 副檔案不用各別計算 
@@ -821,9 +852,31 @@ namespace VoucherExpense
             {
                 StructLocal.Remove(name);
                 StructCloud.Remove(name);
+                StructRegion.Remove(name);
             }
+
             ShowStatus("資料庫結構比對完成!");
             Message("============ 以上資料庫將不進行同步! ===========");
+            
+            return true;
+        }
+
+
+        private void CloudSyncOnce()
+        {
+            Message("=========開始同步  " + DateTime.Now.ToShortTimeString() + "  ===================");
+            if (!ConnectAllServer()) return;                                                               // 連本机 連雲端
+            Dictionary<string, List<DB.SqlColumnStruct>> StructLocal = DB.GetTablesName(LocalServer);      // 本机所有TableName
+            Dictionary<string, List<DB.SqlColumnStruct>> StructCloud = DB.GetTablesName(CloudServer);
+            Dictionary<string, List<DB.SqlColumnStruct>> StructRegion= DB.GetTablesName(RegionServer);     // Region的同步不使用MD5檔去記憶,所以不需要記憶TableID . 每次生成再指定就好
+            
+            Dictionary<string, DB.TableInfo> TableInfoLocal;                                   // 在本地SyncTable內的TableName及TableID 
+            Dictionary<string, DB.TableInfo> TableInfoCloud;                                   // 在云端SyncTable內的TableName及TableID  
+            Dictionary<string, DB.TableInfo> TableInfoRegion;                                  // Region的同步不使用 記憶MD5檔去比對,所以不需要TableID建表 . 每次生成再指定就好       
+       
+            if (!BuildStructTable(ref StructLocal , out TableInfoLocal, ref StructCloud, out TableInfoCloud,
+                                  ref StructRegion, out TableInfoRegion  )) return;
+
             DamaiDataSet.SyncMD5OldDataTable MD5LocalDataTable = new DamaiDataSet.SyncMD5OldDataTable();
             DamaiDataSet.SyncMD5OldDataTable MD5CloudDataTable = new DamaiDataSet.SyncMD5OldDataTable();
 

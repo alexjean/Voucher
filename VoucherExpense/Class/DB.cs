@@ -102,7 +102,30 @@ namespace VoucherExpense
             return list;
         }
 
-        public static Dictionary<string, DB.TableInfo> GetTableID(SqlConnection conn)
+
+        public static Dictionary<string, DB.TableInfo> AssignTableID_InitTableInfo(SqlConnection conn,Dictionary<string, List<DB.SqlColumnStruct>> Struct)
+        {
+            var dic = new Dictionary<string, DB.TableInfo>();
+            try
+            {
+                int count = 1;
+                foreach (var row in Struct)
+                {
+                    var tableInfo = new TableInfo();
+                    tableInfo.Name = row.Key;
+                    tableInfo.Childs = null;
+                    //tableInfo.MD5 = DBNull.Value;              // 這二個值在Region不使用
+                    //tableInfo.RecordCount = DBNull.Value ;
+                    tableInfo.TableID = count++;
+                    dic.Add(row.Key, tableInfo);
+                }
+                return dic;
+            }
+            catch { }
+            return null;
+        }
+
+        public static Dictionary<string, DB.TableInfo> GetTableIDFromSyncTable(SqlConnection conn)
         {
             var adapter = new DamaiDataSetTableAdapters.SyncTableTableAdapter();
             adapter.Connection = conn;
@@ -255,6 +278,21 @@ namespace VoucherExpense
                 }
                 return SqlDbType.Structured;   // 未知型態,指定 Structured
             }
+        }
+
+        static public void FillStructAndTableInfo(SqlConnection conn,ref Dictionary<string, List<DB.SqlColumnStruct>> Struct, ref Dictionary<string, DB.TableInfo> TableInfo)
+        {
+            foreach (string name in Struct.Keys.ToList())
+            {
+                Struct[name] = DB.GetStruct(name, conn);
+                DB.TableInfo me;
+                if (TableInfo.TryGetValue(name, out me))
+                {
+                    me.Struct = Struct[name];
+                    me.PrimaryKeys = (from pk in me.Struct where pk.IsPrimaryKey select pk).ToList();
+                }
+            }
+
         }
 
 

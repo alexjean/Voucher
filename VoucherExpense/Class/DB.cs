@@ -705,21 +705,162 @@ namespace VoucherExpense
             public RunningSet(DB.ChildInfo info) { childInfo = info; }
         };
 
-        static public Dictionary<Guid, Md5Result> CalcCompMd5(DB.TableInfo tableInfo, SqlConnection conn,
-                                                    ref DataSet dataSet, ref DamaiDataSet.SyncMD5OldDataTable tableMd5Old)
-        {
 
-            int tableID = tableInfo.TableID;
-            if (tableID == int.MinValue) return null;
-            string tableName = tableInfo.Name;
-            // 判斷主Key型態
+        delegate Guid GetKeyDelegate(DataRow row);
+        static bool SpecialTableGetMd5Result(string tableName, SqlConnection conn,ref DataSet dataSet,
+                                            ref Dictionary<Guid, Md5Result> dicResult)
+        {
+            string SelectCmd;
+            GetKeyDelegate GetKeyFunc;
+            switch(tableName)
+            {
+                case "Order":   SelectCmd = "Select * From [Order]";       // Order只准從本地至雲端,本地全讀不是負擔
+                                GetKeyFunc = (row =>
+                                            {
+                                                byte[] bts = new byte[16];
+                                                IntToBinary16((int)row["ID"], ref bts, 0);
+                                                return new Guid(bts);
+                                            });
+                                break;
+                case "Photos" : SelectCmd = "Select TableID,PhotoID,MD5 From [Photos]";
+                                GetKeyFunc = (row =>
+                                            {
+                                                byte[] bts = new byte[16];
+                                                IntToBinary16((short)row["TableID"], ref bts, 0);
+                                                IntToBinary16((int)row["PhotoID"], ref bts, 8);
+                                                return new Guid(bts);
+                                            });
+                                break;
+
+                case "Program": SelectCmd = "Select [ID],[Md5] From [Program]";
+                                GetKeyFunc = (row => 
+                                            {
+                                                return (Guid)row["ID"];
+                                            });
+                                break;
+                default:
+                                return false;   // 不是特殊檔案,MD5要自己算
+            }
+            DataTable tableNow = new DataTable(tableName);
+            try
+            {
+                SqlDataAdapter adapterNow = new SqlDataAdapter(SelectCmd, conn);
+                adapterNow.MissingSchemaAction = MissingSchemaAction.AddWithKey;
+                dataSet.Tables.Add(tableNow);                     //
+                adapterNow.Fill(dataSet, tableName);              // 這三行一定要這樣寫才會自動填 Columns,一定要指定tableName,而且要存在,要不然會新建一個叫'Table'
+
+                foreach (DataRow row in tableNow.Rows)
+                {
+                    Guid pk = GetKeyFunc(row);
+                    Md5Result val;
+                    object objMD5 = row["MD5"];
+                    if (objMD5 == Convert.DBNull) dicResult.Remove(pk);   // MD5 DBNull 刪掉這個記錄
+                    else if (dicResult.TryGetValue(pk, out val))
+                    {
+                        val.Md5Now = (byte[])objMD5;
+                        if (!val.SameMd5()) val.Status = RowStatus.Changed;
+                        else val.Status = RowStatus.Unchanged;
+                    }
+                    else
+                    {
+                        val = new Md5Result();
+                        val.PrimaryKey = pk;
+                        val.Md5Old = null;
+                        val.Md5Now = (byte[])objMD5;
+                        val.Status = RowStatus.New;
+                        dicResult.Add(pk, val);
+                    }
+                }
+            }
+            catch (Exception ex) { dicResult = null; }
+            return true;
+        }
+
+        public static bool LoadData_CalcMd5_GetMd5Result(string tableName,TableInfo tableInfo,SqlConnection conn,ref DataSet dataSet,
+                                            ref Dictionary<Guid,Md5Result> dicResult)
+        {
             List<SqlColumnStruct> listStruct = tableInfo.Struct;
             PrimaryKeyType PKType = GetFirstKeyType(listStruct);
-            if (PKType == PrimaryKeyType.Unknown) return null;
+            if (PKType == PrimaryKeyType.Unknown) return false;
+            
+            MD5 MD5Provider = new MD5CryptoServiceProvider();
+            SqlDataAdapter adapterNow = new SqlDataAdapter("Select * From [" + tableName + "]", conn);
+            adapterNow.MissingSchemaAction = MissingSchemaAction.AddWithKey;
+            DataTable tableNow = new DataTable(tableName);         //
+            try
+            {
+                dataSet.Tables.Add(tableNow);                     //
+                adapterNow.Fill(dataSet, tableName);              // 這三行一定要這樣寫才會自動填 Columns,一定要指定tableName,而且要存在,要不然會新建一個叫'Table'
+
+                List<RunningSet> Runnings = new List<RunningSet>();
+                if (tableInfo.Childs != null)
+                    foreach (var child in tableInfo.Childs)
+                        Runnings.Add(new RunningSet(child));
+
+                foreach (var run in Runnings)
+                {
+                    ChildInfo info = run.childInfo;
+                    run.adapter = new SqlDataAdapter("Select * From [" + info.Name + "]", conn);
+                    run.table = new DataTable(info.Name);
+                    dataSet.Tables.Add(run.table);
+                    run.childType = GetFirstKeyType(info.Struct);
+                    run.adapter.Fill(dataSet, info.Name);
+                    run.relation = new DataRelation(info.ForeignKeyName, tableNow.Columns[info.FatherKey], run.table.Columns[info.ChildKey]);
+                    dataSet.Relations.Add(run.relation);
+                }
+                foreach (DataRow row in tableNow.Rows)
+                {
+                    byte[] pk;
+                    StringBuilder strBuilder = Row2Str(row, listStruct, PKType, MD5Provider, out pk);
+                    if (strBuilder == null) return false;
+                    foreach (var run in Runnings)
+                    {
+                        if (run.relation == null) continue;
+                        DataRow[] childRows = row.GetChildRows(run.relation);
+                        byte[] childPK;
+                        foreach (DataRow childRow in childRows)
+                            strBuilder.Append(Row2Str(childRow, run.childInfo.Struct, run.childType, MD5Provider, out childPK));
+                    }
+
+                    byte[] md5 = MD5Provider.ComputeHash(Encoding.Unicode.GetBytes(strBuilder.ToString()));   // 還沒考慮Detail
+                    Guid pkGuid = new Guid(pk);
+                    Md5Result val;
+                    if (dicResult.TryGetValue(pkGuid, out val))
+                    {
+                        val.Md5Now = md5;
+                        if (!val.SameMd5()) val.Status = RowStatus.Changed;
+                        else val.Status = RowStatus.Unchanged;
+                    }
+                    else
+                    {
+                        val = new Md5Result();
+                        val.PrimaryKey = pkGuid;
+                        val.Md5Old = null;
+                        val.Md5Now = md5;
+                        val.Status = RowStatus.New;
+                        dicResult.Add(pkGuid, val);
+                    }
+                }
+
+            }
+            catch (Exception ex) { return false; }
+            // 更新SyncTable內容
+            tableInfo.RecordCount = tableNow.Rows.Count;
+            // syncTableRow.MD5 =  ??? File MD5待寫
+            return true;
+
+        }
+
+        static bool Load_SyncMd5Old(int tableID, string tableName, TableInfo tableInfo, SqlConnection conn, ref DamaiDataSet.SyncMD5OldDataTable tableMd5Old,
+            ref Dictionary<Guid, Md5Result> dicResult)
+        {
+                        // 判斷主Key型態
+            List<SqlColumnStruct> listStruct = tableInfo.Struct;
+            PrimaryKeyType PKType = GetFirstKeyType(listStruct);
+            if (PKType == PrimaryKeyType.Unknown) return false;
             // 載入Old
             var adapterOld = new DamaiDataSetTableAdapters.SyncMD5OldTableAdapter();
             adapterOld.Connection = conn;
-            var dicResult = new Dictionary<Guid, Md5Result>();
             //byte[] FileMd5Old=null;
             try
             {
@@ -745,192 +886,30 @@ namespace VoucherExpense
                         case PrimaryKeyType.IntCombined:
                         case PrimaryKeyType.String:
                         case PrimaryKeyType.UniqueIdentifier:   dicResult.Add(result.PrimaryKey, result); break;
-                        default: return null;
+                        default: return false;
                     }
                 }
 
             }
             catch(Exception ex)
             {
-                return null;
+                return false;
             }
-            // 計算New
-            if (tableName == "Order")    // [Order]的MD5量大,是由AP計算的
-            {
-                DataTable tableNow = new DataTable(tableName);
-                try
-                {
-                    SqlDataAdapter adapterNow = new SqlDataAdapter("Select * From [Order]", conn);   // Order只准從本地至雲端,本地全讀不是負擔
-                    adapterNow.MissingSchemaAction = MissingSchemaAction.AddWithKey;
-                    dataSet.Tables.Add(tableNow);                     //
-                    adapterNow.Fill(dataSet, tableName);              // 這三行一定要這樣寫才會自動填 Columns,一定要指定tableName,而且要存在,要不然會新建一個叫'Table'
-
-                    foreach (DataRow row in tableNow.Rows)
-                    {
-                        byte[] bts = new byte[16];
-                        IntToBinary16((int)row["ID"], ref bts, 0);
-                        Guid pk = new Guid(bts);
-                        Md5Result val;
-                        object objMD5 = row["MD5"];
-                        if (objMD5 == Convert.DBNull)  dicResult.Remove(pk);   // MD5 DBNull 刪掉這個記錄
-                        else if (dicResult.TryGetValue(pk, out val))
-                        {
-                            val.Md5Now = (byte[])objMD5;
-                            if (!val.SameMd5()) val.Status = RowStatus.Changed;
-                            else val.Status = RowStatus.Unchanged;
-                        }
-                        else
-                        {
-                            val = new Md5Result();
-                            val.PrimaryKey = pk;
-                            val.Md5Old = null;
-                            val.Md5Now = (byte[])objMD5;
-                            val.Status = RowStatus.New;
-                            dicResult.Add(pk, val);
-                        }
-                    }
-                }
-                catch (Exception ex) { return null; }
-            }
-            else if (tableName == "Photos")
-            {
-                DataTable table = new DataTable();
-                try
-                {
-                    SqlDataAdapter adapterNow = new SqlDataAdapter("Select TableID,PhotoID,MD5 From [Photos]", conn);
-                    adapterNow.MissingSchemaAction = MissingSchemaAction.AddWithKey;
-                    adapterNow.Fill(table);
-                    foreach (DataRow row in table.Rows)
-                    {
-                        byte[] bts = new byte[16];
-                        IntToBinary16((short)row["TableID"], ref bts, 0);
-                        IntToBinary16((int)row["PhotoID"], ref bts, 8);
-                        Guid pk = new Guid(bts);
-                        Md5Result val;
-                        object objMD5=row["MD5"];
-                        if (objMD5 == Convert.DBNull) dicResult.Remove(pk);
-                        else if (dicResult.TryGetValue(pk, out val))
-                        {
-                            val.Md5Now = (byte[])objMD5;
-                            if (!val.SameMd5()) val.Status = RowStatus.Changed;
-                            else val.Status = RowStatus.Unchanged;
-                        }
-                        else
-                        {
-                            val = new Md5Result();
-                            val.PrimaryKey = pk;
-                            val.Md5Old = null;
-                            val.Md5Now = (byte[])objMD5;
-                            val.Status = RowStatus.New;
-                            dicResult.Add(pk, val);
-                        }
-                    }
-                }
-                catch (Exception ex) 
-                {
+            return true;
+        }
+        
+        static public Dictionary<Guid, Md5Result> LoadOldMd5_CalcNewMd5_Compare(DB.TableInfo tableInfo, SqlConnection conn,
+                                                    ref DataSet dataSet, ref DamaiDataSet.SyncMD5OldDataTable tableMd5Old)
+        {
+            int tableID = tableInfo.TableID;
+            if (tableID == int.MinValue) return null;
+            string tableName = tableInfo.Name;
+            var dicResult = new Dictionary<Guid, Md5Result>();
+            if (!Load_SyncMd5Old(tableID, tableName,tableInfo, conn,ref tableMd5Old,ref dicResult))  return null;
+            if (!SpecialTableGetMd5Result(tableName,conn,ref dataSet,ref dicResult))
+            {   // 不是AP算MD5的特殊表,就要自己算
+                if (!LoadData_CalcMd5_GetMd5Result(tableName, tableInfo, conn, ref dataSet, ref dicResult))
                     return null;
-                }
-            }
-            else if (tableName == "Program")
-            {
-                DataTable table = new DataTable();
-                try
-                {
-                    SqlDataAdapter adapterNow = new SqlDataAdapter("Select [ID],[Md5] From [Program]", conn);   // Order只准從本地至雲端,本地全讀不是負擔
-                    adapterNow.MissingSchemaAction = MissingSchemaAction.AddWithKey;
-                    adapterNow.Fill(table);              // 這三行一定要這樣寫才會自動填 Columns,一定要指定tableName,而且要存在,要不然會新建一個叫'Table'
-
-                    foreach (DataRow row in table.Rows)
-                    {
-                        Guid pk = (Guid)row["ID"];
-                        Md5Result val;
-                        object objMD5 = row["Md5"];
-                        if (objMD5 == Convert.DBNull) dicResult.Remove(pk);   // MD5 DBNull 刪掉這個記錄
-                        else if (dicResult.TryGetValue(pk, out val))
-                        {
-                            val.Md5Now = (byte[])objMD5;
-                            if (!val.SameMd5()) val.Status = RowStatus.Changed;
-                            else val.Status = RowStatus.Unchanged;
-                        }
-                        else
-                        {
-                            val = new Md5Result();
-                            val.PrimaryKey = pk;
-                            val.Md5Old = null;
-                            val.Md5Now = (byte[])objMD5;
-                            val.Status = RowStatus.New;
-                            dicResult.Add(pk, val);
-                        }
-                    }
-                }
-                catch (Exception ex) { return null; }
-            }
-            else
-            {
-                MD5 MD5Provider = new MD5CryptoServiceProvider();
-                SqlDataAdapter adapterNow = new SqlDataAdapter("Select * From [" + tableName + "]", conn);
-                adapterNow.MissingSchemaAction = MissingSchemaAction.AddWithKey;
-                DataTable tableNow = new DataTable(tableName);         //
-                try
-                {
-                    dataSet.Tables.Add(tableNow);                     //
-                    adapterNow.Fill(dataSet, tableName);              // 這三行一定要這樣寫才會自動填 Columns,一定要指定tableName,而且要存在,要不然會新建一個叫'Table'
-
-                    List<RunningSet> Runnings = new List<RunningSet>();
-                    if (tableInfo.Childs != null)
-                        foreach (var child in tableInfo.Childs)
-                            Runnings.Add(new RunningSet(child));
-
-                    foreach (var run in Runnings)
-                    {
-                        ChildInfo info = run.childInfo;
-                        run.adapter = new SqlDataAdapter("Select * From [" + info.Name + "]", conn);
-                        run.table = new DataTable(info.Name);
-                        dataSet.Tables.Add(run.table);
-                        run.childType = GetFirstKeyType(info.Struct);
-                        run.adapter.Fill(dataSet, info.Name);
-                        run.relation = new DataRelation(info.ForeignKeyName, tableNow.Columns[info.FatherKey], run.table.Columns[info.ChildKey]);
-                        dataSet.Relations.Add(run.relation);
-                    }
-
-                    foreach (DataRow row in tableNow.Rows)
-                    {
-                        byte[] pk;
-                        StringBuilder strBuilder = Row2Str(row, listStruct, PKType, MD5Provider, out pk);
-                        if (strBuilder == null) return null;
-                        foreach (var run in Runnings)
-                        {
-                            if (run.relation == null) continue;
-                            DataRow[] childRows = row.GetChildRows(run.relation);
-                            byte[] childPK;
-                            foreach (DataRow childRow in childRows)
-                                strBuilder.Append(Row2Str(childRow, run.childInfo.Struct, run.childType, MD5Provider, out childPK));
-                        }
-
-                        byte[] md5 = MD5Provider.ComputeHash(Encoding.Unicode.GetBytes(strBuilder.ToString()));   // 還沒考慮Detail
-                        Guid pkGuid = new Guid(pk);
-                        Md5Result val;
-                        if (dicResult.TryGetValue(pkGuid, out val))
-                        {
-                            val.Md5Now = md5;
-                            if (!val.SameMd5()) val.Status = RowStatus.Changed;
-                            else val.Status = RowStatus.Unchanged;
-                        }
-                        else
-                        {
-                            val = new Md5Result();
-                            val.PrimaryKey = pkGuid;
-                            val.Md5Old = null;
-                            val.Md5Now = md5;
-                            val.Status = RowStatus.New;
-                            dicResult.Add(pkGuid, val);
-                        }
-                    }
-                    // 更新SyncTable內容
-                    tableInfo.RecordCount = tableNow.Rows.Count;
-                    // syncTableRow.MD5 =  ??? File MD5待寫
-                }
-                catch (Exception ex) { return null; }
             }
             return dicResult;
         }

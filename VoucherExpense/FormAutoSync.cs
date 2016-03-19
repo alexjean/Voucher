@@ -535,6 +535,65 @@ namespace VoucherExpense
             return true;
         }
 
+        bool _UpdateDataByMd5Result(string tableName,List<DB.Md5Result> listChanged,string msgDest,
+                                    DataTable dataTableSource,DB.TableInfo tableInfoSource,
+                                    DataTable dataTableDest  ,DB.TableInfo tableInfoDest,DataSet dataSetDest)
+        {
+            foreach (var re in listChanged)
+            {   // 自Source取資料更新Dest端真實檔案
+                try
+                {
+                    DataRow sourceRow = GetRowFromGuidPrimaryKey(re.PrimaryKey, dataTableSource, tableInfoSource);
+                    DataRow destRow = GetRowFromGuidPrimaryKey(re.PrimaryKey, dataTableDest, tableInfoDest);
+                    var colStruct = tableInfoSource.Struct;       // 雲端和本地一定相同,前面己經比對過,所以用同一colStruct
+                    switch (re.Status)
+                    {
+                        case DB.RowStatus.New:
+                        case DB.RowStatus.Changed:
+                            if (sourceRow == null) continue;  // 應該不可能
+                            if (destRow == null)
+                            {
+                                destRow = dataTableDest.NewRow();
+                                CopyRow(sourceRow, destRow, colStruct);
+                                dataTableDest.Rows.Add(destRow);
+                                if (!ProcessChildsRows(tableName, msgDest, dataSetDest, sourceRow, destRow, tableInfoSource, tableInfoDest)) return false;
+                                // 新增在Update時要先放主表,再插入副表
+                            }
+                            else
+                            {   // 分三部分, Source有Dest沒有要新增, Source沒有Dest有要Delete, 二個都有的要覆蓋Dest(覆蓋不好做)
+                                CopyRow(sourceRow, destRow, colStruct);
+                                if (!ProcessChildsRows(tableName, msgDest, dataSetDest, sourceRow, destRow, tableInfoSource, tableInfoDest)) return false;
+                            }
+                            break;
+                        case DB.RowStatus.Deleted:
+                            if (destRow != null)
+                            {
+                                if (tableInfoDest.Childs != null)
+                                    foreach (var child in tableInfoDest.Childs)
+                                    {
+                                        var childRows = destRow.GetChildRows(child.ForeignKeyName);   // 前面CalcMd5應該己經建立Relation
+                                        DataTable tab = dataSetDest.Tables[child.Name];
+                                        foreach (var childRow in childRows)
+                                            tab.Rows.Remove(childRow);          // 先刪子表,再刪總表, 規定Delete Cascade, 所以先將Deleted的ChildRow Remove就好
+                                    }
+                                destRow.Delete();
+                            }
+                            break;
+                        default:
+                            Message("處理 =>" + msgDest + "[" + tableName + "]時出錯,本表同步停止,原因:" + re.Status.ToString() + "我不認得");
+                            return false;  // 不可能,出錯了
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Message("處理 =>" + msgDest + "[" + tableName + "]時出錯,本表同步停止,原因:" + ex.Message);
+                    return false;
+                }
+            } // end of foreach
+            return true;
+        }
+
+
         private bool UpdateRealDataByMd5Result(string tableName, string msgDest, SqlConnection serverConnDest, DB.TableInfo tableInfoSource, DB.TableInfo tableInfoDest,
                                                 DataSet dataSetSource, DataSet dataSetDest, Dictionary<Guid, DB.Md5Result> dicMd5ResultSource)
         {
@@ -568,57 +627,8 @@ namespace VoucherExpense
             }
             if (listChanged.Count > 0)
             {
-                foreach (var re in listChanged)
-                {   // 自Source取資料更新Dest端真實檔案
-                    try
-                    {
-                        DataRow sourceRow = GetRowFromGuidPrimaryKey(re.PrimaryKey, dataTableSource, tableInfoSource);
-                        DataRow destRow = GetRowFromGuidPrimaryKey(re.PrimaryKey, dataTableDest, tableInfoDest);
-                        var colStruct = tableInfoSource.Struct;       // 雲端和本地一定相同,前面己經比對過,所以用同一colStruct
-                        switch (re.Status)
-                        {
-                            case DB.RowStatus.New:
-                            case DB.RowStatus.Changed:
-                                if (sourceRow == null) continue;  // 應該不可能
-                                if (destRow == null)
-                                {
-                                    destRow = dataTableDest.NewRow();
-                                    CopyRow(sourceRow, destRow, colStruct);
-                                    dataTableDest.Rows.Add(destRow);
-                                    if (!ProcessChildsRows(tableName, msgDest, dataSetDest, sourceRow, destRow, tableInfoSource, tableInfoDest)) return false;
-                                    // 新增在Update時要先放主表,再插入副表
-                                }
-                                else
-                                {   // 分三部分, Source有Dest沒有要新增, Source沒有Dest有要Delete, 二個都有的要覆蓋Dest(覆蓋不好做)
-                                    CopyRow(sourceRow, destRow, colStruct);
-                                    if (!ProcessChildsRows(tableName, msgDest, dataSetDest, sourceRow, destRow, tableInfoSource, tableInfoDest)) return false;
-                                }
-                                break;
-                            case DB.RowStatus.Deleted:
-                                if (destRow != null)
-                                {
-                                    if (tableInfoDest.Childs != null)
-                                        foreach (var child in tableInfoDest.Childs)
-                                        {
-                                            var childRows = destRow.GetChildRows(child.ForeignKeyName);   // 前面CalcMd5應該己經建立Relation
-                                            DataTable tab = dataSetDest.Tables[child.Name];
-                                            foreach (var childRow in childRows)
-                                                tab.Rows.Remove(childRow);          // 先刪子表,再刪總表, 規定Delete Cascade, 所以先將Deleted的ChildRow Remove就好
-                                        }
-                                    destRow.Delete();
-                                }
-                                break;
-                            default:
-                                Message("處理 =>" + msgDest + "[" + tableName + "]時出錯,本表同步停止,原因:" + re.Status.ToString() + "我不認得");
-                                return false;  // 不可能,出錯了
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Message("處理 =>" + msgDest + "[" + tableName + "]時出錯,本表同步停止,原因:" + ex.Message);
-                        return false;
-                    }
-                }
+                if (!_UpdateDataByMd5Result(tableName, listChanged, msgDest, dataTableSource, tableInfoSource, dataTableDest, tableInfoDest, dataSetDest))
+                    return false;
                 addCount += listChanged.Count;
                 ShowStatus("更新" + msgDest + "[" + tableName + "]資料  " + addCount.ToString() + "/" + totalCount.ToString() + "筆!");
                 if (!UpdateData(msgDest, tableName, dataSetDest, serverConnDest, tableInfoDest)) return false;
@@ -681,6 +691,16 @@ namespace VoucherExpense
             return false;            
         }
 
+        string GetFatherByNameRule(string name)
+        {
+            if (name.Equals("ShiftDetail")) return "ShiftTable";
+            else if (name.EndsWith("Detail")) return name.Substring(0, name.Length - 6);
+            else if (name.EndsWith("Item")) return name.Substring(0, name.Length - 4);
+            else if (name.Equals("InventoryProducts")) return "Inventory";
+            return null;
+        }
+
+
         void LoadOrderItem(DataSet dataSet, DB.TableInfo tableInfo, SqlConnection conn)
         {
             try
@@ -704,14 +724,6 @@ namespace VoucherExpense
             catch { }
         }
 
-        string GetFatherByNameRule(string name)
-        {
-            if      (name.Equals("ShiftDetail"))        return "ShiftTable";
-            else if (name.EndsWith("Detail"))           return name.Substring(0, name.Length - 6);
-            else if (name.EndsWith("Item"))             return name.Substring(0, name.Length - 4);
-            else if (name.Equals("InventoryProducts"))  return "Inventory";
-            return null;
-        }
 
         bool BuildStructTable(ref Dictionary<string, List<DB.SqlColumnStruct>> StructLocal, out Dictionary<string, DB.TableInfo> TableInfoLocal,
                               ref Dictionary<string, List<DB.SqlColumnStruct>> StructCloud, out Dictionary<string, DB.TableInfo> TableInfoCloud,
@@ -880,13 +892,63 @@ namespace VoucherExpense
             DamaiDataSet.SyncMD5OldDataTable MD5LocalDataTable = new DamaiDataSet.SyncMD5OldDataTable();
             DamaiDataSet.SyncMD5OldDataTable MD5CloudDataTable = new DamaiDataSet.SyncMD5OldDataTable();
 
-            // 找出MD5Old和現有Record的不同
-            foreach (var table in StructLocal)
+            // Region資料庫一律雲端蓋本地,不記憶
+            foreach (string tableName in StructRegion.Keys)
             {
-                string tableName = table.Key;
+                DB.TableInfo infoLocal=null,infoRegion=null;
+                if (!TableInfoLocal.TryGetValue(tableName, out infoLocal))
+                {
+                    Message("無法找到本地[" + tableName + "]的TableInfo!");
+                    continue;
+                }
+                if (!TableInfoRegion.TryGetValue(tableName, out infoRegion))
+                {
+                    Message("無法找到區域[" + tableName + "]的TableInfo!");
+                    continue;
+                }
+                string msg = "同步<" + tableName;
+                if (infoLocal.Childs != null)
+                    foreach (var child in infoLocal.Childs)
+                        msg += "-" + child.Name;
+                msg += "> ";   msg = msg.PadRight(35);
+                var localDataSet =new DataSet();
+                var regionDataSet=new DataSet();
+                var dicResult    =new Dictionary<Guid,DB.Md5Result>();
+                if (!DB.LoadData_CalcMd5_GetMd5Result(tableName, infoLocal, LocalServer, ref localDataSet, ref dicResult))
+                {
+                    msg += " 本地出錯!";
+                    Message(msg);
+                    continue;
+                }
+                foreach (var pair in dicResult)   // 上面Function是通用的,因為dicResult是空的,所有的全是RowStatus.New,放在Md5Now,要手工轉
+                {
+                    pair.Value.Md5Old = pair.Value.Md5Now;
+                    pair.Value.Md5Now = null;
+                    pair.Value.Status = DB.RowStatus.Deleted;
+                }
+                if (!DB.LoadData_CalcMd5_GetMd5Result(tableName, infoRegion, RegionServer, ref regionDataSet, ref dicResult))
+                {
+                    msg += " 區域出錯!";
+                    Message(msg);
+                    continue;
+                }
+                List<DB.Md5Result> listChanged = (from re in dicResult.Values where re.Status != DB.RowStatus.Unchanged select re).ToList();
+                ShowStatus("更新區域至本地[" + tableName + "]資料  " + listChanged.Count + "筆!");
+                if (_UpdateDataByMd5Result(tableName, listChanged, "區域至本地", regionDataSet.Tables[tableName], infoRegion,
+                    localDataSet.Tables[tableName],infoLocal, localDataSet))
+                { 
+                    if (UpdateData("Title",tableName,localDataSet,LocalServer,infoLocal))
+                        msg+=" Ok!";
+                    else
+                        msg+="寫出出錯!";
+                }
+                else msg += " 更新DataSet出錯";
+                Message(msg);
+            }
+            // 同步Cloud部分，找出MD5Old和現有Record的不同
+            foreach (var tableName in StructCloud.Keys)
+            {
                 if (tableName.StartsWith("Sync")) continue;                            // 同步系統用檔案不用算Md5
-                if (RegionDatabase(tableName)) continue;                               // RegionDatabase暫不同步,將來再處理,只准云端蓋本地
-                //if (tableName != "Expense") continue;
                 DB.TableInfo tableInfoLocal = null, tableInfoCloud = null;
                 if (!TableInfoLocal.TryGetValue(tableName, out tableInfoLocal))
                 {
@@ -899,13 +961,15 @@ namespace VoucherExpense
                 if (tableInfoLocal.Childs != null)
                     foreach (var child in tableInfoLocal.Childs)
                         msg += "-" + child.Name;
-                msg += "> ";
-                msg = msg.PadRight(35);
+                msg += "> ";    msg = msg.PadRight(35);
+
+                //Message(msg + "偵錯跳過");
+                //continue;
 
                 // 算出 所有Table MD5Now
                 // 比對新舊MD5 找出變更及新增資料 建差異表md5ResultLocal
                 // 算本地的MD5Now (Order OrderItem及DrawerRecord不算)
-                Dictionary<Guid, DB.Md5Result> md5ResultLocal = DB.CalcCompMd5(tableInfoLocal, LocalServer, ref localDataSet, ref MD5LocalDataTable);
+                Dictionary<Guid, DB.Md5Result> md5ResultLocal = DB.LoadOldMd5_CalcNewMd5_Compare(tableInfoLocal, LocalServer, ref localDataSet, ref MD5LocalDataTable);
                 if (md5ResultLocal == null)
                 {
                     msg += " 本地出錯!";
@@ -920,10 +984,9 @@ namespace VoucherExpense
 
                 string msgCloud = "";
                 if (AllowCloudToLocal(tableName))
-                {
-                    // 算雲端的MD5Now (Order OrderItem及DrawerRecord不算)
+                {   // 算雲端的MD5Now (Order OrderItem及DrawerRecord不算)
                     // 比對新舊MD5 找出變更及新增資料 建差異表md5ResultCloud
-                    md5ResultCloud = DB.CalcCompMd5(tableInfoCloud, CloudServer, ref cloudDataSet, ref MD5CloudDataTable);  // 這個將來一定要在雲端做,Unchanged就不傳回
+                    md5ResultCloud = DB.LoadOldMd5_CalcNewMd5_Compare(tableInfoCloud, CloudServer, ref cloudDataSet, ref MD5CloudDataTable);  // 這個將來一定要在雲端做,Unchanged就不傳回
                     if (md5ResultCloud == null)
                     {
                         msg += " 雲端出錯!";
@@ -946,20 +1009,19 @@ namespace VoucherExpense
 
                 if (tableName == "Order")           // Order不會在UpdateComp表裏載入Source的OrderItem資料,要自己來. Dest資料在UpdateRealDataByMd5Result裏進行
                     LoadOrderItem(localDataSet, tableInfoLocal, LocalServer);
-                else if (SpecialMD5(tableName))     // 特殊MD5的資料沒有載入本地資料
+                else if (SpecialMD5(tableName))     // 特殊MD5的資料沒有載入完全的本地資料
                 {
-                    if (localDataSet.Tables[tableName] == null)
+                    if (localDataSet.Tables[tableName] != null) localDataSet.Tables.Remove(tableName);
+                    DataTable tableSource = new DataTable(tableName);
+                    try
                     {
-                        DataTable tableSource = new DataTable();
-                        try
-                        {
-                            SqlDataAdapter adapterNow = new SqlDataAdapter("Select * From [" + tableName + "]", LocalServer);
-                            adapterNow.MissingSchemaAction = MissingSchemaAction.AddWithKey;
-                            adapterNow.Fill(tableSource);
-                            localDataSet.Tables.Add(tableSource);
-                        }
-                        catch (Exception ex) { Message(msg + "載入[" + tableName + "]出錯,原因:" + ex.Message); continue; };
+                        SqlDataAdapter adapterNow = new SqlDataAdapter("Select * From [" + tableName + "]", LocalServer);
+                        adapterNow.MissingSchemaAction = MissingSchemaAction.AddWithKey;
+                        adapterNow.Fill(tableSource);
+                        localDataSet.Tables.Add(tableSource);
                     }
+                    catch (Exception ex) { Message(msg + "載入[" + tableName + "]出錯,原因:" + ex.Message); continue; };
+
                 }
                 var changedLocal = from loc in md5ResultLocal.Values where loc.Status != DB.RowStatus.Unchanged select loc;
                 if (changedLocal.Count() != 0)
@@ -1003,15 +1065,9 @@ namespace VoucherExpense
                 GC.Collect();
             }
             // 更新SyncTable
+            //Message("偵錯跳過更新SyncTable!");
             DB.UpdateSyncTable(TableInfoLocal, LocalServer);
             DB.UpdateSyncTable(TableInfoCloud, CloudServer);
-
-
-            // 記錄 Deleted 到雲端資料庫,記錄為(雲端Deleted版本号+1), 刪除雲端相對記錄
-            // Call雲端StoredProcedure 比對MD5Old和現有Record,去除己在Deleleted之外 為雲端這段時間 Deleted
-            // 查目前版本号後的Deleted, 執行刪除本地. Deleted版本号設為 為雲端Deleted版本号+1
-            // Deleted如果有新增 雲端Deleted版本號++
-
 
 
             // 傳回各表總MD5 及雲端差異表

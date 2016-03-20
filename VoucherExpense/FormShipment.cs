@@ -109,9 +109,12 @@ namespace VoucherExpense
          try
             {
 
+                this.productClassTableAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+                this.productTableAdapter1.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+
                 this.productClassTableAdapter.Fill(this.damaiDataSet.ProductClass);
-                this.shipmentDetailTableAdapter1.Fill(this.damaiDataSet.ShipmentDetail);
                 this.productTableAdapter1.Fill(this.damaiDataSet.Product);
+                this.shipmentDetailTableAdapter1.Fill(this.damaiDataSet.ShipmentDetail);
                 this.customerTableAdapter1.Fill(this.damaiDataSet.Customer);
                 this.accountingTitleTableAdapter1.Fill(this.damaiDataSet.AccountingTitle);
                 this.shipmentTableAdapter1.Fill(this.damaiDataSet.Shipment);

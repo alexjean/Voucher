@@ -45,7 +45,7 @@
             this.vendorBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.vendorBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.vEDataSet = new VoucherExpense.VEDataSet();
+            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
@@ -72,9 +72,7 @@
             this.noteTextBox = new System.Windows.Forms.TextBox();
             this.fullNameTextBox = new System.Windows.Forms.TextBox();
             this.hideCheckBox = new System.Windows.Forms.CheckBox();
-            this.vendorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.VendorTableAdapter();
             this.lastUpdatedTextBox = new System.Windows.Forms.TextBox();
-            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             this.vendorSQLAdapter = new VoucherExpense.DamaiDataSetTableAdapters.VendorTableAdapter();
             vendorIDLabel = new System.Windows.Forms.Label();
             nameLabel = new System.Windows.Forms.Label();
@@ -89,9 +87,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.vendorBindingNavigator)).BeginInit();
             this.vendorBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.vendorBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vendorDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vendorDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // vendorIDLabel
@@ -220,7 +217,7 @@
             this.vendorBindingNavigator.Name = "vendorBindingNavigator";
             this.vendorBindingNavigator.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.vendorBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.vendorBindingNavigator.Size = new System.Drawing.Size(273, 27);
+            this.vendorBindingNavigator.Size = new System.Drawing.Size(271, 27);
             this.vendorBindingNavigator.TabIndex = 0;
             this.vendorBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -239,15 +236,15 @@
             this.vendorBindingSource.DataMember = "Vendor";
             this.vendorBindingSource.DataSource = this.damaiDataSet;
             // 
-            // vEDataSet
+            // damaiDataSet
             // 
-            this.vEDataSet.DataSetName = "VEDataSet";
-            this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.damaiDataSet.DataSetName = "DamaiDataSet";
+            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 24);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(27, 24);
             this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
@@ -488,10 +485,6 @@
             this.hideCheckBox.Size = new System.Drawing.Size(104, 24);
             this.hideCheckBox.TabIndex = 21;
             // 
-            // vendorTableAdapter
-            // 
-            this.vendorTableAdapter.ClearBeforeFill = true;
-            // 
             // lastUpdatedTextBox
             // 
             this.lastUpdatedTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
@@ -503,11 +496,6 @@
             this.lastUpdatedTextBox.ReadOnly = true;
             this.lastUpdatedTextBox.Size = new System.Drawing.Size(213, 20);
             this.lastUpdatedTextBox.TabIndex = 17;
-            // 
-            // damaiDataSet
-            // 
-            this.damaiDataSet.DataSetName = "DamaiDataSet";
-            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // vendorSQLAdapter
             // 
@@ -550,9 +538,8 @@
             this.vendorBindingNavigator.ResumeLayout(false);
             this.vendorBindingNavigator.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.vendorBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vendorDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vendorDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -560,9 +547,7 @@
 
         #endregion
 
-        private VEDataSet vEDataSet;
         private System.Windows.Forms.BindingSource vendorBindingSource;
-        private VoucherExpense.VEDataSetTableAdapters.VendorTableAdapter vendorTableAdapter;
         private System.Windows.Forms.BindingNavigator vendorBindingNavigator;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;

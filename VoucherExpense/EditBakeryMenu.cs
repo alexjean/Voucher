@@ -6,15 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-#if UseSQLServer
 using MyDataSet = VoucherExpense.DamaiDataSet;
 using MyProductRow = VoucherExpense.DamaiDataSet.ProductRow;
 using MyProductAdapter = VoucherExpense.DamaiDataSetTableAdapters.ProductTableAdapter;
-#else
-using MyDataSet = VoucherExpense.BakeryOrderSet;
-using MyProductRow = VoucherExpense.BakeryOrderSet.ProductRow;
-using MyProductAdapter = VoucherExpense.BakeryOrderSetTableAdapters.ProductTableAdapter;
-#endif
 namespace VoucherExpense
 {
     public partial class EditBakeryMenu : Form
@@ -36,11 +30,9 @@ namespace VoucherExpense
         MyProductAdapter productAdapter = new MyProductAdapter();
         private void EditBakeryMenu_Load(object sender, EventArgs e)
         {
-#if !UseSQLServer
-                productAdapter.Connection = MapPath.BakeryConnection;
-#endif
             try
             {
+                productAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
                 productAdapter.Fill(m_DataSet.Product);
             }
             catch (Exception ex)

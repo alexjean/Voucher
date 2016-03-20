@@ -51,7 +51,6 @@
             this.expenseBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.expenseBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.vEDataSet = new VoucherExpense.VEDataSet();
             this.expenseBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.列印PToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -100,6 +99,7 @@
             this.checkBoxAllAccTitle = new System.Windows.Forms.CheckBox();
             this.ckBoxAllowEdit = new System.Windows.Forms.CheckBox();
             this.btnExportExcel = new System.Windows.Forms.Button();
+            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             expenseIDLabel = new System.Windows.Forms.Label();
             applierIDLabel = new System.Windows.Forms.Label();
             applyTimeLabel = new System.Windows.Forms.Label();
@@ -115,7 +115,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.expenseBindingNavigator)).BeginInit();
             this.expenseBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.expenseBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.expenseDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.employeeBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.titleBindingSource2)).BeginInit();
@@ -125,6 +124,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bankBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.titleBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // expenseIDLabel
@@ -306,12 +306,7 @@
             // expenseBindingSource
             // 
             this.expenseBindingSource.DataMember = "Expense";
-            this.expenseBindingSource.DataSource = this.vEDataSet;
-            // 
-            // vEDataSet
-            // 
-            this.vEDataSet.DataSetName = "VEDataSet";
-            this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.expenseBindingSource.DataSource = this.damaiDataSet;
             // 
             // expenseBindingNavigatorSaveItem
             // 
@@ -429,7 +424,7 @@
             // employeeBindingSource
             // 
             this.employeeBindingSource.DataMember = "HR";
-            this.employeeBindingSource.DataSource = this.vEDataSet;
+            this.employeeBindingSource.DataSource = this.damaiDataSet;
             this.employeeBindingSource.Filter = "";
             // 
             // InnerID
@@ -477,7 +472,7 @@
             // titleBindingSource2
             // 
             this.titleBindingSource2.DataMember = "AccountingTitle";
-            this.titleBindingSource2.DataSource = this.vEDataSet;
+            this.titleBindingSource2.DataSource = this.damaiDataSet;
             this.titleBindingSource2.Filter = "";
             // 
             // dataGridViewCheckBoxColumn1
@@ -499,13 +494,13 @@
             // applierBindingSource
             // 
             this.applierBindingSource.DataMember = "HR";
-            this.applierBindingSource.DataSource = this.vEDataSet;
+            this.applierBindingSource.DataSource = this.damaiDataSet;
             this.applierBindingSource.Filter = "IsApplier";
             // 
             // authorizeBindingSource
             // 
             this.authorizeBindingSource.DataMember = "HR";
-            this.authorizeBindingSource.DataSource = this.vEDataSet;
+            this.authorizeBindingSource.DataSource = this.damaiDataSet;
             this.authorizeBindingSource.Filter = "IsManager=true";
             // 
             // expenseIDTextBox
@@ -605,7 +600,7 @@
             // titleBindingSource
             // 
             this.titleBindingSource.DataMember = "AccountingTitle";
-            this.titleBindingSource.DataSource = this.vEDataSet;
+            this.titleBindingSource.DataSource = this.damaiDataSet;
             this.titleBindingSource.Filter = "TitleCode like \'6*\' or TitleCode=518";
             // 
             // iDTextBox
@@ -660,7 +655,7 @@
             // operatorBindingSource
             // 
             this.operatorBindingSource.DataMember = "Operator";
-            this.operatorBindingSource.DataSource = this.vEDataSet;
+            this.operatorBindingSource.DataSource = this.damaiDataSet;
             // 
             // applyTimeTextBox
             // 
@@ -748,7 +743,7 @@
             // bankBindingSource
             // 
             this.bankBindingSource.DataMember = "BankAccount";
-            this.bankBindingSource.DataSource = this.vEDataSet;
+            this.bankBindingSource.DataSource = this.damaiDataSet;
             // 
             // bankAccountIDComboBox
             // 
@@ -800,7 +795,7 @@
             // titleBindingSource1
             // 
             this.titleBindingSource1.DataMember = "AccountingTitle";
-            this.titleBindingSource1.DataSource = this.vEDataSet;
+            this.titleBindingSource1.DataSource = this.damaiDataSet;
             this.titleBindingSource1.Filter = "";
             // 
             // checkBoxAllAccTitle
@@ -835,6 +830,11 @@
             this.btnExportExcel.Text = "轉Excel";
             this.btnExportExcel.UseVisualStyleBackColor = true;
             this.btnExportExcel.Click += new System.EventHandler(this.btnExportExcel_Click);
+            // 
+            // damaiDataSet
+            // 
+            this.damaiDataSet.DataSetName = "DamaiDataSet";
+            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // Expense
             // 
@@ -892,7 +892,6 @@
             this.expenseBindingNavigator.ResumeLayout(false);
             this.expenseBindingNavigator.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.expenseBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.expenseDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.employeeBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.titleBindingSource2)).EndInit();
@@ -902,6 +901,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bankBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.titleBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -909,7 +909,6 @@
 
         #endregion
 
-        private VEDataSet vEDataSet;
         private System.Windows.Forms.BindingSource expenseBindingSource;
         private System.Windows.Forms.BindingNavigator expenseBindingNavigator;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
@@ -963,5 +962,6 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn TitleCode;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
         private System.Windows.Forms.DataGridViewCheckBoxColumn columnCheck;
+        private DamaiDataSet damaiDataSet;
     }
 }

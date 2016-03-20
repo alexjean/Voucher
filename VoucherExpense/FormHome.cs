@@ -473,7 +473,11 @@ namespace VoucherExpense
 
         private void 请款单ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PopupOrRun("FormBillList", typeof(FormBillList));
+          //  PopupOrRun("FormBillList", typeof(FormBillList));
+
+            if (!PopupMenu("FormBillList"))
+                Run("FormBillList", new FormBillList(m_DefaultApartment));
+
         }
 
         private void 客户ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -481,11 +485,6 @@ namespace VoucherExpense
             PopupOrRun("FormCustomer", typeof(FormCustomer));
         }
 
-
-        private void 单据ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void 产品类别ToolStripMenuItem_Click(object sender, EventArgs e)
         {

@@ -50,8 +50,6 @@
             this.shipmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             this.operatorBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.sQLVEDataSet = new VoucherExpense.SQLVEDataSet();
-            this.vEDataSet = new VoucherExpense.VEDataSet();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.comboBoxMonth = new System.Windows.Forms.ComboBox();
@@ -68,7 +66,6 @@
             this.dgvCostColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.shipmentDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.accountingTitleBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.bakeryOrderSet = new VoucherExpense.BakeryOrderSet();
             this.costTextBox = new System.Windows.Forms.TextBox();
             this.shipCodeTextBox = new System.Windows.Forms.TextBox();
             this.shipTimeTextBox = new System.Windows.Forms.TextBox();
@@ -97,7 +94,6 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbtPrint = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.shipmentTableAdapter = new VoucherExpense.SQLVEDataSetTableAdapters.ShipmentTableAdapter();
             this.tableAdapterManager = new VoucherExpense.SQLVEDataSetTableAdapters.TableAdapterManager();
             this.customerTableAdapter = new VoucherExpense.SQLVEDataSetTableAdapters.CustomerTableAdapter();
             this.shipmentDetailTableAdapter = new VoucherExpense.SQLVEDataSetTableAdapters.ShipmentDetailTableAdapter();
@@ -137,13 +133,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.shipmentBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sQLVEDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.shipmentDetailDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.shipmentDetailBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.shipmentDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.shipmentBindingNavigator)).BeginInit();
@@ -258,16 +251,6 @@
             // 
             this.operatorBindingSource.DataMember = "Operator";
             this.operatorBindingSource.DataSource = this.damaiDataSet;
-            // 
-            // sQLVEDataSet
-            // 
-            this.sQLVEDataSet.DataSetName = "SQLVEDataSet";
-            this.sQLVEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // vEDataSet
-            // 
-            this.vEDataSet.DataSetName = "VEDataSet";
-            this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // comboBox1
             // 
@@ -464,11 +447,6 @@
             this.accountingTitleBindingSource.DataMember = "AccountingTitle";
             this.accountingTitleBindingSource.DataSource = this.damaiDataSet;
             // 
-            // bakeryOrderSet
-            // 
-            this.bakeryOrderSet.DataSetName = "BakeryOrderSet";
-            this.bakeryOrderSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // costTextBox
             // 
             this.costTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.shipmentBindingSource, "Cost", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
@@ -653,7 +631,7 @@
             this.shipmentBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.shipmentBindingNavigator.Name = "shipmentBindingNavigator";
             this.shipmentBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.shipmentBindingNavigator.Size = new System.Drawing.Size(338, 25);
+            this.shipmentBindingNavigator.Size = new System.Drawing.Size(330, 25);
             this.shipmentBindingNavigator.TabIndex = 58;
             this.shipmentBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -670,7 +648,7 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 22);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(27, 22);
             this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "总项数";
             // 
@@ -754,7 +732,7 @@
             this.tsbtPrint.Image = ((System.Drawing.Image)(resources.GetObject("tsbtPrint.Image")));
             this.tsbtPrint.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtPrint.Name = "tsbtPrint";
-            this.tsbtPrint.Size = new System.Drawing.Size(77, 22);
+            this.tsbtPrint.Size = new System.Drawing.Size(71, 22);
             this.tsbtPrint.Text = "出货单打印";
             this.tsbtPrint.Click += new System.EventHandler(this.tsbtPrint_Click);
             // 
@@ -762,10 +740,6 @@
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
-            // shipmentTableAdapter
-            // 
-            this.shipmentTableAdapter.ClearBeforeFill = true;
             // 
             // tableAdapterManager
             // 
@@ -778,7 +752,6 @@
             this.tableAdapterManager.ProductScrappedTableAdapter = null;
             this.tableAdapterManager.RequestsTableAdapter = null;
             this.tableAdapterManager.ShipmentDetailTableAdapter = this.shipmentDetailTableAdapter;
-            this.tableAdapterManager.ShipmentTableAdapter = this.shipmentTableAdapter;
             this.tableAdapterManager.UpdateOrder = VoucherExpense.SQLVEDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // customerTableAdapter
@@ -836,11 +809,6 @@
             // 
             this.shipmentDetailTableAdapter1.ClearBeforeFill = true;
             // 
-            // productBindingSource1
-            // 
-            this.productBindingSource1.DataMember = "Product";
-            this.productBindingSource1.DataSource = this.bakeryOrderSet;
-            // 
             // tableAdapterManager1
             // 
             this.tableAdapterManager1.BackupDataSetBeforeUpdate = false;
@@ -867,7 +835,9 @@
             // tableAdapterManager2
             // 
             this.tableAdapterManager2.AccountingTitleTableAdapter = this.accountingTitleTableAdapter1;
+            this.tableAdapterManager2.AccVouchDetailTableAdapter = null;
             this.tableAdapterManager2.AccVoucherTableAdapter = null;
+            this.tableAdapterManager2.AccVouchTableAdapter = null;
             this.tableAdapterManager2.ApartmentTableAdapter = this.apartmentTableAdapter;
             this.tableAdapterManager2.BackupDataSetBeforeUpdate = false;
             this.tableAdapterManager2.BakeryConfigTableAdapter = null;
@@ -886,6 +856,7 @@
             this.tableAdapterManager2.InventoryProductsTableAdapter = null;
             this.tableAdapterManager2.InventoryTableAdapter = null;
             this.tableAdapterManager2.OnDutyDataTableAdapter = null;
+            this.tableAdapterManager2.OperatorAuthListTableAdapter = null;
             this.tableAdapterManager2.OperatorTableAdapter = this.operatorTableAdapter1;
             this.tableAdapterManager2.OrderItemTableAdapter = null;
             this.tableAdapterManager2.OrderTableAdapter = null;
@@ -1030,13 +1001,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.shipmentBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sQLVEDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.shipmentDetailDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.shipmentDetailBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.shipmentDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.shipmentBindingNavigator)).EndInit();
@@ -1082,16 +1050,12 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton tsbtPrint;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private SQLVEDataSet sQLVEDataSet;
         private System.Windows.Forms.BindingSource shipmentBindingSource;
-        private SQLVEDataSetTableAdapters.ShipmentTableAdapter shipmentTableAdapter;
         private SQLVEDataSetTableAdapters.TableAdapterManager tableAdapterManager;
         private SQLVEDataSetTableAdapters.ShipmentDetailTableAdapter shipmentDetailTableAdapter;
         private System.Windows.Forms.BindingSource shipmentDetailBindingSource;
-        private BakeryOrderSet bakeryOrderSet;
         private System.Windows.Forms.BindingSource productBindingSource;
         private BakeryOrderSetTableAdapters.ProductTableAdapter productTableAdapter;
-        private VEDataSet vEDataSet;
         private System.Windows.Forms.BindingSource accountingTitleBindingSource;
         private VEDataSetTableAdapters.AccountingTitleTableAdapter accountingTitleTableAdapter;
         private SQLVEDataSetTableAdapters.CustomerTableAdapter customerTableAdapter;

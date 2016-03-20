@@ -683,12 +683,12 @@ namespace VoucherExpense
             return false;
         }
 
-        List<string> m_CloudBaseTable = new List<string> { "Operator", "Apartment", "OperatorAuthList" };
-        private bool RegionDatabase(string tableName)
+        List<string> m_UnsyncTable = new List<string> { "Product","ProductClass","Ingredient","Vendor" };
+        private bool UnSyncDatabase(string tableName)
         {
-            foreach (string name in m_CloudBaseTable)
+            foreach (string name in m_UnsyncTable)
                 if (tableName == name) return true;
-            return false;            
+            return false;
         }
 
         string GetFatherByNameRule(string name)
@@ -911,6 +911,13 @@ namespace VoucherExpense
                     foreach (var child in infoLocal.Childs)
                         msg += "-" + child.Name;
                 msg += "> ";   msg = msg.PadRight(35);
+                if (UnSyncDatabase(tableName))
+                {
+                    Message(msg + "資料維護 暫停同步!");
+                    continue;
+                }
+
+
                 var localDataSet =new DataSet();
                 var regionDataSet=new DataSet();
                 var dicResult    =new Dictionary<Guid,DB.Md5Result>();
@@ -963,8 +970,14 @@ namespace VoucherExpense
                         msg += "-" + child.Name;
                 msg += "> ";    msg = msg.PadRight(35);
 
-                //Message(msg + "偵錯跳過");
-                //continue;
+                if (UnSyncDatabase(tableName))
+                {
+                    Message(msg + "資料維護 暫停同步!");
+                    continue;
+                }
+
+                Message(msg + "偵錯跳過");
+                continue;
 
                 // 算出 所有Table MD5Now
                 // 比對新舊MD5 找出變更及新增資料 建差異表md5ResultLocal
@@ -1065,9 +1078,9 @@ namespace VoucherExpense
                 GC.Collect();
             }
             // 更新SyncTable
-            //Message("偵錯跳過更新SyncTable!");
-            DB.UpdateSyncTable(TableInfoLocal, LocalServer);
-            DB.UpdateSyncTable(TableInfoCloud, CloudServer);
+            Message("偵錯跳過更新SyncTable!");
+            //DB.UpdateSyncTable(TableInfoLocal, LocalServer);
+            //DB.UpdateSyncTable(TableInfoCloud, CloudServer);
 
 
             // 傳回各表總MD5 及雲端差異表

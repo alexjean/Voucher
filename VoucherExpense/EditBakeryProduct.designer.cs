@@ -47,7 +47,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditBakeryProduct));
             this.productIDTextBox = new System.Windows.Forms.TextBox();
             this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.bakeryOrderSet = new VoucherExpense.BakeryOrderSet();
             this.codeTextBox = new System.Windows.Forms.TextBox();
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.priceTextBox = new System.Windows.Forms.TextBox();
@@ -76,7 +75,6 @@
             this.DeletetoolStripButton = new System.Windows.Forms.ToolStripButton();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.unitTextBox = new System.Windows.Forms.TextBox();
-            this.tableAdapterManager = new VoucherExpense.BakeryOrderSetTableAdapters.TableAdapterManager();
             this.evaluatedCostTextBox = new System.Windows.Forms.TextBox();
             this.photoPictureBox = new System.Windows.Forms.PictureBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
@@ -85,12 +83,13 @@
             this.btnExcel = new System.Windows.Forms.Button();
             this.titleCodeCB = new System.Windows.Forms.ComboBox();
             this.accountingTitleBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.vEDataSet = new VoucherExpense.VEDataSet();
             this.productTableAdapter = new VoucherExpense.BakeryOrderSetTableAdapters.ProductTableAdapter();
             this.classComboBox = new System.Windows.Forms.ComboBox();
             this.productClassBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             this.productClassTableAdapter = new VoucherExpense.DamaiDataSetTableAdapters.ProductClassTableAdapter();
+            this.productTableAdapter1 = new VoucherExpense.DamaiDataSetTableAdapters.ProductTableAdapter();
+            this.accountingTitleTableAdapter = new VoucherExpense.DamaiDataSetTableAdapters.AccountingTitleTableAdapter();
             codeLabel = new System.Windows.Forms.Label();
             classLabel = new System.Windows.Forms.Label();
             nameLabel = new System.Windows.Forms.Label();
@@ -102,13 +101,11 @@
             label1 = new System.Windows.Forms.Label();
             titleCodeLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator)).BeginInit();
             this.bindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.photoPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productClassBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             this.SuspendLayout();
@@ -225,14 +222,9 @@
             // productBindingSource
             // 
             this.productBindingSource.DataMember = "Product";
-            this.productBindingSource.DataSource = this.bakeryOrderSet;
+            this.productBindingSource.DataSource = this.damaiDataSet;
             this.productBindingSource.Filter = "Code>0";
             this.productBindingSource.CurrentChanged += new System.EventHandler(this.productBindingSource_CurrentChanged);
-            // 
-            // bakeryOrderSet
-            // 
-            this.bakeryOrderSet.DataSetName = "BakeryOrderSet";
-            this.bakeryOrderSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // codeTextBox
             // 
@@ -424,7 +416,7 @@
             this.bindingNavigator.MovePreviousItem = null;
             this.bindingNavigator.Name = "bindingNavigator";
             this.bindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.bindingNavigator.Size = new System.Drawing.Size(229, 27);
+            this.bindingNavigator.Size = new System.Drawing.Size(224, 27);
             this.bindingNavigator.TabIndex = 17;
             this.bindingNavigator.Text = "bindingNavigator1";
             // 
@@ -441,8 +433,8 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(32, 24);
-            this.bindingNavigatorCountItem.Text = "/ {0}";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(27, 24);
+            this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
             // bindingNavigatorMoveFirstItem
@@ -500,7 +492,7 @@
             // DeletetoolStripButton
             // 
             this.DeletetoolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.DeletetoolStripButton.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.DeletetoolStripButton.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.DeletetoolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("DeletetoolStripButton.Image")));
             this.DeletetoolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.DeletetoolStripButton.Name = "DeletetoolStripButton";
@@ -528,19 +520,6 @@
             this.unitTextBox.Name = "unitTextBox";
             this.unitTextBox.Size = new System.Drawing.Size(80, 27);
             this.unitTextBox.TabIndex = 20;
-            // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.BakeryConfigTableAdapter = null;
-            this.tableAdapterManager.CashierTableAdapter = null;
-            this.tableAdapterManager.Connection = null;
-            this.tableAdapterManager.DrawerRecordTableAdapter = null;
-            this.tableAdapterManager.HeaderTableAdapter = null;
-            this.tableAdapterManager.OrderItemTableAdapter = null;
-            this.tableAdapterManager.OrderTableAdapter = null;
-            this.tableAdapterManager.ProductTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = VoucherExpense.BakeryOrderSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // evaluatedCostTextBox
             // 
@@ -613,12 +592,7 @@
             // accountingTitleBindingSource
             // 
             this.accountingTitleBindingSource.DataMember = "AccountingTitle";
-            this.accountingTitleBindingSource.DataSource = this.vEDataSet;
-            // 
-            // vEDataSet
-            // 
-            this.vEDataSet.DataSetName = "VEDataSet";
-            this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.accountingTitleBindingSource.DataSource = this.damaiDataSet;
             // 
             // productTableAdapter
             // 
@@ -650,6 +624,14 @@
             // productClassTableAdapter
             // 
             this.productClassTableAdapter.ClearBeforeFill = true;
+            // 
+            // productTableAdapter1
+            // 
+            this.productTableAdapter1.ClearBeforeFill = true;
+            // 
+            // accountingTitleTableAdapter
+            // 
+            this.accountingTitleTableAdapter.ClearBeforeFill = true;
             // 
             // EditBakeryProduct
             // 
@@ -685,21 +667,19 @@
             this.Controls.Add(this.menuXTextBox);
             this.Controls.Add(menuYLabel);
             this.Controls.Add(this.menuYTextBox);
-            this.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "EditBakeryProduct";
             this.Text = "產品表";
             this.Load += new System.EventHandler(this.EditBakeryProduct_Load);
             this.Shown += new System.EventHandler(this.EditBakeryProduct_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator)).EndInit();
             this.bindingNavigator.ResumeLayout(false);
             this.bindingNavigator.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.photoPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productClassBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             this.ResumeLayout(false);
@@ -709,7 +689,6 @@
 
         #endregion
 
-        private BakeryOrderSet bakeryOrderSet;
         private System.Windows.Forms.BindingSource productBindingSource;
         private System.Windows.Forms.TextBox productIDTextBox;
         private System.Windows.Forms.TextBox codeTextBox;
@@ -731,7 +710,6 @@
         private System.Windows.Forms.ToolStripButton 儲存SToolStripButton;
         private System.Windows.Forms.TextBox unitTextBox;
         private System.Windows.Forms.ToolStripButton DeletetoolStripButton;
-        private BakeryOrderSetTableAdapters.TableAdapterManager tableAdapterManager;
         private System.Windows.Forms.TextBox evaluatedCostTextBox;
         private System.Windows.Forms.PictureBox photoPictureBox;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
@@ -748,12 +726,13 @@
         private System.Windows.Forms.TextBox grossPercentTextBox;
         private System.Windows.Forms.Button btnExcel;
         private System.Windows.Forms.ComboBox titleCodeCB;
-        private VEDataSet vEDataSet;
         private System.Windows.Forms.BindingSource accountingTitleBindingSource;
         private BakeryOrderSetTableAdapters.ProductTableAdapter productTableAdapter;
         private System.Windows.Forms.ComboBox classComboBox;
         private DamaiDataSet damaiDataSet;
         private System.Windows.Forms.BindingSource productClassBindingSource;
         private DamaiDataSetTableAdapters.ProductClassTableAdapter productClassTableAdapter;
+        private DamaiDataSetTableAdapters.ProductTableAdapter productTableAdapter1;
+        private DamaiDataSetTableAdapters.AccountingTitleTableAdapter accountingTitleTableAdapter;
     }
 }

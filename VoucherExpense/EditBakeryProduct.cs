@@ -8,7 +8,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Linq;
 using Excel = Microsoft.Office.Interop.Excel;
-#if UseSQLServer
+
 using MyDataSet         = VoucherExpense.DamaiDataSet;
 using MyProductTable    = VoucherExpense.DamaiDataSet.ProductDataTable;
 using MyProductRow      = VoucherExpense.DamaiDataSet.ProductRow;
@@ -17,15 +17,6 @@ using MyOrderAdapter    = VoucherExpense.DamaiDataSetTableAdapters.OrderTableAda
 using MyOrderItemAdapter= VoucherExpense.DamaiDataSetTableAdapters.OrderItemTableAdapter;
 using MyAccountingTitleAdapter = VoucherExpense.DamaiDataSetTableAdapters.AccountingTitleTableAdapter;
 using System.Security.Cryptography;
-#else
-using MyDataSet          = VoucherExpense.BakeryOrderSet;
-using MyProductTable     = VoucherExpense.BakeryOrderSet.ProductDataTable;
-using MyProductRow       = VoucherExpense.BakeryOrderSet.ProductRow;
-using MyProductAdapter   = VoucherExpense.BakeryOrderSetTableAdapters.ProductTableAdapter;
-using MyOrderAdapter     = VoucherExpense.BakeryOrderSetTableAdapters.OrderTableAdapter;
-using MyOrderItemAdapter = VoucherExpense.BakeryOrderSetTableAdapters.OrderItemTableAdapter;
-using MyAccountingTitleAdapter = VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter;
-#endif
 
 
 namespace VoucherExpense
@@ -44,24 +35,19 @@ namespace VoucherExpense
 
         private void EditBakeryProduct_Load(object sender, EventArgs e)
         {
-            // TODO: 这行代码将数据加载到表“damaiDataSet.ProductClass”中。您可以根据需要移动或删除它。
+            productAdapter.Connection.ConnectionString           = DB.SqlConnectString(MyFunction.HardwareCfg);
+            productClassTableAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+
             this.productClassTableAdapter.Fill(this.damaiDataSet.ProductClass);
             var accountingTitleAdapter = new MyAccountingTitleAdapter();
             productBindingSource.DataSource = m_DataSet;
             m_PhotoDirectoryExist = Directory.Exists(PhotoPath());
-#if UseSQLServer
+
+
             photoPictureBox.Visible = true;
             accountingTitleBindingSource.DataSource = m_DataSet;
             accountingTitleAdapter.Fill(m_DataSet.AccountingTitle);
-#else
-            photoPictureBox.Visible = m_PhotoDirectoryExist;
-            accountingTitleBindingSource.DataSource = vEDataSet;
-            accountingTitleAdapter.Fill(vEDataSet.AccountingTitle);
-            accountingTitleAdapter.Connection   = MapPath.VEConnection;
-            productAdapter.Connection       = MapPath.BakeryConnection;
-            orderItemAdapter.Connection     = MapPath.BakeryConnection;
-            orderAdapter.Connection         = MapPath.BakeryConnection;
-#endif
+
             productAdapter.Fill(m_DataSet.Product);
             SetControlLengthFromDB(this, m_DataSet.Product);
         }
@@ -147,7 +133,6 @@ namespace VoucherExpense
                 MessageBox.Show("對不起!只接受jpg檔");
                 return;
             }
-#if (UseSQLServer)
             int productID = CurrentPhotoID();
             if (productID < 0)
             {
@@ -159,20 +144,6 @@ namespace VoucherExpense
             if (photos.Count() > 0) photo = photos.First();
             photo=SavePhotoFileToDB(openFileDialog1.FileName, productID,(short)PhotoTableID.Product, 240, 160, photo);
             ShowPhotoDB(photo);
-#else
-            string path = CurrentPhotoPath();
-            try
-            {
-                Bitmap img = (Bitmap)(Bitmap.FromFile(openFileDialog1.FileName));
-                Bitmap shrank = MyFunction.ShrinkBitmap(img, 1280, 1024);    // 考量POS机螢幕,所以縮至1280*1024
-                shrank.Save(path, System.Drawing.Imaging.ImageFormat.Jpeg);
-                photoPictureBox.ImageLocation = path;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("存圖形<" + path.ToString() + ">時出錯!原因:" + ex.Message);
-            }
-#endif
         }
 
         private void photoPictureBox_MouseClick(object sender, MouseEventArgs e)
@@ -183,27 +154,7 @@ namespace VoucherExpense
                 SavePicture();
                 return;
             }
-#if (!UseSQLServer)         // 使用SQLServer時沒有大圖
-            if (LocationSave.X == 0)
-            {
-                SizeSave = photoPictureBox.Size;
-                LocationSave = photoPictureBox.Location;
-            }
-            if (photoPictureBox.Location.X == 0)
-            {
-                photoPictureBox.Location = LocationSave;
-                photoPictureBox.Size = SizeSave;
-            }
-            else
-            {
-                photoPictureBox.Location = new Point(0, 0);
-                photoPictureBox.Size = this.Size;
-                photoPictureBox.BringToFront();
-            }
-        }
-        Size SizeSave = new Size(0, 0);
-        Point LocationSave = new Point(0, 0);
-#else
+
         }
 
         void ShowPhotoDB(MyDataSet.PhotosRow row)
@@ -294,25 +245,15 @@ namespace VoucherExpense
                 }
             }
         }
-#endif
         #endregion
 
         private void productBindingSource_CurrentChanged(object sender, EventArgs e)
         {
             CalcGrossProfit(double.NaN, double.NaN);
             if (!photoPictureBox.Visible) return;
-#if (UseSQLServer)
+
             int productID = CurrentPhotoID();
             TryShowPhoto(CurrentPhotoID(), (short)PhotoTableID.Product,240,160);
-#else
-            if (photoPictureBox.Location.X == 0)
-            {
-                photoPictureBox.Location = LocationSave;
-                photoPictureBox.Size = SizeSave;
-            }
-            ShowPhotoFile(CurrentPhotoPath());
-
-#endif
         }
 
 

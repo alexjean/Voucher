@@ -5,17 +5,12 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 using Excel = Microsoft.Office.Interop.Excel;
-#if UseSQLServer
+
 using MyDataSet         = VoucherExpense.DamaiDataSet;
 using MyExpenseTable    = VoucherExpense.DamaiDataSet.ExpenseDataTable;
 using MyExpenseRow      = VoucherExpense.DamaiDataSet.ExpenseRow;
 using MyExpenseAdapter  = VoucherExpense.DamaiDataSetTableAdapters.ExpenseTableAdapter;
-#else
-using MyDataSet         = VoucherExpense.VEDataSet;
-using MyExpenseTable    = VoucherExpense.VEDataSet.ExpenseDataTable;
-using MyExpenseRow      = VoucherExpense.VEDataSet.ExpenseRow;
-using MyExpenseAdapter  = VoucherExpense.VEDataSetTableAdapters.ExpenseTableAdapter;
-#endif
+
 namespace VoucherExpense
 {
     public partial class Expense : Form,FormWantDate
@@ -66,23 +61,12 @@ namespace VoucherExpense
         private void Expense_Load(object sender, EventArgs e)
         {
             SetupBindingSource();
-#if (UseSQLServer)
             var bankAccountAdapter  = new VoucherExpense.DamaiDataSetTableAdapters.BankAccountTableAdapter();
             var operatorAdapter     = new VoucherExpense.DamaiDataSetTableAdapters.OperatorTableAdapter();
             var accTitleAdapter     = new VoucherExpense.DamaiDataSetTableAdapters.AccountingTitleTableAdapter();
             var HRAdapter           = new VoucherExpense.DamaiDataSetTableAdapters.HRTableAdapter();
             operatorAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
-#else
-            var bankAccountAdapter  = new VoucherExpense.VEDataSetTableAdapters.BankAccountTableAdapter();
-            var operatorAdapter     = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
-            var accTitleAdapter     = new VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter();
-            var HRAdapter           = new VoucherExpense.VEDataSetTableAdapters.HRTableAdapter();
-            bankAccountAdapter.Connection  = MapPath.VEConnection;
-            operatorAdapter.Connection     = MapPath.VEConnection;
-            accTitleAdapter.Connection     = MapPath.VEConnection;
-            HRAdapter.Connection           = MapPath.VEConnection;
-            expenseAdapter.Connection      = MapPath.VEConnection;
-#endif
+
             bankAccountAdapter.Fill (m_DataSet.BankAccount);
             operatorAdapter.Fill    (m_DataSet.Operator);
             accTitleAdapter.Fill    (m_DataSet.AccountingTitle);

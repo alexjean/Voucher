@@ -557,7 +557,6 @@
             this.单据ToolStripMenuItem.Name = "单据ToolStripMenuItem";
             this.单据ToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.单据ToolStripMenuItem.Text = "单据";
-            this.单据ToolStripMenuItem.Click += new System.EventHandler(this.单据ToolStripMenuItem_Click);
             // 
             // 请款单ToolStripMenuItem
             // 

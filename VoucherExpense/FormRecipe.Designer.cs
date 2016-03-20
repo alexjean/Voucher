@@ -39,13 +39,13 @@
             System.Windows.Forms.Label label6;
             System.Windows.Forms.Label label7;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormRecipe));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.labelGross = new System.Windows.Forms.Label();
             this.labelEvaluatedCost = new System.Windows.Forms.Label();
             this.labelPrice = new System.Windows.Forms.Label();
-            this.vEDataSet = new VoucherExpense.VEDataSet();
             this.recipeBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             this.recipeBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
@@ -56,7 +56,6 @@
             this.finalProductIDComboBox = new System.Windows.Forms.ComboBox();
             this.cNameIDForProductBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.bakeryOrderSet = new VoucherExpense.BakeryOrderSet();
             this.dgvRecipeDetail = new System.Windows.Forms.DataGridView();
             this.ColumnDetailID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.recipeIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -64,10 +63,7 @@
             this.ColumnSourceID = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.sourceBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.ColumnWeight = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.recipeRecipeDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.fKRecipeRecipeDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.recipeSqlBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             this.textBoxIngredientWeight = new System.Windows.Forms.TextBox();
             this.photoPictureBox = new System.Windows.Forms.PictureBox();
             this.recipeNameTextBox = new System.Windows.Forms.TextBox();
@@ -90,8 +86,10 @@
             this.textBoxPrice = new System.Windows.Forms.TextBox();
             this.textBoxCode = new System.Windows.Forms.TextBox();
             this.btnGreen = new System.Windows.Forms.Button();
-            this.tableAdapterManager = new VoucherExpense.BakeryOrderSetTableAdapters.TableAdapterManager();
             this.btnYellow = new System.Windows.Forms.Button();
+            this.recipeTableAdapter = new VoucherExpense.DamaiDataSetTableAdapters.RecipeTableAdapter();
+            this.recipeDetailTableAdapter = new VoucherExpense.DamaiDataSetTableAdapters.RecipeDetailTableAdapter();
+            this.productTableAdapter = new VoucherExpense.DamaiDataSetTableAdapters.ProductTableAdapter();
             label1 = new System.Windows.Forms.Label();
             recipeNameLabel = new System.Windows.Forms.Label();
             packageNoLabel = new System.Windows.Forms.Label();
@@ -101,20 +99,16 @@
             label5 = new System.Windows.Forms.Label();
             label6 = new System.Windows.Forms.Label();
             label7 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.recipeBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.recipeBindingNavigator)).BeginInit();
             this.recipeBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRecipe)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cNameIDForProductBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRecipeDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sourceBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.recipeRecipeDetailBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fKRecipeRecipeDetailBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.recipeSqlBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.photoPictureBox)).BeginInit();
             this.groupBoxProduct.SuspendLayout();
             this.SuspendLayout();
@@ -229,16 +223,16 @@
             this.labelPrice.TabIndex = 26;
             this.labelPrice.Text = "價格:";
             // 
-            // vEDataSet
-            // 
-            this.vEDataSet.DataSetName = "VEDataSet";
-            this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // recipeBindingSource
             // 
             this.recipeBindingSource.DataMember = "Recipe";
-            this.recipeBindingSource.DataSource = this.vEDataSet;
+            this.recipeBindingSource.DataSource = this.damaiDataSet;
             this.recipeBindingSource.CurrentChanged += new System.EventHandler(this.recipeBindingSource_CurrentChanged);
+            // 
+            // damaiDataSet
+            // 
+            this.damaiDataSet.DataSetName = "DamaiDataSet";
+            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // recipeBindingNavigator
             // 
@@ -350,18 +344,13 @@
             // productBindingSource
             // 
             this.productBindingSource.DataMember = "Product";
-            this.productBindingSource.DataSource = this.bakeryOrderSet;
-            // 
-            // bakeryOrderSet
-            // 
-            this.bakeryOrderSet.DataSetName = "BakeryOrderSet";
-            this.bakeryOrderSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.productBindingSource.DataSource = this.damaiDataSet;
             // 
             // dgvRecipeDetail
             // 
             this.dgvRecipeDetail.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
-            this.dgvRecipeDetail.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Azure;
+            this.dgvRecipeDetail.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvRecipeDetail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvRecipeDetail.AutoGenerateColumns = false;
@@ -373,7 +362,7 @@
             this.displayCodeDataGridViewTextBoxColumn,
             this.ColumnSourceID,
             this.ColumnWeight});
-            this.dgvRecipeDetail.DataSource = this.recipeRecipeDetailBindingSource;
+            this.dgvRecipeDetail.DataSource = this.fKRecipeRecipeDetailBindingSource;
             this.dgvRecipeDetail.Location = new System.Drawing.Point(555, 4);
             this.dgvRecipeDetail.Name = "dgvRecipeDetail";
             this.dgvRecipeDetail.RowHeadersWidth = 25;
@@ -426,33 +415,18 @@
             // ColumnWeight
             // 
             this.ColumnWeight.DataPropertyName = "Weight";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "N1";
-            dataGridViewCellStyle2.NullValue = null;
-            this.ColumnWeight.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle4.Format = "N1";
+            dataGridViewCellStyle4.NullValue = null;
+            this.ColumnWeight.DefaultCellStyle = dataGridViewCellStyle4;
             this.ColumnWeight.HeaderText = "重量-克";
             this.ColumnWeight.Name = "ColumnWeight";
             this.ColumnWeight.Width = 92;
             // 
-            // recipeRecipeDetailBindingSource
-            // 
-            this.recipeRecipeDetailBindingSource.DataMember = "RecipeRecipeDetail";
-            this.recipeRecipeDetailBindingSource.DataSource = this.recipeBindingSource;
-            // 
             // fKRecipeRecipeDetailBindingSource
             // 
             this.fKRecipeRecipeDetailBindingSource.DataMember = "FK_Recipe_RecipeDetail";
-            this.fKRecipeRecipeDetailBindingSource.DataSource = this.recipeSqlBindingSource;
-            // 
-            // recipeSqlBindingSource
-            // 
-            this.recipeSqlBindingSource.DataMember = "Recipe";
-            this.recipeSqlBindingSource.DataSource = this.damaiDataSet;
-            // 
-            // damaiDataSet
-            // 
-            this.damaiDataSet.DataSetName = "DamaiDataSet";
-            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.fKRecipeRecipeDetailBindingSource.DataSource = this.recipeBindingSource;
             // 
             // textBoxIngredientWeight
             // 
@@ -683,19 +657,6 @@
             this.btnGreen.UseVisualStyleBackColor = false;
             this.btnGreen.Click += new System.EventHandler(this.btnGreen_Click);
             // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.BakeryConfigTableAdapter = null;
-            this.tableAdapterManager.CashierTableAdapter = null;
-            this.tableAdapterManager.Connection = null;
-            this.tableAdapterManager.DrawerRecordTableAdapter = null;
-            this.tableAdapterManager.HeaderTableAdapter = null;
-            this.tableAdapterManager.OrderItemTableAdapter = null;
-            this.tableAdapterManager.OrderTableAdapter = null;
-            this.tableAdapterManager.ProductTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = VoucherExpense.BakeryOrderSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
-            // 
             // btnYellow
             // 
             this.btnYellow.BackColor = System.Drawing.Color.Yellow;
@@ -705,6 +666,18 @@
             this.btnYellow.TabIndex = 34;
             this.btnYellow.UseVisualStyleBackColor = false;
             this.btnYellow.Click += new System.EventHandler(this.btnYellow_Click);
+            // 
+            // recipeTableAdapter
+            // 
+            this.recipeTableAdapter.ClearBeforeFill = true;
+            // 
+            // recipeDetailTableAdapter
+            // 
+            this.recipeDetailTableAdapter.ClearBeforeFill = true;
+            // 
+            // productTableAdapter
+            // 
+            this.productTableAdapter.ClearBeforeFill = true;
             // 
             // FormRecipe
             // 
@@ -747,21 +720,17 @@
             this.Text = "烘焙配方表";
             this.Load += new System.EventHandler(this.FormRecipe_Load);
             this.Shown += new System.EventHandler(this.FormRecipe_Shown);
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.recipeBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.recipeBindingNavigator)).EndInit();
             this.recipeBindingNavigator.ResumeLayout(false);
             this.recipeBindingNavigator.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRecipe)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cNameIDForProductBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRecipeDetail)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sourceBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.recipeRecipeDetailBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fKRecipeRecipeDetailBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.recipeSqlBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.photoPictureBox)).EndInit();
             this.groupBoxProduct.ResumeLayout(false);
             this.groupBoxProduct.PerformLayout();
@@ -772,7 +741,6 @@
 
         #endregion
 
-        private VEDataSet vEDataSet;
         private System.Windows.Forms.BindingSource recipeBindingSource;
         private System.Windows.Forms.BindingNavigator recipeBindingNavigator;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
@@ -785,7 +753,6 @@
         private System.Windows.Forms.PictureBox photoPictureBox;
         private System.Windows.Forms.TextBox recipeNameTextBox;
         private System.Windows.Forms.TextBox packageNoTextBox;
-        private BakeryOrderSet bakeryOrderSet;
         private System.Windows.Forms.BindingSource productBindingSource;
         private System.Windows.Forms.Button btnExcel;
         private System.Windows.Forms.RichTextBox richTextBoxInstruction1;
@@ -794,7 +761,6 @@
         private System.Windows.Forms.RichTextBox richTextBoxInstruction2;
         private System.Windows.Forms.Button btnBlack;
         private System.Windows.Forms.BindingSource cNameIDForProductBindingSource;
-        private System.Windows.Forms.BindingSource recipeRecipeDetailBindingSource;
         private System.Windows.Forms.BindingSource sourceBindingSource;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.TextBox textBoxFloatCost;
@@ -810,7 +776,6 @@
         private System.Windows.Forms.GroupBox groupBoxProduct;
         private System.Windows.Forms.Button btnGreen;
         private System.Windows.Forms.TextBox textBoxCode;
-        private BakeryOrderSetTableAdapters.TableAdapterManager tableAdapterManager;
         private System.Windows.Forms.TextBox textBoxGrossPercent;
         private System.Windows.Forms.TextBox textBoxGross;
         private System.Windows.Forms.TextBox textBoxEvaluatedCost;
@@ -820,8 +785,10 @@
         private System.Windows.Forms.Label labelEvaluatedCost;
         private System.Windows.Forms.Button btnUpdatePrice;
         private System.Windows.Forms.Button btnYellow;
-        private System.Windows.Forms.BindingSource recipeSqlBindingSource;
         private DamaiDataSet damaiDataSet;
         private System.Windows.Forms.BindingSource fKRecipeRecipeDetailBindingSource;
+        private DamaiDataSetTableAdapters.RecipeTableAdapter recipeTableAdapter;
+        private DamaiDataSetTableAdapters.RecipeDetailTableAdapter recipeDetailTableAdapter;
+        private DamaiDataSetTableAdapters.ProductTableAdapter productTableAdapter;
     }
 }

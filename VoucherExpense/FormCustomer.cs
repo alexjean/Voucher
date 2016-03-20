@@ -22,7 +22,7 @@ namespace VoucherExpense
             {
                 this.Validate();
                 this.customerBindingSource.EndEdit();
-                this.tableAdapterManager.UpdateAll(this.sQLVEDataSet);
+                customerTableAdapter.Update(damaiDataSet.Customer);
                 bindingNavigatorAddNewItem.Enabled = true;
             }
             catch (Exception ex)
@@ -35,8 +35,7 @@ namespace VoucherExpense
         {
             try
             {
-                // TODO: 这行代码将数据加载到表“sQLVEDataSet.Customer”中。您可以根据需要移动或删除它。
-                this.customerTableAdapter.Fill(this.sQLVEDataSet.Customer);
+                this.customerTableAdapter.Fill(this.damaiDataSet.Customer);
             }
             catch (Exception ex)
             {
@@ -52,7 +51,7 @@ namespace VoucherExpense
 
         private void bindingNavigatorAddNewItem_Click_1(object sender, EventArgs e)
         { 
-            MyFunction.AddNewItem(customerDataGridView, "ColumnCustomerID", "CustomerID", sQLVEDataSet.Customer);
+            MyFunction.AddNewItem(customerDataGridView, "ColumnCustomerID", "CustomerID", damaiDataSet.Customer);
             bindingNavigatorAddNewItem.Enabled = false;
         }   
     }

@@ -7,15 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing.Printing;
-#if UseSQLServer
 using MyDataSet         = VoucherExpense.DamaiDataSet;
 using MyRequestsAdapter = VoucherExpense.DamaiDataSetTableAdapters.RequestsTableAdapter;
 using MyRequestsRow     = VoucherExpense.DamaiDataSet.RequestsRow;
-#else
-using MyDataSet         = VoucherExpense.VEDataSet;
-using MyRequestsAdapter = VoucherExpense.VEDataSetTableAdapters.RequestsTableAdapter;
-using MyRequestsRow     = VoucherExpense.VEDataSet.RequestsRow;
-#endif
 namespace VoucherExpense
 {
     public partial class FormBillList : Form
@@ -35,14 +29,9 @@ namespace VoucherExpense
         private void FormBillList_Load(object sender, EventArgs e)
         {
             requestsBindingSource.DataSource = m_DataSet;
-#if (UseSQLServer)
             var apartmentAdapter = new VoucherExpense.DamaiDataSetTableAdapters.ApartmentTableAdapter();
             apartmentAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
-#else
-            var apartmentAdapter = new VoucherExpense.VEDataSetTableAdapters.ApartmentTableAdapter();
-            apartmentAdapter.Connection = MapPath.VEConnection;
-            RequestsAdapter.Connection  = MapPath.VEConnection;
-#endif
+
             apartmentAdapter.Fill(m_DataSet.Apartment);
             RequestsAdapter.Fill(m_DataSet.Requests);
             this.requestsBindingSource.Sort = "requestsid desc";

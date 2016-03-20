@@ -46,7 +46,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.IngredientBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.IngredientBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.vEDataSet = new VoucherExpense.VEDataSet();
+            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
@@ -99,7 +99,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.IngredientBindingNavigator)).BeginInit();
             this.IngredientBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.IngredientBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvIngredient)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.photoPictureBox)).BeginInit();
@@ -241,25 +241,25 @@
             this.IngredientBindingNavigator.Name = "IngredientBindingNavigator";
             this.IngredientBindingNavigator.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.IngredientBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.IngredientBindingNavigator.Size = new System.Drawing.Size(287, 27);
+            this.IngredientBindingNavigator.Size = new System.Drawing.Size(285, 27);
             this.IngredientBindingNavigator.TabIndex = 3;
             this.IngredientBindingNavigator.Text = "bindingNavigator1";
             // 
             // IngredientBindingSource
             // 
             this.IngredientBindingSource.DataMember = "Ingredient";
-            this.IngredientBindingSource.DataSource = this.vEDataSet;
+            this.IngredientBindingSource.DataSource = this.damaiDataSet;
             this.IngredientBindingSource.CurrentChanged += new System.EventHandler(this.IngredientBindingSource_CurrentChanged);
             // 
-            // vEDataSet
+            // damaiDataSet
             // 
-            this.vEDataSet.DataSetName = "VEDataSet";
-            this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.damaiDataSet.DataSetName = "DamaiDataSet";
+            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 24);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(27, 24);
             this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
@@ -442,7 +442,7 @@
             // accountingTitleBindingSource
             // 
             this.accountingTitleBindingSource.DataMember = "AccountingTitle";
-            this.accountingTitleBindingSource.DataSource = this.vEDataSet;
+            this.accountingTitleBindingSource.DataSource = this.damaiDataSet;
             this.accountingTitleBindingSource.Filter = "TitleCode like \'5*\' ";
             // 
             // columnPrice
@@ -605,7 +605,7 @@
             // vendorBindingSource
             // 
             this.vendorBindingSource.DataMember = "Vendor";
-            this.vendorBindingSource.DataSource = this.vEDataSet;
+            this.vendorBindingSource.DataSource = this.damaiDataSet;
             // 
             // textBoxCostPerGram
             // 
@@ -660,7 +660,7 @@
             this.IngredientBindingNavigator.ResumeLayout(false);
             this.IngredientBindingNavigator.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.IngredientBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvIngredient)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.photoPictureBox)).EndInit();
@@ -673,7 +673,6 @@
 
         #endregion
 
-        private VEDataSet vEDataSet;
         private System.Windows.Forms.BindingSource IngredientBindingSource;
         private System.Windows.Forms.BindingNavigator IngredientBindingNavigator;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
@@ -714,6 +713,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Unit;
         private System.Windows.Forms.DataGridViewComboBoxColumn columnTitleCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnPrice;
+        private DamaiDataSet damaiDataSet;
 
     }
 }

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
-#if UseSQLServer
+
 using MyDataSet             = VoucherExpense.DamaiDataSet;
 using MyRecipeTable         = VoucherExpense.DamaiDataSet.RecipeDataTable;
 using MyRecipeDetailTable   = VoucherExpense.DamaiDataSet.RecipeDetailDataTable;
@@ -18,17 +18,7 @@ using MyRecipeAdapter       = VoucherExpense.DamaiDataSetTableAdapters.RecipeTab
 using MyRecipeDetailAdapter = VoucherExpense.DamaiDataSetTableAdapters.RecipeDetailTableAdapter;
 using MyIngredientAdapter   = VoucherExpense.DamaiDataSetTableAdapters.IngredientTableAdapter;
 using System.Security.Cryptography;
-#else
-using MyDataSet             = VoucherExpense.VEDataSet;
-using MyRecipeTable         = VoucherExpense.VEDataSet.RecipeDataTable;
-using MyRecipeDetailTable   = VoucherExpense.VEDataSet.RecipeDetailDataTable;
-using MyRecipeRow           = VoucherExpense.VEDataSet.RecipeRow;
-using MyRecipeDetailRow     = VoucherExpense.VEDataSet.RecipeDetailRow;
-using MyProductAdapter = VoucherExpense.BakeryOrderSetTableAdapters.ProductTableAdapter;
-using MyRecipeAdapter       = VoucherExpense.VEDataSetTableAdapters.RecipeTableAdapter;
-using MyRecipeDetailAdapter = VoucherExpense.VEDataSetTableAdapters.RecipeDetailTableAdapter;
-using MyIngredientAdapter   = VoucherExpense.VEDataSetTableAdapters.IngredientTableAdapter;
-#endif
+
 
 namespace VoucherExpense
 {
@@ -48,27 +38,22 @@ namespace VoucherExpense
         private void FormRecipe_Load(object sender, EventArgs e)
         {
             var ingredientAdapter = new MyIngredientAdapter();
+
+            productAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+            ingredientAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+
+
             try
             {
                 
                 recipeBindingSource.DataSource = m_DataSet;
                 m_PhotoDirectoryExist = Directory.Exists(PhotoPath());
-#if UseSQLServer  // fKRecipeRecipeDetailBindingSource,damaiDataSet recipeSqlBindingSource創來抄的, 實際上沒用到
+　　　　　　　　 // fKRecipeRecipeDetailBindingSource,damaiDataSet recipeSqlBindingSource創來抄的, 實際上沒用到
                 fKRecipeRecipeDetailBindingSource.DataSource = recipeBindingSource;
                 dgvRecipeDetail.DataSource = fKRecipeRecipeDetailBindingSource;
                 productBindingSource.DataSource = m_DataSet;
                 productAdapter.Fill(m_DataSet.Product);
-#else
-                //photoPictureBox.Visible = m_PhotoDirectoryExist;
-                recipeRecipeDetailBindingSource.DataSource = recipeBindingSource;
-                dgvRecipeDetail.DataSource = recipeRecipeDetailBindingSource;
-                productBindingSource.DataSource = bakeryOrderSet;
-                productAdapter.Connection      = MapPath.BakeryConnection;
-                recipeAdapter.Connection       = MapPath.VEConnection;
-                recipeDetailAdapter.Connection = MapPath.VEConnection;
-                ingredientAdapter.Connection   = MapPath.VEConnection;
-                productAdapter.Fill(bakeryOrderSet.Product);
-#endif
+
                 recipeAdapter.Fill      (m_DataSet.Recipe);
                 recipeDetailAdapter.Fill(m_DataSet.RecipeDetail);
                 ingredientAdapter.Fill  (m_DataSet.Ingredient);
@@ -80,11 +65,7 @@ namespace VoucherExpense
             // 填給使用者選的產品表, 第一個為空白
             m_ProductList = new List<CNameIDForComboBox>();
             m_ProductList.Add(new CNameIDForComboBox(0, " "));
-#if UseSQLServer
             foreach (var product in m_DataSet.Product)
-#else
-            foreach (var product in bakeryOrderSet.Product)
-#endif
             {
                 if (product.IsCodeNull()) continue;
                 if (product.Code <= 0) continue;
@@ -122,7 +103,7 @@ namespace VoucherExpense
             {
                 Validate();
                 recipeBindingSource.EndEdit();
-                recipeRecipeDetailBindingSource.EndEdit();
+                this.fKRecipeRecipeDetailBindingSource.EndEdit();
                 UpdateRtf();
             }
             catch (Exception ex)
@@ -347,7 +328,6 @@ namespace VoucherExpense
                 MessageBox.Show("對不起!只接受jpg檔");
                 return;
             }
-#if (UseSQLServer)
             int recipeID = CurrentPhotoID();
             if (recipeID < 0)
             {
@@ -359,21 +339,6 @@ namespace VoucherExpense
             if (photos.Count() > 0) photo = photos.First();
             photo=SavePhotoFileToDB(openFileDialog1.FileName, recipeID, (short)PhotoTableID.Recipe, 384, 256, photo);
             ShowPhotoDB(photo);
-#else
-            string path = CurrentPhotoPath();
-            if (path == null) return;
-            try
-            {
-                Bitmap img = (Bitmap)(Bitmap.FromFile(openFileDialog1.FileName));
-                Bitmap shrank = MyFunction.ShrinkBitmap(img, 384, 256);    
-                shrank.Save(path, System.Drawing.Imaging.ImageFormat.Jpeg);
-                photoPictureBox.ImageLocation = path;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("存配方照片<" + path.ToString() + ">時出錯!原因:" + ex.Message);
-            }
-#endif
         }
 
         private void pictureBoxRecipe_MouseClick(object sender, MouseEventArgs e)
@@ -478,11 +443,8 @@ namespace VoucherExpense
         {
             if (m_ProductList == null || m_ProductList.Count <= 0) return;
             ShowProductName();
-#if (UseSQLServer)
             TryShowPhoto(CurrentPhotoID(), (short)PhotoTableID.Recipe, "配方", 384, 256);
-#else
-            ShowPhotoFile(CurrentPhotoPath());
-#endif
+
             CalcWeight();
             UpdateRtf();
             BindingRtf();
@@ -681,11 +643,7 @@ namespace VoucherExpense
                     MessageBox.Show("沒有最終產品,無可更新!");
                     return;
                 }
-#if UseSQLServer
                 var products = from pr in m_DataSet.Product where pr.ProductID == row.FinalProductID select pr;
-#else
-                var products = from pr in bakeryOrderSet.Product where pr.ProductID == row.FinalProductID select pr;
-#endif
                 if (products.Count() == 0)
                 {
                     MessageBox.Show("找不到產品号<" + row.FinalProductID.ToString() + ">,無法更新價格!");
@@ -716,7 +674,7 @@ namespace VoucherExpense
             var details = row.GetRecipeDetailRows();
             foreach (var d in details)
                 d.Delete();
-            this.recipeRecipeDetailBindingSource.ResetBindings(false);
+            this.fKRecipeRecipeDetailBindingSource.ResetBindings(false);
             string name;
             if (row.IsRecipeNameNull())
                 name = "配方<" + row.RecipeID.ToString() + ">";
@@ -835,12 +793,7 @@ namespace VoucherExpense
                     }
                     textBoxPrice.Text = textBoxPriceForEdit.Text;
                     productBindingSource.EndEdit();
-#if UseSQLServer
                     productAdapter.Update(m_DataSet.Product);
-#else
-                    productAdapter.Update(bakeryOrderSet.Product);
-#endif
-                    bakeryOrderSet.Product.AcceptChanges();
                     textBoxPriceForEdit.Tag = PriceEditMode.Invisible;
                     textBoxPriceForEdit.Visible = false;
                     btnUpdatePrice.Text = "編修 價格";
@@ -855,10 +808,5 @@ namespace VoucherExpense
             }
 
         }
-
-
-
-
- 
     }
 }

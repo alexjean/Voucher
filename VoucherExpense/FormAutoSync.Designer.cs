@@ -68,6 +68,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxMessage.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.listBoxMessage.Font = new System.Drawing.Font("新宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.listBoxMessage.FormattingEnabled = true;
             this.listBoxMessage.ItemHeight = 18;
             this.listBoxMessage.Location = new System.Drawing.Point(0, 1);

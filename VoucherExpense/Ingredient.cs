@@ -6,7 +6,6 @@ using System.IO;
 using System.Drawing;
 using System.Collections.Generic;
 using System.Linq;
-#if UseSQLServer
 using MyDataSet             = VoucherExpense.DamaiDataSet;
 using MyIngredientRow       = VoucherExpense.DamaiDataSet.IngredientRow;
 using MyIngredientTable     = VoucherExpense.DamaiDataSet.IngredientDataTable;
@@ -14,14 +13,6 @@ using MyIngredientAdapter   = VoucherExpense.DamaiDataSetTableAdapters.Ingredien
 using MyVoucherAdapter      = VoucherExpense.DamaiDataSetTableAdapters.VoucherTableAdapter;
 using MyVoucherDetailAdapter= VoucherExpense.DamaiDataSetTableAdapters.VoucherDetailTableAdapter;
 using System.Security.Cryptography;
-#else
-using MyDataSet             = VoucherExpense.VEDataSet;
-using MyIngredientRow       = VoucherExpense.VEDataSet.IngredientRow;
-using MyIngredientTable     = VoucherExpense.VEDataSet.IngredientDataTable;
-using MyIngredientAdapter   = VoucherExpense.VEDataSetTableAdapters.IngredientTableAdapter;
-using MyVoucherAdapter      = VoucherExpense.VEDataSetTableAdapters.VoucherTableAdapter;
-using MyVoucherDetailAdapter= VoucherExpense.VEDataSetTableAdapters.VoucherDetailTableAdapter;
-#endif
 
 namespace VoucherExpense
 {
@@ -37,7 +28,7 @@ namespace VoucherExpense
         private List<CNameIDForComboBox> m_VendorList = new List<CNameIDForComboBox>();
 
         MyIngredientAdapter IngredientAdapter       = new MyIngredientAdapter();
-        MyVoucherAdapter    VoucherAdapter          = new MyVoucherAdapter();
+        MyVoucherAdapter VoucherAdapter = new MyVoucherAdapter();
         MyVoucherDetailAdapter VoucherDetailAdapter = new MyVoucherDetailAdapter();
 
 
@@ -47,20 +38,13 @@ namespace VoucherExpense
             vendorBindingSource.DataSource = m_DataSet;
             accountingTitleBindingSource.DataSource = m_DataSet;
             m_PhotoDirectoryExist = Directory.Exists(PhotoPath());
-#if UseSQLServer
             photoPictureBox.Visible = true;
             var vendorAdapter = new DamaiDataSetTableAdapters.VendorTableAdapter();
             var accountingTitleAdapter = new DamaiDataSetTableAdapters.AccountingTitleTableAdapter();
-#else
-            photoPictureBox.Visible = m_PhotoDirectoryExist;
-            var vendorAdapter          = new VEDataSetTableAdapters.VendorTableAdapter();
-            var accountingTitleAdapter = new VEDataSetTableAdapters.AccountingTitleTableAdapter();
-            vendorAdapter.Connection           = MapPath.VEConnection;
-            accountingTitleAdapter.Connection  = MapPath.VEConnection;
-            IngredientAdapter.Connection       = MapPath.VEConnection;
-            VoucherAdapter.Connection          = MapPath.VEConnection;
-            VoucherDetailAdapter.Connection    = MapPath.VEConnection;
-#endif
+
+            IngredientAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+            vendorAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+
             try
             {
                 vendorAdapter.Fill         (m_DataSet.Vendor);
@@ -252,7 +236,6 @@ namespace VoucherExpense
                 MessageBox.Show("對不起!只接受jpg檔");
                 return;
             }
-#if (UseSQLServer)
             int ingredientID = CurrentPhotoID();
             if (ingredientID < 0)
             {
@@ -264,21 +247,7 @@ namespace VoucherExpense
             if (photos.Count() > 0) photo = photos.First();
             photo=SavePhotoFileToDB(openFileDialog1.FileName, ingredientID, (short)PhotoTableID.Ingredient, 240, 240, photo);
             ShowPhotoDB(photo);
-#else
-            string path = CurrentPhotoPath();
-            if (path == null) return;
-            try
-            {
-                Bitmap img = (Bitmap)(Bitmap.FromFile(openFileDialog1.FileName));
-                Bitmap shrank = MyFunction.ShrinkBitmap(img, 1280, 1024);    // 考量POS机螢幕,所以縮至1280*1024
-                shrank.Save(path, System.Drawing.Imaging.ImageFormat.Jpeg);
-                photoPictureBox.ImageLocation = path;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("存食材照片<" + path.ToString() + ">時出錯!原因:" + ex.Message);
-            }
-#endif
+
         }
 
         private void photoPictureBox_MouseClick(object sender, MouseEventArgs e)
@@ -289,27 +258,7 @@ namespace VoucherExpense
                 SavePicture();
                 return;
             }
-#if (!UseSQLServer)       // 使用SQLServer時,沒有大圖
-            if (LocationSave.X == 0)
-            {
-                SizeSave = photoPictureBox.Size;
-                LocationSave = photoPictureBox.Location;
-            }
-            if (photoPictureBox.Location.X == 0)
-            {
-                photoPictureBox.Location = LocationSave;
-                photoPictureBox.Size = SizeSave;
-            }
-            else
-            {
-                photoPictureBox.Location = new Point(0, 0);
-                photoPictureBox.Size = this.Size;
-                photoPictureBox.BringToFront();
-            }
-        }
-        Size SizeSave = new Size(0, 0);
-        Point LocationSave = new Point(0, 0);
-#else
+
         }
 
         void ShowPhotoDB(MyDataSet.PhotosRow row)
@@ -400,7 +349,6 @@ namespace VoucherExpense
                 }
             }
         }
-#endif
         #endregion
 
         private void IngredientBindingSource_CurrentChanged(object sender, EventArgs e)
@@ -427,16 +375,7 @@ namespace VoucherExpense
             CalcCostPerGram();
             // 手動載入Photo
             if (!photoPictureBox.Visible) return;
-#if (UseSQLServer)
             TryShowPhoto(CurrentPhotoID(), (int)PhotoTableID.Ingredient, "食材", 240, 240);
-#else
-            if (photoPictureBox.Location.X == 0)
-            {
-                photoPictureBox.Location = LocationSave;
-                photoPictureBox.Size = SizeSave;
-            }
-            ShowPhotoFile(CurrentPhotoPath());
-#endif
         }
 
 

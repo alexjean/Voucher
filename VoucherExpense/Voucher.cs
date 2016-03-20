@@ -7,7 +7,6 @@ using System.Drawing;
 using System.Drawing.Printing;
 using System.Windows.Forms;
 using System.Linq;
-#if UseSQLServer
 using MyDataSet             = VoucherExpense.DamaiDataSet;
 using MyVoucherTable        = VoucherExpense.DamaiDataSet.VoucherDataTable;
 using MyVoucherDetailTable  = VoucherExpense.DamaiDataSet.VoucherDetailDataTable;
@@ -17,17 +16,6 @@ using MyVendorRow           = VoucherExpense.DamaiDataSet.VendorRow;
 using MyVoucherAdapter      = VoucherExpense.DamaiDataSetTableAdapters.VoucherTableAdapter;
 using MyVoucherDetailAdapter= VoucherExpense.DamaiDataSetTableAdapters.VoucherDetailTableAdapter;
 using MyIngredientAdapter   = VoucherExpense.DamaiDataSetTableAdapters.IngredientTableAdapter;
-#else
-using MyDataSet             = VoucherExpense.VEDataSet;
-using MyVoucherTable        = VoucherExpense.VEDataSet.VoucherDataTable;
-using MyVoucherDetailTable  = VoucherExpense.VEDataSet.VoucherDetailDataTable;
-using MyVoucherRow          = VoucherExpense.VEDataSet.VoucherRow;
-using MyVoucherDetailRow    = VoucherExpense.VEDataSet.VoucherDetailRow;
-using MyVendorRow           = VoucherExpense.VEDataSet.VendorRow;
-using MyVoucherAdapter      = VoucherExpense.VEDataSetTableAdapters.VoucherTableAdapter;
-using MyVoucherDetailAdapter= VoucherExpense.VEDataSetTableAdapters.VoucherDetailTableAdapter;
-using MyIngredientAdapter   = VoucherExpense.VEDataSetTableAdapters.IngredientTableAdapter;
-#endif
 
 namespace VoucherExpense
 {
@@ -45,22 +33,13 @@ namespace VoucherExpense
         MyIngredientAdapter    IngredientAdapter    = new MyIngredientAdapter();
         private void Voucher_Load(object sender, EventArgs e)
         {
-#if UseSQLServer
             var accountingTitleAdapter  = new VoucherExpense.DamaiDataSetTableAdapters.AccountingTitleTableAdapter();
             var vendorAdapter           = new VoucherExpense.DamaiDataSetTableAdapters.VendorTableAdapter();
             var operatorAdapter         = new VoucherExpense.DamaiDataSetTableAdapters.OperatorTableAdapter();
-            operatorAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
-#else
-            var operatorAdapter         = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
-            var accountingTitleAdapter  = new VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter();
-            var vendorAdapter           = new VoucherExpense.VEDataSetTableAdapters.VendorTableAdapter();
-            voucherDetailAdapter.Connection   = MapPath.VEConnection;
-            operatorAdapter.Connection        = MapPath.VEConnection;
-            IngredientAdapter.Connection      = MapPath.VEConnection;
-            accountingTitleAdapter.Connection = MapPath.VEConnection;
-            vendorAdapter.Connection          = MapPath.VEConnection;
-            voucherAdapter.Connection         = MapPath.VEConnection;
-#endif
+            IngredientAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+            vendorAdapter.Connection.ConnectionString     = DB.SqlConnectString(MyFunction.HardwareCfg);
+            operatorAdapter.Connection.ConnectionString   = DB.SqlConnectString(MyFunction.HardwareCfg);
+
             SetupBindingSource();
             try
             {
@@ -107,13 +86,8 @@ namespace VoucherExpense
             this.IngredientBindingSource.DataSource         = m_DataSet;
             this.operatorBindingSource.DataSource           = m_DataSet;
             this.venderFilterSource.DataSource              = m_DataSet;
-#if (UseSQLServer)
             voucherVoucherDetailSqlBindingSource.DataSource=voucherBindingSource;
             dgvVoucherDetail.DataSource=voucherVoucherDetailSqlBindingSource;
-#else
-            voucherVoucherDetailBindingSource.DataSource=voucherBindingSource;
-            dgvVoucherDetail.DataSource=voucherVoucherDetailBindingSource;
-#endif
         }
 
         bool checkMode;
@@ -137,7 +111,7 @@ namespace VoucherExpense
                 return;
             }
             this.voucherBindingSource.EndEdit();
-            this.voucherVoucherDetailBindingSource.EndEdit();
+            this.voucherVoucherDetailSqlBindingSource.EndEdit();
 
             var table  = (MyVoucherTable)m_DataSet.Voucher.GetChanges();
             var detail = (MyVoucherDetailTable)m_DataSet.VoucherDetail.GetChanges();
@@ -277,7 +251,7 @@ namespace VoucherExpense
             {
                 this.iDTextBox.Text = i.ToString();
                 this.voucherBindingSource.ResetBindings(false);           // 這行加了會把stockTimeTextBox.Text和entryTimeTextBox.Text給清成空白,所以放前面
-                voucherVoucherDetailBindingSource.ResetBindings(false);   // 有id了,可以刷新下面的detail表
+                this.voucherVoucherDetailSqlBindingSource.ResetBindings(false);   // 有id了,可以刷新下面的detail表
 
                 lockedCheckBox.Checked = false;                           // 只有對DateTime的Binding會受影響, bool不會,所以可以放ResetBindings前  
                 // 初始時間, 放在ResetBindings後面

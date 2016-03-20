@@ -35,6 +35,7 @@ namespace VoucherExpense
         {
             try
             {
+                productClassTableAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
                 this.productClassTableAdapter.Fill(this.damaiDataSet.ProductClass);
             }
             catch (Exception ex)

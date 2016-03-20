@@ -40,10 +40,7 @@
             System.Windows.Forms.Label hideLabel;
             System.Windows.Forms.Label lastUpdatedLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCustomer));
-            this.sQLVEDataSet = new VoucherExpense.SQLVEDataSet();
             this.customerBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.customerTableAdapter = new VoucherExpense.SQLVEDataSetTableAdapters.CustomerTableAdapter();
-            this.tableAdapterManager = new VoucherExpense.SQLVEDataSetTableAdapters.TableAdapterManager();
             this.customerBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -74,6 +71,8 @@
             this.hideCheckBox = new System.Windows.Forms.CheckBox();
             this.lastUpdatedLabel1 = new System.Windows.Forms.Label();
             this.customerIDLabel2 = new System.Windows.Forms.Label();
+            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
+            this.customerTableAdapter = new VoucherExpense.DamaiDataSetTableAdapters.CustomerTableAdapter();
             customerIDLabel = new System.Windows.Forms.Label();
             nameLabel = new System.Windows.Forms.Label();
             fullNameLabel = new System.Windows.Forms.Label();
@@ -84,11 +83,11 @@
             noteLabel = new System.Windows.Forms.Label();
             hideLabel = new System.Windows.Forms.Label();
             lastUpdatedLabel = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.sQLVEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerBindingNavigator)).BeginInit();
             this.customerBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.customerDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // customerIDLabel
@@ -123,9 +122,9 @@
             contactPeopleLabel.AutoSize = true;
             contactPeopleLabel.Location = new System.Drawing.Point(610, 191);
             contactPeopleLabel.Name = "contactPeopleLabel";
-            contactPeopleLabel.Size = new System.Drawing.Size(60, 16);
+            contactPeopleLabel.Size = new System.Drawing.Size(56, 16);
             contactPeopleLabel.TabIndex = 8;
-            contactPeopleLabel.Text = "联络人:";
+            contactPeopleLabel.Text = "联络人";
             // 
             // telephoneLabel
             // 
@@ -181,33 +180,10 @@
             lastUpdatedLabel.TabIndex = 20;
             lastUpdatedLabel.Text = "更新日:";
             // 
-            // sQLVEDataSet
-            // 
-            this.sQLVEDataSet.DataSetName = "SQLVEDataSet";
-            this.sQLVEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // customerBindingSource
             // 
             this.customerBindingSource.DataMember = "Customer";
-            this.customerBindingSource.DataSource = this.sQLVEDataSet;
-            // 
-            // customerTableAdapter
-            // 
-            this.customerTableAdapter.ClearBeforeFill = true;
-            // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.CustomerTableAdapter = this.customerTableAdapter;
-            this.tableAdapterManager.InventoryDetailTableAdapter = null;
-            this.tableAdapterManager.InventoryProductsTableAdapter = null;
-            this.tableAdapterManager.InventoryTableAdapter = null;
-            this.tableAdapterManager.ProductScrappedDetailTableAdapter = null;
-            this.tableAdapterManager.ProductScrappedTableAdapter = null;
-            this.tableAdapterManager.RequestsTableAdapter = null;
-            this.tableAdapterManager.ShipmentDetailTableAdapter = null;
-            this.tableAdapterManager.ShipmentTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = VoucherExpense.SQLVEDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.customerBindingSource.DataSource = this.damaiDataSet;
             // 
             // customerBindingNavigator
             // 
@@ -237,7 +213,7 @@
             this.customerBindingNavigator.Name = "customerBindingNavigator";
             this.customerBindingNavigator.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.customerBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.customerBindingNavigator.Size = new System.Drawing.Size(330, 25);
+            this.customerBindingNavigator.Size = new System.Drawing.Size(271, 25);
             this.customerBindingNavigator.TabIndex = 0;
             this.customerBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -254,8 +230,8 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(32, 22);
-            this.bindingNavigatorCountItem.Text = "/ {0}";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(27, 22);
+            this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "总项数";
             // 
             // bindingNavigatorDeleteItem
@@ -339,6 +315,7 @@
             // 
             // customerDataGridView
             // 
+            this.customerDataGridView.AllowUserToAddRows = false;
             this.customerDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.customerDataGridView.AutoGenerateColumns = false;
@@ -480,6 +457,15 @@
             this.customerIDLabel2.Size = new System.Drawing.Size(100, 23);
             this.customerIDLabel2.TabIndex = 22;
             // 
+            // damaiDataSet
+            // 
+            this.damaiDataSet.DataSetName = "DamaiDataSet";
+            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // customerTableAdapter
+            // 
+            this.customerTableAdapter.ClearBeforeFill = true;
+            // 
             // FormCustomer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -508,17 +494,17 @@
             this.Controls.Add(customerIDLabel);
             this.Controls.Add(this.customerDataGridView);
             this.Controls.Add(this.customerBindingNavigator);
-            this.Font = new System.Drawing.Font("PMingLiU", 12F);
+            this.Font = new System.Drawing.Font("新細明體", 12F);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormCustomer";
             this.Text = "客户";
             this.Load += new System.EventHandler(this.FormCustomer_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.sQLVEDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerBindingNavigator)).EndInit();
             this.customerBindingNavigator.ResumeLayout(false);
             this.customerBindingNavigator.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.customerDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -526,10 +512,7 @@
 
         #endregion
 
-        private SQLVEDataSet sQLVEDataSet;
         private System.Windows.Forms.BindingSource customerBindingSource;
-        private SQLVEDataSetTableAdapters.CustomerTableAdapter customerTableAdapter;
-        private SQLVEDataSetTableAdapters.TableAdapterManager tableAdapterManager;
         private System.Windows.Forms.BindingNavigator customerBindingNavigator;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
@@ -560,5 +543,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
+        private DamaiDataSet damaiDataSet;
+        private DamaiDataSetTableAdapters.CustomerTableAdapter customerTableAdapter;
     }
 }

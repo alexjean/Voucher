@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-#if UseSQLServer
+
 using MyDataSet                     = VoucherExpense.DamaiDataSet;
 using MyOrderSet                    = VoucherExpense.DamaiDataSet;
 using MyProductScrappedRow          = VoucherExpense.DamaiDataSet.ProductScrappedRow;
@@ -15,16 +15,6 @@ using MyProductScrappedTable        = VoucherExpense.DamaiDataSet.ProductScrappe
 using MyProductScrappedDetailTable  = VoucherExpense.DamaiDataSet.ProductScrappedDetailDataTable;
 using MyProductScrappedAdapter      = VoucherExpense.DamaiDataSetTableAdapters.ProductScrappedTableAdapter;
 using MyProductScrappedDetailAdapter= VoucherExpense.DamaiDataSetTableAdapters.ProductScrappedDetailTableAdapter;
-#else
-using MyDataSet                     = VoucherExpense.VEDataSet;
-using MyOrderSet                    = VoucherExpense.BakeryOrderSet;
-using MyProductScrappedRow          = VoucherExpense.VEDataSet.ProductScrappedRow;
-using MyProductScrappedDetailRow    = VoucherExpense.VEDataSet.ProductScrappedDetailRow;
-using MyProductScrappedTable        = VoucherExpense.VEDataSet.ProductScrappedDataTable;
-using MyProductScrappedDetailTable  = VoucherExpense.VEDataSet.ProductScrappedDetailDataTable;
-using MyProductScrappedAdapter      = VoucherExpense.VEDataSetTableAdapters.ProductScrappedTableAdapter;
-using MyProductScrappedDetailAdapter= VoucherExpense.VEDataSetTableAdapters.ProductScrappedDetailTableAdapter;
-#endif
 
 namespace VoucherExpense
 {
@@ -49,23 +39,18 @@ namespace VoucherExpense
         MyProductScrappedDetailAdapter ProductScrappedDetailAdapter = new MyProductScrappedDetailAdapter();
         private void FormScraps_Load(object sender, EventArgs e)
         {
-#if UseSQLServer
+
             m_OrderSet = m_DataSet;
             var productAdapter  = new VoucherExpense.DamaiDataSetTableAdapters.ProductTableAdapter();
             var operatorAdapter = new VoucherExpense.DamaiDataSetTableAdapters.OperatorTableAdapter();
+            productAdapter.Connection.ConnectionString  = DB.SqlConnectString(MyFunction.HardwareCfg);
+            operatorAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+
+
             SetupBindingSource();
             productScrappedDetailBindingSource1.DataSource=productScrappedBindingSource;
             dgvScrappedDetail.DataSource = this.productScrappedDetailBindingSource1;
-#else
-            m_OrderSet= new VoucherExpense.BakeryOrderSet();
-            var productAdapter  = new VoucherExpense.BakeryOrderSetTableAdapters.ProductTableAdapter();
-            var operatorAdapter = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
-            productAdapter.Connection  = MapPath.BakeryConnection;
-            operatorAdapter.Connection = MapPath.VEConnection;
-            SetupBindingSource();
-            productScrappedDetailBindingSource.DataSource=productScrappedBindingSource;
-            dgvScrappedDetail.DataSource = this.productScrappedDetailBindingSource;
-#endif
+
             try
             {
                 productAdapter.Fill(m_OrderSet.Product);
@@ -223,17 +208,12 @@ namespace VoucherExpense
 
         private void chBoxHide_CheckedChanged(object sender, EventArgs e)
         {
-#if UseSQLServer
+
             if (chBoxHide.Checked)
                 this.productScrappedDetailBindingSource1.Filter = "Volume>0";
             else
                 this.productScrappedDetailBindingSource1.RemoveFilter();
-#else
-            if (chBoxHide.Checked)
-                this.productScrappedDetailBindingSource.Filter = "Volume>0";
-            else
-                this.productScrappedDetailBindingSource.RemoveFilter();
-#endif
+
         }
 
         private void dgvProductScrapped_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -337,17 +317,12 @@ namespace VoucherExpense
 
         void DetailBindingSource(bool SaveToDB)
         {
-#if UseSQLServer
+
             if (SaveToDB)
                 productScrappedDetailBindingSource1.EndEdit();
             else
                 productScrappedDetailBindingSource1.ResetBindings(false);
-#else
-            if (SaveToDB)
-                productScrappedDetailBindingSource.EndEdit();
-            else
-                productScrappedDetailBindingSource.ResetBindings(false);
-#endif
+
         }
 
         private void FormScraps_Shown(object sender, EventArgs e)

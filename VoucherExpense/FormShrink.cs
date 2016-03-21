@@ -6,19 +6,11 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-#if UseSQLServer
 using MyDataSet         = VoucherExpense.DamaiDataSet;
 using MyOrderSet        = VoucherExpense.DamaiDataSet;
 using MyOrderAdapter    = VoucherExpense.DamaiDataSetTableAdapters.OrderTableAdapter;
 using MyOrderItemAdapter= VoucherExpense.DamaiDataSetTableAdapters.OrderItemTableAdapter;
 using MyInventoryRow    = VoucherExpense.DamaiDataSet.InventoryRow;
-#else
-using MyDataSet         = VoucherExpense.VEDataSet;
-using MyOrderSet        = VoucherExpense.BakeryOrderSet;
-using MyOrderAdapter    = VoucherExpense.BakeryOrderSetTableAdapters.OrderTableAdapter;
-using MyOrderItemAdapter= VoucherExpense.BakeryOrderSetTableAdapters.OrderItemTableAdapter;
-using MyInventoryRow    = VoucherExpense.VEDataSet.InventoryRow;
-#endif
 namespace VoucherExpense
 {
     public partial class FormShrink : Form
@@ -86,15 +78,11 @@ namespace VoucherExpense
         {
             try
             {
-#if (UseSQLServer)
                 var inventoryTableAdapter       = new VoucherExpense.DamaiDataSetTableAdapters.InventoryTableAdapter();
                 var productTableAdapter         = new VoucherExpense.DamaiDataSetTableAdapters.ProductTableAdapter();
                 var ProductScrappedTableAdapter = new VoucherExpense.DamaiDataSetTableAdapters.ProductScrappedTableAdapter();
-#else
-                var inventoryTableAdapter       = new VEDataSetTableAdapters.InventoryTableAdapter();
-                var productTableAdapter         = new BakeryOrderSetTableAdapters.ProductTableAdapter();
-                var ProductScrappedTableAdapter = new VEDataSetTableAdapters.ProductScrappedTableAdapter();
-#endif
+                productTableAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+
                 inventoryTableAdapter.Fill(Inventory);
                 productTableAdapter.Fill(Product);
                 ProductScrappedTableAdapter.Fill(ProductScrapped);

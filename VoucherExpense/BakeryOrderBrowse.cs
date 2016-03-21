@@ -6,14 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-#if UseSQLServer
 using MyOrderRow        = VoucherExpense.DamaiDataSet.OrderRow;
 using MyDrawerRecordRow = VoucherExpense.DamaiDataSet.DrawerRecordRow;
 using Com.Alipay;
-#else
-using MyOrderRow        = VoucherExpense.BakeryOrderSet.OrderRow;
-using MyDrawerRecordRow = VoucherExpense.BakeryOrderSet.DrawerRecordRow;
-#endif
 
 namespace VoucherExpense
 {
@@ -45,7 +40,6 @@ namespace VoucherExpense
         string[] m_ListViewItemBackup;
         TabPage m_TabPageStatics = null;
 
-#if (UseSQLServer)
         DamaiDataSet m_OrderSet = new DamaiDataSet();
         string FloorStr = "FLOOR";
         class OrderAdapter : DamaiDataSetTableAdapters.OrderTableAdapter
@@ -84,69 +78,18 @@ namespace VoucherExpense
                 return result;
             }
         }
-#else
-        BakeryOrderSet m_OrderSet = new BakeryOrderSet();
-        string FloorStr = "INT";
-        class OrderAdapter : BakeryOrderSetTableAdapters.OrderTableAdapter
-        {
-            string SaveStr;
-            public int FillBySelectStr(BakeryOrderSet.OrderDataTable dataTable, string SelectStr)
-            {
-                SaveStr = base.CommandCollection[0].CommandText;
-                base.CommandCollection[0].CommandText = SelectStr;
-                int result = Fill(dataTable);
-                base.CommandCollection[0].CommandText = SaveStr;
-                return result;
-            }
-        }
-        class OrderItemAdapter : BakeryOrderSetTableAdapters.OrderItemTableAdapter
-        {
-            string SaveStr;
-            public int FillBySelectStr(BakeryOrderSet.OrderItemDataTable dataTable, string SelectStr)
-            {
-                SaveStr = base.CommandCollection[0].CommandText;
-                base.CommandCollection[0].CommandText = SelectStr;
-                int result = Fill(dataTable);
-                base.CommandCollection[0].CommandText = SaveStr;
-                return result;
-            }
-        }
-        class DrawerRecordAdapter : BakeryOrderSetTableAdapters.DrawerRecordTableAdapter
-        {
-            string SaveStr;
-            public int FillBySelectStr(BakeryOrderSet.DrawerRecordDataTable dataTable, string SelectStr)
-            {
-                SaveStr = base.CommandCollection[0].CommandText;
-                base.CommandCollection[0].CommandText = SelectStr;
-                int result = Fill(dataTable);
-                base.CommandCollection[0].CommandText = SaveStr;
-                return result;
-            }
-        }
-#endif
         OrderAdapter m_OrderTableAdapter = new OrderAdapter();
         OrderItemAdapter m_OrderItemTableAdapter = new OrderItemAdapter();
         DrawerRecordAdapter m_DrawerReocrdAdapter = new DrawerRecordAdapter();
         private void BakeryOrderBrowse_Load(object sender, EventArgs e)
         {
 
-#if UseSQLServer
             var productAdapter = new DamaiDataSetTableAdapters.ProductTableAdapter();
+            productAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
             try
             {
                 productAdapter.Fill(m_OrderSet.Product);
             }
-#else
-            var productAdapter = new BakeryOrderSetTableAdapters.ProductTableAdapter();
-            productAdapter.Connection           = MapPath.BakeryConnection;
-            m_OrderTableAdapter.Connection      = MapPath.BakeryConnection;
-            m_OrderItemTableAdapter.Connection  = MapPath.BakeryConnection;
-            m_DrawerReocrdAdapter.Connection    = MapPath.BakeryConnection;
-            try
-            {
-                productAdapter.Fill(m_OrderSet.Product);
-            }
-#endif
             catch (Exception ex)
             {
                 MessageBox.Show("載入烘焙產品表時出錯,原因:" + ex.Message);

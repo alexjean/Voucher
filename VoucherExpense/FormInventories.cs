@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-#if UseSQLServer
 using MyDataSet                 = VoucherExpense.DamaiDataSet;
 using MyOrderSet                = VoucherExpense.DamaiDataSet;
 using MyInventoryAdapter        = VoucherExpense.DamaiDataSetTableAdapters.InventoryTableAdapter;
@@ -20,21 +19,7 @@ using MyInventoryDetailTable    = VoucherExpense.DamaiDataSet.InventoryDetailDat
 using MyInventoryProductsTable  = VoucherExpense.DamaiDataSet.InventoryProductsDataTable;
 using MyVoucherAdapter          = VoucherExpense.DamaiDataSetTableAdapters.VoucherTableAdapter;
 using MyVoucherDetailAdapter    = VoucherExpense.DamaiDataSetTableAdapters.VoucherDetailTableAdapter;
-#else
-using MyDataSet                 = VoucherExpense.VEDataSet;
-using MyOrderSet                = VoucherExpense.BakeryOrderSet;
-using MyInventoryAdapter        = VoucherExpense.VEDataSetTableAdapters.InventoryTableAdapter;
-using MyInventoryProductsAdapter= VoucherExpense.VEDataSetTableAdapters.InventoryProductsTableAdapter;
-using MyInventoryDetailAdapter  = VoucherExpense.VEDataSetTableAdapters.InventoryDetailTableAdapter;
-using MyInventoryRow            = VoucherExpense.VEDataSet.InventoryRow;
-using MyInventoryDetailRow      = VoucherExpense.VEDataSet.InventoryDetailRow;
-using MyInventoryProductsRow    = VoucherExpense.VEDataSet.InventoryProductsRow;
-using MyInventoryTable          = VoucherExpense.VEDataSet.InventoryDataTable;
-using MyInventoryDetailTable    = VoucherExpense.VEDataSet.InventoryDetailDataTable;
-using MyInventoryProductsTable  = VoucherExpense.VEDataSet.InventoryProductsDataTable;
-using MyVoucherAdapter          = VoucherExpense.VEDataSetTableAdapters.VoucherTableAdapter;
-using MyVoucherDetailAdapter    = VoucherExpense.VEDataSetTableAdapters.VoucherDetailTableAdapter;
-#endif
+
 
 namespace VoucherExpense
 {
@@ -50,17 +35,11 @@ namespace VoucherExpense
             ingredientBindingSource.DataSource  = m_DataSet;
             operatorBindingSource.DataSource    = m_DataSet;
             inventoryBindingSource.DataSource   = m_DataSet;
-#if (UseSQLServer)
             m_OrderSet = m_DataSet;
             fKInventoryDetailInventoryBindingSource.DataSource = inventoryBindingSource;
             fKInventoryProductsInventoryBindingSource.DataSource = inventoryBindingSource;
             fKInventoryDetailInventoryBindingSource.Sort         = "IngredientID desc";
-#else
-            m_OrderSet=new MyOrderSet();
-            inventoryDetailBindingSource.DataSource              = inventoryBindingSource;
-            inventoryProductsBindingSource.DataSource            = inventoryBindingSource;
-            inventoryDetailBindingSource.Sort                    = "IngredientID desc";
-#endif
+
             productBindingSource.DataSource = m_OrderSet;
         }
 
@@ -72,28 +51,17 @@ namespace VoucherExpense
         private void FormIngredientInventories_Load(object sender, EventArgs e)
         {
             SetupBindingSource();
-#if UseSQLServer
             dgvInventories.DataSource = inventoryBindingSource;
             dgvInventoryDetail.DataSource = fKInventoryDetailInventoryBindingSource;
             dgvProducts.DataSource        = fKInventoryProductsInventoryBindingSource;
             var productAdapter      = new VoucherExpense.DamaiDataSetTableAdapters.ProductTableAdapter();
             var operatorAdapter     = new VoucherExpense.DamaiDataSetTableAdapters.OperatorTableAdapter();
             var ingredientAdapter   = new VoucherExpense.DamaiDataSetTableAdapters.IngredientTableAdapter();
-#else
-            dgvInventories.DataSource = inventoryBindingSource;
-            dgvInventoryDetail.DataSource = inventoryDetailBindingSource;
-            dgvProducts.DataSource        = inventoryProductsBindingSource;
 
-            var productAdapter      = new VoucherExpense.BakeryOrderSetTableAdapters.ProductTableAdapter();
-            var operatorAdapter     = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
-            var ingredientAdapter   = new VoucherExpense.VEDataSetTableAdapters.IngredientTableAdapter();
-            productAdapter.Connection           = MapPath.BakeryConnection;
-            operatorAdapter.Connection          = MapPath.VEConnection;
-            ingredientAdapter.Connection        = MapPath.VEConnection;
-            InventoryAdapter.Connection         = MapPath.VEConnection;
-            InventoryDetailAdapter.Connection   = MapPath.VEConnection;
-            InventoryProductsAdapter.Connection = MapPath.VEConnection;
-#endif
+            productAdapter.Connection.ConnectionString    = DB.SqlConnectString(MyFunction.HardwareCfg);
+            operatorAdapter.Connection.ConnectionString   = DB.SqlConnectString(MyFunction.HardwareCfg);
+            ingredientAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+
             try
             {
                 productAdapter.Fill     (m_OrderSet.Product);
@@ -219,7 +187,6 @@ namespace VoucherExpense
 
         void DetailBindingSource(bool SaveToDataTable)
         {
-#if (UseSQLServer)
             if (SaveToDataTable)
             {
                 fKInventoryDetailInventoryBindingSource.EndEdit();
@@ -230,18 +197,7 @@ namespace VoucherExpense
                 fKInventoryDetailInventoryBindingSource.ResetBindings(false);
                 fKInventoryProductsInventoryBindingSource.ResetBindings(false);
             }
-#else
-            if (SaveToDataTable)
-            {
-                inventoryDetailBindingSource.EndEdit();
-                inventoryProductsBindingSource.EndEdit();
-            }
-            else
-            {
-                inventoryDetailBindingSource.ResetBindings(false);
-                inventoryProductsBindingSource.ResetBindings(false);
-            }
-#endif
+
         }
 
         private void inventoryBindingNavigatorSaveItem_Click(object sender, EventArgs e)
@@ -448,15 +404,14 @@ namespace VoucherExpense
                 MessageBox.Show("dgvInventories Row_Enter產生錯誤, 原因:" + ex.Message);
             }
             chBoxHide_CheckedChanged(null, null);
-            inventoryDetailBindingSource.ResetBindings(false);
-            inventoryProductsBindingSource.ResetBindings(false);
+            fKInventoryDetailInventoryBindingSource.ResetBindings(false);
+            fKInventoryProductsInventoryBindingSource.ResetBindings(false);
 //            fKInventoryDetailInventoryBindingSource.EndEdit();
            
         }
 
         private void chBoxHide_CheckedChanged(object sender, EventArgs e)
         {
-#if UseSQLServer
             if (chBoxHide.Checked)
             {
                 fKInventoryDetailInventoryBindingSource.Filter = "StockVolume>0 OR PrevStockVolume>0 OR CurrentIn>0";
@@ -467,18 +422,6 @@ namespace VoucherExpense
                 fKInventoryDetailInventoryBindingSource.RemoveFilter();
                 fKInventoryProductsInventoryBindingSource.RemoveFilter();
             }
-#else
-            if (chBoxHide.Checked)
-            {
-                inventoryDetailBindingSource.Filter = "StockVolume>0 OR PrevStockVolume>0 OR CurrentIn>0";
-                inventoryProductsBindingSource.Filter = "PrevVolume>0 OR Volume>0";
-            }
-            else
-            {
-                inventoryDetailBindingSource.RemoveFilter();
-                inventoryProductsBindingSource.RemoveFilter();
-            }
-#endif
         }
 
         private void dgvInventoryDetail_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -644,17 +587,11 @@ namespace VoucherExpense
                 if (m_VoucherAdapter == null)
                 {
                     m_VoucherAdapter = new MyVoucherAdapter();
-#if (!UseSQLServer)                    
-                    m_VoucherAdapter.Connection = MapPath.VEConnection;
-#endif
                     m_VoucherAdapter.Fill(m_DataSet.Voucher); 
                 }
                 if (m_VoucherDetailAdapter == null)
                 {
                     m_VoucherDetailAdapter = new MyVoucherDetailAdapter();
-#if (!UseSQLServer)
-                    m_VoucherDetailAdapter.Connection = MapPath.VEConnection;
-#endif
                     m_VoucherDetailAdapter.Fill(m_DataSet.VoucherDetail);
                 }
 

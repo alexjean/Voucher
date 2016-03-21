@@ -34,22 +34,20 @@
             System.Windows.Forms.Label label2;
             System.Windows.Forms.Label label5;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormScraps));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
-            this.vEDataSet = new VoucherExpense.VEDataSet();
-            this.productScrappedBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.productScrappedBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
-            this.productScrappedBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.productScrappedBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             this.bindingNavigatorSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
@@ -62,19 +60,16 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Reason = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.cNameIDForComboBoxBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.ColumnLocked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.operatorBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.productScrappedDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dgvScrappedDetail = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProductID = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.bakeryOrderSet = new VoucherExpense.BakeryOrderSet();
             this.ProductName = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.ColumnVolume = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -106,23 +101,19 @@
             this.fromPicker = new System.Windows.Forms.DateTimePicker();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.toPicker = new System.Windows.Forms.DateTimePicker();
+            this.cNameIDForComboBoxBindingSource = new System.Windows.Forms.BindingSource(this.components);
             soldValueLabel = new System.Windows.Forms.Label();
             ingredientsCostLabel = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
             label5 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.productScrappedBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productScrappedBindingNavigator)).BeginInit();
             this.productScrappedBindingNavigator.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.productScrappedBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productScrappedBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductScrapped)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cNameIDForComboBoxBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.productScrappedDetailBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvScrappedDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productScrappedDetailBindingSource1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -130,6 +121,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvCalc)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.calcScrapeBindingSource)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cNameIDForComboBoxBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // soldValueLabel
@@ -177,20 +169,10 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "報癈日";
             // 
-            // vEDataSet
-            // 
-            this.vEDataSet.DataSetName = "VEDataSet";
-            this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // productScrappedBindingSource
-            // 
-            this.productScrappedBindingSource.DataMember = "ProductScrapped";
-            this.productScrappedBindingSource.DataSource = this.vEDataSet;
-            // 
             // productScrappedBindingNavigator
             // 
             this.productScrappedBindingNavigator.AddNewItem = null;
-            this.productScrappedBindingNavigator.BindingSource = this.productScrappedBindingSource1;
+            this.productScrappedBindingNavigator.BindingSource = this.productScrappedBindingSource;
             this.productScrappedBindingNavigator.CountItem = null;
             this.productScrappedBindingNavigator.DeleteItem = null;
             this.productScrappedBindingNavigator.Dock = System.Windows.Forms.DockStyle.None;
@@ -211,10 +193,10 @@
             this.productScrappedBindingNavigator.TabIndex = 2;
             this.productScrappedBindingNavigator.Text = "bindingNavigator1";
             // 
-            // productScrappedBindingSource1
+            // productScrappedBindingSource
             // 
-            this.productScrappedBindingSource1.DataMember = "ProductScrapped";
-            this.productScrappedBindingSource1.DataSource = this.damaiDataSet;
+            this.productScrappedBindingSource.DataMember = "ProductScrapped";
+            this.productScrappedBindingSource.DataSource = this.damaiDataSet;
             // 
             // damaiDataSet
             // 
@@ -309,10 +291,10 @@
             // dataGridViewTextBoxColumn4
             // 
             this.dataGridViewTextBoxColumn4.DataPropertyName = "SoldValue";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle1.Format = "N1";
-            dataGridViewCellStyle1.NullValue = null;
-            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle23.Format = "N1";
+            dataGridViewCellStyle23.NullValue = null;
+            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle23;
             this.dataGridViewTextBoxColumn4.HeaderText = "價值";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
@@ -321,10 +303,10 @@
             // dataGridViewTextBoxColumn5
             // 
             this.dataGridViewTextBoxColumn5.DataPropertyName = "IngredientsCost";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "N2";
-            dataGridViewCellStyle2.NullValue = null;
-            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle24.Format = "N2";
+            dataGridViewCellStyle24.NullValue = null;
+            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle24;
             this.dataGridViewTextBoxColumn5.HeaderText = "成本";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.ReadOnly = true;
@@ -341,10 +323,6 @@
             this.Reason.ValueMember = "ID";
             this.Reason.Width = 80;
             // 
-            // cNameIDForComboBoxBindingSource
-            // 
-            this.cNameIDForComboBoxBindingSource.DataSource = typeof(VoucherExpense.CNameIDForComboBox);
-            // 
             // ColumnLocked
             // 
             this.ColumnLocked.DataPropertyName = "Locked";
@@ -355,8 +333,8 @@
             // dataGridViewTextBoxColumn8
             // 
             this.dataGridViewTextBoxColumn8.DataPropertyName = "EvaluatedDate";
-            dataGridViewCellStyle3.Format = "MM-dd";
-            this.dataGridViewTextBoxColumn8.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle25.Format = "MM-dd";
+            this.dataGridViewTextBoxColumn8.DefaultCellStyle = dataGridViewCellStyle25;
             this.dataGridViewTextBoxColumn8.HeaderText = "估值日";
             this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
             this.dataGridViewTextBoxColumn8.ReadOnly = true;
@@ -365,8 +343,8 @@
             // dataGridViewTextBoxColumn7
             // 
             this.dataGridViewTextBoxColumn7.DataPropertyName = "LastUpdated";
-            dataGridViewCellStyle4.Format = "MM-dd";
-            this.dataGridViewTextBoxColumn7.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle26.Format = "MM-dd";
+            this.dataGridViewTextBoxColumn7.DefaultCellStyle = dataGridViewCellStyle26;
             this.dataGridViewTextBoxColumn7.HeaderText = "更新";
             this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
             this.dataGridViewTextBoxColumn7.Width = 64;
@@ -387,13 +365,7 @@
             // operatorBindingSource
             // 
             this.operatorBindingSource.DataMember = "Operator";
-            this.operatorBindingSource.DataSource = this.vEDataSet;
-            // 
-            // productScrappedDetailBindingSource
-            // 
-            this.productScrappedDetailBindingSource.DataMember = "ProductScrappedProductScrappedDetail";
-            this.productScrappedDetailBindingSource.DataSource = this.productScrappedBindingSource;
-            this.productScrappedDetailBindingSource.Filter = "";
+            this.operatorBindingSource.DataSource = this.damaiDataSet;
             // 
             // dgvScrappedDetail
             // 
@@ -414,12 +386,12 @@
             this.ColumnVolume,
             this.dataGridViewTextBoxColumn13,
             this.dataGridViewTextBoxColumn14});
-            this.dgvScrappedDetail.DataSource = this.productScrappedDetailBindingSource;
+            this.dgvScrappedDetail.DataSource = this.productScrappedDetailBindingSource1;
             this.dgvScrappedDetail.Location = new System.Drawing.Point(0, 70);
             this.dgvScrappedDetail.Name = "dgvScrappedDetail";
             this.dgvScrappedDetail.RowHeadersWidth = 24;
             this.dgvScrappedDetail.RowTemplate.Height = 24;
-            this.dgvScrappedDetail.Size = new System.Drawing.Size(493, 657);
+            this.dgvScrappedDetail.Size = new System.Drawing.Size(493, 653);
             this.dgvScrappedDetail.TabIndex = 4;
             this.dgvScrappedDetail.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvScrappedDetail_CellValueChanged);
             this.dgvScrappedDetail.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvScrappedDetail_DataError);
@@ -427,8 +399,8 @@
             // dataGridViewTextBoxColumn9
             // 
             this.dataGridViewTextBoxColumn9.DataPropertyName = "ID";
-            dataGridViewCellStyle5.NullValue = null;
-            this.dataGridViewTextBoxColumn9.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle27.NullValue = null;
+            this.dataGridViewTextBoxColumn9.DefaultCellStyle = dataGridViewCellStyle27;
             this.dataGridViewTextBoxColumn9.HeaderText = "ID";
             this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
             this.dataGridViewTextBoxColumn9.Visible = false;
@@ -456,12 +428,7 @@
             // productBindingSource
             // 
             this.productBindingSource.DataMember = "Product";
-            this.productBindingSource.DataSource = this.bakeryOrderSet;
-            // 
-            // bakeryOrderSet
-            // 
-            this.bakeryOrderSet.DataSetName = "BakeryOrderSet";
-            this.bakeryOrderSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.productBindingSource.DataSource = this.damaiDataSet;
             // 
             // ProductName
             // 
@@ -480,10 +447,10 @@
             // ColumnVolume
             // 
             this.ColumnVolume.DataPropertyName = "Volume";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle6.Format = "N1";
-            dataGridViewCellStyle6.NullValue = null;
-            this.ColumnVolume.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle28.Format = "N1";
+            dataGridViewCellStyle28.NullValue = null;
+            this.ColumnVolume.DefaultCellStyle = dataGridViewCellStyle28;
             this.ColumnVolume.HeaderText = "量";
             this.ColumnVolume.Name = "ColumnVolume";
             this.ColumnVolume.Width = 64;
@@ -491,10 +458,10 @@
             // dataGridViewTextBoxColumn13
             // 
             this.dataGridViewTextBoxColumn13.DataPropertyName = "Price";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle7.Format = "N1";
-            dataGridViewCellStyle7.NullValue = null;
-            this.dataGridViewTextBoxColumn13.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle29.Format = "N1";
+            dataGridViewCellStyle29.NullValue = null;
+            this.dataGridViewTextBoxColumn13.DefaultCellStyle = dataGridViewCellStyle29;
             this.dataGridViewTextBoxColumn13.HeaderText = "價格";
             this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
             this.dataGridViewTextBoxColumn13.ReadOnly = true;
@@ -503,10 +470,10 @@
             // dataGridViewTextBoxColumn14
             // 
             this.dataGridViewTextBoxColumn14.DataPropertyName = "EvaluatedCost";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle8.Format = "N2";
-            dataGridViewCellStyle8.NullValue = null;
-            this.dataGridViewTextBoxColumn14.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle30.Format = "N2";
+            dataGridViewCellStyle30.NullValue = null;
+            this.dataGridViewTextBoxColumn14.DefaultCellStyle = dataGridViewCellStyle30;
             this.dataGridViewTextBoxColumn14.HeaderText = "成本";
             this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
             this.dataGridViewTextBoxColumn14.ReadOnly = true;
@@ -515,7 +482,7 @@
             // productScrappedDetailBindingSource1
             // 
             this.productScrappedDetailBindingSource1.DataMember = "FK_ProductScrappedDetail_ProductScrappedDetail";
-            this.productScrappedDetailBindingSource1.DataSource = this.productScrappedBindingSource1;
+            this.productScrappedDetailBindingSource1.DataSource = this.productScrappedBindingSource;
             // 
             // btnEvaluate
             // 
@@ -562,7 +529,6 @@
             // 
             // scrappedDateDateTimePicker
             // 
-            this.scrappedDateDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.productScrappedBindingSource, "ScrappedDate", true));
             this.scrappedDateDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.scrappedDateDateTimePicker.Location = new System.Drawing.Point(59, 5);
             this.scrappedDateDateTimePicker.Name = "scrappedDateDateTimePicker";
@@ -710,9 +676,9 @@
             // volumeDataGridViewTextBoxColumn
             // 
             this.volumeDataGridViewTextBoxColumn.DataPropertyName = "Volume";
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle9.Format = "N1";
-            this.volumeDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle31.Format = "N1";
+            this.volumeDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle31;
             this.volumeDataGridViewTextBoxColumn.HeaderText = "數量";
             this.volumeDataGridViewTextBoxColumn.Name = "volumeDataGridViewTextBoxColumn";
             this.volumeDataGridViewTextBoxColumn.ReadOnly = true;
@@ -721,9 +687,9 @@
             // costDataGridViewTextBoxColumn
             // 
             this.costDataGridViewTextBoxColumn.DataPropertyName = "SoldValue";
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle10.Format = "N1";
-            this.costDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle32.Format = "N1";
+            this.costDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle32;
             this.costDataGridViewTextBoxColumn.HeaderText = "價值";
             this.costDataGridViewTextBoxColumn.Name = "costDataGridViewTextBoxColumn";
             this.costDataGridViewTextBoxColumn.ReadOnly = true;
@@ -732,9 +698,9 @@
             // soldValueDataGridViewTextBoxColumn
             // 
             this.soldValueDataGridViewTextBoxColumn.DataPropertyName = "Cost";
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle11.Format = "N2";
-            this.soldValueDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle33.Format = "N2";
+            this.soldValueDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle33;
             this.soldValueDataGridViewTextBoxColumn.HeaderText = "成本";
             this.soldValueDataGridViewTextBoxColumn.Name = "soldValueDataGridViewTextBoxColumn";
             this.soldValueDataGridViewTextBoxColumn.ReadOnly = true;
@@ -825,6 +791,10 @@
             this.toPicker.Size = new System.Drawing.Size(100, 27);
             this.toPicker.TabIndex = 80;
             // 
+            // cNameIDForComboBoxBindingSource
+            // 
+            this.cNameIDForComboBoxBindingSource.DataSource = typeof(VoucherExpense.CNameIDForComboBox);
+            // 
             // FormScraps
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -841,20 +811,15 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormScraps_FormClosing);
             this.Load += new System.EventHandler(this.FormScraps_Load);
             this.Shown += new System.EventHandler(this.FormScraps_Shown);
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.productScrappedBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productScrappedBindingNavigator)).EndInit();
             this.productScrappedBindingNavigator.ResumeLayout(false);
             this.productScrappedBindingNavigator.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.productScrappedBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productScrappedBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductScrapped)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cNameIDForComboBoxBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.productScrappedDetailBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvScrappedDetail)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productScrappedDetailBindingSource1)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -865,6 +830,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.calcScrapeBindingSource)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cNameIDForComboBoxBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -873,26 +839,22 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private VEDataSet vEDataSet;
-        private System.Windows.Forms.BindingSource productScrappedBindingSource;
         private System.Windows.Forms.BindingNavigator productScrappedBindingNavigator;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorDeleteItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator;
         private System.Windows.Forms.ToolStripButton productScrappedBindingNavigatorSaveItem;
         private System.Windows.Forms.DataGridView dgvProductScrapped;
-        private System.Windows.Forms.BindingSource productScrappedDetailBindingSource;
         private System.Windows.Forms.DataGridView dgvScrappedDetail;
         private System.Windows.Forms.Button btnEvaluate;
         private System.Windows.Forms.CheckBox chBoxHide;
-        private BakeryOrderSet bakeryOrderSet;
         private System.Windows.Forms.BindingSource operatorBindingSource;
         private System.Windows.Forms.BindingSource cNameIDForComboBoxBindingSource;
         private System.Windows.Forms.BindingSource productBindingSource;
         private System.Windows.Forms.TextBox soldValueTextBox;
         private System.Windows.Forms.TextBox ingredientsCostTextBox;
         private System.Windows.Forms.DateTimePicker scrappedDateDateTimePicker;
-        private System.Windows.Forms.BindingSource productScrappedBindingSource1;
+        private System.Windows.Forms.BindingSource productScrappedBindingSource;
         private System.Windows.Forms.BindingSource productScrappedDetailBindingSource1;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnProductScrappedID;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;

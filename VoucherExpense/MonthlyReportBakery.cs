@@ -5,13 +5,8 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-#if UseSQLServer
 using MyDataSet = VoucherExpense.DamaiDataSet;
 using MyHeaderAdapter = VoucherExpense.DamaiDataSetTableAdapters.HeaderTableAdapter;
-#else
-using MyDataSet = VoucherExpense.BakeryOrderSet;
-using MyHeaderAdapter = VoucherExpense.BakeryOrderSetTableAdapters.HeaderTableAdapter;
-#endif
 
 namespace VoucherExpense
 {
@@ -31,9 +26,6 @@ namespace VoucherExpense
             try
             {
                 var headerAdapter = new MyHeaderAdapter();
-#if (!UseSQLServer)
-                headerAdapter.Connection = MapPath.BakeryConnection;
-#endif
                 headerAdapter.Fill(m_DataSet.Header);
                 TitleSetup Setup = new TitleSetup();
                 Setup.Load();

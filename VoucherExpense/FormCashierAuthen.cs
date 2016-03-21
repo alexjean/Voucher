@@ -60,6 +60,8 @@ namespace VoucherExpense
             m_OrderSet = m_DataSet;
             var operatorAdapter = new VoucherExpense.DamaiDataSetTableAdapters.OperatorTableAdapter();
             operatorAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+            ProductAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+
             //var apartmentAdapter = new VoucherExpense.DamaiDataSetTableAdapters.ApartmentTableAdapter();
             //apartmentAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
 

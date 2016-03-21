@@ -50,7 +50,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label3 = new System.Windows.Forms.Label();
             this.inventoryBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
-            this.inventoryBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.inventoryBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorSeparator = new System.Windows.Forms.ToolStripSeparator();
@@ -59,8 +59,6 @@
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
             this.inventoryBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
-            this.inventoryBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.vEDataSet = new VoucherExpense.VEDataSet();
             this.dgvInventories = new System.Windows.Forms.DataGridView();
             this.ColumnInventoryID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -73,7 +71,6 @@
             this.ColumnKeyID = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.operatorBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label1 = new System.Windows.Forms.Label();
-            this.inventoryDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dgvInventoryDetail = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -108,22 +105,17 @@
             this.inventoryIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProductID = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.bakeryOrderSet = new VoucherExpense.BakeryOrderSet();
             this.productIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.prevVolumeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnProductVolume = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.costDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.inventoryProductsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.fKInventoryProductsInventoryBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.inventoryBindingNavigator)).BeginInit();
             this.inventoryBindingNavigator.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.inventoryBindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.inventoryBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvInventories)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.inventoryDetailBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvInventoryDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ingredientBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fKInventoryDetailInventoryBindingSource)).BeginInit();
@@ -132,8 +124,6 @@
             this.tabPageProducts.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProducts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.inventoryProductsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fKInventoryProductsInventoryBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -149,7 +139,7 @@
             // inventoryBindingNavigator
             // 
             this.inventoryBindingNavigator.AddNewItem = null;
-            this.inventoryBindingNavigator.BindingSource = this.inventoryBindingSource1;
+            this.inventoryBindingNavigator.BindingSource = this.inventoryBindingSource;
             this.inventoryBindingNavigator.CountItem = this.bindingNavigatorCountItem;
             this.inventoryBindingNavigator.DeleteItem = null;
             this.inventoryBindingNavigator.Dock = System.Windows.Forms.DockStyle.None;
@@ -168,14 +158,14 @@
             this.inventoryBindingNavigator.MovePreviousItem = null;
             this.inventoryBindingNavigator.Name = "inventoryBindingNavigator";
             this.inventoryBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.inventoryBindingNavigator.Size = new System.Drawing.Size(174, 25);
+            this.inventoryBindingNavigator.Size = new System.Drawing.Size(172, 25);
             this.inventoryBindingNavigator.TabIndex = 68;
             this.inventoryBindingNavigator.Text = "bindingNavigator1";
             // 
-            // inventoryBindingSource1
+            // inventoryBindingSource
             // 
-            this.inventoryBindingSource1.DataMember = "Inventory";
-            this.inventoryBindingSource1.DataSource = this.damaiDataSet;
+            this.inventoryBindingSource.DataMember = "Inventory";
+            this.inventoryBindingSource.DataSource = this.damaiDataSet;
             // 
             // damaiDataSet
             // 
@@ -185,7 +175,7 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 22);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(27, 22);
             this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
@@ -236,16 +226,6 @@
             this.inventoryBindingNavigatorSaveItem.Size = new System.Drawing.Size(23, 22);
             this.inventoryBindingNavigatorSaveItem.Text = "儲存資料";
             this.inventoryBindingNavigatorSaveItem.Click += new System.EventHandler(this.inventoryBindingNavigatorSaveItem_Click);
-            // 
-            // inventoryBindingSource
-            // 
-            this.inventoryBindingSource.DataMember = "Inventory";
-            this.inventoryBindingSource.DataSource = this.vEDataSet;
-            // 
-            // vEDataSet
-            // 
-            this.vEDataSet.DataSetName = "VEDataSet";
-            this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // dgvInventories
             // 
@@ -380,7 +360,7 @@
             // operatorBindingSource
             // 
             this.operatorBindingSource.DataMember = "Operator";
-            this.operatorBindingSource.DataSource = this.vEDataSet;
+            this.operatorBindingSource.DataSource = this.damaiDataSet;
             // 
             // label1
             // 
@@ -390,11 +370,6 @@
             this.label1.Size = new System.Drawing.Size(56, 16);
             this.label1.TabIndex = 69;
             this.label1.Text = "食材數";
-            // 
-            // inventoryDetailBindingSource
-            // 
-            this.inventoryDetailBindingSource.DataMember = "InventoryInventoryDetail";
-            this.inventoryDetailBindingSource.DataSource = this.inventoryBindingSource;
             // 
             // dgvInventoryDetail
             // 
@@ -421,7 +396,7 @@
             this.ColumnStockChecked,
             this.StockMoneyColumn,
             this.dgvColumnLostMoney});
-            this.dgvInventoryDetail.DataSource = this.inventoryDetailBindingSource;
+            this.dgvInventoryDetail.DataSource = this.fKInventoryDetailInventoryBindingSource;
             this.dgvInventoryDetail.Location = new System.Drawing.Point(3, 32);
             this.dgvInventoryDetail.Name = "dgvInventoryDetail";
             this.dgvInventoryDetail.RowHeadersVisible = false;
@@ -478,7 +453,7 @@
             // ingredientBindingSource
             // 
             this.ingredientBindingSource.DataMember = "Ingredient";
-            this.ingredientBindingSource.DataSource = this.vEDataSet;
+            this.ingredientBindingSource.DataSource = this.damaiDataSet;
             // 
             // dataGridViewComboBoxColumn1
             // 
@@ -567,7 +542,7 @@
             // fKInventoryDetailInventoryBindingSource
             // 
             this.fKInventoryDetailInventoryBindingSource.DataMember = "FK_InventoryDetail_Inventory";
-            this.fKInventoryDetailInventoryBindingSource.DataSource = this.inventoryBindingSource1;
+            this.fKInventoryDetailInventoryBindingSource.DataSource = this.inventoryBindingSource;
             this.fKInventoryDetailInventoryBindingSource.Sort = "";
             // 
             // btnEvaluate
@@ -633,7 +608,6 @@
             // tbxIngredientsCost
             // 
             this.tbxIngredientsCost.BackColor = System.Drawing.Color.Azure;
-            this.tbxIngredientsCost.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.inventoryBindingSource, "IngredientsCost", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N1"));
             this.tbxIngredientsCost.Location = new System.Drawing.Point(423, 3);
             this.tbxIngredientsCost.Name = "tbxIngredientsCost";
             this.tbxIngredientsCost.ReadOnly = true;
@@ -644,7 +618,6 @@
             // tbxIngredientsLost
             // 
             this.tbxIngredientsLost.BackColor = System.Drawing.Color.Azure;
-            this.tbxIngredientsLost.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.inventoryBindingSource, "IngredientsLost", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N1"));
             this.tbxIngredientsLost.Location = new System.Drawing.Point(231, 3);
             this.tbxIngredientsLost.Name = "tbxIngredientsLost";
             this.tbxIngredientsLost.ReadOnly = true;
@@ -701,7 +674,6 @@
             // tbxProductsCost
             // 
             this.tbxProductsCost.BackColor = System.Drawing.Color.SeaShell;
-            this.tbxProductsCost.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.inventoryBindingSource, "ProductsCost", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N1"));
             this.tbxProductsCost.Location = new System.Drawing.Point(362, 3);
             this.tbxProductsCost.Name = "tbxProductsCost";
             this.tbxProductsCost.ReadOnly = true;
@@ -754,7 +726,7 @@
             this.prevVolumeColumn,
             this.ColumnProductVolume,
             this.costDataGridViewTextBoxColumn});
-            this.dgvProducts.DataSource = this.inventoryProductsBindingSource;
+            this.dgvProducts.DataSource = this.fKInventoryProductsInventoryBindingSource;
             this.dgvProducts.Location = new System.Drawing.Point(3, 36);
             this.dgvProducts.Name = "dgvProducts";
             this.dgvProducts.RowHeadersWidth = 24;
@@ -796,12 +768,7 @@
             // productBindingSource
             // 
             this.productBindingSource.DataMember = "Product";
-            this.productBindingSource.DataSource = this.bakeryOrderSet;
-            // 
-            // bakeryOrderSet
-            // 
-            this.bakeryOrderSet.DataSetName = "BakeryOrderSet";
-            this.bakeryOrderSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.productBindingSource.DataSource = this.damaiDataSet;
             // 
             // productIDDataGridViewTextBoxColumn
             // 
@@ -845,15 +812,10 @@
             this.costDataGridViewTextBoxColumn.Name = "costDataGridViewTextBoxColumn";
             this.costDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // inventoryProductsBindingSource
-            // 
-            this.inventoryProductsBindingSource.DataMember = "InventoryInventoryProducts";
-            this.inventoryProductsBindingSource.DataSource = this.inventoryBindingSource;
-            // 
             // fKInventoryProductsInventoryBindingSource
             // 
             this.fKInventoryProductsInventoryBindingSource.DataMember = "FK_InventoryProducts_Inventory";
-            this.fKInventoryProductsInventoryBindingSource.DataSource = this.inventoryBindingSource1;
+            this.fKInventoryProductsInventoryBindingSource.DataSource = this.inventoryBindingSource;
             // 
             // FormInventories
             // 
@@ -877,13 +839,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.inventoryBindingNavigator)).EndInit();
             this.inventoryBindingNavigator.ResumeLayout(false);
             this.inventoryBindingNavigator.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.inventoryBindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.inventoryBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvInventories)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.inventoryDetailBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvInventoryDetail)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ingredientBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fKInventoryDetailInventoryBindingSource)).EndInit();
@@ -894,8 +853,6 @@
             this.tabPageProducts.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProducts)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.inventoryProductsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fKInventoryProductsInventoryBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -905,8 +862,6 @@
         #endregion
 
         private System.Windows.Forms.Label label3;
-        private VEDataSet vEDataSet;
-        private System.Windows.Forms.BindingSource inventoryBindingSource;
         private System.Windows.Forms.BindingNavigator inventoryBindingNavigator;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
@@ -917,7 +872,6 @@
         private System.Windows.Forms.ToolStripButton inventoryBindingNavigatorSaveItem;
         private System.Windows.Forms.DataGridView dgvInventories;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.BindingSource inventoryDetailBindingSource;
         private System.Windows.Forms.DataGridView dgvInventoryDetail;
         private System.Windows.Forms.Button btnEvaluate;
         private System.Windows.Forms.Label label2;
@@ -941,15 +895,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn EvaluatedDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.DataGridViewComboBoxColumn ColumnKeyID;
-        private System.Windows.Forms.BindingSource inventoryProductsBindingSource;
         private System.Windows.Forms.TextBox tbxProductsCost;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label labelProductsCount;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DataGridView dgvProducts;
         private System.Windows.Forms.BindingSource productBindingSource;
-        private BakeryOrderSet bakeryOrderSet;
-        private System.Windows.Forms.BindingSource inventoryBindingSource1;
+        private System.Windows.Forms.BindingSource inventoryBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn inventoryIDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn ProductID;

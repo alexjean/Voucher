@@ -29,11 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.veDataSet1 = new VoucherExpense.VEDataSet();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.vendorBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.vendorDataGridView = new System.Windows.Forms.DataGridView();
             this.columnVendorID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -49,22 +48,18 @@
             this.btnSelectAll = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btnPrintUserSelected = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.veDataSet1)).BeginInit();
+            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             ((System.ComponentModel.ISupportInitialize)(this.vendorBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vendorDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgViewUserSelected)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cSelectedVoucherBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             this.SuspendLayout();
-            // 
-            // veDataSet1
-            // 
-            this.veDataSet1.DataSetName = "VEDataSet";
-            this.veDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // vendorBindingSource
             // 
             this.vendorBindingSource.DataMember = "Vendor";
-            this.vendorBindingSource.DataSource = this.veDataSet1;
+            this.vendorBindingSource.DataSource = this.damaiDataSet;
             this.vendorBindingSource.Filter = "Hide= false";
             // 
             // vendorDataGridView
@@ -73,18 +68,18 @@
             this.vendorDataGridView.AllowUserToDeleteRows = false;
             this.vendorDataGridView.AllowUserToOrderColumns = true;
             this.vendorDataGridView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
-            this.vendorDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.Azure;
+            this.vendorDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle9;
             this.vendorDataGridView.AutoGenerateColumns = false;
             this.vendorDataGridView.BackgroundColor = System.Drawing.Color.SeaShell;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.vendorDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.vendorDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.vendorDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.columnVendorID,
             this.columnVendorName});
@@ -124,14 +119,14 @@
             this.dgViewUserSelected.AllowUserToResizeRows = false;
             this.dgViewUserSelected.AutoGenerateColumns = false;
             this.dgViewUserSelected.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgViewUserSelected.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgViewUserSelected.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.dgViewUserSelected.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgViewUserSelected.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.iDDataGridViewTextBoxColumn,
@@ -157,10 +152,10 @@
             // costDataGridViewTextBoxColumn
             // 
             this.costDataGridViewTextBoxColumn.DataPropertyName = "Cost";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.Format = "N1";
-            dataGridViewCellStyle4.NullValue = null;
-            this.costDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle12.Format = "N1";
+            dataGridViewCellStyle12.NullValue = null;
+            this.costDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle12;
             this.costDataGridViewTextBoxColumn.HeaderText = "金額";
             this.costDataGridViewTextBoxColumn.Name = "costDataGridViewTextBoxColumn";
             this.costDataGridViewTextBoxColumn.ReadOnly = true;
@@ -236,6 +231,11 @@
             this.btnPrintUserSelected.UseVisualStyleBackColor = true;
             this.btnPrintUserSelected.Click += new System.EventHandler(this.btnPrintUserSelected_Click);
             // 
+            // damaiDataSet
+            // 
+            this.damaiDataSet.DataSetName = "DamaiDataSet";
+            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // FormPrintSelect
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -257,11 +257,11 @@
             this.ShowIcon = false;
             this.Text = "選擇列印方法";
             this.Load += new System.EventHandler(this.FormPrintSelect_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.veDataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vendorBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vendorDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgViewUserSelected)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cSelectedVoucherBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -269,7 +269,6 @@
 
         #endregion
 
-        private VEDataSet veDataSet1;
         private System.Windows.Forms.BindingSource vendorBindingSource;
         private System.Windows.Forms.DataGridView vendorDataGridView;
         private System.Windows.Forms.DataGridView dgViewUserSelected;
@@ -285,5 +284,6 @@
         private System.Windows.Forms.Button btnPrintUserSelected;
         private System.Windows.Forms.DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn costDataGridViewTextBoxColumn;
+        private DamaiDataSet damaiDataSet;
     }
 }

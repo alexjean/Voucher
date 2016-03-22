@@ -7,15 +7,9 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
-#if UseSQLServer
 using MyDataSet=VoucherExpense.DamaiDataSet;
 using MyHRRow = VoucherExpense.DamaiDataSet.HRRow;
 using MyOnDutyDataAdapter = VoucherExpense.DamaiDataSetTableAdapters.OnDutyDataTableAdapter;
-#else
-using MyDataSet=VoucherExpense.VEDataSet;
-using MyHRRow = VoucherExpense.VEDataSet.HRRow;
-using MyOnDutyDataAdapter = VoucherExpense.VEDataSetTableAdapters.OnDutyDataTableAdapter;
-#endif
 
 namespace VoucherExpense
 {
@@ -30,18 +24,10 @@ namespace VoucherExpense
         MyOnDutyDataAdapter OnDutyDataAdapter = new MyOnDutyDataAdapter();
         private void FormOnDutyEmployee_Load(object sender, EventArgs e)
         {
-            SetupBindingSource();
-#if UseSQLServer
             var apartmentAdapter    = new VoucherExpense.DamaiDataSetTableAdapters.ApartmentTableAdapter();
             var HRAdapter           = new VoucherExpense.DamaiDataSetTableAdapters.HRTableAdapter();
             apartmentAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
-#else
-            var apartmentAdapter    = new VoucherExpense.VEDataSetTableAdapters.ApartmentTableAdapter();
-            var HRAdapter           = new VoucherExpense.VEDataSetTableAdapters.HRTableAdapter();
-            apartmentAdapter.Connection   = MapPath.VEConnection;
-            HRAdapter.Connection          = MapPath.VEConnection;
-            OnDutyDataAdapter.Connection  = MapPath.VEConnection;
-#endif
+
             try
             {
                 apartmentAdapter.Fill   (m_DataSet.Apartment);
@@ -52,6 +38,7 @@ namespace VoucherExpense
             {
                 MessageBox.Show("Ex:" + ex.Message);
             }
+            SetupBindingSource();
             int index=DateTime.Now.Month - 2;
             if (index<0) index=0;
             this.comboBoxMonth.SelectedIndex = index;
@@ -99,7 +86,7 @@ namespace VoucherExpense
             if (hRRow == null) return;
             if (hRRow.IsFingerPintNoNull()) return;
             if (hRRow.IsEmployeeNameNull()) return;
-            if (hRRow.IsFingerprintmachineNull()) return;
+//            if (hRRow.IsFingerprintmachineNull()) return;
       
             labelName.Text = hRRow.EmployeeName;
             int dutyCode = hRRow.FingerPintNo;
@@ -109,11 +96,20 @@ namespace VoucherExpense
             for (int i = 0; i < count; i++) str[i] = (i+1).ToString("d2")+"日";
 
             int d, h;
-           // VEDataSet.OnDutyDataRow[] rows=hRRow.GetOnDutyDataRows();
-            //VEDataSet.OnDutyDataRow[] rows = (VEDataSet.OnDutyDataRow[])vEDataSet.OnDutyData.Select("Fingerprintmachine=" + hRRow.Fingerprintmachine + "and " + "OnDutyCode=" + hRRow.FingerPintNo);
-            var rows = from r in m_DataSet.OnDutyData 
+
+            EnumerableRowCollection<DamaiDataSet.OnDutyDataRow> rows;
+            if (hRRow.IsFingerprintmachineNull())
+            {
+                rows = from r in m_DataSet.OnDutyData
+                       where (r.OnDutyCode == hRRow.FingerPintNo)
+                       select r;
+            }
+            else
+            {
+                rows = from r in m_DataSet.OnDutyData
                        where (r.Fingerprintmachine == hRRow.Fingerprintmachine) && (r.OnDutyCode == hRRow.FingerPintNo)
                        select r;
+            }
             foreach (var row in rows)
             {
                 try

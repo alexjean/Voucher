@@ -59,6 +59,7 @@
             this.columnLocked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.KeyinID = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.lastUpdatedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             ((System.ComponentModel.ISupportInitialize)(this.cMonthForComboBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
@@ -71,6 +72,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.cHourForComboBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cShiftCodeBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvShift)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // cMonthForComboBindingSource
@@ -80,7 +82,7 @@
             // operatorBindingSource
             // 
             this.operatorBindingSource.DataMember = "Operator";
-            this.operatorBindingSource.DataSource = this.vEDataSet;
+            this.operatorBindingSource.DataSource = this.damaiDataSet;
             // 
             // vEDataSet
             // 
@@ -90,7 +92,7 @@
             // shiftTableBindingSource
             // 
             this.shiftTableBindingSource.DataMember = "ShiftTable";
-            this.shiftTableBindingSource.DataSource = this.vEDataSet;
+            this.shiftTableBindingSource.DataSource = this.damaiDataSet;
             // 
             // shiftTableBindingNavigator
             // 
@@ -113,7 +115,7 @@
             this.shiftTableBindingNavigator.MovePreviousItem = null;
             this.shiftTableBindingNavigator.Name = "shiftTableBindingNavigator";
             this.shiftTableBindingNavigator.PositionItem = null;
-            this.shiftTableBindingNavigator.Size = new System.Drawing.Size(111, 25);
+            this.shiftTableBindingNavigator.Size = new System.Drawing.Size(109, 25);
             this.shiftTableBindingNavigator.TabIndex = 58;
             this.shiftTableBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -130,7 +132,7 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(24, 22);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(22, 22);
             this.bindingNavigatorCountItem.Text = "{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
@@ -172,7 +174,7 @@
             // hRBindingSource
             // 
             this.hRBindingSource.DataMember = "HR";
-            this.hRBindingSource.DataSource = this.vEDataSet;
+            this.hRBindingSource.DataSource = this.damaiDataSet;
             // 
             // btnSaveCodeConfig
             // 
@@ -331,6 +333,11 @@
             this.lastUpdatedDataGridViewTextBoxColumn.Name = "lastUpdatedDataGridViewTextBoxColumn";
             this.lastUpdatedDataGridViewTextBoxColumn.ReadOnly = true;
             // 
+            // damaiDataSet
+            // 
+            this.damaiDataSet.DataSetName = "DamaiDataSet";
+            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // FormShift
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -361,6 +368,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.cHourForComboBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cShiftCodeBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvShift)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -395,5 +403,6 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn columnLocked;
         private System.Windows.Forms.DataGridViewComboBoxColumn KeyinID;
         private System.Windows.Forms.DataGridViewTextBoxColumn lastUpdatedDataGridViewTextBoxColumn;
+        private DamaiDataSet damaiDataSet;
     }
 }

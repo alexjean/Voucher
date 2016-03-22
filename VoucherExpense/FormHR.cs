@@ -60,7 +60,6 @@ namespace VoucherExpense
             operatorBindingSource1.DataSource = m_DataSet;
             operatorBindingSource2.DataSource = m_DataSet;
             hRBindingSource.DataSource = m_DataSet;
-            hRBindingSource1.DataSource = m_DataSet;     // hRBindingSource1只拿來當模版不使用,因為有_CurrentChanged也要掛麻煩
             fKHRDetailHRBindingSource.DataSource = hRBindingSource;
         }
 
@@ -72,7 +71,7 @@ namespace VoucherExpense
                 return;
             }
             this.hRBindingSource.EndEdit();    // 這行一加,現有RowState一定變成Modified (經查是photo惹的禍)
-            this.hRHRDetailBindingSource.EndEdit();
+            this.fKHRDetailHRBindingSource.EndEdit();
             var table   = (MyHRTable)m_DataSet.HR.GetChanges();
             var detail  = (MyHRDetailTable)m_DataSet.HRDetail.GetChanges();
             if (table == null && detail == null)
@@ -314,6 +313,7 @@ namespace VoucherExpense
         {
 
         }
+
 
  
     }

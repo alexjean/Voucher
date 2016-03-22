@@ -7,15 +7,9 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing.Printing;
-#if UseSQLServer
 using MyDataSet = VoucherExpense.DamaiDataSet;
 using MyOrderSet = VoucherExpense.DamaiDataSet;
 using MyHeaderAdapter = VoucherExpense.DamaiDataSetTableAdapters.HeaderTableAdapter;
-#else
-using MyDataSet = VoucherExpense.VEDataSet;
-using MyOrderSet = VoucherExpense.BakeryOrderSet;
-using MyHeaderAdapter = VoucherExpense.BakeryOrderSetTableAdapters.HeaderTableAdapter;
-#endif
 
 namespace VoucherExpense
 {
@@ -41,7 +35,6 @@ namespace VoucherExpense
         private void ReportByTitle_Load(object sender, EventArgs e)
         {
             var headerAdapter = new MyHeaderAdapter();
-#if (UseSQLServer)
             m_OrderSet = m_DataSet;
             var accTitleAdapter     = new VoucherExpense.DamaiDataSetTableAdapters.AccountingTitleTableAdapter();
             var bankAccountAdapter  = new VoucherExpense.DamaiDataSetTableAdapters.BankAccountTableAdapter();
@@ -50,24 +43,6 @@ namespace VoucherExpense
             var voucherDetailAdapter= new VoucherExpense.DamaiDataSetTableAdapters.VoucherDetailTableAdapter();
             var bankDetailAdapter   = new VoucherExpense.DamaiDataSetTableAdapters.BankDetailTableAdapter();
             var accVoucherAdapter   = new VoucherExpense.DamaiDataSetTableAdapters.AccVoucherTableAdapter();
-#else
-            m_OrderSet = new BakeryOrderSet();
-            var accTitleAdapter     = new VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter();
-            var bankAccountAdapter  = new VoucherExpense.VEDataSetTableAdapters.BankAccountTableAdapter();
-            var expenseAdapter      = new VoucherExpense.VEDataSetTableAdapters.ExpenseTableAdapter();
-            var voucherAdapter      = new VoucherExpense.VEDataSetTableAdapters.VoucherTableAdapter();
-            var voucherDetailAdapter= new VoucherExpense.VEDataSetTableAdapters.VoucherDetailTableAdapter();
-            var bankDetailAdapter   = new VoucherExpense.VEDataSetTableAdapters.BankDetailTableAdapter();
-            var accVoucherAdapter   = new VoucherExpense.VEDataSetTableAdapters.AccVoucherTableAdapter();
-            headerAdapter.Connection          = MapPath.BakeryConnection;
-            accTitleAdapter.Connection        = MapPath.VEConnection;
-            bankAccountAdapter.Connection     = MapPath.VEConnection;
-            expenseAdapter.Connection         = MapPath.VEConnection;
-            voucherAdapter.Connection         = MapPath.VEConnection;
-            voucherDetailAdapter.Connection   = MapPath.VEConnection;
-            bankDetailAdapter.Connection      = MapPath.VEConnection;
-            accVoucherAdapter.Connection      = MapPath.VEConnection;
-#endif
             try
             {
                 headerAdapter.Fill(m_OrderSet.Header);

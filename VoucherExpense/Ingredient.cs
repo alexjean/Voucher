@@ -149,12 +149,12 @@ namespace VoucherExpense
                 MessageBox.Show("代号必需是正整數!");
         }
 
-        private void classTextBox_Validating(object sender, CancelEventArgs e)
-        {
-            e.Cancel = !MyFunction.UintValidate(((TextBox)sender).Text);
-            if (m_ShowValidatingWarning && e.Cancel)
-                MessageBox.Show("代号必需是正整數!");
-        }
+        //private void classTextBox_Validating(object sender, CancelEventArgs e)
+        //{
+        //    e.Cancel = !MyFunction.UintValidate(((TextBox)sender).Text);
+        //    if (m_ShowValidatingWarning && e.Cancel)
+        //        MessageBox.Show("代号必需是正整數!");
+        //}
 
         private void priceTextBox_Validating(object sender, CancelEventArgs e)
         {

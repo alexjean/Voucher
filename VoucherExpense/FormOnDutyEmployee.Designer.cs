@@ -29,8 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.vEDataSet = new VoucherExpense.VEDataSet();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.comboBoxMonth = new System.Windows.Forms.ComboBox();
             this.labelName = new System.Windows.Forms.Label();
             this.ckBoxShowAll = new System.Windows.Forms.CheckBox();
@@ -51,16 +50,12 @@
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnExcel = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
+            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOnDutyEmployee)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.apartmentBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hRBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             this.SuspendLayout();
-            // 
-            // vEDataSet
-            // 
-            this.vEDataSet.DataSetName = "VEDataSet";
-            this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // comboBoxMonth
             // 
@@ -146,8 +141,8 @@
             this.dgvOnDutyEmployee.AllowUserToDeleteRows = false;
             this.dgvOnDutyEmployee.AllowUserToOrderColumns = true;
             this.dgvOnDutyEmployee.AllowUserToResizeRows = false;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Azure;
-            this.dgvOnDutyEmployee.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
+            this.dgvOnDutyEmployee.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvOnDutyEmployee.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvOnDutyEmployee.AutoGenerateColumns = false;
@@ -225,7 +220,7 @@
             // apartmentBindingSource
             // 
             this.apartmentBindingSource.DataMember = "Apartment";
-            this.apartmentBindingSource.DataSource = this.vEDataSet;
+            this.apartmentBindingSource.DataSource = this.damaiDataSet;
             // 
             // Title
             // 
@@ -237,7 +232,7 @@
             // hRBindingSource
             // 
             this.hRBindingSource.DataMember = "HR";
-            this.hRBindingSource.DataSource = this.vEDataSet;
+            this.hRBindingSource.DataSource = this.damaiDataSet;
             // 
             // checkedListBox1
             // 
@@ -271,6 +266,11 @@
             this.btnExcel.UseVisualStyleBackColor = true;
             this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
             // 
+            // damaiDataSet
+            // 
+            this.damaiDataSet.DataSetName = "DamaiDataSet";
+            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // FormOnDutyEmployee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -291,10 +291,10 @@
             this.Name = "FormOnDutyEmployee";
             this.Text = "上傳考勤至電腦";
             this.Load += new System.EventHandler(this.FormOnDutyEmployee_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOnDutyEmployee)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.apartmentBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.hRBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -302,7 +302,6 @@
 
         #endregion
 
-        private VEDataSet vEDataSet;
         private System.Windows.Forms.ComboBox comboBoxMonth;
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.CheckBox ckBoxShowAll;
@@ -323,5 +322,6 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn InPosition;
         private System.Windows.Forms.DataGridViewComboBoxColumn ColumnApartmentID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Title;
+        private DamaiDataSet damaiDataSet;
     }
 }

@@ -41,11 +41,10 @@
             System.Windows.Forms.Label label1;
             System.Windows.Forms.TextBox accVoucherIDTextBox;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAccVoucher));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.accVoucherBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.vEDataSet = new VoucherExpense.VEDataSet();
             this.accVoucherIDLabel = new System.Windows.Forms.Label();
             this.accVoucherBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
@@ -107,6 +106,7 @@
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.comboBoxMonth = new System.Windows.Forms.ComboBox();
             this.ckBoxAllowEdit = new System.Windows.Forms.CheckBox();
+            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             accVoucherTimeLabel = new System.Windows.Forms.Label();
             indentureIDLabel = new System.Windows.Forms.Label();
             keyinIDLabel = new System.Windows.Forms.Label();
@@ -119,7 +119,6 @@
             label1 = new System.Windows.Forms.Label();
             accVoucherIDTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.accVoucherBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accVoucherBindingNavigator)).BeginInit();
             this.accVoucherBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.accVoucherDataGridView)).BeginInit();
@@ -132,6 +131,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.accTitle2BindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accTitle3BindingSource)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // accVoucherTimeLabel
@@ -235,14 +235,9 @@
             // accVoucherBindingSource
             // 
             this.accVoucherBindingSource.DataMember = "AccVoucher";
-            this.accVoucherBindingSource.DataSource = this.vEDataSet;
+            this.accVoucherBindingSource.DataSource = this.damaiDataSet;
             this.accVoucherBindingSource.AddingNew += new System.ComponentModel.AddingNewEventHandler(this.accVoucherBindingSource_AddingNew);
             this.accVoucherBindingSource.BindingComplete += new System.Windows.Forms.BindingCompleteEventHandler(this.accVoucherBindingSource_BindingComplete);
-            // 
-            // vEDataSet
-            // 
-            this.vEDataSet.DataSetName = "VEDataSet";
-            this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // accVoucherIDLabel
             // 
@@ -278,7 +273,7 @@
             this.accVoucherBindingNavigator.MovePreviousItem = null;
             this.accVoucherBindingNavigator.Name = "accVoucherBindingNavigator";
             this.accVoucherBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.accVoucherBindingNavigator.Size = new System.Drawing.Size(226, 25);
+            this.accVoucherBindingNavigator.Size = new System.Drawing.Size(224, 25);
             this.accVoucherBindingNavigator.TabIndex = 0;
             this.accVoucherBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -295,7 +290,7 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 22);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(27, 22);
             this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
@@ -365,8 +360,8 @@
             // 
             this.accVoucherDataGridView.AllowUserToAddRows = false;
             this.accVoucherDataGridView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Azure;
-            this.accVoucherDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Azure;
+            this.accVoucherDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.accVoucherDataGridView.AutoGenerateColumns = false;
             this.accVoucherDataGridView.BackgroundColor = System.Drawing.Color.Azure;
             this.accVoucherDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -429,9 +424,9 @@
             // columnAccVoucherTime
             // 
             this.columnAccVoucherTime.DataPropertyName = "AccVoucherTime";
-            dataGridViewCellStyle5.Format = "MM/dd";
-            dataGridViewCellStyle5.NullValue = null;
-            this.columnAccVoucherTime.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Format = "MM/dd";
+            dataGridViewCellStyle2.NullValue = null;
+            this.columnAccVoucherTime.DefaultCellStyle = dataGridViewCellStyle2;
             this.columnAccVoucherTime.HeaderText = "日期";
             this.columnAccVoucherTime.Name = "columnAccVoucherTime";
             this.columnAccVoucherTime.Width = 64;
@@ -459,14 +454,14 @@
             // accTitleDGVBindingSource
             // 
             this.accTitleDGVBindingSource.DataMember = "AccountingTitle";
-            this.accTitleDGVBindingSource.DataSource = this.vEDataSet;
+            this.accTitleDGVBindingSource.DataSource = this.damaiDataSet;
             // 
             // columnTotal
             // 
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle6.Format = "N2";
-            dataGridViewCellStyle6.NullValue = "??????";
-            this.columnTotal.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.Format = "N2";
+            dataGridViewCellStyle3.NullValue = "??????";
+            this.columnTotal.DefaultCellStyle = dataGridViewCellStyle3;
             this.columnTotal.HeaderText = "金額";
             this.columnTotal.Name = "columnTotal";
             this.columnTotal.ReadOnly = true;
@@ -523,7 +518,7 @@
             // operatorBindingSource
             // 
             this.operatorBindingSource.DataMember = "Operator";
-            this.operatorBindingSource.DataSource = this.vEDataSet;
+            this.operatorBindingSource.DataSource = this.damaiDataSet;
             // 
             // removedCheckBox
             // 
@@ -568,7 +563,7 @@
             // authorizeBindingSource
             // 
             this.authorizeBindingSource.DataMember = "HR";
-            this.authorizeBindingSource.DataSource = this.vEDataSet;
+            this.authorizeBindingSource.DataSource = this.damaiDataSet;
             this.authorizeBindingSource.Filter = "IsManager=true";
             // 
             // noteTextBox
@@ -595,7 +590,7 @@
             // employeeBindingSource
             // 
             this.employeeBindingSource.DataMember = "HR";
-            this.employeeBindingSource.DataSource = this.vEDataSet;
+            this.employeeBindingSource.DataSource = this.damaiDataSet;
             this.employeeBindingSource.Filter = "IsApplier";
             // 
             // money0TextBox
@@ -667,7 +662,7 @@
             // accTitle0BindingSource
             // 
             this.accTitle0BindingSource.DataMember = "AccountingTitle";
-            this.accTitle0BindingSource.DataSource = this.vEDataSet;
+            this.accTitle0BindingSource.DataSource = this.damaiDataSet;
             // 
             // titleCode1ComboBox
             // 
@@ -684,7 +679,7 @@
             // accTitle1BindingSource
             // 
             this.accTitle1BindingSource.DataMember = "AccountingTitle";
-            this.accTitle1BindingSource.DataSource = this.vEDataSet;
+            this.accTitle1BindingSource.DataSource = this.damaiDataSet;
             // 
             // titleCode2ComboBox
             // 
@@ -701,7 +696,7 @@
             // accTitle2BindingSource
             // 
             this.accTitle2BindingSource.DataMember = "AccountingTitle";
-            this.accTitle2BindingSource.DataSource = this.vEDataSet;
+            this.accTitle2BindingSource.DataSource = this.damaiDataSet;
             // 
             // titleCode3ComboBox
             // 
@@ -718,7 +713,7 @@
             // accTitle3BindingSource
             // 
             this.accTitle3BindingSource.DataMember = "AccountingTitle";
-            this.accTitle3BindingSource.DataSource = this.vEDataSet;
+            this.accTitle3BindingSource.DataSource = this.damaiDataSet;
             // 
             // label3
             // 
@@ -861,6 +856,11 @@
             this.ckBoxAllowEdit.Visible = false;
             this.ckBoxAllowEdit.CheckedChanged += new System.EventHandler(this.ckBoxAllowEdit_CheckedChanged);
             // 
+            // damaiDataSet
+            // 
+            this.damaiDataSet.DataSetName = "DamaiDataSet";
+            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // FormAccVoucher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -901,7 +901,6 @@
             this.Text = "轉帳傳票";
             this.Load += new System.EventHandler(this.FormAccVoucher_Load);
             ((System.ComponentModel.ISupportInitialize)(this.accVoucherBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.accVoucherBindingNavigator)).EndInit();
             this.accVoucherBindingNavigator.ResumeLayout(false);
             this.accVoucherBindingNavigator.PerformLayout();
@@ -916,6 +915,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.accTitle3BindingSource)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -923,8 +923,7 @@
 
         #endregion
 
-//        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
-        private VEDataSet vEDataSet;
+        //        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
         private System.Windows.Forms.BindingSource accVoucherBindingSource;
         private System.Windows.Forms.BindingNavigator accVoucherBindingNavigator;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
@@ -987,6 +986,7 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn TitleCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnTotal;
         private System.Windows.Forms.DataGridViewCheckBoxColumn columnCheck;
+        private DamaiDataSet damaiDataSet;
 
     }
 }

@@ -6,13 +6,8 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
-#if UseSQLServer
 using MyDataSet  = VoucherExpense.DamaiDataSet;
 using MyAccTitleAdapter = VoucherExpense.DamaiDataSetTableAdapters.AccountingTitleTableAdapter;
-#else
-using MyDataSet = VoucherExpense.VEDataSet;
-using MyAccTitleAdapter = VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter;
-#endif
 
 namespace VoucherExpense
 {
@@ -32,9 +27,7 @@ namespace VoucherExpense
             // TODO: 這行程式碼會將資料載入 'damaiDataSet.AccountingTitle' 資料表。您可以視需要進行移動或移除。
             this.accountingTitleTableAdapter.Fill(this.damaiDataSet.AccountingTitle);
             SetupBindingSource();
-#if (!UseSQLServer)
-            AccTitleAdapter.Connection = MapPath.VEConnection;
-#endif
+
             AccTitleAdapter.Fill(m_DataSet.AccountingTitle);
             Setup.Load();
             titleSetupBindingSource.DataSource = Setup;

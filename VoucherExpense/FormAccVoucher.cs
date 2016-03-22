@@ -5,17 +5,10 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-#if UseSQLServer
 using MyDataSet         = VoucherExpense.DamaiDataSet;
 using MyAccVoucherTable = VoucherExpense.DamaiDataSet.AccVoucherDataTable;
 using MyAccVoucherRow   = VoucherExpense.DamaiDataSet.AccVoucherRow;
 using MyAccVoucherAdapter = VoucherExpense.DamaiDataSetTableAdapters.AccVoucherTableAdapter;
-#else
-using MyDataSet         = VoucherExpense.VEDataSet;
-using MyAccVoucherTable = VoucherExpense.VEDataSet.AccVoucherDataTable;
-using MyAccVoucherRow   = VoucherExpense.VEDataSet.AccVoucherRow;
-using MyAccVoucherAdapter = VoucherExpense.VEDataSetTableAdapters.AccVoucherTableAdapter;
-#endif
 
 namespace VoucherExpense
 {
@@ -33,20 +26,11 @@ namespace VoucherExpense
         private void FormAccVoucher_Load(object sender, EventArgs e)
         {
             SetupBindingSource();
-#if UseSQLServer
             var HRAdapter        = new VoucherExpense.DamaiDataSetTableAdapters.HRTableAdapter();
             var operatorAdapter  = new VoucherExpense.DamaiDataSetTableAdapters.OperatorTableAdapter();
             var accTitleAdapter  = new VoucherExpense.DamaiDataSetTableAdapters.AccountingTitleTableAdapter();
             operatorAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
-#else
-            var HRAdapter        = new VoucherExpense.VEDataSetTableAdapters.HRTableAdapter();
-            var operatorAdapter  = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
-            var accTitleAdapter  = new VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter();
-            HRAdapter.Connection         = MapPath.VEConnection;
-            operatorAdapter.Connection   = MapPath.VEConnection;
-            accTitleAdapter.Connection   = MapPath.VEConnection;
-            accVoucherAdapter.Connection = MapPath.VEConnection;
-#endif
+
             HRAdapter.Fill          (m_DataSet.HR);
             operatorAdapter.Fill    (m_DataSet.Operator);
             accTitleAdapter.Fill    (m_DataSet.AccountingTitle);

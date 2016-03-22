@@ -52,9 +52,8 @@
             System.Windows.Forms.Label salaryLabel;
             System.Windows.Forms.Label fingerprintmachineLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormHR));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.vEDataSet = new VoucherExpense.VEDataSet();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.hRBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.hRBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
@@ -75,7 +74,6 @@
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ApartmentID = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.apartmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.hRBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             this.employeeIDTextBox = new System.Windows.Forms.TextBox();
             this.employeeCodeTextBox = new System.Windows.Forms.TextBox();
@@ -107,7 +105,6 @@
             this.operatorBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.columnApprover = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.operatorBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
-            this.hRHRDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.photoPictureBox = new System.Windows.Forms.PictureBox();
             this.btnPhoto = new System.Windows.Forms.Button();
             this.apartmentIDComboBox = new System.Windows.Forms.ComboBox();
@@ -142,18 +139,15 @@
             bankAccoutLabel = new System.Windows.Forms.Label();
             salaryLabel = new System.Windows.Forms.Label();
             fingerprintmachineLabel = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hRBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hRBindingNavigator)).BeginInit();
             this.hRBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.apartmentBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.hRBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHRDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.hRHRDetailBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.photoPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fKHRDetailHRBindingSource)).BeginInit();
@@ -357,15 +351,10 @@
             fingerprintmachineLabel.TabIndex = 53;
             fingerprintmachineLabel.Text = "指纹机 ";
             // 
-            // vEDataSet
-            // 
-            this.vEDataSet.DataSetName = "VEDataSet";
-            this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // hRBindingSource
             // 
             this.hRBindingSource.DataMember = "HR";
-            this.hRBindingSource.DataSource = this.vEDataSet;
+            this.hRBindingSource.DataSource = this.damaiDataSet;
             this.hRBindingSource.Filter = "InPosition";
             this.hRBindingSource.CurrentChanged += new System.EventHandler(this.hRBindingSource_CurrentChanged);
             // 
@@ -390,14 +379,14 @@
             this.bindingNavigatorSeparator2,
             this.bindingNavigatorAddNewItem,
             this.hRBindingNavigatorSaveItem});
-            this.hRBindingNavigator.Location = new System.Drawing.Point(725, 2);
+            this.hRBindingNavigator.Location = new System.Drawing.Point(696, 2);
             this.hRBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.hRBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
             this.hRBindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
             this.hRBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.hRBindingNavigator.Name = "hRBindingNavigator";
             this.hRBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.hRBindingNavigator.Size = new System.Drawing.Size(249, 25);
+            this.hRBindingNavigator.Size = new System.Drawing.Size(278, 25);
             this.hRBindingNavigator.TabIndex = 0;
             this.hRBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -414,7 +403,7 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 22);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(27, 22);
             this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
@@ -496,14 +485,14 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvHR.AutoGenerateColumns = false;
             this.dgvHR.BackgroundColor = System.Drawing.Color.SeaShell;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvHR.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvHR.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dgvHR.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvHR.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.columnEmployeeID,
@@ -567,12 +556,7 @@
             // apartmentBindingSource
             // 
             this.apartmentBindingSource.DataMember = "Apartment";
-            this.apartmentBindingSource.DataSource = this.vEDataSet;
-            // 
-            // hRBindingSource1
-            // 
-            this.hRBindingSource1.DataMember = "HR";
-            this.hRBindingSource1.DataSource = this.damaiDataSet;
+            this.apartmentBindingSource.DataSource = this.damaiDataSet;
             // 
             // damaiDataSet
             // 
@@ -760,7 +744,7 @@
             this.columnEffectiveDate,
             this.columnApplier,
             this.columnApprover});
-            this.dgvHRDetail.DataSource = this.hRHRDetailBindingSource;
+            this.dgvHRDetail.DataSource = this.fKHRDetailHRBindingSource;
             this.dgvHRDetail.Location = new System.Drawing.Point(361, 425);
             this.dgvHRDetail.Name = "dgvHRDetail";
             this.dgvHRDetail.RowHeadersWidth = 25;
@@ -814,9 +798,9 @@
             // columnEffectiveDate
             // 
             this.columnEffectiveDate.DataPropertyName = "EffectiveDate";
-            dataGridViewCellStyle2.Format = "d";
-            dataGridViewCellStyle2.NullValue = null;
-            this.columnEffectiveDate.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Format = "d";
+            dataGridViewCellStyle8.NullValue = null;
+            this.columnEffectiveDate.DefaultCellStyle = dataGridViewCellStyle8;
             this.columnEffectiveDate.HeaderText = "生效日";
             this.columnEffectiveDate.Name = "columnEffectiveDate";
             // 
@@ -837,7 +821,7 @@
             // operatorBindingSource1
             // 
             this.operatorBindingSource1.DataMember = "Operator";
-            this.operatorBindingSource1.DataSource = this.vEDataSet;
+            this.operatorBindingSource1.DataSource = this.damaiDataSet;
             this.operatorBindingSource1.Filter = "IsManager";
             // 
             // columnApprover
@@ -857,12 +841,7 @@
             // operatorBindingSource2
             // 
             this.operatorBindingSource2.DataMember = "Operator";
-            this.operatorBindingSource2.DataSource = this.vEDataSet;
-            // 
-            // hRHRDetailBindingSource
-            // 
-            this.hRHRDetailBindingSource.DataMember = "HR_HRDetail";
-            this.hRHRDetailBindingSource.DataSource = this.hRBindingSource;
+            this.operatorBindingSource2.DataSource = this.damaiDataSet;
             // 
             // photoPictureBox
             // 
@@ -874,6 +853,7 @@
             this.photoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.photoPictureBox.TabIndex = 46;
             this.photoPictureBox.TabStop = false;
+            this.photoPictureBox.Click += new System.EventHandler(this.btnPhoto_Click);
             // 
             // btnPhoto
             // 
@@ -923,7 +903,7 @@
             // operatorBindingSource
             // 
             this.operatorBindingSource.DataMember = "Operator";
-            this.operatorBindingSource.DataSource = this.vEDataSet;
+            this.operatorBindingSource.DataSource = this.damaiDataSet;
             // 
             // salaryTextBox
             // 
@@ -982,7 +962,7 @@
             // fKHRDetailHRBindingSource
             // 
             this.fKHRDetailHRBindingSource.DataMember = "FK_HRDetail_HR";
-            this.fKHRDetailHRBindingSource.DataSource = this.hRBindingSource1;
+            this.fKHRDetailHRBindingSource.DataSource = this.hRBindingSource;
             // 
             // FormHR
             // 
@@ -1049,19 +1029,16 @@
             this.Name = "FormHR";
             this.Text = "人事資料卡";
             this.Load += new System.EventHandler(this.FormHR_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.hRBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.hRBindingNavigator)).EndInit();
             this.hRBindingNavigator.ResumeLayout(false);
             this.hRBindingNavigator.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHR)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.apartmentBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.hRBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHRDetail)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.hRHRDetailBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.photoPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fKHRDetailHRBindingSource)).EndInit();
@@ -1072,7 +1049,6 @@
 
         #endregion
 
-        private VEDataSet vEDataSet;
         private System.Windows.Forms.BindingSource hRBindingSource;
         private System.Windows.Forms.BindingNavigator hRBindingNavigator;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
@@ -1107,7 +1083,6 @@
         private System.Windows.Forms.TextBox fingerPintNoTextBox;
         private System.Windows.Forms.TextBox lastUpdatedTextBox;
         private System.Windows.Forms.DataGridView dgvHRDetail;
-        private System.Windows.Forms.BindingSource hRHRDetailBindingSource;
         private System.Windows.Forms.BindingSource apartmentBindingSource;
         private System.Windows.Forms.PictureBox photoPictureBox;
         private System.Windows.Forms.Button btnPhoto;
@@ -1132,7 +1107,6 @@
         private System.Windows.Forms.CheckBox checkBoxIsApplier;
         private System.Windows.Forms.ComboBox fingerprintmachineComboBox;
         private DamaiDataSet damaiDataSet;
-        private System.Windows.Forms.BindingSource hRBindingSource1;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnContent;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnEffectiveDate;
         private System.Windows.Forms.DataGridViewComboBoxColumn columnApplier;

@@ -30,6 +30,10 @@ namespace VoucherExpense
         public enum AccDataSource { MenualInput=1, Voucher, Expense, PosRevenue, Shipment, Bank }
         private void FormAccounting_Load(object sender, EventArgs e)
         {
+            vendorTableAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+            operatorTableAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+
+
             try
             {
                 this.bankAccountTableAdapter.Fill(this.damaiDataSet.BankAccount);

@@ -5,11 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-#if UseSQLServer
 using MyDataSet = VoucherExpense.DamaiDataSet;
-#else
-using MyDataSet = VoucherExpense.VEDataSet;
-#endif
 
 namespace VoucherExpense
 {
@@ -33,13 +29,8 @@ namespace VoucherExpense
 
         private void FormPrintSelect_Load(object sender, EventArgs e)
         {
-            vendorBindingSource.DataSource = m_DataSet;
-#if UseSQLServer
             var vendorAdapter = new VoucherExpense.DamaiDataSetTableAdapters.VendorTableAdapter();
-#else
-            var vendorAdapter = new VoucherExpense.VEDataSetTableAdapters.VendorTableAdapter();
-            vendorAdapter.Connection = MapPath.VEConnection;
-#endif
+            vendorAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
             try
             {
                 vendorAdapter.Fill(m_DataSet.Vendor);
@@ -50,6 +41,7 @@ namespace VoucherExpense
                 Close();
                 return;
             }
+            vendorBindingSource.DataSource = m_DataSet;
             dgViewUserSelected.DataSource = m_FormVoucher.m_SelectedVoucher;
             decimal sum = 0;
             foreach (Voucher.CSelectedVoucher v in m_FormVoucher.m_SelectedVoucher)

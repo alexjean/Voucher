@@ -7,19 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
-#if UseSQLServer
 using MyDataSet = VoucherExpense.DamaiDataSet;
 using MyShiftTable = VoucherExpense.DamaiDataSet.ShiftTableDataTable;
 using MyShiftDetailTable = VoucherExpense.DamaiDataSet.ShiftDetailDataTable;
 using MyShiftAdapter = VoucherExpense.DamaiDataSetTableAdapters.ShiftTableTableAdapter;
 using MyShiftRow = VoucherExpense.DamaiDataSet.ShiftTableRow;
-#else
-using MyDataSet = VoucherExpense.VEDataSet;
-using MyShiftTable = VoucherExpense.VEDataSet.ShiftTableDataTable;
-using MyShiftDetailTable = VoucherExpense.VEDataSet.ShiftDetailDataTable;
-using MyShiftAdapter = VoucherExpense.VEDataSetTableAdapters.ShiftTableTableAdapter;
-using MyShiftRow = VoucherExpense.VEDataSet.ShiftTableRow;
-#endif
 
 namespace VoucherExpense
 {
@@ -71,20 +63,12 @@ namespace VoucherExpense
         private void FormShift_Load(object sender, EventArgs e)
         {
             SetupBindingSource();
-#if UseSQLServer
+
             var shiftDetailAdapter  = new VoucherExpense.DamaiDataSetTableAdapters.ShiftDetailTableAdapter();
             var hRAdapter           = new VoucherExpense.DamaiDataSetTableAdapters.HRTableAdapter();
             var operatorAdapter     = new VoucherExpense.DamaiDataSetTableAdapters.OperatorTableAdapter();
             operatorAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
-#else
-            var shiftDetailAdapter  = new VoucherExpense.VEDataSetTableAdapters.ShiftDetailTableAdapter();
-            var hRAdapter           = new VoucherExpense.VEDataSetTableAdapters.HRTableAdapter();
-            var operatorAdapter     = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
-            ShiftAdapter.Connection       = MapPath.VEConnection;
-            shiftDetailAdapter.Connection = MapPath.VEConnection;
-            hRAdapter.Connection          = MapPath.VEConnection;
-            operatorAdapter.Connection    = MapPath.VEConnection;
-#endif
+
             try
             {
                 ShiftAdapter.Fill      (m_DataSet.ShiftTable);

@@ -37,7 +37,6 @@
             this.dgViewMonthlyPay = new System.Windows.Forms.DataGridView();
             this.venderIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.vendorBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.vEDataSet = new VoucherExpense.VEDataSet();
             this.orderCountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.moneyDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cMonthlyPayBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -48,11 +47,12 @@
             this.btnPrint = new System.Windows.Forms.Button();
             this.printDocument = new System.Drawing.Printing.PrintDocument();
             this.btnIncludeTotal = new System.Windows.Forms.Button();
+            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgViewMonthlyPay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vendorBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cMonthlyPayBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -134,12 +134,7 @@
             // vendorBindingSource
             // 
             this.vendorBindingSource.DataMember = "Vendor";
-            this.vendorBindingSource.DataSource = this.vEDataSet;
-            // 
-            // vEDataSet
-            // 
-            this.vEDataSet.DataSetName = "VEDataSet";
-            this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.vendorBindingSource.DataSource = this.damaiDataSet;
             // 
             // orderCountDataGridViewTextBoxColumn
             // 
@@ -231,6 +226,11 @@
             this.btnIncludeTotal.UseVisualStyleBackColor = true;
             this.btnIncludeTotal.Click += new System.EventHandler(this.btnIncludeTotal_Click);
             // 
+            // damaiDataSet
+            // 
+            this.damaiDataSet.DataSetName = "DamaiDataSet";
+            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // FormMonthlyPay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -246,7 +246,7 @@
             this.Controls.Add(this.dgViewMonthlyPay);
             this.Controls.Add(label1);
             this.Controls.Add(this.comboBoxMonth);
-            this.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormMonthlyPay";
             this.Text = "付款匯總";
@@ -254,8 +254,8 @@
             this.SizeChanged += new System.EventHandler(this.FormMonthlyPay_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dgViewMonthlyPay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vendorBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cMonthlyPayBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -268,7 +268,6 @@
         private System.Windows.Forms.TextBox textBoxTotal;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.BindingSource cMonthlyPayBindingSource;
-        private VEDataSet vEDataSet;
         private System.Windows.Forms.BindingSource vendorBindingSource;
         private System.Windows.Forms.Label labelWarning1;
         private System.Windows.Forms.Label labelWarning2;
@@ -278,5 +277,6 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn venderIDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn orderCountDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn moneyDataGridViewTextBoxColumn;
+        private DamaiDataSet damaiDataSet;
     }
 }

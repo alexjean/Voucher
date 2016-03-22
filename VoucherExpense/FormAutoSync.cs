@@ -873,7 +873,6 @@ namespace VoucherExpense
             return true;
         }
 
-
         private void CloudSyncOnce()
         {
             Message("=========開始同步  " + DateTime.Now.ToShortTimeString() + "  ===================");
@@ -976,8 +975,8 @@ namespace VoucherExpense
                     continue;
                 }
 
-                Message(msg + "偵錯跳過");
-                continue;
+                //Message(msg + "偵錯跳過");
+                //continue;
 
                 // 算出 所有Table MD5Now
                 // 比對新舊MD5 找出變更及新增資料 建差異表md5ResultLocal
@@ -1078,9 +1077,9 @@ namespace VoucherExpense
                 GC.Collect();
             }
             // 更新SyncTable
-            Message("偵錯跳過更新SyncTable!");
-            //DB.UpdateSyncTable(TableInfoLocal, LocalServer);
-            //DB.UpdateSyncTable(TableInfoCloud, CloudServer);
+            //Message("偵錯跳過更新SyncTable!");
+            DB.UpdateSyncTable(TableInfoLocal, LocalServer);
+            DB.UpdateSyncTable(TableInfoCloud, CloudServer);
 
 
             // 傳回各表總MD5 及雲端差異表

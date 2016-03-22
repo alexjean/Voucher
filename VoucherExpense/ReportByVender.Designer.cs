@@ -42,12 +42,12 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cbBoxMonth = new System.Windows.Forms.ComboBox();
-            this.vEDataSet = new VoucherExpense.VEDataSet();
             this.vendorIDComboBox = new System.Windows.Forms.ComboBox();
             this.cVendorsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.ID = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.IngredientBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             this.volumeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IDUint = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.totalCostDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -74,10 +74,10 @@
             vendorIDLabel = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
             label3 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cVendorsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.IngredientBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cIngredientBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.voucherBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.voucherDetailBindingSource)).BeginInit();
@@ -140,11 +140,6 @@
             this.cbBoxMonth.Size = new System.Drawing.Size(70, 24);
             this.cbBoxMonth.TabIndex = 55;
             this.cbBoxMonth.SelectedIndexChanged += new System.EventHandler(this.cbBoxMonth_SelectedIndexChanged);
-            // 
-            // vEDataSet
-            // 
-            this.vEDataSet.DataSetName = "VEDataSet";
-            this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // vendorIDComboBox
             // 
@@ -216,7 +211,12 @@
             // IngredientBindingSource
             // 
             this.IngredientBindingSource.DataMember = "Ingredient";
-            this.IngredientBindingSource.DataSource = this.vEDataSet;
+            this.IngredientBindingSource.DataSource = this.damaiDataSet;
+            // 
+            // damaiDataSet
+            // 
+            this.damaiDataSet.DataSetName = "DamaiDataSet";
+            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // volumeDataGridViewTextBoxColumn
             // 
@@ -285,12 +285,12 @@
             // voucherBindingSource
             // 
             this.voucherBindingSource.DataMember = "Voucher";
-            this.voucherBindingSource.DataSource = this.vEDataSet;
+            this.voucherBindingSource.DataSource = this.damaiDataSet;
             // 
             // voucherDetailBindingSource
             // 
             this.voucherDetailBindingSource.DataMember = "VoucherDetail";
-            this.voucherDetailBindingSource.DataSource = this.vEDataSet;
+            this.voucherDetailBindingSource.DataSource = this.damaiDataSet;
             // 
             // label2
             // 
@@ -490,17 +490,17 @@
             this.Controls.Add(this.vendorIDComboBox);
             this.Controls.Add(vendorIDLabel);
             this.Controls.Add(this.cbBoxMonth);
-            this.Font = new System.Drawing.Font("PMingLiU", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ReportByVender";
             this.Text = "月報表 廠商別";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ReportByVender_FormClosed);
             this.Load += new System.EventHandler(this.ReportByVender_Load);
             this.SizeChanged += new System.EventHandler(this.ReportByVender_SizeChanged);
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cVendorsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.IngredientBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cIngredientBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.voucherBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.voucherDetailBindingSource)).EndInit();
@@ -513,7 +513,6 @@
         #endregion
 
         private System.Windows.Forms.ComboBox cbBoxMonth;
-        private VEDataSet vEDataSet;
         private System.Windows.Forms.ComboBox vendorIDComboBox;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.BindingSource cIngredientBindingSource;
@@ -542,5 +541,6 @@
         private System.Windows.Forms.ComboBox cbBoxTo;
         private System.Windows.Forms.ComboBox cbBoxFrom;
         private System.Windows.Forms.Button btnCalc;
+        private DamaiDataSet damaiDataSet;
     }
 }

@@ -8,7 +8,7 @@ using System.Windows.Forms;
 using System.Xml;
 using System.IO;
 using System.Linq;
-#if UseSQLServer
+
 using MyDataSet         = VoucherExpense.DamaiDataSet;
 using MyVoucherTable    = VoucherExpense.DamaiDataSet.VoucherDataTable;
 using MyOrderSet        = VoucherExpense.DamaiDataSet;
@@ -16,15 +16,6 @@ using MyOrderTable      = VoucherExpense.DamaiDataSet.OrderDataTable;
 using MyOrderItemTable  = VoucherExpense.DamaiDataSet.OrderItemDataTable;
 using MyOrderAdapter    = VoucherExpense.DamaiDataSetTableAdapters.OrderTableAdapter;
 using MyOrderItemAdapter= VoucherExpense.DamaiDataSetTableAdapters.OrderItemTableAdapter;
-#else
-using MyDataSet         = VoucherExpense.VEDataSet;
-using MyVoucherTable    = VoucherExpense.VEDataSet.VoucherDataTable;
-using MyOrderSet        = VoucherExpense.BakeryOrderSet;
-using MyOrderTable      = VoucherExpense.BakeryOrderSet.OrderDataTable;
-using MyOrderItemTable  = VoucherExpense.BakeryOrderSet.OrderItemDataTable;
-using MyOrderAdapter    = VoucherExpense.BakeryOrderSetTableAdapters.OrderTableAdapter;
-using MyOrderItemAdapter= VoucherExpense.BakeryOrderSetTableAdapters.OrderItemTableAdapter;
-#endif
 namespace VoucherExpense
 {
     public partial class BakerySoldSpent : Form
@@ -43,28 +34,17 @@ namespace VoucherExpense
         MyOrderSet m_OrderSet;
         private void SaleSpendRatio_Load(object sender, EventArgs e)
         {
-#if (UseSQLServer)
             m_OrderSet=m_DataSet;
             SetupBindingSource();
             var productAdapter       = new VoucherExpense.DamaiDataSetTableAdapters.ProductTableAdapter();
             var ingredientAdapter    = new VoucherExpense.DamaiDataSetTableAdapters.IngredientTableAdapter();
             var voucherAdapter       = new VoucherExpense.DamaiDataSetTableAdapters.VoucherTableAdapter();
             var voucherDetailAdapter = new VoucherExpense.DamaiDataSetTableAdapters.VoucherDetailTableAdapter();
-#else
-            m_OrderSet=new VoucherExpense.BakeryOrderSet();
-            SetupBindingSource();
-            var productAdapter       = new VoucherExpense.BakeryOrderSetTableAdapters.ProductTableAdapter();
-            var ingredientAdapter    = new VoucherExpense.VEDataSetTableAdapters.IngredientTableAdapter();
-            var voucherAdapter       = new VoucherExpense.VEDataSetTableAdapters.VoucherTableAdapter();
-            var voucherDetailAdapter = new VoucherExpense.VEDataSetTableAdapters.VoucherDetailTableAdapter();
 
-            m_OrderAdapter.Connection           = MapPath.BakeryConnection;
-            m_OrderItemAdapter.Connection       = MapPath.BakeryConnection;
-            productAdapter.Connection           = MapPath.BakeryConnection;
-            ingredientAdapter.Connection   = MapPath.VEConnection;
-            voucherAdapter.Connection      = MapPath.VEConnection;
-            voucherDetailAdapter.Connection= MapPath.VEConnection;
-#endif
+            productAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+            ingredientAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+
+
             try
             {
                 productAdapter.Fill      (m_OrderSet.Product);
@@ -208,13 +188,8 @@ namespace VoucherExpense
         void LoadData(int month, int from, int to)
         {
             string sql;
-#if UseSQLServer
             sql = "Where (Floor(ID/1000000)>=" + DateStr(month, from)
                 + " And Floor(ID/1000000)<=" + DateStr(month, to) + ")";
-#else
-            sql = "Where (INT(ID/1000000)>=" + DateStr(month, from)
-                + " And INT(ID/1000000)<=" + DateStr(month, to) + ")";
-#endif
             try
             {
                 m_OrderAdapter.FillBySelectStr(m_OrderSet.Order, "Select * From [Order] " + sql + " Order by ID");

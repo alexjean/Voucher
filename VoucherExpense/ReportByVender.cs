@@ -6,15 +6,10 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing.Printing;
-#if UseSQLServer
 using MyDataSet      = VoucherExpense.DamaiDataSet;
 using MyVoucherTable = VoucherExpense.DamaiDataSet.VoucherDataTable;
 using MyVoucherRow   = VoucherExpense.DamaiDataSet.VoucherRow;
-#else
-using MyDataSet      = VoucherExpense.VEDataSet;
-using MyVoucherTable = VoucherExpense.VEDataSet.VoucherDataTable;
-using MyVoucherRow   = VoucherExpense.VEDataSet.VoucherRow;
-#endif
+
 namespace VoucherExpense
 {
     public partial class ReportByVender : Form
@@ -30,21 +25,14 @@ namespace VoucherExpense
         private void ReportByVender_Load(object sender, EventArgs e)
         {
             SetupBindingSource();
-#if UseSQLServer
             var vendorAdapter       = new VoucherExpense.DamaiDataSetTableAdapters.VendorTableAdapter();
             var voucherAdapter      = new VoucherExpense.DamaiDataSetTableAdapters.VoucherTableAdapter();
             var voucherDetailAdapter= new VoucherExpense.DamaiDataSetTableAdapters.VoucherDetailTableAdapter();
             var IngredientAdapter   = new VoucherExpense.DamaiDataSetTableAdapters.IngredientTableAdapter();
-#else
-            var vendorAdapter       = new VoucherExpense.VEDataSetTableAdapters.VendorTableAdapter();
-            var voucherAdapter      = new VoucherExpense.VEDataSetTableAdapters.VoucherTableAdapter();
-            var voucherDetailAdapter= new VoucherExpense.VEDataSetTableAdapters.VoucherDetailTableAdapter();
-            var IngredientAdapter   = new VoucherExpense.VEDataSetTableAdapters.IngredientTableAdapter();
-            vendorAdapter.Connection        = MapPath.VEConnection;
-            voucherAdapter.Connection       = MapPath.VEConnection;
-            voucherDetailAdapter.Connection = MapPath.VEConnection;
-            IngredientAdapter.Connection    = MapPath.VEConnection;
-#endif
+
+            vendorAdapter.Connection.ConnectionString     = DB.SqlConnectString(MyFunction.HardwareCfg);
+            IngredientAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+
             try
             {
                 vendorAdapter.Fill       (m_DataSet.Vendor);

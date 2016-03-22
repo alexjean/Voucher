@@ -8,7 +8,6 @@ using System.Windows.Forms;
 using System.Xml;
 using System.IO;
 using System.Linq;
-#if UseSQLServer
 using MyOrderSet        = VoucherExpense.DamaiDataSet;
 using MyOrderTable      = VoucherExpense.DamaiDataSet.OrderDataTable;
 using MyOrderItemTable  = VoucherExpense.DamaiDataSet.OrderItemDataTable;
@@ -20,13 +19,6 @@ using MyShipmentItemAdapter=VoucherExpense.DamaiDataSetTableAdapters.ShipmentDet
 using MyShipmentTable=VoucherExpense.DamaiDataSet.ShipmentDataTable;
 using MyshipmentItemTable=VoucherExpense.DamaiDataSet.ShipmentDetailDataTable;
 using MyCustomerTable = VoucherExpense.DamaiDataSet.CustomerDataTable;
-#else
-using MyOrderSet = VoucherExpense.BakeryOrderSet;
-using MyOrderTable      = VoucherExpense.BakeryOrderSet.OrderDataTable;
-using MyOrderItemTable  = VoucherExpense.BakeryOrderSet.OrderItemDataTable;
-using MyOrderAdapter    = VoucherExpense.BakeryOrderSetTableAdapters.OrderTableAdapter;
-using MyOrderItemAdapter= VoucherExpense.BakeryOrderSetTableAdapters.OrderItemTableAdapter; 
-#endif
 namespace VoucherExpense
 {
     public partial class BakerySoldProducts : Form
@@ -44,17 +36,14 @@ namespace VoucherExpense
         MyOrderSet m_OrderSet = new MyOrderSet();
        
         private void FormSoldIngredients_Load(object sender, EventArgs e)
-        {    
+        {
             productBindingSource.DataSource = m_OrderSet;
-#if UseSQLServer
+
             var productAdapter = new VoucherExpense.DamaiDataSetTableAdapters.ProductTableAdapter();
             var customerAdapter = new VoucherExpense.DamaiDataSetTableAdapters.CustomerTableAdapter();
-#else
-            var productAdapter = new VoucherExpense.BakeryOrderSetTableAdapters.ProductTableAdapter();
-            m_OrderAdapter.Connection       = MapPath.BakeryConnection;
-            m_OrderItemAdapter.Connection   = MapPath.BakeryConnection;
-            productAdapter.Connection  = MapPath.BakeryConnection;
-#endif
+
+            productAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+
             productAdapter.Fill(m_OrderSet.Product);
              customerAdapter.Fill(m_OrderSet.Customer)  ;
              bind();
@@ -386,16 +375,10 @@ namespace VoucherExpense
             string sqlShipment;
             try
             {
-#if UseSQLServer
                 sql = "Where (Floor(ID/1000000)>=" + DateStr(month, from)
                     + " And Floor(ID/1000000)<=" + DateStr(month, to) + ")";
                 DateTime t = new DateTime(year, month, to).AddDays(1);
                 sqlShipment = "where a.ShipTime>= '"+ year + DateStr(month, from) + "' and a.ShipTime< '"+ t.Year.ToString() + DateStr(t.Month, t.Day) + "'";
-#else
-                sql = "Where (INT(ID/1000000)>=" + DateStr(month, from)
-                    + " And INT(ID/1000000)<=" + DateStr(month, to) + ")";
-
-#endif
                                  
                 m_OrderSet.OrderItem.Rows.Clear();
                 m_OrderSet.Order.Rows.Clear();  

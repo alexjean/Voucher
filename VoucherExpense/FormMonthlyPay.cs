@@ -3,11 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Windows.Forms;
-#if UseSQLServer
 using MyDataSet = VoucherExpense.DamaiDataSet;
-#else
-using MyDataSet = VoucherExpense.VEDataSet;
-#endif
 
 namespace VoucherExpense
 {
@@ -22,15 +18,11 @@ namespace VoucherExpense
         private void FormMonthlyPay_Load(object sender, EventArgs e)
         {
             vendorBindingSource.DataSource = m_DataSet;
-#if UseSQLServer
             var vendorAdapter = new VoucherExpense.DamaiDataSetTableAdapters.VendorTableAdapter();
             var voucherAdapter = new VoucherExpense.DamaiDataSetTableAdapters.VoucherTableAdapter();
-#else
-            var vendorAdapter = new VoucherExpense.VEDataSetTableAdapters.VendorTableAdapter();
-            var voucherAdapter = new VoucherExpense.VEDataSetTableAdapters.VoucherTableAdapter();
-            vendorAdapter.Connection   = MapPath.VEConnection;
-            voucherAdapter.Connection  = MapPath.VEConnection;
-#endif
+
+            vendorAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+
             vendorAdapter.Fill (m_DataSet.Vendor);
             voucherAdapter.Fill(m_DataSet.Voucher);
         }

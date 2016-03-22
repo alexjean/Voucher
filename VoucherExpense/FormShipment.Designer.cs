@@ -94,12 +94,6 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbtPrint = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.tableAdapterManager = new VoucherExpense.SQLVEDataSetTableAdapters.TableAdapterManager();
-            this.customerTableAdapter = new VoucherExpense.SQLVEDataSetTableAdapters.CustomerTableAdapter();
-            this.shipmentDetailTableAdapter = new VoucherExpense.SQLVEDataSetTableAdapters.ShipmentDetailTableAdapter();
-            this.productTableAdapter = new VoucherExpense.BakeryOrderSetTableAdapters.ProductTableAdapter();
-            this.accountingTitleTableAdapter = new VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter();
-            this.operatorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter();
             this.pD = new System.Drawing.Printing.PrintDocument();
             this.apartmentTableAdapter = new VoucherExpense.DamaiDataSetTableAdapters.ApartmentTableAdapter();
             this.shipmentTableAdapter1 = new VoucherExpense.DamaiDataSetTableAdapters.ShipmentTableAdapter();
@@ -110,10 +104,8 @@
             this.shipmentIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.shipmentDetailTableAdapter1 = new VoucherExpense.DamaiDataSetTableAdapters.ShipmentDetailTableAdapter();
             this.productBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.tableAdapterManager1 = new VoucherExpense.BakeryOrderSetTableAdapters.TableAdapterManager();
             this.productClassBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.productClassTableAdapter = new VoucherExpense.DamaiDataSetTableAdapters.ProductClassTableAdapter();
-            this.tableAdapterManager2 = new VoucherExpense.DamaiDataSetTableAdapters.TableAdapterManager();
             this.productClassComboBox = new System.Windows.Forms.ComboBox();
             this.checkedLabel = new System.Windows.Forms.Label();
             this.checkedIDLabel = new System.Windows.Forms.Label();
@@ -741,39 +733,6 @@
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.CustomerTableAdapter = this.customerTableAdapter;
-            this.tableAdapterManager.InventoryDetailTableAdapter = null;
-            this.tableAdapterManager.InventoryProductsTableAdapter = null;
-            this.tableAdapterManager.InventoryTableAdapter = null;
-            this.tableAdapterManager.ProductScrappedDetailTableAdapter = null;
-            this.tableAdapterManager.ProductScrappedTableAdapter = null;
-            this.tableAdapterManager.RequestsTableAdapter = null;
-            this.tableAdapterManager.ShipmentDetailTableAdapter = this.shipmentDetailTableAdapter;
-            this.tableAdapterManager.UpdateOrder = VoucherExpense.SQLVEDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
-            // 
-            // customerTableAdapter
-            // 
-            this.customerTableAdapter.ClearBeforeFill = true;
-            // 
-            // shipmentDetailTableAdapter
-            // 
-            this.shipmentDetailTableAdapter.ClearBeforeFill = true;
-            // 
-            // productTableAdapter
-            // 
-            this.productTableAdapter.ClearBeforeFill = true;
-            // 
-            // accountingTitleTableAdapter
-            // 
-            this.accountingTitleTableAdapter.ClearBeforeFill = true;
-            // 
-            // operatorTableAdapter
-            // 
-            this.operatorTableAdapter.ClearBeforeFill = true;
-            // 
             // apartmentTableAdapter
             // 
             this.apartmentTableAdapter.ClearBeforeFill = true;
@@ -809,18 +768,6 @@
             // 
             this.shipmentDetailTableAdapter1.ClearBeforeFill = true;
             // 
-            // tableAdapterManager1
-            // 
-            this.tableAdapterManager1.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager1.BakeryConfigTableAdapter = null;
-            this.tableAdapterManager1.CashierTableAdapter = null;
-            this.tableAdapterManager1.DrawerRecordTableAdapter = null;
-            this.tableAdapterManager1.HeaderTableAdapter = null;
-            this.tableAdapterManager1.OrderItemTableAdapter = null;
-            this.tableAdapterManager1.OrderTableAdapter = null;
-            this.tableAdapterManager1.ProductTableAdapter = this.productTableAdapter;
-            this.tableAdapterManager1.UpdateOrder = VoucherExpense.BakeryOrderSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
-            // 
             // productClassBindingSource
             // 
             this.productClassBindingSource.DataMember = "ProductClass";
@@ -831,55 +778,6 @@
             // productClassTableAdapter
             // 
             this.productClassTableAdapter.ClearBeforeFill = true;
-            // 
-            // tableAdapterManager2
-            // 
-            this.tableAdapterManager2.AccountingTitleTableAdapter = this.accountingTitleTableAdapter1;
-            this.tableAdapterManager2.AccVouchDetailTableAdapter = null;
-            this.tableAdapterManager2.AccVoucherTableAdapter = null;
-            this.tableAdapterManager2.AccVouchTableAdapter = null;
-            this.tableAdapterManager2.ApartmentTableAdapter = this.apartmentTableAdapter;
-            this.tableAdapterManager2.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager2.BakeryConfigTableAdapter = null;
-            this.tableAdapterManager2.BankAccountTableAdapter = null;
-            this.tableAdapterManager2.BankDetailTableAdapter = null;
-            this.tableAdapterManager2.CashierTableAdapter = null;
-            this.tableAdapterManager2.ConfigTableAdapter = null;
-            this.tableAdapterManager2.CustomerTableAdapter = this.customerTableAdapter1;
-            this.tableAdapterManager2.DrawerRecordTableAdapter = null;
-            this.tableAdapterManager2.ExpenseTableAdapter = null;
-            this.tableAdapterManager2.HeaderTableAdapter = null;
-            this.tableAdapterManager2.HRDetailTableAdapter = null;
-            this.tableAdapterManager2.HRTableAdapter = null;
-            this.tableAdapterManager2.IngredientTableAdapter = null;
-            this.tableAdapterManager2.InventoryDetailTableAdapter = null;
-            this.tableAdapterManager2.InventoryProductsTableAdapter = null;
-            this.tableAdapterManager2.InventoryTableAdapter = null;
-            this.tableAdapterManager2.OnDutyDataTableAdapter = null;
-            this.tableAdapterManager2.OperatorAuthListTableAdapter = null;
-            this.tableAdapterManager2.OperatorTableAdapter = this.operatorTableAdapter1;
-            this.tableAdapterManager2.OrderItemTableAdapter = null;
-            this.tableAdapterManager2.OrderTableAdapter = null;
-            this.tableAdapterManager2.PhotosTableAdapter = null;
-            this.tableAdapterManager2.ProductClassTableAdapter = this.productClassTableAdapter;
-            this.tableAdapterManager2.ProductScrappedDetailTableAdapter = null;
-            this.tableAdapterManager2.ProductScrappedTableAdapter = null;
-            this.tableAdapterManager2.ProductTableAdapter = this.productTableAdapter1;
-            this.tableAdapterManager2.ProgramTableAdapter = null;
-            this.tableAdapterManager2.RecipeDetailTableAdapter = null;
-            this.tableAdapterManager2.RecipeTableAdapter = null;
-            this.tableAdapterManager2.RequestsTableAdapter = null;
-            this.tableAdapterManager2.ShiftDetailTableAdapter = null;
-            this.tableAdapterManager2.ShiftTableTableAdapter = null;
-            this.tableAdapterManager2.ShipmentDetailTableAdapter = this.shipmentDetailTableAdapter1;
-            this.tableAdapterManager2.ShipmentTableAdapter = this.shipmentTableAdapter1;
-            this.tableAdapterManager2.SyncMD5OldTableAdapter = null;
-            this.tableAdapterManager2.SyncTableTableAdapter = null;
-            this.tableAdapterManager2.UpdateOrder = VoucherExpense.DamaiDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
-            this.tableAdapterManager2.VEHeaderTableAdapter = null;
-            this.tableAdapterManager2.VendorTableAdapter = null;
-            this.tableAdapterManager2.VoucherDetailTableAdapter = null;
-            this.tableAdapterManager2.VoucherTableAdapter = null;
             // 
             // productClassComboBox
             // 
@@ -1051,17 +949,11 @@
         private System.Windows.Forms.ToolStripButton tsbtPrint;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.BindingSource shipmentBindingSource;
-        private SQLVEDataSetTableAdapters.TableAdapterManager tableAdapterManager;
-        private SQLVEDataSetTableAdapters.ShipmentDetailTableAdapter shipmentDetailTableAdapter;
         private System.Windows.Forms.BindingSource shipmentDetailBindingSource;
         private System.Windows.Forms.BindingSource productBindingSource;
-        private BakeryOrderSetTableAdapters.ProductTableAdapter productTableAdapter;
         private System.Windows.Forms.BindingSource accountingTitleBindingSource;
-        private VEDataSetTableAdapters.AccountingTitleTableAdapter accountingTitleTableAdapter;
-        private SQLVEDataSetTableAdapters.CustomerTableAdapter customerTableAdapter;
         private System.Windows.Forms.BindingSource customerBindingSource;
         private System.Windows.Forms.BindingSource operatorBindingSource;
-        private VEDataSetTableAdapters.OperatorTableAdapter operatorTableAdapter;
         private System.Drawing.Printing.PrintDocument pD;
         private DamaiDataSetTableAdapters.ApartmentTableAdapter apartmentTableAdapter;
         private DamaiDataSet damaiDataSet;
@@ -1073,10 +965,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn shipmentIDDataGridViewTextBoxColumn;
         private DamaiDataSetTableAdapters.ShipmentDetailTableAdapter shipmentDetailTableAdapter1;
         private System.Windows.Forms.BindingSource productBindingSource1;
-        private BakeryOrderSetTableAdapters.TableAdapterManager tableAdapterManager1;
         private System.Windows.Forms.BindingSource productClassBindingSource;
         private DamaiDataSetTableAdapters.ProductClassTableAdapter productClassTableAdapter;
-        private DamaiDataSetTableAdapters.TableAdapterManager tableAdapterManager2;
         private System.Windows.Forms.ComboBox productClassComboBox;
         private System.Windows.Forms.DataGridViewTextBoxColumn detailColumnID;
         private System.Windows.Forms.DataGridViewComboBoxColumn dgvColumnProductID;

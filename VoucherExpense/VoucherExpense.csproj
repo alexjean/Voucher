@@ -1352,11 +1352,6 @@
       <DependentUpon>FormTitleSetup.cs</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
-    <Compile Include="SQLVEDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SQLVEDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Voucher_Print.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1704,17 +1699,6 @@
     <None Include="RSA_KeyFile\alipay_rsa_public_key.pem" />
     <None Include="RSA_KeyFile\rsa_private_key.pem" />
     <None Include="RSA_KeyFile\rsa_public_key.pem" />
-    <None Include="SQLVEDataSet.xsc">
-      <DependentUpon>SQLVEDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="SQLVEDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>SQLVEDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="SQLVEDataSet.xss">
-      <DependentUpon>SQLVEDataSet.xsd</DependentUpon>
-    </None>
     <None Include="VEDataSet.xsc">
       <DependentUpon>VEDataSet.xsd</DependentUpon>
     </None>

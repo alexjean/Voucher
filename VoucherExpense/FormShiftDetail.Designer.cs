@@ -36,7 +36,6 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnLeave = new System.Windows.Forms.Button();
             this.btnExcel = new System.Windows.Forms.Button();
-            this.shiftDetailTableAdapter = new VoucherExpense.VEDataSetTableAdapters.ShiftDetailTableAdapter();
             this.panelBase.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -140,10 +139,6 @@
             this.btnExcel.UseVisualStyleBackColor = true;
             this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
             // 
-            // shiftDetailTableAdapter
-            // 
-            this.shiftDetailTableAdapter.ClearBeforeFill = true;
-            // 
             // FormShiftDetail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -179,6 +174,5 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnLeave;
         private System.Windows.Forms.Button btnExcel;
-        private VEDataSetTableAdapters.ShiftDetailTableAdapter shiftDetailTableAdapter;
     }
 }

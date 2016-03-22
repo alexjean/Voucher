@@ -7,19 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
-#if UseSQLServer
 using MyDataSet          = VoucherExpense.DamaiDataSet;
 using MyHRRow            = VoucherExpense.DamaiDataSet.HRRow;
 using MyShiftRow         = VoucherExpense.DamaiDataSet.ShiftTableRow;
 using MyShiftDetailRow   = VoucherExpense.DamaiDataSet.ShiftDetailRow;
 using MyShiftDetailTable = VoucherExpense.DamaiDataSet.ShiftDetailDataTable;
-#else
-using MyDataSet         = VoucherExpense.VEDataSet;
-using MyHRRow           = VoucherExpense.VEDataSet.HRRow;
-using MyShiftRow        = VoucherExpense.VEDataSet.ShiftTableRow;
-using MyShiftDetailRow  = VoucherExpense.VEDataSet.ShiftDetailRow;
-using MyShiftDetailTable= VoucherExpense.VEDataSet.ShiftDetailDataTable;
-#endif
 namespace VoucherExpense
 {
     public partial class FormShiftDetail : Form
@@ -460,13 +452,9 @@ namespace VoucherExpense
             try
             {
                 var table = m_DataSet.ShiftDetail.GetChanges() as MyShiftDetailTable;
-#if UseSQLServer
                 var shiftDetailAdapter = new VoucherExpense.DamaiDataSetTableAdapters.ShiftDetailTableAdapter();
-#else
-                var shiftDetailAdapter = new VoucherExpense.VEDataSetTableAdapters.ShiftDetailTableAdapter();
-                shiftDetailAdapter.Connection = MapPath.VEConnection;
                 shiftDetailAdapter.Update(table);
-#endif
+
                 m_DataSet.ShiftDetail.Merge(table);
                 m_DataSet.ShiftDetail.AcceptChanges();
             }

@@ -683,7 +683,7 @@ namespace VoucherExpense
             return false;
         }
 
-        List<string> m_UnsyncTable = new List<string> { "Product","ProductClass","Ingredient","Vendor" };
+        List<string> m_UnsyncTable = new List<string> ();    //  { "Product","ProductClass","Ingredient","Vendor" };
         private bool UnSyncDatabase(string tableName)
         {
             foreach (string name in m_UnsyncTable)
@@ -725,7 +725,8 @@ namespace VoucherExpense
         }
 
 
-        bool BuildStructTable(ref Dictionary<string, List<DB.SqlColumnStruct>> StructLocal, out Dictionary<string, DB.TableInfo> TableInfoLocal,
+        bool BuildStructTable(bool doRegion,
+                              ref Dictionary<string, List<DB.SqlColumnStruct>> StructLocal, out Dictionary<string, DB.TableInfo> TableInfoLocal,
                               ref Dictionary<string, List<DB.SqlColumnStruct>> StructCloud, out Dictionary<string, DB.TableInfo> TableInfoCloud,
                               ref Dictionary<string,List<DB.SqlColumnStruct>> StructRegion, out Dictionary<string, DB.TableInfo> TableInfoRegion)
         {
@@ -742,13 +743,16 @@ namespace VoucherExpense
             List<DB.ForeignKey> listFKCloud = DB.GetForeignKey(CloudServer);
             // Region資料庫目前沒有ForeignKey
 
-            ShowStatus("取得區域資料庫結構!");
-            // 區域資料庫的同步不記憶在SyncMD5, 是雲端直接覆蓋本地, 故不用做[SyncTalbe] Map TableID
-            TableInfoRegion=DB.AssignTableID_InitTableInfo(RegionServer, StructRegion);
-            if (TableInfoRegion == null)
+            if (doRegion)
             {
-                Message("=========區域資料庫(Region)結構讀取失敗!==========");
-                return false;
+                ShowStatus("取得區域資料庫結構!");
+                // 區域資料庫的同步不記憶在SyncMD5, 是雲端直接覆蓋本地, 故不用做[SyncTalbe] Map TableID
+                TableInfoRegion = DB.AssignTableID_InitTableInfo(RegionServer, StructRegion);
+                if (TableInfoRegion == null)
+                {
+                    Message("=========區域資料庫(Region)結構讀取失敗!==========");
+                    return false;
+                }
             }
 
 
@@ -756,16 +760,18 @@ namespace VoucherExpense
             // 填入 Struct及PrimaryKeys
             DB.FillStructAndTableInfo(LocalServer , ref StructLocal , ref TableInfoLocal);
             DB.FillStructAndTableInfo(CloudServer , ref StructCloud , ref TableInfoCloud);
-            DB.FillStructAndTableInfo(RegionServer, ref StructRegion, ref TableInfoRegion);
+            if (doRegion)
+                DB.FillStructAndTableInfo(RegionServer, ref StructRegion, ref TableInfoRegion);
 
             // 比對Local及Cloud每個Table的檔案結構是否相同
             List<string> keys = StructLocal.Keys.ToList();
             List<string> cloudKeys = StructCloud.Keys.ToList();
-            foreach (string cloud in cloudKeys)              // Cloud Database和Region相同的移除
-            {
-                if (StructRegion.ContainsKey(cloud))
-                    StructCloud.Remove(cloud);
-            }
+            if (doRegion)
+                foreach (string cloud in cloudKeys)              // Cloud Database和Region相同的移除
+                {
+                    if (StructRegion.ContainsKey(cloud))
+                        StructCloud.Remove(cloud);
+                }
             List<string> shouldRemoved = new List<string>();
             foreach (string local in keys)
             {
@@ -830,7 +836,7 @@ namespace VoucherExpense
                         }
                     }
                 }
-                else if (StructRegion.ContainsKey(local))  // 比對區域和本地
+                else if (doRegion && StructRegion.ContainsKey(local))  // 比對區域和本地
                 {
                     fatherName = GetFatherByNameRule(local);
                     if (fatherName != null)
@@ -884,72 +890,78 @@ namespace VoucherExpense
             Dictionary<string, DB.TableInfo> TableInfoLocal;                                   // 在本地SyncTable內的TableName及TableID 
             Dictionary<string, DB.TableInfo> TableInfoCloud;                                   // 在云端SyncTable內的TableName及TableID  
             Dictionary<string, DB.TableInfo> TableInfoRegion;                                  // Region的同步不使用 記憶MD5檔去比對,所以不需要TableID建表 . 每次生成再指定就好       
-       
-            if (!BuildStructTable(ref StructLocal , out TableInfoLocal, ref StructCloud, out TableInfoCloud,
+
+            bool doRegion = (m_Cfg.Database.Trim() != m_Cfg.SharedDatabase.Trim());
+            if (!BuildStructTable(doRegion,
+                                  ref StructLocal , out TableInfoLocal,
+                                  ref StructCloud , out TableInfoCloud,
                                   ref StructRegion, out TableInfoRegion  )) return;
 
             DamaiDataSet.SyncMD5OldDataTable MD5LocalDataTable = new DamaiDataSet.SyncMD5OldDataTable();
             DamaiDataSet.SyncMD5OldDataTable MD5CloudDataTable = new DamaiDataSet.SyncMD5OldDataTable();
 
             // Region資料庫一律雲端蓋本地,不記憶
-            foreach (string tableName in StructRegion.Keys)
+            if (doRegion)
             {
-                DB.TableInfo infoLocal=null,infoRegion=null;
-                if (!TableInfoLocal.TryGetValue(tableName, out infoLocal))
+                foreach (string tableName in StructRegion.Keys)
                 {
-                    Message("無法找到本地[" + tableName + "]的TableInfo!");
-                    continue;
-                }
-                if (!TableInfoRegion.TryGetValue(tableName, out infoRegion))
-                {
-                    Message("無法找到區域[" + tableName + "]的TableInfo!");
-                    continue;
-                }
-                string msg = "同步<" + tableName;
-                if (infoLocal.Childs != null)
-                    foreach (var child in infoLocal.Childs)
-                        msg += "-" + child.Name;
-                msg += "> ";   msg = msg.PadRight(35);
-                if (UnSyncDatabase(tableName))
-                {
-                    Message(msg + "資料維護 暫停同步!");
-                    continue;
-                }
+                    DB.TableInfo infoLocal = null, infoRegion = null;
+                    if (!TableInfoLocal.TryGetValue(tableName, out infoLocal))
+                    {
+                        Message("無法找到本地[" + tableName + "]的TableInfo!");
+                        continue;
+                    }
+                    if (!TableInfoRegion.TryGetValue(tableName, out infoRegion))
+                    {
+                        Message("無法找到區域[" + tableName + "]的TableInfo!");
+                        continue;
+                    }
+                    string msg = "同步<" + tableName;
+                    if (infoLocal.Childs != null)
+                        foreach (var child in infoLocal.Childs)
+                            msg += "-" + child.Name;
+                    msg += "> "; msg = msg.PadRight(35);
+                    if (UnSyncDatabase(tableName))
+                    {
+                        Message(msg + "資料維護 暫停同步!");
+                        continue;
+                    }
 
 
-                var localDataSet =new DataSet();
-                var regionDataSet=new DataSet();
-                var dicResult    =new Dictionary<Guid,DB.Md5Result>();
-                if (!DB.LoadData_CalcMd5_GetMd5Result(tableName, infoLocal, LocalServer, ref localDataSet, ref dicResult))
-                {
-                    msg += " 本地出錯!";
+                    var localDataSet = new DataSet();
+                    var regionDataSet = new DataSet();
+                    var dicResult = new Dictionary<Guid, DB.Md5Result>();
+                    if (!DB.LoadData_CalcMd5_GetMd5Result(tableName, infoLocal, LocalServer, ref localDataSet, ref dicResult))
+                    {
+                        msg += " 本地出錯!";
+                        Message(msg);
+                        continue;
+                    }
+                    foreach (var pair in dicResult)   // 上面Function是通用的,因為dicResult是空的,所有的全是RowStatus.New,放在Md5Now,要手工轉
+                    {
+                        pair.Value.Md5Old = pair.Value.Md5Now;
+                        pair.Value.Md5Now = null;
+                        pair.Value.Status = DB.RowStatus.Deleted;
+                    }
+                    if (!DB.LoadData_CalcMd5_GetMd5Result(tableName, infoRegion, RegionServer, ref regionDataSet, ref dicResult))
+                    {
+                        msg += " 區域出錯!";
+                        Message(msg);
+                        continue;
+                    }
+                    List<DB.Md5Result> listChanged = (from re in dicResult.Values where re.Status != DB.RowStatus.Unchanged select re).ToList();
+                    ShowStatus("更新區域至本地[" + tableName + "]資料  " + listChanged.Count + "筆!");
+                    if (_UpdateDataByMd5Result(tableName, listChanged, "區域至本地", regionDataSet.Tables[tableName], infoRegion,
+                        localDataSet.Tables[tableName], infoLocal, localDataSet))
+                    {
+                        if (UpdateData("Title", tableName, localDataSet, LocalServer, infoLocal))
+                            msg += " Ok!";
+                        else
+                            msg += "寫出出錯!";
+                    }
+                    else msg += " 更新DataSet出錯";
                     Message(msg);
-                    continue;
                 }
-                foreach (var pair in dicResult)   // 上面Function是通用的,因為dicResult是空的,所有的全是RowStatus.New,放在Md5Now,要手工轉
-                {
-                    pair.Value.Md5Old = pair.Value.Md5Now;
-                    pair.Value.Md5Now = null;
-                    pair.Value.Status = DB.RowStatus.Deleted;
-                }
-                if (!DB.LoadData_CalcMd5_GetMd5Result(tableName, infoRegion, RegionServer, ref regionDataSet, ref dicResult))
-                {
-                    msg += " 區域出錯!";
-                    Message(msg);
-                    continue;
-                }
-                List<DB.Md5Result> listChanged = (from re in dicResult.Values where re.Status != DB.RowStatus.Unchanged select re).ToList();
-                ShowStatus("更新區域至本地[" + tableName + "]資料  " + listChanged.Count + "筆!");
-                if (_UpdateDataByMd5Result(tableName, listChanged, "區域至本地", regionDataSet.Tables[tableName], infoRegion,
-                    localDataSet.Tables[tableName],infoLocal, localDataSet))
-                { 
-                    if (UpdateData("Title",tableName,localDataSet,LocalServer,infoLocal))
-                        msg+=" Ok!";
-                    else
-                        msg+="寫出出錯!";
-                }
-                else msg += " 更新DataSet出錯";
-                Message(msg);
             }
             // 同步Cloud部分，找出MD5Old和現有Record的不同
             foreach (var tableName in StructCloud.Keys)

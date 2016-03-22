@@ -247,6 +247,8 @@ namespace VoucherExpense
                 MessageBox.Show("請輸入該表名稱!");
                 return;
             }
+            if (row.RowState != DataRowState.Unchanged)  // 新的Row若不存,在Detail表內存會因為FK設為Cascade而錯誤
+                儲存SToolStripButton_Click(null, null);
             Form form = new FormShiftDetail(m_DataSet,row,m_ShiftCodeList);
             form.ShowDialog();
         }

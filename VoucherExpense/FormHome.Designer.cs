@@ -204,8 +204,8 @@
             this.出货统计ToolStripMenuItem,
             this.出货收款统计ToolStripMenuItem});
             this.出货MenuItem.Name = "出货MenuItem";
-            this.出货MenuItem.Size = new System.Drawing.Size(84, 20);
-            this.出货MenuItem.Text = "工厂出货";
+            this.出货MenuItem.Size = new System.Drawing.Size(52, 20);
+            this.出货MenuItem.Text = "出货";
             // 
             // 出货ToolStripMenuItem
             // 
@@ -348,7 +348,7 @@
             // 轉帳傳票MenuItem
             // 
             this.轉帳傳票MenuItem.Name = "轉帳傳票MenuItem";
-            this.轉帳傳票MenuItem.Size = new System.Drawing.Size(152, 22);
+            this.轉帳傳票MenuItem.Size = new System.Drawing.Size(148, 22);
             this.轉帳傳票MenuItem.Text = "轉帳傳票";
             this.轉帳傳票MenuItem.Visible = false;
             this.轉帳傳票MenuItem.Click += new System.EventHandler(this.轉帳傳票MenuItem_Click);
@@ -356,7 +356,7 @@
             // 損益報表ToolStripMenuItem
             // 
             this.損益報表ToolStripMenuItem.Name = "損益報表ToolStripMenuItem";
-            this.損益報表ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.損益報表ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.損益報表ToolStripMenuItem.Text = "損益報表";
             this.損益報表ToolStripMenuItem.Visible = false;
             this.損益報表ToolStripMenuItem.Click += new System.EventHandler(this.損益報表ToolStripMenuItem_Click);
@@ -364,28 +364,28 @@
             // 分類MenuItem
             // 
             this.分類MenuItem.Name = "分類MenuItem";
-            this.分類MenuItem.Size = new System.Drawing.Size(152, 22);
+            this.分類MenuItem.Size = new System.Drawing.Size(148, 22);
             this.分類MenuItem.Text = "分類帳";
             this.分類MenuItem.Click += new System.EventHandler(this.分類MenuItem_Click);
             // 
             // 組合傳票ToolStripMenuItem
             // 
             this.組合傳票ToolStripMenuItem.Name = "組合傳票ToolStripMenuItem";
-            this.組合傳票ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.組合傳票ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.組合傳票ToolStripMenuItem.Text = "組合傳票";
             this.組合傳票ToolStripMenuItem.Click += new System.EventHandler(this.組合傳票ToolStripMenuItem_Click);
             // 
             // 會計科目MenuItem
             // 
             this.會計科目MenuItem.Name = "會計科目MenuItem";
-            this.會計科目MenuItem.Size = new System.Drawing.Size(152, 22);
+            this.會計科目MenuItem.Size = new System.Drawing.Size(148, 22);
             this.會計科目MenuItem.Text = "會計科目";
             this.會計科目MenuItem.Click += new System.EventHandler(this.會計科目MenuItem_Click);
             // 
             // 傳票設定MenuItem
             // 
             this.傳票設定MenuItem.Name = "傳票設定MenuItem";
-            this.傳票設定MenuItem.Size = new System.Drawing.Size(152, 22);
+            this.傳票設定MenuItem.Size = new System.Drawing.Size(148, 22);
             this.傳票設定MenuItem.Text = "傳票設定";
             this.傳票設定MenuItem.Click += new System.EventHandler(this.傳票設定MenuItem_Click);
             // 

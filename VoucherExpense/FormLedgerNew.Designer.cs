@@ -228,6 +228,7 @@
             this.btnExport2Excel.TabIndex = 89;
             this.btnExport2Excel.Text = "轉Excel";
             this.btnExport2Excel.UseVisualStyleBackColor = true;
+            this.btnExport2Excel.Click += new System.EventHandler(this.btnExport2Excel_Click);
             // 
             // textBox1
             // 

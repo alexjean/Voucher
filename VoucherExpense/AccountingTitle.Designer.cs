@@ -39,7 +39,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AccountingTitle));
-            this.vEDataSet = new VoucherExpense.VEDataSet();
             this.accountingTitleDataGridView = new System.Windows.Forms.DataGridView();
             this.TitleCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnTitleName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -51,7 +50,6 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.accountingTitleBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.damaiDataSet = new VoucherExpense.DamaiDataSet();
-            this.accountingTitleTableAdapter = new VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter();
             this.dgvLedgerTable = new System.Windows.Forms.DataGridView();
             this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.noteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -61,14 +59,6 @@
             this.othersideAccTitleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cLedgerTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.bankAccountTableAdapter = new VoucherExpense.VEDataSetTableAdapters.BankAccountTableAdapter();
-            this.expenseTableAdapter = new VoucherExpense.VEDataSetTableAdapters.ExpenseTableAdapter();
-            this.voucherTableAdapter = new VoucherExpense.VEDataSetTableAdapters.VoucherTableAdapter();
-            this.voucherDetailTableAdapter = new VoucherExpense.VEDataSetTableAdapters.VoucherDetailTableAdapter();
-            this.bankDetailTableAdapter = new VoucherExpense.VEDataSetTableAdapters.BankDetailTableAdapter();
-            this.accVoucherTableAdapter = new VoucherExpense.VEDataSetTableAdapters.AccVoucherTableAdapter();
-            this.vendorTableAdapter = new VoucherExpense.VEDataSetTableAdapters.VendorTableAdapter();
-            this.ingredientTableAdapter = new VoucherExpense.VEDataSetTableAdapters.IngredientTableAdapter();
             this.accountingTitleBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -86,7 +76,6 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.accountingTitleSQLAdapter = new VoucherExpense.DamaiDataSetTableAdapters.AccountingTitleTableAdapter();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cIDBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).BeginInit();
@@ -97,11 +86,6 @@
             this.accountingTitleBindingNavigator.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // vEDataSet
-            // 
-            this.vEDataSet.DataSetName = "VEDataSet";
-            this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // accountingTitleDataGridView
             // 
@@ -225,10 +209,6 @@
             this.damaiDataSet.DataSetName = "DamaiDataSet";
             this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // accountingTitleTableAdapter
-            // 
-            this.accountingTitleTableAdapter.ClearBeforeFill = true;
-            // 
             // dgvLedgerTable
             // 
             this.dgvLedgerTable.AllowUserToAddRows = false;
@@ -323,38 +303,6 @@
             this.progressBar1.TabIndex = 4;
             this.progressBar1.Visible = false;
             // 
-            // bankAccountTableAdapter
-            // 
-            this.bankAccountTableAdapter.ClearBeforeFill = true;
-            // 
-            // expenseTableAdapter
-            // 
-            this.expenseTableAdapter.ClearBeforeFill = true;
-            // 
-            // voucherTableAdapter
-            // 
-            this.voucherTableAdapter.ClearBeforeFill = true;
-            // 
-            // voucherDetailTableAdapter
-            // 
-            this.voucherDetailTableAdapter.ClearBeforeFill = true;
-            // 
-            // bankDetailTableAdapter
-            // 
-            this.bankDetailTableAdapter.ClearBeforeFill = true;
-            // 
-            // accVoucherTableAdapter
-            // 
-            this.accVoucherTableAdapter.ClearBeforeFill = true;
-            // 
-            // vendorTableAdapter
-            // 
-            this.vendorTableAdapter.ClearBeforeFill = true;
-            // 
-            // ingredientTableAdapter
-            // 
-            this.ingredientTableAdapter.ClearBeforeFill = true;
-            // 
             // accountingTitleBindingNavigator
             // 
             this.accountingTitleBindingNavigator.AddNewItem = this.bindingNavigatorAddNewItem;
@@ -400,7 +348,7 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 24);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(27, 24);
             this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
@@ -554,7 +502,6 @@
             this.Name = "AccountingTitle";
             this.Text = "會計科目";
             this.Load += new System.EventHandler(this.FormAccountingTitle_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cIDBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).EndInit();
@@ -572,21 +519,11 @@
 
         #endregion
 
-        private VEDataSet vEDataSet;
         private System.Windows.Forms.BindingSource accountingTitleBindingSource;
-        private VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter accountingTitleTableAdapter;
         private System.Windows.Forms.DataGridView accountingTitleDataGridView;
         private System.Windows.Forms.DataGridView dgvLedgerTable;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.BindingSource cLedgerTableBindingSource;
-        private VEDataSetTableAdapters.BankAccountTableAdapter bankAccountTableAdapter;
-        private VEDataSetTableAdapters.ExpenseTableAdapter expenseTableAdapter;
-        private VEDataSetTableAdapters.VoucherTableAdapter voucherTableAdapter;
-        private VEDataSetTableAdapters.VoucherDetailTableAdapter voucherDetailTableAdapter;
-        private VEDataSetTableAdapters.BankDetailTableAdapter bankDetailTableAdapter;
-        private VEDataSetTableAdapters.AccVoucherTableAdapter accVoucherTableAdapter;
-        private VEDataSetTableAdapters.VendorTableAdapter vendorTableAdapter;
-        private VEDataSetTableAdapters.IngredientTableAdapter ingredientTableAdapter;
         private System.Windows.Forms.BindingNavigator accountingTitleBindingNavigator;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;

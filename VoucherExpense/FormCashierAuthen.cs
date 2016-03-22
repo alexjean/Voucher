@@ -52,6 +52,8 @@ namespace VoucherExpense
         int m_StoreID=0;
         private void FormCashierAuthen_Load(object sender, EventArgs e)
         {
+            // TODO: 這行程式碼會將資料載入 'damaiDataSet.Cashier' 資料表。您可以視需要進行移動或移除。
+            this.cashierTableAdapter.Fill(this.damaiDataSet.Cashier);
             m_Cfg= MyFunction.HardwareCfg;
             btnCloundSyncAuto.Visible = m_Cfg.EnableCloudSync;
 

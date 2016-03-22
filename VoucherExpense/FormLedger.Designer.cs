@@ -45,7 +45,6 @@
             this.comboBoxMonth = new System.Windows.Forms.ComboBox();
             this.accountingTitleBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.damaiDataSet = new VoucherExpense.DamaiDataSet();
-            this.vEDataSet = new VoucherExpense.VEDataSet();
             this.comboBoxAccTitle = new System.Windows.Forms.ComboBox();
             this.labelMessage = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
@@ -54,7 +53,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.cLedgerRowBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // cLedgerTableDataGridView
@@ -189,11 +187,6 @@
             this.damaiDataSet.DataSetName = "DamaiDataSet";
             this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // vEDataSet
-            // 
-            this.vEDataSet.DataSetName = "VEDataSet";
-            this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // comboBoxAccTitle
             // 
             this.comboBoxAccTitle.DataSource = this.accountingTitleBindingSource;
@@ -238,7 +231,7 @@
             this.btnExport2Excel.UseVisualStyleBackColor = true;
             this.btnExport2Excel.Click += new System.EventHandler(this.btnExport2Excel_Click);
             // 
-            // FormLedgerNew
+            // FormLedger
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -252,7 +245,7 @@
             this.Controls.Add(this.cLedgerTableDataGridView);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "FormLedgerNew";
+            this.Name = "FormLedger";
             this.ShowIcon = false;
             this.Text = "分類帳";
             this.Load += new System.EventHandler(this.FormLedger_Load);
@@ -260,7 +253,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.cLedgerRowBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -274,7 +266,6 @@
         private System.Windows.Forms.Label labelMessage;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Button btnExport2Excel;
-        private VEDataSet vEDataSet;
         private DamaiDataSet damaiDataSet;
         private System.Windows.Forms.BindingSource cLedgerRowBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn dateDataGridViewTextBoxColumn;

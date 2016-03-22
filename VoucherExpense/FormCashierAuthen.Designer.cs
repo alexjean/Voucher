@@ -36,11 +36,10 @@
             System.Windows.Forms.Label label1;
             System.Windows.Forms.Label label2;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCashierAuthen));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.labelStoreID = new System.Windows.Forms.Label();
-            this.bakeryOrderSet = new VoucherExpense.BakeryOrderSet();
             this.cashierBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cashierBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
@@ -61,7 +60,7 @@
             this.PasswordColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.operatorBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.vEDataSet = new VoucherExpense.VEDataSet();
+            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Return = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.chBoxOnlyInPosition = new System.Windows.Forms.CheckBox();
@@ -119,20 +118,19 @@
             this.btnSaveLetter = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.checkBoxLetter1 = new System.Windows.Forms.CheckBox();
-            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
+            this.cashierTableAdapter = new VoucherExpense.DamaiDataSetTableAdapters.CashierTableAdapter();
             labelTime = new System.Windows.Forms.Label();
             label5 = new System.Windows.Forms.Label();
             label6 = new System.Windows.Forms.Label();
             label7 = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cashierBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cashierBindingNavigator)).BeginInit();
             this.cashierBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCashier)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPageDaily.SuspendLayout();
             this.tabPagePosDir.SuspendLayout();
@@ -140,7 +138,6 @@
             this.tabPageReadme.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // labelTime
@@ -207,15 +204,10 @@
             this.labelStoreID.Text = "0";
             this.labelStoreID.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // bakeryOrderSet
-            // 
-            this.bakeryOrderSet.DataSetName = "BakeryOrderSet";
-            this.bakeryOrderSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // cashierBindingSource
             // 
             this.cashierBindingSource.DataMember = "Cashier";
-            this.cashierBindingSource.DataSource = this.bakeryOrderSet;
+            this.cashierBindingSource.DataSource = this.damaiDataSet;
             // 
             // cashierBindingNavigator
             // 
@@ -365,9 +357,9 @@
             // dataGridViewCheckBoxColumn1
             // 
             this.dataGridViewCheckBoxColumn1.DataPropertyName = "InPosition";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.NullValue = false;
-            this.dataGridViewCheckBoxColumn1.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.NullValue = false;
+            this.dataGridViewCheckBoxColumn1.DefaultCellStyle = dataGridViewCellStyle10;
             this.dataGridViewCheckBoxColumn1.HeaderText = "在職";
             this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
             this.dataGridViewCheckBoxColumn1.Width = 48;
@@ -375,8 +367,8 @@
             // CashierIDColumn
             // 
             this.CashierIDColumn.DataPropertyName = "CashierID";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.CashierIDColumn.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.CashierIDColumn.DefaultCellStyle = dataGridViewCellStyle11;
             this.CashierIDColumn.FillWeight = 65F;
             this.CashierIDColumn.HeaderText = "No";
             this.CashierIDColumn.Name = "CashierIDColumn";
@@ -419,17 +411,17 @@
             this.operatorBindingSource.DataMember = "Operator";
             this.operatorBindingSource.DataSource = this.damaiDataSet;
             // 
-            // vEDataSet
+            // damaiDataSet
             // 
-            this.vEDataSet.DataSetName = "VEDataSet";
-            this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.damaiDataSet.DataSetName = "DamaiDataSet";
+            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // dataGridViewTextBoxColumn5
             // 
             this.dataGridViewTextBoxColumn5.DataPropertyName = "LastUpdated";
-            dataGridViewCellStyle6.Format = "MM-dd hh:mm";
-            dataGridViewCellStyle6.NullValue = null;
-            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle12.Format = "MM-dd hh:mm";
+            dataGridViewCellStyle12.NullValue = null;
+            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle12;
             this.dataGridViewTextBoxColumn5.HeaderText = "更新時間";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.ReadOnly = true;
@@ -1039,10 +1031,9 @@
             this.checkBoxLetter1.Text = "軟文1";
             this.checkBoxLetter1.UseVisualStyleBackColor = true;
             // 
-            // damaiDataSet
+            // cashierTableAdapter
             // 
-            this.damaiDataSet.DataSetName = "DamaiDataSet";
-            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.cashierTableAdapter.ClearBeforeFill = true;
             // 
             // FormCashierAuthen
             // 
@@ -1061,14 +1052,13 @@
             this.Text = "收銀授權";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormCashierAuthen_FormClosing);
             this.Load += new System.EventHandler(this.FormCashierAuthen_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.bakeryOrderSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cashierBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cashierBindingNavigator)).EndInit();
             this.cashierBindingNavigator.ResumeLayout(false);
             this.cashierBindingNavigator.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCashier)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPageDaily.ResumeLayout(false);
             this.tabPagePosDir.ResumeLayout(false);
@@ -1079,7 +1069,6 @@
             this.tabControl2.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1087,7 +1076,6 @@
 
         #endregion
 
-        private BakeryOrderSet bakeryOrderSet;
         private System.Windows.Forms.BindingSource cashierBindingSource;
         private System.Windows.Forms.BindingNavigator cashierBindingNavigator;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
@@ -1102,7 +1090,6 @@
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.ToolStripButton cashierBindingNavigatorSaveItem;
         private System.Windows.Forms.DataGridView dgvCashier;
-        private VEDataSet vEDataSet;
         private System.Windows.Forms.BindingSource operatorBindingSource;
         private System.Windows.Forms.CheckBox chBoxOnlyInPosition;
         private System.Windows.Forms.TextBox textBoxPOS1;
@@ -1168,5 +1155,6 @@
         private System.Windows.Forms.CheckBox checkBoxLetter6;
         private System.Windows.Forms.CheckBox checkBoxLetter7;
         private DamaiDataSet damaiDataSet;
+        private DamaiDataSetTableAdapters.CashierTableAdapter cashierTableAdapter;
     }
 }

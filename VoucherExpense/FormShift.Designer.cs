@@ -34,7 +34,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cMonthForComboBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.operatorBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.vEDataSet = new VoucherExpense.VEDataSet();
+            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             this.shiftTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.shiftTableBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
@@ -59,10 +59,9 @@
             this.columnLocked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.KeyinID = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.lastUpdatedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             ((System.ComponentModel.ISupportInitialize)(this.cMonthForComboBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.shiftTableBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.shiftTableBindingNavigator)).BeginInit();
             this.shiftTableBindingNavigator.SuspendLayout();
@@ -72,7 +71,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.cHourForComboBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cShiftCodeBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvShift)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // cMonthForComboBindingSource
@@ -84,10 +82,10 @@
             this.operatorBindingSource.DataMember = "Operator";
             this.operatorBindingSource.DataSource = this.damaiDataSet;
             // 
-            // vEDataSet
+            // damaiDataSet
             // 
-            this.vEDataSet.DataSetName = "VEDataSet";
-            this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.damaiDataSet.DataSetName = "DamaiDataSet";
+            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // shiftTableBindingSource
             // 
@@ -333,11 +331,6 @@
             this.lastUpdatedDataGridViewTextBoxColumn.Name = "lastUpdatedDataGridViewTextBoxColumn";
             this.lastUpdatedDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // damaiDataSet
-            // 
-            this.damaiDataSet.DataSetName = "DamaiDataSet";
-            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // FormShift
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -357,7 +350,7 @@
             this.Load += new System.EventHandler(this.FormShift_Load);
             ((System.ComponentModel.ISupportInitialize)(this.cMonthForComboBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.shiftTableBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.shiftTableBindingNavigator)).EndInit();
             this.shiftTableBindingNavigator.ResumeLayout(false);
@@ -368,7 +361,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.cHourForComboBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cShiftCodeBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvShift)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -376,7 +368,6 @@
 
         #endregion
 
-        private VEDataSet vEDataSet;
         private System.Windows.Forms.BindingNavigator shiftTableBindingNavigator;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;

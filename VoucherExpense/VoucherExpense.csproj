@@ -1078,7 +1078,6 @@
     <Compile Include="Class\FormatMessage.cs" />
     <Compile Include="Class\HardwareConfig.cs" />
     <Compile Include="Class\MapPath.cs" />
-    <Compile Include="Class\MergeMdb.cs" />
     <Compile Include="Class\SortableBindingList.cs" />
     <Compile Include="Class\Excel.cs" />
     <Compile Include="EditProductClass.cs">

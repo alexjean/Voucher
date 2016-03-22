@@ -30,13 +30,12 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormBankDetail));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             this.bankDetailBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bankBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.vEDataSet = new VoucherExpense.VEDataSet();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
@@ -63,14 +62,15 @@
             this.cbSelectBank = new System.Windows.Forms.ComboBox();
             this.cBankAccountForComboBoxBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.checkBoxSort = new System.Windows.Forms.CheckBox();
+            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             ((System.ComponentModel.ISupportInitialize)(this.bankDetailBindingNavigator)).BeginInit();
             this.bankDetailBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bankBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBankDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bankAccountBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cBankAccountForComboBoxBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // bankDetailBindingNavigator
@@ -99,7 +99,7 @@
             this.bankDetailBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.bankDetailBindingNavigator.Name = "bankDetailBindingNavigator";
             this.bankDetailBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.bankDetailBindingNavigator.Size = new System.Drawing.Size(249, 27);
+            this.bankDetailBindingNavigator.Size = new System.Drawing.Size(247, 27);
             this.bankDetailBindingNavigator.TabIndex = 0;
             this.bankDetailBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -116,17 +116,12 @@
             // bankBindingSource
             // 
             this.bankBindingSource.DataMember = "BankDetail";
-            this.bankBindingSource.DataSource = this.vEDataSet;
-            // 
-            // vEDataSet
-            // 
-            this.vEDataSet.DataSetName = "VEDataSet";
-            this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.bankBindingSource.DataSource = this.damaiDataSet;
             // 
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 24);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(27, 24);
             this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
@@ -255,7 +250,7 @@
             // bankAccountBindingSource
             // 
             this.bankAccountBindingSource.DataMember = "BankAccount";
-            this.bankAccountBindingSource.DataSource = this.vEDataSet;
+            this.bankAccountBindingSource.DataSource = this.damaiDataSet;
             // 
             // columnIsCredit
             // 
@@ -267,9 +262,9 @@
             // columnDay
             // 
             this.columnDay.DataPropertyName = "Day";
-            dataGridViewCellStyle1.Format = "d";
-            dataGridViewCellStyle1.NullValue = null;
-            this.columnDay.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle13.Format = "d";
+            dataGridViewCellStyle13.NullValue = null;
+            this.columnDay.DefaultCellStyle = dataGridViewCellStyle13;
             this.columnDay.HeaderText = "日期";
             this.columnDay.Name = "columnDay";
             this.columnDay.ReadOnly = true;
@@ -278,10 +273,10 @@
             // columnMoney
             // 
             this.columnMoney.DataPropertyName = "Money";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "N2";
-            dataGridViewCellStyle2.NullValue = null;
-            this.columnMoney.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle14.Format = "N2";
+            dataGridViewCellStyle14.NullValue = null;
+            this.columnMoney.DefaultCellStyle = dataGridViewCellStyle14;
             this.columnMoney.HeaderText = "金額";
             this.columnMoney.Name = "columnMoney";
             // 
@@ -302,7 +297,7 @@
             // accountingTitleBindingSource
             // 
             this.accountingTitleBindingSource.DataMember = "AccountingTitle";
-            this.accountingTitleBindingSource.DataSource = this.vEDataSet;
+            this.accountingTitleBindingSource.DataSource = this.damaiDataSet;
             this.accountingTitleBindingSource.Filter = "";
             // 
             // dataGridViewTextBoxColumn5
@@ -315,10 +310,10 @@
             // 
             // columnTotal
             // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "N2";
-            dataGridViewCellStyle3.NullValue = null;
-            this.columnTotal.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle15.Format = "N2";
+            dataGridViewCellStyle15.NullValue = null;
+            this.columnTotal.DefaultCellStyle = dataGridViewCellStyle15;
             this.columnTotal.HeaderText = "餘額";
             this.columnTotal.Name = "columnTotal";
             this.columnTotal.ReadOnly = true;
@@ -385,6 +380,11 @@
             this.checkBoxSort.UseVisualStyleBackColor = true;
             this.checkBoxSort.CheckedChanged += new System.EventHandler(this.checkBoxSort_CheckedChanged);
             // 
+            // damaiDataSet
+            // 
+            this.damaiDataSet.DataSetName = "DamaiDataSet";
+            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // FormBankDetail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -406,11 +406,11 @@
             this.bankDetailBindingNavigator.ResumeLayout(false);
             this.bankDetailBindingNavigator.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bankBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBankDetail)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bankAccountBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cBankAccountForComboBoxBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -418,7 +418,6 @@
 
         #endregion
 
-        private VEDataSet vEDataSet;
         private System.Windows.Forms.BindingSource bankBindingSource;
         private System.Windows.Forms.BindingNavigator bankDetailBindingNavigator;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
@@ -448,5 +447,6 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnTotal;
+        private DamaiDataSet damaiDataSet;
     }
 }

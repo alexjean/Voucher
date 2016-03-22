@@ -5,15 +5,9 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-#if UseSQLServer
 using MyDataSet = VoucherExpense.DamaiDataSet;
 using MyBankDetailTable = VoucherExpense.DamaiDataSet.BankDetailDataTable;
 using MyBankDetailAdapter = VoucherExpense.DamaiDataSetTableAdapters.BankDetailTableAdapter;
-#else
-using MyDataSet = VoucherExpense.VEDataSet;
-using MyBankDetailTable = VoucherExpense.VEDataSet.BankDetailDataTable;
-using MyBankDetailAdapter = VoucherExpense.VEDataSetTableAdapters.BankDetailTableAdapter;
-#endif
 
 namespace VoucherExpense
 {
@@ -40,16 +34,9 @@ namespace VoucherExpense
         private void FormBankDetail_Load(object sender, EventArgs e)
         {
             SetupBindingSource();
-#if UseSQLServer
             var bankAccountAdapter      = new VoucherExpense.DamaiDataSetTableAdapters.BankAccountTableAdapter();
             var accountingTitleAdapter  = new VoucherExpense.DamaiDataSetTableAdapters.AccountingTitleTableAdapter();
-#else
-            var bankAccountAdapter      = new VoucherExpense.VEDataSetTableAdapters.BankAccountTableAdapter();
-            var accountingTitleAdapter  = new VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter();
-            bankAccountAdapter.Connection      = MapPath.VEConnection;
-            accountingTitleAdapter.Connection  = MapPath.VEConnection;
-            bankDetailAdapter.Connection       = MapPath.VEConnection;
-#endif
+
             bankAccountAdapter.Fill(m_DataSet.BankAccount);
             accountingTitleAdapter.Fill(m_DataSet.AccountingTitle);
             bankDetailAdapter.Fill(m_DataSet.BankDetail);

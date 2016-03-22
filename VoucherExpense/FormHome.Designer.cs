@@ -56,13 +56,11 @@
             this.銀行MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.細目編修ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.匯入XLSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.合併銀行細目MdbMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.銀行帳號MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.會計MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.轉帳傳票MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.損益報表ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.分類MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.合併傳票MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.組合傳票ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.會計科目MenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.傳票設定MenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -307,7 +305,6 @@
             this.銀行MenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.細目編修ToolStripMenuItem,
             this.匯入XLSToolStripMenuItem,
-            this.合併銀行細目MdbMenuItem,
             this.銀行帳號MenuItem});
             this.銀行MenuItem.Name = "銀行MenuItem";
             this.銀行MenuItem.Size = new System.Drawing.Size(52, 20);
@@ -327,14 +324,6 @@
             this.匯入XLSToolStripMenuItem.Text = "匯入Excel";
             this.匯入XLSToolStripMenuItem.Click += new System.EventHandler(this.匯入XLSToolStripMenuItem_Click);
             // 
-            // 合併銀行細目MdbMenuItem
-            // 
-            this.合併銀行細目MdbMenuItem.Name = "合併銀行細目MdbMenuItem";
-            this.合併銀行細目MdbMenuItem.Size = new System.Drawing.Size(156, 22);
-            this.合併銀行細目MdbMenuItem.Text = "合併 mdb";
-            this.合併銀行細目MdbMenuItem.Visible = false;
-            this.合併銀行細目MdbMenuItem.Click += new System.EventHandler(this.合併銀行細目MdbMenuItem_Click);
-            // 
             // 銀行帳號MenuItem
             // 
             this.銀行帳號MenuItem.Name = "銀行帳號MenuItem";
@@ -349,7 +338,6 @@
             this.轉帳傳票MenuItem,
             this.損益報表ToolStripMenuItem,
             this.分類MenuItem,
-            this.合併傳票MenuItem,
             this.組合傳票ToolStripMenuItem,
             this.會計科目MenuItem,
             this.傳票設定MenuItem});
@@ -360,7 +348,7 @@
             // 轉帳傳票MenuItem
             // 
             this.轉帳傳票MenuItem.Name = "轉帳傳票MenuItem";
-            this.轉帳傳票MenuItem.Size = new System.Drawing.Size(148, 22);
+            this.轉帳傳票MenuItem.Size = new System.Drawing.Size(152, 22);
             this.轉帳傳票MenuItem.Text = "轉帳傳票";
             this.轉帳傳票MenuItem.Visible = false;
             this.轉帳傳票MenuItem.Click += new System.EventHandler(this.轉帳傳票MenuItem_Click);
@@ -368,7 +356,7 @@
             // 損益報表ToolStripMenuItem
             // 
             this.損益報表ToolStripMenuItem.Name = "損益報表ToolStripMenuItem";
-            this.損益報表ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.損益報表ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.損益報表ToolStripMenuItem.Text = "損益報表";
             this.損益報表ToolStripMenuItem.Visible = false;
             this.損益報表ToolStripMenuItem.Click += new System.EventHandler(this.損益報表ToolStripMenuItem_Click);
@@ -376,36 +364,28 @@
             // 分類MenuItem
             // 
             this.分類MenuItem.Name = "分類MenuItem";
-            this.分類MenuItem.Size = new System.Drawing.Size(148, 22);
+            this.分類MenuItem.Size = new System.Drawing.Size(152, 22);
             this.分類MenuItem.Text = "分類帳";
             this.分類MenuItem.Click += new System.EventHandler(this.分類MenuItem_Click);
-            // 
-            // 合併傳票MenuItem
-            // 
-            this.合併傳票MenuItem.Name = "合併傳票MenuItem";
-            this.合併傳票MenuItem.Size = new System.Drawing.Size(148, 22);
-            this.合併傳票MenuItem.Text = "合併 mdb";
-            this.合併傳票MenuItem.Visible = false;
-            this.合併傳票MenuItem.Click += new System.EventHandler(this.合併傳票MdbMenuItem_Click);
             // 
             // 組合傳票ToolStripMenuItem
             // 
             this.組合傳票ToolStripMenuItem.Name = "組合傳票ToolStripMenuItem";
-            this.組合傳票ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.組合傳票ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.組合傳票ToolStripMenuItem.Text = "組合傳票";
             this.組合傳票ToolStripMenuItem.Click += new System.EventHandler(this.組合傳票ToolStripMenuItem_Click);
             // 
             // 會計科目MenuItem
             // 
             this.會計科目MenuItem.Name = "會計科目MenuItem";
-            this.會計科目MenuItem.Size = new System.Drawing.Size(148, 22);
+            this.會計科目MenuItem.Size = new System.Drawing.Size(152, 22);
             this.會計科目MenuItem.Text = "會計科目";
             this.會計科目MenuItem.Click += new System.EventHandler(this.會計科目MenuItem_Click);
             // 
             // 傳票設定MenuItem
             // 
             this.傳票設定MenuItem.Name = "傳票設定MenuItem";
-            this.傳票設定MenuItem.Size = new System.Drawing.Size(148, 22);
+            this.傳票設定MenuItem.Size = new System.Drawing.Size(152, 22);
             this.傳票設定MenuItem.Text = "傳票設定";
             this.傳票設定MenuItem.Click += new System.EventHandler(this.傳票設定MenuItem_Click);
             // 
@@ -539,14 +519,14 @@
             // 切換門店MenuItem
             // 
             this.切換門店MenuItem.Name = "切換門店MenuItem";
-            this.切換門店MenuItem.Size = new System.Drawing.Size(152, 22);
+            this.切換門店MenuItem.Size = new System.Drawing.Size(148, 22);
             this.切換門店MenuItem.Text = "切換門店";
             this.切換門店MenuItem.Click += new System.EventHandler(this.切換門店ToolStripMenuItem_Click);
             // 
             // 修改密碼MenuItem
             // 
             this.修改密碼MenuItem.Name = "修改密碼MenuItem";
-            this.修改密碼MenuItem.Size = new System.Drawing.Size(152, 22);
+            this.修改密碼MenuItem.Size = new System.Drawing.Size(148, 22);
             this.修改密碼MenuItem.Text = "修改密碼";
             this.修改密碼MenuItem.Click += new System.EventHandler(this.修改密碼MenuItem_Click);
             // 
@@ -670,8 +650,6 @@
         private System.Windows.Forms.ToolStripMenuItem 人事MenuItem;
         private System.Windows.Forms.ToolStripMenuItem 考勤MenuItem;
         private System.Windows.Forms.ToolStripMenuItem 資料卡MenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 合併銀行細目MdbMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 合併傳票MenuItem;
         private System.Windows.Forms.ToolStripMenuItem 排班表MenuItem;
         private System.Windows.Forms.ToolStripMenuItem 編修菜單MenuItem;
         private System.Windows.Forms.ToolStripMenuItem 銷貨統計ToolStripMenuItem;

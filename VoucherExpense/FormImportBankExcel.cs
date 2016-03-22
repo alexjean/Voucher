@@ -5,15 +5,9 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-#if UseSQLServer
 using MyDataSet = VoucherExpense.DamaiDataSet;
 using MyBankDetailAdapter = VoucherExpense.DamaiDataSetTableAdapters.BankDetailTableAdapter;
 using MyBankDetailTable = VoucherExpense.DamaiDataSet.BankDetailDataTable;
-#else
-using MyDataSet = VoucherExpense.VEDataSet;
-using MyBankDetailAdapter = VoucherExpense.VEDataSetTableAdapters.BankDetailTableAdapter;
-using MyBankDetailTable = VoucherExpense.VEDataSet.BankDetailDataTable;
-#endif
 
 namespace VoucherExpense
 {
@@ -78,13 +72,7 @@ namespace VoucherExpense
                 MessageBox.Show("轉換Excel表過程出錯! 是否沒有安裝Excel或 Microsoft.Office.Interop.Excel.dll不存在!");
                 m_CloseForm = true;
             }
-#if (UseSQLServer)
             var bankAccountAdapter = new VoucherExpense.DamaiDataSetTableAdapters.BankAccountTableAdapter();
-#else
-            var bankAccountAdapter = new VoucherExpense.VEDataSetTableAdapters.BankAccountTableAdapter();
-            BankDetailAdapter.Connection  = MapPath.VEConnection;
-            bankAccountAdapter.Connection = MapPath.VEConnection;    //必需在 MakeBankAccountComboBox()之前
-#endif
             //            MakeBankAccountComboBox();
             bankAccountAdapter.Fill(this.m_DataSet.BankAccount);
             List<CBankAccountForComboBox> list = new List<CBankAccountForComboBox>();

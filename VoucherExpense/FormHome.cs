@@ -95,7 +95,6 @@ namespace VoucherExpense
             考勤MenuItem.Enabled = Op.EditOnDuty;
             排班表MenuItem.Enabled = Op.EditOnDuty;
             資料卡MenuItem.Enabled = Op.EditSalary;
-            合併傳票MenuItem.Enabled = Op.LockAccVoucher;
             出货MenuItem.Enabled = Op.EditShipment||Op.LockShipment;
 
             if (m_AuthorizedApartment.Rows.Count<=1) // 只有一家店可登入的就不顯示了
@@ -378,15 +377,11 @@ namespace VoucherExpense
             PopupOrRun("OnDutyEmployee", typeof(FormOnDutyEmployee));
         }
 
-        private void 合併銀行細目MdbMenuItem_Click(object sender, EventArgs e)
-        {
-            MergeMdb.合併銀行細目();
-        }
-
-        private void 合併傳票MdbMenuItem_Click(object sender, EventArgs e)
-        {
-            MergeMdb.合併傳票();
-        }
+        // 此功能己癈除
+        //private void 合併傳票MdbMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    MergeMdb.合併傳票();
+        //}
 
         private void 年初開帳ToolStripMenuItem_Click(object sender, EventArgs e)
         {

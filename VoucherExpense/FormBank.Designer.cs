@@ -44,7 +44,6 @@
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.bankAccountBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
-            this.vEDataSet = new VoucherExpense.VEDataSet();
             this.dgvBankAccount = new System.Windows.Forms.DataGridView();
             this.columnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -56,8 +55,6 @@
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
-            this.bankAccountTableAdapter = new VoucherExpense.VEDataSetTableAdapters.BankAccountTableAdapter();
-            this.accountingTitleTableAdapter = new VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter();
             this.label2 = new System.Windows.Forms.Label();
             this.bankAccountSQLAdapter = new VoucherExpense.DamaiDataSetTableAdapters.BankAccountTableAdapter();
             this.accountingTitleSQLAdapter = new VoucherExpense.DamaiDataSetTableAdapters.AccountingTitleTableAdapter();
@@ -65,7 +62,6 @@
             this.bankAccountBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bankAccountBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBankAccount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).BeginInit();
@@ -123,7 +119,7 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(29, 22);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(27, 22);
             this.bindingNavigatorCountItem.Text = "/{0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目總數";
             // 
@@ -196,11 +192,6 @@
             this.bankAccountBindingNavigatorSaveItem.Text = "儲存資料";
             this.bankAccountBindingNavigatorSaveItem.Click += new System.EventHandler(this.bankAccountBindingNavigatorSaveItem_Click);
             // 
-            // vEDataSet
-            // 
-            this.vEDataSet.DataSetName = "VEDataSet";
-            this.vEDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // dgvBankAccount
             // 
             this.dgvBankAccount.AllowUserToAddRows = false;
@@ -254,7 +245,7 @@
             // accountingTitleBindingSource1
             // 
             this.accountingTitleBindingSource1.DataMember = "AccountingTitle";
-            this.accountingTitleBindingSource1.DataSource = this.vEDataSet;
+            this.accountingTitleBindingSource1.DataSource = this.damaiDataSet;
             this.accountingTitleBindingSource1.Filter = "TitleCode like \'1*\'";
             // 
             // DefaultTitleCode
@@ -305,14 +296,6 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "未指定銀行帳號的費用, 一律歸入零用金";
             // 
-            // bankAccountTableAdapter
-            // 
-            this.bankAccountTableAdapter.ClearBeforeFill = true;
-            // 
-            // accountingTitleTableAdapter
-            // 
-            this.accountingTitleTableAdapter.ClearBeforeFill = true;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -352,7 +335,6 @@
             this.bankAccountBindingNavigator.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bankAccountBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vEDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBankAccount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountingTitleBindingSource)).EndInit();
@@ -363,9 +345,7 @@
 
         #endregion
 
-        private VEDataSet vEDataSet;
         private System.Windows.Forms.BindingSource bankAccountBindingSource;
-        private VoucherExpense.VEDataSetTableAdapters.BankAccountTableAdapter bankAccountTableAdapter;
         private System.Windows.Forms.BindingNavigator bankAccountBindingNavigator;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
@@ -381,7 +361,6 @@
         private System.Windows.Forms.DataGridView dgvBankAccount;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.BindingSource accountingTitleBindingSource;
-        private VoucherExpense.VEDataSetTableAdapters.AccountingTitleTableAdapter accountingTitleTableAdapter;
         private System.Windows.Forms.BindingSource accountingTitleBindingSource1;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnID;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;

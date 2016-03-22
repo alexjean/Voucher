@@ -47,15 +47,11 @@
             this.cbCredit = new System.Windows.Forms.ComboBox();
             this.cbNote = new System.Windows.Forms.ComboBox();
             this.btnConvert = new System.Windows.Forms.Button();
-            this.veDataSet1 = new VoucherExpense.VEDataSet();
-            this.bankDetailTableAdapter = new VoucherExpense.VEDataSetTableAdapters.BankDetailTableAdapter();
             this.cbBankAccount = new System.Windows.Forms.ComboBox();
             this.cBankAccountForComboBoxBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.bankAccountTableAdapter = new VoucherExpense.VEDataSetTableAdapters.BankAccountTableAdapter();
             this.labelWarning3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgViewImport)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cBankDetailBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.veDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cBankAccountForComboBoxBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -206,15 +202,6 @@
             this.btnConvert.UseVisualStyleBackColor = true;
             this.btnConvert.Click += new System.EventHandler(this.btnConvert_Click);
             // 
-            // veDataSet1
-            // 
-            this.veDataSet1.DataSetName = "VEDataSet";
-            this.veDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // bankDetailTableAdapter
-            // 
-            this.bankDetailTableAdapter.ClearBeforeFill = true;
-            // 
             // cbBankAccount
             // 
             this.cbBankAccount.DataSource = this.cBankAccountForComboBoxBindingSource;
@@ -229,10 +216,6 @@
             // cBankAccountForComboBoxBindingSource
             // 
             this.cBankAccountForComboBoxBindingSource.DataSource = typeof(VoucherExpense.CBankAccountForComboBox);
-            // 
-            // bankAccountTableAdapter
-            // 
-            this.bankAccountTableAdapter.ClearBeforeFill = true;
             // 
             // labelWarning3
             // 
@@ -272,7 +255,6 @@
             this.SizeChanged += new System.EventHandler(this.FormImportBankExcel_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dgViewImport)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cBankDetailBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.veDataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cBankAccountForComboBoxBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -293,10 +275,7 @@
         private System.Windows.Forms.ComboBox cbCredit;
         private System.Windows.Forms.ComboBox cbNote;
         private System.Windows.Forms.Button btnConvert;
-        private VEDataSet veDataSet1;
-        private VoucherExpense.VEDataSetTableAdapters.BankDetailTableAdapter bankDetailTableAdapter;
         private System.Windows.Forms.ComboBox cbBankAccount;
-        private VoucherExpense.VEDataSetTableAdapters.BankAccountTableAdapter bankAccountTableAdapter;
         private System.Windows.Forms.BindingSource cBankAccountForComboBoxBindingSource;
         private System.Windows.Forms.Label labelWarning3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dateDataGridViewTextBoxColumn;

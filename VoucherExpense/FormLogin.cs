@@ -38,9 +38,14 @@ namespace VoucherExpense
                     if (n < 0 || cfg.SharedDatabase.Substring(n, 6).ToLower() != "region")
                     {
                         cfg.EnableCloudSync = false;
-                        MessageBox.Show("HardwareCfg.xml 中的區域資料庫設定不對! 雲端同步己強制取消.請通知IT帥哥來為你設定, 要跟他說你愛他喔!");
+                        MessageBox.Show("HardwareCfg.xml 中的<區域資料庫>設定不對! 雲端同步己強制取消.請通知IT帥哥來為你設定, 要跟他說你愛他喔!");
                     }
                 }
+            }
+            if (cfg.SharedDatabase.Length == 0)
+            {
+                MessageBox.Show("你的HardwareCfg.xml有誤,缺少<區域資料庫>名稱設定 .請向IT帥哥索取一份貴門店專用設定,放置在大麥執行檔同目錄即可!");
+                cfg.EnableCloudSync = false;
             }
             SetGlobalConnectionString(m_Cfg = cfg);
             InitializeComponent();
@@ -195,7 +200,7 @@ namespace VoucherExpense
                 }
                 if (m_DefaultApartment == null)
                 {
-                    MessageBox.Show("部門資料庫內找不到<" + m_Cfg.Database + ">,設定有誤無法登入,請找IT部門!");
+                    MessageBox.Show("部門資料庫內找不到<" + m_Cfg.Database + ">,設定有誤無法登入,請找IT帥哥!");
 #if (DEBUG)                    
                     m_DefaultApartment = damaiDataSet.Apartment[9];
 #else

@@ -67,9 +67,9 @@ namespace VoucherExpense
                    }
                    dataGridView1.DataSource = m_dtSales;
                }
-               catch (Exception)
+               catch (Exception ex)
                {
-                   throw;
+                   MessageBox.Show("程式錯誤! 訊息:" + ex.Message);
                }
                
         }

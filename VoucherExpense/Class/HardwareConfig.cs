@@ -288,6 +288,8 @@ namespace VoucherExpense
                 }
                 else
                     MessageBox.Show("未知的HardwareCfg.xml格式!");
+                
+
 
             }
             catch (Exception ex)

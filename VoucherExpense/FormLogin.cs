@@ -30,6 +30,18 @@ namespace VoucherExpense
 
             HardwareConfig cfg = new HardwareConfig();
             cfg.Load();
+            if (cfg.EnableCloudSync)
+            {
+                if (cfg.SharedDatabase != cfg.Database)
+                {
+                    int n = cfg.SharedDatabase.Count() - 6;
+                    if (n < 0 || cfg.SharedDatabase.Substring(n, 6).ToLower() != "region")
+                    {
+                        cfg.EnableCloudSync = false;
+                        MessageBox.Show("HardwareCfg.xml 中的區域資料庫設定不對! 雲端同步己強制取消.請通知IT帥哥來為你設定, 要跟他說你愛他喔!");
+                    }
+                }
+            }
             SetGlobalConnectionString(m_Cfg = cfg);
             InitializeComponent();
             ShowLogin(false);

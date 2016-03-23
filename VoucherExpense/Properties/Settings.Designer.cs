@@ -63,16 +63,6 @@ namespace VoucherExpense.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=ICE-PC\\MSSQL;Initial Catalog=VoucherExpense;Integrated Security=True")]
-        public string SqlVeConnectionString {
-            get {
-                return ((string)(this["SqlVeConnectionString"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.;Initial Catalog=Damai;Persist Security Info=True;User ID=sa")]
         public string DamaiConnectionString {
             get {

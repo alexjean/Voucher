@@ -761,17 +761,30 @@ namespace VoucherExpense
             DB.FillStructAndTableInfo(LocalServer , ref StructLocal , ref TableInfoLocal);
             DB.FillStructAndTableInfo(CloudServer , ref StructCloud , ref TableInfoCloud);
             if (doRegion)
+            {
                 DB.FillStructAndTableInfo(RegionServer, ref StructRegion, ref TableInfoRegion);
+                List<string> RegionOpenedNow = new List<string>() { "Operator", "OperatorAuthList", "Apartment", "Product", "ProductClass", "Vendor", "Ingredient" };
+                foreach (string re in StructRegion.Keys.ToList())
+                {
+                    if (!RegionOpenedNow.Contains(re))
+                        StructRegion.Remove(re);
+                    Message("不在規定的區域表<" + re + "> 己忽略!");
+                }
+                
+            }
+
 
             // 比對Local及Cloud每個Table的檔案結構是否相同
             List<string> keys = StructLocal.Keys.ToList();
             List<string> cloudKeys = StructCloud.Keys.ToList();
             if (doRegion)
+            {
                 foreach (string cloud in cloudKeys)              // Cloud Database和Region相同的移除
                 {
                     if (StructRegion.ContainsKey(cloud))
                         StructCloud.Remove(cloud);
                 }
+            }
             List<string> shouldRemoved = new List<string>();
             foreach (string local in keys)
             {
@@ -1048,6 +1061,7 @@ namespace VoucherExpense
 
                 }
                 var changedLocal = from loc in md5ResultLocal.Values where loc.Status != DB.RowStatus.Unchanged select loc;
+//                var changedLocal = from loc in md5ResultLocal.Values where 1 != 1 select loc;   // Debug不去蓋雲端
                 if (changedLocal.Count() != 0)
                 {
                     if (!UpdateRealDataByMd5Result(tableName, "雲端", CloudServer, tableInfoLocal, tableInfoCloud, localDataSet, cloudDataSet, md5ResultLocal)) goto Next;

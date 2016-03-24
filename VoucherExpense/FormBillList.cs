@@ -45,6 +45,7 @@ namespace VoucherExpense
             Config = MyFunction.HardwareCfg;
             PrinterSettings ps = new PrinterSettings();
             ps.PrinterName = Config.DotPrinterName;
+            textBoxDotPrinter.Text = Config.DotPrinterName;
             pD.PrinterSettings = ps;
             dateTimetoolStripCbB.SelectedIndex = DateTime.Now.Month;
             if (MyFunction.IntHeaderYear != DateTime.Now.Year)
@@ -437,6 +438,20 @@ namespace VoucherExpense
         {
             //e.PageSettings.PaperSize = new System.Drawing.Printing.PaperSize("", 850, 552);
             //e.PageSettings.Margins = new Margins(0, 0, 0, 0);
+        }
+
+        private void btnFindDotPrinter_Click(object sender, EventArgs e)
+        {
+            if (printDialog1.ShowDialog() == DialogResult.OK)
+                textBoxDotPrinter.Text = printDialog1.PrinterSettings.PrinterName;
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            Config.DotPrinterName = textBoxDotPrinter.Text.Trim();
+            Config.Save();
+            MessageBox.Show("點陣印表机 設定存檔完成! 重新啟動程式後, 設定方生效.");
+
         }     
     }
 }

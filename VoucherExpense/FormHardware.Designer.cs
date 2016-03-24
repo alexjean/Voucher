@@ -38,7 +38,6 @@
             this.btnUpdateRequiedVersion = new System.Windows.Forms.Button();
             this.btnFindDotPrinter = new System.Windows.Forms.Button();
             this.textBoxDotPrinter = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.labelDataBase = new System.Windows.Forms.Label();
             this.textBoxSqlServerIP = new System.Windows.Forms.TextBox();
@@ -46,6 +45,7 @@
             this.textBoxSqlDatabase = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.ckBoxIsServer = new System.Windows.Forms.CheckBox();
             this.textBoxSharedDatabase = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.btnTestCloud = new System.Windows.Forms.Button();
@@ -60,7 +60,6 @@
             this.textBoxSqlUserID = new System.Windows.Forms.TextBox();
             this.textBoxSqlPassword = new System.Windows.Forms.TextBox();
             this.btnSaveSql = new System.Windows.Forms.Button();
-            this.ckBoxIsServer = new System.Windows.Forms.CheckBox();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.SuspendLayout();
@@ -176,29 +175,20 @@
             // 
             // btnFindDotPrinter
             // 
-            this.btnFindDotPrinter.Location = new System.Drawing.Point(426, 297);
+            this.btnFindDotPrinter.Location = new System.Drawing.Point(6, 296);
             this.btnFindDotPrinter.Name = "btnFindDotPrinter";
-            this.btnFindDotPrinter.Size = new System.Drawing.Size(90, 26);
+            this.btnFindDotPrinter.Size = new System.Drawing.Size(118, 26);
             this.btnFindDotPrinter.TabIndex = 25;
-            this.btnFindDotPrinter.Text = "找印表机";
+            this.btnFindDotPrinter.Text = "點陣印表机";
             this.btnFindDotPrinter.UseVisualStyleBackColor = true;
             this.btnFindDotPrinter.Click += new System.EventHandler(this.btnFindDotPrinter_Click);
             // 
             // textBoxDotPrinter
             // 
-            this.textBoxDotPrinter.Location = new System.Drawing.Point(106, 296);
+            this.textBoxDotPrinter.Location = new System.Drawing.Point(130, 296);
             this.textBoxDotPrinter.Name = "textBoxDotPrinter";
-            this.textBoxDotPrinter.Size = new System.Drawing.Size(314, 27);
+            this.textBoxDotPrinter.Size = new System.Drawing.Size(386, 27);
             this.textBoxDotPrinter.TabIndex = 26;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(14, 301);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(88, 16);
-            this.label5.TabIndex = 24;
-            this.label5.Text = "點陣印表机";
             // 
             // groupBox2
             // 
@@ -258,7 +248,6 @@
             // 
             this.groupBox4.Controls.Add(this.btnFindDotPrinter);
             this.groupBox4.Controls.Add(this.ckBoxIsServer);
-            this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Controls.Add(this.textBoxSharedDatabase);
             this.groupBox4.Controls.Add(this.textBoxDotPrinter);
             this.groupBox4.Controls.Add(this.label11);
@@ -284,6 +273,16 @@
             this.groupBox4.TabIndex = 30;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "設定";
+            // 
+            // ckBoxIsServer
+            // 
+            this.ckBoxIsServer.Location = new System.Drawing.Point(106, 44);
+            this.ckBoxIsServer.Name = "ckBoxIsServer";
+            this.ckBoxIsServer.Size = new System.Drawing.Size(221, 20);
+            this.ckBoxIsServer.TabIndex = 0;
+            this.ckBoxIsServer.Text = "店機 (Region合併於店庫)";
+            this.ckBoxIsServer.UseVisualStyleBackColor = true;
+            this.ckBoxIsServer.CheckedChanged += new System.EventHandler(this.ckBoxIsServer_CheckedChanged);
             // 
             // textBoxSharedDatabase
             // 
@@ -401,16 +400,6 @@
             this.btnSaveSql.UseVisualStyleBackColor = true;
             this.btnSaveSql.Click += new System.EventHandler(this.btnSaveSql_Click);
             // 
-            // ckBoxIsServer
-            // 
-            this.ckBoxIsServer.Location = new System.Drawing.Point(106, 44);
-            this.ckBoxIsServer.Name = "ckBoxIsServer";
-            this.ckBoxIsServer.Size = new System.Drawing.Size(221, 20);
-            this.ckBoxIsServer.TabIndex = 0;
-            this.ckBoxIsServer.Text = "店機 (Region合併於店庫)";
-            this.ckBoxIsServer.UseVisualStyleBackColor = true;
-            this.ckBoxIsServer.CheckedChanged += new System.EventHandler(this.ckBoxIsServer_CheckedChanged);
-            // 
             // FormHardware
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -448,7 +437,6 @@
         private System.Windows.Forms.Button btnUpdateRequiedVersion;
         private System.Windows.Forms.Button btnFindDotPrinter;
         private System.Windows.Forms.TextBox textBoxDotPrinter;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox textBoxSqlServerIP;
         private System.Windows.Forms.Label label7;

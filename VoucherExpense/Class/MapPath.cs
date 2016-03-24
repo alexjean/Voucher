@@ -79,9 +79,10 @@ namespace VoucherExpense
             progressBar1=progressBar;
             m_Cfg = cfg;
             Completed=false;
-            backgroundWorker1=new BackgroundWorker();
-            this.backgroundWorker1.DoWork += new DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            this.backgroundWorker1.RunWorkerCompleted += new RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            MessageBox.Show("因HardwareCfg檔己被重定義! MapPath的BackgroundWorker都無作用了");
+            //backgroundWorker1=new BackgroundWorker();
+            //this.backgroundWorker1.DoWork += new DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            //this.backgroundWorker1.RunWorkerCompleted += new RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
         }
 
  //       BackgroundWorker backGroundWorker1;
@@ -112,38 +113,38 @@ namespace VoucherExpense
 
 
         #region BackgroundWorker
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-        {
-            NetworkDrive net = new NetworkDrive();
-            net.ShareName = m_Cfg.DataDir;
-            e.Result = new int();
-            e.Result = net.MapDrive(m_Cfg.UserName, m_Cfg.Password);
-        }
+        //private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        //{
+        //    NetworkDrive net = new NetworkDrive();
+        //    net.ShareName = m_Cfg.DataDir;
+        //    e.Result = new int();
+        //    e.Result = net.MapDrive(m_Cfg.UserName, m_Cfg.Password);
+        //}
 
-        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            int result = (int)e.Result;
-            if (result > 0)  // 要改成在Thread裏要不然沒法refresh ProgressBar
-            {
-                timer1.Stop();
-                progressBar1.Visible = false;
-                if (MessageBox.Show("無法連線 "+m_Cfg.MaskDataDir()+" 上的資料庫\r\n原因<" + SystemErrorMessage.Get((uint)result) + ">\r\n 無視錯誤使用本地資料繼續執行, 按Yes!", "", MessageBoxButtons.YesNo) != DialogResult.Yes)
-                    Application.Exit();
-                m_Cfg.IsServer = true;
-                _dataDir = "";
-            }
-            else
-            {
-                timer1.Stop();
-                progressBar1.Visible = false;
+        //private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        //{
+        //    int result = (int)e.Result;
+        //    if (result > 0)  // 要改成在Thread裏要不然沒法refresh ProgressBar
+        //    {
+        //        timer1.Stop();
+        //        progressBar1.Visible = false;
+        //        if (MessageBox.Show("無法連線 "+m_Cfg.MaskDataDir()+" 上的資料庫\r\n原因<" + SystemErrorMessage.Get((uint)result) + ">\r\n 無視錯誤使用本地資料繼續執行, 按Yes!", "", MessageBoxButtons.YesNo) != DialogResult.Yes)
+        //            Application.Exit();
+        //        m_Cfg.IsServer = true;
+        //        _dataDir = "";
+        //    }
+        //    else
+        //    {
+        //        timer1.Stop();
+        //        progressBar1.Visible = false;
 
-                _dataDir = m_Cfg.DataDir + "\\";
-                MapPath.SetVEConnectionString    (m_Cfg.DataDir + "\\" + "VoucherExpense.mdb", VoucherPass + "888");
-                MapPath.SetBasicConnectionString (m_Cfg.DataDir + "\\" + "BasicData.mdb"     , BasicPass   + "you");
-                MapPath.SetBakeryConnectionString(m_Cfg.DataDir + "\\" + "BakeryOrder.mdb"   , BasicPass   + "Bakery");
-            }
-            Completed = true;
-        }
+        //        _dataDir = m_Cfg.DataDir + "\\";
+        //        MapPath.SetVEConnectionString    (m_Cfg.DataDir + "\\" + "VoucherExpense.mdb", VoucherPass + "888");
+        //        MapPath.SetBasicConnectionString (m_Cfg.DataDir + "\\" + "BasicData.mdb"     , BasicPass   + "you");
+        //        MapPath.SetBakeryConnectionString(m_Cfg.DataDir + "\\" + "BakeryOrder.mdb"   , BasicPass   + "Bakery");
+        //    }
+        //    Completed = true;
+        //}
         #endregion
 
 

@@ -26,11 +26,6 @@ namespace VoucherExpense
         }
 
 
-        private void btnFindPrinter_Click(object sender, EventArgs e)
-        {
-            if (printDialog1.ShowDialog()==DialogResult.OK)
-                textBoxPrinter.Text=printDialog1.PrinterSettings.PrinterName;
-        }
 
         private void btnFindDotPrinter_Click(object sender, EventArgs e)
         {
@@ -39,18 +34,18 @@ namespace VoucherExpense
         }
 
 
-        void SetIsServer(bool notServer)
-        {
-            textBoxDataDir.Enabled = notServer;
-            textBoxUserName.Enabled = textBoxPassword.Enabled = notServer;
-            labelShareName.Enabled = notServer;
-            labelUser.Enabled = labelPass.Enabled = notServer;
-        }
+        //void SetIsServer(bool notServer)
+        //{
+        //    textBoxDataDir.Enabled = notServer;
+        //    textBoxUserName.Enabled = textBoxPassword.Enabled = notServer;
+        //    labelShareName.Enabled = notServer;
+        //    labelUser.Enabled = labelPass.Enabled = notServer;
+        //}
 
         private void ckBoxIsServer_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox box = (CheckBox)sender;
-            SetIsServer(!box.Checked);
+            //SetIsServer(!box.Checked);
         }
 
         MyVEHeaderTable m_VEHeader = new MyVEHeaderTable();
@@ -73,15 +68,15 @@ namespace VoucherExpense
                 MessageBox.Show("程式錯誤!:" + ex.Message);
             }
 //            Config.Load();
-            cbBoxRS232.Text         = Config.ComPortName;
             textBoxProfileName.Text = Config.ProfileName;
-            textBoxPrinter.Text     = Config.PrinterName;
+            //textBoxPrinter.Text     = Config.PrinterName;
             textBoxDotPrinter.Text  = Config.DotPrinterName;
             ckBoxIsServer.Checked   = Config.IsServer;
-            textBoxDataDir.Text     = Config.DataDir;
-            textBoxUserName.Text    = Config.UserName;
-            textBoxPassword.Text    = Config.Password;
-            textBoxBackupDir.Text   = Config.BackupDir;
+            //cbBoxRS232.Text = Config.ComPortName;
+            //textBoxDataDir.Text = Config.DataDir;
+            //textBoxUserName.Text    = Config.UserName;
+            //textBoxPassword.Text    = Config.Password;
+            //textBoxBackupDir.Text   = Config.BackupDir;
 
             textBoxSqlServerIP.Text = Config.Local.ServerIP;
             textBoxSqlUserID.Text   = Config.Local.UserID;
@@ -112,25 +107,13 @@ namespace VoucherExpense
             return "未註明";
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            Config.ProfileName = textBoxProfileName.Text.Trim();
-            Config.ComPortName = cbBoxRS232.Text.Trim();
-            Config.PrinterName = textBoxPrinter.Text.Trim();
-            Config.DotPrinterName = textBoxDotPrinter.Text.Trim();
-            Config.IsServer    = ckBoxIsServer.Checked;
-            Config.DataDir     = textBoxDataDir.Text.Trim();
-            Config.UserName    = textBoxUserName.Text.Trim();
-            Config.Password    = textBoxPassword.Text.Trim();
-            Config.BackupDir   = textBoxBackupDir.Text.Trim();
-            Config.Save();
-            MessageBox.Show("Mdb及備份設定 存檔完成! 重新啟動程式後, 設定方生效.");
-        }
-
-
+ 
         private void btnSaveSql_Click(object sender, EventArgs e)
         {
             Config.ProfileName    = textBoxProfileName.Text.Trim();
+
+            Config.DotPrinterName = textBoxDotPrinter.Text.Trim();
+            Config.IsServer = ckBoxIsServer.Checked;
             Config.Database       = textBoxSqlDatabase.Text.Trim();
             Config.SharedDatabase = textBoxSharedDatabase.Text.Trim();
 
@@ -148,20 +131,7 @@ namespace VoucherExpense
 
 
 
-        private void btnFolerBrowse_Click(object sender, EventArgs e)
-        {
-            if (folderBrowserDialog1.ShowDialog() != DialogResult.OK) return;
-            this.textBoxBackupDir.Text=folderBrowserDialog1.SelectedPath;
-        }
-
-        private void btnBackup_Click(object sender, EventArgs e)
-        {
-#if (UseSQLServer)
-            MessageBox.Show("SQL Server版,無備份MDB功能!");      
-#else
-            BackupData.DoBackup(Config);
-#endif
-        }
+ 
 
 
         private void btnUpdateRequiedVersion_Click(object sender, EventArgs e)

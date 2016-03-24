@@ -69,41 +69,41 @@ namespace VoucherExpense
         }
 
 
-        public static void DoBackup(HardwareConfig Config)
+        public static void DoBackup(bool IsServer,string DataDir,string BackupDir)
         {
             string voucherFile, incomeFile;
-            if (!Config.IsServer)
+            if (!IsServer)
             {
-                voucherFile = Config.DataDir + "\\" + voucher;
-                incomeFile  = Config.DataDir + "\\" + income;
+                voucherFile = DataDir + "\\" + voucher;
+                incomeFile  = DataDir + "\\" + income;
             }
             else
             {
                 voucherFile = voucher;
                 incomeFile  = income;
             }
-            if (Config.BackupDir.Length == 0)
+            if (BackupDir.Length == 0)
             {
                 MessageBox.Show("請輸入備份位置! 按存檔");
                 return;
             }
 
             string dir1 = Path.GetDirectoryName(Path.GetFullPath(voucherFile));
-            string dir2 = Path.GetDirectoryName(Path.GetFullPath(Config.BackupDir + "\\"));
+            string dir2 = Path.GetDirectoryName(Path.GetFullPath(BackupDir + "\\"));
 
             if (dir1 == dir2)
             {
                 MessageBox.Show("不能備份至主資料目錄!");
                 return;
             }
-            string destVoucher = Config.BackupDir + "\\" + voucher;
-            string destIncome  = Config.BackupDir + "\\" + income;
+            string destVoucher = BackupDir + "\\" + voucher;
+            string destIncome  = BackupDir + "\\" + income;
 
             if (FileCheckCopy(voucherFile, destVoucher))
             {
                 if (FileCheckCopy(incomeFile, destIncome))
                 {
-                    MessageBox.Show("己備份至<" + Path.GetFullPath(Config.BackupDir) + ">");
+                    MessageBox.Show("己備份至<" + Path.GetFullPath(BackupDir) + ">");
                     return;
                 }
             }

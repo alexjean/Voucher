@@ -658,51 +658,53 @@ namespace VoucherExpense
             Buf.Append("\r\n", GB2312);
         }
 
-        string LoadConfigPrinterName()
-        {
-            return MyFunction.HardwareCfg.PrinterName ?? "Zonerich AB-58MK USB";
-        }
+        //string LoadConfigPrinterName()
+        //{
+        //    //return MyFunction.HardwareCfg.PrinterName ?? "Zonerich AB-58MK USB";
+
+        //}
 
         Encoding GB2312 = Encoding.GetEncoding("GB2312");
         private void btnPrintSmall_Click(object sender, EventArgs e)
         {
             if (!Print()) return;
-            if (MessageBox.Show("此功能將從熱敏印表機印出! 要繼續嗎?", "", MessageBoxButtons.OKCancel) !=
-                DialogResult.OK) return;
-            byte[] BorderMode = new byte[] { 0x1c, 0x21, 0x28 };
-            byte[] NormalMode = new byte[] { 0x1c, 0x21, 0 };
+            MessageBox.Show("本印出功能變更中...");
+//            if (MessageBox.Show("此功能將從熱敏印表機印出! 要繼續嗎?", "", MessageBoxButtons.OKCancel) !=
+//                DialogResult.OK) return;
+//            byte[] BorderMode = new byte[] { 0x1c, 0x21, 0x28 };
+//            byte[] NormalMode = new byte[] { 0x1c, 0x21, 0 };
 
-            ByteBuilder Buf = new ByteBuilder(2048);
-            Buf.SetEncoding(GB2312);
+//            ByteBuilder Buf = new ByteBuilder(2048);
+//            Buf.SetEncoding(GB2312);
 
-            Buf.Append(BorderMode);                                      // 設定列印模式28
-            Buf.Append("     销售物料统计表\r\n"  , GB2312);
-            Buf.Append(NormalMode);                                      // 設定列印模式正常 
+//            Buf.Append(BorderMode);                                      // 設定列印模式28
+//            Buf.Append("     销售物料统计表\r\n"  , GB2312);
+//            Buf.Append(NormalMode);                                      // 設定列印模式正常 
 
-            Buf.Append("\r\n");
-            Buf.AppendPadRight("印表时间:" + DateTime.Now.ToString("yy/MM/dd hh:mm"), 19, GB2312);
-            Buf.Append("\r\n表单: " + cbBoxTable.Text + "\r\n", GB2312);
-            string str = cbBoxMonth.Text.Trim() + cbBoxFrom.Text.Trim() + "至" + cbBoxTo.Text.Trim()+" ";
-            str += "0_24时";
-            Buf.Append("时段: "+str +"\r\n\r\n");
+//            Buf.Append("\r\n");
+//            Buf.AppendPadRight("印表时间:" + DateTime.Now.ToString("yy/MM/dd hh:mm"), 19, GB2312);
+//            Buf.Append("\r\n表单: " + cbBoxTable.Text + "\r\n", GB2312);
+//            string str = cbBoxMonth.Text.Trim() + cbBoxFrom.Text.Trim() + "至" + cbBoxTo.Text.Trim()+" ";
+//            str += "0_24时";
+//            Buf.Append("时段: "+str +"\r\n\r\n");
 
-            Buf.Append("  品名          数量      金额\r\n", GB2312);
-            Buf.Append("- - - - - - - - - - - - - - - -\r\n", GB2312);
-            decimal no = 0, total = 0;
+//            Buf.Append("  品名          数量      金额\r\n", GB2312);
+//            Buf.Append("- - - - - - - - - - - - - - - -\r\n", GB2312);
+//            decimal no = 0, total = 0;
 
-            foreach (CSaleItem item in m_SaleList)   // 印不可折扣項
-            {
-                Item2Buffer(Buf, item);
-                no += item.Volume;
-                total += item.Total;
-            }
-            Buf.Append("- - - - - - - - - - - - - - - -\r\n", GB2312);
-            Buf.Append("合计:        " + d2str(no, 9) + d2str(total, 10) + "\r\n", GB2312);
-            Buf.Append(NormalMode);
-            Buf.Append("* * * * * * * * * * * * * * * *\r\n\r\n\r\n\r\n\r\n\r\n", GB2312);
-            Buf.Append("\f", GB2312);
-//            File.WriteAllText("TestPrn.txt",GB2312.GetString(Buf.ToBytes()),Encoding.Unicode);
-            RawPrint.SendManagedBytes(LoadConfigPrinterName(), Buf.ToBytes());
+//            foreach (CSaleItem item in m_SaleList)   // 印不可折扣項
+//            {
+//                Item2Buffer(Buf, item);
+//                no += item.Volume;
+//                total += item.Total;
+//            }
+//            Buf.Append("- - - - - - - - - - - - - - - -\r\n", GB2312);
+//            Buf.Append("合计:        " + d2str(no, 9) + d2str(total, 10) + "\r\n", GB2312);
+//            Buf.Append(NormalMode);
+//            Buf.Append("* * * * * * * * * * * * * * * *\r\n\r\n\r\n\r\n\r\n\r\n", GB2312);
+//            Buf.Append("\f", GB2312);
+////            File.WriteAllText("TestPrn.txt",GB2312.GetString(Buf.ToBytes()),Encoding.Unicode);
+//            RawPrint.SendManagedBytes(LoadConfigPrinterName(), Buf.ToBytes());
         }
 
         private void btnAddAllProduct_Click(object sender, EventArgs e)

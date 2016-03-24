@@ -13,8 +13,11 @@ namespace VoucherExpense
 {
     public partial class FormShipment : Form
     {
-        public FormShipment()
+        DamaiDataSet.ApartmentRow m_DefaultApartment;
+
+        public FormShipment(DamaiDataSet.ApartmentRow apartment)
         {
+            m_DefaultApartment=apartment;
             InitializeComponent();
         }
 
@@ -546,22 +549,24 @@ namespace VoucherExpense
         private void tsbtPrint_Click(object sender, EventArgs e)
         {
             string apartmentName = "";
-            if (this.damaiDataSet.Apartment.Rows.Count != 0)
-            {
-                var a0 = this.damaiDataSet.Apartment[0];
-                foreach (var a in this.damaiDataSet.Apartment)
-                {
-                    if (!a.IsIsCurrentNull() && a.IsCurrent)
-                    {
-                        a0 = a;
-                        break;
-                    }
-                }
-                if (a0.IsApartmentNameNull())
-                    apartmentName = a0.ApartmentAllName;
-                else
-                    apartmentName = a0.ApartmentAllName;
-            }
+            if (!m_DefaultApartment.IsApartmentAllNameNull()) apartmentName = m_DefaultApartment.ApartmentAllName;
+            else apartmentName = "該部門全名未設定,請找IT";
+            //if (this.damaiDataSet.Apartment.Rows.Count != 0)
+            //{
+            //    var a0 = this.damaiDataSet.Apartment[0];
+            //    foreach (var a in this.damaiDataSet.Apartment)
+            //    {
+            //        if (!a.IsIsCurrentNull() && a.IsCurrent)
+            //        {
+            //            a0 = a;
+            //            break;
+            //        }
+            //    }
+            //    if (a0.IsApartmentNameNull())
+            //        apartmentName = a0.ApartmentAllName;
+            //    else
+            //        apartmentName = a0.ApartmentAllName;
+            //}
             DataRowView rowview = shipmentBindingSource.Current as DataRowView;
             DamaiDataSet.ShipmentRow row = rowview.Row as DamaiDataSet.ShipmentRow;
             if (row.IsCustomerNull())

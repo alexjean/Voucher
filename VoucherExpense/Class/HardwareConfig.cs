@@ -12,44 +12,36 @@ namespace VoucherExpense
     {
         public string profileName;
 
-        public string printerName;
-        public string comPortName;
-        public string dataDir;
-        public string userName;
-        public string password;
         public bool isServer;
-        public string backupDir;
         public string dotPrinterName;
+
+        //public string printerName;
+        //public string comPortName;
+        //public string dataDir;
+        //public string userName;
+        //public string password;
+        //public string backupDir;
 
         public DB.SqlCredential Local=new DB.SqlCredential();
         public DB.SqlCredential Cloud=new DB.SqlCredential();
         public bool enableCloudSync;
         public string database;
         public string sharedDatabase;
-
-        //public string sqlServerIP;
-        //public string sqlDatabase;
-        //public string sqlUserID;
-        //public string sqlPassword;
-
-        //public string sqlServerIPCloud;
-        //public string SharedDatabaseCloud;
-        //public string sqlUserIDCloud;
-        //public string sqlPasswordCloud;
     }
 
     public class HardwareConfig
     {
         public static string CfgFileName = "HardwareCfg.xml";
         public string ProfileName;
-        public string PrinterName;
-        public string ComPortName;
-        public string DataDir;
-        public string UserName;
-        public string Password;
-        public bool   IsServer;
-        public string BackupDir;
+        public bool IsServer;
         public string DotPrinterName;
+
+        //public string PrinterName;
+        //public string ComPortName;
+        //public string DataDir;
+        //public string UserName;
+        //public string Password;
+        //public string BackupDir;
 
         public bool EnableCloudSync;
         public DB.SqlCredential Local=new DB.SqlCredential();
@@ -70,20 +62,20 @@ namespace VoucherExpense
         public HardwareProfile ActiveProfile = null;
         public HardwareProfile LoginDefaultProfile = new HardwareProfile();
 
-        public string MaskDataDir()
-        {
-            if (DataDir == null) return "";
-            int len=DataDir.Length;
-            if (len==0) return "";
-            string str ;
-            if (DataDir[len - 1] == '\\') len--;
-            str = DataDir.Substring(0, len);
-            int i=str.LastIndexOf('\\')+2;
-            if   (i >= len) i = len - 1;
-            StringBuilder sb= new StringBuilder(str.Substring(0, i));
-            for (; i < len; i++) sb.Append('*');
-            return sb.ToString();
-        }
+        //public string MaskDataDir()
+        //{
+        //    if (DataDir == null) return "";
+        //    int len=DataDir.Length;
+        //    if (len==0) return "";
+        //    string str ;
+        //    if (DataDir[len - 1] == '\\') len--;
+        //    str = DataDir.Substring(0, len);
+        //    int i=str.LastIndexOf('\\')+2;
+        //    if   (i >= len) i = len - 1;
+        //    StringBuilder sb= new StringBuilder(str.Substring(0, i));
+        //    for (; i < len; i++) sb.Append('*');
+        //    return sb.ToString();
+        //}
 
         public HardwareConfig()
         {
@@ -137,8 +129,8 @@ namespace VoucherExpense
 
         public void LoadToProfile(XmlNode node,HardwareProfile curr)
         {
-            GetAttrib(node.SelectSingleNode("ComPort")       , "Name", ref curr.comPortName);
-            GetAttrib(node.SelectSingleNode("ReceiptPrinter"), "Name", ref curr.printerName);
+            //GetAttrib(node.SelectSingleNode("ComPort")       , "Name", ref curr.comPortName);
+            //GetAttrib(node.SelectSingleNode("ReceiptPrinter"), "Name", ref curr.printerName);
             GetAttrib(node.SelectSingleNode("DotPrinter")    , "Name", ref curr.dotPrinterName);
 
             XmlNode Server = node.SelectSingleNode("DataSource");
@@ -148,10 +140,10 @@ namespace VoucherExpense
                 GetAttrib(Server, "IsServer", ref str);
                 if (str != null && str.ToUpper() == "NO") curr.isServer = false;
                 else curr.isServer = true;
-                GetEncryptedAttrib(Server, "DataDir"    , ref curr.dataDir);
-                GetEncryptedAttrib(Server, "UserName"   , ref curr.userName);
-                GetEncryptedAttrib(Server, "Password"   , ref curr.password);
-                GetEncryptedAttrib(Server, "BackupDir"  , ref curr.backupDir);
+                //GetEncryptedAttrib(Server, "DataDir"    , ref curr.dataDir);
+                //GetEncryptedAttrib(Server, "UserName"   , ref curr.userName);
+                //GetEncryptedAttrib(Server, "Password"   , ref curr.password);
+                //GetEncryptedAttrib(Server, "BackupDir"  , ref curr.backupDir);
 
                 GetEncryptedAttrib(Server, "SqlServerIP", ref curr.Local.ServerIP);
                 GetEncryptedAttrib(Server, "SqlUserID"  , ref curr.Local.UserID);
@@ -171,14 +163,15 @@ namespace VoucherExpense
         public void CopyHardwareProfile(HardwareProfile from, HardwareProfile to)
         {
             to.profileName = from.profileName;
-            to.printerName = from.printerName;
-            to.comPortName = from.comPortName;
-            to.dataDir = from.dataDir;
-            to.userName = from.userName;
-            to.password = from.password;
             to.isServer = from.isServer;
-            to.backupDir = from.backupDir;
             to.dotPrinterName = from.dotPrinterName;
+
+            //to.printerName = from.printerName;
+            //to.comPortName = from.comPortName;
+            //to.dataDir = from.dataDir;
+            //to.userName = from.userName;
+            //to.password = from.password;
+            //to.backupDir = from.backupDir;
 
             to.enableCloudSync = from.enableCloudSync;
             to.database = from.database;
@@ -193,14 +186,15 @@ namespace VoucherExpense
             if (curr == null) return;
             ActiveProfile = curr;
             ProfileName =curr.profileName;
-            PrinterName =curr.printerName;
-            ComPortName =curr.comPortName;
-            DataDir     =curr.dataDir;
-            UserName    =curr.userName;
-            Password    =curr.password;
-            IsServer    =curr.isServer;
-            BackupDir   =curr.backupDir;
-            DotPrinterName=curr.dotPrinterName;
+            IsServer = curr.isServer;
+            DotPrinterName = curr.dotPrinterName;
+
+            //PrinterName = curr.printerName;
+            //ComPortName = curr.comPortName;
+            //DataDir     =curr.dataDir;
+            //UserName    =curr.userName;
+            //Password    =curr.password;
+            //BackupDir   =curr.backupDir;
 
             EnableCloudSync = curr.enableCloudSync;
 
@@ -223,14 +217,14 @@ namespace VoucherExpense
         {
             if (curr == null) return;
             curr.profileName = ProfileName;
-            curr.printerName = PrinterName;
-            curr.comPortName = ComPortName;
-            curr.dataDir     = DataDir;
-            curr.userName    = UserName;
-            curr.password    = Password;
-            curr.isServer    = IsServer;
-            curr.backupDir   = BackupDir;
+            curr.isServer = IsServer;
             curr.dotPrinterName = DotPrinterName;
+            //curr.printerName = PrinterName;
+            //curr.comPortName = ComPortName;
+            //curr.dataDir     = DataDir;
+            //curr.userName    = UserName;
+            //curr.password    = Password;
+            //curr.backupDir   = BackupDir;
 
             curr.enableCloudSync = EnableCloudSync;
             curr.database = Database;
@@ -305,14 +299,14 @@ namespace VoucherExpense
 
         private void SaveToNode(XmlDocument doc,XmlNode node, HardwareProfile curr)
         {
-            UpdateXmlAttrib(doc, node, "ComPort"        , "Name", curr.comPortName);
-            UpdateXmlAttrib(doc, node, "ReceiptPrinter" , "Name", curr.printerName);
             UpdateXmlAttrib(doc, node, "DotPrinter"     , "Name", curr.dotPrinterName);
             UpdateXmlAttrib(doc, node, "DataSource"     , "IsServer", (IsServer ? "YES" : "NO"));
-            UpdateXmlAttribEncrypted(doc, node, "DataSource", "DataDir"     , curr.dataDir);
-            UpdateXmlAttribEncrypted(doc, node, "DataSource", "UserName"    , curr.userName);
-            UpdateXmlAttribEncrypted(doc, node, "DataSource", "Password"    , curr.password);
-            UpdateXmlAttribEncrypted(doc, node, "DataSource", "BackupDir"   , curr.backupDir);
+            //UpdateXmlAttrib(doc, node, "ReceiptPrinter", "Name", curr.printerName);
+            //UpdateXmlAttrib(doc, node, "ComPort", "Name", curr.comPortName);
+            //UpdateXmlAttribEncrypted(doc, node, "DataSource", "DataDir", curr.dataDir);
+            //UpdateXmlAttribEncrypted(doc, node, "DataSource", "UserName"    , curr.userName);
+            //UpdateXmlAttribEncrypted(doc, node, "DataSource", "Password"    , curr.password);
+            //UpdateXmlAttribEncrypted(doc, node, "DataSource", "BackupDir"   , curr.backupDir);
 
             UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlServerIP" , curr.Local.ServerIP);
             UpdateXmlAttribEncrypted(doc, node, "DataSource", "SqlUserID"   , curr.Local.UserID);

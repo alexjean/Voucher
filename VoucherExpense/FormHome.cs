@@ -493,7 +493,8 @@ namespace VoucherExpense
 
         private void 出货ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PopupOrRun("FormShipment", typeof(FormShipment));
+            if (!PopupMenu("FormShipment"))
+                Run("FormShipment", new FormShipment(m_DefaultApartment));
         }
 
         private void 出货收款统计ToolStripMenuItem_Click(object sender, EventArgs e)

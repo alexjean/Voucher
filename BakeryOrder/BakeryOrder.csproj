@@ -1057,6 +1057,12 @@
     <Compile Include="FormSystemSetup.Designer.cs">
       <DependentUpon>FormSystemSetup.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormWxPay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormWxPay.Designer.cs">
+      <DependentUpon>FormWxPay.cs</DependentUpon>
+    </Compile>
     <Compile Include="ModelMember.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1103,6 +1109,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormSystemSetup.resx">
       <DependentUpon>FormSystemSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormWxPay.resx">
+      <DependentUpon>FormWxPay.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ModifyPassword.resx">
       <DependentUpon>ModifyPassword.cs</DependentUpon>

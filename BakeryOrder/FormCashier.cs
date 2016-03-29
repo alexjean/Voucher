@@ -1366,7 +1366,7 @@ namespace BakeryOrder
         //    return DicPayBy.First().Key;
         //}
 
-        Dictionary<char, string> DicPayBy = new Dictionary<char, string> { { 'A', "现金" }, { 'B', "刷卡" }, { 'C', "支付宝" }, { 'D', "券入" } };
+        Dictionary<char, string> DicPayBy = new Dictionary<char, string> { { 'A', "现金" }, { 'B', "刷卡" }, { 'C', "支付宝" }, { 'D', "券入" },{'E',"微信" } };
         string PayByChinese(char payBy)
         {
             string str;
@@ -1461,6 +1461,12 @@ namespace BakeryOrder
                         m_CurrentOrder.TradeNo = m_Alipay.LastTradeNo;
                         m_CurrentOrder.OpenID  = m_Alipay.LastOpenID;
                     }
+                }
+                else if (m_CurrentOrder.PayBy[0] == 'E') // 微信
+                {
+
+
+
                 }
                 Print(m_CurrentOrder, (double)moneyGot, true);
                 if (!this.checkBoxTest.Checked)
@@ -1689,10 +1695,16 @@ namespace BakeryOrder
         {
             if (keyData == Keys.Return)
             {
-//                if (CodeCache.Length == 17) // 支付寶的支付碼長度是17
-                if (CodeCache[0] == 'Y')      // 是會員卡
+                if (CodeCache.Length<10)
                 {
-                    if (CodeCache[1] != 'M')
+                        CodeCache = "";
+                        return false;
+                }
+                char c0=CodeCache[0];
+                char c1=CodeCache[1];
+                if (c0 == 'Y')      // 是會員卡
+                {
+                    if (c1 != 'M')
                     {
                         CodeCache = "";
                         return false;
@@ -1702,14 +1714,14 @@ namespace BakeryOrder
                     CodeCache = "";
                     return false;
                 }
-                else  // 頭不是YM ,支付宝或微信
-                {
-                    PayCode = CodeCache;
-                    labelMemberCode.Text = "支付码 " + PayCode;
-                    CodeCache = "";
-                    if (lvItems.Items.Count != 0)
-                        btnDoCashier.PerformClick();
-                }
+                else if (c0 == '1' && (c1 > '0' && c1 <= '5'))   // 11-15是微信
+                    labelMemberCode.Text = "微信码 " + CodeCache;
+                else  // 頭不是YM ,不是微信全當支付宝
+                    labelMemberCode.Text = "支付码 " + CodeCache;
+                PayCode = CodeCache;
+                CodeCache = "";
+                if (lvItems.Items.Count != 0)
+                    btnDoCashier.PerformClick();
                 return false;      // 吃掉Return
             }
             else 
@@ -1787,6 +1799,10 @@ namespace BakeryOrder
         }
 
 
+        protected bool WxPay_RSA_Submit(int orderID, string auth_code, BakeryOrderSet.OrderRow Current, string WxPayTitle)
+        {
+            return false;
+        }
        
 
     }

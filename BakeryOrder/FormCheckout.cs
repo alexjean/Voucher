@@ -198,14 +198,24 @@ namespace BakeryOrder
                     }
                 }
             }
-            if (m_Form.PayCode != "" && m_Form.PayCode!=null)
+            if (m_Form.PayCode!=null && m_Form.PayCode != "")
             {
                 textBoxCashGot.Enabled = false;
-                textBoxCashGot.Text = "刷支付宝不收现金";
                 btnCoupon.Enabled = false;
                 btnCash.Enabled = false;
                 btnCard.Enabled = false;
-                m_PayBy = 'C';
+                char c0 = m_Form.PayCode[0];
+                char c1 = m_Form.PayCode[1];
+                if (c0 == '1' && (c1 > '0' && c1 <= '5'))   // 11-15是微信
+                {
+                    textBoxCashGot.Text = "刷微信不收现金";
+                    m_PayBy = 'E';
+                }
+                else
+                {
+                    textBoxCashGot.Text = "刷支付宝不收现金";
+                    m_PayBy = 'C';
+                }
             }
         }
 

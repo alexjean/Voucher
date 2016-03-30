@@ -1,10 +1,6 @@
 <HardwareProfile>
-  <Profile Name="新世界本地">
-    <DotPrinter Name="\\TRAINING-PC\EPSON LQ-730K ESC/P 1" />
-    <DataSource IsServer="YES" SqlServerIP="Pkce2PnPHlY=" SqlUserID="yFiE/KqBxfg=" SqlPassword="cCsauyIuKESO+YocYe3GILceac2pUUrqubNVPwcDOp8=" SqlServerIPCloud="IjX6V1Zao77WbjMrsxSOQt2WsHitYzDO35jDC9rqoBM=" SqlUserIDCloud="yFiE/KqBxfg=" SqlPasswordCloud="cCsauyIuKESO+YocYe3GILceac2pUUrqubNVPwcDOp8=" EnableCloudSync="NO" SqlDatabase="zqvN9W3gPGLnyUketj7+hAXO+4Don80q" SharedDatabaseCloud="5Zocd9HQDIubREkZaH2+GN3yx+R5u0kY" />
-  </Profile>
-  <Profile Name="麥達人">
+  <Profile Name="京一云">
     <DotPrinter Name="\\TRAINING-PC\EPSON LQ-730K ESC/P 2" />
-    <DataSource IsServer="YES" SqlServerIP="IjX6V1Zao77WbjMrsxSOQt2WsHitYzDO35jDC9rqoBM=" SqlUserID="yFiE/KqBxfg=" SqlPassword="cCsauyIuKESO+YocYe3GILceac2pUUrqubNVPwcDOp8=" SqlServerIPCloud="u+EJLVKVPCY=" SqlUserIDCloud="u+EJLVKVPCY=" SqlPasswordCloud="u+EJLVKVPCY=" EnableCloudSync="NO" SqlDatabase="F7UxJv/enQm+csGGp3BY9iqZSqRQRApD9OnHfW5P040=" SharedDatabaseCloud="5Zocd9HQDIubREkZaH2+GN3yx+R5u0kY" />
+    <DataSource IsServer="NO" SqlServerIP="IjX6V1Zao77WbjMrsxSOQt2WsHitYzDO35jDC9rqoBM=" SqlUserID="yFiE/KqBxfg=" SqlPassword="cCsauyIuKESO+YocYe3GILceac2pUUrqubNVPwcDOp8=" SqlServerIPCloud="u+EJLVKVPCY=" SqlUserIDCloud="u+EJLVKVPCY=" SqlPasswordCloud="u+EJLVKVPCY=" EnableCloudSync="NO" SqlDatabase="zqvN9W3gPGLjRUv4O0++9jgZcy7YLmT+" SharedDatabaseCloud="5Zocd9HQDIubREkZaH2+GN3yx+R5u0kY" />
   </Profile>
 </HardwareProfile>

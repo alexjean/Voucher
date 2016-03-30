@@ -59,7 +59,7 @@
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\Chair.ico</ApplicationIcon>
+    <ApplicationIcon>RSA_KeyFile\Resources\Chair.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="LitJson, Version=0.7.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -1159,13 +1159,13 @@
     <None Include="WxPayApi\maidaren_cert.p12" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Chair.ico" />
+    <None Include="RSA_KeyFile\Resources\Chair.ico" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="BakeryOrder.mdb" />
     <Content Include="LitJson.dll" />
-    <None Include="Resources\Wheat.jpg" />
-    <None Include="Resources\Powder.jpg" />
+    <None Include="RSA_KeyFile\Resources\Wheat.jpg" />
+    <None Include="RSA_KeyFile\Resources\Powder.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

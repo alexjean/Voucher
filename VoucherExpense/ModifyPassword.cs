@@ -5,13 +5,9 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-#if (UseSQLServer)
 using MyDataSet = VoucherExpense.DamaiDataSet;
 using MyOperatorRow = VoucherExpense.DamaiDataSet.OperatorRow;
-#else
-using MyDataSet = VoucherExpense.VEDataSet;
-using MyOperatorRow = VoucherExpense.VEDataSet.OperatorRow;
-#endif
+
 
 namespace VoucherExpense
 {
@@ -23,18 +19,12 @@ namespace VoucherExpense
         }
 
         MyDataSet m_DataSet = new MyDataSet();
-#if (UseSQLServer)
         VoucherExpense.DamaiDataSetTableAdapters.OperatorTableAdapter operatorAdapter = new DamaiDataSetTableAdapters.OperatorTableAdapter();
         private void ModifyPassword_Load(object sender, EventArgs e)
         {
-#else
-        VoucherExpense.VEDataSetTableAdapters.OperatorTableAdapter operatorAdapter=new VEDataSetTableAdapters.OperatorTableAdapter();
-        private void ModifyPassword_Load(object sender, EventArgs e)
-        {
-            operatorAdapter.Connection = MapPath.VEConnection;
-#endif
             try
             {
+                operatorAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
                 operatorAdapter.Fill(m_DataSet.Operator);
             }
             catch

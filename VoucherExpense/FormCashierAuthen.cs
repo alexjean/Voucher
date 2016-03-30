@@ -1583,6 +1583,9 @@ namespace VoucherExpense
   
         private void cashierDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
+            var view=(DataGridView)sender;
+            string colName=view.Columns[e.ColumnIndex].Name;
+            if (colName == "ComboBoxAuthorizer") return;     // 授權者因為Operator重整過,錯誤就不管了
             Message("dgvCashier資料 第" + e.RowIndex.ToString() + "行" +
                   e.ColumnIndex.ToString() + "列錯誤!原因:" + e.Exception.Message);
         }

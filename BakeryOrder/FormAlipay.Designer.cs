@@ -39,6 +39,7 @@
             // btnSuccess
             // 
             this.btnSuccess.Enabled = false;
+            this.btnSuccess.Font = new System.Drawing.Font("楷体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSuccess.Location = new System.Drawing.Point(487, 438);
             this.btnSuccess.Margin = new System.Windows.Forms.Padding(4);
             this.btnSuccess.Name = "btnSuccess";
@@ -50,6 +51,7 @@
             // 
             // btnCancel
             // 
+            this.btnCancel.Font = new System.Drawing.Font("楷体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.Location = new System.Drawing.Point(71, 438);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
@@ -89,6 +91,7 @@
             // 
             // btnQuery
             // 
+            this.btnQuery.Font = new System.Drawing.Font("楷体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnQuery.Location = new System.Drawing.Point(277, 438);
             this.btnQuery.Margin = new System.Windows.Forms.Padding(4);
             this.btnQuery.Name = "btnQuery";

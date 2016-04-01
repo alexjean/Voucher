@@ -66,6 +66,7 @@
             // 
             // btnQuery
             // 
+            this.btnQuery.Font = new System.Drawing.Font("楷体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnQuery.Location = new System.Drawing.Point(274, 423);
             this.btnQuery.Margin = new System.Windows.Forms.Padding(4);
             this.btnQuery.Name = "btnQuery";
@@ -76,6 +77,7 @@
             // 
             // btnCancel
             // 
+            this.btnCancel.Font = new System.Drawing.Font("楷体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.Location = new System.Drawing.Point(68, 423);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
@@ -83,10 +85,12 @@
             this.btnCancel.TabIndex = 9;
             this.btnCancel.Text = "撤消支付请求";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnSuccess
             // 
             this.btnSuccess.Enabled = false;
+            this.btnSuccess.Font = new System.Drawing.Font("楷体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSuccess.Location = new System.Drawing.Point(484, 423);
             this.btnSuccess.Margin = new System.Windows.Forms.Padding(4);
             this.btnSuccess.Name = "btnSuccess";
@@ -109,10 +113,11 @@
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("新宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormWxPay";
             this.Text = "FormWxPay";
             this.Load += new System.EventHandler(this.FormWxPay_Load);
+            this.Shown += new System.EventHandler(this.FormWxPay_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

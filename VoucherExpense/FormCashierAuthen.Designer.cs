@@ -40,8 +40,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.labelStoreID = new System.Windows.Forms.Label();
-            this.cashierBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             this.cashierBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -55,7 +53,6 @@
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.cashierBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.dgvCashier = new System.Windows.Forms.DataGridView();
-            this.operatorBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.chBoxOnlyInPosition = new System.Windows.Forms.CheckBox();
             this.textBoxPOS1 = new System.Windows.Forms.TextBox();
             this.textBoxPOS2 = new System.Windows.Forms.TextBox();
@@ -111,26 +108,26 @@
             this.btnSaveLetter = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.checkBoxLetter1 = new System.Windows.Forms.CheckBox();
-            this.cashierTableAdapter = new VoucherExpense.DamaiDataSetTableAdapters.CashierTableAdapter();
+            this.Return = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.CashierIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnCashierName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PasswordColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ComboBoxAuthorizer = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.operatorBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.damaiDataSet = new VoucherExpense.DamaiDataSet();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Return = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.cashierBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.cashierTableAdapter = new VoucherExpense.DamaiDataSetTableAdapters.CashierTableAdapter();
             labelTime = new System.Windows.Forms.Label();
             label5 = new System.Windows.Forms.Label();
             label6 = new System.Windows.Forms.Label();
             label7 = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.cashierBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cashierBindingNavigator)).BeginInit();
             this.cashierBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCashier)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPageDaily.SuspendLayout();
             this.tabPagePosDir.SuspendLayout();
@@ -138,6 +135,9 @@
             this.tabPageReadme.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cashierBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // labelTime
@@ -203,16 +203,6 @@
             this.labelStoreID.TabIndex = 18;
             this.labelStoreID.Text = "0";
             this.labelStoreID.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // cashierBindingSource
-            // 
-            this.cashierBindingSource.DataMember = "Cashier";
-            this.cashierBindingSource.DataSource = this.damaiDataSet;
-            // 
-            // damaiDataSet
-            // 
-            this.damaiDataSet.DataSetName = "DamaiDataSet";
-            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // cashierBindingNavigator
             // 
@@ -358,11 +348,6 @@
             this.dgvCashier.TabIndex = 1;
             this.dgvCashier.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.cashierDataGridView_CellFormatting);
             this.dgvCashier.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.cashierDataGridView_DataError);
-            // 
-            // operatorBindingSource
-            // 
-            this.operatorBindingSource.DataMember = "Operator";
-            this.operatorBindingSource.DataSource = this.damaiDataSet;
             // 
             // chBoxOnlyInPosition
             // 
@@ -962,9 +947,12 @@
             this.checkBoxLetter1.Text = "軟文1";
             this.checkBoxLetter1.UseVisualStyleBackColor = true;
             // 
-            // cashierTableAdapter
+            // Return
             // 
-            this.cashierTableAdapter.ClearBeforeFill = true;
+            this.Return.DataPropertyName = "Return";
+            this.Return.HeaderText = "退货";
+            this.Return.Name = "Return";
+            this.Return.Width = 50;
             // 
             // dataGridViewCheckBoxColumn1
             // 
@@ -1018,6 +1006,16 @@
             this.ComboBoxAuthorizer.ValueMember = "OperatorID";
             this.ComboBoxAuthorizer.Width = 80;
             // 
+            // operatorBindingSource
+            // 
+            this.operatorBindingSource.DataMember = "Operator";
+            this.operatorBindingSource.DataSource = this.damaiDataSet;
+            // 
+            // damaiDataSet
+            // 
+            this.damaiDataSet.DataSetName = "DamaiDataSet";
+            this.damaiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // dataGridViewTextBoxColumn5
             // 
             this.dataGridViewTextBoxColumn5.DataPropertyName = "LastUpdated";
@@ -1028,12 +1026,14 @@
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.ReadOnly = true;
             // 
-            // Return
+            // cashierBindingSource
             // 
-            this.Return.DataPropertyName = "Return";
-            this.Return.HeaderText = "退货";
-            this.Return.Name = "Return";
-            this.Return.Width = 50;
+            this.cashierBindingSource.DataMember = "Cashier";
+            this.cashierBindingSource.DataSource = this.damaiDataSet;
+            // 
+            // cashierTableAdapter
+            // 
+            this.cashierTableAdapter.ClearBeforeFill = true;
             // 
             // FormCashierAuthen
             // 
@@ -1052,13 +1052,10 @@
             this.Text = "收銀授權";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormCashierAuthen_FormClosing);
             this.Load += new System.EventHandler(this.FormCashierAuthen_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.cashierBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cashierBindingNavigator)).EndInit();
             this.cashierBindingNavigator.ResumeLayout(false);
             this.cashierBindingNavigator.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCashier)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPageDaily.ResumeLayout(false);
             this.tabPagePosDir.ResumeLayout(false);
@@ -1069,6 +1066,9 @@
             this.tabControl2.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.operatorBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.damaiDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cashierBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

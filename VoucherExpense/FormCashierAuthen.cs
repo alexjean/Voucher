@@ -1595,10 +1595,5 @@ namespace VoucherExpense
             Form form = new FormAutoSync();
             form.ShowDialog();
         }
-
-
-
-        
- 
     }
 }

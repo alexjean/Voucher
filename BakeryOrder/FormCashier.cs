@@ -1446,14 +1446,7 @@ namespace BakeryOrder
                         m_CurrentOrder.PrintTime = DateTime.Now;
                         m_CurrentOrder.Deleted = true;
                         SaveOrder(m_CurrentOrder);                        // 不管成功失敗了 
-
                         DoNewOrder();
-                        //MemberCode = "";
-                        //labelMemberCode.Text = "";
-                        //labelClass.Text = "";
-                        //m_CurrentOrder.PayBy = "A";
-                        //m_CurrentOrder.OpenID = "";
-                        //m_CurrentOrder.TradeNo = "";
                         return;    // 支付宝支付取消了, 單子不印, 改成現金單
                     }
                     else
@@ -1464,9 +1457,26 @@ namespace BakeryOrder
                 }
                 else if (m_CurrentOrder.PayBy[0] == 'E') // 微信
                 {
-
-
-
+                    WxPayAPI.WxPayData wxPayData;
+                    if (!WxPay_RSA_Submit(m_CurrentOrder.ID,PayCode,m_CurrentOrder,m_Printer.AlipayTitle,out wxPayData))
+                    {
+                        // 微信支付取消,記錄成刪單,  OpenID為"00000"時,代表Order.TradeNo存的是OutTradeNo
+                        if (wxPayData != null)
+                        {
+                            m_CurrentOrder.TradeNo = (string)wxPayData.GetValue("out_trade_no");    // 此時記的應該是OutTradeNo
+                            m_CurrentOrder.OpenID  = "00000";     // 應該是"00000"
+                        }
+                        m_CurrentOrder.PrintTime = DateTime.Now;
+                        m_CurrentOrder.Deleted = true;
+                        SaveOrder(m_CurrentOrder);                        // 不管成功失敗了 
+                        DoNewOrder();
+                        return;  
+                    }
+                    else
+                    {
+                        m_CurrentOrder.TradeNo = m_Alipay.LastTradeNo;  //???
+                        m_CurrentOrder.OpenID  = m_Alipay.LastOpenID;   //???
+                    }
                 }
                 Print(m_CurrentOrder, (double)moneyGot, true);
                 if (!this.checkBoxTest.Checked)
@@ -1798,9 +1808,57 @@ namespace BakeryOrder
             return false;
         }
 
-
-        protected bool WxPay_RSA_Submit(int orderID, string auth_code, BakeryOrderSet.OrderRow Current, string WxPayTitle)
+        protected bool WxPay_RSA_Submit(int orderID, string auth_code, BakeryOrderSet.OrderRow Current, string Title,out WxPayAPI.WxPayData wxPayData)
         {
+            DateTime now = DateTime.Now;
+            string out_trade_no = m_StoreID.ToString("d3") + m_PosID.ToString() + (now.Year % 10).ToString() + orderID.ToString() + now.Millisecond.ToString();
+            int total_fee = (int)(Current.Income*100);     // 以分為單位
+            string total_amount = total_fee.ToString("F2");
+
+            wxPayData = new WxPayAPI.WxPayData();
+
+            wxPayData.SetValue("out_trade_no", out_trade_no);
+            wxPayData.SetValue("auth_code"   , auth_code);
+            if (Title == null || Title == "")  Title = "原麦某店";
+            wxPayData.SetValue("body", Title + "面包饮料");
+            wxPayData.SetValue("total_fee", total_fee);
+
+//            content.Append(ToJsonA("subject", Title));
+//            content.Append(ToJsonA("body", "面包饮料"));
+
+           //if (lvItems.Items.Count > 0)
+           // {
+           //     StringBuilder sb = new StringBuilder();
+           //     sb.Append("[");
+           //     foreach (ListViewItem item in lvItems.Items)
+           //     {
+           //         var mItem = (MenuItemForTag)item.Tag;
+           //         string id = mItem.ProductID.ToString();
+           //         string no = ((int)mItem.No).ToString();
+           //         string price = ((decimal)mItem.Price).ToString();
+           //         sb.Append('{');
+           //         //sb.Append(ToJasonA("goods_id"        , id  ));
+           //         sb.Append(ToJsonA("goods_name", mItem.name));
+           //         //sb.Append(ToJasonA("goods_category"  , "0" ));
+           //         sb.Append(ToJsonA("price", price));
+           //         sb.Append(ToJson("quantity", no));
+           //         sb.Append("},");
+           //     }
+           //     sb.Remove(sb.Length - 1, 1);   // 移除多餘逗號
+           //     sb.Append("],");
+           //     content.Append("\"goods_detail\":" + sb.ToString());    // goods_detail的Value不是字串,加方括號不加引號
+           // }
+           // content.Append(ToJsonA("operator_id", "op" + m_CashierID.ToString()));
+           // content.Append(ToJsonA("store_id", "ym" + m_StoreID.ToString()));
+           // content.Append(ToJsonA("terminal_id", "pos" + m_PosID.ToString()));
+
+            //string expire_time = System.DateTime.Now.AddHours(1).ToString("yyyy-MM-dd HH:mm:ss");
+            //content.Append(ToJson("time_expire", expire_time));     // 最後一個不加逗號
+            //content.Append('}');
+
+            Form form = new FormWxPay(tabControl1.Left + 8, 8, out_trade_no, wxPayData);
+            DialogResult result = form.ShowDialog();
+            if (result == DialogResult.OK) return true;  // OK回來, TradeNo或OutTradeNo及OpenID存在m_Alipay的變數內 LastOutTradeNo,LastOpenID
             return false;
         }
        

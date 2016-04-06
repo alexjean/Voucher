@@ -63,10 +63,10 @@ namespace WxPayAPI
 
                 //是否使用证书
                 if (isUseCert)
-                {   // Markout by Alex because Winform don't have HttpContext 
+                {   // Markout by Alex because Winform don't have HttpContext
                     //string path = HttpContext.Current.Request.PhysicalApplicationPath;
                     // X509Certificate2 cert = new X509Certificate2(path + WxPayConfig.SSLCERT_PATH, WxPayConfig.SSLCERT_PASSWORD);
-                    X509Certificate2 cert = new X509Certificate2(BakeryOrder.Properties.Resources.maidaren_cert, WxPayConfig.SSLCERT_PASSWORD);
+                    X509Certificate2 cert = new X509Certificate2(VoucherExpense.Properties.Resources.maidaren_cert, WxPayConfig.SSLCERT_PASSWORD);
                     request.ClientCertificates.Add(cert);
                     Log.Debug("WxPayApi", "PostXml used cert");
                 }

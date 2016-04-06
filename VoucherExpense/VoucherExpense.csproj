@@ -1350,6 +1350,21 @@
     <Compile Include="FormTitleSetup.Designer.cs">
       <DependentUpon>FormTitleSetup.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormWxPay1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormWxPay1.Designer.cs">
+      <DependentUpon>FormWxPay1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LitJson\IJsonWrapper.cs" />
+    <Compile Include="LitJson\JsonData.cs" />
+    <Compile Include="LitJson\JsonException.cs" />
+    <Compile Include="LitJson\JsonMapper.cs" />
+    <Compile Include="LitJson\JsonMockWrapper.cs" />
+    <Compile Include="LitJson\JsonReader.cs" />
+    <Compile Include="LitJson\JsonWriter.cs" />
+    <Compile Include="LitJson\Lexer.cs" />
+    <Compile Include="LitJson\ParserToken.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Voucher_Print.cs">
       <SubType>Form</SubType>
@@ -1409,6 +1424,13 @@
     <Compile Include="BakerySoldSpent.Designer.cs">
       <DependentUpon>BakerySoldSpent.cs</DependentUpon>
     </Compile>
+    <Compile Include="WxPayApi\Config.cs" />
+    <Compile Include="WxPayApi\Data.cs" />
+    <Compile Include="WxPayApi\Exception.cs" />
+    <Compile Include="WxPayApi\HttpService.cs" />
+    <Compile Include="WxPayApi\Log.cs" />
+    <Compile Include="WxPayApi\Notify.cs" />
+    <Compile Include="WxPayApi\WxPayApi.cs" />
     <EmbeddedResource Include="AccountingTitle.resx">
       <SubType>Designer</SubType>
       <DependentUpon>AccountingTitle.cs</DependentUpon>
@@ -1570,6 +1592,9 @@
     <EmbeddedResource Include="FormTitleSetup.resx">
       <DependentUpon>FormTitleSetup.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormWxPay1.resx">
+      <DependentUpon>FormWxPay1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ModifyPassword.resx">
       <SubType>Designer</SubType>
@@ -1756,6 +1781,7 @@
       <DependentUpon>Voucher.cs</DependentUpon>
     </Compile>
     <None Include="VoucherExpense.gz" />
+    <None Include="WxPayApi\maidaren_cert.p12" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="BakeryOrder.mdb" />

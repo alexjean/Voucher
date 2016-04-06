@@ -117,38 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="NavBar_Back" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\NavBar_Back.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Requests" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Requests.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="EmptyBasic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\EmptyBasic.gz;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="LogoVI" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\LogoVI.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="shipment1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\shipment1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="BakeryOrder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\BakeryOrder.gz;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="VoucherExpense" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\VoucherExpense.gz;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="alipay_rsa_public_key" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\RSA_KeyFile\alipay_rsa_public_key.pem;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="rsa_private_key" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\RSA_KeyFile\rsa_private_key.pem;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="rsa_public_key" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\RSA_KeyFile\rsa_public_key.pem;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="maidaren_cert" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\WxPayApi\maidaren_cert.p12;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
 </root>

@@ -240,7 +240,8 @@ namespace VoucherExpense
             {
                 if (Row.PayBy == "B")      b.Text += "卡";
                 else if (Row.PayBy == "C") b.Text += "支";
-                else if (Row.PayBy == "D") b.Text += "D";
+                else if (Row.PayBy == "D") b.Text += "券";
+                else if (Row.PayBy == "E") b.Text += "微";
             }
             decimal income = 0;
             if (!Row.IsIncomeNull())
@@ -403,10 +404,23 @@ namespace VoucherExpense
                 m_Amount  = row.Income;
                 m_OrderRow = row;
                 m_LastClick = t;
-                labelAlipayNo.Text += "支付宝号" + row.TradeNo;
+                labelAlipayNo.Text += "支付号" + row.TradeNo;
                 labelAlipayNo.Visible = true;
+
                 if (!row.IsDeletedNull() && row.Deleted)  // 只有己刪單的才准作業支付宝
+                {
                     btnAlipayRefund.Visible = true;
+                    if (row.PayBy == "C")
+                    {
+                        btnAlipayRefund.Enabled = true;
+                        btnAlipayRefund.Text = "支付宝作业";
+                    }
+                    else if (row.PayBy == "E")
+                    {
+                        btnAlipayRefund.Enabled = true;
+                        btnAlipayRefund.Text = "微信作业";
+                    }
+                }
                 else
                     btnAlipayRefund.Visible = false;
             }
@@ -746,20 +760,28 @@ namespace VoucherExpense
         TextBox m_LastClick;    // 在MouseClick時填入
         private void btnAlipayRefund_Click(object sender, EventArgs e)
         {
-            if (m_Alipay == null)
+            if (m_OrderRow.PayBy == "C")
             {
-                m_Alipay = new DoAlipay();
-                m_Alipay.Setup();
-            }
-            Form form = new FormAlipay1(m_Alipay, m_TradeNo,m_OutTradeNo, m_Amount.ToString("N2"));
-            form.ShowDialog();
-            if (m_Alipay.RefundedOrCanceled)   // 在FormAlipay1裏面設定
-            {
-                if (m_LastClick != null)
+                if (m_Alipay == null)
                 {
-                    m_LastClick.BackColor = Color.Green;
-                    UpdateDeletedMark(m_OrderRow, true);
+                    m_Alipay = new DoAlipay();
+                    m_Alipay.Setup();
                 }
+                Form form = new FormAlipay1(m_Alipay, m_TradeNo, m_OutTradeNo, m_Amount.ToString("N2"));
+                form.ShowDialog();
+                if (m_Alipay.RefundedOrCanceled)   // 在FormAlipay1裏面設定
+                {
+                    if (m_LastClick != null)
+                    {
+                        m_LastClick.BackColor = Color.Green;
+                        UpdateDeletedMark(m_OrderRow, true);
+                    }
+                }
+            }
+            else if (m_OrderRow.PayBy == "E")
+            {
+                Form form=new FormWxPay1(m_TradeNo,m_OutTradeNo,m_Amount.ToString("N2"));
+                form.ShowDialog();
             }
         }
 

@@ -1458,7 +1458,7 @@ namespace BakeryOrder
                 else if (m_CurrentOrder.PayBy[0] == 'E') // 微信
                 {
                     WxPayAPI.WxPayData wxPayData;
-                    if (!WxPay_RSA_Submit(m_CurrentOrder.ID,PayCode,m_CurrentOrder,m_Printer.AlipayTitle,out wxPayData))
+                    if (!WxPay_RSA_Submit(m_CurrentOrder.ID,PayCode,m_CurrentOrder,m_Printer.Title,out wxPayData))
                     {
                         // 微信支付取消,記錄成刪單,  OpenID為"00000"時,代表Order.TradeNo存的是OutTradeNo
                         if (wxPayData != null)
@@ -1821,7 +1821,7 @@ namespace BakeryOrder
             wxPayData.SetValue("auth_code"   , auth_code);
             if (Title == null || Title == "")  Title = "原麦某店";
             wxPayData.SetValue("body", Title + "面包饮料");
-            wxPayData.SetValue("total_fee", total_fee);
+            wxPayData.SetValue("total_fee", total_fee/100);   // 測試時縮小一百倍金額
 
 //            content.Append(ToJsonA("subject", Title));
 //            content.Append(ToJsonA("body", "面包饮料"));

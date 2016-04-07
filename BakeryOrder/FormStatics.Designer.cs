@@ -371,9 +371,10 @@
             // 
             // labelAlipayNo
             // 
-            this.labelAlipayNo.Location = new System.Drawing.Point(4, 424);
+            this.labelAlipayNo.Font = new System.Drawing.Font("新宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelAlipayNo.Location = new System.Drawing.Point(2, 424);
             this.labelAlipayNo.Name = "labelAlipayNo";
-            this.labelAlipayNo.Size = new System.Drawing.Size(228, 55);
+            this.labelAlipayNo.Size = new System.Drawing.Size(230, 55);
             this.labelAlipayNo.TabIndex = 14;
             this.labelAlipayNo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 

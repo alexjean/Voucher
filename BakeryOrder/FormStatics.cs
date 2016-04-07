@@ -324,7 +324,15 @@ namespace BakeryOrder
             }
             if (order.IsTradeNoNull() || order.TradeNo == "") labelAlipayNo.Text += "";
             else
-                    labelAlipayNo.Text += "支付号" + order.TradeNo;
+            {
+                int len=order.TradeNo.Length;
+                if (len > 18)
+                {
+                    labelAlipayNo.Text += "支付号  " + order.TradeNo.Substring(0, 8) + "\r" + order.TradeNo.Substring(8, len - 8);
+                }
+                else
+                    labelAlipayNo.Text += "支付号  " + order.TradeNo;
+            }
             if (total != income)
             {
                 if (total == -income)

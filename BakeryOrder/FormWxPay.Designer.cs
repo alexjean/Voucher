@@ -74,6 +74,7 @@
             this.btnQuery.TabIndex = 10;
             this.btnQuery.Text = "查询";
             this.btnQuery.UseVisualStyleBackColor = true;
+            this.btnQuery.Click += new System.EventHandler(this.btnQuery_Click);
             // 
             // btnCancel
             // 
@@ -98,6 +99,7 @@
             this.btnSuccess.TabIndex = 8;
             this.btnSuccess.Text = "支付成功印单";
             this.btnSuccess.UseVisualStyleBackColor = true;
+            this.btnSuccess.Click += new System.EventHandler(this.btnSuccess_Click);
             // 
             // FormWxPay
             // 

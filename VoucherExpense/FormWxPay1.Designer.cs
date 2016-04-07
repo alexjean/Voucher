@@ -33,7 +33,6 @@
             this.listBoxMsg = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.btnRefund = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnQuery
@@ -45,6 +44,7 @@
             this.btnQuery.TabIndex = 12;
             this.btnQuery.Text = "查询";
             this.btnQuery.UseVisualStyleBackColor = true;
+            this.btnQuery.Click += new System.EventHandler(this.btnQuery_Click);
             // 
             // progressBar1
             // 
@@ -85,17 +85,6 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // btnRefund
-            // 
-            this.btnRefund.Enabled = false;
-            this.btnRefund.Location = new System.Drawing.Point(531, 442);
-            this.btnRefund.Margin = new System.Windows.Forms.Padding(4);
-            this.btnRefund.Name = "btnRefund";
-            this.btnRefund.Size = new System.Drawing.Size(112, 77);
-            this.btnRefund.TabIndex = 7;
-            this.btnRefund.Text = "退款";
-            this.btnRefund.UseVisualStyleBackColor = true;
-            // 
             // FormWxPay1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -107,11 +96,11 @@
             this.Controls.Add(this.listBoxMsg);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnRefund);
             this.Font = new System.Drawing.Font("新宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormWxPay1";
             this.Text = "微信作业";
+            this.Shown += new System.EventHandler(this.FormWxPay1_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -124,6 +113,5 @@
         private System.Windows.Forms.ListBox listBoxMsg;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Button btnRefund;
     }
 }

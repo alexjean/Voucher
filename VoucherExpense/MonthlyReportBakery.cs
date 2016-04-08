@@ -84,6 +84,7 @@ namespace VoucherExpense
                 total.CreditFee += d.CreditFee;
                 total.CreditNet += d.CreditNet;
                 total.Alipay += d.Alipay;
+                total.Wxpay  += d.Wxpay;
                 total.DeletedCount+=d.DeletedCount;
                 total.DeletedMoney+=d.DeletedMoney;
                 total.TwentyPDCount += d.TwentyPDCount;

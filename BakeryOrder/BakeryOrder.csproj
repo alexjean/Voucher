@@ -1168,7 +1168,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BakeryOrder.mdb" />
-    <Content Include="LitJson.dll" />
     <None Include="RSA_KeyFile\Resources\Wheat.jpg" />
     <None Include="RSA_KeyFile\Resources\Powder.jpg" />
   </ItemGroup>

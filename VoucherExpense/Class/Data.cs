@@ -467,6 +467,7 @@ namespace VoucherExpense
         public decimal Cash         { get; set; }
         public decimal CreditCard   { get; set; }
         public decimal Alipay       { get; set; }
+        public decimal Wxpay        { get; set; }  
         public decimal Coupon       { get; set; }
         public decimal Deduct       { get; set; }
         public decimal CreditFee    { get; set; }

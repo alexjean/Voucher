@@ -336,7 +336,7 @@ namespace VoucherExpense
                     labelReturned.Visible = true;
                 }
             }
-            if (!order.IsMemberIDNull())
+            if (!order.IsMemberIDNull() && order.MemberID!="")
             {
                 labelMemberID.Text = "会员" + order.MemberID;
                 labelMemberID.Visible = true;
@@ -407,7 +407,8 @@ namespace VoucherExpense
                 labelAlipayNo.Text += "支付号" + row.TradeNo;
                 labelAlipayNo.Visible = true;
 
-                if (!row.IsDeletedNull() && row.Deleted)  // 只有己刪單的才准作業支付宝
+                btnAlipayRefund.Visible = false;
+                if (!row.IsDeletedNull() && row.Deleted)  // 只有己刪單的才准作業支付宝和微信
                 {
                     btnAlipayRefund.Visible = true;
                     if (row.PayBy == "C")
@@ -421,8 +422,6 @@ namespace VoucherExpense
                         btnAlipayRefund.Text = "微信作业";
                     }
                 }
-                else
-                    btnAlipayRefund.Visible = false;
             }
             if (!ShowOrder(row))         // return false 總額不符
                 labelTotal.Text +=  "???";

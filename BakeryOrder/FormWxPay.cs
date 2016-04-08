@@ -68,7 +68,7 @@ namespace BakeryOrder
             catch (Exception ex)
             {
                 Message(ex.Message);
-                MessageBox.Show("发生错误!");
+                MessageBox.Show("发生错误! 是否网络不通？");
                 goto CancelClose;
             }
 

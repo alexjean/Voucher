@@ -874,7 +874,12 @@ namespace BakeryOrder
                     Buf.Append("交易类型:条码支付   支付宝交易号:");         Buf.Append(LFSpace);
                     Buf.Append(m_Alipay.LastTradeNo);                       
                 }
-                else
+                else if (CurrentOrder.PayBy[0] == 'E' || (!CurrentOrder.IsTradeNoNull()))  // 微信支付
+                {
+                    Buf.Append("交易类型:微信快速付款 微信交易号:"); Buf.Append(LFSpace);
+                    Buf.Append(CurrentOrder.TradeNo);                       
+                }
+                else 
                     Buf.Append(PayByChinese(CurrentOrder.PayBy[0]) + ":              " + d2str((double)CurrentOrder.Income, 13));
             }
             Buf.Append("\r\n");

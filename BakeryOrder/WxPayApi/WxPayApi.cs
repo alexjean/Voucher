@@ -39,11 +39,11 @@ namespace WxPayAPI
                 throw new WxPayException("提交被扫支付API接口中，缺少必填参数auth_code！");
             }
        
-            inputObj.SetValue("spbill_create_ip", WxPayConfig.IP);//终端ip
-            inputObj.SetValue("appid"           , WxPayConfig.APPID);//公众账号ID
-            inputObj.SetValue("mch_id"          , WxPayConfig.MCHID);//商户号
+            inputObj.SetValue("spbill_create_ip", WxPayConfig.IP);      //终端ip
+            inputObj.SetValue("appid"           , WxPayConfig.APPID);   //公众账号ID
+            inputObj.SetValue("mch_id"          , WxPayConfig.MCHID);   //商户号
             inputObj.SetValue("nonce_str"       , Guid.NewGuid().ToString().Replace("-", ""));//随机字符串
-            inputObj.SetValue("sign"            , inputObj.MakeSign());//签名
+            inputObj.SetValue("sign"            , inputObj.MakeSign()); //签名
             string xml = inputObj.ToXml();
 
             var start = DateTime.Now;//请求开始时间

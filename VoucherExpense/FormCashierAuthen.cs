@@ -1410,11 +1410,12 @@ namespace VoucherExpense
         }
 
 
-        private void GetStatics(out int orderCount, out decimal sum, out decimal averagePerOrder, out decimal cash, out decimal credit,out decimal alipay,out decimal coupon,out Dictionary<int,decimal> cashiers)
+        private void GetStatics(out int orderCount, out decimal sum, out decimal averagePerOrder, out decimal cash, out decimal credit,out decimal alipay
+                                ,out decimal coupon,out decimal wxpay,out Dictionary<int,decimal> cashiers)
         {
             sum = 0;
             orderCount = 0;
-            cash = credit = alipay = coupon=0;
+            cash = credit = alipay = coupon=wxpay=0;
             averagePerOrder = 0;
             cashiers = new Dictionary<int,decimal>();
             foreach (var Row in m_OrderSet.Order)
@@ -1433,6 +1434,7 @@ namespace VoucherExpense
                 }
                 else if (Row.PayBy[0] == 'B') credit += income;
                 else if (Row.PayBy[0] == 'C') alipay += income;
+                else if (Row.PayBy[0] == 'E') wxpay  += income;
                 else if (Row.PayBy[0] == 'D')
                 {
                     if (!Row.IsCouponIncomeNull() && Row.CouponIncome >= income) // 收券額大於應收,只計入應收
@@ -1458,18 +1460,19 @@ namespace VoucherExpense
         private void DrawStatics(int x, int y, int height, int width)
         {
             int no;
-            decimal ave, sum, cash, credit, alipay,coupon;
+            decimal ave, sum, cash, credit, alipay,coupon,wxpay;
             Dictionary<int,decimal> cashiers;
-            GetStatics(out no, out sum, out ave, out cash, out credit, out alipay,out coupon,out  cashiers);
+            GetStatics(out no, out sum, out ave, out cash, out credit, out alipay,out coupon,out wxpay,out  cashiers);
             int w = width / 2 - 30;
             PrintMoney("營收" , sum, x, y, w);
             y += height;
             PrintMoney("現金" , cash   , x , y               , w);
             PrintMoney("刷卡" , credit , x , y + height      , w);
             PrintMoney("支宝" , alipay , x , y + height * 2  , w);
-            PrintMoney("券  " , coupon , x , y + height * 3  , w);
-            PrintMoney("檔數" , no     , x , y + height * 4  , w ,"f0");
-            PrintMoney("單均" , ave    , x , y + height * 5  , w);
+            PrintMoney("微信" , wxpay  , x , y + height * 3  , w);
+            PrintMoney("券  " , coupon , x , y + height * 4  , w);
+            PrintMoney("檔數" , no     , x , y + height * 5  , w ,"f0");
+            PrintMoney("單均" , ave    , x , y + height * 6  , w);
 
             int x1 = x + width / 2;
             int y1 = y;

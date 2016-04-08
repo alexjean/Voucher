@@ -321,7 +321,7 @@ namespace VoucherExpense
         public MonthlyReportData Statics(BakeryOrderSet orderSet)
 #endif
         {
-            decimal cash = 0, credit = 0, deduct = 0,alipay=0,coupon=0;
+            decimal cash = 0, credit = 0, deduct = 0,alipay=0,coupon=0,wxpay=0;
             decimal deletedMoney = 0, returnedMoney = 0, TwentyPDMoney = 0, FifteenPDMoney = 0, TenPDMoney=0;
             int orderCount = 0, deletedCount = 0, returnedCount = 0, TwentyPDCount = 0, FifteenPDCount=0, TenPDCount=0;
             MonthlyReportData data = new MonthlyReportData();
@@ -342,6 +342,8 @@ namespace VoucherExpense
                     credit += income;
                 else if (row.PayBy == "C")
                     alipay += income;
+                else if (row.PayBy == "E")
+                    wxpay  += income;
                 else if (row.PayBy == "D")
                 {
                     if (!row.IsCashIncomeNull())
@@ -384,6 +386,7 @@ namespace VoucherExpense
             data.OrderCount = orderCount;
             data.Cash    = Math.Round(cash);
             data.Alipay = Math.Round(alipay);
+            data.Wxpay  = Math.Round(wxpay);
             data.Coupon = Math.Round(coupon);
             data.Deduct = Math.Round(deduct);
             data.Date = m_WorkingDay.Date;
@@ -391,8 +394,8 @@ namespace VoucherExpense
             data.CreditFee = Math.Round(FeeRate * data.CreditCard, 2);
             data.CreditNet = data.CreditCard - data.CreditFee;
             if (orderCount != 0)
-                data.AvePerPerson = Math.Round((cash + credit + alipay+coupon) / orderCount, 1);
-            data.Revenue = Math.Round(cash + credit + alipay+coupon);
+                data.AvePerPerson = Math.Round((cash + credit + alipay+wxpay+coupon) / orderCount, 1);
+            data.Revenue = Math.Round(cash + credit + alipay+wxpay+coupon);
 
             data.DeletedCount = deletedCount;
             data.DeletedMoney = Math.Round(deletedMoney);

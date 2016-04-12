@@ -35,14 +35,32 @@ namespace VoucherExpense
         MyRecipeAdapter       recipeAdapter      = new MyRecipeAdapter();
         MyRecipeDetailAdapter recipeDetailAdapter= new MyRecipeDetailAdapter();
         MyProductAdapter      productAdapter     = new MyProductAdapter();
+        public class MyPhotoAdapter : DamaiDataSetTableAdapters.PhotosTableAdapter
+        {
+            string SaveStr;
+            public int FillBySelectStr(DamaiDataSet.PhotosDataTable dataTable, string SelectStr)
+            {
+                ClearBeforeFill = false;
+                SaveStr = base.CommandCollection[0].CommandText;
+                base.CommandCollection[0].CommandText = SelectStr;
+                int result = Fill(dataTable);
+                base.CommandCollection[0].CommandText = SaveStr;
+                return result;
+            }
+        }
+        MyPhotoAdapter PhotoAdapter = new MyPhotoAdapter();
+
+
+
         private void FormRecipe_Load(object sender, EventArgs e)
         {
             var ingredientAdapter = new MyIngredientAdapter();
 
-            productAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
-            ingredientAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
-
-
+            productAdapter.Connection.ConnectionString      = DB.SqlConnectString(MyFunction.HardwareCfg);
+            ingredientAdapter.Connection.ConnectionString   = DB.SqlConnectString(MyFunction.HardwareCfg);
+            recipeAdapter.Connection.ConnectionString       = DB.SqlConnectString(MyFunction.HardwareCfg);
+            recipeDetailAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+            PhotoAdapter.Connection.ConnectionString        = DB.SqlConnectString(MyFunction.HardwareCfg);
             try
             {
                 
@@ -264,20 +282,6 @@ namespace VoucherExpense
 
         #region ========================== Photo相關程序 ==================================
         bool m_PhotoDirectoryExist = false;
-        public class MyPhotoAdapter : DamaiDataSetTableAdapters.PhotosTableAdapter
-        {
-            string SaveStr;
-            public int FillBySelectStr(DamaiDataSet.PhotosDataTable dataTable, string SelectStr)
-            {
-                ClearBeforeFill = false;
-                SaveStr = base.CommandCollection[0].CommandText;
-                base.CommandCollection[0].CommandText = SelectStr;
-                int result = Fill(dataTable);
-                base.CommandCollection[0].CommandText = SaveStr;
-                return result;
-            }
-        }
-        MyPhotoAdapter PhotoAdapter = new MyPhotoAdapter();
 
         string PhotoPath() { return MapPath.DataDir + "Photos\\Recipes\\"; } 
 

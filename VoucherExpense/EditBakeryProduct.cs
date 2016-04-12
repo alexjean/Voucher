@@ -19,6 +19,8 @@ using MyAccountingTitleAdapter = VoucherExpense.DamaiDataSetTableAdapters.Accoun
 using System.Security.Cryptography;
 
 
+
+
 namespace VoucherExpense
 {
     public partial class EditBakeryProduct : Form
@@ -32,11 +34,26 @@ namespace VoucherExpense
         MyProductAdapter productAdapter     = new MyProductAdapter();
         MyOrderAdapter   orderAdapter       = new MyOrderAdapter();
         MyOrderItemAdapter orderItemAdapter = new MyOrderItemAdapter();
+        public class MyPhotoAdapter : DamaiDataSetTableAdapters.PhotosTableAdapter
+        {
+            string SaveStr;
+            public int FillBySelectStr(DamaiDataSet.PhotosDataTable dataTable, string SelectStr)
+            {
+                ClearBeforeFill = false;
+                SaveStr = base.CommandCollection[0].CommandText;
+                base.CommandCollection[0].CommandText = SelectStr;
+                int result = Fill(dataTable);
+                base.CommandCollection[0].CommandText = SaveStr;
+                return result;
+            }
+        }
+        MyPhotoAdapter PhotoAdapter = new MyPhotoAdapter();
 
         private void EditBakeryProduct_Load(object sender, EventArgs e)
         {
             productAdapter.Connection.ConnectionString           = DB.SqlConnectString(MyFunction.HardwareCfg);
             productClassTableAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+            PhotoAdapter.Connection.ConnectionString             = DB.SqlConnectString(MyFunction.HardwareCfg);
 
             this.productClassTableAdapter.Fill(this.damaiDataSet.ProductClass);
             var accountingTitleAdapter = new MyAccountingTitleAdapter();
@@ -59,20 +76,6 @@ namespace VoucherExpense
 
         #region ============ Photo 相關程序 ==========================
         bool m_PhotoDirectoryExist = false;
-        public class MyPhotoAdapter : DamaiDataSetTableAdapters.PhotosTableAdapter
-        {
-            string SaveStr;
-            public int FillBySelectStr(DamaiDataSet.PhotosDataTable dataTable, string SelectStr)
-            {
-                ClearBeforeFill = false;
-                SaveStr = base.CommandCollection[0].CommandText;
-                base.CommandCollection[0].CommandText = SelectStr;
-                int result = Fill(dataTable);
-                base.CommandCollection[0].CommandText = SaveStr;
-                return result;
-            }
-        }
-        MyPhotoAdapter PhotoAdapter = new MyPhotoAdapter();
 
         string PhotoPath()
         {

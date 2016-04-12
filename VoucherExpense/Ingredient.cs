@@ -30,7 +30,20 @@ namespace VoucherExpense
         MyIngredientAdapter IngredientAdapter       = new MyIngredientAdapter();
         MyVoucherAdapter VoucherAdapter = new MyVoucherAdapter();
         MyVoucherDetailAdapter VoucherDetailAdapter = new MyVoucherDetailAdapter();
-
+        public class MyPhotoAdapter : DamaiDataSetTableAdapters.PhotosTableAdapter
+        {
+            string SaveStr;
+            public int FillBySelectStr(DamaiDataSet.PhotosDataTable dataTable, string SelectStr)
+            {
+                ClearBeforeFill = false;
+                SaveStr = base.CommandCollection[0].CommandText;
+                base.CommandCollection[0].CommandText = SelectStr;
+                int result = Fill(dataTable);
+                base.CommandCollection[0].CommandText = SaveStr;
+                return result;
+            }
+        }
+        MyPhotoAdapter PhotoAdapter = new MyPhotoAdapter();
 
         private void Ingredient_Load(object sender, EventArgs e)
         {
@@ -43,7 +56,8 @@ namespace VoucherExpense
             var accountingTitleAdapter = new DamaiDataSetTableAdapters.AccountingTitleTableAdapter();
 
             IngredientAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
-            vendorAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+            vendorAdapter.Connection.ConnectionString     = DB.SqlConnectString(MyFunction.HardwareCfg);
+            PhotoAdapter.Connection.ConnectionString      = DB.SqlConnectString(MyFunction.HardwareCfg);
 
             try
             {
@@ -173,20 +187,6 @@ namespace VoucherExpense
 
         #region ============ Photo相關程序 ====================================
         bool m_PhotoDirectoryExist = false;
-        public class MyPhotoAdapter : DamaiDataSetTableAdapters.PhotosTableAdapter
-        {
-            string SaveStr;
-            public int FillBySelectStr(DamaiDataSet.PhotosDataTable dataTable, string SelectStr)
-            {
-                ClearBeforeFill = false;
-                SaveStr = base.CommandCollection[0].CommandText;
-                base.CommandCollection[0].CommandText = SelectStr;
-                int result = Fill(dataTable);
-                base.CommandCollection[0].CommandText = SaveStr;
-                return result;
-            }
-        }
-        MyPhotoAdapter PhotoAdapter = new MyPhotoAdapter();
 
         string PhotoPath() { return MapPath.DataDir + "Photos\\Ingredients\\";  }
 

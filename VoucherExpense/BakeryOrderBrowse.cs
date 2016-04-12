@@ -781,6 +781,9 @@ namespace VoucherExpense
             {
                 Form form=new FormWxPay1(m_TradeNo,m_OutTradeNo,m_Amount.ToString("N2"));
                 form.ShowDialog();
+                // 因FormWxPay1 尚未返回狀態,且目前只有己刪單才能進入微信作業,故暫時Markout
+                // m_LastClick.BackColor = Color.Green;
+                // UpdateDeletedMark(m_OrderRow, true);  
             }
         }
 

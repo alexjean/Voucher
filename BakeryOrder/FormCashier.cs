@@ -1761,8 +1761,6 @@ namespace BakeryOrder
         {
             DateTime now=DateTime.Now;
             string out_trade_no = m_StoreID.ToString("d3")+m_PosID.ToString()+(now.Year % 10).ToString() + orderID.ToString() + now.Millisecond.ToString();
-            //线上联调时，请输入真实的外部订单号    out_trade_no
-            //线上联调时，请输入真实的条码          auto_code
             decimal total_fee = Current.Income ;
             string total_amount = total_fee.ToString("F2");
 

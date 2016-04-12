@@ -707,7 +707,7 @@ namespace VoucherExpense
 
 
         delegate Guid GetKeyDelegate(DataRow row);
-        static bool SpecialTableGetMd5Result(string tableName, SqlConnection conn,ref DataSet dataSet,
+        static public bool SpecialTableGetMd5Result(string tableName, SqlConnection conn,ref DataSet dataSet,
                                             ref Dictionary<Guid, Md5Result> dicResult)
         {
             string SelectCmd;

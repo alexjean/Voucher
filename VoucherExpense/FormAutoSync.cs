@@ -1095,7 +1095,6 @@ namespace VoucherExpense
 
             #region Cloud<==>Local
 
-/***
             // 同步Cloud部分，找出MD5Old和現有Record的不同
             foreach (var tableName in StructCloud.Keys)
             {
@@ -1230,7 +1229,6 @@ namespace VoucherExpense
             DB.UpdateSyncTable(TableInfoLocal, LocalServer);
             DB.UpdateSyncTable(TableInfoCloud, CloudServer);
 
-****/
             #endregion
 
             #region 原本構思

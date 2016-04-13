@@ -14,7 +14,6 @@ namespace VoucherExpense
     public partial class FormTitleSetup : Form
     {
         TitleSetup Setup=new TitleSetup();
-//        Config  Cfg  =new Config();
         
         public FormTitleSetup()
         {
@@ -24,11 +23,10 @@ namespace VoucherExpense
         MyAccTitleAdapter AccTitleAdapter = new MyAccTitleAdapter();
         private void FormTitleSetup_Load(object sender, EventArgs e)
         {
-            // TODO: 這行程式碼會將資料載入 'damaiDataSet.AccountingTitle' 資料表。您可以視需要進行移動或移除。
-            this.accountingTitleTableAdapter.Fill(this.damaiDataSet.AccountingTitle);
-            SetupBindingSource();
 
+            AccTitleAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
             AccTitleAdapter.Fill(m_DataSet.AccountingTitle);
+            SetupBindingSource();
             Setup.Load();
             titleSetupBindingSource.DataSource = Setup;
         }

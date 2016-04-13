@@ -67,6 +67,10 @@ namespace VoucherExpense
 
             try
             {
+                ingredientAdapter.Connection.ConnectionString   = DB.SqlConnectString(MyFunction.HardwareCfg);
+                accTitleAdapter.Connection.ConnectionString     = DB.SqlConnectString(MyFunction.HardwareCfg);
+                vendorAdapter.Connection.ConnectionString       = DB.SqlConnectString(MyFunction.HardwareCfg);
+
                 accTitleAdapter.Fill    (m_DataSet.AccountingTitle);
                 bankAccountAdapter.Fill (m_DataSet.BankAccount);
                 expenseAdapter.Fill     (m_DataSet.Expense);    // expense檔案小,先全部讀進記憶體

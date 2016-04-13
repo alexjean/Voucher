@@ -26,6 +26,9 @@ namespace VoucherExpense
             var accTitleAdapter         = new DamaiDataSetTableAdapters.AccountingTitleTableAdapter();
             var accVouchAdapter         = new DamaiDataSetTableAdapters.AccVouchTableAdapter();
             var accVouchDetailAdapter   = new DamaiDataSetTableAdapters.AccVouchDetailTableAdapter();
+
+            accTitleAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+
             try
             {
                 bankAccountAdapter.Fill (damaiDataSet.BankAccount);

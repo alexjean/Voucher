@@ -43,6 +43,9 @@ namespace VoucherExpense
             var voucherDetailAdapter= new VoucherExpense.DamaiDataSetTableAdapters.VoucherDetailTableAdapter();
             var bankDetailAdapter   = new VoucherExpense.DamaiDataSetTableAdapters.BankDetailTableAdapter();
             var accVoucherAdapter   = new VoucherExpense.DamaiDataSetTableAdapters.AccVoucherTableAdapter();
+
+            accTitleAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+
             try
             {
                 headerAdapter.Fill(m_OrderSet.Header);

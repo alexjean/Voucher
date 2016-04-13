@@ -58,6 +58,7 @@ namespace VoucherExpense
             IngredientAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
             vendorAdapter.Connection.ConnectionString     = DB.SqlConnectString(MyFunction.HardwareCfg);
             PhotoAdapter.Connection.ConnectionString      = DB.SqlConnectString(MyFunction.HardwareCfg);
+            accountingTitleAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
 
             try
             {

@@ -27,6 +27,8 @@ namespace VoucherExpense
             this.bankAccountBindingSource.DataSource     = damaiDataSet;
             this.accountingTitleBindingSource.DataSource = damaiDataSet;
             this.accountingTitleBindingSource1.DataSource = damaiDataSet;
+
+            accountingTitleSQLAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
             this.accountingTitleSQLAdapter.Fill(this.damaiDataSet.AccountingTitle);
             this.bankAccountSQLAdapter.Fill    (this.damaiDataSet.BankAccount);
             MyFunction.SetFieldLength(dgvBankAccount, damaiDataSet.BankAccount);

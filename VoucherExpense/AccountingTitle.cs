@@ -72,6 +72,8 @@ namespace VoucherExpense
         public List<CID> SourceNames = new List<CID>() { new CID((byte)1, "資產"), new CID(2, "負債"), new CID(3, "股東權益"), new CID(4, "營收"), new CID(5, "成本"), new CID(6, "費用") };
         private void FormAccountingTitle_Load(object sender, EventArgs e)
         {
+            this.accountingTitleSQLAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+
             this.accountingTitleSQLAdapter.Fill(this.damaiDataSet.AccountingTitle);
             cIDBindingSource.DataSource = SourceNames;
             this.accountingTitleBindingSource.DataSource = damaiDataSet;

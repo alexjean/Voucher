@@ -764,7 +764,7 @@ namespace VoucherExpense
             {
                 DB.FillStructAndTableInfo(RegionServer, ref StructRegion, ref TableInfoRegion);
                 List<string> RegionOpenedNow = new List<string>() { "Operator", "OperatorAuthList", "Apartment", "Product", "ProductClass",
-                                                                    "Vendor", "Ingredient","Recipe","RecipeDetail","Photos"};
+                                                                    "Vendor", "Ingredient","Recipe","RecipeDetail","Photos","AccountingTitle"};
                 foreach (string re in StructRegion.Keys.ToList())
                 {
                     if (!RegionOpenedNow.Contains(re))
@@ -848,6 +848,12 @@ namespace VoucherExpense
                                     shouldRemoved.Add(fatherName);
                                     fatherName = null;
                                 }
+                                else if (!DB.IsForeignKeyUpdateActionCascade(fatherInfo))
+                                {
+                                    Message("規定FK的更新規則必需為CASCADE <" + fatherName + "-" + local + ">");
+                                    shouldRemoved.Add(fatherName);
+                                    fatherName = null;
+                                }
                             }
                         }
                     }
@@ -897,6 +903,12 @@ namespace VoucherExpense
                                 else if (!DB.IsForeignKeyDeleteActionCascade(fatherInfo))
                                 {
                                     Message("規定FK的刪除規則必需為CASCADE <" + fatherName + "-" + local + ">");
+                                    shouldRemoved.Add(fatherName);
+                                    fatherName = null;
+                                }
+                                else if (!DB.IsForeignKeyUpdateActionCascade(fatherInfo))
+                                {
+                                    Message("規定FK的更新規則必需為CASCADE <" + fatherName + "-" + local + ">");
                                     shouldRemoved.Add(fatherName);
                                     fatherName = null;
                                 }
@@ -1094,7 +1106,6 @@ namespace VoucherExpense
             #endregion
 
             #region Cloud<==>Local
-
             // 同步Cloud部分，找出MD5Old和現有Record的不同
             foreach (var tableName in StructCloud.Keys)
             {
@@ -1228,7 +1239,6 @@ namespace VoucherExpense
             // Markout for bebug
             DB.UpdateSyncTable(TableInfoLocal, LocalServer);
             DB.UpdateSyncTable(TableInfoCloud, CloudServer);
-
             #endregion
 
             #region 原本構思

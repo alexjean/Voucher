@@ -39,6 +39,7 @@ namespace VoucherExpense
             IngredientAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
             vendorAdapter.Connection.ConnectionString     = DB.SqlConnectString(MyFunction.HardwareCfg);
             operatorAdapter.Connection.ConnectionString   = DB.SqlConnectString(MyFunction.HardwareCfg);
+            accountingTitleAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
 
             SetupBindingSource();
             try

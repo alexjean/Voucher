@@ -36,6 +36,7 @@ namespace VoucherExpense
             SetupBindingSource();
             var bankAccountAdapter      = new VoucherExpense.DamaiDataSetTableAdapters.BankAccountTableAdapter();
             var accountingTitleAdapter  = new VoucherExpense.DamaiDataSetTableAdapters.AccountingTitleTableAdapter();
+            accountingTitleAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
 
             bankAccountAdapter.Fill(m_DataSet.BankAccount);
             accountingTitleAdapter.Fill(m_DataSet.AccountingTitle);

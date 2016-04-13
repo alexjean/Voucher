@@ -230,6 +230,7 @@ namespace BakeryOrder
                             Message("");
                             if (m_CancelRetryCount >= 5)
                             {
+                                MessageBox.Show("己经撤销5次失败,本单无法确定状态,将删单!");
                                 m_Canceled = true;
                                 goto Cancel;
                             }
@@ -239,6 +240,7 @@ namespace BakeryOrder
                             Message("不明原因, 撤消可能沒有成功!");
                             if (m_CancelRetryCount > 5)
                             {
+                                MessageBox.Show("己经撤销5次失败,本单无法确定状态,将删单!");
                                 m_Canceled = true;
                                 goto Cancel;
                             }
@@ -351,12 +353,12 @@ namespace BakeryOrder
 
                                                         btnSuccess.Enabled = true;
                                                         break;
-                                        case "REFUND": tradeState = "转入退款"; break;
-                                        case "NOTPAY": tradeState = "未支付"; break;
-                                        case "CLOSED": tradeState = "已关闭"; break;
-                                        case "REVOKED": tradeState = "刷卡支付已撤销"; break;
-                                        case "USERPAYING": tradeState = "用户支付中"; break;
-                                        case "PAYERROR": tradeState = "支付失败"; break;
+                                        case "REFUND":      tradeState = "转入退款";    break;
+                                        case "NOTPAY":      tradeState = "未支付";      break;
+                                        case "CLOSED":      tradeState = "已关闭";      break;
+                                        case "REVOKED":     tradeState = "刷卡支付已撤销"; break;
+                                        case "USERPAYING":  tradeState = "用户支付中";  break;
+                                        case "PAYERROR":    tradeState = "支付失败";    break;
                                     }
                                 }
                                 Message("支付查询成功! 结果：" + tradeState);

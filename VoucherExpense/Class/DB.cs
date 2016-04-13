@@ -397,6 +397,18 @@ namespace VoucherExpense
             return true;
         }
 
+        static public bool IsForeignKeyUpdateActionCascade(TableInfo info)
+        {
+            if (info == null) return false;
+            if (info.Childs == null) return false;
+            if (info.Childs.Count() == 0) return false;
+            foreach (var child in info.Childs)
+                if (child.UpdateAction.ToUpper() != "CASCADE")
+                    return false;
+            return true;
+        }
+
+
         static public bool SameForeignKey(TableInfo local, TableInfo cloud)
         {
             if (local == null)

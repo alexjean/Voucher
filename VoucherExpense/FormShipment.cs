@@ -114,6 +114,7 @@ namespace VoucherExpense
 
                 this.productClassTableAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
                 this.productTableAdapter1.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+                this.accountingTitleTableAdapter1.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
 
                 this.productClassTableAdapter.Fill(this.damaiDataSet.ProductClass);
                 this.productTableAdapter1.Fill(this.damaiDataSet.Product);
@@ -124,6 +125,7 @@ namespace VoucherExpense
 
                 operatorTableAdapter1.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
                 apartmentTableAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+
                 this.operatorTableAdapter1.Fill(this.damaiDataSet.Operator);
                 this.apartmentTableAdapter.Fill(this.damaiDataSet.Apartment);
                 var opertatorrow = from row in damaiDataSet.Operator where row.OperatorID == MyFunction.OperatorID select row;

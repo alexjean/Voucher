@@ -86,7 +86,6 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.cbxProducts = new System.Windows.Forms.ComboBox();
             this.assetProductsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.accountingTitleTableAdapter = new VoucherExpense.DamaiDataSetTableAdapters.AccountingTitleTableAdapter();
             cashIncomeLabel = new System.Windows.Forms.Label();
             cashReceivableLabel = new System.Windows.Forms.Label();
             creditIncomeLabel = new System.Windows.Forms.Label();
@@ -688,10 +687,6 @@
             this.assetProductsBindingSource.DataSource = this.damaiDataSet;
             this.assetProductsBindingSource.Filter = "AccountClass = 1";
             // 
-            // accountingTitleTableAdapter
-            // 
-            this.accountingTitleTableAdapter.ClearBeforeFill = true;
-            // 
             // FormTitleSetup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -783,6 +778,5 @@
         private System.Windows.Forms.BindingSource assetIngredientsBindingSource;
         private System.Windows.Forms.BindingSource assetProductsBindingSource;
         private DamaiDataSet damaiDataSet;
-        private DamaiDataSetTableAdapters.AccountingTitleTableAdapter accountingTitleTableAdapter;
     }
 }

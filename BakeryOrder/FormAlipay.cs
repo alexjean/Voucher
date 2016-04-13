@@ -74,26 +74,28 @@ namespace BakeryOrder
                 switch (cancelResponse.Code)
                 {
                     case ResultCode.SUCCESS:
-                            Message("支付撤消成功! 交易号<" + cancelResponse.TradeNo + ">");
-                            MessageBox.Show("本單撤消成功!");
+                            Message("支付撤銷成功! 交易号<" + cancelResponse.TradeNo + ">");
+                            MessageBox.Show("本单撤销成功!");
                             m_Canceled = true;
                             SaveToDB(m_OutTradeNoStr, "00000", "00000");
                             goto Cancel;
-                    case ResultCode.FAIL: Message("支付撤消失敗! <" + cancelResponse.Msg+">");
+                    case ResultCode.FAIL: Message("支付撤销失敗! <" + cancelResponse.Msg + ">");
                             Message("");
                             Message(cancelResponse.SubMsg);
                             Message("");
                             if (m_CancelRetryCount >= 5)
                             {
+                                MessageBox.Show("己经撤销5次失败,本单无法确定状态,将删单!");
                                 m_Canceled = true;
                                 goto Cancel;
                             }
                             return;
                             // 按五次,因m_Canceled=true;就直接離開
                     default:
-                            Message("不明原因, 撤消可能沒有成功!");
+                            Message("不明原因, 撤销可能没有成功!");
                             if (m_CancelRetryCount > 5)
                             {
+                                MessageBox.Show("己经撤销5次失败,本单无法确定状态,将删单!");
                                 m_Canceled = true;
                                 goto Cancel;
                             }

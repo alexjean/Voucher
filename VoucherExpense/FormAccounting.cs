@@ -30,8 +30,9 @@ namespace VoucherExpense
         public enum AccDataSource { MenualInput=1, Voucher, Expense, PosRevenue, Shipment, Bank }
         private void FormAccounting_Load(object sender, EventArgs e)
         {
-            vendorTableAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
-            operatorTableAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
+            vendorTableAdapter.Connection.ConnectionString          = DB.SqlConnectString(MyFunction.HardwareCfg);
+            operatorTableAdapter.Connection.ConnectionString        = DB.SqlConnectString(MyFunction.HardwareCfg);
+            accountingTitleTableAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
 
 
             try
@@ -40,7 +41,6 @@ namespace VoucherExpense
                 this.customerTableAdapter.Fill(this.damaiDataSet.Customer);
                 this.vendorTableAdapter.Fill(this.damaiDataSet.Vendor);
 
-                operatorTableAdapter.Connection.ConnectionString = DB.SqlConnectString(MyFunction.HardwareCfg);
                 this.operatorTableAdapter.Fill(this.damaiDataSet.Operator);
 
                 this.hRTableAdapter.Fill(this.damaiDataSet.HR);

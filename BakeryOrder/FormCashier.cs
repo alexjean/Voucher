@@ -1107,8 +1107,12 @@ namespace BakeryOrder
                     CurrentOrder.PrintTime = DateTime.Now;
                 bakeryOrderSet.Order.AddOrderRow(CurrentOrder);
             }
+
+            //System.Data.OleDb.OleDbTransaction transcation= m_OrderTableAdapter.Connection.BeginTransaction();
+            //System.Data.OleDb.OleDbTransaction transcation1 = m_OrderItemTableAdapter.Connection.BeginTransaction();
             try
             {
+
                 if (CurrentOrder.RowState == DataRowState.Deleted)
                 {
                     MessageBoxShow("程式不准刪,而此單是被刪除的,資料奇怪 ,無法存檔!");    // 本程式不准刪
@@ -1127,6 +1131,7 @@ namespace BakeryOrder
             }
             catch (Exception E)
             {
+                //transcation.Rollback();
                 if (E.GetType() != typeof(System.Data.DBConcurrencyException))
                     MessageBoxShow(E.Message + "Update(CurrentOrder) 出錯");
                 else

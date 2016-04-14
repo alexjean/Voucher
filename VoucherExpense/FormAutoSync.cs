@@ -1106,6 +1106,7 @@ namespace VoucherExpense
             #endregion
 
             #region Cloud<==>Local
+
             // 同步Cloud部分，找出MD5Old和現有Record的不同
             foreach (var tableName in StructCloud.Keys)
             {

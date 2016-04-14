@@ -20,6 +20,7 @@ namespace VoucherExpense
 
         RevenueCalcBakery Revenue;
         MyDataSet m_DataSet = new MyDataSet();
+        bool m_CloseOnLoad = false;
         private void MonthlyReportBakery_Load(object sender, EventArgs e)
         {
             decimal FeeRate = 1.8m;
@@ -39,7 +40,8 @@ namespace VoucherExpense
             if (count == 0)
             {
                 MessageBox.Show("無資料!");
-                Close();
+                m_CloseOnLoad = true;   // OnLoad時無法呼叫Close(), 設置變數在OnShown呼叫
+                // Close
                 return;
             }
             var row = m_DataSet.Header[count - 1];
@@ -145,6 +147,11 @@ namespace VoucherExpense
 
         private void MonthlyReportBakery_Shown(object sender, EventArgs e)
         {
+            if (m_CloseOnLoad)
+            {
+                Close();
+                return;
+            }
             comboBoxMonth.SelectedIndexChanged += new EventHandler(comboBoxMonth_SelectedIndexChanged);   // 為避免表單未顯示前即呼叫
             comboBoxMonth_SelectedIndexChanged(null, null);
         }

@@ -1823,6 +1823,7 @@ namespace BakeryOrder
         {
             DateTime now = DateTime.Now;
             string out_trade_no = m_StoreID.ToString("d3") + m_PosID.ToString() + (now.Year % 10).ToString() + orderID.ToString() + now.Millisecond.ToString();
+            string device_info  = m_StoreID.ToString("d3") + m_PosID.ToString();
             int total_fee = (int)(Current.Income*100);     // 以分為單位
             string total_amount = total_fee.ToString("F2");
 
@@ -1832,6 +1833,7 @@ namespace BakeryOrder
             wxPayData.SetValue("auth_code"   , auth_code);
             if (Title == null || Title == "")  Title = "原麦某店";
             wxPayData.SetValue("body", Title + "面包饮料");
+            wxPayData.SetValue("device_info", device_info);
             wxPayData.SetValue("total_fee", total_fee);   
 
             Form form = new FormWxPay(tabControl1.Left + 8, 8, out_trade_no, wxPayData);  // 借用 wxPayData來傳回 outTradeNo OpenID TranscationID

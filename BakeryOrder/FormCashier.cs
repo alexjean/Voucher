@@ -1713,6 +1713,26 @@ namespace BakeryOrder
                 CodeCache += (char)e.KeyChar;
         }
 
+
+        private bool MemberIDCheck(string id)
+        {   // 規定會員為11位字串,YM開頭後接9位數字
+            if (id.Length!=11) return false;
+            if (!Char.IsDigit(id[10])) return false;
+            int even=0,odd=0;
+            for (int i = 2; i < 9; i++)   // id[9]不檢查
+            {
+                char c=id[i];
+                if (!Char.IsDigit(c)) return false;
+                int n = c-'0';
+                if ((i % 2) == 0) even += n;
+                else              odd  += n;
+            }
+            odd += even * 3;
+            odd = 10-(odd%10);
+            even = id[10]-'0';
+            if (even != odd) return false;
+            return true;
+        }
         // 因為 Button會攔掉Return, KeyPreview=true也沒用,只好override ProcessDialogKey
         protected override bool ProcessDialogKey(Keys keyData)
         {
@@ -1727,7 +1747,7 @@ namespace BakeryOrder
                 char c1=CodeCache[1];
                 if (c0 == 'Y')      // 是會員卡
                 {
-                    if (c1 != 'M')
+                    if (c1 != 'M' || (!MemberIDCheck(CodeCache)))
                     {
                         CodeCache = "";
                         return false;

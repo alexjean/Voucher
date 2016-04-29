@@ -1728,7 +1728,7 @@ namespace BakeryOrder
                 else              odd  += n;
             }
             odd += even * 3;
-            odd = 10-(odd%10);
+            odd = (10-(odd%10))%10;
             even = id[10]-'0';
             if (even != odd) return false;
             return true;

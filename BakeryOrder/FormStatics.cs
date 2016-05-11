@@ -159,8 +159,9 @@ namespace BakeryOrder
             {
                 if      (Row.PayBy == "B") b.Text += "卡";
                 else if (Row.PayBy == "C") b.Text += "支";
-                else if (Row.PayBy == "D") b.Text += '券';
+                else if (Row.PayBy == "D") b.Text += 'A';
                 else if (Row.PayBy == "E") b.Text += '微';
+                else if (Row.PayBy == "F") b.Text += 'B';
             }
             decimal income = 0;
             if (!Row.IsIncomeNull()) income = Math.Round(Row.Income,2);
@@ -248,7 +249,7 @@ namespace BakeryOrder
                 lvItems.Columns[i].Text = m_ListViewItemBackup[i];
         }
 
-        Dictionary<char, string> DicPayBy = new Dictionary<char, string> { { 'A', "现金" }, { 'B', "刷卡" }, { 'C', "支付宝" }, { 'D', "券入" }, { 'E', "微信" } };
+        Dictionary<char, string> DicPayBy = new Dictionary<char, string> { { 'A', "现金" }, { 'B', "刷卡" }, { 'C', "支付宝" }, { 'D', "券A" }, { 'E', "微信" },{ 'F', "券B" } };
         private bool ShowOrder(BakeryOrderSet.OrderRow order)
         {
             BakeryOrderSet.OrderItemRow[] items = order.GetOrderItemRows();
@@ -315,7 +316,7 @@ namespace BakeryOrder
             if (!order.IsMemberIDNull()) labelMemberID.Text = "会员"+order.MemberID;
 
             labelAlipayNo.Text = "";
-            if (order.PayBy[0] == 'D')
+            if (order.PayBy[0] == 'D' || order.PayBy[0]=='F')
             {
                 if (!order.IsCouponIncomeNull()) 
                     labelAlipayNo.Text += "收券 "  + order.CouponIncome.ToString();

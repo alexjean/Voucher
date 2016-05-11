@@ -324,7 +324,7 @@ namespace BakeryOrder
         {
             SetButtonVisualStyleExcept(sender as Button);
             //labelCashGot.Visible = labelChange.Visible = false;
-            m_PayBy = 'D';
+            m_PayBy = 'D'; // 支付宝 微信 券AB 都計入此類
             //textBoxCashGot.Enabled = false;
         }
         void SetButtonVisualStyleExcept(Button btn)

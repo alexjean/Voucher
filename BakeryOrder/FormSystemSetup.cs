@@ -98,6 +98,9 @@ namespace BakeryOrder
             {
                 if      (order.PayBy == "B") addNote += "卡";
                 else if (order.PayBy == "C") addNote += "支";
+                else if (order.PayBy == "E") addNote += "微";
+                else if (order.PayBy == "D") addNote += "A ";
+                else if (order.PayBy == "F") addNote += "B ";
             }
             if (income < 0) addNote+="退";
             if (addNote.Length == 0) addNote = "  ";
@@ -131,7 +134,7 @@ namespace BakeryOrder
                 if (!order.IsDeletedNull() && order.Deleted)        shouldPrint = true;     // 刪單的要印出
                 if (!order.IsPayByNull())
                 {
-                    if (order.PayBy == "B" || order.PayBy == "C")   shouldPrint = true;     // 刷卡和券的要印出
+                    if (order.PayBy == "B" || order.PayBy == "D" || order.PayBy=="F")   shouldPrint = true;     // 刷卡和券的要印出
                 }
                 if (shouldPrint)
                 {
@@ -145,8 +148,8 @@ namespace BakeryOrder
             Buf.Append("- - - - - - - - - - - - - - - - - - - -\r\n");
             //  計算統計數字
             int count = 0;
-            int deletedCount = 0, creditCount = 0, alipayCount = 0,couponCount=0, returnedCount = 0, cashCount = 0,wxCount=0;
-            decimal total = 0m, credit = 0m, alipay = 0m, coupon=0m,cash = 0m,wxpay=0m;
+            int deletedCount = 0, creditCount = 0, alipayCount = 0,couponACount=0,couponBCount=0, returnedCount = 0, cashCount = 0,wxCount=0;
+            decimal total = 0m, credit = 0m, alipay = 0m, couponA=0m,couponB=0m,cash = 0m,wxpay=0m;
             DateTime first = new DateTime(2050, 10, 31);
             DateTime last  = new DateTime(2012, 10, 31);
             foreach (var order in m_BakeryOrderSet.Order)
@@ -165,14 +168,24 @@ namespace BakeryOrder
                         if (order.PayBy == "B") { creditCount++; credit += income; }
                         if (order.PayBy == "C") { alipayCount++; alipay += income; }
                         if (order.PayBy == "E") { wxCount++;     wxpay += income;  } // 微信
-                        if (order.PayBy == "D") // 券
+                        if (order.PayBy == "D") // 券A
                         {
-                            couponCount++;
-                            if (!order.IsCashIncomeNull() && order.CouponIncome>0m) cash += order.CashIncome;
-                            if (!order.IsCashIncomeNull())
+                            couponACount++;
+                            if (!order.IsCashIncomeNull())       cash += order.CashIncome;
+                            if (!order.IsCouponIncomeNull())
                             {
-                                if (order.CouponIncome > income) coupon += income;
-                                else                             coupon += order.CouponIncome;
+                                if (order.CouponIncome > income) couponA += income;
+                                else                             couponA += order.CouponIncome;
+                            }
+                        }
+                        if (order.PayBy == "F") // 券B
+                        {
+                            couponBCount++;
+                            if (!order.IsCashIncomeNull())       cash += order.CashIncome;
+                            if (!order.IsCouponIncomeNull())
+                            {
+                                if (order.CouponIncome > income) couponB += income;
+                                else                             couponB += order.CouponIncome;
                             }
                         }
                     }
@@ -191,7 +204,8 @@ namespace BakeryOrder
             Buf.Append("删单 "+ deletedCount.ToString("d").PadLeft(3) + " 笔, 退货 " +returnedCount.ToString("d").PadLeft(3) +" 笔\r\n");
             Buf.Append("支宝 " + alipayCount.ToString("d").PadLeft(3) + " 笔, " + alipay.ToString("f0").PadLeft(5) + "元\r\n");
             Buf.Append("微信 " + wxCount.ToString("d").PadLeft(3)     + " 笔, " + wxpay.ToString("f0").PadLeft(5)  + "元\r\n");
-            Buf.Append("券入 " + couponCount.ToString("d").PadLeft(3) + " 笔, " + coupon.ToString("f0").PadLeft(5) + "元\r\n");
+            Buf.Append("券A  " + couponACount.ToString("d").PadLeft(3) + " 笔, " + couponA.ToString("f0").PadLeft(5) + "元\r\n");
+            Buf.Append("券B  " + couponBCount.ToString("d").PadLeft(3) + " 笔, " + couponB.ToString("f0").PadLeft(5) + "元\r\n");
             Buf.Append("刷卡 " + creditCount.ToString("d").PadLeft(3) + " 笔, " + credit.ToString("f0").PadLeft(5) + "元\r\n");
             Buf.Append("现金 " + cashCount.ToString("d").PadLeft(3)   + " 笔, " + cash.ToString("f0").PadLeft(5)   + "元\r\n");
             Buf.Append("共   " + count.ToString("d").PadLeft(3)       + " 笔, " + total.ToString("f0").PadLeft(5)  + "元\r\n");

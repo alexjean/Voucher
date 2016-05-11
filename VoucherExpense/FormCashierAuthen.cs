@@ -1412,11 +1412,11 @@ namespace VoucherExpense
 
 
         private void GetStatics(out int orderCount, out decimal sum, out decimal averagePerOrder, out decimal cash, out decimal credit,out decimal alipay
-                                ,out decimal coupon,out decimal wxpay,out Dictionary<int,decimal> cashiers)
+                                ,out decimal couponA,out decimal couponB,out decimal wxpay,out Dictionary<int,decimal> cashiers)
         {
             sum = 0;
             orderCount = 0;
-            cash = credit = alipay = coupon=wxpay=0;
+            cash = credit = alipay = couponA=couponB=wxpay=0;
             averagePerOrder = 0;
             cashiers = new Dictionary<int,decimal>();
             foreach (var Row in m_OrderSet.Order)
@@ -1439,9 +1439,21 @@ namespace VoucherExpense
                 else if (Row.PayBy[0] == 'D')
                 {
                     if (!Row.IsCouponIncomeNull() && Row.CouponIncome >= income) // 收券額大於應收,只計入應收
-                        coupon += income;
+                        couponA += income;
                     else
-                        coupon += Row.CouponIncome;
+                        couponA += Row.CouponIncome;
+                    if (!Row.IsCashIncomeNull())
+                    {
+                        cashiers[id] += Row.CashIncome;
+                        cash += Row.CashIncome;
+                    }
+                }
+                else if (Row.PayBy[0] == 'F')
+                {
+                    if (!Row.IsCouponIncomeNull() && Row.CouponIncome >= income) // 收券額大於應收,只計入應收
+                        couponB += income;
+                    else
+                        couponB += Row.CouponIncome;
                     if (!Row.IsCashIncomeNull())
                     {
                         cashiers[id] += Row.CashIncome;
@@ -1461,9 +1473,9 @@ namespace VoucherExpense
         private void DrawStatics(int x, int y, int height, int width)
         {
             int no;
-            decimal ave, sum, cash, credit, alipay,coupon,wxpay;
+            decimal ave, sum, cash, credit, alipay,couponA,couponB,wxpay;
             Dictionary<int,decimal> cashiers;
-            GetStatics(out no, out sum, out ave, out cash, out credit, out alipay,out coupon,out wxpay,out  cashiers);
+            GetStatics(out no, out sum, out ave, out cash, out credit, out alipay,out couponA,out couponB,out wxpay,out  cashiers);
             int w = width / 2 - 30;
             PrintMoney("營收" , sum, x, y, w);
             y += height;
@@ -1471,9 +1483,10 @@ namespace VoucherExpense
             PrintMoney("刷卡" , credit , x , y + height      , w);
             PrintMoney("支宝" , alipay , x , y + height * 2  , w);
             PrintMoney("微信" , wxpay  , x , y + height * 3  , w);
-            PrintMoney("券  " , coupon , x , y + height * 4  , w);
-            PrintMoney("檔數" , no     , x , y + height * 5  , w ,"f0");
-            PrintMoney("單均" , ave    , x , y + height * 6  , w);
+            PrintMoney("券A " , couponA, x , y + height * 4  , w);
+            PrintMoney("券B " , couponB, x , y + height * 5  , w);
+            PrintMoney("檔數" , no     , x , y + height * 6  , w, "f0");
+            PrintMoney("單均" , ave    , x , y + height * 7  , w);
 
             int x1 = x + width / 2;
             int y1 = y;
@@ -1533,7 +1546,7 @@ namespace VoucherExpense
             DrawStatics(x1, y2, height, w);
 
             y2 = y2 + height * 8;
-            DrawStr("單據 授權 電腦"  , x1, y2);
+//            DrawStr("單據 授權 電腦"  , x1, y2);
             y2 += height;
             DrawStr("各金額均核對無誤!", x1, y2);
             y2 += height;

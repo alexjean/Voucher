@@ -240,8 +240,9 @@ namespace VoucherExpense
             {
                 if (Row.PayBy == "B")      b.Text += "卡";
                 else if (Row.PayBy == "C") b.Text += "支";
-                else if (Row.PayBy == "D") b.Text += "券";
+                else if (Row.PayBy == "D") b.Text += "A";
                 else if (Row.PayBy == "E") b.Text += "微";
+                else if (Row.PayBy == "F") b.Text += "B";
             }
             decimal income = 0;
             if (!Row.IsIncomeNull())
@@ -379,9 +380,10 @@ namespace VoucherExpense
                 labelTotal.Text = income.ToString("N0");
 
             labelAlipayNo.Text = "";
-            if (row.PayBy[0] == 'D')
+            if (row.PayBy[0] == 'D' || row.PayBy[0]=='F')
             {
-                labelAlipayNo.Text += "收券 ";
+                if (row.PayBy[0]=='D') labelAlipayNo.Text += "收券A ";
+                else                   labelAlipayNo.Text += "收券B ";
                 if (!row.IsCouponIncomeNull())
                     labelAlipayNo.Text += row.CouponIncome.ToString("N0");
                 if (!row.IsCashIncomeNull() && row.CashIncome != 0m)

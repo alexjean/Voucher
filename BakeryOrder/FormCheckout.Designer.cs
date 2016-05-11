@@ -30,7 +30,7 @@
         {
             this.btnCash = new System.Windows.Forms.Button();
             this.btnCard = new System.Windows.Forms.Button();
-            this.btnCoupon = new System.Windows.Forms.Button();
+            this.btnCouponA = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.panelLogin = new System.Windows.Forms.Panel();
             this.labelCouponGot = new System.Windows.Forms.Label();
@@ -70,13 +70,14 @@
             this.labelzhekou = new System.Windows.Forms.Label();
             this.labelCouponGot2 = new System.Windows.Forms.Label();
             this.labelCouponGot1 = new System.Windows.Forms.Label();
+            this.btnCouponB = new System.Windows.Forms.Button();
             this.panelLogin.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnCash
             // 
             this.btnCash.BackColor = System.Drawing.Color.SeaShell;
-            this.btnCash.Location = new System.Drawing.Point(53, 18);
+            this.btnCash.Location = new System.Drawing.Point(27, 18);
             this.btnCash.Name = "btnCash";
             this.btnCash.Size = new System.Drawing.Size(75, 53);
             this.btnCash.TabIndex = 12;
@@ -87,7 +88,7 @@
             // btnCard
             // 
             this.btnCard.BackColor = System.Drawing.Color.SeaShell;
-            this.btnCard.Location = new System.Drawing.Point(144, 18);
+            this.btnCard.Location = new System.Drawing.Point(108, 18);
             this.btnCard.Name = "btnCard";
             this.btnCard.Size = new System.Drawing.Size(75, 53);
             this.btnCard.TabIndex = 13;
@@ -95,16 +96,16 @@
             this.btnCard.UseVisualStyleBackColor = true;
             this.btnCard.Click += new System.EventHandler(this.btnCard_Click);
             // 
-            // btnCoupon
+            // btnCouponA
             // 
-            this.btnCoupon.BackColor = System.Drawing.Color.SeaShell;
-            this.btnCoupon.Location = new System.Drawing.Point(235, 18);
-            this.btnCoupon.Name = "btnCoupon";
-            this.btnCoupon.Size = new System.Drawing.Size(75, 53);
-            this.btnCoupon.TabIndex = 14;
-            this.btnCoupon.Text = "劵";
-            this.btnCoupon.UseVisualStyleBackColor = true;
-            this.btnCoupon.Click += new System.EventHandler(this.btnCoupon_Click);
+            this.btnCouponA.BackColor = System.Drawing.Color.SeaShell;
+            this.btnCouponA.Location = new System.Drawing.Point(189, 18);
+            this.btnCouponA.Name = "btnCouponA";
+            this.btnCouponA.Size = new System.Drawing.Size(75, 53);
+            this.btnCouponA.TabIndex = 14;
+            this.btnCouponA.Text = "劵A";
+            this.btnCouponA.UseVisualStyleBackColor = true;
+            this.btnCouponA.Click += new System.EventHandler(this.btnCouponA_Click);
             // 
             // label3
             // 
@@ -534,12 +535,24 @@
             this.labelCouponGot1.Text = "收券";
             this.labelCouponGot1.Visible = false;
             // 
+            // btnCouponB
+            // 
+            this.btnCouponB.BackColor = System.Drawing.Color.SeaShell;
+            this.btnCouponB.Location = new System.Drawing.Point(270, 18);
+            this.btnCouponB.Name = "btnCouponB";
+            this.btnCouponB.Size = new System.Drawing.Size(75, 53);
+            this.btnCouponB.TabIndex = 36;
+            this.btnCouponB.Text = "劵B";
+            this.btnCouponB.UseVisualStyleBackColor = true;
+            this.btnCouponB.Click += new System.EventHandler(this.btnCouponB_Click);
+            // 
             // FormCheckout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(749, 550);
+            this.Controls.Add(this.btnCouponB);
             this.Controls.Add(this.labelCouponGot2);
             this.Controls.Add(this.labelCouponGot1);
             this.Controls.Add(this.labelDiscount);
@@ -561,7 +574,7 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnPayCheck);
             this.Controls.Add(this.panelLogin);
-            this.Controls.Add(this.btnCoupon);
+            this.Controls.Add(this.btnCouponA);
             this.Controls.Add(this.btnCard);
             this.Controls.Add(this.btnCash);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
@@ -586,7 +599,7 @@
 
         private System.Windows.Forms.Button btnCash;
         private System.Windows.Forms.Button btnCard;
-        private System.Windows.Forms.Button btnCoupon;
+        private System.Windows.Forms.Button btnCouponA;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panelLogin;
         private System.Windows.Forms.TextBox textBoxDeduct;
@@ -626,5 +639,6 @@
         private System.Windows.Forms.TextBox textBoxCouponGot;
         private System.Windows.Forms.Label labelCouponGot2;
         private System.Windows.Forms.Label labelCouponGot1;
+        private System.Windows.Forms.Button btnCouponB;
     }
 }

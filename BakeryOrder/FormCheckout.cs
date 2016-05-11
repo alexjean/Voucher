@@ -42,7 +42,7 @@ namespace BakeryOrder
                 Tag = m_MoneyGot;
             else if (m_PayBy == 'B' || m_PayBy == 'C' || m_PayBy == 'E')  // 刷卡及支付宝 微信沒有 實收 
                 Tag = 0;
-            else if (m_PayBy == 'D')   // 收券
+            else if (m_PayBy == 'D' || m_PayBy == 'F')   // 收券A 券B
             {
                 Tag = m_MoneyGot;
             }
@@ -72,7 +72,7 @@ namespace BakeryOrder
             //{
             //    Score(FormCashier.memberScore.MemberID.ToString(),FormCashier.BreadNO);
             //}
-            //if (m_Debuct > 0 && FormCashier.memberScore != null)
+            //if (m_Debuct > 0 && FormCashier.memberScore != null)F
             //{
             //    //减去兑换面包值，此单不可累计麦子
             //    //Bread(FormCashier.memberScore.MemberID.ToString(), ExchangeNo);
@@ -201,7 +201,7 @@ namespace BakeryOrder
             if (m_Form.PayCode!=null && m_Form.PayCode != "")
             {
                 textBoxCashGot.Enabled = false;
-                btnCoupon.Enabled = false;
+                btnCouponA.Enabled = false;
                 btnCash.Enabled = false;
                 btnCard.Enabled = false;
                 char c0 = m_Form.PayCode[0];
@@ -223,7 +223,8 @@ namespace BakeryOrder
         {
             btnCard.UseVisualStyleBackColor = true;
             btnCash.UseVisualStyleBackColor = true;
-            btnCoupon.UseVisualStyleBackColor = true;
+            btnCouponA.UseVisualStyleBackColor = true;
+            btnCouponB.UseVisualStyleBackColor = true;
             btn.UseVisualStyleBackColor = false;
         }
 
@@ -249,7 +250,7 @@ namespace BakeryOrder
             textBoxDeduct.Focus();
         }
 
-        private void btnCoupon_Click(object sender, EventArgs e)
+        private void btnCouponA_Click(object sender, EventArgs e)
         {
             SetButtonVisualStyleExcept(sender as Button);
             labelCashGot.Visible = labelChange.Visible = true;
@@ -258,6 +259,18 @@ namespace BakeryOrder
             textBoxCashGot.Enabled = true;
             textBoxCashGot.Focus();
         }
+
+        private void btnCouponB_Click(object sender, EventArgs e)
+        {
+            SetButtonVisualStyleExcept(sender as Button);
+            labelCashGot.Visible = labelChange.Visible = true;
+            m_PayBy = 'F';
+            labelCouponGot1.Visible = labelCouponGot2.Visible = labelCouponGot.Visible = textBoxCouponGot.Visible = true;
+            textBoxCashGot.Enabled = true;
+            textBoxCashGot.Focus();
+
+        }
+
 
         private void EnableKeyboard()
         {
@@ -368,7 +381,7 @@ namespace BakeryOrder
                     return;
                 }
             }
-            else if (m_PayBy == 'D')
+            else if (m_PayBy == 'D' || m_PayBy=='F')  // 券A=>'D'  券B=>'F'
             {
                 if (!decimal.TryParse(textBoxCouponGot.Text, out couponIncome) || couponIncome == 0)
                 {
@@ -479,5 +492,9 @@ namespace BakeryOrder
             else
                 return base.ProcessDialogKey(keyData);
         }
+
+
+
+    
     }
 }

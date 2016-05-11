@@ -856,7 +856,13 @@ namespace BakeryOrder
             }
             if (CurrentOrder.PayBy[0]=='D')
             {   
-                Buf.Append("        收券             ");
+                Buf.Append("        收券A            ");
+                if (!CurrentOrder.IsCashIncomeNull())
+                    Buf.Append(d2str((double)CurrentOrder.CouponIncome, 7)); Buf.Append(LFSpace);
+            }
+            else if (CurrentOrder.PayBy[0] == 'F')
+            {
+                Buf.Append("        收券B            ");
                 if (!CurrentOrder.IsCashIncomeNull())
                     Buf.Append(d2str((double)CurrentOrder.CouponIncome, 7)); Buf.Append(LFSpace);
             }
@@ -1376,7 +1382,7 @@ namespace BakeryOrder
         //    return DicPayBy.First().Key;
         //}
 
-        Dictionary<char, string> DicPayBy = new Dictionary<char, string> { { 'A', "现金" }, { 'B', "刷卡" }, { 'C', "支付宝" }, { 'D', "券入" },{'E',"微信" } };
+        Dictionary<char, string> DicPayBy = new Dictionary<char, string> { { 'A', "现金" }, { 'B', "刷卡" }, { 'C', "支付宝" }, { 'D', "券A" }, { 'E', "微信" }, { 'F', "券B" } };
         string PayByChinese(char payBy)
         {
             string str;
@@ -1493,7 +1499,7 @@ namespace BakeryOrder
                 }
                 Print(m_CurrentOrder, (double)moneyGot, true);
                 if (!this.checkBoxTest.Checked)
-                    if (m_CurrentOrder.PayBy == "A" || m_CurrentOrder.PayBy=="D")
+                    if (m_CurrentOrder.PayBy == "A" || m_CurrentOrder.PayBy=="D" || m_CurrentOrder.PayBy=="F")
                     {   // 只有現金和收券才彈出錢箱  
                         RawPrint.SendManagedBytes(m_Printer.PrinterName, m_CashDrawer);     // 彈出錢箱
                         CreateUpdateDrawerRecord(ref m_MaxDrawerRecordID, m_CurrentOrder.ID % 10000);

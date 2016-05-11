@@ -88,7 +88,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("SimSun", 26F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label7.Font = new System.Drawing.Font("宋体", 26F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label7.Location = new System.Drawing.Point(79, 8);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
@@ -492,7 +492,7 @@
             // 
             // tBPosId
             // 
-            this.tBPosId.Font = new System.Drawing.Font("SimSun", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tBPosId.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tBPosId.Location = new System.Drawing.Point(120, 399);
             this.tBPosId.Margin = new System.Windows.Forms.Padding(4);
             this.tBPosId.MaxLength = 1;
@@ -504,7 +504,7 @@
             // 
             // tBNo
             // 
-            this.tBNo.Font = new System.Drawing.Font("SimSun", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tBNo.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tBNo.Location = new System.Drawing.Point(177, 400);
             this.tBNo.Margin = new System.Windows.Forms.Padding(4);
             this.tBNo.MaxLength = 4;
@@ -541,7 +541,7 @@
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Font = new System.Drawing.Font("SimSun", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.dateTimePicker1.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateTimePicker1.Location = new System.Drawing.Point(120, 364);
             this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4);
@@ -560,7 +560,7 @@
             this.btnCoupon.Name = "btnCoupon";
             this.btnCoupon.Size = new System.Drawing.Size(75, 33);
             this.btnCoupon.TabIndex = 77;
-            this.btnCoupon.Text = "支付宝";
+            this.btnCoupon.Text = "其他";
             this.btnCoupon.UseVisualStyleBackColor = true;
             this.btnCoupon.Visible = false;
             this.btnCoupon.Click += new System.EventHandler(this.btnCoupon_Click);

@@ -1721,9 +1721,15 @@ namespace BakeryOrder
 
 
         private bool MemberIDCheck(string id)
-        {   // 規定會員為11位字串,YM開頭後接9位數字
+        {   // 規定會員為11位字串,YM開頭後接9位數字 , 一次卡為YMC後接8位數字
             if (id.Length!=11) return false;
             if (!Char.IsDigit(id[10])) return false;
+            if (Char.ToUpper(id[2]) == 'C')
+            {   // 一次卡校驗規則不明,只要是數字先讓他過
+                for (int i = 3; i < 9; i++)
+                    if (!Char.IsDigit(id[i])) return false;
+                return true;
+            }
             int even=0,odd=0;
             for (int i = 2; i < 9; i++)   // id[9]不檢查
             {
